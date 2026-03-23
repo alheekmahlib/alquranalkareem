@@ -33,6 +33,7 @@ extension BottomSheetExtension on void {
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             if (handleChild != null) handleChild,
             Container(

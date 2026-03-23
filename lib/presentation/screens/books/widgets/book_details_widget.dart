@@ -90,7 +90,7 @@ class BookDetails extends StatelessWidget {
                                   context.theme.colorScheme.secondaryContainer,
                             ),
                           )
-                        : _notDownloadFontsWidget(context),
+                        : _notDownloadedBookWidget(context),
                   ),
                   const Gap(8.0),
                 ],
@@ -141,7 +141,7 @@ class BookDetails extends StatelessWidget {
     );
   }
 
-  Widget _notDownloadFontsWidget(BuildContext context) {
+  Widget _notDownloadedBookWidget(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Stack(
@@ -156,7 +156,7 @@ class BookDetails extends StatelessWidget {
               verticalPadding: 0.0,
               horizontalPadding: 0.0,
               isCustomSvgColor: true,
-              svgPath: SvgPath.svgHomeRemove,
+              svgPath: SvgPath.svgAudioDownload,
               backgroundColor: context.theme.colorScheme.surface,
               svgColor: context.theme.colorScheme.secondaryContainer,
               title: booksCtrl.state.downloading[book.bookNumber] == true

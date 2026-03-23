@@ -199,11 +199,14 @@ extension QuranGetters on QuranController {
             height: 40.0,
             width: 250.0,
             isTitleCentered: true,
-            title: isDownloading ? 'downloading'.tr : 'download',
+            title: isDownloading ? 'downloading'.tr : 'download'.tr,
             horizontalPadding: 16.0,
             verticalPadding: 2.0,
             backgroundColor: Get.theme.colorScheme.surface,
-            progressColor: Get.theme.colorScheme.primary.withValues(alpha: .2),
+            progressColor: Get.theme.colorScheme.primary.withValues(alpha: .6),
+            progressBackgroundColor: Get.theme.colorScheme.primary.withValues(
+              alpha: .2,
+            ),
             isDownloading: isDownloading,
             downloadProgress: ctrl.downloadProgress.value.toStringAsFixed(0),
             isPreparingDownload:

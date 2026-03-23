@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/widgets/tab_bar_widget.dart';
+import '../controller/adhkar_controller.dart';
 import '../widgets/tab_bar_view_widget.dart';
 
 class AdhkarView extends StatelessWidget {
@@ -24,6 +25,8 @@ class AdhkarView extends StatelessWidget {
                   isHomeChild: true,
                   isQuranSetting: false,
                   isNotification: false,
+                  tabBarController:
+                      AzkarController.instance.state.tabBarController,
                   centerChild: Container(
                     height: 45,
                     padding: const EdgeInsets.all(4.0),

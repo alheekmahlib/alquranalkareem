@@ -20,6 +20,7 @@ class EventController extends GetxController with WidgetsBindingObserver {
   Rx<HijriDate> calenderMonth = HijriDate.now().obs;
   late final SheetController controller;
   Orientation _lastOrientation = Orientation.portrait;
+  final tabBarController = FlexibleSheetController();
 
   String get dateFormat => DateFormat('MMM').format(now);
 

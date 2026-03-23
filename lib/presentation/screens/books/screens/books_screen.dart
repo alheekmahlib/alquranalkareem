@@ -38,6 +38,8 @@ class BooksScreen extends StatelessWidget {
                 isHomeChild: true,
                 isQuranSetting: false,
                 isNotification: false,
+                tabBarController:
+                    BooksController.instance.state.tabBarController,
                 bodyChild: SearchBuild(),
                 centerChild: TextFieldBarWidget(
                   hintText: 'searchInBooks'.tr,

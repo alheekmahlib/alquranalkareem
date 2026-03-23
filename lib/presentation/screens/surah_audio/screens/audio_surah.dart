@@ -144,6 +144,7 @@ class AudioScreen extends StatelessWidget {
                   isQuranSetting: false,
                   isNotification: false,
                   isDraggable: false,
+                  tabBarController: surahCtrl.surahState.tabBarController,
                   centerChild: TextFieldBarWidget(
                     hintText: 'searchToSurah'.tr,
                     controller: surahCtrl.surahState.textController,

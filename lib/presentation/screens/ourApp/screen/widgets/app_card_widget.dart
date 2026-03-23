@@ -1,9 +1,9 @@
-import 'package:alquranalkareem/core/utils/helpers/app_text_styles.dart';
-import 'package:alquranalkareem/presentation/screens/ourApp/controller/ourApps_controller.dart';
 import 'package:floating_menu_expendable/floating_menu_expendable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/helpers/app_text_styles.dart';
+import '/presentation/screens/ourApp/controller/ourApps_controller.dart';
 import '../../data/models/ourApp_model.dart';
 import 'apps_info.dart';
 
@@ -67,8 +67,8 @@ class AppCard extends StatelessWidget {
         // Banner
         ClipRRect(
           borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(8),
-            topRight: Radius.circular(8),
+            topLeft: Radius.circular(13),
+            topRight: Radius.circular(13),
           ),
           child: AspectRatio(
             aspectRatio: 16 / 9,

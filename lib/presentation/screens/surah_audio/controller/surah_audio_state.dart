@@ -40,4 +40,5 @@ class SurahAudioState {
 
   /// اشتراك تتبع الموضع للـ segments
   StreamSubscription<Duration>? segmentPositionSubscription;
+  final tabBarController = FlexibleSheetController();
 }
