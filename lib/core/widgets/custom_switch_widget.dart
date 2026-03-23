@@ -26,6 +26,7 @@ class CustomSwitch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
     final trackColor = value
         ? (activeColor ?? context.theme.primaryColorLight)
         : (inactiveTrackColor ?? context.theme.colorScheme.primaryContainer);
@@ -33,14 +34,26 @@ class CustomSwitch extends StatelessWidget {
     final thumbWidth = 40.0;
     final maxOffset = width - thumbWidth - (thumbPadding * 2);
 
+    final thumbAtEnd = isRtl ? !value : value;
+
     return GestureDetector(
       onTap: () => onChanged?.call(!value),
       onHorizontalDragEnd: (details) {
         if (details.primaryVelocity == null) return;
-        if (details.primaryVelocity! > 0 && !value) {
-          onChanged?.call(true);
-        } else if (details.primaryVelocity! < 0 && value) {
-          onChanged?.call(false);
+        final swipeRight = details.primaryVelocity! > 0;
+        final swipeLeft = details.primaryVelocity! < 0;
+        if (isRtl) {
+          if (swipeLeft && !value) {
+            onChanged?.call(true);
+          } else if (swipeRight && value) {
+            onChanged?.call(false);
+          }
+        } else {
+          if (swipeRight && !value) {
+            onChanged?.call(true);
+          } else if (swipeLeft && value) {
+            onChanged?.call(false);
+          }
         }
       },
       child: AnimatedContainer(
@@ -58,7 +71,7 @@ class CustomSwitch extends StatelessWidget {
             AnimatedPositioned(
               duration: const Duration(milliseconds: 200),
               curve: Curves.easeInOut,
-              left: value ? maxOffset : 0,
+              left: thumbAtEnd ? maxOffset : 0,
               top: 0,
               bottom: 0,
               child: Container(

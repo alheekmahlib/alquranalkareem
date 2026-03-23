@@ -17,8 +17,11 @@ class QuranHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // if (quranCtrl.state.tabBarController.isHandleVisible) {
+    //   quranCtrl.state.tabBarController.toggle();
+    // }
     return PopScope(
-      canPop: false,
+      canPop: true,
       onPopInvokedWithResult: (bool didPop, _) {
         if (didPop) {
           return;
@@ -52,12 +55,14 @@ class QuranHome extends StatelessWidget {
                               languageCode: Get.locale!.languageCode,
                               style: quranCtrl.displayModeBarStyle,
                             ),
-                            QuranTopBar(),
+                            const QuranTopBar(),
                             TajweedMenuWidget(),
                             TopBarWidget(
                               isHomeChild: true,
                               isQuranSetting: true,
                               isNotification: false,
+                              tabBarController:
+                                  quranCtrl.state.tabBarController,
                               centerChild: TextFieldBarWidget(
                                 controller: searchCtrl.state.searchTextEditing,
                                 horizontalPadding: 0.0,
@@ -97,7 +102,10 @@ class QuranHome extends StatelessWidget {
                             ),
                             Align(
                               alignment: Alignment.bottomCenter,
-                              child: NavBarWidget(),
+                              child: NavBarWidget(
+                                navBarController:
+                                    quranCtrl.state.navBarController,
+                              ),
                             ),
                           ],
                         )

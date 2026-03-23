@@ -23,111 +23,117 @@ class AdhkarReminderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TitleWidget(title: 'reminders', textStyle: AppTextStyles.titleLarge()),
-        Flexible(
-          child: Obx(() {
-            return ListView(
-              shrinkWrap: true,
-              padding: const EdgeInsets.all(8.0),
-              children: [
-                _buildSwitchListTile(
-                  context,
-                  "أذكار الصباح",
-                  reminderCtrl.state.isMorningEnabled,
-                  false,
-                ),
-                const Gap(8),
-                _buildSwitchListTile(
-                  context,
-                  "أذكار المساء",
-                  reminderCtrl.state.isEveningEnabled,
-                  false,
-                ),
-                const Gap(16),
-                context.hDivider(width: Get.width),
-                reminderCtrl.state.customAdhkar.isNotEmpty
-                    ? const Gap(16)
-                    : const SizedBox.shrink(),
-                reminderCtrl.state.customAdhkar.isNotEmpty
-                    ? Text(
-                        "customReminder".tr,
-                        style: TextStyle(
-                          color: Theme.of(context).canvasColor,
-                          fontFamily: 'kufi',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                      )
-                    : const SizedBox.shrink(),
-                const Gap(16),
-                ...reminderCtrl.state.customAdhkar.entries.map((entry) {
-                  String id = entry.key;
-                  String reminder = entry.value;
-                  return Flexible(
-                    child: Column(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color:
-                                !(reminderCtrl.state.customAdhkarEnabled[id] ??
-                                    false)
-                                ? Theme.of(
-                                    context,
-                                  ).canvasColor.withValues(alpha: .1)
-                                : Theme.of(
-                                    context,
-                                  ).colorScheme.surface.withValues(alpha: .15),
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(8),
-                            ),
-                            border: Border.all(
-                              width: 1,
+    return SafeArea(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TitleWidget(
+            title: 'reminders',
+            textStyle: AppTextStyles.titleLarge(),
+          ),
+          Flexible(
+            child: Obx(() {
+              return ListView(
+                shrinkWrap: true,
+                padding: const EdgeInsets.all(8.0),
+                children: [
+                  _buildSwitchListTile(
+                    context,
+                    "أذكار الصباح",
+                    reminderCtrl.state.isMorningEnabled,
+                    false,
+                  ),
+                  const Gap(8),
+                  _buildSwitchListTile(
+                    context,
+                    "أذكار المساء",
+                    reminderCtrl.state.isEveningEnabled,
+                    false,
+                  ),
+                  const Gap(16),
+                  context.hDivider(width: Get.width),
+                  reminderCtrl.state.customAdhkar.isNotEmpty
+                      ? const Gap(16)
+                      : const SizedBox.shrink(),
+                  reminderCtrl.state.customAdhkar.isNotEmpty
+                      ? Text(
+                          "customReminder".tr,
+                          style: TextStyle(
+                            color: Theme.of(context).canvasColor,
+                            fontFamily: 'kufi',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
+                        )
+                      : const SizedBox.shrink(),
+                  const Gap(16),
+                  ...reminderCtrl.state.customAdhkar.entries.map((entry) {
+                    String id = entry.key;
+                    String reminder = entry.value;
+                    return Flexible(
+                      child: Column(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
                               color:
                                   !(reminderCtrl
                                           .state
                                           .customAdhkarEnabled[id] ??
                                       false)
-                                  ? Colors.transparent
-                                  : Theme.of(context).colorScheme.surface,
+                                  ? Theme.of(
+                                      context,
+                                    ).canvasColor.withValues(alpha: .1)
+                                  : Theme.of(context).colorScheme.surface
+                                        .withValues(alpha: .15),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(8),
+                              ),
+                              border: Border.all(
+                                width: 1,
+                                color:
+                                    !(reminderCtrl
+                                            .state
+                                            .customAdhkarEnabled[id] ??
+                                        false)
+                                    ? Colors.transparent
+                                    : Theme.of(context).colorScheme.surface,
+                              ),
+                            ),
+                            child: _buildSwitchListTile(
+                              context,
+                              reminder,
+                              RxBool(
+                                reminderCtrl.state.customAdhkarEnabled[id] ??
+                                    false,
+                              ),
+                              true,
+                              id,
                             ),
                           ),
-                          child: _buildSwitchListTile(
-                            context,
-                            reminder,
-                            RxBool(
-                              reminderCtrl.state.customAdhkarEnabled[id] ??
-                                  false,
-                            ),
-                            true,
-                            id,
-                          ),
-                        ),
-                        const Gap(8),
-                      ],
+                          const Gap(8),
+                        ],
+                      ),
+                    );
+                  }).toList(),
+                  ContainerButton(
+                    onPressed: () => _addNewReminder(context),
+                    width: double.infinity,
+                    title: 'addMore',
+                    value: true.obs,
+                    withArrow: true,
+                    verticalPadding: 8.0,
+                    backgroundColor: context.theme.primaryColorLight.withValues(
+                      alpha: .1,
                     ),
-                  );
-                }).toList(),
-                ContainerButton(
-                  onPressed: () => _addNewReminder(context),
-                  width: double.infinity,
-                  title: 'addMore',
-                  value: true.obs,
-                  withArrow: true,
-                  verticalPadding: 8.0,
-                  backgroundColor: context.theme.primaryColorLight.withValues(
-                    alpha: .1,
                   ),
-                ),
-                const Gap(16),
-              ],
-            );
-          }),
-        ),
-      ],
+                  const Gap(16),
+                ],
+              );
+            }),
+          ),
+        ],
+      ),
     );
   }
 
