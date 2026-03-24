@@ -28,6 +28,10 @@ class SurahDownloadButton extends StatelessWidget {
             progress: progress,
             isDownloading: isDownloadingThis,
             isDownloaded: isDownloaded,
+            progressColor: context.theme.colorScheme.surface.withValues(
+              alpha: .5,
+            ),
+            completedColor: context.theme.colorScheme.primaryContainer,
             child: _buildContent(
               context,
               surahAudioCtrl,

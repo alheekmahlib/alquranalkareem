@@ -36,7 +36,7 @@ class OnlinePlayButton extends StatelessWidget {
                   'notifyListenBody'.tr,
                   surahAudioCtrl.state.currentAudioListSurahNum.value,
                 );
-                surahAudioCtrl.playSurah(
+                await surahAudioCtrl.playSurah(
                   context: context,
                   surahNumber:
                       surahAudioCtrl.state.currentAudioListSurahNum.value,
@@ -55,9 +55,9 @@ class OnlinePlayButton extends StatelessWidget {
               isCustomSvgColor: true,
               backgroundColor: iconColor ?? context.theme.colorScheme.primary,
               svgColor: context.theme.colorScheme.surface,
-              onPressed: () {
+              onPressed: () async {
                 surahAudioCtrl.state.isPlaying.value = false;
-                surahAudioCtrl.state.audioPlayer.pause();
+                await surahAudioCtrl.state.audioPlayer.pause();
               },
             );
           } else {
@@ -73,10 +73,13 @@ class OnlinePlayButton extends StatelessWidget {
               ),
               iconSize: 24.0,
               color: Theme.of(context).canvasColor,
-              onPressed: () => surahAudioCtrl.state.audioPlayer.seek(
-                Duration.zero,
-                index: surahAudioCtrl.state.audioPlayer.effectiveIndices.first,
-              ),
+              onPressed: () async {
+                await surahAudioCtrl.state.audioPlayer.seek(
+                  Duration.zero,
+                  index:
+                      surahAudioCtrl.state.audioPlayer.effectiveIndices.first,
+                );
+              },
             );
           }
         },

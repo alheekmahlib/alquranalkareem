@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:quran_library/quran.dart';
+import 'package:quran_library/quran_library.dart';
 
 import '/core/utils/constants/svg_constants.dart';
 import '../../../../core/utils/constants/extensions/convert_number_extension.dart';
@@ -102,10 +102,13 @@ class QuranSection extends StatelessWidget {
                           ButtomWithLine(
                             isRtl: false,
                             svgPath: SvgPath.svgAudioAudioQuran,
-                            onTap: () => Get.to(
-                              () => AudioScreen(),
-                              transition: Transition.downToUp,
-                            ),
+                            onTap: () async {
+                              await AudioCtrl.instance.state.audioPlayer.stop();
+                              Get.to(
+                                () => AudioScreen(),
+                                transition: Transition.downToUp,
+                              );
+                            },
                           ),
                         ],
                       ),
@@ -115,7 +118,7 @@ class QuranSection extends StatelessWidget {
               ],
             ),
           ),
-          AyahTafsirWidget(),
+          const AyahTafsirWidget(),
         ],
       ),
     );
