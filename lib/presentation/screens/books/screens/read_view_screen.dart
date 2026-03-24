@@ -11,9 +11,19 @@ class ReadViewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: context.theme.colorScheme.primary,
-      body: _buildBody(),
+    return PopScope(
+      canPop: true,
+      onPopInvokedWithResult: (bool didPop, _) {
+        booksCtrl.state.tabBarController.showHandle();
+        booksCtrl.state.navBarController.showHandle();
+        if (didPop) {
+          return;
+        }
+      },
+      child: Scaffold(
+        backgroundColor: context.theme.colorScheme.primary,
+        body: _buildBody(),
+      ),
     );
   }
 
@@ -93,6 +103,7 @@ class ReadViewScreen extends StatelessWidget {
         Align(
           alignment: Alignment.bottomCenter,
           child: NavBarWidget(
+            navBarController: booksCtrl.state.navBarController,
             handleChild: BooksTopTitleWidget(
               bookNumber: bookNumber,
               index: booksCtrl.state.currentPageNumber.value - 1,
@@ -104,6 +115,7 @@ class ReadViewScreen extends StatelessWidget {
           isQuranSetting: false,
           isNotification: false,
           isBackButton: true,
+          tabBarController: BooksController.instance.state.tabBarController,
           bodyChild: SearchBuild(),
           centerChild: TextFieldBarWidget(
             hintText: 'searchInBook'.tr,

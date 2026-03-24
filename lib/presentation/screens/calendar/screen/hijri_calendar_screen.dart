@@ -52,6 +52,7 @@ class HijriCalendarScreen extends StatelessWidget {
                 isQuranSetting: false,
                 isNotification: false,
                 isCalendarSetting: true,
+                tabBarController: EventController.instance.tabBarController,
                 squareColor: context.theme.primaryColorLight,
               ),
             ],

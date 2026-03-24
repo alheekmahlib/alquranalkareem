@@ -141,13 +141,13 @@ extension BooksUi on BooksController {
   // ============ UI Control ============
 
   Future<void> showControl() async {
-    if (QuranController.instance.state.tabBarController.isHandleVisible &&
-        QuranController.instance.state.navBarController.isHandleVisible) {
-      QuranController.instance.state.tabBarController.hideHandle();
-      QuranController.instance.state.navBarController.hideHandle();
+    if (state.tabBarController.isHandleVisible &&
+        state.navBarController.isHandleVisible) {
+      state.tabBarController.hideHandle();
+      state.navBarController.hideHandle();
     } else {
-      QuranController.instance.state.tabBarController.showHandle();
-      QuranController.instance.state.navBarController.showHandle();
+      state.tabBarController.showHandle();
+      state.navBarController.showHandle();
     }
   }
   // ============ Book Filtering ============

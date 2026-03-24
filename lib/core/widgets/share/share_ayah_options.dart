@@ -120,7 +120,6 @@ class ShareAyahOptions extends StatelessWidget {
               pageNumber + 1,
               ayah.ayahUQNumber,
             );
-            Get.back();
           },
         ),
       ],

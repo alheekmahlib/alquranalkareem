@@ -13,18 +13,33 @@ import '../../../../core/widgets/read_more_less/read_more_less.dart';
 import '../../../controllers/daily_ayah_controller.dart';
 import '../../quran_page/quran.dart';
 
-class AyahTafsirWidget extends StatelessWidget {
-  AyahTafsirWidget({super.key});
+class AyahTafsirWidget extends StatefulWidget {
+  const AyahTafsirWidget({super.key});
 
+  @override
+  State<AyahTafsirWidget> createState() => _AyahTafsirWidgetState();
+}
+
+class _AyahTafsirWidgetState extends State<AyahTafsirWidget> {
   final dailyCtrl = DailyAyahController.instance;
+  late final Future<AyahModel> _dailyAyahFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _dailyAyahFuture = dailyCtrl.getDailyAyah();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: FutureBuilder<AyahModel>(
-        future: dailyCtrl.getDailyAyah(),
+        future: _dailyAyahFuture,
         builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return const SizedBox.shrink();
+          }
           if (snapshot.data != null) {
             return Container(
               width: Get.width,
@@ -66,7 +81,7 @@ class AyahTafsirWidget extends StatelessWidget {
                     children: [
                       Expanded(
                         flex: 4,
-                        child: surahNameWidget(
+                        child: widget.surahNameWidget(
                           height: 40,
                           QuranController.instance
                               .getSurahDataByAyahUQ(snapshot.data!.ayahUQNumber)
@@ -133,7 +148,7 @@ class AyahTafsirWidget extends StatelessWidget {
                             readLessText: 'readLess'.tr,
                             iconExpanded: Transform.flip(
                               flipY: true,
-                              child: customSvgWithColor(
+                              child: widget.customSvgWithColor(
                                 SvgPath.svgHomeArrowDown,
                                 color: context.theme.colorScheme.surface,
                                 height: 10,
@@ -141,7 +156,7 @@ class AyahTafsirWidget extends StatelessWidget {
                             ),
                             iconCollapsed: Transform.flip(
                               flipY: false,
-                              child: customSvgWithColor(
+                              child: widget.customSvgWithColor(
                                 SvgPath.svgHomeArrowDown,
                                 color: context.theme.colorScheme.surface,
                                 height: 10,

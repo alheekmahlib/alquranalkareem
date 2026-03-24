@@ -35,4 +35,6 @@ class BooksState {
   final Map<String, bool> booksIsLoadingMore = {};
   final Map<String, ScrollController> booksScrollControllers = {};
   static const int booksItemsPerPage = 20;
+  final tabBarController = FlexibleSheetController();
+  final navBarController = FlexibleSheetController();
 }

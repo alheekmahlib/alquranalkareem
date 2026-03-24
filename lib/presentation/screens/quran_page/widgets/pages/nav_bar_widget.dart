@@ -6,11 +6,13 @@ class NavBarWidget extends StatelessWidget {
   final Widget? bodyChild;
   final Widget? handleChild;
   final double? handleHeight;
+  final FlexibleSheetController navBarController;
   NavBarWidget({
     super.key,
     this.bodyChild,
     this.handleChild,
     this.handleHeight,
+    required this.navBarController,
   });
   final generalCtrl = GeneralController.instance;
   final quranCtrl = QuranController.instance;
@@ -47,7 +49,7 @@ class NavBarWidget extends StatelessWidget {
             isDraggable: false,
             direction: SheetDirection.bottomToTop,
             snapBehavior: SheetSnapBehavior.snapToEdge,
-            controller: quranCtrl.state.navBarController,
+            controller: navBarController,
             onStateChanged: (state) {
               if (quranCtrl.state.navBarType.value == NavBarType.none) {
                 quranCtrl.state.isPlayExpanded.value = state;
@@ -139,8 +141,7 @@ class NavBarWidget extends StatelessWidget {
                                                       NavBarType.none
                                                 : quranCtrl.setNavBarType =
                                                       NavBarType.surahList;
-                                            quranCtrl.state.navBarController
-                                                .toggle();
+                                            navBarController.toggle();
                                             quranCtrl
                                                     .state
                                                     .isPlayExpanded
@@ -191,8 +192,7 @@ class NavBarWidget extends StatelessWidget {
                                                       NavBarType.none
                                                 : quranCtrl.setNavBarType =
                                                       NavBarType.bookmarkList;
-                                            quranCtrl.state.navBarController
-                                                .toggle();
+                                            navBarController.toggle();
                                             quranCtrl
                                                     .state
                                                     .isPlayExpanded

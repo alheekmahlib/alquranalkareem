@@ -28,6 +28,7 @@ class TopBarWidget extends StatelessWidget {
   final Widget? bodyChild;
   final bool? isBackButton;
   final Color? squareColor;
+  final FlexibleSheetController tabBarController;
   TopBarWidget({
     super.key,
     required this.isHomeChild,
@@ -40,6 +41,7 @@ class TopBarWidget extends StatelessWidget {
     this.bodyChild,
     this.isBackButton = false,
     this.squareColor,
+    required this.tabBarController,
   });
 
   final quranCtrl = QuranController.instance;
@@ -63,7 +65,7 @@ class TopBarWidget extends StatelessWidget {
           width: context.customOrientation(Get.width, Get.width * 0.5),
           direction: SheetDirection.topToBottom,
           snapBehavior: SheetSnapBehavior.snapToEdge,
-          controller: quranCtrl.state.tabBarController,
+          controller: tabBarController,
           onStateChanged: (state) => log('isOpen: $state'),
           handleBuilder: (currentHeight) {
             final isExpanded = currentHeight >= 155;
@@ -182,7 +184,7 @@ class TopBarWidget extends StatelessWidget {
                                   () {
                                     quranCtrl.setTopBarType =
                                         TopBarType.settings;
-                                    quranCtrl.state.tabBarController.toggle();
+                                    tabBarController.toggle();
                                     quranCtrl.state.isPlayExpanded.value =
                                         false;
                                   },

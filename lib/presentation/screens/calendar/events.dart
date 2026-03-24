@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:alquranalkareem/core/utils/helpers/app_text_styles.dart';
 import 'package:alquranalkareem/core/widgets/title_widget.dart';
+import 'package:flexible_sheet/flexible_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rounded_progress_bar/flutter_rounded_progress_bar.dart';
