@@ -8,11 +8,11 @@ extension AudioUi on AudioCtrl {
         isDark: ThemeController.instance.isDarkMode,
         context: Get.context!,
       ).copyWith(
-        avatarDownloadedColor: Get.theme.colorScheme.surface,
+        avatarDownloadedColor: Get.theme.primaryColorLight,
         avatarUndownloadedColor: Get.theme.colorScheme.surface.withValues(
           alpha: .5,
         ),
-        backgroundColor: Get.theme.colorScheme.primary,
+        backgroundColor: Get.theme.colorScheme.primaryContainer,
         downloadForeground: Get.theme.colorScheme.surface,
         downloadBackground: Get.theme.colorScheme.surface,
         handleColor: Get.theme.hintColor,
@@ -31,19 +31,20 @@ extension AudioUi on AudioCtrl {
           package: "quran_library",
         ),
         progressColor: Get.theme.colorScheme.surface,
+        surahNumberDecorationColor: Get.theme.primaryColorLight,
         headerIcon: Column(
           children: [
             Container(
               width: 70,
-              height: 4,
+              height: 8,
               decoration: BoxDecoration(
-                color: Theme.of(Get.context!).canvasColor,
+                color: Theme.of(Get.context!).primaryColorLight,
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
             const Gap(8),
             Get.context!.hDivider(
-              color: Theme.of(Get.context!).colorScheme.secondaryContainer,
+              color: Theme.of(Get.context!).colorScheme.primary,
               height: 1,
               width: 70,
             ),

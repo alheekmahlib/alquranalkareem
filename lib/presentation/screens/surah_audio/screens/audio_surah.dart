@@ -3,12 +3,11 @@ part of '../surah_audio.dart';
 class AudioScreen extends StatelessWidget {
   AudioScreen({super.key});
   final quranCtrl = QuranController.instance;
-  final surahCtrl = AudioCtrl.instance;
 
   @override
   Widget build(BuildContext context) {
-    // surahCtrl.loadSurahReader();
-    // surahCtrl.loadLastSurahListen;
+    final surahCtrl = AudioCtrl.instance;
+    // surahCtrl.lastAudioSource();
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (bool didPop, _) {
@@ -144,6 +143,7 @@ class AudioScreen extends StatelessWidget {
                   isQuranSetting: false,
                   isNotification: false,
                   isDraggable: false,
+                  tabBarController: surahCtrl.surahState.tabBarController,
                   centerChild: TextFieldBarWidget(
                     hintText: 'searchToSurah'.tr,
                     controller: surahCtrl.surahState.textController,

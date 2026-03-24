@@ -5,6 +5,7 @@ import 'package:alquranalkareem/core/utils/helpers/app_text_styles.dart';
 import 'package:alquranalkareem/core/widgets/custom_button.dart';
 import 'package:alquranalkareem/core/widgets/custom_download_button.dart';
 import 'package:arabic_numbers/arabic_numbers.dart';
+import 'package:flexible_sheet/flexible_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:gap/gap.dart';

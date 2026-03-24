@@ -10,34 +10,64 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: context.theme.colorScheme.primary,
       body: SafeArea(
-        child: Directionality(
-          textDirection: TextDirection.rtl,
-          child: context.customOrientation(
-            Stack(
+        child: context.customOrientation(
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              _bottomContainer(context),
+              GetX<SplashScreenController>(
+                builder: (s) => s.state.customWidgetIndex.value == 0
+                    ? const Align(
+                        alignment: Alignment.bottomCenter,
+                        child: AlheekmahAndLoading(),
+                      )
+                    : const SizedBox.shrink(),
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    AnimatedDrawingWidget(
+                      opacity: .02,
+                      width: Get.width,
+                      height: Get.width * .8,
+                      customColor: context.theme.canvasColor,
+                    ),
+                  ],
+                ),
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: GetX<SplashScreenController>(
+                  builder: (s) => s.customWidget,
+                ),
+              ),
+              _animatedContainer(context),
+            ],
+          ),
+          Center(
+            child: Stack(
               alignment: Alignment.center,
               children: [
                 _bottomContainer(context),
-                GetX<SplashScreenController>(
-                  builder: (s) => s.state.customWidgetIndex.value == 0
-                      ? const Align(
-                          alignment: Alignment.bottomCenter,
-                          child: AlheekmahAndLoading(),
-                        )
-                      : const SizedBox.shrink(),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      AnimatedDrawingWidget(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      flex: 4,
+                      child: AnimatedDrawingWidget(
                         opacity: .02,
                         width: Get.width,
-                        height: Get.width * .8,
-                        customColor: context.theme.canvasColor,
+                        height: Get.width * .7,
                       ),
-                    ],
-                  ),
+                    ),
+                    GetX<SplashScreenController>(
+                      builder: (s) => s.state.customWidgetIndex.value == 0
+                          ? const AlheekmahAndLoading()
+                          : const SizedBox.shrink(),
+                    ),
+                  ],
                 ),
                 Align(
                   alignment: Alignment.center,
@@ -47,39 +77,6 @@ class SplashScreen extends StatelessWidget {
                 ),
                 _animatedContainer(context),
               ],
-            ),
-            Center(
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  _bottomContainer(context),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        flex: 4,
-                        child: AnimatedDrawingWidget(
-                          opacity: .02,
-                          width: Get.width,
-                          height: Get.width * .7,
-                        ),
-                      ),
-                      GetX<SplashScreenController>(
-                        builder: (s) => s.state.customWidgetIndex.value == 0
-                            ? const AlheekmahAndLoading()
-                            : const SizedBox.shrink(),
-                      ),
-                    ],
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: GetX<SplashScreenController>(
-                      builder: (s) => s.customWidget,
-                    ),
-                  ),
-                  _animatedContainer(context),
-                ],
-              ),
             ),
           ),
         ),

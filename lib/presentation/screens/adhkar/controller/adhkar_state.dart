@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:flexible_sheet/flexible_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -24,4 +25,5 @@ class AdhkarState {
   RxMap<String, bool> customAdhkarEnabled = <String, bool>{}.obs;
   var selectedCategory = Rxn<String>();
   final box = GetStorage();
+  final tabBarController = FlexibleSheetController();
 }

@@ -1,9 +1,10 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
+import 'package:alquranalkareem/presentation/controllers/general/general_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/constants/extensions/extensions.dart';
 import '/presentation/screens/home/widgets/hijri_widget.dart';
 import '../../../core/widgets/tab_bar_widget.dart';
 import '../../controllers/theme_controller.dart';
@@ -73,6 +74,8 @@ class HomeScreen extends StatelessWidget {
                       isHomeChild: false,
                       isQuranSetting: false,
                       isNotification: true,
+                      tabBarController:
+                          GeneralController.instance.state.tabBarController,
                     ),
                   ],
                 ),

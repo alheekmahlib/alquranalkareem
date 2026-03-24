@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:alquranalkareem/core/utils/helpers/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -22,6 +24,10 @@ import '../../widgets/search/controller/quran_search_controller.dart';
 class AyahMenuHelper {
   const AyahMenuHelper._();
 
+  static Worker? _playbackWorker;
+  static StreamSubscription<int?>? _indexSubscription;
+  static final ScrollController _ayahScrollController = ScrollController();
+
   static void show(
     BuildContext context, {
     required SurahModel surah,
@@ -33,11 +39,45 @@ class AyahMenuHelper {
     final quranCtrl = QuranController.instance;
     final wordCtrl = WordInfoCtrl.instance;
     wordCtrl.setSelectedKind(initialKind);
+
+    // تتبع الكلمة الحالية عبر currentIndexStream مباشرة
+    final svc = WordAudioService.instance;
+    _playbackWorker?.dispose();
+    _playbackWorker = null;
+    _indexSubscription?.cancel();
+    _indexSubscription = null;
+
+    // عند بدء تشغيل كلمات الآية، نستمع لتغيّر الفهرس
+    _playbackWorker = ever(svc.isPlayingAyahWords, (playing) {
+      if (playing) {
+        _indexSubscription?.cancel();
+        _indexSubscription = svc.player.currentIndexStream.listen((index) {
+          if (index != null && svc.isPlayingAyahWords.value) {
+            final ref = WordRef(
+              surahNumber: surah.surahNumber,
+              ayahNumber: ayah.ayahNumber,
+              wordNumber: index + 1,
+            );
+            quranCtrl.state.ref.value = ref;
+            svc.currentPlayingRef.value = ref;
+            WordInfoCtrl.instance.update(['word_info_kind']);
+            QuranCtrl.instance.update([
+              'single_ayah_${surah.surahNumber}-${ayah.ayahNumber}',
+            ]);
+            _scrollToCurrentWord(ref, ayah);
+          }
+        });
+      } else {
+        _indexSubscription?.cancel();
+        _indexSubscription = null;
+      }
+    });
+
     BottomSheetExtension(null).customBottomSheet(
       backgroundColor: Get.theme.colorScheme.primaryContainer,
       handleChild: context.customOrientation(
         Text(
-          '${'${ayah.ayahNumber}'.convertEnglishNumbersToArabic(ayah.ayahNumber.toString())}\u202F\u202F',
+          '${'${ayah.ayahNumber}'.convertEnglishNumbersToArabic(ayah.ayahNumber.toString())}',
           style: const TextStyle(
             fontFamily: 'ayahNumber',
             fontSize: 60,
@@ -119,23 +159,34 @@ class AyahMenuHelper {
               const Gap(8),
               Expanded(
                 child: SingleChildScrollView(
+                  controller: _ayahScrollController,
                   scrollDirection: Axis.horizontal,
-                  child: GetSingleAyah(
-                    surahNumber: surah.surahNumber,
-                    ayahNumber: ayah.ayahNumber,
-                    enableWordSelection: true,
-                    isDark: isDark,
-                    enabledTajweed:
-                        QuranCtrl.instance.state.isTajweedEnabled.value,
-                    onWordTap: (ref) {
-                      quranCtrl.state.ref.value = ref;
-                      print(
-                        'سورة: ${ref.surahNumber}, آية: ${ref.ayahNumber}, كلمة: ${ref.wordNumber}',
-                      );
-                      WordInfoCtrl.instance.update(['word_info_kind']);
-                    },
-                    selectedWordColor: Colors.amber.withValues(alpha: 0.3),
-                  ),
+                  child: Obx(() {
+                    final svc = WordAudioService.instance;
+                    final playingRef =
+                        (svc.isPlayingAyahWords.value &&
+                            svc.currentPlayingRef.value != null &&
+                            svc.currentPlayingRef.value!.wordNumber > 0)
+                        ? svc.currentPlayingRef.value
+                        : null;
+                    return GetSingleAyah(
+                      surahNumber: surah.surahNumber,
+                      ayahNumber: ayah.ayahNumber,
+                      enableWordSelection: true,
+                      isDark: isDark,
+                      enabledTajweed:
+                          QuranCtrl.instance.state.isTajweedEnabled.value,
+                      externalSelectedWordRef: playingRef,
+                      onWordTap: (ref) {
+                        quranCtrl.state.ref.value = ref;
+                        print(
+                          'سورة: ${ref.surahNumber}, آية: ${ref.ayahNumber}, كلمة: ${ref.wordNumber}',
+                        );
+                        WordInfoCtrl.instance.update(['word_info_kind']);
+                      },
+                      selectedWordColor: Colors.amber.withValues(alpha: 0.3),
+                    );
+                  }),
                 ),
               ),
             ],
@@ -145,8 +196,16 @@ class AyahMenuHelper {
         GetBuilder<WordInfoCtrl>(
           id: 'word_info_kind',
           builder: (wordCtrl) {
-            final words = ayah.text.trim().split(RegExp(r'\s+'));
-            final wordsSearch = ayah.ayaTextEmlaey.trim().split(RegExp(r'\s+'));
+            final words = ayah.text
+                .trim()
+                .split(RegExp(r'\s+'))
+                .where((w) => RegExp(r'[\u0620-\u064A]').hasMatch(w))
+                .toList();
+            final wordsSearch = ayah.ayaTextEmlaey
+                .trim()
+                .split(RegExp(r'\s+'))
+                .where((w) => RegExp(r'[\u0620-\u064A]').hasMatch(w))
+                .toList();
             final wordIndex = quranCtrl.state.ref.value.wordNumber - 1;
             final selectedWord = (wordIndex >= 0 && wordIndex < words.length)
                 ? words[wordIndex]
@@ -360,6 +419,23 @@ class AyahMenuHelper {
           ],
         ),
       ),
+    );
+  }
+
+  static void _scrollToCurrentWord(WordRef ref, AyahModel ayah) {
+    if (!_ayahScrollController.hasClients) return;
+    final totalWords = WordAudioService.instance.getAyahWordCount(
+      ref.surahNumber,
+      ref.ayahNumber,
+    );
+    if (totalWords <= 1) return;
+    final maxScroll = _ayahScrollController.position.maxScrollExtent;
+    final wordIndex = ref.wordNumber - 1;
+    final targetScroll = maxScroll * wordIndex / (totalWords - 1);
+    _ayahScrollController.animateTo(
+      targetScroll.clamp(0.0, maxScroll),
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeOut,
     );
   }
 }

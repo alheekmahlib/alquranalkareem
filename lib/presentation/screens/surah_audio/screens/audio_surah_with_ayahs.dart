@@ -335,19 +335,22 @@ class AudioSurahWithAyahs extends GetView<AudioSurahWithAyahsController> {
           color: context.theme.colorScheme.primaryContainer,
           borderRadius: const BorderRadius.all(Radius.circular(8)),
         ),
-        child: GetSingleAyah(
-          surahNumber: surahNum,
-          ayahNumber: ayahNum,
-          textHeight: 2,
-          enableWordSelection: true,
-          isDark: ThemeController.instance.isDarkMode,
-          externalSelectedWordRef: selectedWordRef,
-          textAlign: TextAlign.center,
-          textColor: context.theme.canvasColor,
-          selectedWordColor: context.theme.colorScheme.surface.withValues(
-            alpha: .5,
+        child: IgnorePointer(
+          child: GetSingleAyah(
+            surahNumber: surahNum,
+            ayahNumber: ayahNum,
+            textHeight: 2,
+            enableWordSelection: true,
+            isDark: ThemeController.instance.isDarkMode,
+            externalSelectedWordRef: selectedWordRef,
+            textAlign: TextAlign.center,
+            textColor: context.theme.canvasColor,
+            selectedWordColor: context.theme.colorScheme.surface.withValues(
+              alpha: .5,
+            ),
+            onWordTap: (_) {},
+            enabledTajweed: QuranCtrl.instance.state.isTajweedEnabled.value,
           ),
-          enabledTajweed: QuranCtrl.instance.state.isTajweedEnabled.value,
         ),
       ),
     );
