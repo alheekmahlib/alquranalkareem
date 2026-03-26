@@ -15,51 +15,17 @@ class QuranPages extends StatelessWidget {
       }),
       QuranCtrl.instance.state.currentPageNumber.value,
     );
-    return Container(height: Get.height, child: _regularModeWidget(context));
-  }
-
-  Widget _regularModeWidget(BuildContext context) {
-    return
-    // Responsive.isMobile(context) || Responsive.isMobileLarge(context)
-    //     ?
-    Center(
-      child: Container(
-        height: Get.height,
-        color: quranCtrl.backgroundColor,
-        child: TextBuild(),
+    return Center(
+      child: GetBuilder<QuranController>(
+        id: 'backgroundColor',
+        builder: (quranCtrl) {
+          return Container(
+            height: Get.height,
+            color: quranCtrl.backgroundColor,
+            child: TextBuild(),
+          );
+        },
       ),
     );
-    // : Center(
-    //     child: pageIndex.isEven
-    //         ? Container(
-    //             height: MediaQuery.sizeOf(context).height,
-    //             color: quranCtrl.backgroundColor,
-    //             child: Focus(
-    //               focusNode: quranCtrl.state.quranPageUDFocusNode,
-    //               onKeyEvent: (node, event) =>
-    //                   quranCtrl.controlUDByKeyboard(node, event),
-    //               child: Padding(
-    //                 padding: const EdgeInsets.symmetric(
-    //                   horizontal: 32.0,
-    //                 ),
-    //                 child: TextBuild(pageIndex: pageIndex),
-    //               ),
-    //             ),
-    //           )
-    //         : Container(
-    //             height: MediaQuery.sizeOf(context).height,
-    //             color: quranCtrl.backgroundColor,
-    //             child: Focus(
-    //               focusNode: quranCtrl.state.quranPageUDFocusNode,
-    //               onKeyEvent: (node, event) =>
-    //                   quranCtrl.controlUDByKeyboard(node, event),
-    //               child: Padding(
-    //                 padding: const EdgeInsets.symmetric(
-    //                   horizontal: 32.0,
-    //                 ),
-    //                 child: TextBuild(pageIndex: pageIndex),
-    //               ),
-    //             ),
-    //           ));
   }
 }

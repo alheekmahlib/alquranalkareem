@@ -135,11 +135,12 @@ class MushafSettings extends StatelessWidget {
                             child: ContainerButton(
                               onPressed: () {
                                 quranCtrl.state.backgroundPickerColor.value =
-                                    0xfffaf7f3;
+                                    context.theme.colorScheme.primaryContainer
+                                        .toARGB32();
                                 quranCtrl.state.box.remove(
                                   BACKGROUND_PICKER_COLOR,
                                 );
-                                quranCtrl.update();
+                                quranCtrl.update(['backgroundColor']);
                                 Get.back();
                               },
                               height: 35,
@@ -171,7 +172,7 @@ class MushafSettings extends StatelessWidget {
                                   BACKGROUND_PICKER_COLOR,
                                   quranCtrl.state.backgroundPickerColor.value,
                                 );
-                                quranCtrl.update();
+                                quranCtrl.update(['backgroundColor']);
                                 Get.back();
                               },
                               height: 35,
