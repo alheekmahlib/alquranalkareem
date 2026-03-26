@@ -41,8 +41,12 @@ class QuranState {
   double juzItemHeight = 145.0;
   ScrollController? surahController;
   ScrollController? juzListController;
-  RxInt backgroundPickerColor = 0xfffaf7f3.obs;
-  RxInt temporaryBackgroundColor = 0xfffaf7f3.obs;
+  RxInt backgroundPickerColor = Get.theme.colorScheme.primaryContainer
+      .toARGB32()
+      .obs;
+  RxInt temporaryBackgroundColor = Get.theme.colorScheme.primaryContainer
+      .toARGB32()
+      .obs;
 
   RxBool isScrolling = false.obs;
   bool isQuranLoaded = false;
