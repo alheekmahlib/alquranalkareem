@@ -26,6 +26,7 @@ class QuranHome extends StatelessWidget {
         if (didPop) {
           return;
         }
+        HomeWidgetService.instance.updateReadingProgress();
         quranCtrl.state.selectedAyahIndexes.clear();
         Get.back();
       },

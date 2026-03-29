@@ -1204,7 +1204,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Antarmuka baru yang mudah digunakan.\n۞ Menambahkan tajwid.\n۞ Menambahkan aturan tajwid.\n۞ Menambahkan sepuluh qira'at.\n۞ Menambahkan konjugasi dan i'rab untuk kata.\n۞ Menambahkan audio untuk kata.\n۞ Menambahkan ayat-ayat serupa.\n۞ Menambahkan fitur mendengarkan surah dengan menampilkan ayat saat ini.\n۞ Menambahkan perpustakaan Islam (Hadits dan Tafsir).\n۞ Tampilan kalender baru dengan opsi menampilkan kalender tahunan lengkap.",
+  "What'sNewDetails10": "۞ Menambahkan widget layar utama untuk menampilkan tanggal Hijriah dan bacaan terakhir di Al-Qur'an.\n۞ Peningkatan kinerja aplikasi.\n۞ Memperbaiki beberapa bug kecil untuk meningkatkan pengalaman pengguna.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}

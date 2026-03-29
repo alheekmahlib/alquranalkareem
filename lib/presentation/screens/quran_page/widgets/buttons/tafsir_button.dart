@@ -41,7 +41,7 @@ class TafsirButton extends StatelessWidget {
               handleBackgroundColor: context.theme.canvasColor,
               handleDotsColor: context.theme.colorScheme.primary,
               SizedBox(
-                height: Get.height * .85,
+                height: Get.height * .84,
                 child: ShowTafseer(
                   context: context,
                   ayahUQNumber: ayah.ayahUQNumber,

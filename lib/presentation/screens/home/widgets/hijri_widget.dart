@@ -309,7 +309,7 @@ class HijriWidget extends StatelessWidget {
           Align(
             alignment: Alignment.center,
             child: Text(
-              '${eventCtrl.dateFormat}'.convertNumbersToCurrentLang(),
+              '${eventCtrl.gregorianMonthFormat}'.convertNumbersToCurrentLang(),
               style: AppTextStyles.titleLarge().copyWith(
                 fontSize: 34,
                 color: isInCalendar

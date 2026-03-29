@@ -141,10 +141,10 @@ packages:
     dependency: "direct main"
     description:
       name: awesome_notifications
-      sha256: fb4d5d6effd904720cbc85cfbe796da35f6b0ff079c0798c1a387616200bd80c
+      sha256: "0d5fa4457f2ba4e536adc3ef6af709cdcecf4a05a1f3035981e9afa2f899b2a8"
       url: "https://pub.dev"
     source: hosted
-    version: "0.11.0"
+    version: "0.10.1"
   awesome_notifications_core:
     dependency: "direct main"
     description:
@@ -1172,7 +1172,7 @@ packages:
     description:
       path: "."
       ref: dev
-      resolved-ref: ce6c79dab3790b08056ab9f41ae5e36a0e2eea97
+      resolved-ref: "3f5941cbd0f03f0e0c520c8d5195e09a4cb350e1"
       url: "https://github.com/alheekmahlib/quran_library.git"
     source: git
     version: "3.2.1"

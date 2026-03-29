@@ -1204,7 +1204,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Bagong interface na madali at maginhawang gamitin.\n۞ Idinagdag ang Tajweed.\n۞ Idinagdag ang mga tuntunin ng Tajweed.\n۞ Idinagdag ang sampung Qira'at.\n۞ Idinagdag ang conjugation at i'rab para sa salita.\n۞ Idinagdag ang pakikinig sa salita.\n۞ Idinagdag ang magkakatulad na mga talata.\n۞ Idinagdag ang pakikinig sa surah na may pagpapakita ng kasalukuyang ayah.\n۞ Idinagdag ang Islamic library (Hadith at Tafsir).\n۞ Bagong view ng kalendaryo na may opsyon na ipakita ang kumpletong taunang kalendaryo.",
+  "What'sNewDetails10": "۞ Idinagdag ang home screen widget para ipakita ang petsang Hijri at ang huling binasa sa Qur'an sa pangunahing screen.\n۞ Mga pagpapabuti sa performance ng app.\n۞ Inayos ang ilang maliliit na bug upang mapabuti ang karanasan ng gumagamit.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}

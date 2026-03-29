@@ -4,6 +4,7 @@ import 'dart:developer' show log;
 import 'dart:developer';
 import 'dart:io' show Directory, File;
 
+import 'package:alquranalkareem/core/services/home_widget_service.dart';
 import 'package:alquranalkareem/core/utils/helpers/app_text_styles.dart';
 import 'package:alquranalkareem/core/widgets/animated_drawing_widget.dart';
 import 'package:alquranalkareem/core/widgets/container_button.dart';

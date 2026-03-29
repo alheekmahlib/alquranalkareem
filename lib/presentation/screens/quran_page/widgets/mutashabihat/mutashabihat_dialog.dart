@@ -60,165 +60,167 @@ class MutashabihatBottomSheet extends StatelessWidget {
     final controller = MutashabihatController.instance;
     final isDark = ThemeController.instance.isDarkMode;
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          height: 8,
-          width: 350,
-          margin: const EdgeInsets.symmetric(horizontal: 62.0),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            color: Theme.of(context).primaryColorLight,
-          ),
-        ),
-        const Gap(8.0),
-        Flexible(
-          child: Container(
-            width: Get.width,
-            // constraints: BoxConstraints(maxHeight: Get.height * 0.85),
+    return SafeArea(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            height: 8,
+            width: 350,
+            margin: const EdgeInsets.symmetric(horizontal: 62.0),
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primaryContainer,
               borderRadius: BorderRadius.circular(8),
+              color: Theme.of(context).primaryColorLight,
             ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Gap(8.0),
-                context.customArrowDown(),
-                const Gap(16.0),
-                Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: TitleWidget(
-                    title: 'mutashabihat'.tr,
-                    horizontalPadding: 8.0,
-                    textStyle: AppTextStyles.titleLarge(),
-                  ),
-                ),
-                const Gap(8.0),
-
-                // Header with title and navigation arrows
-                Obx(() {
-                  final hasNext = controller.hasNext;
-                  final hasPrev = controller.hasPrevious;
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Row(
-                      children: [
-                        if (hasNext || hasPrev)
-                          _NavArrow(
-                            icon: Icons.arrow_back_ios_rounded,
-                            enabled: hasPrev,
-                            onTap: controller.navigateToPrevious,
-                          ),
-                        Expanded(
-                          child: Obx(
-                            () => Text(
-                              '${'mutashabihat'.tr} (${'${controller.currentAyahNumber.value}'.convertNumbersToCurrentLang()})',
-                              style: AppTextStyles.titleMedium(),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
-                        if (hasNext || hasPrev)
-                          _NavArrow(
-                            icon: Icons.arrow_forward_ios_rounded,
-                            enabled: hasNext,
-                            onTap: controller.navigateToNext,
-                          ),
-                      ],
+          ),
+          const Gap(8.0),
+          Flexible(
+            child: Container(
+              width: Get.width,
+              // constraints: BoxConstraints(maxHeight: Get.height * 0.85),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primaryContainer,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Gap(8.0),
+                  context.customArrowDown(),
+                  const Gap(16.0),
+                  Align(
+                    alignment: AlignmentDirectional.centerStart,
+                    child: TitleWidget(
+                      title: 'mutashabihat'.tr,
+                      horizontalPadding: 8.0,
+                      textStyle: AppTextStyles.titleLarge(),
                     ),
-                  );
-                }),
+                  ),
+                  const Gap(8.0),
 
-                // Content
-                Flexible(
-                  child: Obx(() {
-                    if (controller.isLoading.value) {
-                      return const Padding(
-                        padding: EdgeInsets.all(40),
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-
-                    final result = controller.currentResult.value;
-                    if (result == null || !result.hasPhrases) {
-                      return Padding(
-                        padding: const EdgeInsets.all(40),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            customSvgWithColor(
-                              SvgPath.svgAlert,
-                              width: 48,
-                              height: 48,
-                              color: context.theme.colorScheme.surface
-                                  .withValues(alpha: 0.8),
+                  // Header with title and navigation arrows
+                  Obx(() {
+                    final hasNext = controller.hasNext;
+                    final hasPrev = controller.hasPrevious;
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Row(
+                        children: [
+                          if (hasNext || hasPrev)
+                            _NavArrow(
+                              icon: Icons.arrow_back_ios_rounded,
+                              enabled: hasPrev,
+                              onTap: controller.navigateToPrevious,
                             ),
-                            const Gap(16),
-                            Text(
-                              'no_mutashabihat'.tr,
-                              style: AppTextStyles.titleMedium(),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
-                        ),
-                      );
-                    }
-
-                    // Get the current ayah text
-                    final quranCtrl = QuranController.instance;
-                    final ayah = quranCtrl.state.allAyahs.firstWhereOrNull(
-                      (a) =>
-                          a.surahNumber ==
-                              controller.currentSurahNumber.value &&
-                          a.ayahNumber == controller.currentAyahNumber.value,
-                    );
-
-                    return AnimatedSize(
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                      child: Container(
-                        width: Get.width,
-                        padding: const EdgeInsets.all(4.0),
-                        margin: const EdgeInsets.symmetric(
-                          vertical: 4.0,
-                          horizontal: 8.0,
-                        ),
-                        decoration: BoxDecoration(
-                          color: context.theme.primaryColorLight.withValues(
-                            alpha: 0.1,
-                          ),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: ListView(
-                          shrinkWrap: true,
-                          padding: const EdgeInsets.all(4),
-                          children: [
-                            for (int i = 0; i < result.phrases.length; i++)
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 8.0),
-                                child: _PhraseExpansionCard(
-                                  index: i,
-                                  phraseResult: result.phrases[i],
-                                  currentVerseKey:
-                                      '${controller.currentSurahNumber.value}:${controller.currentAyahNumber.value}',
-                                  ayahText: ayah?.text ?? '',
-                                  isDark: isDark,
-                                ),
+                          Expanded(
+                            child: Obx(
+                              () => Text(
+                                '${'mutashabihat'.tr} (${'${controller.currentAyahNumber.value}'.convertNumbersToCurrentLang()})',
+                                style: AppTextStyles.titleMedium(),
+                                textAlign: TextAlign.center,
                               ),
-                          ],
-                        ),
+                            ),
+                          ),
+                          if (hasNext || hasPrev)
+                            _NavArrow(
+                              icon: Icons.arrow_forward_ios_rounded,
+                              enabled: hasNext,
+                              onTap: controller.navigateToNext,
+                            ),
+                        ],
                       ),
                     );
                   }),
-                ),
-                const Gap(16.0),
-              ],
+
+                  // Content
+                  Flexible(
+                    child: Obx(() {
+                      if (controller.isLoading.value) {
+                        return const Padding(
+                          padding: EdgeInsets.all(40),
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+
+                      final result = controller.currentResult.value;
+                      if (result == null || !result.hasPhrases) {
+                        return Padding(
+                          padding: const EdgeInsets.all(40),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              customSvgWithColor(
+                                SvgPath.svgAlert,
+                                width: 48,
+                                height: 48,
+                                color: context.theme.colorScheme.surface
+                                    .withValues(alpha: 0.8),
+                              ),
+                              const Gap(16),
+                              Text(
+                                'no_mutashabihat'.tr,
+                                style: AppTextStyles.titleMedium(),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+
+                      // Get the current ayah text
+                      final quranCtrl = QuranController.instance;
+                      final ayah = quranCtrl.state.allAyahs.firstWhereOrNull(
+                        (a) =>
+                            a.surahNumber ==
+                                controller.currentSurahNumber.value &&
+                            a.ayahNumber == controller.currentAyahNumber.value,
+                      );
+
+                      return AnimatedSize(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeInOut,
+                        child: Container(
+                          width: Get.width,
+                          padding: const EdgeInsets.all(4.0),
+                          margin: const EdgeInsets.symmetric(
+                            vertical: 4.0,
+                            horizontal: 8.0,
+                          ),
+                          decoration: BoxDecoration(
+                            color: context.theme.primaryColorLight.withValues(
+                              alpha: 0.1,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: ListView(
+                            shrinkWrap: true,
+                            padding: const EdgeInsets.all(4),
+                            children: [
+                              for (int i = 0; i < result.phrases.length; i++)
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 8.0),
+                                  child: _PhraseExpansionCard(
+                                    index: i,
+                                    phraseResult: result.phrases[i],
+                                    currentVerseKey:
+                                        '${controller.currentSurahNumber.value}:${controller.currentAyahNumber.value}',
+                                    ayahText: ayah?.text ?? '',
+                                    isDark: isDark,
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }),
+                  ),
+                  const Gap(16.0),
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

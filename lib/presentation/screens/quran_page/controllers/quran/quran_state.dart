@@ -25,10 +25,6 @@ class QuranState {
   RxBool isMoreOptions = false.obs;
   ItemScrollController itemScrollController = ItemScrollController();
   final ItemScrollController ayahsItemScrollController = ItemScrollController();
-  final ItemPositionsListener itemPositionsListener =
-      ItemPositionsListener.create();
-  final ScrollOffsetController scrollOffsetController =
-      ScrollOffsetController();
   var moreOptionsMap = <String, bool>{}.obs;
   RxInt selectMushafSettingsPage = 0.obs;
   RxDouble ayahsWidgetHeight = 0.0.obs;

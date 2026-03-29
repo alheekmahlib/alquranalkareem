@@ -1210,7 +1210,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Interfaz nueva y fácil de usar.\n۞ Se añadió el tajwīd.\n۞ Se añadieron las reglas de tajwīd.\n۞ Se añadieron las diez lecturas (qirā’āt).\n۞ Se añadió la conjugación y el i‘rāb de las palabras.\n۞ Se añadió la escucha de la palabra.\n۞ Se añadieron los versículos similares.\n۞ Se añadió la escucha de suras mostrando el versículo actual.\n۞ Se añadió la biblioteca islámica (hadices y tafsir).\n۞ Nueva interfaz del calendario con opción de mostrar el calendario anual completo.",
+  "What'sNewDetails10": "۞ Se añadió un widget en la pantalla de inicio para mostrar la fecha hiyri y la última lectura en el Corán.\n۞ Mejoras de rendimiento.\n۞ Se corrigieron errores menores para mejorar la experiencia del usuario.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
