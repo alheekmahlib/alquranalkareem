@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+import '../../core/services/home_widget_service.dart';
 import '../../core/utils/constants/shared_preferences_constants.dart';
 import '../../core/utils/helpers/app_themes.dart';
 
@@ -72,6 +73,7 @@ class ThemeController extends GetxController {
 
     // Save theme preference
     box.write(SET_THEME, theme.toString());
+    HomeWidgetService.instance.updateTheme();
   }
 
   ThemeData get currentThemeData {

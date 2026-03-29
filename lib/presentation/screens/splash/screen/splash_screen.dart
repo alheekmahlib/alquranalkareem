@@ -50,18 +50,15 @@ class SplashScreen extends StatelessWidget {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                _bottomContainer(context),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                AnimatedDrawingWidget(
+                  opacity: .02,
+                  width: Get.width,
+                  height: Get.width * .7,
+                ),
+                Stack(
+                  alignment: Alignment.bottomCenter,
                   children: [
-                    Expanded(
-                      flex: 4,
-                      child: AnimatedDrawingWidget(
-                        opacity: .02,
-                        width: Get.width,
-                        height: Get.width * .7,
-                      ),
-                    ),
+                    _bottomContainer(context),
                     GetX<SplashScreenController>(
                       builder: (s) => s.state.customWidgetIndex.value == 0
                           ? const AlheekmahAndLoading()

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:alquranalkareem/core/services/home_widget_service.dart';
 import 'package:alquranalkareem/core/utils/helpers/app_text_styles.dart';
 import 'package:alquranalkareem/core/widgets/title_widget.dart';
 import 'package:flexible_sheet/flexible_sheet.dart';

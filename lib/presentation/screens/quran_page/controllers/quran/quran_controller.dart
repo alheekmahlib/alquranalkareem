@@ -11,10 +11,6 @@ class QuranController extends GetxController {
     // QuranLibrary.quranCtrl.state.fontsSelected.value = 1;
     // QuranLibrary.quranCtrl.state.loadedFontPages.;
     loadQuran();
-    state.itemPositionsListener.itemPositions.addListener(_updatePageNumber);
-    state.itemPositionsListener.itemPositions.addListener(
-      currentListPageNumber,
-    );
     state.backgroundPickerColor.value =
         state.box.read(BACKGROUND_PICKER_COLOR) ?? 0xfffaf7f3;
     // await QuranLibrary().fetchTafsir(pageNumber: QuranCtrl.instance.state.currentPageNumber.value);
@@ -32,10 +28,6 @@ class QuranController extends GetxController {
 
   @override
   void onClose() {
-    state.itemPositionsListener.itemPositions.removeListener(_updatePageNumber);
-    state.itemPositionsListener.itemPositions.removeListener(
-      currentListPageNumber,
-    );
     // QuranCtrl.instance.quranPagesController.dispose();
     state.ScrollUpDownQuranPage.dispose();
     state.quranPageRLFocusNode.dispose();
@@ -57,71 +49,4 @@ class QuranController extends GetxController {
     state.allAyahs = QuranLibrary.quranCtrl.state.allAyahs;
     state.pages = QuranLibrary.quranCtrl.state.pages;
   }
-
-  void currentListPageNumber() {
-    final positions = state.itemPositionsListener.itemPositions.value;
-    final filteredPositions = positions.where(
-      (position) => position.itemLeadingEdge >= 0,
-    );
-    if (filteredPositions.isNotEmpty) {
-      final firstItemIndex = filteredPositions
-          .reduce(
-            (minPosition, position) =>
-                position.itemLeadingEdge < minPosition.itemLeadingEdge
-                ? position
-                : minPosition,
-          )
-          .index;
-      // جدولة التحديث بعد الإطار لتجنّب setState أثناء البناء
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (state.currentListPage.value != firstItemIndex) {
-          state.currentListPage.value = firstItemIndex;
-        }
-        final pageOneBased = firstItemIndex + 1;
-        if (QuranCtrl.instance.state.currentPageNumber.value != pageOneBased) {
-          QuranCtrl.instance.state.currentPageNumber.value = pageOneBased;
-        }
-      });
-    }
-  }
-
-  void _updatePageNumber() {
-    final positions = state.itemPositionsListener.itemPositions.value;
-    final filteredPositions = positions.where(
-      (position) => position.itemLeadingEdge >= 0,
-    );
-    if (filteredPositions.isNotEmpty) {
-      final firstItemIndex = filteredPositions
-          .reduce(
-            (minPosition, position) =>
-                position.itemLeadingEdge < minPosition.itemLeadingEdge
-                ? position
-                : minPosition,
-          )
-          .index;
-      // جدولة التحديث بعد الإطار لتجنّب setState أثناء البناء
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        final pageOneBased = firstItemIndex + 1;
-        if (QuranCtrl.instance.state.currentPageNumber.value != pageOneBased) {
-          QuranCtrl.instance.state.currentPageNumber.value = pageOneBased;
-        }
-        state.box.write(MSTART_PAGE, pageOneBased);
-      });
-    } else {}
-  }
-
-  void getLastPage() {
-    try {
-      QuranCtrl.instance.state.currentPageNumber.value =
-          state.box.read(MSTART_PAGE) ?? 1;
-      state.lastReadSurahNumber.value = state.box.read(MLAST_URAH) ?? 1;
-    } catch (e) {
-      print('Failed to load last page: $e');
-    }
-  }
-
-  // ScrollController scrollToSurah(int surahNumber) {
-  //   double position = (surahNumber - 1) * surahItemHeight;
-  //   state.surahListController.jumpTo(position);
-  // }
 }

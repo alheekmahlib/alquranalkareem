@@ -22,7 +22,8 @@ class EventController extends GetxController with WidgetsBindingObserver {
   Orientation _lastOrientation = Orientation.portrait;
   final tabBarController = FlexibleSheetController();
 
-  String get dateFormat => DateFormat('MMM').format(now);
+  String get gregorianMonthFormat =>
+      DateFormat('MMM', Get.locale?.languageCode ?? 'ar').format(now);
 
   HijriDate get hijriMin => hijriNow.subtractDays(7);
   HijriDate get hijriMax => hijriNow.addDays(7);
@@ -382,6 +383,7 @@ class EventController extends GetxController with WidgetsBindingObserver {
   void increaseDay() {
     adjustHijriDays.value += 1;
     box.write('adjustHijriDays', adjustHijriDays.value);
+    HomeWidgetService.instance.updateHijriDate();
     initializeMonths();
     update();
   }
@@ -389,6 +391,7 @@ class EventController extends GetxController with WidgetsBindingObserver {
   void decreaseDay() {
     adjustHijriDays.value -= 1;
     box.write('adjustHijriDays', adjustHijriDays.value);
+    HomeWidgetService.instance.updateHijriDate();
     initializeMonths();
     update();
   }

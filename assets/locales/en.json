@@ -1210,7 +1210,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ New, easy-to-use interface.\n۞ Added Tajweed.\n۞ Added Tajweed rules.\n۞ Added the Ten Qira'at.\n۞ Added conjugation and i'rab for words.\n۞ Added word audio playback.\n۞ Added similar verses.\n۞ Added surah listening with current ayah display.\n۞ Added the Islamic library (Hadith and Tafsir).\n۞ New calendar view with full-year calendar option.",
+  "What'sNewDetails10": "۞ Added a home screen widget to display the Hijri date and your last read in the Qur'an.\n۞ Performance improvements.\n۞ Fixed minor bugs to improve the user experience.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}

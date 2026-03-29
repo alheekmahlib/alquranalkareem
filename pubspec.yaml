@@ -16,7 +16,7 @@ dependencies:
   another_xlider: ^3.0.2
   arabic_justified_text: ^1.0.2
   arabic_numbers: ^1.0.0
-  awesome_notifications: ^0.11.0
+  awesome_notifications: ^0.10.1
   awesome_notifications_core: ^0.10.1
   background_fetch: ^1.5.0
   badges: ^3.1.2 
