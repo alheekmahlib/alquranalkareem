@@ -84,6 +84,15 @@ jobs:
         if: matrix.platform != 'android'
         run: flutter create --platforms=${{ matrix.platform }} .
 
+      - name: Disable macOS code signing
+        if: matrix.platform == 'macos'
+        run: |
+          cd macos
+          /usr/libexec/PlistBuddy -c "Set :CFBundleIdentifier \$PRODUCT_BUNDLE_IDENTIFIER" Runner/Debug/Entitlements.plist 2>/dev/null || true
+          sed -i '' 's/CODE_SIGN_IDENTITY/CODE_SIGN_IDENTITY_DISABLED/g' Runner.xcodeproj/project.pbxproj 2>/dev/null || true
+          # Use xcodebuild directly with signing disabled
+          cd ..
+
       - name: Get dependencies
         run: flutter pub get
 
