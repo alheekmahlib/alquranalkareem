@@ -1,0 +1,163 @@
+name: Build & Release All Platforms
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, master]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            platform: android
+            asset: android-arm64.apk
+          - os: macos-latest
+            platform: macos
+            asset: macos-arm64.zip
+          - os: ubuntu-latest
+            platform: linux
+            asset: linux-x64.tar.gz
+          - os: windows-latest
+            platform: windows
+            asset: windows-x64.zip
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Java (Android)
+        if: matrix.platform == 'android'
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Install Linux dependencies
+        if: matrix.platform == 'linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+
+      - name: Create debug keystore
+        if: matrix.platform == 'android'
+        shell: bash
+        run: |
+          mkdir -p ~/.android
+          keytool -genkeypair -v -keystore ~/.android/debug.keystore \
+            -storepass android -alias androiddebugkey -keypass android \
+            -keyalg RSA -keysize 2048 -validity 10000 \
+            -dname "CN=Android Debug,O=Android,C=US" 2>/dev/null || true
+
+      - name: Create key.properties
+        if: matrix.platform == 'android'
+        working-directory: android
+        shell: bash
+        run: |
+          if [ ! -f key.properties ]; then
+            echo "storeFile=$HOME/.android/debug.keystore" > key.properties
+            echo "storePassword=android" >> key.properties
+            echo "keyAlias=androiddebugkey" >> key.properties
+            echo "keyPassword=android" >> key.properties
+          fi
+
+      - name: Create google-play-key.properties
+        if: matrix.platform == 'android'
+        working-directory: android
+        shell: bash
+        run: |
+          if [ ! -f google-play-key.properties ]; then
+            echo "googlePlayStoreFile=$HOME/.android/debug.keystore" > google-play-key.properties
+            echo "googlePlayStorePassword=android" >> google-play-key.properties
+            echo "googlePlayKeyAlias=androiddebugkey" >> google-play-key.properties
+            echo "googlePlayKeyPassword=android" >> google-play-key.properties
+          fi
+
+      - name: Enable desktop platforms
+        if: matrix.platform != 'android'
+        run: flutter create --platforms=${{ matrix.platform }} .
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Build
+        run: flutter build ${{ matrix.platform }} --release
+
+      - name: Package (Android)
+        if: matrix.platform == 'android'
+        shell: bash
+        run: cp build/app/outputs/flutter-apk/app-release.apk ${{ matrix.asset }}
+
+      - name: Package (macOS)
+        if: matrix.platform == 'macos'
+        run: |
+          cd build/macos/Build/Products/Release
+          zip -r -y "${{ github.workspace }}/${{ matrix.asset }}" *.app
+
+      - name: Package (Linux)
+        if: matrix.platform == 'linux'
+        run: |
+          cd build/linux/x64/release/bundle
+          tar -czf "${{ github.workspace }}/${{ matrix.asset }}" .
+
+      - name: Package (Windows)
+        if: matrix.platform == 'windows'
+        shell: pwsh
+        run: Compress-Archive -Path build/windows/x64/runner/Release/* -DestinationPath "${{ matrix.asset }}"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.asset }}
+          path: ${{ matrix.asset }}
+          if-no-files-found: warn
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: false
+
+      - name: Get version
+        id: version
+        run: |
+          VERSION=$(grep 'version:' pubspec.yaml | head -1 | sed 's/.*version: //' | sed 's/[[:space:]]//g')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Delete latest release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release delete latest --yes --cleanup-tag 2>/dev/null || true
+
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create latest \
+            --title "v${{ steps.version.outputs.version }} (Build #${{ github.run_number }})" \
+            --notes "## Downloads
+          | Platform | Architecture | File |
+          |----------|-------------|------|
+          | 🤖 Android | arm64 | android-arm64.apk |
+          | 🍎 macOS | Apple Silicon | macos-arm64.zip |
+          | 🐧 Linux | x64 | linux-x64.tar.gz |
+          | 🪟 Windows | x64 | windows-x64.zip |
+
+          _Build from [commit ${{ github.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }})_" \
+            --prerelease \
+            $(find artifacts -type f)
