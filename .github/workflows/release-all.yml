@@ -84,6 +84,10 @@ jobs:
         if: matrix.platform != 'android'
         run: flutter create --platforms=${{ matrix.platform }} .
 
+      - name: Update CocoaPods repo (macOS)
+        if: matrix.platform == 'macos'
+        run: pod repo update
+
       - name: Disable macOS code signing
         if: matrix.platform == 'macos'
         run: |
