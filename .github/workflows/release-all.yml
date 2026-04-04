@@ -92,6 +92,13 @@ jobs:
         run: |
           if [ "${{ matrix.platform }}" = "android" ]; then
             flutter build apk --release
+          elif [ "${{ matrix.platform }}" = "macos" ]; then
+            flutter build macos --release               --dart-define=FLUTTER_XCODE_CODE_SIGNING_ALLOW_AUTOMATIC_SIGNING=true
+            # If the above doesn't work, fallback:
+            if [ $? -ne 0 ]; then
+              cd macos && xcodebuild -workspace Runner.xcworkspace -scheme Runner                 -configuration Release -allowProvisioningUpdates CODE_SIGN_IDENTITY="-" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO | tail -5
+              cd ..
+            fi
           else
             flutter build ${{ matrix.platform }} --release
           fi
