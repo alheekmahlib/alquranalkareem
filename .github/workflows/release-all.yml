@@ -88,7 +88,13 @@ jobs:
         run: flutter pub get
 
       - name: Build
-        run: flutter build ${{ matrix.platform }} --release
+        shell: bash
+        run: |
+          if [ "${{ matrix.platform }}" = "android" ]; then
+            flutter build apk --release
+          else
+            flutter build ${{ matrix.platform }} --release
+          fi
 
       - name: Package (Android)
         if: matrix.platform == 'android'
