@@ -110,8 +110,7 @@ jobs:
           cd macos
           xcodebuild -workspace Runner.xcworkspace -scheme Runner \
             -configuration Release \
-            CODE_SIGN_IDENTITY="-" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO \
-            | tail -5
+            CODE_SIGN_IDENTITY="-" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
           cd ..
 
       - name: Build (Linux/Windows)
