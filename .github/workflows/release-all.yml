@@ -126,7 +126,13 @@ jobs:
       - name: Package (macOS)
         if: matrix.platform == 'macos'
         run: |
-          cd build/macos/Build/Products/Release
+          APP_PATH=$(find build -name "*.app" -type d -maxdepth 10 | head -1)
+          if [ -z "$APP_PATH" ]; then
+            echo "Error: No .app found"
+            exit 1
+          fi
+          echo "Found app at: $APP_PATH"
+          cd "$(dirname "$APP_PATH")"
           zip -r -y "${{ github.workspace }}/${{ matrix.asset }}" *.app
 
       - name: Package (Linux)
