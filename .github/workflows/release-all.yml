@@ -126,7 +126,7 @@ jobs:
       - name: Package (macOS)
         if: matrix.platform == 'macos'
         run: |
-          APP_PATH=$(find build -name "*.app" -type d -maxdepth 10 | head -1)
+          APP_PATH=$(find . -name "*.app" -type d -maxdepth 15 | head -1)
           if [ -z "$APP_PATH" ]; then
             echo "Error: No .app found"
             exit 1
