@@ -1,6 +1,7 @@
 import 'package:alquranalkareem/core/utils/constants/extensions/alignment_rotated_extension.dart';
 import 'package:alquranalkareem/core/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/font_size_extension.dart';
@@ -40,6 +41,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: color ?? Theme.of(context).colorScheme.primaryContainer,
       elevation: 0,
+      systemOverlayStyle: SystemUiOverlayStyle.dark,
       title:
           centerChild ??
           (isTitled ? TitleWidget(title: title!) : const SizedBox.shrink()),

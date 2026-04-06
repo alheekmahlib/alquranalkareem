@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -54,11 +55,14 @@ class MyApp extends StatelessWidget {
             // دمج BotToast مع تقييد مقياس النص ليبقى 1.0 بغض النظر عن إعدادات الجهاز
             builder: (context, child) {
               final mq = MediaQuery.of(context);
-              return Directionality(
-                textDirection: _getTextDirection(localizationCtrl.locale),
-                child: MediaQuery(
-                  data: mq.copyWith(textScaler: fixedScaler),
-                  child: child!,
+              return AnnotatedRegion<SystemUiOverlayStyle>(
+                value: SystemUiOverlayStyle.light,
+                child: Directionality(
+                  textDirection: _getTextDirection(localizationCtrl.locale),
+                  child: MediaQuery(
+                    data: mq.copyWith(textScaler: fixedScaler),
+                    child: child!,
+                  ),
                 ),
               );
             },

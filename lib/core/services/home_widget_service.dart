@@ -153,6 +153,7 @@ class HomeWidgetService {
         _macSave('hijri_month_name', hijriMonthNumber),
         _macSave('gregorian_date', gregorianDate),
         _macSave('length_of_month', lengthOfMonth),
+        _macSave('adjustHijriDays', adjustDays),
       ]);
     } else {
       await Future.wait([

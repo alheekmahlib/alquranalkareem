@@ -65,6 +65,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
+  app_name_localizer:
+    dependency: "direct dev"
+    description:
+      name: app_name_localizer
+      sha256: "726928f7e0e2e04aa0d8c85eabe5692d58a29bfb1a98eeaf9be7626753786921"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.5"
   arabic_justified_text:
     dependency: "direct main"
     description:
@@ -1750,5 +1758,5 @@ packages:
     source: hosted
     version: "3.1.3"
 sdks:
-  dart: ">=3.10.4 <4.0.0"
+  dart: ">=3.10.7 <4.0.0"
   flutter: ">=3.38.4"

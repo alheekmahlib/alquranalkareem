@@ -23,6 +23,13 @@ class QuranController extends GetxController {
     //       ? QuranLibrary().tafsirDownload(state.box.read(TAFSEER_VAL))
     //       : null;
     // });
+
+    debounce(
+      QuranCtrl.instance.state.currentPageNumber,
+      (pageNumber) async =>
+          await HomeWidgetService.instance.updateReadingProgress(),
+      time: const Duration(milliseconds: 700),
+    );
     super.onInit();
   }
 

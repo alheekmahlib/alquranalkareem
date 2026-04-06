@@ -398,6 +398,14 @@
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				ur,
+				tr,
+				so,
+				ru,
+				ph,
+				ku,
+				id,
+				es,
 				en,
 				Base,
 				ar,
