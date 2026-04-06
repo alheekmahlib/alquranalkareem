@@ -122,61 +122,66 @@ class CustomSwitchListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding:
-          contentPadding ??
-          const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-      margin: contentMargin ?? EdgeInsets.zero,
-      decoration: BoxDecoration(
-        color: value
-            ? Theme.of(context).primaryColorLight.withValues(alpha: .1)
-            : Theme.of(context).primaryColorLight.withValues(alpha: .15),
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
-        border: Border.all(
-          width: 1,
-          color: !value
-              ? Colors.transparent
-              : Theme.of(context).colorScheme.surface.withValues(alpha: .7),
+    return GestureDetector(
+      onTap: () => onChanged?.call(!value),
+      child: Container(
+        padding:
+            contentPadding ??
+            const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+        margin: contentMargin ?? EdgeInsets.zero,
+        decoration: BoxDecoration(
+          color: value
+              ? Theme.of(context).primaryColorLight.withValues(alpha: .15)
+              : Theme.of(context).primaryColorLight.withValues(alpha: .1),
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
+          border: Border.all(
+            width: 1,
+            color: !value
+                ? Colors.transparent
+                : Theme.of(context).colorScheme.surface.withValues(alpha: .7),
+          ),
         ),
-      ),
-      child: IntrinsicHeight(
-        child: Row(
-          children: [
-            Container(
-              width: 8,
-              margin: const EdgeInsets.symmetric(vertical: 4.0),
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.inverseSurface,
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
+        child: IntrinsicHeight(
+          child: Row(
+            children: [
+              Container(
+                width: 8,
+                margin: const EdgeInsets.symmetric(vertical: 4.0),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.inverseSurface,
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                ),
               ),
-            ),
-            const Gap(8),
-            if (leading != null) ...[leading!, const SizedBox(width: 16)],
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: AppTextStyles.titleMedium().copyWith(height: 2),
-                  ),
-                  if (subtitle != null) ...[
-                    const SizedBox(height: 2),
+              const Gap(8),
+              if (leading != null) ...[leading!, const SizedBox(width: 16)],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
                     Text(
-                      subtitle!,
-                      style: AppTextStyles.titleMedium().copyWith(fontSize: 14),
+                      title,
+                      style: AppTextStyles.titleMedium().copyWith(height: 2),
                     ),
+                    if (subtitle != null) ...[
+                      const SizedBox(height: 2),
+                      Text(
+                        subtitle!,
+                        style: AppTextStyles.titleMedium().copyWith(
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
                   ],
-                ],
+                ),
               ),
-            ),
-            CustomSwitch(
-              value: value,
-              onChanged: onChanged,
-              activeColor: activeColor,
-              inactiveTrackColor: inactiveTrackColor,
-            ),
-          ],
+              CustomSwitch(
+                value: value,
+                onChanged: onChanged,
+                activeColor: activeColor,
+                inactiveTrackColor: inactiveTrackColor,
+              ),
+            ],
+          ),
         ),
       ),
     );

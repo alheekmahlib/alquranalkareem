@@ -37,7 +37,7 @@ class AdhkarList extends StatelessWidget {
                         );
                         Get.to(
                           () => const AdhkarItem(),
-                          transition: Transition.leftToRight,
+                          transition: Transition.downToUp,
                         );
                         log('filterByCategory: $index');
                       },

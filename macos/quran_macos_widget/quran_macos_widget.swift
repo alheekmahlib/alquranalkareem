@@ -129,6 +129,42 @@ struct WidgetThemeColors {
     }
 }
 
+// MARK: - Native Hijri Calculator
+
+struct HijriCalculator {
+    private static let hijriCalendar = Calendar(identifier: .islamicUmmAlQura)
+
+    /// حساب التاريخ الهجري مع تعديل المستخدم
+    static func calculate(adjustDays: Int, languageCode: String) -> (day: Int, month: Int, year: Int, lengthOfMonth: Int, gregorianDate: String) {
+        let now = Date()
+        let adjusted = Calendar.current.date(byAdding: .day, value: adjustDays, to: now) ?? now
+
+        let components = hijriCalendar.dateComponents([.day, .month, .year], from: adjusted)
+        let day = components.day ?? 1
+        let month = components.month ?? 1
+        let year = components.year ?? 1447
+
+        // حساب عدد أيام الشهر الهجري
+        let range = hijriCalendar.range(of: .day, in: .month, for: adjusted)
+        let lengthOfMonth = range?.count ?? 30
+
+        // التاريخ الميلادي بلغة المستخدم
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: languageCode)
+        formatter.dateFormat = "d MMM"
+        let gregorianDate = formatter.string(from: now)
+
+        return (day, month, year, lengthOfMonth, gregorianDate)
+    }
+
+    /// بداية اليوم التالي (منتصف الليل)
+    static func startOfNextDay() -> Date {
+        let cal = Calendar.current
+        let tomorrow = cal.date(byAdding: .day, value: 1, to: Date())!
+        return cal.startOfDay(for: tomorrow)
+    }
+}
+
 // MARK: - Data Reader
 
 struct WidgetDataReader {
@@ -139,12 +175,12 @@ struct WidgetDataReader {
             return .placeholder
         }
 
-        let hijriDay = userDefaults.integer(forKey: "hijri_day")
-        let hijriMonth = userDefaults.integer(forKey: "hijri_month")
-        let hijriYear = userDefaults.integer(forKey: "hijri_year")
-        let hijriMonthName = userDefaults.string(forKey: "hijri_month_name") ?? ""
-        let gregorianDate = userDefaults.string(forKey: "gregorian_date") ?? ""
-        let lengthOfMonth = userDefaults.integer(forKey: "length_of_month")
+        let languageCode = userDefaults.string(forKey: "language_code") ?? "ar"
+        let adjustDays = userDefaults.integer(forKey: "adjustHijriDays")
+
+        // حساب التاريخ الهجري محليًا بدون الاعتماد على Flutter
+        let hijri = HijriCalculator.calculate(adjustDays: adjustDays, languageCode: languageCode)
+
         let lastReadPage = userDefaults.integer(forKey: "last_read_page")
         let lastSurahNumber = userDefaults.integer(forKey: "last_surah_number")
         let totalPages = userDefaults.integer(forKey: "total_pages")
@@ -152,16 +188,15 @@ struct WidgetDataReader {
         let theme = userDefaults.string(forKey: "theme") ?? "AppTheme.green"
         let lastReadText = userDefaults.string(forKey: "last_read_text") ?? "آخر قراءة"
         let pageText = userDefaults.string(forKey: "page_text") ?? "صفحة"
-        let languageCode = userDefaults.string(forKey: "language_code") ?? "ar"
         let useEnglishNumbers = userDefaults.bool(forKey: "use_english_numbers")
 
         return QuranWidgetData(
-            hijriDay: hijriDay > 0 ? hijriDay : 1,
-            hijriMonth: hijriMonth > 0 ? hijriMonth : 1,
-            hijriYear: hijriYear > 0 ? hijriYear : 1447,
-            hijriMonthName: hijriMonthName,
-            gregorianDate: gregorianDate.isEmpty ? "1 January" : gregorianDate,
-            lengthOfMonth: lengthOfMonth > 0 ? lengthOfMonth : 30,
+            hijriDay: hijri.day,
+            hijriMonth: hijri.month,
+            hijriYear: hijri.year,
+            hijriMonthName: "\(hijri.month)",
+            gregorianDate: hijri.gregorianDate,
+            lengthOfMonth: hijri.lengthOfMonth,
             lastReadPage: lastReadPage > 0 ? lastReadPage : 1,
             lastSurahNumber: lastSurahNumber > 0 ? lastSurahNumber : 1,
             totalPages: totalPages > 0 ? totalPages : 604,
@@ -188,12 +223,13 @@ struct QuranWidgetProvider: TimelineProvider {
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<QuranWidgetEntry>) -> Void) {
+        let now = Date()
         let data = WidgetDataReader.read()
-        let entry = QuranWidgetEntry(date: Date(), data: data)
+        let currentEntry = QuranWidgetEntry(date: now, data: data)
 
-        // تحديث كل ساعة
-        let nextUpdate = Calendar.current.date(byAdding: .hour, value: 1, to: Date())!
-        let timeline = Timeline(entries: [entry], policy: .after(nextUpdate))
+        // التحديث القادم عند منتصف الليل (بداية اليوم الجديد)
+        let midnight = HijriCalculator.startOfNextDay()
+        let timeline = Timeline(entries: [currentEntry], policy: .after(midnight))
         completion(timeline)
     }
 }

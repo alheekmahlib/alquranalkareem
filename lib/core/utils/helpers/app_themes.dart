@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'app_text_styles.dart';
 
 final ThemeData blueTheme = ThemeData.light(useMaterial3: true).copyWith(
+  appBarTheme: const AppBarTheme(
+    systemOverlayStyle: SystemUiOverlayStyle.light,
+  ),
   colorScheme: const ColorScheme(
     brightness: Brightness.light,
     primary: Color(0xff404C6E),
@@ -79,6 +83,9 @@ final ThemeData blueTheme = ThemeData.light(useMaterial3: true).copyWith(
 
 final ThemeData brownTheme = ThemeData(
   useMaterial3: true,
+  appBarTheme: const AppBarTheme(
+    systemOverlayStyle: SystemUiOverlayStyle.light,
+  ),
   colorScheme: const ColorScheme(
     brightness: Brightness.light,
     primary: Color(0xff583101),
@@ -152,6 +159,9 @@ final ThemeData brownTheme = ThemeData(
 );
 
 final ThemeData greenTheme = ThemeData.light(useMaterial3: true).copyWith(
+  appBarTheme: const AppBarTheme(
+    systemOverlayStyle: SystemUiOverlayStyle.light,
+  ),
   colorScheme: const ColorScheme(
     brightness: Brightness.light,
     primary: Color(0xff283618),
@@ -226,8 +236,11 @@ final ThemeData greenTheme = ThemeData.light(useMaterial3: true).copyWith(
 );
 
 final ThemeData darkTheme = ThemeData.dark(useMaterial3: true).copyWith(
+  appBarTheme: const AppBarTheme(
+    systemOverlayStyle: SystemUiOverlayStyle.light,
+  ),
   colorScheme: const ColorScheme(
-    brightness: Brightness.light,
+    brightness: Brightness.dark,
     primary: Color(0xff283618),
     onPrimary: Color(0xff000000),
     secondary: Color(0xffffffff),

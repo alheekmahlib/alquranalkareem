@@ -83,5 +83,7 @@
 			<string>UIInterfaceOrientationLandscapeLeft</string>
 			<string>UIInterfaceOrientationLandscapeRight</string>
 		</array>
-	</dict>
+		<key>LSHasLocalizedDisplayName</key>
+	<true/>
+</dict>
 </plist>
