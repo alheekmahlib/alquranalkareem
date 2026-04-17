@@ -146,8 +146,7 @@ class PlayListController extends GetxController {
   }
 
   String generateUrl(int ayahUQNumber) {
-    final readerUrl =
-        ayahReaderInfo[audioCtrl.state.ayahReaderIndex.value]['url'];
+    final readerUrl = ayahReaderInfo[audioCtrl.state.ayahReaderIndex.value].url;
     final readerName = audioCtrl.ayahReaderValue;
 
     if (readerUrl == ApiConstants.ayahs1stSource) {
@@ -165,8 +164,7 @@ class PlayListController extends GetxController {
   }
 
   String _getFileName(int ayahUQNumber) {
-    final readerUrl =
-        ayahReaderInfo[audioCtrl.state.ayahReaderIndex.value]['url'];
+    final readerUrl = ayahReaderInfo[audioCtrl.state.ayahReaderIndex.value].url;
     if (readerUrl == ApiConstants.ayahs1stSource) {
       return '${ayahUQNumber.toString().padLeft(3, "0")}.mp3';
     } else {

@@ -245,7 +245,7 @@ extension QuranGetters on QuranController {
         dividerColor: Get.theme.colorScheme.surface.withValues(alpha: .5),
         optionsBarWidget: (ayah, surah, pageIndex) =>
             AyahsMenu(ayah: ayah, surah: surah, pageIndex: pageIndex),
-        tafsirTextColor: Get.theme.colorScheme.surface,
+        tafsirTextColor: Get.theme.colorScheme.inversePrimary,
         readMoreTextStyle: AppTextStyles.titleSmall(
           color: Get.theme.colorScheme.surface,
         ),
@@ -365,4 +365,32 @@ extension QuranGetters on QuranController {
       ),
     );
   }
+
+  AutoScrollStyle get autoScrollStyle =>
+      AutoScrollStyle.defaults(
+        context: Get.context!,
+        isDark: themeCtrl.isDarkMode,
+      ).copyWith(
+        sliderActiveColor: Get.theme.colorScheme.surface,
+        sliderInactiveColor: Get.theme.colorScheme.surface.withValues(
+          alpha: .3,
+        ),
+        sliderThumbColor: Get.theme.colorScheme.surface,
+        overlayBackgroundColor: Get.theme.colorScheme.primaryContainer,
+        activeIconColor: Get.theme.colorScheme.surface,
+        speedLabelStyle: AppTextStyles.titleMedium(
+          color: Get.theme.colorScheme.surface,
+          fontSize: 16,
+        ),
+        stopConditionLabels: Map<AutoScrollStopCondition, String>.fromEntries(
+          AutoScrollStopCondition.values.map(
+            (condition) => MapEntry(condition, switch (condition) {
+              AutoScrollStopCondition.nextHizb => 'nextHizb'.tr,
+              AutoScrollStopCondition.nextJuz => 'nextJuz'.tr,
+              AutoScrollStopCondition.pageCount => 'pageCount'.tr,
+              AutoScrollStopCondition.manual => 'manual'.tr,
+            }),
+          ),
+        ),
+      );
 }

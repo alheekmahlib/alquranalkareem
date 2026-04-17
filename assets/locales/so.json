@@ -395,6 +395,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "reader21": "Cali Jaaber",
+  "@reader21": {
+    "type": "text",
+    "placeholders": {}
+  },
   "alheekmahlib": "Maktabadda Al Heekmah",
   "@alheekmahlib": {
     "type": "text",
@@ -1210,7 +1215,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Waxaa lagu daray widget-ka shaashadda hore si uu ugu muujiyo taariikhda Hijri iyo halkii ugu dambeysay ee akhriska Qur'aanka ee shaashadda hore.\n۞ Hagaajin ku yimid waxqabadka app-ka.\n۞ Waxaa la saxay qaladaad yaryar si loo hagaajiyo khibradda isticmaalaha.",
+  "What'sNewDetails10": "۞ Waxaa lagu daray rogista otomaatiga ah ee bogga Qur'aanka, taasoo kuu sahlaysa akhris raaxo leh adigoon gacanta ugu wareegin bogagga.\n۞ Waxaa lagu daray akhristaha Ali Jaber.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
@@ -1381,5 +1386,14 @@
   "tajweedLoadErrorText": "Xogta xeerarka tajweed lama soo rari karin",
   "tajweedNoDataText": "Aayaddan ma leh xog tajweed.",
   "twoDays": "Laba maalmood",
-  "searchInBook": "Ka raadi buugga"
+  "searchInBook": "Ka raadi buugga",
+  "autoScrollSettings": "Dejinta rogista otomaatiga ah",
+  "stopCondition": "Joogso marka:",
+  "pageCount": "Tirada bogagga:",
+  "speed": "Xawaare:",
+  "slow": "Gaabis",
+  "fast": "Degdeg",
+  "nextHizb": "Xizbka xiga",
+  "nextJuz": "Juzka xiga",
+  "manual": "Gacanta"
 }

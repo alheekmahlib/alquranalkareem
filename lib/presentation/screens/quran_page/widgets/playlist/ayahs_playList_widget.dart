@@ -13,7 +13,7 @@ class AyahsPlayListWidget extends StatelessWidget {
     return SingleChildScrollView(
       child: Container(
         height: size.height * .85,
-        width: context.customOrientation(size.width, size.width * .5),
+        width: context.customOrientation(size.width, size.width * .7),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.primaryContainer,
           borderRadius: const BorderRadius.only(
@@ -24,76 +24,165 @@ class AyahsPlayListWidget extends StatelessWidget {
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const TitleWidget(
-                  title: 'createPlayList',
-                  horizontalPadding: 8.0,
-                ),
-                const Gap(16),
-                AyahChangeReader(
-                  downloadManagerStyle:
-                      AudioCtrl.instance.ayahDownloadManagerStyle,
-                  style: AudioCtrl.instance.ayahAudioStyle,
-                  isDark: themeCtrl.isDarkMode,
-                ),
-                const Gap(16),
-                AyahsChoiceWidget(),
-                const Gap(16),
-                const PlayListSaveWidget(),
-                const Gap(16),
-                PlayListBuild(),
-                // مؤشر التحميل
-                Obx(() {
-                  if (!playList.isBatchDownloading.value) {
-                    return const SizedBox.shrink();
-                  }
-                  final total = playList.batchTotal.value;
-                  final completed = playList.batchCompleted.value;
-                  final pct = total > 0 ? completed / total : 0.0;
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0,
-                      vertical: 8.0,
-                    ),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              '${'downloading'.tr}...',
-                              style: AppTextStyles.titleMedium(),
-                            ),
-                            Text(
-                              '${GeneralController.instance.state.arabicNumber.convert(completed)} / ${GeneralController.instance.state.arabicNumber.convert(total)}',
-                              style: AppTextStyles.titleMedium(),
-                            ),
-                          ],
-                        ),
-                        const Gap(4),
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(4),
-                          child: LinearProgressIndicator(
-                            value: pct,
-                            backgroundColor: Theme.of(
-                              context,
-                            ).colorScheme.primary.withValues(alpha: .15),
-                            valueColor: AlwaysStoppedAnimation(
-                              Theme.of(context).colorScheme.primary,
-                            ),
-                            minHeight: 6,
+            child: context.customOrientation(
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const TitleWidget(
+                    title: 'createPlayList',
+                    horizontalPadding: 8.0,
+                  ),
+                  const Gap(16),
+                  AyahChangeReader(
+                    downloadManagerStyle:
+                        AudioCtrl.instance.ayahDownloadManagerStyle,
+                    style: AudioCtrl.instance.ayahAudioStyle,
+                    isDark: themeCtrl.isDarkMode,
+                  ),
+                  const Gap(16),
+                  AyahsChoiceWidget(),
+                  const Gap(16),
+                  const PlayListSaveWidget(),
+                  const Gap(16),
+                  PlayListBuild(),
+                  // مؤشر التحميل
+                  Obx(() {
+                    if (!playList.isBatchDownloading.value) {
+                      return const SizedBox.shrink();
+                    }
+                    final total = playList.batchTotal.value;
+                    final completed = playList.batchCompleted.value;
+                    final pct = total > 0 ? completed / total : 0.0;
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 8.0,
+                      ),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                '${'downloading'.tr}...',
+                                style: AppTextStyles.titleMedium(),
+                              ),
+                              Text(
+                                '${GeneralController.instance.state.arabicNumber.convert(completed)} / ${GeneralController.instance.state.arabicNumber.convert(total)}',
+                                style: AppTextStyles.titleMedium(),
+                              ),
+                            ],
                           ),
+                          const Gap(4),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(4),
+                            child: LinearProgressIndicator(
+                              value: pct,
+                              backgroundColor: Theme.of(
+                                context,
+                              ).colorScheme.primary.withValues(alpha: .15),
+                              valueColor: AlwaysStoppedAnimation(
+                                Theme.of(context).colorScheme.primary,
+                              ),
+                              minHeight: 6,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }),
+                  const Spacer(),
+                  PlayListAudioWidget(),
+                  const Gap(8),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const TitleWidget(
+                          title: 'createPlayList',
+                          horizontalPadding: 8.0,
                         ),
+                        const Gap(16),
+                        AyahChangeReader(
+                          downloadManagerStyle:
+                              AudioCtrl.instance.ayahDownloadManagerStyle,
+                          style: AudioCtrl.instance.ayahAudioStyle,
+                          isDark: themeCtrl.isDarkMode,
+                        ),
+                        const Gap(16),
+                        AyahsChoiceWidget(),
+                        const Gap(16),
+                        const PlayListSaveWidget(),
                       ],
                     ),
-                  );
-                }),
-                const Spacer(),
-                PlayListAudioWidget(),
-                const Gap(8),
-              ],
+                  ),
+                  const Gap(16),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        const Gap(16),
+                        PlayListBuild(),
+                        // مؤشر التحميل
+                        Obx(() {
+                          if (!playList.isBatchDownloading.value) {
+                            return const SizedBox.shrink();
+                          }
+                          final total = playList.batchTotal.value;
+                          final completed = playList.batchCompleted.value;
+                          final pct = total > 0 ? completed / total : 0.0;
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0,
+                              vertical: 8.0,
+                            ),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      '${'downloading'.tr}...',
+                                      style: AppTextStyles.titleMedium(),
+                                    ),
+                                    Text(
+                                      '${GeneralController.instance.state.arabicNumber.convert(completed)} / ${GeneralController.instance.state.arabicNumber.convert(total)}',
+                                      style: AppTextStyles.titleMedium(),
+                                    ),
+                                  ],
+                                ),
+                                const Gap(4),
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(4),
+                                  child: LinearProgressIndicator(
+                                    value: pct,
+                                    backgroundColor: Theme.of(context)
+                                        .colorScheme
+                                        .primary
+                                        .withValues(alpha: .15),
+                                    valueColor: AlwaysStoppedAnimation(
+                                      Theme.of(context).colorScheme.primary,
+                                    ),
+                                    minHeight: 6,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }),
+                        const Spacer(),
+                        PlayListAudioWidget(),
+                        const Gap(8),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

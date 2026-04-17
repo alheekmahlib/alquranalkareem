@@ -11,6 +11,7 @@ import 'package:quran_library/quran_library.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/core/utils/constants/svg_constants.dart';
 import '../shared_preferences_constants.dart';
+import 'alignment_rotated_extension.dart';
 
 extension FontSizeExtension on Widget {
   Widget fontSizeDropDownWidget({double? height, Color? color}) {
@@ -42,7 +43,7 @@ extension FontSizeExtension on Widget {
                 values: [TafsirCtrl.instance.fontSizeArabic.value],
                 max: 50,
                 min: 20,
-                rtl: true,
+                rtl: alignmentLayout(true, false),
                 trackBar: FlutterSliderTrackBar(
                   inactiveTrackBarHeight: 5,
                   activeTrackBarHeight: 5,

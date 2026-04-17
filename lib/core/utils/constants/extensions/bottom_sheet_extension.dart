@@ -13,6 +13,7 @@ extension BottomSheetExtension on void {
     Widget? handleChild,
     Color? handleBackgroundColor,
     Color? handleDotsColor,
+    double? bottomSheetWidth,
   }) {
     showModalBottomSheet(
       context: Get.context!,
@@ -24,7 +25,9 @@ extension BottomSheetExtension on void {
       isDismissible: true,
       // showDragHandle: true,
       constraints: BoxConstraints(
-        maxWidth: Get.context!.customOrientation(Get.width, Get.width * .5),
+        maxWidth:
+            bottomSheetWidth ??
+            Get.context!.customOrientation(Get.width, Get.width * .5),
       ),
       builder: (context) => SafeArea(
         child: Padding(

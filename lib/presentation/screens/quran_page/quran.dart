@@ -86,6 +86,7 @@ part 'controllers/quran/quran_controller.dart';
 part 'controllers/quran/quran_state.dart';
 part 'controllers/share_controller.dart';
 part 'controllers/translate_controller.dart';
+part 'data/lists/audio_reader_list.dart';
 part 'extensions/surah_info_extension.dart';
 part 'extensions/surah_name_with_banner.dart';
 part 'screens/quran_home.dart';

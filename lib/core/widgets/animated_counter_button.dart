@@ -1,9 +1,12 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/convert_number_extension.dart';
 import 'package:alquranalkareem/core/utils/helpers/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
+enum CounterType { integer, decimal }
+
 class AnimatedCounterButton extends StatefulWidget {
-  final int value;
-  final ValueChanged<int> onChanged;
+  final dynamic value;
+  final ValueChanged<dynamic> onChanged;
   final int? min;
   final int? max;
   final Color? backgroundColor;
@@ -12,6 +15,7 @@ class AnimatedCounterButton extends StatefulWidget {
   final TextStyle? valueTextStyle;
   final double height;
   final Duration animationDuration;
+  final CounterType counterType;
 
   const AnimatedCounterButton({
     super.key,
@@ -25,6 +29,7 @@ class AnimatedCounterButton extends StatefulWidget {
     this.valueTextStyle,
     this.height = 36,
     this.animationDuration = const Duration(milliseconds: 300),
+    this.counterType = CounterType.integer,
   });
 
   @override
@@ -80,6 +85,8 @@ class _AnimatedCounterButtonState extends State<AnimatedCounterButton>
     super.dispose();
   }
 
+  num get _step => widget.counterType == CounterType.decimal ? 0.2 : 1;
+
   bool get _canIncrease => widget.max == null || widget.value < widget.max!;
   bool get _canDecrease => widget.min == null || widget.value > widget.min!;
 
@@ -89,7 +96,12 @@ class _AnimatedCounterButtonState extends State<AnimatedCounterButton>
 
     setState(() => _direction = delta.toDouble());
     _controller.forward(from: 0);
-    widget.onChanged(widget.value + delta);
+    final newValue = widget.value + (delta * _step);
+    widget.onChanged(
+      widget.counterType == CounterType.decimal
+          ? (newValue as num).toDouble()
+          : (newValue as num).toInt(),
+    );
   }
 
   @override
@@ -155,7 +167,11 @@ class _AnimatedCounterButtonState extends State<AnimatedCounterButton>
               );
             },
             child: Text(
-              '${widget.value}',
+              widget.counterType == CounterType.decimal
+                  ? (widget.value as num)
+                        .toStringAsFixed(1)
+                        .convertNumbersToCurrentLang()
+                  : '${widget.value}'.convertNumbersToCurrentLang(),
               style:
                   widget.valueTextStyle ??
                   AppTextStyles.titleSmall(color: iconColor, height: .1),

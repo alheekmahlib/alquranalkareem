@@ -395,6 +395,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "reader21": "Ali Jaber",
+  "@reader21": {
+    "type": "text",
+    "placeholders": {}
+  },
   "alheekmahlib": "Biblioteca Alheekmah",
   "@alheekmahlib": {
     "type": "text",
@@ -1210,7 +1215,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Se añadió un widget en la pantalla de inicio para mostrar la fecha hiyri y la última lectura en el Corán.\n۞ Mejoras de rendimiento.\n۞ Se corrigieron errores menores para mejorar la experiencia del usuario.",
+  "What'sNewDetails10": "۞ Se añadió la función de desplazamiento automático en la página del Corán, lo que permite una lectura cómoda sin necesidad de pasar las páginas manualmente.\n۞ Se añadió el recitador Ali Jaber.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
@@ -1409,5 +1414,14 @@
   "tajweedLoadErrorText": "No se pudieron cargar los datos de las reglas de taywīd",
   "tajweedNoDataText": "No hay datos de taywīd para esta aleya.",
   "twoDays": "Dos días",
-  "searchInBook": "Buscar en el libro"
+  "searchInBook": "Buscar en el libro",
+  "autoScrollSettings": "Configuración de desplazamiento automático",
+  "stopCondition": "Detener en:",
+  "pageCount": "Número de páginas:",
+  "speed": "Velocidad:",
+  "slow": "Lento",
+  "fast": "Rápido",
+  "nextHizb": "Siguiente hizb",
+  "nextJuz": "Siguiente juz",
+  "manual": "Manual"
 }

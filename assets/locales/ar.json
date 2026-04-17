@@ -394,6 +394,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "reader21": "علي جابر",
+  "@reader21": {
+    "type": "text",
+    "placeholders": {}
+  },
   "alheekmahlib": "مكتبة الحكمة",
   "@alheekmahlib": {
     "type": "text",
@@ -1204,7 +1209,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ إضافة أداة مصغرة لعرض التاريخ الهجري وآخر قراءة في القرآن على الشاشة الرئيسية.\n۞ تحسينات في أداء التطبيق.\n۞ إصلاح بعض الأخطاء الطفيفة لتحسين تجربة المستخدم.",
+  "What'sNewDetails10": "۞ إضافة ميزة التمرير التلقائي في صفحة القرآن الكريم، مما يتيح لك قراءة مريحة دون الحاجة للتنقل اليدوي بين الصفحات.\n۞ إضافة القارئ علي جابر.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
@@ -1402,5 +1407,14 @@
   "tajweedLoadErrorText": "تعذّر تحميل بيانات أحكام التجويد",
   "tajweedNoDataText": "لا توجد بيانات تجويد لهذه الآية.",
   "twoDays": "يومان",
-  "searchInBook": "بحث في الكتاب"
+  "searchInBook": "بحث في الكتاب",
+  "autoScrollSettings": "إعدادات التمرير التلقائي",
+  "stopCondition": "التوقف عند:",
+  "pageCount": "عدد الصفحات:",
+  "speed": "السرعة:",
+  "slow": "بطيء",
+  "fast": "سريع",
+  "nextHizb": "الحزب التالي",
+  "nextJuz": "الجزء التالي",
+  "manual": "يدوي"
 }

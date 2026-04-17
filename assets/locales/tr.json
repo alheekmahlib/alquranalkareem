@@ -394,6 +394,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "reader21": "Ali Cabir",
+  "@reader21": {
+    "type": "text",
+    "placeholders": {}
+  },
   "alheekmahlib": "مكتبة الحكمة",
   "@alheekmahlib": {
     "type": "text",
@@ -1204,7 +1209,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Ana ekranda Hicrî tarih ve Kur’an’daki son okumayı göstermek için ana ekran widget’ı eklendi.\n۞ Uygulama performansında iyileştirmeler.\n۞ Kullanıcı deneyimini iyileştirmek için bazı küçük hatalar giderildi.",
+  "What'sNewDetails10": "۞ Kur’an sayfasına otomatik kaydırma özelliği eklendi; sayfalar arasında elle geçiş yapmadan rahatça okuyabilirsiniz.\n۞ Ali Cabir okuyucusu eklendi.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
@@ -1401,5 +1406,14 @@
   "tajweedLoadErrorText": "Tecvid kuralları verileri yüklenemedi",
   "tajweedNoDataText": "Bu ayet için tecvid verisi yok.",
   "twoDays": "İki gün",
-  "searchInBook": "Kitapta ara"
+  "searchInBook": "Kitapta ara",
+  "autoScrollSettings": "Otomatik kaydırma ayarları",
+  "stopCondition": "Durma noktası:",
+  "pageCount": "Sayfa sayısı:",
+  "speed": "Hız:",
+  "slow": "Yavaş",
+  "fast": "Hızlı",
+  "nextHizb": "Sonraki Hizb",
+  "nextJuz": "Sonraki Cüz",
+  "manual": "Manuel"
 }

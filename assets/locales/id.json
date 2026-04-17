@@ -394,6 +394,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "reader21": "Ali Jaber",
+  "@reader21": {
+    "type": "text",
+    "placeholders": {}
+  },
   "alheekmahlib": "Perpustakaan Hikmah",
   "@alheekmahlib": {
     "type": "text",
@@ -1204,7 +1209,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Menambahkan widget layar utama untuk menampilkan tanggal Hijriah dan bacaan terakhir di Al-Qur'an.\n۞ Peningkatan kinerja aplikasi.\n۞ Memperbaiki beberapa bug kecil untuk meningkatkan pengalaman pengguna.",
+  "What'sNewDetails10": "۞ Menambahkan fitur gulir otomatis pada halaman Al-Qur'an, sehingga Anda dapat membaca dengan nyaman tanpa harus berpindah halaman secara manual.\n۞ Menambahkan qari Ali Jaber.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
@@ -1403,5 +1408,14 @@
   "tajweedLoadErrorText": "Gagal memuat data aturan tajwid",
   "tajweedNoDataText": "Tidak ada data tajwid untuk ayat ini.",
   "twoDays": "Dua hari",
-  "searchInBook": "Cari di buku"
+  "searchInBook": "Cari di buku",
+  "autoScrollSettings": "Pengaturan gulir otomatis",
+  "stopCondition": "Berhenti pada:",
+  "pageCount": "Jumlah halaman:",
+  "speed": "Kecepatan:",
+  "slow": "Lambat",
+  "fast": "Cepat",
+  "nextHizb": "Hizb berikutnya",
+  "nextJuz": "Juz berikutnya",
+  "manual": "Manual"
 }

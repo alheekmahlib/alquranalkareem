@@ -17,8 +17,8 @@ class QuranSearch extends StatelessWidget {
         child: Column(
           children: <Widget>[
             const Gap(16),
-            _surahsBuild(context),
             _ayahsBuild(context),
+            _surahsBuild(context),
           ],
         ),
       ),
@@ -32,8 +32,8 @@ class QuranSearch extends StatelessWidget {
           searchCtrl.state.searchTextEditing.text.isEmpty) {
         return LastSearchWidget();
       } else if (searchCtrl.state.surahList.isNotEmpty) {
-        return Expanded(
-          flex: 1,
+        return SizedBox(
+          height: 50.h,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: ListView.builder(

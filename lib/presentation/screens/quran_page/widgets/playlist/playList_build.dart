@@ -15,7 +15,7 @@ class PlayListBuild extends StatelessWidget {
       manager: GeneralController.instance.state.expansionManager,
       name: 'playList_tile',
       child: SizedBox(
-        height: Get.height * .25,
+        height: context.customOrientation(Get.height * .25, Get.height * .5),
         child: Obx(
           () => ListView(
             children: List<Widget>.generate(playList.playLists.length, (

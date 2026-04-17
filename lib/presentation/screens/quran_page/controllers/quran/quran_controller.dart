@@ -8,21 +8,10 @@ class QuranController extends GetxController {
 
   @override
   void onInit() async {
-    // QuranLibrary.quranCtrl.state.fontsSelected.value = 1;
-    // QuranLibrary.quranCtrl.state.loadedFontPages.;
+    super.onInit();
     loadQuran();
     state.backgroundPickerColor.value =
         state.box.read(BACKGROUND_PICKER_COLOR) ?? 0xfffaf7f3;
-    // await QuranLibrary().fetchTafsir(pageNumber: QuranCtrl.instance.state.currentPageNumber.value);
-    // await QuranLibrary().fetchTranslation();
-    // Future.delayed(const Duration(seconds: 10), () {
-    //   // TafsirCtrl.instance.tafsirDownloadIndexList.contains(0)
-    //   //     ? null
-    //   //     : QuranLibrary().tafsirDownload(0);
-    //   state.box.read(TAFSEER_VAL) != null
-    //       ? QuranLibrary().tafsirDownload(state.box.read(TAFSEER_VAL))
-    //       : null;
-    // });
 
     debounce(
       QuranCtrl.instance.state.currentPageNumber,
@@ -30,7 +19,6 @@ class QuranController extends GetxController {
           await HomeWidgetService.instance.updateReadingProgress(),
       time: const Duration(milliseconds: 700),
     );
-    super.onInit();
   }
 
   @override

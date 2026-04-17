@@ -19,6 +19,7 @@ class EventController extends GetxController with WidgetsBindingObserver {
   RxInt adjustHijriDays = 0.obs;
   Rx<HijriDate> calenderMonth = HijriDate.now().obs;
   late final SheetController controller;
+  late final SheetScrollController scrollController;
   Orientation _lastOrientation = Orientation.portrait;
   final tabBarController = FlexibleSheetController();
 
@@ -37,6 +38,7 @@ class EventController extends GetxController with WidgetsBindingObserver {
   Future<void> onInit() async {
     super.onInit();
     controller = SheetController();
+    scrollController = SheetScrollController();
     WidgetsBinding.instance.addObserver(this);
     adjustHijriDays.value = box.read('adjustHijriDays') ?? 0;
     selectedDate = HijriDate.now();
@@ -334,6 +336,7 @@ class EventController extends GetxController with WidgetsBindingObserver {
     super.onClose();
     pageController.dispose();
     controller.dispose();
+    scrollController.dispose();
   }
 
   String getWeekdayShortName(int index) {
