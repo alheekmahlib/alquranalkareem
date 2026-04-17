@@ -331,6 +331,10 @@ class SvgPath {
   /// assets/svg/notifications.svg
   static const String svgNotifications = "assets/svg/notifications.svg";
 
+  /// Assets for svgQuranArrowDown
+  /// assets/svg/quran/arrowDown.svg
+  static const String svgQuranArrowDown = "assets/svg/quran/arrowDown.svg";
+
   /// Assets for svgQuranBookmark
   /// assets/svg/quran/bookmark.svg
   static const String svgQuranBookmark = "assets/svg/quran/bookmark.svg";

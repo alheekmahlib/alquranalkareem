@@ -57,7 +57,10 @@ class QuranHome extends StatelessWidget {
                               style: quranCtrl.displayModeBarStyle,
                             ),
                             const QuranTopBar(),
-                            TajweedMenuWidget(),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: TajweedMenuWidget(),
+                            ),
                             TopBarWidget(
                               isHomeChild: true,
                               isQuranSetting: true,
@@ -108,6 +111,7 @@ class QuranHome extends StatelessWidget {
                                     quranCtrl.state.navBarController,
                               ),
                             ),
+                            // const AutoScrollSpeedSliderWidget(),
                           ],
                         )
                       : const SizedBox.shrink(),

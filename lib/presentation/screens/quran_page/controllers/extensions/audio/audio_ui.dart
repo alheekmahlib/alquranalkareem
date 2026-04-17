@@ -96,5 +96,6 @@ extension AudioUi on AudioCtrl {
           color: Get.theme.colorScheme.surface,
           height: 10,
         ),
+        dialogWidth: 350,
       );
 }

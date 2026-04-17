@@ -29,6 +29,7 @@ class TextBuild extends StatelessWidget {
           isFontsLocal: false,
           useDefaultAppBar: false,
           isShowAudioSlider: false,
+          isShowDisplayModeBar: false,
           enableWordSelection: false,
           showAyahBookmarkedIcon: true,
           isDark: themeCtrl.isDarkMode,
@@ -73,6 +74,7 @@ class TextBuild extends StatelessWidget {
           },
           tafsirStyle: quranCtrl.tafsirStyle,
           ayahTafsirInlineStyle: quranCtrl.ayahTafsirInlineStyle,
+          autoScrollStyle: quranCtrl.autoScrollStyle,
         ),
       ),
     );

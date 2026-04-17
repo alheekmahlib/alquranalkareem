@@ -45,10 +45,10 @@ packages:
     dependency: "direct main"
     description:
       name: animations
-      sha256: "18938cefd7dcc04e1ecac0db78973761a01e4bc2d6bfae0cfa596bfeac9e96ab"
+      sha256: a120785be876b24177e8af387929e786e7761d6574e63cad6c2ca28545b30186
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.1"
+    version: "2.1.2"
   another_xlider:
     dependency: "direct main"
     description:
@@ -165,18 +165,18 @@ packages:
     dependency: "direct main"
     description:
       name: background_fetch
-      sha256: "6f0cec85480eac151f3971f883180d8c0acf6b40001153f1cf7c2c453df4f851"
+      sha256: "14b39b5d2471a1a8af2914426d40231285f7abbe576f5e4a69fba46983aa763d"
       url: "https://pub.dev"
     source: hosted
-    version: "1.5.0"
+    version: "1.6.0"
   badges:
     dependency: "direct main"
     description:
       name: badges
-      sha256: a7b6bbd60dce418df0db3058b53f9d083c22cdb5132a052145dc267494df0b84
+      sha256: cf1c88fb3777df69ccd630b80de5267f54efa4a39381b0404a7c03d56cb7c041
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.2"
+    version: "3.2.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -301,18 +301,18 @@ packages:
     dependency: "direct main"
     description:
       name: connectivity_plus
-      sha256: "33bae12a398f841c6cda09d1064212957265869104c478e5ad51e2fb26c3973c"
+      sha256: "62ffa266d9a23b79fb3fcbc206afc00bb979417ba57b1324c546b5aab95ba057"
       url: "https://pub.dev"
     source: hosted
-    version: "7.0.0"
+    version: "7.1.1"
   connectivity_plus_platform_interface:
     dependency: transitive
     description:
       name: connectivity_plus_platform_interface
-      sha256: "42657c1715d48b167930d5f34d00222ac100475f73d10162ddf43e714932f204"
+      sha256: "3c09627c536d22fd24691a905cdd8b14520de69da52c7a97499c8be5284a32ed"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.1"
+    version: "2.1.0"
   convert:
     dependency: transitive
     description:
@@ -525,12 +525,11 @@ packages:
   flexible_sheet:
     dependency: "direct main"
     description:
-      path: "."
-      ref: main
-      resolved-ref: "929a899b7904a520401497d5dec0cc8ca3a8a68f"
-      url: "https://github.com/alheekmahlib/flexible_sheet.git"
-    source: git
-    version: "1.0.0"
+      name: flexible_sheet
+      sha256: f31eade5143759ad2cfdbf93a3fd213a916dd70d5ac874e59a5a292acabefe23
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0+2"
   floating_menu_expendable:
     dependency: "direct main"
     description:
@@ -747,10 +746,10 @@ packages:
     dependency: "direct main"
     description:
       name: home_widget
-      sha256: d794a73894012459a4c63b94a6dc2cb3ccaa6eb08fb15b974aa7ac642594aed5
+      sha256: b04f99438ad6c5aad80fc9fca1e2e3471bf2a15028f614e4814d2552e13bc2a3
       url: "https://pub.dev"
     source: hosted
-    version: "0.9.0"
+    version: "0.9.1"
   hooks:
     dependency: transitive
     description:
@@ -923,10 +922,10 @@ packages:
     dependency: "direct main"
     description:
       name: lottie
-      sha256: "8ae0be46dbd9e19641791dc12ee480d34e1fd3f84c749adc05f3ad9342b71b95"
+      sha256: "8b6359a7422167014aa73ce763fa133fb832065dcc0ac4d1dec1f603a5cef7d0"
       url: "https://pub.dev"
     source: hosted
-    version: "3.3.2"
+    version: "3.3.3"
   matcher:
     dependency: transitive
     description:
@@ -951,14 +950,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.6"
-  media_kit_libs_windows_audio:
-    dependency: transitive
-    description:
-      name: media_kit_libs_windows_audio
-      sha256: c2fd558cc87b9d89a801141fcdffe02e338a3b21a41a18fbd63d5b221a1b8e53
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.9"
   meta:
     dependency: transitive
     description:
@@ -995,10 +986,10 @@ packages:
     dependency: transitive
     description:
       name: navigator_resizable
-      sha256: "6df8fcf5ef4267dd8b1cda35b220427a4f4864c659519125a40365c8d3027697"
+      sha256: d1f58a264b9995234561043904ec59623d4b69446a41548c311b03f1ed800dd5
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.1"
+    version: "3.0.2"
   nm:
     dependency: transitive
     description:
@@ -1178,12 +1169,11 @@ packages:
   quran_library:
     dependency: "direct main"
     description:
-      path: "."
-      ref: dev
-      resolved-ref: "3f5941cbd0f03f0e0c520c8d5195e09a4cb350e1"
-      url: "https://github.com/alheekmahlib/quran_library.git"
-    source: git
-    version: "3.2.1"
+      name: quran_library
+      sha256: "407405659802b69eda243bb2543395395cc74d3f3a05796634dbec8e9820eb25"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.0"
   rate_my_app:
     dependency: "direct main"
     description:
@@ -1244,10 +1234,10 @@ packages:
     dependency: "direct main"
     description:
       name: share_plus
-      sha256: "14c8860d4de93d3a7e53af51bff479598c4e999605290756bbbe45cf65b37840"
+      sha256: "223873d106614442ea6f20db5a038685cc5b32a2fba81cdecaefbbae0523f7fa"
       url: "https://pub.dev"
     source: hosted
-    version: "12.0.1"
+    version: "12.0.2"
   share_plus_platform_interface:
     dependency: transitive
     description:
@@ -1353,10 +1343,10 @@ packages:
     dependency: "direct main"
     description:
       name: smooth_sheets
-      sha256: fe1c9e4f1cd20c841cc2155cb125da74c004baf7bcfdf0bef4f87a7183d0907b
+      sha256: af660c9bab2a04a4662b36e0054dd5675147208fef7665134e91d05e19f6e13f
       url: "https://pub.dev"
     source: hosted
-    version: "0.17.0"
+    version: "1.0.0"
   source_gen:
     dependency: transitive
     description:

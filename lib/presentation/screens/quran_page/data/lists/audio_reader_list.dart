@@ -1,0 +1,205 @@
+part of '../../quran.dart';
+
+List<ReaderInfo> ayahReaderInfo = [
+  ReaderInfo(
+    index: 0,
+    name: 'reader1'.tr,
+    readerNamePath: 'Abdul_Basit_Murattal_192kbps',
+    url: ReadersConstants.ayahs2ndSource,
+  ),
+  ReaderInfo(
+    index: 1,
+    name: 'reader2'.tr,
+    readerNamePath: 'Minshawy_Murattal_128kbps',
+    url: ReadersConstants.ayahs2ndSource,
+  ),
+  ReaderInfo(
+    index: 2,
+    name: 'reader3'.tr,
+    readerNamePath: 'Husary_128kbps',
+    url: ReadersConstants.ayahs2ndSource,
+  ),
+  ReaderInfo(
+    index: 3,
+    name: 'reader4'.tr,
+    readerNamePath: '128/ar.ahmedajamy',
+    url: ReadersConstants.ayahs1stSource,
+  ),
+  ReaderInfo(
+    index: 4,
+    name: 'reader5'.tr,
+    readerNamePath: 'MaherAlMuaiqly128kbps',
+    url: ReadersConstants.ayahs2ndSource,
+  ),
+  ReaderInfo(
+    index: 5,
+    name: 'reader6'.tr,
+    readerNamePath: 'Saood_ash-Shuraym_128kbps',
+    url: ReadersConstants.ayahs2ndSource,
+  ),
+  ReaderInfo(
+    index: 6,
+    name: 'reader15'.tr,
+    readerNamePath: 'Abdullaah_3awwaad_Al-Juhaynee_128kbps',
+    url: ReadersConstants.ayahs2ndSource,
+  ),
+  ReaderInfo(
+    index: 7,
+    name: 'reader16'.tr,
+    readerNamePath: 'Fares_Abbad_64kbps',
+    url: ReadersConstants.ayahs2ndSource,
+  ),
+  ReaderInfo(
+    index: 8,
+    name: 'reader17'.tr,
+    readerNamePath: '128/ar.muhammadayyoub',
+    url: ReadersConstants.ayahs1stSource,
+  ),
+  ReaderInfo(
+    index: 9,
+    name: 'reader18'.tr,
+    readerNamePath: 'MaherAlMuaiqly128kbps',
+    url: ReadersConstants.ayahs2ndSource,
+  ),
+  ReaderInfo(
+    index: 10,
+    name: 'reader20'.tr,
+    readerNamePath: 'Yasser_Ad-Dussary_128kbps',
+    url: ReadersConstants.ayahs2ndSource,
+  ),
+  ReaderInfo(
+    index: 11,
+    name: 'reader21'.tr,
+    readerNamePath: 'Ali_Jaber_64kbps',
+    url: ReadersConstants.ayahs2ndSource,
+  ),
+];
+
+List<ReaderInfo> surahReaderInfo = [
+  ReaderInfo(
+    index: 0,
+    name: 'reader1'.tr,
+    readerNamePath: 'abdulBasit/murattal/mp3/',
+    url: ReadersConstants.surahUrl6,
+  ),
+  ReaderInfo(
+    index: 1,
+    name: 'reader2'.tr,
+    readerNamePath: 'minshawy/murattal/mp3/',
+    url: ReadersConstants.surahUrl6,
+  ),
+  ReaderInfo(
+    index: 2,
+    name: 'reader3'.tr,
+    readerNamePath: 'mahmood_khaleel_al-husaree_iza3a/',
+    url: ReadersConstants.surahUrl1,
+  ),
+  ReaderInfo(
+    index: 3,
+    name: 'reader4'.tr,
+    readerNamePath: 'ahmed_ibn_3ali_al-3ajamy/',
+    url: ReadersConstants.surahUrl1,
+  ),
+  ReaderInfo(
+    index: 4,
+    name: 'reader5'.tr,
+    readerNamePath: 'maher_almu3aiqly/year1440/',
+    url: ReadersConstants.surahUrl1,
+  ),
+  ReaderInfo(
+    index: 5,
+    name: 'reader6'.tr,
+    readerNamePath: 'saudAlShuraim/murattal/mp3/',
+    url: ReadersConstants.surahUrl6,
+  ),
+  ReaderInfo(
+    index: 6,
+    name: 'reader7'.tr,
+    readerNamePath: 'ghamadi/murattal/mp3/',
+    url: ReadersConstants.surahUrl6,
+  ),
+  ReaderInfo(
+    index: 7,
+    name: 'reader8'.tr,
+    readerNamePath: 'mustafa_al3azzawi/',
+    url: ReadersConstants.surahUrl1,
+  ),
+  ReaderInfo(
+    index: 8,
+    name: 'reader9'.tr,
+    readerNamePath: 'nasser_bin_ali_alqatami/',
+    url: ReadersConstants.surahUrl1,
+  ),
+  ReaderInfo(
+    index: 9,
+    name: 'reader10'.tr,
+    readerNamePath: 'peshawa/Rewayat-Hafs-A-n-Assem/',
+    url: ReadersConstants.surahUrl2,
+  ),
+  ReaderInfo(
+    index: 10,
+    name: 'reader11'.tr,
+    readerNamePath: 'taher/',
+    url: ReadersConstants.surahUrl3,
+  ),
+  ReaderInfo(
+    index: 11,
+    name: 'reader12'.tr,
+    readerNamePath: 'aloosi/',
+    url: ReadersConstants.surahUrl4,
+  ),
+  ReaderInfo(
+    index: 12,
+    name: 'reader13'.tr,
+    readerNamePath: 'wdee3/',
+    url: ReadersConstants.surahUrl4,
+  ),
+  ReaderInfo(
+    index: 13,
+    name: 'reader14'.tr,
+    readerNamePath: 'yasser_ad-dussary/',
+    url: ReadersConstants.surahUrl1,
+  ),
+  ReaderInfo(
+    index: 14,
+    name: 'reader15'.tr,
+    readerNamePath: 'abdullaah_3awwaad_al-juhaynee/',
+    url: ReadersConstants.surahUrl1,
+  ),
+  ReaderInfo(
+    index: 15,
+    name: 'reader16'.tr,
+    readerNamePath: 'fares/',
+    url: ReadersConstants.surahUrl1,
+  ),
+  ReaderInfo(
+    index: 16,
+    name: 'reader17'.tr,
+    readerNamePath: 'muhammad_ayyoob_hq/',
+    url: ReadersConstants.surahUrl1,
+  ),
+  ReaderInfo(
+    index: 17,
+    name: 'reader18'.tr,
+    readerNamePath: 'maher/',
+    url: ReadersConstants.surahUrl3,
+  ),
+  ReaderInfo(
+    index: 18,
+    name: 'reader19'.tr,
+    readerNamePath: 'nufais/Rewayat-Hafs-A-n-Assem/',
+    url: ReadersConstants.surahUrl2,
+  ),
+  ReaderInfo(
+    index: 19,
+    name: 'reader20'.tr,
+    readerNamePath: 'yasser/',
+    url: ReadersConstants.surahUrl5,
+  ),
+  ReaderInfo(
+    index: 20,
+    name: 'reader21'.tr,
+    readerNamePath: 'ali_jaber/',
+    url: ReadersConstants.surahUrl1,
+  ),
+];

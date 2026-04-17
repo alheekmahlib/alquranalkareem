@@ -9,7 +9,7 @@ PODS:
     - IosAwnCore (~> 0.10.0)
   - awesome_notifications_core (0.0.1):
     - Flutter
-  - background_fetch (1.5.0):
+  - background_fetch (1.6.0):
     - Flutter
     - TSBackgroundFetch (~> 4.0)
   - connectivity_plus (0.0.1):
@@ -117,7 +117,7 @@ SPEC CHECKSUMS:
   audio_session: 9bb7f6c970f21241b19f5a3658097ae459681ba0
   awesome_notifications: 0f432b28098d193920b11a44cfa9d2d9313a3888
   awesome_notifications_core: 429c28df8746780a474de177e5acde33af87da63
-  background_fetch: 7457cb2c7be3086b37d87207866f30bed2f9fb58
+  background_fetch: c66dd9ae5b681c328c8fe336090e9efb792ce7c0
   connectivity_plus: cb623214f4e1f6ef8fe7403d580fdad517d2f7dd
   device_info_plus: 21fcca2080fbcd348be798aa36c3e5ed849eefbe
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467

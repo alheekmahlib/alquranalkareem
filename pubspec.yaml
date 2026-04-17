@@ -3,7 +3,7 @@ description: Al-Quran Al-Kareem - Al-Heekmah Library.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 5.0.4+111
+version: 5.1.0+115
 
 environment:
   sdk: '>=3.9.2 <4.0.0'
@@ -12,15 +12,15 @@ dependencies:
   anim_search_bar: ^2.0.3
   animated_custom_dropdown: ^3.1.1
   animated_search_bar: ^2.8.0
-  animations: ^2.1.1
+  animations: ^2.1.2
   another_xlider: ^3.0.2
   arabic_justified_text: ^1.0.2
   arabic_numbers: ^1.0.0
   awesome_notifications: ^0.10.1
   awesome_notifications_core: ^0.10.1
-  background_fetch: ^1.5.0
-  badges: ^3.1.2 
-  connectivity_plus: ^7.0.0
+  background_fetch: ^1.6.0
+  badges: ^3.2.0 
+  connectivity_plus: ^7.1.1
   cupertino_icons: ^1.0.9
   delightful_toast: ^1.1.0
   dio: ^5.9.2
@@ -34,10 +34,10 @@ dependencies:
   either_dart: ^1.0.0
   expansion_tile_card: ^3.0.0
   flex_color_picker: ^3.8.0
-  flexible_sheet:
-    git:
-      ref: main
-      url: https://github.com/alheekmahlib/flexible_sheet.git
+  flexible_sheet: ^1.0.0+2
+    # git:
+    #   ref: main
+    #   url: https://github.com/alheekmahlib/flexible_sheet.git
   floating_menu_expendable: ^1.0.0
   flutter:
     sdk: flutter
@@ -60,28 +60,28 @@ dependencies:
   get_storage: 2.1.1
   glob: ^2.1.3
   hijri_date: ^1.1.0
-  home_widget: ^0.9.0
+  home_widget: ^0.9.1
   html: ^0.15.6
   info_popup: ^4.3.2
   intl: ^0.20.2
-  lottie: ^3.3.2
+  lottie: ^3.3.3
   mini_music_visualizer: ^1.1.4
   package_rename: ^1.10.1
   path: ^1.9.1
   path_provider: ^2.1.5
-  quran_library: #^3.2.0
-    git:
-      ref: dev
-      url: https://github.com/alheekmahlib/quran_library.git
+  quran_library: ^4.0.0
+    # git:
+    #   ref: main
+    #   url: https://github.com/alheekmahlib/quran_library.git
   rate_my_app: ^2.3.2
   read_more_less: ^1.0.1
   rxdart: ^0.28.0
   screenshot: ^3.0.0
   scrollable_positioned_list: ^0.3.8
-  share_plus: ^12.0.1
+  share_plus: ^12.0.2
   shimmer: ^3.0.0
   smooth_page_indicator: ^2.0.1
-  smooth_sheets: ^0.17.0
+  smooth_sheets: ^1.0.0
   square_percent_indicater: ^0.1.0
   timezone: ^0.11.0
   url_launcher: ^6.3.2

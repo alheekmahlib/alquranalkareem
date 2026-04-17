@@ -1,12 +1,13 @@
 import 'dart:async';
 
-import 'package:alquranalkareem/core/utils/helpers/app_text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:quran_library/quran.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
+import '/core/utils/helpers/app_text_styles.dart';
 import '/core/widgets/container_button.dart';
 import '/core/widgets/share/share_ayah_options.dart';
 import '/presentation/controllers/theme_controller.dart';
@@ -91,17 +92,18 @@ class AyahMenuHelper {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _ayahBuild(surah, ayah, quranCtrl, wordCtrl, pageIndex, isDark),
-                const Gap(8),
-              ],
+            child: _ayahBuild(
+              surah,
+              ayah,
+              quranCtrl,
+              wordCtrl,
+              pageIndex,
+              isDark,
             ),
           ),
           const Gap(8),
           Container(
-            height: 191,
+            height: 191.h,
             width: Get.width,
             margin: const EdgeInsets.symmetric(horizontal: 8.0),
             decoration: BoxDecoration(

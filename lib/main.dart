@@ -13,8 +13,10 @@ import 'core/services/background_services.dart';
 import 'core/services/home_widget_service.dart';
 import 'core/services/notifications_helper.dart';
 import 'core/services/services_locator.dart';
+import 'core/utils/constants/extensions/convert_number_extension.dart';
 import 'core/utils/constants/shared_preferences_constants.dart';
 import 'myApp.dart';
+import 'presentation/screens/quran_page/quran.dart';
 
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -34,7 +36,10 @@ Future<void> main() async {
 Future<void> initializeApp() async {
   Future.delayed(const Duration(seconds: 0));
   await GetStorage.init();
-  await QuranLibrary.init();
+  await QuranLibrary.init(
+    numberConverter: (text, {languageCode}) =>
+        text.convertNumbersToCurrentLang(),
+  );
   QuranLibrary.initWordAudio();
   NotifyHelper.initAwesomeNotifications();
   await ServicesLocator().init();
@@ -48,6 +53,9 @@ Future<void> initializeApp() async {
   }
   FlutterNativeSplash.remove();
   GetStorage().write(AUDIO_SERVICE_INITIALIZED, false);
+  ReadersConstants.customAyahReaders = ayahReaderInfo;
+
+  ReadersConstants.customSurahReaders = surahReaderInfo;
   // try {
   //   await WakelockPlus.enable();
   // } catch (e) {

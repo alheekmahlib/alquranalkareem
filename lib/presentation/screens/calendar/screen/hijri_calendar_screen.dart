@@ -28,6 +28,7 @@ class HijriCalendarScreen extends StatelessWidget {
                     _valueListenableBuilderWidget(eventCtrl),
                     CustomSheetWidget(
                       controller: eventCtrl.controller,
+                      scrollController: eventCtrl.scrollController,
                       minSheetOffset: 0.2,
                       maxSheetOffset: 0.65,
                       child: AllCalculatingEventsWidget(),

@@ -12,6 +12,7 @@ class CustomSheetWidget extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final ScrollPhysics? physics;
   final SheetController? controller;
+  final SheetScrollController? scrollController;
   const CustomSheetWidget({
     super.key,
     required this.child,
@@ -20,6 +21,7 @@ class CustomSheetWidget extends StatelessWidget {
     this.padding,
     this.physics,
     this.controller,
+    this.scrollController,
   });
 
   @override
@@ -64,9 +66,8 @@ class CustomSheetWidget extends StatelessWidget {
                     ),
                   ),
                   child: SheetScrollable(
-                    builder: (context, scrollController) {
-                      return child;
-                    },
+                    controller: scrollController!,
+                    child: child,
                   ),
                 ),
               ),

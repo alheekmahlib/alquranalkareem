@@ -395,6 +395,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "reader21": "Ali Jaber",
+  "@reader21": {
+    "type": "text",
+    "placeholders": {}
+  },
   "alheekmahlib": "Alheekmah Library",
   "@alheekmahlib": {
     "type": "text",
@@ -1210,7 +1215,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Added a home screen widget to display the Hijri date and your last read in the Qur'an.\n۞ Performance improvements.\n۞ Fixed minor bugs to improve the user experience.",
+  "What'sNewDetails10": "۞ Added an auto-scroll feature on the Qur'an page, allowing comfortable reading without manually navigating between pages.\n۞ Added the reciter Ali Jaber.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
@@ -1409,5 +1414,14 @@
   "tajweedLoadErrorText": "Failed to load Tajweed rules data",
   "tajweedNoDataText": "No Tajweed data available for this ayah.",
   "twoDays": "Two days",
-  "searchInBook": "Search in the book"
+  "searchInBook": "Search in the book",
+  "autoScrollSettings": "Auto scroll settings",
+  "stopCondition": "Stop at:",
+  "pageCount": "Page count:",
+  "speed": "Speed:",
+  "slow": "Slow",
+  "fast": "Fast",
+  "nextHizb": "Next Hizb",
+  "nextJuz": "Next Juz",
+  "manual": "Manual"
 }

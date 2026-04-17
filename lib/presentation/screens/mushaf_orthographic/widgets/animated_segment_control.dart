@@ -72,7 +72,7 @@ class AnimatedSegmentControl extends StatelessWidget {
                                 ? FontWeight.w600
                                 : FontWeight.w400,
                             color: isSelected
-                                ? theme.colorScheme.inversePrimary
+                                ? theme.canvasColor
                                 : theme.primaryColorLight,
                           ),
                           child: Text(labels[index]),

@@ -394,6 +394,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "reader21": "Ali Jaber",
+  "@reader21": {
+    "type": "text",
+    "placeholders": {}
+  },
   "alheekmahlib": "Aklatan ng Karunungan",
   "@alheekmahlib": {
     "type": "text",
@@ -1204,7 +1209,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Idinagdag ang home screen widget para ipakita ang petsang Hijri at ang huling binasa sa Qur'an sa pangunahing screen.\n۞ Mga pagpapabuti sa performance ng app.\n۞ Inayos ang ilang maliliit na bug upang mapabuti ang karanasan ng gumagamit.",
+  "What'sNewDetails10": "۞ Idinagdag ang awtomatikong pag-scroll sa pahina ng Qur'an, para sa komportableng pagbabasa nang hindi na kailangang lumipat ng pahina nang mano-mano.\n۞ Idinagdag ang reciter na si Ali Jaber.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
@@ -1403,5 +1408,14 @@
   "tajweedLoadErrorText": "Hindi ma-load ang data ng mga tuntunin ng tajweed",
   "tajweedNoDataText": "Walang data ng tajweed para sa ayah na ito.",
   "twoDays": "Dalawang araw",
-  "searchInBook": "Maghanap sa aklat"
+  "searchInBook": "Maghanap sa aklat",
+  "autoScrollSettings": "Mga setting ng awtomatikong pag-scroll",
+  "stopCondition": "Huminto sa:",
+  "pageCount": "Bilang ng mga pahina:",
+  "speed": "Bilis:",
+  "slow": "Mabagal",
+  "fast": "Mabilis",
+  "nextHizb": "Susunod na Hizb",
+  "nextJuz": "Susunod na Juz",
+  "manual": "Manwal"
 }
