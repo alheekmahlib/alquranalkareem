@@ -61,21 +61,6 @@ extension QuranUi on QuranController {
     update(['ayahs_menu']);
   }
 
-  void pageChanged(int index) {
-    QuranCtrl.instance.state.currentPageNumber.value = index;
-    // sl<PlayListController>().reset();
-    GeneralController.instance.state.isShowControl.value = false;
-    // AudioCtrl.instance.state.pageAyahNumber = '0';
-
-    SchedulerBinding.instance.scheduleTask(() {
-      state.lastReadSurahNumber.value = getSurahNumberFromPage(index + 1);
-      state._quranRepository.saveLastPage(index);
-      state.box
-        // ..write(MSTART_PAGE, index)
-        ..write(MLAST_URAH, state.lastReadSurahNumber.value);
-    }, Priority.idle);
-  }
-
   void pageModeOnTap(bool value) {
     update();
     Get.back();
@@ -118,6 +103,10 @@ extension QuranUi on QuranController {
   }
 
   void clearSelection() {
+    setTopBarType = TopBarType.none;
+    setNavBarType = NavBarType.none;
+    state.navBarController.close();
+    state.tabBarController.close();
     if (AudioCtrl.instance.state.audioPlayer.playing) {
       showControl();
       // GeneralController.instance.update(['showControl']);

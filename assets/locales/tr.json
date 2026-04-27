@@ -64,7 +64,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "azkar": "Zikirler",
+  "azkar": "Hisnü'l-Müslim",
   "@azkar": {
     "type": "text",
     "placeholders": {}
@@ -1415,5 +1415,9 @@
   "fast": "Hızlı",
   "nextHizb": "Sonraki Hizb",
   "nextJuz": "Sonraki Cüz",
-  "manual": "Manuel"
+  "manual": "Manuel",
+  "tabsira": "Tabsira",
+  "readProgress": "Okuma ilerlemesi",
+  "tableOfContents": "İçindekiler",
+  "downloadError": "İndirme sırasında bir hata oluştu"
 }

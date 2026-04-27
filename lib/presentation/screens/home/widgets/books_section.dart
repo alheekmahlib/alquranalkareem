@@ -66,6 +66,7 @@ class BooksSection extends StatelessWidget {
                 const Gap(16),
                 ButtomWithLine(
                   isRtl: false,
+                  title: 'islamicLibrary',
                   svgPath: SvgPath.svgBooksIslamicLibrary,
                   onTap: () => Get.to(
                     () => BooksScreen(),

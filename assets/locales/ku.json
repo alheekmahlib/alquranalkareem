@@ -64,7 +64,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "azkar": "ئەذکار",
+  "azkar": "حصن المسلم",
   "@azkar": {
     "type": "text",
     "placeholders": {}
@@ -1415,5 +1415,9 @@
   "fast": "خێرا",
   "nextHizb": "حزبێکی دواتر",
   "nextJuz": "جزئی دواتر",
-  "manual": "دەستی"
+  "manual": "دەستی",
+  "tabsira": "تەبسیرە",
+  "readProgress": "پێشکەوتنی خوێندنەوە",
+  "tableOfContents": "پێرست",
+  "downloadError": "هەڵەیەک ڕوویدا لە کاتی داگرتندا"
 }

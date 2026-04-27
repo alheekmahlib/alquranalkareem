@@ -90,6 +90,7 @@ class DailyZeker extends StatelessWidget {
                           ),
                           ButtomWithLine(
                             isRtl: false,
+                            title: 'azkar',
                             svgPath: SvgPath.svgAthkarAthkar,
                             onTap: () => Get.to(
                               () => const AdhkarView(),

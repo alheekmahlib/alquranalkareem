@@ -64,7 +64,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "azkar": "দোয়া",
+  "azkar": "হিছনুল মুসলিম",
   "@azkar": {
     "type": "text",
     "placeholders": {}
@@ -1423,5 +1423,9 @@
   "fast": "দ্রুত",
   "nextHizb": "পরবর্তী হিজব",
   "nextJuz": "পরবর্তী জুজ",
-  "manual": "ম্যানুয়াল"
+  "manual": "ম্যানুয়াল",
+  "tabsira": "তাবসিরা",
+  "readProgress": "পড়ার অগ্রগতি",
+  "tableOfContents": "সূচিপত্র",
+  "downloadError": "ডাউনলোড করার সময় একটি ত্রুটি ঘটেছে"
 }

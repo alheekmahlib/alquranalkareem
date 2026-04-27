@@ -141,6 +141,10 @@ class SvgPath {
   static const String svgBooksAllBooksIcon =
       "assets/svg/books/all_books_icon.svg";
 
+  /// Assets for svgBooksAqeedahIcon
+  /// assets/svg/books/aqeedah_icon.svg
+  static const String svgBooksAqeedahIcon = "assets/svg/books/aqeedah_icon.svg";
+
   /// Assets for svgBooksBackgroundIcon
   /// assets/svg/books/background_icon.svg
   static const String svgBooksBackgroundIcon =

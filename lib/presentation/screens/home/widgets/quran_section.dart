@@ -6,7 +6,6 @@ import 'package:quran_library/quran_library.dart';
 import '/core/utils/constants/svg_constants.dart';
 import '../../../../core/utils/constants/extensions/convert_number_extension.dart';
 import '../../../../core/utils/constants/extensions/svg_extensions.dart';
-import '../../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../../../core/utils/helpers/app_text_styles.dart';
 import '../../../../core/widgets/buttom_with_line.dart';
 import '../../quran_page/quran.dart';
@@ -20,7 +19,7 @@ class QuranSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final lastReadPage = quranCtrl.state.box.read(MSTART_PAGE) ?? 1;
+    final lastReadPage = quranCtrl.state.box.read('last_page') ?? 1;
     final surah = QuranCtrl.instance.getCurrentSurahByPageNumber(lastReadPage);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -85,6 +84,7 @@ class QuranSection extends StatelessWidget {
                           ButtomWithLine(
                             isRtl: true,
                             svgPath: SvgPath.svgHomeQuranLogo,
+                            title: 'quran',
                             onTap: () {
                               Get.to(
                                 () => QuranHome(),
@@ -101,6 +101,7 @@ class QuranSection extends StatelessWidget {
                           const Gap(8),
                           ButtomWithLine(
                             isRtl: false,
+                            title: 'quranAudio',
                             svgPath: SvgPath.svgAudioAudioQuran,
                             onTap: () async {
                               await AudioCtrl.instance.state.audioPlayer.stop();

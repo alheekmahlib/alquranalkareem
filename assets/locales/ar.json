@@ -64,7 +64,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "azkar": "الأذكار",
+  "azkar": "حصن المسلم",
   "@azkar": {
     "type": "text",
     "placeholders": {}
@@ -1416,5 +1416,9 @@
   "fast": "سريع",
   "nextHizb": "الحزب التالي",
   "nextJuz": "الجزء التالي",
-  "manual": "يدوي"
+  "manual": "يدوي",
+  "tabsira": "تبصرة",
+  "readProgress": "التقدم في القراءة",
+  "tableOfContents": "فهرس المحتويات",
+  "downloadError": "حدث خطأ أثناء التحميل"
 }

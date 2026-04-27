@@ -327,6 +327,7 @@ class AudioSurahWithAyahs extends GetView<AudioSurahWithAyahsController> {
       reverseDuration: const Duration(milliseconds: 400),
       curve: Curves.easeInOut,
       child: Container(
+        height: context.customOrientation(250.0, 300.0),
         width: Get.width,
         alignment: Alignment.center,
         padding: const EdgeInsets.all(8.0),
@@ -335,21 +336,23 @@ class AudioSurahWithAyahs extends GetView<AudioSurahWithAyahsController> {
           color: context.theme.colorScheme.primaryContainer,
           borderRadius: const BorderRadius.all(Radius.circular(8)),
         ),
-        child: IgnorePointer(
-          child: GetSingleAyah(
-            surahNumber: surahNum,
-            ayahNumber: ayahNum,
-            textHeight: 2,
-            enableWordSelection: true,
-            isDark: ThemeController.instance.isDarkMode,
-            externalSelectedWordRef: selectedWordRef,
-            textAlign: TextAlign.center,
-            textColor: context.theme.canvasColor,
-            selectedWordColor: context.theme.colorScheme.surface.withValues(
-              alpha: .5,
+        child: SingleChildScrollView(
+          child: IgnorePointer(
+            child: GetSingleAyah(
+              surahNumber: surahNum,
+              ayahNumber: ayahNum,
+              textHeight: 2,
+              enableWordSelection: true,
+              isDark: ThemeController.instance.isDarkMode,
+              externalSelectedWordRef: selectedWordRef,
+              textAlign: TextAlign.center,
+              textColor: context.theme.canvasColor,
+              selectedWordColor: context.theme.colorScheme.surface.withValues(
+                alpha: .5,
+              ),
+              onWordTap: (_) {},
+              enabledTajweed: QuranCtrl.instance.state.isTajweedEnabled.value,
             ),
-            onWordTap: (_) {},
-            enabledTajweed: QuranCtrl.instance.state.isTajweedEnabled.value,
           ),
         ),
       ),

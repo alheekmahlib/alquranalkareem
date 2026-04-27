@@ -39,35 +39,35 @@ class ShareController extends GetxController {
     }
   }
 
-  Future<void> shareButtonOnTap(
-    BuildContext context,
-    int selectedIndex,
-    int verseUQNumber,
-    int surahNumber,
-    int verseNumber,
-    int pageNumber,
-  ) async {
-    sl<TafsirAndTranslateController>().shareTransValue.value == selectedIndex;
-    box.write(SHARE_TRANSLATE_VALUE, selectedIndex);
-    box.write(CURRENT_TRANSLATE, shareTranslateName[selectedIndex]);
-    currentTranslate.value = shareTranslateName[selectedIndex];
-    QuranLibrary().changeTafsirSwitch(selectedIndex, pageNumber: pageNumber);
-    await QuranLibrary().fetchTranslation();
-    sl<TafsirAndTranslateController>().update();
-    Get.back();
-  }
+  // Future<void> shareButtonOnTap(
+  //   BuildContext context,
+  //   int selectedIndex,
+  //   int verseUQNumber,
+  //   int surahNumber,
+  //   int verseNumber,
+  //   int pageNumber,
+  // ) async {
+  //   sl<TafsirAndTranslateController>().shareTransValue.value == selectedIndex;
+  //   box.write(SHARE_TRANSLATE_VALUE, selectedIndex);
+  //   box.write(CURRENT_TRANSLATE, shareTranslateName[selectedIndex]);
+  //   currentTranslate.value = shareTranslateName[selectedIndex];
+  //   QuranLibrary().changeTafsirSwitch(selectedIndex, pageNumber: pageNumber);
+  //   await QuranLibrary().fetchTranslation();
+  //   sl<TafsirAndTranslateController>().update();
+  //   Get.back();
+  // }
 
-  void fetchTafseerSaadi(int surahNum, int ayahNum, int ayahUQNum) {
-    if (isTafseer.value &&
-        sl<TafsirAndTranslateController>().shareTransValue.value == 8) {
-      // sl<TafsirController>().dBName =
-      //     sl<TafsirController>().saadiClient?.database;
-      // sl<TafsirController>().selectedDBName = MufaserName.saadi.name;
-      // sl<TafsirController>()
-      //     .fetchTafsirPage(sl<QuranController>().state.currentPageNumber.value);
-      // sl<TafsirController>().ayahsTafseer(ayahUQNum, surahNum);
-    }
-  }
+  // void fetchTafseerSaadi(int surahNum, int ayahNum, int ayahUQNum) {
+  //   if (isTafseer.value &&
+  //       sl<TafsirAndTranslateController>().shareTransValue.value == 8) {
+  //     // sl<TafsirController>().dBName =
+  //     //     sl<TafsirController>().saadiClient?.database;
+  //     // sl<TafsirController>().selectedDBName = MufaserName.saadi.name;
+  //     // sl<TafsirController>()
+  //     //     .fetchTafsirPage(sl<QuranController>().state.currentPageNumber.value);
+  //     // sl<TafsirController>().ayahsTafseer(ayahUQNum, surahNum);
+  //   }
+  // }
 
   Future<void> shareText(
     String verseText,

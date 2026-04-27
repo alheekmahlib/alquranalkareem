@@ -64,7 +64,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "azkar": "اذکار",
+  "azkar": "حصن المسلم",
   "@azkar": {
     "type": "text",
     "placeholders": {}
@@ -1423,5 +1423,9 @@
   "fast": "تیز",
   "nextHizb": "اگلا حزب",
   "nextJuz": "اگلا جز",
-  "manual": "دستی"
+  "manual": "دستی",
+  "tabsira": "تبصرہ",
+  "readProgress": "پڑھنے کی پیشرفت",
+  "tableOfContents": "فہرست",
+  "downloadError": "ڈاؤن لوڈ کے دوران ایک خرابی آ گئی"
 }

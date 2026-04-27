@@ -179,7 +179,7 @@ class QuranSurahList extends StatelessWidget {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    'pages'.tr + ':',
+                                                    'page'.tr + ':',
                                                     style:
                                                         AppTextStyles.titleSmall(
                                                           color: context

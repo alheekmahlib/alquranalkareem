@@ -40,10 +40,10 @@ class BookDetails extends StatelessWidget {
                     padding: const EdgeInsets.all(16.0),
                     child: Hero(
                       tag: isSixthBooks!
-                          ? 'sixthBookCover-${book.bookName}'
+                          ? 'sixthBookCover-${book.bookNumber}'
                           : isNinthBooks!
-                          ? 'ninthBookCover-${book.bookName}'
-                          : 'bookCover-${book.bookName}',
+                          ? 'ninthBookCover-${book.bookNumber}'
+                          : 'bookCover-${book.bookNumber}',
                       child: BookCoverWidget(isInDetails: true, book: book),
                     ),
                   ),
@@ -150,7 +150,7 @@ class BookDetails extends StatelessWidget {
           SizedBox(
             child: CustomButton(
               onPressed: () async =>
-                  await booksCtrl.downloadBook(book.bookNumber),
+                  await booksCtrl.downloadBook(book.bookNumber, book.bookType),
               height: 40,
               width: Get.width,
               verticalPadding: 0.0,
