@@ -64,7 +64,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "azkar": "Athkar",
+  "azkar": "Hisn Al-Muslim",
   "@azkar": {
     "type": "text",
     "placeholders": {}
@@ -750,7 +750,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "quran": "The Holy Quran",
+  "quran": "Holy Quran",
   "@quran": {
     "type": "text",
     "placeholders": {}
@@ -1372,7 +1372,7 @@
   },
   "manager_ayah_downloads": "Manage Ayah Downloads",
   "load_error": "Failed to load data for this word.",
-  "no_data": "No data available for this word.", 
+  "no_data": "No data available for this word.",
   "recitations": "Recitations",
   "tasreef": "Conjugation",
   "eerab": "I'rab",
@@ -1423,5 +1423,9 @@
   "fast": "Fast",
   "nextHizb": "Next Hizb",
   "nextJuz": "Next Juz",
-  "manual": "Manual"
+  "manual": "Manual",
+  "tabsira": "Tabsira",
+  "readProgress": "Reading progress",
+  "tableOfContents": "Table of Contents",
+  "downloadError": "An error occurred during download"
 }

@@ -64,7 +64,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "azkar": "Mga Dhikr",
+  "azkar": "Hisn al-Muslim",
   "@azkar": {
     "type": "text",
     "placeholders": {}
@@ -1417,5 +1417,9 @@
   "fast": "Mabilis",
   "nextHizb": "Susunod na Hizb",
   "nextJuz": "Susunod na Juz",
-  "manual": "Manwal"
+  "manual": "Manwal",
+  "tabsira": "Tabsira",
+  "readProgress": "Progreso sa pagbabasa",
+  "tableOfContents": "Talaan ng mga Nilalaman",
+  "downloadError": "May naganap na error sa pag-download"
 }

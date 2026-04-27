@@ -8,7 +8,6 @@ import '/core/utils/constants/extensions/bottom_sheet_extension.dart';
 import '/core/utils/constants/svg_constants.dart';
 import '/presentation/screens/home/home_screen.dart';
 import '../../presentation/screens/quran_page/quran.dart';
-import '../services/home_widget_service.dart';
 import '../services/services_locator.dart';
 import '../utils/constants/extensions/extensions.dart';
 import 'container_button.dart';
@@ -126,10 +125,10 @@ class TopBarWidget extends StatelessWidget {
                             child: isHomeChild
                                 ? ContainerButton(
                                     onPressed: () async {
-                                      if (isQuranSetting ?? true) {
-                                        await HomeWidgetService.instance
-                                            .updateReadingProgress();
-                                      }
+                                      // if (isQuranSetting ?? true) {
+                                      //   await HomeWidgetService.instance
+                                      //       .updateReadingProgress();
+                                      // }
                                       if (isBackButton ?? false) {
                                         quranCtrl.setTopBarType =
                                             TopBarType.none;

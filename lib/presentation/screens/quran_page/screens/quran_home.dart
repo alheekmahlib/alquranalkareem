@@ -22,11 +22,11 @@ class QuranHome extends StatelessWidget {
     // }
     return PopScope(
       canPop: true,
-      onPopInvokedWithResult: (bool didPop, _) {
+      onPopInvokedWithResult: (bool didPop, _) async {
         if (didPop) {
           return;
         }
-        HomeWidgetService.instance.updateReadingProgress();
+        // await HomeWidgetService.instance.updateReadingProgress();
         quranCtrl.state.selectedAyahIndexes.clear();
         Get.back();
       },

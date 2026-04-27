@@ -84,7 +84,7 @@ final List screensList = [
     'width': 240.0,
   },
   {
-    'name': 'tafsirLibrary',
+    'name': 'islamicLibrary',
     'svgUrl': 'assets/svg/tafseer_white.svg',
     'imagePath': 'assets/images/tafsir_books.jpg',
     'route': () => BooksScreen(),

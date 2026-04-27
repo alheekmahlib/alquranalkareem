@@ -3,7 +3,7 @@ description: Al-Quran Al-Kareem - Al-Heekmah Library.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 5.1.0+115
+version: 5.1.1+116
 
 environment:
   sdk: '>=3.9.2 <4.0.0'
@@ -65,11 +65,15 @@ dependencies:
   info_popup: ^4.3.2
   intl: ^0.20.2
   lottie: ^3.3.3
+  video_player: ^2.9.2
+  media_kit: ^1.2.6
+  media_kit_video: ^2.0.1
+  media_kit_libs_video: ^1.0.7
   mini_music_visualizer: ^1.1.4
   package_rename: ^1.10.1
   path: ^1.9.1
   path_provider: ^2.1.5
-  quran_library: ^4.0.0
+  quran_library: ^4.0.2
     # git:
     #   ref: main
     #   url: https://github.com/alheekmahlib/quran_library.git
@@ -81,7 +85,7 @@ dependencies:
   share_plus: ^12.0.2
   shimmer: ^3.0.0
   smooth_page_indicator: ^2.0.1
-  smooth_sheets: ^1.0.0
+  smooth_sheets: ^1.0.2
   square_percent_indicater: ^0.1.0
   timezone: ^0.11.0
   url_launcher: ^6.3.2

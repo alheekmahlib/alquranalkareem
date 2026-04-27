@@ -26,6 +26,7 @@ class BooksTabBarWidget extends StatelessWidget {
   final Widget thirdTabChild;
   final Widget fourthTabChild;
   final Widget fifthTabChild;
+  final Widget sixthTabChild;
   final Widget? topChild;
   final double? topPadding;
 
@@ -38,6 +39,7 @@ class BooksTabBarWidget extends StatelessWidget {
     required this.thirdTabChild,
     required this.fourthTabChild,
     required this.fifthTabChild,
+    required this.sixthTabChild,
   });
 
   @override
@@ -50,6 +52,7 @@ class BooksTabBarWidget extends StatelessWidget {
       thirdTabChild,
       fourthTabChild,
       fifthTabChild,
+      sixthTabChild,
     ];
     return SizedBox(
       height: Get.height,
@@ -74,13 +77,28 @@ class BooksTabBarWidget extends StatelessWidget {
               builder: (tabCtrl) => Row(
                 children: [
                   const Gap(8),
-                  customSvgWithCustomColor(
-                    SvgPath.svgBooksIslamicLibrary,
-                    height: 60,
-                    color: context.theme.colorScheme.surface.withValues(
-                      alpha: .7,
-                    ),
-                  ),
+                  Get.locale!.languageCode == 'ar'
+                      ? customSvgWithCustomColor(
+                          SvgPath.svgBooksIslamicLibrary,
+                          height: 60,
+                          color: context.theme.colorScheme.surface.withValues(
+                            alpha: .7,
+                          ),
+                        )
+                      : Center(
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              'islamicLibrary'.tr.replaceAll(' ', '\n'),
+                              style: AppTextStyles.titleMedium(
+                                color: context.theme.colorScheme.surface,
+                                fontSize: 20,
+                                height: 1.4,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
                   const Gap(2),
                   Container(
                     height: 60,
@@ -134,6 +152,14 @@ class BooksTabBarWidget extends StatelessWidget {
                             tabCtrl,
                             context,
                             4,
+                            SvgPath.svgBooksAqeedahIcon,
+                            'aqeedah',
+                          ),
+                          const Gap(8),
+                          buttomBuild(
+                            tabCtrl,
+                            context,
+                            5,
                             SvgPath.svgBooksBookmarks,
                             'bookmarks',
                           ),
@@ -177,11 +203,26 @@ class BooksTabBarWidget extends StatelessWidget {
       iconWidget: Column(
         children: [
           Expanded(
-            child: customSvg(
-              svgPath,
-              // width: 40,
-              // color: context.theme.colorScheme.primary,
-            ),
+            child: Get.locale!.languageCode == 'ar'
+                ? customSvg(
+                    svgPath,
+                    // width: 40,
+                    // color: context.theme.colorScheme.primary,
+                  )
+                : Center(
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        title.tr.replaceAll('Saved', ''),
+                        style: AppTextStyles.titleMedium(
+                          color: context.theme.canvasColor,
+                          fontSize: 20,
+                          height: 1.4,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
           ),
           // const Gap(4),
           // context.hDivider(width: 70, color: context.theme.canvasColor),

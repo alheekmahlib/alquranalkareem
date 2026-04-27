@@ -23,8 +23,19 @@ class EventController extends GetxController with WidgetsBindingObserver {
   Orientation _lastOrientation = Orientation.portrait;
   final tabBarController = FlexibleSheetController();
 
-  String get gregorianMonthFormat =>
-      DateFormat('MMM', Get.locale?.languageCode ?? 'ar').format(now);
+  String? _lastInitializedIntlLocale;
+
+  String get gregorianMonthFormat {
+    final locale = Get.locale?.languageCode ?? 'ar';
+    if (_lastInitializedIntlLocale != locale) {
+      unawaited(_ensureDateFormattingInitialized());
+    }
+    try {
+      return DateFormat('MMM', locale).format(now);
+    } catch (_) {
+      return DateFormat('MMM', 'en').format(now);
+    }
+  }
 
   HijriDate get hijriMin => hijriNow.subtractDays(7);
   HijriDate get hijriMax => hijriNow.addDays(7);
@@ -40,6 +51,9 @@ class EventController extends GetxController with WidgetsBindingObserver {
     controller = SheetController();
     scrollController = SheetScrollController();
     WidgetsBinding.instance.addObserver(this);
+
+    unawaited(_ensureDateFormattingInitialized());
+
     adjustHijriDays.value = box.read('adjustHijriDays') ?? 0;
     selectedDate = HijriDate.now();
     initializeMonths();
@@ -55,6 +69,17 @@ class EventController extends GetxController with WidgetsBindingObserver {
     Future.delayed(const Duration(seconds: 20), () async {
       await ramadhanOrEidGreeting();
     });
+  }
+
+  Future<void> _ensureDateFormattingInitialized() async {
+    final locale = Get.locale?.languageCode ?? 'ar';
+    if (_lastInitializedIntlLocale == locale) return;
+    try {
+      await initializeDateFormatting(locale);
+      _lastInitializedIntlLocale = locale;
+    } catch (_) {
+      // Ignore: we'll fall back to 'en' in formatting.
+    }
   }
 
   void initializeMonths() {

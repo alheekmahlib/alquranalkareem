@@ -31,7 +31,11 @@ class BooksScreen extends StatelessWidget {
                     title: 'tafsir',
                     isTafsirBooks: true,
                   ),
-                  fifthTabChild: BookBookmarksScreen(),
+                  fifthTabChild: AllBooksBuild(
+                    title: 'aqeedah',
+                    isAqeedahBooks: true,
+                  ),
+                  sixthTabChild: BookBookmarksScreen(),
                 ),
               ),
               TopBarWidget(

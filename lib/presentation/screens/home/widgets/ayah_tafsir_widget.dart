@@ -67,15 +67,19 @@ class _AyahTafsirWidgetState extends State<AyahTafsirWidget> {
               ),
               child: Column(
                 children: [
-                  GetSingleAyah(
-                    surahNumber: snapshot.data!.surahNumber!,
-                    ayahNumber: snapshot.data!.ayahNumber,
-                    enableWordSelection: false,
-                    fontSize: 22,
-                    textAlign: TextAlign.center,
-                    enabledTajweed:
-                        QuranCtrl.instance.state.isTajweedEnabled.value,
-                    isDark: themeCtrl.isDarkMode,
+                  IgnorePointer(
+                    child: GetSingleAyah(
+                      surahNumber: snapshot.data!.surahNumber!,
+                      ayahNumber: snapshot.data!.ayahNumber,
+                      enableWordSelection: false,
+                      fontSize: 22,
+                      textAlign: TextAlign.center,
+                      enabledTajweed:
+                          QuranCtrl.instance.state.isTajweedEnabled.value,
+                      isDark: themeCtrl.isDarkMode,
+                      onAyahLongPress: null,
+                      onWordTap: null,
+                    ),
                   ),
                   Row(
                     children: [

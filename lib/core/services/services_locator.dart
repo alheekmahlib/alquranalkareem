@@ -43,13 +43,6 @@ class ServicesLocator {
       Get.put<QuranController>(QuranController(), permanent: true),
     );
 
-    sl.registerLazySingleton<TafsirAndTranslateController>(
-      () => Get.put<TafsirAndTranslateController>(
-        TafsirAndTranslateController(),
-        permanent: true,
-      ),
-    );
-
     sl.registerLazySingleton<BookmarksController>(
       () =>
           Get.put<BookmarksController>(BookmarksController(), permanent: true),

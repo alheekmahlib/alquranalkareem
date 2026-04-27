@@ -12,7 +12,7 @@ class ApiConstants {
   // ملاحظة: للوصول المباشر للملفات الخام في GitHub نستخدم raw.githubusercontent.com لتفادي صفحات HTML البطيئة.
   static const baseUrl = "https://raw.githubusercontent.com/";
   static const String notificationsUrl =
-      'alheekmahlib/thegarlanded/master/noti.json';
+      'alheekmahlib/data/main/notifications.json';
   static const String ourAppsUrl =
       'alheekmahlib/thegarlanded/master/ourApps.json';
   static const String appUrl =
@@ -21,4 +21,10 @@ class ApiConstants {
       'https://alheekmahlib.github.io/alheekmahlib/#/download/';
   static const String quranShareUrl =
       'https://alheekmahlib.github.io/alheekmahlib/#/quran?page=';
+  static const String tafsirUrl =
+      'https://github.com/alheekmahlib/Islamic_database/releases/download/tafsir_books';
+  static const String hadithsUrl =
+      'https://github.com/alheekmahlib/Islamic_database/releases/download/hadith_books';
+  static const String aqeedahUrl =
+      'https://github.com/alheekmahlib/Islamic_database/releases/download/aqeedah_books';
 }

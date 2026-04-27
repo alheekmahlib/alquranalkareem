@@ -77,63 +77,68 @@ class BooksLastRead extends StatelessWidget {
                             return Stack(
                               alignment: Alignment.topLeft,
                               children: [
-                                GestureDetector(
-                                  onTap: () async {
-                                    await bookCtrl.moveToBookPageByNumber(
-                                      currentPage - 1,
-                                      book.bookNumber,
-                                    );
-                                  },
-                                  child: Container(
-                                    margin: const EdgeInsets.symmetric(
-                                      horizontal: 8.0,
-                                    ),
-                                    width: 70,
-                                    decoration: BoxDecoration(
-                                      color: context.theme.primaryColorLight
-                                          .withValues(alpha: .1),
-                                      borderRadius: const BorderRadius.all(
-                                        Radius.circular(8.0),
+                                ClipRRect(
+                                  clipBehavior: Clip.hardEdge,
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(8.0),
+                                  ),
+                                  child: GestureDetector(
+                                    onTap: () async {
+                                      await bookCtrl.moveToBookPageByNumber(
+                                        currentPage - 1,
+                                        book.bookNumber,
+                                      );
+                                    },
+                                    child: Container(
+                                      margin: const EdgeInsets.symmetric(
+                                        horizontal: 8.0,
                                       ),
-                                    ),
-                                    child: Stack(
-                                      alignment: Alignment.center,
-                                      children: [
-                                        Text(
-                                          _getBookNameBeforeSymbol(
-                                            book.bookName,
-                                          ),
-                                          style: AppTextStyles.titleSmall(),
-                                          textAlign: TextAlign.center,
-                                          textDirection: TextDirection.rtl,
+                                      width: 70,
+                                      decoration: BoxDecoration(
+                                        color: context.theme.primaryColorLight
+                                            .withValues(alpha: .1),
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(8.0),
                                         ),
-                                        Align(
-                                          alignment: Alignment.bottomCenter,
-                                          child: LinearProgressIndicator(
-                                            minHeight: 10,
-                                            value: progress,
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                                  bottomLeft: Radius.circular(
-                                                    8,
-                                                  ),
-                                                  bottomRight: Radius.circular(
-                                                    8,
-                                                  ),
-                                                ),
-                                            backgroundColor: context
-                                                .theme
-                                                .colorScheme
-                                                .primary
-                                                .withValues(alpha: .15),
-                                            color: context
-                                                .theme
-                                                .colorScheme
-                                                .surface
-                                                .withValues(alpha: .5),
+                                      ),
+                                      child: Stack(
+                                        alignment: Alignment.center,
+                                        children: [
+                                          Text(
+                                            _getBookNameBeforeSymbol(
+                                              book.bookName,
+                                            ),
+                                            style: AppTextStyles.titleSmall(),
+                                            textAlign: TextAlign.center,
+                                            textDirection: TextDirection.rtl,
                                           ),
-                                        ),
-                                      ],
+                                          Align(
+                                            alignment: Alignment.bottomCenter,
+                                            child: LinearProgressIndicator(
+                                              minHeight: 10,
+                                              value: progress,
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                    bottomLeft: Radius.circular(
+                                                      8,
+                                                    ),
+                                                    bottomRight:
+                                                        Radius.circular(8),
+                                                  ),
+                                              backgroundColor: context
+                                                  .theme
+                                                  .colorScheme
+                                                  .primary
+                                                  .withValues(alpha: .15),
+                                              color: context
+                                                  .theme
+                                                  .colorScheme
+                                                  .surface
+                                                  .withValues(alpha: .5),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),

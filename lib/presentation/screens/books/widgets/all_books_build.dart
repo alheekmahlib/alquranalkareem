@@ -4,6 +4,7 @@ class AllBooksBuild extends StatelessWidget {
   final bool? isDownloadedBooks;
   final bool? isHadithsBooks;
   final bool? isTafsirBooks;
+  final bool? isAqeedahBooks;
   final String title;
   AllBooksBuild({
     super.key,
@@ -11,6 +12,7 @@ class AllBooksBuild extends StatelessWidget {
     required this.title,
     this.isHadithsBooks = false,
     this.isTafsirBooks = false,
+    this.isAqeedahBooks = false,
   });
 
   final booksCtrl = BooksController.instance;
@@ -40,6 +42,7 @@ class AllBooksBuild extends StatelessWidget {
             isDownloadedBooks: isDownloadedBooks!,
             isHadithsBooks: isHadithsBooks!,
             isTafsirBooks: isTafsirBooks!,
+            isAqeedahBooks: isAqeedahBooks!,
             title: title,
           );
 
@@ -235,8 +238,8 @@ class AllBooksBuild extends StatelessWidget {
             final book = priorityBooks[index];
             return Hero(
               tag: isSixthBooks
-                  ? 'sixthBookCover-${book.bookName}'
-                  : 'ninthBookCover-${book.bookName}',
+                  ? 'sixthBookCover-${book.bookNumber}'
+                  : 'ninthBookCover-${book.bookNumber}',
               child: BookCoverWidget(
                 book: book,
                 bookNumber: book.bookNumber,
@@ -275,7 +278,7 @@ class AllBooksBuild extends StatelessWidget {
       children: List.generate(regularBooks.length, (index) {
         final book = regularBooks[index];
         return Hero(
-          tag: 'bookCover-${book.bookName}',
+          tag: 'bookCover-${book.bookNumber}',
           child: BookCoverWidget(book: book, bookNumber: book.bookNumber),
         );
       }),

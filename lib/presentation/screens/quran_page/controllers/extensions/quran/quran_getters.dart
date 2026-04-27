@@ -131,21 +131,7 @@ extension QuranGetters on QuranController {
 
   Color get backgroundColor => state.backgroundPickerColor.value == 0xfffaf7f3
       ? Get.theme.colorScheme.surfaceContainer
-      : ThemeController.instance.isDarkMode
-      ? Get.theme.colorScheme.surfaceContainer
       : Color(state.backgroundPickerColor.value);
-
-  String get surahBannerPath {
-    if (themeCtrl.isBlueMode) {
-      return SvgPath.svgSurahBanner1;
-    } else if (themeCtrl.isBrownMode) {
-      return SvgPath.svgSurahBanner2;
-    } else if (themeCtrl.isGreenMode) {
-      return SvgPath.svgSurahBanner4;
-    } else {
-      return SvgPath.svgSurahBanner3;
-    }
-  }
 
   WordInfoBottomSheetStyle get wordInfoStyle =>
       WordInfoBottomSheetStyle.defaults(

@@ -64,7 +64,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "azkar": "Athkar",
+  "azkar": "Hisnul Muslim",
   "@azkar": {
     "type": "text",
     "placeholders": {}
@@ -1395,5 +1395,9 @@
   "fast": "Degdeg",
   "nextHizb": "Xizbka xiga",
   "nextJuz": "Juzka xiga",
-  "manual": "Gacanta"
+  "manual": "Gacanta",
+  "tabsira": "Tabsira",
+  "readProgress": "Horumarka akhriska",
+  "tableOfContents": "Tusmada",
+  "downloadError": "Qalad ayaa dhacay inta lagu guda jiray soo dejinta"
 }

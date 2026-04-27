@@ -64,7 +64,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "azkar": "Athkar",
+  "azkar": "Hisn al-Muslim",
   "@azkar": {
     "type": "text",
     "placeholders": {}
@@ -1423,5 +1423,9 @@
   "fast": "Rápido",
   "nextHizb": "Siguiente hizb",
   "nextJuz": "Siguiente juz",
-  "manual": "Manual"
+  "manual": "Manual",
+  "tabsira": "Tabsira",
+  "readProgress": "Progreso de lectura",
+  "tableOfContents": "Tabla de contenido",
+  "downloadError": "Ocurrió un error durante la descarga"
 }

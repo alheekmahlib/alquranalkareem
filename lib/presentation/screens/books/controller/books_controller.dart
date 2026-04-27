@@ -66,7 +66,7 @@ class BooksController extends GetxController {
 
   // ============ Download Management ============
 
-  Future<void> downloadBook(int bookNumber) async {
+  Future<void> downloadBook(int bookNumber, String bookType) async {
     if (!InternetConnectionController.instance.isConnected) {
       return Get.context!.showCustomErrorSnackBar(
         'noInternet'.tr,
@@ -78,7 +78,7 @@ class BooksController extends GetxController {
       _setDownloadState(bookNumber, downloading: true, progress: 0.0);
 
       final result = await ApiClient().downloadFile(
-        url: _getBookDownloadUrl(bookNumber),
+        url: _getBookDownloadUrl(bookNumber, bookType),
         onProgress: (received, total) {
           state.downloadProgress[bookNumber] = (received / total * 100).clamp(
             0.0,
@@ -126,8 +126,19 @@ class BooksController extends GetxController {
     state.downloadProgress[bookNumber] = progress;
   }
 
-  String _getBookDownloadUrl(int bookNumber) =>
-      'https://raw.githubusercontent.com/alheekmahlib/zad_library/main/${bookNumber.toString().padLeft(3, '0')}.json';
+  String _getBookDownloadUrl(int bookNumber, String bookType) {
+    String baseUrl;
+    if (bookType == 'tafsir') {
+      baseUrl = ApiConstants.tafsirUrl;
+    } else if (bookType == 'hadiths') {
+      baseUrl = ApiConstants.hadithsUrl;
+    } else if (bookType == 'aqeedah') {
+      baseUrl = ApiConstants.aqeedahUrl;
+    } else {
+      baseUrl = ApiConstants.tafsirUrl;
+    }
+    return '$baseUrl/${bookNumber.toString().padLeft(3, '0')}.json';
+  }
 
   Future<void> _saveBookToFile(int bookNumber, dynamic data) async {
     final file = File('${state.dir.path}/$bookNumber.json');
@@ -423,6 +434,7 @@ class BooksController extends GetxController {
     bool isDownloadedBooks = false,
     bool isHadithsBooks = false,
     bool isTafsirBooks = false,
+    bool isAqeedahBooks = false,
     String title = '',
   }) {
     var filtered = _filterByCategory(
@@ -430,6 +442,7 @@ class BooksController extends GetxController {
       isDownloadedBooks: isDownloadedBooks,
       isHadithsBooks: isHadithsBooks,
       isTafsirBooks: isTafsirBooks,
+      isAqeedahBooks: isAqeedahBooks,
       title: title,
     );
 
@@ -447,6 +460,7 @@ class BooksController extends GetxController {
     required bool isDownloadedBooks,
     required bool isHadithsBooks,
     required bool isTafsirBooks,
+    required bool isAqeedahBooks,
     required String title,
   }) {
     if (isDownloadedBooks) {
@@ -454,7 +468,7 @@ class BooksController extends GetxController {
           .where((b) => state.downloaded[b.bookNumber] == true)
           .toList();
     }
-    if (isHadithsBooks || isTafsirBooks) {
+    if (isHadithsBooks || isTafsirBooks || isAqeedahBooks) {
       return books.where((b) => b.bookType == title).toList();
     }
     return books;

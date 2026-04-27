@@ -64,7 +64,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "azkar": "Dzikir",
+  "azkar": "Dzikir Hisnul Muslim",
   "@azkar": {
     "type": "text",
     "placeholders": {}
@@ -1417,5 +1417,9 @@
   "fast": "Cepat",
   "nextHizb": "Hizb berikutnya",
   "nextJuz": "Juz berikutnya",
-  "manual": "Manual"
+  "manual": "Manual",
+  "tabsira": "Tabsira",
+  "readProgress": "Kemajuan membaca",
+  "tableOfContents": "Daftar Isi",
+  "downloadError": "Terjadi kesalahan saat mengunduh"
 }
