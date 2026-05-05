@@ -21,6 +21,10 @@ class NavBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onVerticalDragUpdate: (details) {
+        if (quranCtrl.state.tabBarController.isOpen) {
+          quranCtrl.state.isPlayExpanded.value = false;
+          return;
+        }
         if (details.primaryDelta != null && handleChild == null) {
           if (details.primaryDelta! < -8 &&
               quranCtrl.getNavBarType(NavBarType.none).value) {

@@ -15,6 +15,12 @@ class ApiConstants {
       'alheekmahlib/data/main/notifications.json';
   static const String ourAppsUrl =
       'alheekmahlib/thegarlanded/master/ourApps.json';
+
+  // GitLab fallback URLs
+  static const String notificationsGitLabUrl =
+      'https://gitlab.com/haozo89/data/-/raw/main/noti.json?ref_type=heads';
+  static const String ourAppsGitLabUrl =
+      'https://gitlab.com/haozo89/data/-/raw/main/ourApps.json?ref_type=heads';
   static const String appUrl =
       'https://alheekmahlib.github.io/alheekmahlib/#/download/quran';
   static const String downloadAppsUrl =
@@ -27,4 +33,13 @@ class ApiConstants {
       'https://github.com/alheekmahlib/Islamic_database/releases/download/hadith_books';
   static const String aqeedahUrl =
       'https://github.com/alheekmahlib/Islamic_database/releases/download/aqeedah_books';
+
+  // GitLab fallback URLs - used when GitHub is blocked
+  static const String _gitlabProjectId = 'haozo89%2Fislamic_database';
+  static const String tafsirGitLabUrl =
+      'https://gitlab.com/api/v4/projects/$_gitlabProjectId/packages/generic/tafsir_books/1.0.0';
+  static const String hadithsGitLabUrl =
+      'https://gitlab.com/api/v4/projects/$_gitlabProjectId/packages/generic/hadiths_books/1.0.0';
+  static const String aqeedahGitLabUrl =
+      'https://gitlab.com/api/v4/projects/$_gitlabProjectId/packages/generic/aqeedah_books/1.0.0';
 }

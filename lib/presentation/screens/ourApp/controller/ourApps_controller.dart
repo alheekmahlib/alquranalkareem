@@ -32,6 +32,7 @@ class OurAppsController extends GetxController {
         final result = await apiClient.request(
           endpoint: ApiConstants.ourAppsUrl,
           method: HttpMethod.get,
+          fallbackUrl: ApiConstants.ourAppsGitLabUrl,
         );
 
         return result.fold(

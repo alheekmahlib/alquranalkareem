@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flexible_sheet/flexible_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -66,7 +64,13 @@ class TopBarWidget extends StatelessWidget {
           direction: SheetDirection.topToBottom,
           snapBehavior: SheetSnapBehavior.snapToEdge,
           controller: tabBarController,
-          onStateChanged: (state) => log('isOpen: $state'),
+          onStateChanged: (state) {
+            if (!tabBarController.isOpen) {
+              quranCtrl.state.topBarType.value = TopBarType.none.name;
+            } else {
+              quranCtrl.state.isPlayExpanded.value = false;
+            }
+          },
           handleBuilder: (currentHeight) {
             final isExpanded = currentHeight >= 155;
             return Column(
