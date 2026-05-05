@@ -1421,5 +1421,8 @@
   "readProgress": "التقدم في القراءة",
   "tableOfContents": "فهرس المحتويات",
   "downloadError": "حدث خطأ أثناء التحميل",
-  "aqeedah": "العقيدة"
+  "aqeedah": "العقيدة",
+  "teacherMode": "وضع المعلم",
+  "delayBetween": "الفاصل الزمني",
+  "ayahRange": "نطاق الآيات"
 }

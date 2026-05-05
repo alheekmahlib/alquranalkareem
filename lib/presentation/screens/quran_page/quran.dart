@@ -34,6 +34,9 @@ import 'package:intl/intl.dart' as intl;
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:quran_library/quran_library.dart';
+
+import 'controllers/teacher_controller.dart';
+import 'widgets/teacher/teacher_audio_widget.dart';
 import 'package:rate_my_app/rate_my_app.dart';
 import 'package:rxdart/rxdart.dart' as R;
 import 'package:screenshot/screenshot.dart';

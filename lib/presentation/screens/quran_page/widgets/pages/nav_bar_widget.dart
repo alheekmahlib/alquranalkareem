@@ -183,7 +183,9 @@ class NavBarWidget extends StatelessWidget {
                                                       .state
                                                       .showAudioWidgetTemporarily
                                                       .value
-                                              ? AudioWidget()
+                                              ? Obx(() => TeacherController.instance.isTeacherModeEnabled.value
+                                                  ? TeacherAudioWidget()
+                                                  : AudioWidget())
                                               : const SizedBox.shrink(),
                                         ),
                                       ),

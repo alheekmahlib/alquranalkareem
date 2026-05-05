@@ -1428,5 +1428,8 @@
   "readProgress": "Reading progress",
   "tableOfContents": "Table of Contents",
   "downloadError": "An error occurred during download",
-  "aqeedah": "Aqeedah"
+  "aqeedah": "Aqeedah",
+  "teacherMode": "Teacher Mode",
+  "delayBetween": "Delay Between",
+  "ayahRange": "Ayah Range"
 }

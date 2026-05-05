@@ -12,6 +12,7 @@ import '/presentation/controllers/settings_controller.dart';
 import '/presentation/controllers/theme_controller.dart';
 import '/presentation/screens/adhkar/controller/adhkar_controller.dart';
 import '/presentation/screens/ourApp/controller/ourApps_controller.dart';
+import '/presentation/screens/quran_page/controllers/teacher_controller.dart';
 import '/presentation/screens/quran_page/quran.dart';
 import '/presentation/screens/quran_page/widgets/search/controller/quran_search_controller.dart';
 import '/presentation/screens/splash/splash.dart';
@@ -112,6 +113,15 @@ class ServicesLocator {
         permanent: true,
       ),
     );
+
+    Get.put<TeacherController>(TeacherController(), permanent: true);
+
+    // Wire up TeacherController with app-level data
+    Get.find<TeacherController>().getAllAyahs =
+        () => sl<QuranController>().state.allAyahs;
+    Get.find<TeacherController>().onWordChanged = (ref) {
+      sl<QuranController>().state.ref.value = ref;
+    };
 
     // sl.registerLazySingleton<TafsirCtrl>(
     //     () => Get.put<TafsirCtrl>(TafsirCtrl(), permanent: true));

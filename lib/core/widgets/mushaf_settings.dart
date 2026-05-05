@@ -9,6 +9,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:quran_library/quran_library.dart';
 
+import '../../presentation/screens/quran_page/controllers/teacher_controller.dart';
 import '../../presentation/screens/quran_page/quran.dart';
 import '../utils/constants/extensions/alignment_rotated_extension.dart';
 import '../utils/constants/shared_preferences_constants.dart';
@@ -69,6 +70,8 @@ class MushafSettings extends StatelessWidget {
                 const Gap(8),
                 _changeBackgroundColor(context),
                 const Gap(8),
+                _teacherModeToggle(context),
+                const Gap(8),
                 const AutoScrollSettings(),
               ],
             ),
@@ -122,6 +125,19 @@ class MushafSettings extends StatelessWidget {
         quranCtrl.state.box.write('isTajweed', quran.isTajweedEnabled.value);
         Get.forceAppUpdate();
       },
+    );
+  }
+
+  Widget _teacherModeToggle(BuildContext context) {
+    final teacherCtrl = TeacherController.instance;
+    return Obx(
+      () => CustomSwitchListTile(
+        title: 'teacherMode'.tr,
+        value: teacherCtrl.isTeacherModeEnabled.value,
+        onChanged: (_) {
+          teacherCtrl.toggleTeacherMode();
+        },
+      ),
     );
   }
 
