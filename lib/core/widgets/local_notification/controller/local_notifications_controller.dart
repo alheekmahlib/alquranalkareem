@@ -36,6 +36,7 @@ class LocalNotificationsController extends GetxController {
       final response = await ApiClient().request(
         endpoint: ApiConstants.notificationsUrl,
         method: HttpMethod.get,
+        fallbackUrl: ApiConstants.notificationsGitLabUrl,
       );
 
       if (response.isRight) {

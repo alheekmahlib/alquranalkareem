@@ -79,6 +79,7 @@ class BooksController extends GetxController {
 
       final result = await ApiClient().downloadFile(
         url: _getBookDownloadUrl(bookNumber, bookType),
+        fallbackUrl: _getBookDownloadUrl(bookNumber, bookType, useGitLab: true),
         onProgress: (received, total) {
           state.downloadProgress[bookNumber] = (received / total * 100).clamp(
             0.0,
@@ -126,16 +127,28 @@ class BooksController extends GetxController {
     state.downloadProgress[bookNumber] = progress;
   }
 
-  String _getBookDownloadUrl(int bookNumber, String bookType) {
+  String _getBookDownloadUrl(
+    int bookNumber,
+    String bookType, {
+    bool useGitLab = false,
+  }) {
     String baseUrl;
     if (bookType == 'tafsir') {
-      baseUrl = ApiConstants.tafsirUrl;
+      baseUrl = useGitLab
+          ? ApiConstants.tafsirGitLabUrl
+          : ApiConstants.tafsirUrl;
     } else if (bookType == 'hadiths') {
-      baseUrl = ApiConstants.hadithsUrl;
+      baseUrl = useGitLab
+          ? ApiConstants.hadithsGitLabUrl
+          : ApiConstants.hadithsUrl;
     } else if (bookType == 'aqeedah') {
-      baseUrl = ApiConstants.aqeedahUrl;
+      baseUrl = useGitLab
+          ? ApiConstants.aqeedahGitLabUrl
+          : ApiConstants.aqeedahUrl;
     } else {
-      baseUrl = ApiConstants.tafsirUrl;
+      baseUrl = useGitLab
+          ? ApiConstants.tafsirGitLabUrl
+          : ApiConstants.tafsirUrl;
     }
     return '$baseUrl/${bookNumber.toString().padLeft(3, '0')}.json';
   }
