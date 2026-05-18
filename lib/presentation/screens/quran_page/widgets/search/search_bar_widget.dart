@@ -3,6 +3,7 @@ part of '../../quran.dart';
 class TextFieldBarWidget extends StatelessWidget {
   final TextEditingController? controller;
   final String? hintText;
+  final Color? hintTextColor;
   final Widget? prefixIcon;
   final void Function()? onPressed;
   final void Function()? onButtonPressed;
@@ -13,6 +14,7 @@ class TextFieldBarWidget extends StatelessWidget {
     super.key,
     this.controller,
     this.hintText,
+    this.hintTextColor,
     this.prefixIcon,
     this.onPressed,
     this.onChanged,
@@ -61,7 +63,9 @@ class TextFieldBarWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(8.0),
             ),
             hintStyle: AppTextStyles.titleSmall(
-              color: context.theme.colorScheme.surface.withValues(alpha: .3),
+              color:
+                  hintTextColor ??
+                  context.theme.colorScheme.surface.withValues(alpha: .3),
             ),
             filled: true,
             fillColor: context.theme.primaryColorDark.withValues(alpha: 0.3),

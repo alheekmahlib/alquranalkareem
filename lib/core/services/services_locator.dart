@@ -16,6 +16,7 @@ import '/presentation/screens/quran_page/quran.dart';
 import '/presentation/screens/quran_page/widgets/search/controller/quran_search_controller.dart';
 import '/presentation/screens/splash/splash.dart';
 import '/presentation/screens/whats_new/whats_new.dart';
+import '../../presentation/screens/ai_search/ai_search.dart';
 import '../../presentation/screens/books/books.dart';
 import '../utils/helpers/ui_helper.dart';
 import '../widgets/local_notification/controller/local_notifications_controller.dart';
@@ -144,6 +145,9 @@ class ServicesLocator {
 
     // Workmanager().initialize(sl<NotificationController>().callbackDispatcher);
     // sl<NotificationController>().registerBackgroundTask();
+
+    // AI Search Controller
+    Get.put<AiSearchController>(AiSearchController(), permanent: true);
 
     try {
       final TimezoneInfo timezone = await FlutterTimezone.getLocalTimezone();

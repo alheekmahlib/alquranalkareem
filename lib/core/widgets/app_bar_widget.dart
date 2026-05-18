@@ -20,6 +20,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final Widget? centerChild;
   final bool? centerTitle;
   final bool? backButton;
+  final Color? arrowBackColor;
 
   const AppBarWidget({
     super.key,
@@ -34,6 +35,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
     this.centerChild,
     this.centerTitle = true,
     this.backButton = true,
+    this.arrowBackColor,
   });
 
   @override
@@ -69,7 +71,8 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
                     height: 30,
                     width: 30,
                     SvgPath.svgHomeArrowBack,
-                    color: Theme.of(context).primaryColorLight,
+                    color:
+                        arrowBackColor ?? Theme.of(context).primaryColorLight,
                   ),
                 ),
               ),

@@ -16,27 +16,13 @@ class BooksScreen extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.only(top: 90.0),
-                child: BooksTabBarWidget(
-                  topPadding: 120.0,
-                  firstTabChild: AllBooksBuild(title: 'allBooks'),
-                  secondTabChild: AllBooksBuild(
-                    title: 'myLibrary',
-                    isDownloadedBooks: true,
-                  ),
-                  thirdTabChild: AllBooksBuild(
-                    title: 'hadiths',
-                    isHadithsBooks: true,
-                  ),
-                  fourthTabChild: AllBooksBuild(
-                    title: 'tafsir',
-                    isTafsirBooks: true,
-                  ),
-                  fifthTabChild: AllBooksBuild(
-                    title: 'aqeedah',
-                    isAqeedahBooks: true,
-                  ),
-                  sixthTabChild: BookBookmarksScreen(),
-                ),
+                child: Obx(() {
+                  final tabs = buildBooksTabs(booksCtrl.state.bookTypes);
+                  return BooksTabBarWidget(
+                    topPadding: 120.0,
+                    tabs: tabs,
+                  );
+                }),
               ),
               TopBarWidget(
                 isHomeChild: true,

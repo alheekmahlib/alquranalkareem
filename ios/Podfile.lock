@@ -19,6 +19,9 @@ PODS:
   - Flutter (1.0.0)
   - flutter_native_splash (2.4.3):
     - Flutter
+  - flutter_onnxruntime (0.0.1):
+    - Flutter
+    - onnxruntime-objc (= 1.22.0)
   - flutter_timezone (0.0.1):
     - Flutter
   - home_widget (0.0.1):
@@ -31,6 +34,11 @@ PODS:
     - Flutter
   - media_kit_video (0.0.1):
     - Flutter
+  - onnxruntime-c (1.22.0)
+  - onnxruntime-objc (1.22.0):
+    - onnxruntime-objc/Core (= 1.22.0)
+  - onnxruntime-objc/Core (1.22.0):
+    - onnxruntime-c (= 1.22.0)
   - package_info_plus (0.4.5):
     - Flutter
   - rate_my_app (2.3.2):
@@ -63,6 +71,7 @@ DEPENDENCIES:
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
   - Flutter (from `Flutter`)
   - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
+  - flutter_onnxruntime (from `.symlinks/plugins/flutter_onnxruntime/ios`)
   - flutter_timezone (from `.symlinks/plugins/flutter_timezone/ios`)
   - home_widget (from `.symlinks/plugins/home_widget/ios`)
   - just_audio (from `.symlinks/plugins/just_audio/darwin`)
@@ -80,6 +89,8 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - IosAwnCore
+    - onnxruntime-c
+    - onnxruntime-objc
     - TSBackgroundFetch
 
 EXTERNAL SOURCES:
@@ -101,6 +112,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_native_splash:
     :path: ".symlinks/plugins/flutter_native_splash/ios"
+  flutter_onnxruntime:
+    :path: ".symlinks/plugins/flutter_onnxruntime/ios"
   flutter_timezone:
     :path: ".symlinks/plugins/flutter_timezone/ios"
   home_widget:
@@ -138,12 +151,15 @@ SPEC CHECKSUMS:
   device_info_plus: 21fcca2080fbcd348be798aa36c3e5ed849eefbe
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   flutter_native_splash: c32d145d68aeda5502d5f543ee38c192065986cf
+  flutter_onnxruntime: 515c2ab17b67fb027964ebbf2d02329771a482de
   flutter_timezone: 7c838e17ffd4645d261e87037e5bebf6d38fe544
   home_widget: 54b4f6b36ed8d64cfee594a476225c35c3e45091
   IosAwnCore: 653786a911089012092ce831f2945cd339855a89
   just_audio: 4e391f57b79cad2b0674030a00453ca5ce817eed
   media_kit_libs_ios_video: 5a18affdb97d1f5d466dc79988b13eff6c5e2854
   media_kit_video: 1746e198cb697d1ffb734b1d05ec429d1fcd1474
+  onnxruntime-c: 7f778680e96145956c0a31945f260321eed2611a
+  onnxruntime-objc: 83d28b87525bd971259a66e153ea32b5d023de19
   package_info_plus: af8e2ca6888548050f16fa2f1938db7b5a5df499
   rate_my_app: cbb89973f870601f80f7bad63aba107260cabc5b
   share_plus: 50da8cb520a8f0f65671c6c6a99b3617ed10a58a
@@ -154,6 +170,6 @@ SPEC CHECKSUMS:
   video_player_avfoundation: dd410b52df6d2466a42d28550e33e4146928280a
   wakelock_plus: e29112ab3ef0b318e58cfa5c32326458be66b556
 
-PODFILE CHECKSUM: d4c1a5030a8cbce3d2276496379558613c182943
+PODFILE CHECKSUM: a9348837c27459700d185009b79db4f67a54944e
 
 COCOAPODS: 1.16.2

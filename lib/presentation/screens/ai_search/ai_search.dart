@@ -1,0 +1,44 @@
+import 'dart:convert';
+import 'dart:developer';
+import 'dart:io';
+import 'dart:math' show max, pow, sqrt;
+import 'dart:typed_data';
+
+import 'package:alquranalkareem/core/utils/constants/svg_constants.dart';
+import 'package:alquranalkareem/core/widgets/app_bar_widget.dart';
+import 'package:alquranalkareem/core/widgets/custom_button.dart';
+import 'package:archive/archive.dart';
+import 'package:dio/dio.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:floating_menu_expendable/floating.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_onnxruntime/flutter_onnxruntime.dart';
+import 'package:flutter_rounded_progress_bar/flutter_rounded_progress_bar.dart';
+import 'package:flutter_rounded_progress_bar/rounded_progress_bar_style.dart';
+import 'package:flutter_streaming_text_markdown/flutter_streaming_text_markdown.dart';
+import 'package:gap/gap.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:path_provider/path_provider.dart';
+
+import '../../../../core/utils/helpers/app_text_styles.dart';
+import '../../../core/utils/constants/extensions/convert_number_extension.dart';
+import '../../../core/utils/constants/extensions/svg_extensions.dart';
+import '../../../core/utils/constants/lottie.dart';
+import '../../../core/utils/constants/lottie_constants.dart';
+import '../../../core/widgets/container_button.dart';
+import '../books/books.dart';
+import '../quran_page/quran.dart';
+
+part 'controller/ai_search_controller.dart';
+part 'controller/ai_search_state.dart';
+part 'services/bm25_service.dart';
+part 'services/embedding_service.dart';
+part 'services/model_download_service.dart';
+part 'services/search_section.dart';
+part 'services/vector_search_service.dart';
+part 'widgets/ai_search_results.dart';
+part 'widgets/category_section.dart';
+part 'widgets/section_download_card.dart';
+part 'widgets/streaming_result_card.dart';
+part 'widgets/section_filter_widget.dart';

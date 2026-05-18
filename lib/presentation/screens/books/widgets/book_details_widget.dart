@@ -90,7 +90,7 @@ class BookDetails extends StatelessWidget {
                                   context.theme.colorScheme.secondaryContainer,
                             ),
                           )
-                        : _notDownloadedBookWidget(context),
+                        : BookNotDownloaded(booksCtrl: booksCtrl, book: book),
                   ),
                   const Gap(8.0),
                 ],
@@ -140,8 +140,20 @@ class BookDetails extends StatelessWidget {
       ],
     );
   }
+}
 
-  Widget _notDownloadedBookWidget(BuildContext context) {
+class BookNotDownloaded extends StatelessWidget {
+  const BookNotDownloaded({
+    super.key,
+    required this.booksCtrl,
+    required this.book,
+  });
+
+  final BooksController booksCtrl;
+  final Book book;
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Stack(

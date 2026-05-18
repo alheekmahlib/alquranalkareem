@@ -298,10 +298,18 @@ class SvgPath {
   /// assets/svg/home/home.svg
   static const String svgHomeHome = "assets/svg/home/home.svg";
 
+  /// Assets for svgHomeMidadIcon
+  /// assets/svg/home/midad_icon.svg
+  static const String svgHomeMidadIcon = "assets/svg/home/midad_icon.svg";
+
   /// Assets for svgHomeNotifications
   /// assets/svg/home/notifications.svg
   static const String svgHomeNotifications =
       "assets/svg/home/notifications.svg";
+
+  /// Assets for svgHomeQuranAi
+  /// assets/svg/home/quran_ai.svg
+  static const String svgHomeQuranAi = "assets/svg/home/quran_ai.svg";
 
   /// Assets for svgHomeQuranLogo
   /// assets/svg/home/quran_logo.svg

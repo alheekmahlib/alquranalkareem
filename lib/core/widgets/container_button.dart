@@ -80,6 +80,7 @@ class ContainerButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onPressed,
+      borderRadius: BorderRadius.circular(borderRadius ?? 8),
       child: IntrinsicHeight(
         child: AnimatedSize(
           alignment: AlignmentDirectional.centerStart,

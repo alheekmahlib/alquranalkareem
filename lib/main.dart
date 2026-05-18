@@ -27,6 +27,7 @@ Future<void> main() async {
   Map<String, Map<String, String>> languages = await dep.init();
   await initializeApp();
   driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
+  // debugPrintRebuildDirtyWidgets = true;
   runApp(
     AppInfo(
       data: await AppInfoData.get(),

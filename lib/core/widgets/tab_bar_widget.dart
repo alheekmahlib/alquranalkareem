@@ -13,7 +13,7 @@ import 'local_notification/notification_screen.dart';
 import 'local_notification/widgets/notification_icon_widget.dart';
 import 'settings_list.dart';
 
-enum TopBarType { none, search, settings }
+enum TopBarType { none, search, settings, AISearch }
 
 class TopBarWidget extends StatelessWidget {
   final bool isHomeChild;
@@ -230,6 +230,17 @@ class TopBarWidget extends StatelessWidget {
                 elevation: 8,
                 color: Colors.transparent,
                 child: bodyChild ?? QuranSearch(),
+              );
+            } else if (quranCtrl.getTopBarType(TopBarType.AISearch)) {
+              return Material(
+                elevation: 8,
+                color: Colors.transparent,
+                child:
+                    bodyChild ??
+                    SettingsList(
+                      isQuranSetting: isQuranSetting,
+                      isCalendarSetting: isCalendarSetting,
+                    ),
               );
             } else {
               return Material(

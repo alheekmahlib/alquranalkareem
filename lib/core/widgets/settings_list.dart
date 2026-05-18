@@ -69,6 +69,8 @@ class SettingsList extends StatelessWidget {
               const ThemeChange(),
               const Gap(24),
               const SelectScreen(),
+              // const Gap(24),
+              // AiSearchSettings(),
               const Gap(24),
               Divider(
                 thickness: 1.0,
