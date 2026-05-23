@@ -197,10 +197,13 @@ class HijriWidget extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Center(
                 child: eventCtrl.isLastDayOfMonth
-                    ? Text(
-                        '${'lastDayOf'.tr} ${'${eventCtrl.hijriNow.getLongMonthName()}'.tr}',
-                        style: AppTextStyles.titleMedium(fontSize: 16.0),
-                        textAlign: TextAlign.center,
+                    ? FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          '${'lastDayOf'.tr} ${'${eventCtrl.hijriNow.getLongMonthName()}'.tr}',
+                          style: AppTextStyles.titleMedium(fontSize: 16.0),
+                          textAlign: TextAlign.center,
+                        ),
                       )
                     : Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
