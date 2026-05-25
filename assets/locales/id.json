@@ -1443,5 +1443,17 @@
   "midadNote": "Model 'Midad' menyajikan hasil dan informasi yang diekstrak dari kitab dan referensi Islam, dengan kemampuan untuk menavigasi ke sumber asli dan membaca topik lengkap dari kitab terkait.\nModel ini bertujuan untuk memfasilitasi penelitian dan akses ke konten Islam, dan tidak dimaksudkan untuk mengeluarkan fatwa atau hukum agama.\nUntuk urusan agama dan fatwa, silakan berkonsultasi dengan ulama yang berkompeten.",
   "sections": "Bagian",
   "all": "Semua",
-  "none_sections": "Tanpa bagian"
+  "none_sections": "Tanpa bagian",
+  "midadWelcome": "Midad — Tinta Anda untuk Menuntut Ilmu\n(Pencarian cerdas masih dalam pengembangan. Kami menghargai pengertian Anda saat terus meningkatkannya.)",
+  "midadWelcomeDesc": "Mesin pencari cerdas di sumber ilmu Islam, membantu Anda menemukan apa yang Anda butuhkan dari Al-Qur'an, Tafsir, Hadis, dan kitab-kitab Islam.",
+  "midadSelectSections": "Pilih bagian yang ingin Anda cari untuk memulai.",
+  "midadLaterHint": "Anda dapat mengunduh bagian tambahan nanti dari Pengaturan.",
+  "downloadAll": "Unduh Semua",
+  "chatHistory": "Riwayat Obrolan",
+  "noChatHistory": "Tidak ada obrolan sebelumnya",
+  "clearAllHistory": "Hapus Semua",
+  "deleteChat": "Hapus",
+  "resultCount": "hasil",
+  "hours": "jam",
+  "days": "hari"
 }

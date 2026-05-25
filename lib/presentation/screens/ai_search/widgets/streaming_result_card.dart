@@ -199,8 +199,11 @@ class _StreamingResultCard extends StatelessWidget {
     quranCtrl.state.tabBarController.close();
 
     if (meta.type == 'quran') {
-      final page = meta.details['page'] as int? ?? 1;
-      quranCtrl.changeSurahListOnTap(page);
+      Get.to(QuranHome(), transition: Transition.downToUp);
+      Future.delayed(const Duration(milliseconds: 500), () {
+        final page = meta.details['page'] as int? ?? 1;
+        quranCtrl.changeSurahListOnTap(page);
+      });
       return;
     }
 
@@ -227,34 +230,26 @@ class _StreamingResultCard extends StatelessWidget {
     Get.dialog(
       Obx(
         () => Dialog(
-          backgroundColor: context.theme.colorScheme.primary,
+          backgroundColor: context.theme.colorScheme.primaryContainer,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(24),
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  book.bookName,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: context.theme.colorScheme.surface,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
+                TitleWidget(title: book.bookName, horizontalPadding: 0.0),
                 const Gap(12),
                 Text(
-                  'يجب تحميل الكتاب أولاً للمتابعة',
-                  style: TextStyle(
+                  'please_download_book_first'.tr,
+                  style: AppTextStyles.titleMedium(
                     fontSize: 14,
-                    color: context.theme.colorScheme.surface.withValues(
+                    color: context.theme.colorScheme.inversePrimary.withValues(
                       alpha: 0.6,
                     ),
                   ),
-                  textAlign: TextAlign.center,
                 ),
                 const Gap(16),
                 // Download button + progress bar
@@ -263,7 +258,7 @@ class _StreamingResultCard extends StatelessWidget {
                   children: [
                     SizedBox(
                       width: double.infinity,
-                      child: CustomButton(
+                      child: ContainerButton(
                         onPressed:
                             booksCtrl.state.downloading[bookNumber] == true
                             ? () {}
@@ -288,47 +283,31 @@ class _StreamingResultCard extends StatelessWidget {
                         width: Get.width,
                         verticalPadding: 0.0,
                         horizontalPadding: 0.0,
-                        isCustomSvgColor: true,
+                        isTitleCentered: true,
+                        progressBackgroundColor: context
+                            .theme
+                            .colorScheme
+                            .primary
+                            .withValues(alpha: 0.2),
+                        progressColor: context.theme.colorScheme.primary,
                         svgPath: SvgPath.svgAudioDownload,
                         backgroundColor: context.theme.colorScheme.surface,
                         svgColor: context.theme.colorScheme.secondaryContainer,
+                        downloadProgress:
+                            '${booksCtrl.state.downloadProgress[bookNumber] ?? 0}',
+                        isDownloading:
+                            booksCtrl.state.downloading[bookNumber] == true,
                         title: booksCtrl.state.downloading[bookNumber] == true
                             ? 'downloading'.tr
                             : 'download'.tr,
                       ),
                     ),
-                    if (booksCtrl.state.downloading[bookNumber] == true)
-                      RoundedProgressBar(
-                        height: 44,
-                        style: RoundedProgressBarStyle(
-                          borderWidth: 0,
-                          widthShadow: 5,
-                          backgroundProgress: context.theme.colorScheme.surface,
-                          colorProgress: context.theme.colorScheme.primary,
-                          colorProgressDark: context.theme.primaryColorLight
-                              .withValues(alpha: 0.5),
-                          colorBorder: context.theme.colorScheme.surface
-                              .withValues(alpha: 0.1),
-                          colorBackgroundIcon: Colors.transparent,
-                        ),
-                        margin: EdgeInsets.zero,
-                        borderRadius: BorderRadius.circular(8),
-                        percent:
-                            booksCtrl.state.downloadProgress[bookNumber] ?? 0,
-                      ),
                   ],
                 ),
                 const Gap(16),
                 TextButton(
                   onPressed: () => Get.back(),
-                  child: Text(
-                    'إغلاق',
-                    style: TextStyle(
-                      color: context.theme.colorScheme.surface.withValues(
-                        alpha: 0.5,
-                      ),
-                    ),
-                  ),
+                  child: Text('cancel'.tr, style: AppTextStyles.titleSmall()),
                 ),
               ],
             ),

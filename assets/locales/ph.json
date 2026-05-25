@@ -1443,5 +1443,17 @@
   "midadNote": "Ang modelong 'Midad' ay nagpapakita ng mga resulta at impormasyong nakuha mula sa mga Islamic na aklat at sanggunian, may kakayahang pumunta sa orihinal na pinagmulan at basahin ang buong paksa mula sa kaugnay na aklat.\nAng modelo ay naglalayong pasimplehin ang pananaliksik at pag-access sa Islamic na nilalaman, at hindi inilaan para sa pag-isyu ng mga fatwa o relihiyosong patakaran.\nPara sa mga relihiyosong usapin at fatwa, mangyaring kumonsulta sa mga kwalipikadong iskolar.",
   "sections": "Mga Seksyon",
   "all": "Lahat",
-  "none_sections": "Walang seksyon"
+  "none_sections": "Walang seksyon",
+  "midadWelcome": "Midad — Ang Tinta Mo sa Paghahanap ng Kaalaman\n(Ang matalinong paghahanap ay nasa pag-unlad pa. Pinapahalagahan namin ang iyong pag-unawa habang patuloy namin itong pinapabuti.)",
+  "midadWelcomeDesc": "Isang matalinong search engine sa mga pinagkukunan ng Islamikong kaalaman, na tumutulong sa iyo na mahanap ang kailangan mo mula sa Quran, Tafsir, Hadith, at mga Islamikong aklat.",
+  "midadSelectSections": "Pumili ng seksyon kung saan mo gustong maghanap upang magsimula.",
+  "midadLaterHint": "Maaari mong i-download ang karagdagang seksyon mamaya sa Mga Setting.",
+  "downloadAll": "I-download Lahat",
+  "chatHistory": "History ng Chat",
+  "noChatHistory": "Walang nakaraang chat",
+  "clearAllHistory": "I-clear Lahat",
+  "deleteChat": "I-delete",
+  "resultCount": "resulta",
+  "hours": "oras",
+  "days": "araw"
 }

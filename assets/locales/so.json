@@ -1421,5 +1421,17 @@
   "midadNote": "Moodalka 'Midad' wuxuu muujinayaa natiijooyin iyo macluumaad ka soo jeeda buugagga iyo la tixraacyada Islaamka, awoodana leeyahay in la aado isha asalka ah oo la akhriyo mawduuca dhamaystiran buugga la xidhiidha.\nMoodalku wuxuu kahaynayaa fududaynta baadhista iyo helitaanka nuxurka Islaamka, laguma talagalin fatwooyin ama xukunno diimeed.\nArrimaha diinta iyo fatwooyinka fadlan la xidhiidh culumada aqoonta leh.",
   "sections": "Qaybaha",
   "all": "Dhammaan",
-  "none_sections": "Qayb la'aan"
+  "none_sections": "Qayb la'aan",
+  "midadWelcome": "Midad — Xaskaa Raadinta Aqoonta\n(Raadininta casriga ah weli waa la horumarinayaa. Waan ku mahadnaqaynaa fahanskaaga inta aan sii wadno horumarinta.)",
+  "midadWelcomeDesc": "Mashiin raadin oo dhakhso ah oo ku shaqeeya ilo aqoonta Islaamka, kaa caawinaya helida waxaad u baahan tahay Qur'aanka, Tafsiirka, Xadiithka iyo kutubta Islaamka.",
+  "midadSelectSections": "Dooro qayb aad ku raadinayso si aad u bilowdo.",
+  "midadLaterHint": "Waxaad ka soo dejisi kartaa qaybo kale dambe Goobaabin.",
+  "downloadAll": "Soo Degsi Dhammaan",
+  "chatHistory": "Taariikhda Wada Sheekaysiga",
+  "noChatHistory": "Ma jiro wada sheekaysi hore",
+  "clearAllHistory": "Tirtir Dhammaan",
+  "deleteChat": "Tirtir",
+  "resultCount": "natiijo",
+  "hours": "saac",
+  "days": "maalinta"
 }

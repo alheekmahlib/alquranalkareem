@@ -66,9 +66,12 @@ class EmbeddingService {
 
     _ort = OnnxRuntime();
     try {
+      print('[AiSearch] Creating ONNX session from: ${modelFile.path} (${await modelFile.length()} bytes)');
       _session = await _ort!.createSession(modelFile.path);
-    } catch (e) {
+      print('[AiSearch] ONNX session created successfully');
+    } catch (e, stack) {
       print('[AiSearch] ONNX session creation failed: $e');
+      print('[AiSearch] Stack: $stack');
       _isReady = false;
       return;
     }
@@ -81,6 +84,8 @@ class EmbeddingService {
     if (!_isReady || _session == null) {
       throw Exception('Embedding service not initialized');
     }
+
+    print('[AiSearch] Embedding: tokenizing...');
 
     // Tokenize with e5 prefix
     final prefixedText = 'query: $text';
@@ -128,7 +133,20 @@ class EmbeddingService {
 
     final attentionMaskForPooling = attentionMaskData;
 
-    final outputs = await _session!.run(inputs);
+    print('[AiSearch] Embedding: running ONNX inference...');
+    Map<String, OrtValue>? outputs;
+    try {
+      outputs = await _session!.run(inputs);
+    } catch (e, stack) {
+      print('[AiSearch] ONNX inference failed: $e');
+      print('[AiSearch] Stack: $stack');
+      // Cleanup inputs
+      await inputIdsTensor.dispose();
+      await attentionMaskTensor.dispose();
+      await tokenTypeIdsTensor.dispose();
+      rethrow;
+    }
+    print('[AiSearch] Embedding: inference done, extracting...');
 
     // Extract last_hidden_state: shape [1, 128, 384]
     final lastHiddenState = outputs['last_hidden_state'];
@@ -136,17 +154,19 @@ class EmbeddingService {
       throw Exception('Model output missing');
     }
 
-    final nestedData = await lastHiddenState.asList();
-    final seqData = (nestedData[0] as List).cast<List<dynamic>>();
+    // Use flattened list — much more memory-efficient than nested asList()
+    final flatData = await lastHiddenState.asFlattenedList();
 
     // Mean pooling with attention mask
+    // flatData is [1 * 128 * 384] flattened = index = seq * 384 + d
     final embedding = List.filled(_embeddingDim, 0.0);
     int validTokens = 0;
 
     for (int seq = 0; seq < _maxSeqLength; seq++) {
       if (attentionMaskForPooling[seq] == 1) {
+        final seqOffset = seq * _embeddingDim;
         for (int d = 0; d < _embeddingDim; d++) {
-          embedding[d] += (seqData[seq][d] as num).toDouble();
+          embedding[d] += (flatData[seqOffset + d] as num).toDouble();
         }
         validTokens++;
       }
@@ -171,6 +191,7 @@ class EmbeddingService {
     }
 
     // Cleanup
+    print('[AiSearch] Embedding: done, cleaning up...');
     await inputIdsTensor.dispose();
     await attentionMaskTensor.dispose();
     await tokenTypeIdsTensor.dispose();

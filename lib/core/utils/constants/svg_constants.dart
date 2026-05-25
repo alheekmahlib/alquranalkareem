@@ -294,6 +294,10 @@ class SvgPath {
   /// assets/svg/home/font_size.svg
   static const String svgHomeFontSize = "assets/svg/home/font_size.svg";
 
+  /// Assets for svgHomeHistory
+  /// assets/svg/home/history.svg
+  static const String svgHomeHistory = "assets/svg/home/history.svg";
+
   /// Assets for svgHomeHome
   /// assets/svg/home/home.svg
   static const String svgHomeHome = "assets/svg/home/home.svg";

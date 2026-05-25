@@ -1449,5 +1449,17 @@
   "midadNote": "El modelo 'Midad' presenta resultados e información extraídos de libros y referencias islámicas, con la capacidad de navegar a la fuente original y leer el tema completo del libro asociado.\nEl modelo tiene como objetivo facilitar la investigación y el acceso al contenido islámico, y no está destinado a emitir fatwas o dictámenes religiosos.\nPara asuntos religiosos y fatwas, consulte a eruditos calificados.",
   "sections": "Secciones",
   "all": "Todo",
-  "none_sections": "Sin secciones"
+  "none_sections": "Sin secciones",
+  "midadWelcome": "Midad — Tu tinta para buscar el conocimiento\n(La búsqueda inteligente aún está en desarrollo. Agradecemos tu comprensión mientras seguimos mejorándola.)",
+  "midadWelcomeDesc": "Un motor de búsqueda inteligente en fuentes de conocimiento islámico, que te ayuda a encontrar lo que necesitas del Corán, Tafsir, Hadiz y libros islámicos.",
+  "midadSelectSections": "Elige una sección para empezar a buscar.",
+  "midadLaterHint": "Puedes descargar secciones adicionales más tarde desde Configuración.",
+  "downloadAll": "Descargar todo",
+  "chatHistory": "Historial de chats",
+  "noChatHistory": "No hay chats anteriores",
+  "clearAllHistory": "Borrar todo",
+  "deleteChat": "Eliminar",
+  "resultCount": "resultados",
+  "hours": "horas",
+  "days": "días"
 }

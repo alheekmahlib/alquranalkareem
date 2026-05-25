@@ -28,15 +28,22 @@ class ModelDownloadService {
   }
 
   /// Check if a specific section is downloaded
+  /// Accepts either the old NPZ format or the new flat binary format.
   Future<bool> isSectionDownloaded(SearchSection section) async {
     final dir = await _getSectionDir(section.id);
     final version = _box.read<String>('${_versionPrefix}${section.id}');
     if (version == null) return false;
 
-    final vectorsFile = File('${dir.path}/vectors_int8.npz');
     final metaFile = File('${dir.path}/metadata.json');
+    if (!await metaFile.exists()) return false;
 
-    return await vectorsFile.exists() && await metaFile.exists();
+    // New format (flat binary)
+    final binaryFile = File('${dir.path}/vectors_flat.bin');
+    if (await binaryFile.exists()) return true;
+
+    // Legacy format (NPZ — not yet converted)
+    final npzFile = File('${dir.path}/vectors_int8.npz');
+    return await npzFile.exists();
   }
 
   /// Get list of downloaded section IDs
@@ -201,6 +208,17 @@ class ModelDownloadService {
 
     await _box.write('${_versionPrefix}${section.id}', '1');
 
+    // Convert NPZ → flat binary immediately (one section at a time)
+    onStatus?.call('جاري تجهيز بيانات البحث...');
+    try {
+      await VectorSearchService().convertNpzToBinary(section.id);
+    } catch (e) {
+      log('NPZ conversion failed for ${section.id}: $e', name: 'AiSearch');
+      // Clean up on conversion failure
+      try { await deleteSection(section); } catch (_) {}
+      rethrow;
+    }
+
     // Cleanup temp gz files
     try {
       await vectorsGz.delete();
@@ -262,15 +280,35 @@ class ModelDownloadService {
     File outputFile, {
     void Function(double progress)? onProgress,
     CancelToken? cancelToken,
+    int maxRetries = 3,
   }) async {
-    await _dio.download(
-      url,
-      outputFile.path,
-      cancelToken: cancelToken,
-      onReceiveProgress: (received, total) {
-        if (total > 0) onProgress?.call(received / total);
-      },
-    );
+    for (int attempt = 0; attempt < maxRetries; attempt++) {
+      try {
+        await _dio.download(
+          url,
+          outputFile.path,
+          cancelToken: cancelToken,
+          onReceiveProgress: (received, total) {
+            if (total > 0) onProgress?.call(received / total);
+          },
+        );
+        return; // success
+      } on DioException catch (e) {
+        if (cancelToken?.isCancelled ?? false) rethrow;
+        if (attempt < maxRetries - 1 &&
+            (e.response?.statusCode == 502 ||
+             e.response?.statusCode == 503 ||
+             e.response?.statusCode == 429 ||
+             e.type == DioExceptionType.connectionError)) {
+          // Wait before retry with exponential backoff
+          final delay = Duration(seconds: 2 * (attempt + 1));
+          print('[ModelDownload] Retry ${attempt + 1}/$maxRetries after ${delay.inSeconds}s (${e.response?.statusCode ?? e.type})');
+          await Future.delayed(delay);
+          continue;
+        }
+        rethrow;
+      }
+    }
   }
 
   static Future<Directory> _getBaseDir() async {

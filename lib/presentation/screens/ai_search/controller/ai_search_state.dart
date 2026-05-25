@@ -11,6 +11,9 @@ class AiSearchState {
 
   // Shared model status
   final isSharedLoaded = false.obs;
+  final isSharedDownloading = false.obs;
+  final sharedProgress = 0.0.obs;
+  final sharedStatus = ''.obs;
 
   // Global states
   final isSearching = false.obs;
@@ -38,18 +41,34 @@ class AiSearchState {
   void loadEnabledSections() {
     try {
       final box = GetStorage();
-      final saved = box.read<List<String>>(_enabledSectionsKey);
+      final saved = box.read(_enabledSectionsKey);
+      print('[AiSearch] Raw saved sections: $saved (${saved.runtimeType})');
       if (saved != null) {
-        enabledSections.addAll(saved);
+        final List<String> list;
+        if (saved is List) {
+          list = saved.cast<String>();
+        } else {
+          list = <String>[];
+        }
+        enabledSections.addAll(list);
+        print('[AiSearch] Loaded enabled sections: $list');
+      } else {
+        print('[AiSearch] No saved sections found');
       }
-    } catch (_) {}
+    } catch (e) {
+      print('[AiSearch] loadEnabledSections error: $e');
+    }
   }
 
   void saveEnabledSections() {
     try {
       final box = GetStorage();
-      box.write(_enabledSectionsKey, enabledSections.toList());
-    } catch (_) {}
+      final list = enabledSections.toList();
+      box.write(_enabledSectionsKey, list);
+      print('[AiSearch] Saved enabled sections: $list');
+    } catch (e) {
+      print('[AiSearch] saveEnabledSections error: $e');
+    }
   }
 
   /// Toggle a section's enabled state. Returns new state.
@@ -235,6 +254,12 @@ class AiSearchState {
       }
     }
     return keys;
+  }
+
+  /// Get all (non-display-truncated) results for a section
+  List<SearchResult> allResultsForSection(String id) {
+    _ensureSection(id);
+    return _allResults[id]?.toList() ?? <SearchResult>[];
   }
 
   List<SearchResult> get allResults {

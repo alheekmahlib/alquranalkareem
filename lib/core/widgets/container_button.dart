@@ -233,7 +233,7 @@ class ContainerButton extends StatelessWidget {
                         if (isDownloading ?? false) ...[
                           const Gap(12),
                           Text(
-                            '${downloadProgress ?? '0'}%',
+                            '${double.tryParse(downloadProgress ?? '0')?.toStringAsFixed(1) ?? '0'}%}',
                             style: AppTextStyles.titleMedium(
                               color:
                                   titleColor ??
@@ -285,10 +285,8 @@ class ContainerButton extends StatelessWidget {
                             progressBackgroundColor ??
                             Theme.of(context).primaryColorLight,
                         value: (isDownloading ?? false)
-                            ? (int.parse(downloadProgress ?? '0') / 100).clamp(
-                                0.0,
-                                1.0,
-                              )
+                            ? (double.parse(downloadProgress ?? '0') / 100)
+                                  .clamp(0.0, 1.0)
                             : null,
                         valueColor: AlwaysStoppedAnimation<Color>(
                           progressColor ??

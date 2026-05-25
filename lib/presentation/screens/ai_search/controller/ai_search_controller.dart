@@ -8,6 +8,7 @@ class AiSearchController extends GetxController {
   final _downloadService = ModelDownloadService();
   final _embeddingService = EmbeddingService();
   final _bm25Service = BM25Service();
+  final _chatHistoryService = ChatHistoryService();
 
   // Track active downloads per section
   final Map<String, CancelToken> _cancelTokens = {};
@@ -38,80 +39,65 @@ class AiSearchController extends GetxController {
       // Load persisted enabled sections
       state.loadEnabledSections();
 
-      // Check shared model
+      // Check shared model exists
       final sharedDownloaded = await _downloadService.isSharedDownloaded();
       state.isSharedLoaded.value = sharedDownloaded;
       print('[AiSearch] Shared downloaded: $sharedDownloaded');
 
-      // Check each section
+      // Check which sections exist on disk (NO loading into memory)
+      bool hadSavedPrefs = state.enabledSections.isNotEmpty;
       for (final section in SearchSection.all) {
         final downloaded = await _downloadService.isSectionDownloaded(section);
-        state.setSectionLoaded(section.id, downloaded);
-        // Auto-enable newly downloaded sections
-        if (downloaded && !state.enabledSections.contains(section.id)) {
+        final hasBinary = await _searchService.hasBinary(section.id);
+        final isReady = downloaded && hasBinary;
+        state.setSectionLoaded(section.id, isReady);
+        // First time (no saved prefs): auto-enable all downloaded sections
+        if (!hadSavedPrefs && isReady) {
           state.enabledSections.add(section.id);
         }
-        print('[AiSearch] ${section.id} on disk: $downloaded');
+        print(
+          '[AiSearch] ${section.id} on disk: $downloaded, binary: $hasBinary',
+        );
       }
       state.saveEnabledSections();
 
-      // Always try to load downloaded sections into memory
-      await _loadDownloadedSections();
+      // DO NOT load anything into memory here — everything is lazy.
+      // ONNX model, metadata, and BM25 are loaded only when search is performed.
     } catch (e) {
       print('[AiSearch] _initCheck error: $e');
     } finally {
       isInitialized.value = true;
-      print(
-        '[AiSearch] Init complete. Embedding ready: ${_embeddingService.isReady}',
-      );
+      print('[AiSearch] Init complete (lazy — nothing loaded yet)');
       for (final s in SearchSection.all) {
-        print(
-          '[AiSearch] ${s.id}: state=${state.isSectionLoaded(s.id).value}, memory=${_searchService.isSectionLoaded(s.id)}',
-        );
+        print('[AiSearch] ${s.id}: state=${state.isSectionLoaded(s.id).value}');
       }
-    }
-  }
-
-  Future<void> _loadDownloadedSections() async {
-    state.isLoading.value = true;
-    try {
-      // Init embedding service (shared model)
-      await _embeddingService.init();
-      print('[AiSearch] Embedding service ready: ${_embeddingService.isReady}');
-
-      // Load each downloaded section
-      for (final section in SearchSection.all) {
-        if (state.isSectionLoaded(section.id).value) {
-          try {
-            await _searchService.loadSection(section.id);
-            await _bm25Service.loadSection(section.id);
-            print(
-              '[AiSearch] Loaded section: ${section.titleAr} (${_searchService.sectionChunkCount(section.id)} chunks, BM25: ${_bm25Service.sectionDocCount(section.id)} docs)',
-            );
-          } catch (e) {
-            print('[AiSearch] Failed to load section ${section.id}: $e');
-            state.setSectionLoaded(section.id, false);
-          }
-        }
-      }
-    } catch (e) {
-      print('[AiSearch] Failed to init embedding: $e');
-    } finally {
-      state.isLoading.value = false;
     }
   }
 
   /// Download shared model files
-  Future<void> downloadShared() async {
+  /// [onExternalProgress] / [onExternalStatus] let callers (e.g. downloadSection)
+  /// pipe the shared progress into the section card UI.
+  Future<void> downloadShared({
+    void Function(double progress)? onExternalProgress,
+    void Function(String status)? onExternalStatus,
+  }) async {
     final cancelToken = CancelToken();
     _cancelTokens['shared'] = cancelToken;
 
+    state.isSharedDownloading.value = true;
     state.isSharedLoaded.value = false;
 
     try {
       await _downloadService.downloadShared(
-        onProgress: (p) {},
-        onStatus: (s) => log('Shared: $s', name: 'AiSearch'),
+        onProgress: (p) {
+          state.sharedProgress.value = p;
+          onExternalProgress?.call(p);
+        },
+        onStatus: (s) {
+          state.sharedStatus.value = s;
+          onExternalStatus?.call(s);
+          log('Shared: $s', name: 'AiSearch');
+        },
         cancelToken: cancelToken,
       );
       state.isSharedLoaded.value = true;
@@ -121,6 +107,7 @@ class AiSearchController extends GetxController {
         log('Shared download failed: $e', name: 'AiSearch');
       }
     } finally {
+      state.isSharedDownloading.value = false;
       _cancelTokens.remove('shared');
     }
   }
@@ -130,17 +117,20 @@ class AiSearchController extends GetxController {
     // Prevent starting a new download if previous one is still running
     if (_cancelTokens.containsKey(section.id)) return;
 
-    // Ensure shared model is downloaded first
+    // Set UI state FIRST so the card shows progress immediately
+    state.resetSectionProgress(section.id);
+    state.setSectionDownloading(section.id, true);
+    state.downloadingSectionId.value = section.id;
+
+    // Shared model must be downloaded before any section
     if (!state.isSharedLoaded.value) {
-      await downloadShared();
+      state.setSectionDownloading(section.id, false);
+      state.downloadingSectionId.value = '';
+      return;
     }
 
     final cancelToken = CancelToken();
     _cancelTokens[section.id] = cancelToken;
-
-    state.resetSectionProgress(section.id);
-    state.setSectionDownloading(section.id, true);
-    state.downloadingSectionId.value = section.id;
 
     try {
       await _downloadService.downloadSection(
@@ -150,9 +140,8 @@ class AiSearchController extends GetxController {
         cancelToken: cancelToken,
       );
 
-      // Load the newly downloaded section
+      // Load the newly downloaded section (metadata only — conversion already done)
       await _searchService.loadSection(section.id);
-      await _bm25Service.loadSection(section.id);
       state.setSectionLoaded(section.id, true);
       state.onSectionDownloaded(section.id);
 
@@ -171,13 +160,31 @@ class AiSearchController extends GetxController {
     }
   }
 
-  /// Cancel a section download
-  void cancelDownload(String sectionId) {
-    _cancelTokens[sectionId]?.cancel();
-    // Update UI immediately so user sees feedback
-    state.setSectionDownloading(sectionId, false);
-    state.resetSectionProgress(sectionId);
+  /// Cancel a section or shared download
+  void cancelDownload(String id) {
+    _cancelTokens[id]?.cancel();
+    if (id == 'shared') {
+      state.isSharedDownloading.value = false;
+      state.sharedProgress.value = 0;
+      state.sharedStatus.value = '';
+    } else {
+      state.setSectionDownloading(id, false);
+      state.resetSectionProgress(id);
+    }
     state.downloadingSectionId.value = '';
+  }
+
+  /// Delete shared files only
+  Future<void> deleteShared() async {
+    await _downloadService.deleteShared();
+    state.isSharedLoaded.value = false;
+    // Also unload all sections since they depend on shared
+    for (final section in SearchSection.all) {
+      _searchService.unloadSection(section.id);
+      _bm25Service.unloadSection(section.id);
+      state.setSectionLoaded(section.id, false);
+    }
+    state.clearResults();
   }
 
   /// Delete a specific section
@@ -235,66 +242,106 @@ class AiSearchController extends GetxController {
     state.clearResults();
 
     try {
-      // Get embedding once
+      // Lazy init: load ONNX model only when first search is performed
+      if (!_embeddingService.isReady) {
+        print('[AiSearch] Lazy-init embedding service...');
+        try {
+          await _embeddingService.init();
+          print('[AiSearch] Embedding service initialized successfully');
+        } catch (e, stack) {
+          print('[AiSearch] Embedding init failed: $e');
+          print('[AiSearch] Stack: $stack');
+          state.errorMessage.value = 'فشل تحميل نموذج البحث: $e';
+          state.isSearching.value = false;
+          return;
+        }
+      }
+
+      // Get embedding
       List<double> embedding;
       if (_embeddingService.isReady) {
         print('[AiSearch] Using real embedding for: $query');
-        embedding = await _embeddingService.embed(query);
+        try {
+          embedding = await _embeddingService.embed(query);
+          print('[AiSearch] Embedding generated: ${embedding.length} dims');
+        } catch (e, stack) {
+          print('[AiSearch] Embedding failed: $e');
+          print('[AiSearch] Stack: $stack');
+          state.errorMessage.value = 'فشل معالجة البحث: $e';
+          state.isSearching.value = false;
+          return;
+        }
       } else {
-        print(
-          '[AiSearch] WARNING: Embedding not ready, using pseudo embedding',
-        );
+        print('[AiSearch] Embedding not ready, using pseudo embedding');
         embedding = _pseudoEmbedding(query);
       }
 
-      // Search each loaded & enabled section
+      // Search each enabled section — load ONE at a time, unload after search
+      // This keeps peak memory low: ONNX (130MB) + 1 section metadata only
       for (final section in SearchSection.all) {
-        if (!state.isSectionEnabled(section.id)) {
+        if (!state.isSectionEnabled(section.id)) continue;
+        if (!state.isSectionLoaded(section.id).value) continue;
+
+        try {
+          // Load this section's metadata
+          if (!_searchService.isSectionLoaded(section.id)) {
+            print('[AiSearch] Loading section: ${section.id}');
+            await _searchService.loadSection(section.id);
+          }
           print(
-            '[AiSearch] Skipping ${section.id}: not enabled for search',
+            '[AiSearch] Searching section: ${section.id} (${_searchService.sectionChunkCount(section.id)} chunks)',
           );
-          continue;
+
+          List<SearchResult> results;
+
+          // BM25 for small sections only
+          const bm25Threshold = 10000;
+          final chunkCount = _searchService.sectionChunkCount(section.id);
+          bool bm25Loaded = false;
+
+          if (chunkCount <= bm25Threshold) {
+            if (!_bm25Service.isSectionLoaded(section.id)) {
+              try {
+                await _bm25Service.loadSection(section.id);
+                bm25Loaded = true;
+              } catch (e) {
+                print('[AiSearch] BM25 load failed for ${section.id}: $e');
+              }
+            }
+          }
+
+          if (bm25Loaded && _bm25Service.sectionDocCount(section.id) > 0) {
+            final bm25Scores = _bm25Service.score(section.id, query);
+            final normalizedBm25 = _bm25Service.normalize(bm25Scores);
+
+            results = await _searchService.hybridSearchSection(
+              section.id,
+              embedding,
+              normalizedBm25,
+              topK: 15,
+            );
+          } else {
+            results = await _searchService.searchSection(
+              section.id,
+              embedding,
+              topK: 15,
+            );
+          }
+
+          state.setSectionResults(section.id, results);
+          log(
+            '  ${section.titleAr}: ${results.length} results',
+            name: 'AiSearch',
+          );
+        } catch (e, stack) {
+          print('[AiSearch] Search failed for ${section.id}: $e');
+          print('[AiSearch] Stack: $stack');
+        } finally {
+          // UNLOAD after search to free memory for next section
+          _searchService.unloadSection(section.id);
+          _bm25Service.unloadSection(section.id);
+          print('[AiSearch] Unloaded section: ${section.id}');
         }
-        if (!state.isSectionLoaded(section.id).value) {
-          print(
-            '[AiSearch] Skipping ${section.id}: not marked as loaded in state',
-          );
-          continue;
-        }
-        if (!_searchService.isSectionLoaded(section.id)) {
-          print(
-            '[AiSearch] Skipping ${section.id}: data not in memory (hot restart issue?)',
-          );
-          continue;
-        }
-
-        List<SearchResult> results;
-
-        if (_bm25Service.isSectionLoaded(section.id) &&
-            _bm25Service.sectionDocCount(section.id) > 0) {
-          final bm25Scores = _bm25Service.score(section.id, query);
-          final normalizedBm25 = _bm25Service.normalize(bm25Scores);
-
-          results = await _searchService.hybridSearchSection(
-            section.id,
-            embedding,
-            normalizedBm25,
-            topK: 15,
-          );
-        } else {
-          results = await _searchService.searchSection(
-            section.id,
-            embedding,
-            topK: 15,
-          );
-        }
-
-        state.setSectionResults(section.id, results);
-
-        log(
-          '  ${section.titleAr}: ${results.length} results',
-          name: 'AiSearch',
-        );
       }
 
       // Progressive display
@@ -306,6 +353,9 @@ class AiSearchController extends GetxController {
       }
       state.searchingCategory.value = '';
       state.startStreaming();
+
+      // Auto-save to chat history
+      _saveToHistory(query);
     } catch (e) {
       state.errorMessage.value = 'فشل البحث: $e';
       log('AI Search failed: $e', name: 'AiSearch');
@@ -341,6 +391,69 @@ class AiSearchController extends GetxController {
     return guess;
   }
 
+  // ─── Chat History ──────────────────────────────────────────────
+
+  /// Save current search results to chat history
+  void _saveToHistory(String query) {
+    try {
+      final sectionResults = <String, List<SerializableSearchResult>>{};
+      for (final section in SearchSection.all) {
+        final results = state.allResultsForSection(section.id);
+        if (results.isNotEmpty) {
+          sectionResults[section.id] = results
+              .map((r) => SerializableSearchResult.fromSearchResult(r))
+              .toList();
+        }
+      }
+      if (sectionResults.isEmpty) return;
+
+      final now = DateTime.now();
+      final entry = ChatHistoryEntry(
+        id: '${now.millisecondsSinceEpoch}',
+        query: query,
+        date: now,
+        sectionResults: sectionResults,
+      );
+      _chatHistoryService.saveEntry(entry);
+    } catch (e) {
+      print('[AiSearch] Failed to save history: $e');
+    }
+  }
+
+  /// Load a chat history entry into the current state
+  void loadFromHistory(ChatHistoryEntry entry) {
+    state.searchTextEditing.text = entry.query;
+    state.clearResults();
+
+    for (final section in SearchSection.all) {
+      final savedResults = entry.sectionResults[section.id];
+      if (savedResults != null && savedResults.isNotEmpty) {
+        final results = savedResults.map((r) => r.toSearchResult()).toList();
+        state.setSectionResults(section.id, results);
+      }
+    }
+
+    state.introStreamed.value = true;
+    state.allResultsReady.value = true;
+    // Mark all cards as completed (no streaming for history)
+    state._markNewCardsCompleted();
+  }
+
+  /// Get all history entries
+  Future<List<ChatHistoryEntry>> getHistoryEntries() {
+    return _chatHistoryService.getEntries();
+  }
+
+  /// Delete a single history entry
+  Future<void> deleteHistoryEntry(String id) {
+    return _chatHistoryService.deleteEntry(id);
+  }
+
+  /// Delete all history
+  Future<void> deleteAllHistory() {
+    return _chatHistoryService.deleteAll();
+  }
+
   void clearSearch() {
     state.searchTextEditing.clear();
     state.clearResults();
@@ -363,6 +476,18 @@ class AiSearchController extends GetxController {
       box.write(_keyX, offset.dx);
       box.write(_keyY, offset.dy);
     } catch (_) {}
+  }
+
+  void downloadAllSections(AiSearchController ctrl) async {
+    for (final section in SearchSection.all) {
+      if (!ctrl.state.isSectionLoaded(section.id).value) {
+        try {
+          await ctrl.downloadSection(section);
+        } catch (e) {
+          print('[AiSearch] Download all failed at ${section.id}: $e');
+        }
+      }
+    }
   }
 }
 

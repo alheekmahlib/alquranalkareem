@@ -1449,5 +1449,22 @@
   "midadNote": "The 'Midad' model presents results and information extracted from Islamic books and references, with the ability to navigate to the original source and read the full topic from the associated book.\nThe model aims to facilitate research and access to Islamic content, and is not intended for issuing fatwas or religious rulings.\nFor religious matters and fatwas, please refer to qualified scholars.",
   "sections": "Sections",
   "all": "All",
-  "none_sections": "No sections"
+  "none_sections": "No sections",
+  "midadWelcome": "Midad — Your Ink for Seeking Knowledge\n(Smart search is still in development. We appreciate your understanding as we continue to improve it.)",
+  "midadWelcomeDesc": "A smart search engine across Islamic knowledge sources, helping you find what you need from the Quran, Tafsir, Hadith, and Islamic books.",
+  "midadSelectSections": "Choose a section to search in to get started.",
+  "sharedFiles": "Shared Files",
+  "sharedFilesDesc": "Core search model files — must be downloaded first",
+  "sharedFilesReady": "Search model files downloaded ✓",
+  "sharedFilesRequired": "Shared files must be downloaded before any section",
+  "sharedFilesDownloadFailed": "Shared files download failed, please try again",
+  "midadLaterHint": "You can download additional sections later from Settings.",
+  "downloadAll": "Download All",
+  "chatHistory": "Chat History",
+  "noChatHistory": "No previous chats",
+  "clearAllHistory": "Clear All",
+  "deleteChat": "Delete",
+  "resultCount": "results",
+  "hours": "hours",
+  "days": "days"
 }

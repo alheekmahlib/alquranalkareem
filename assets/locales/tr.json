@@ -1441,5 +1441,17 @@
   "midadNote": "'Midad' modeli, İslami kitap ve kaynaklardan çıkarılan sonuçları ve bilgileri sunar, orijinal kaynağa gitme ve ilgili kitaptan konuyu tam olarak okuma imkanı sağlar.\nModel, araştırmayı ve İslami içeriğe erişimi kolaylaştırmayı amaçlar; fetva veya dini hüküm vermek için tasarlanmamıştır.\nDini konularda ve fetvalarda lütfen yetkili alimlere başvurun.",
   "sections": "Bölümler",
   "all": "Tümü",
-  "none_sections": "Bölüm yok"
+  "none_sections": "Bölüm yok",
+  "midadWelcome": "Midad — İlim İçin Mürekkebiniz\n(Akıllı arama hâlâ geliştirme aşamasındadır. Geliştirmeye devam ederken anlayışınız için teşekkür ederiz.)",
+  "midadWelcomeDesc": "İslami bilgi kaynaklarında akıllı bir arama motoru, Kur'an, Tefsir, Hadis ve İslami kitaplarda ihtiyacınız olanı bulmanıza yardımcı olur.",
+  "midadSelectSections": "Aramaya başlamak için bir bölüm seçin.",
+  "midadLaterHint": "Ek bölümleri daha sonra Ayarlar'dan indirebilirsiniz.",
+  "downloadAll": "Tümünü İndir",
+  "chatHistory": "Sohbet Geçmişi",
+  "noChatHistory": "Önceki sohbet yok",
+  "clearAllHistory": "Tümünü Temizle",
+  "deleteChat": "Sil",
+  "resultCount": "sonuç",
+  "hours": "saat",
+  "days": "gün"
 }
