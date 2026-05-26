@@ -33,6 +33,10 @@ class ApiConstants {
       'https://github.com/alheekmahlib/Islamic_database/releases/download/hadith_books';
   static const String aqeedahUrl =
       'https://github.com/alheekmahlib/Islamic_database/releases/download/aqeedah_books';
+  static const String asulElfqhUrl =
+      'https://github.com/alheekmahlib/Islamic_database/releases/download/asul_el-feqh_books';
+  static const String eulumFiqhUrl =
+      'https://github.com/alheekmahlib/Islamic_database/releases/download/eulum_alfiqh_books';
 
   // GitLab fallback URLs - used when GitHub is blocked
   static const String _gitlabProjectId = 'haozo89%2Fislamic_database';
@@ -42,4 +46,8 @@ class ApiConstants {
       'https://gitlab.com/api/v4/projects/$_gitlabProjectId/packages/generic/hadiths_books/1.0.0';
   static const String aqeedahGitLabUrl =
       'https://gitlab.com/api/v4/projects/$_gitlabProjectId/packages/generic/aqeedah_books/1.0.0';
+  static const String asulElfqhGitLabUrl =
+      'https://gitlab.com/api/v4/projects/$_gitlabProjectId/packages/generic/asul_el-feqh_books/1.0.0';
+  static const String eulumFiqhGitLabUrl =
+      'https://gitlab.com/api/v4/projects/$_gitlabProjectId/packages/generic/eulum_alfiqh_books/1.0.0';
 }

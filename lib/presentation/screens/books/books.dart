@@ -62,6 +62,7 @@ part 'controller/extensions/books_ui.dart';
 part 'controller/extensions/text_span_extension.dart';
 part 'data/models/book_info_model.dart';
 part 'data/models/books_model.dart';
+part 'data/models/books_tab_config.dart';
 part 'data/models/chapter_model.dart';
 part 'data/models/page_model.dart';
 part 'data/models/part_model.dart';

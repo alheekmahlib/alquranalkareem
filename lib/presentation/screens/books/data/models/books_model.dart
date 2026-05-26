@@ -1,5 +1,24 @@
 part of '../../books.dart';
 
+// نموذج مجموعة الكتب حسب النوع - Book collection grouped by type
+// يمثل مجموعة كتب من نفس النوع (تفسير، أحاديث، إلخ)
+class BookCollection {
+  final String type; // نوع الكتب - Book type category
+  final List<Book> books; // قائمة الكتب - List of books
+
+  BookCollection({required this.type, required this.books});
+
+  factory BookCollection.fromJson(Map<String, dynamic> json) {
+    return BookCollection(
+      type: json['type'] ?? '',
+      books: (json['booksType'] as List?)
+              ?.map((book) => Book.fromJson(book))
+              .toList() ??
+          [],
+    );
+  }
+}
+
 // نموذج الكتاب الرئيسي - Main book model
 // يحتوي على جميع معلومات الكتاب والصفحات
 class Book {
@@ -47,7 +66,7 @@ class Book {
       hasChapters: json['hasChapters'] ?? false,
       partsCount: json['parts_count'] ?? 0,
       chapterCount: json['Chapter_count'] ?? 0,
-      pageTotal: json['PageTotle'] ?? 0,
+      pageTotal: json['PageTotal'] ?? json['PageTotle'] ?? 0,
     );
   }
 

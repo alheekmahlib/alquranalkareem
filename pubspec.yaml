@@ -3,22 +3,23 @@ description: Al-Quran Al-Kareem - Al-Heekmah Library.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 5.2.0+117
+version: 5.3.0+118
 
 environment:
-  sdk: '>=3.9.2 <4.0.0'
+  sdk: '>=3.10.0 <4.0.0'
 
 dependencies:
   anim_search_bar: ^2.0.3
   animated_custom_dropdown: ^3.1.1
+  dropdown_button2: ^2.3.9
   animated_search_bar: ^2.8.0
-  animations: ^2.2.0
+  animations: ^2.1.2
   another_xlider: ^3.0.2
   arabic_justified_text: ^1.0.2
   arabic_numbers: ^1.0.0
   awesome_notifications: ^0.10.1
-  awesome_notifications_core: ^0.10.1
-  background_fetch: ^1.5.0
+  # awesome_notifications_core: ^0.10.1
+  background_fetch: ^1.6.0
   badges: ^3.2.0 
   connectivity_plus: ^7.1.1
   cupertino_icons: ^1.0.9
@@ -28,7 +29,7 @@ dependencies:
     git:
       ref: master
       url: https://github.com/alheekmahlib/drawing_animation.git
-  drift: ^2.33.0
+  drift: ^2.32.1
   drift_flutter: ^0.3.0
   easy_image_viewer: ^1.5.1
   either_dart: ^1.0.0
@@ -52,7 +53,7 @@ dependencies:
   flutter_slider_drawer: ^3.0.2
   flutter_staggered_animations: ^1.1.1
   flutter_staggered_grid_view: ^0.7.0
-  flutter_svg: ^2.3.0
+  flutter_svg: ^2.2.4
   flutter_timezone: ^5.0.2
   gap: ^3.0.1
   get: ^4.7.3
@@ -65,7 +66,7 @@ dependencies:
   info_popup: ^4.3.2
   intl: ^0.20.2
   lottie: ^3.3.3
-  video_player: ^2.11.1
+  video_player: ^2.9.2
   media_kit: ^1.2.6
   media_kit_video: ^2.0.1
   media_kit_libs_video: ^1.0.7
@@ -77,7 +78,7 @@ dependencies:
     # git:
     #   ref: main
     #   url: https://github.com/alheekmahlib/quran_library.git
-  rate_my_app: ^2.4.0
+  rate_my_app: ^2.3.2
   read_more_less: ^1.0.1
   rxdart: ^0.28.0
   screenshot: ^3.0.0
@@ -90,6 +91,9 @@ dependencies:
   timezone: ^0.11.0
   url_launcher: ^6.3.2
   wakelock_plus: ^1.3.3
+  flutter_onnxruntime: ^1.7.0
+  archive: ^4.0.4
+  flutter_streaming_text_markdown: ^1.4.0
 
 dev_dependencies:
   app_name_localizer: ^1.0.5

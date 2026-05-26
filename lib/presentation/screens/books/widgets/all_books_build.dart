@@ -1,18 +1,14 @@
 part of '../books.dart';
 
 class AllBooksBuild extends StatelessWidget {
-  final bool? isDownloadedBooks;
-  final bool? isHadithsBooks;
-  final bool? isTafsirBooks;
-  final bool? isAqeedahBooks;
+  final bool isDownloadedBooks;
+  final String? filterBookType;
   final String title;
   AllBooksBuild({
     super.key,
     this.isDownloadedBooks = false,
+    this.filterBookType,
     required this.title,
-    this.isHadithsBooks = false,
-    this.isTafsirBooks = false,
-    this.isAqeedahBooks = false,
   });
 
   final booksCtrl = BooksController.instance;
@@ -36,13 +32,10 @@ class AllBooksBuild extends StatelessWidget {
             return const Center(child: CircularProgressIndicator.adaptive());
           }
 
-          // استخدام دالة البحث المحدثة - Use updated search function
           final allBooks = booksCtrl.getFilteredBooks(
             booksCtrl.state.booksList,
-            isDownloadedBooks: isDownloadedBooks!,
-            isHadithsBooks: isHadithsBooks!,
-            isTafsirBooks: isTafsirBooks!,
-            isAqeedahBooks: isAqeedahBooks!,
+            isDownloadedBooks: isDownloadedBooks,
+            filterBookType: filterBookType,
             title: title,
           );
 
@@ -63,18 +56,11 @@ class AllBooksBuild extends StatelessWidget {
                       children: [
                         const Gap(64),
                         customSvgWithCustomColor(
-                          isDownloadedBooks!
-                              ? SvgPath.svgBooksMyLibrary
-                              : isHadithsBooks!
-                              ? SvgPath.svgBooksHadith
-                              : isTafsirBooks!
-                              ? SvgPath.svgBooksTafsir
-                              : SvgPath.svgBooksAllBooks,
+                          _getEmptyIcon(),
                           height: 70,
                         ),
                         const Gap(16),
                         Text(
-                          // عرض رسالة مختلفة حسب السياق - Show different message based on context
                           booksCtrl.state.searchQuery.value.isNotEmpty
                               ? 'noBooksFoundForSearch'.tr
                               : _getEmptyStateMessage(),
@@ -85,8 +71,8 @@ class AllBooksBuild extends StatelessWidget {
                     )
                   : Column(
                       children: [
-                        // عرض كتب الأحاديث المهمة (sixthBooksNumbers) في كونتينر منفصل - Display important hadith books (sixthBooksNumbers) in separate container
-                        if (isHadithsBooks == true) ...[
+                        // قسم خاص لكتب الأحاديث المهمة
+                        if (filterBookType == 'hadiths') ...[
                           _buildSixthBooksSection(context, allBooks, true),
                           Container(
                             height: 4,
@@ -108,7 +94,6 @@ class AllBooksBuild extends StatelessWidget {
                           ),
                           const Gap(8),
                         ],
-                        // عرض باقي الكتب - Display remaining books
                         _buildRegularBooksSection(allBooks),
                       ],
                     ),
@@ -119,17 +104,14 @@ class AllBooksBuild extends StatelessWidget {
     );
   }
 
-  // الحصول على رسالة الحالة الفارغة المناسبة - Get appropriate empty state message
+  String _getEmptyIcon() {
+    if (isDownloadedBooks) return SvgPath.svgBooksMyLibrary;
+    return _typeSvgMap[filterBookType] ?? SvgPath.svgBooksAllBooks;
+  }
+
   String _getEmptyStateMessage() {
-    if (isDownloadedBooks == true) {
-      return 'noBooksDownloaded'.tr; // لا توجد كتب محملة - No downloaded books
-    } else if (isHadithsBooks == true) {
-      return 'noHadithBooks'.tr; // لا توجد كتب أحاديث - No hadith books
-    } else if (isTafsirBooks == true) {
-      return 'noTafsirBooks'.tr; // لا توجد كتب تفسير - No tafsir books
-    } else {
-      return 'noBooks'.tr; // لا توجد كتب - No books
-    }
+    if (isDownloadedBooks) return 'noBooksDownloaded'.tr;
+    return 'noBooks'.tr;
   }
 
   SizedBox _searchBuild(BuildContext context) {
@@ -176,7 +158,6 @@ class AllBooksBuild extends StatelessWidget {
           ),
           constraints: const BoxConstraints(maxHeight: 40.0),
           contentPadding: const EdgeInsets.symmetric(horizontal: 8.0),
-          // isDense: true,
         ),
         searchStyle: AppTextStyles.bodySmall(
           color: context.theme.primaryColorLight,
@@ -186,20 +167,17 @@ class AllBooksBuild extends StatelessWidget {
           booksCtrl.state.searchQuery.value = '';
         },
         onChanged: (value) {
-          // تحديث نص البحث وتفعيل البحث - Update search text and activate search
           booksCtrl.searchBookNames(value);
         },
       ),
     );
   }
 
-  // بناء قسم كتب الأحاديث المهمة (sixthBooksNumbers) - Build priority hadith books section
   Widget _buildSixthBooksSection(
     BuildContext context,
     List<Book> allBooks,
     bool isSixthBooks,
   ) {
-    // فلترة وترتيب كتب الأحاديث المهمة حسب ترتيب sixthBooksNumbers - Filter and sort priority hadith books according to sixthBooksNumbers order
     final priorityBooks = booksCtrl.getCustomBookNumber(
       allBooks,
       isSixthBooks ? booksCtrl.sixthBooksNumbers : booksCtrl.ninthBooksNumbers,
@@ -259,10 +237,8 @@ class AllBooksBuild extends StatelessWidget {
     );
   }
 
-  // بناء قسم باقي الكتب - Build regular books section
   Widget _buildRegularBooksSection(List<Book> allBooks) {
-    // فلترة باقي الكتب (غير المهمة) - Filter remaining books (non-priority)
-    final regularBooks = isHadithsBooks == true
+    final regularBooks = filterBookType == 'hadiths'
         ? allBooks
               .where(
                 (book) =>

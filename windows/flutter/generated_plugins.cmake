@@ -4,8 +4,8 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   awesome_notifications
-  awesome_notifications_core
   connectivity_plus
+  flutter_onnxruntime
   flutter_timezone
   media_kit_libs_windows_video
   media_kit_video
