@@ -11,8 +11,6 @@ class MainFlutterWindow: NSWindow {
     self.contentViewController = flutterViewController
     self.setFrame(windowFrame, display: true)
 
-    RegisterGeneratedPlugins(registry: flutterViewController)
-
     // MethodChannel for macOS widget UserDefaults
     let channel = FlutterMethodChannel(
       name: "com.alheekmah.quran_widget/macos_widget",
@@ -48,5 +46,6 @@ class MainFlutterWindow: NSWindow {
     self.widgetChannel = channel
 
     super.awakeFromNib()
+    RegisterGeneratedPlugins(registry: flutterViewController)
   }
 }

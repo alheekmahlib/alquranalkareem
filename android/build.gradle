@@ -1,6 +1,6 @@
 ext {
-    compileSdkVersion = 36
-    targetSdkVersion = 36
+    compileSdkVersion = 37
+    targetSdkVersion = 37
     appCompatVersion = "1.4.2"
 }
 
@@ -13,7 +13,7 @@ buildscript {
 
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.android.tools.build:gradle:8.12.3'
+        classpath 'com.android.tools.build:gradle:8.13.2'
     }
 }
 
@@ -33,6 +33,16 @@ subprojects {
 }
 subprojects {
     project.evaluationDependsOn(':app')
+}
+
+// Exclude problematic alpha deps and force stable versions
+subprojects {
+    configurations.all {
+        resolutionStrategy {
+            force 'androidx.glance:glance-appwidget:1.1.1'
+        }
+        exclude group: 'androidx.compose.remote', module: 'remote-creation-android'
+    }
 }
 
 tasks.register("clean", Delete) {

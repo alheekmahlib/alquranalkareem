@@ -51,9 +51,23 @@ class BooksController extends GetxController {
       final jsonString = await rootBundle.loadString(
         'assets/json/collections.json',
       );
-      final booksJson = json.decode(jsonString) as List;
-      state.booksList.value = booksJson
-          .map((book) => Book.fromJson(book))
+      final collectionsJson = json.decode(jsonString) as List;
+      // الهيكلية الجديدة: مصفوفة من مجموعات الكتب حسب النوع
+      // New structure: array of book collections grouped by type
+      final allBooks = <Book>[];
+      for (var collection in collectionsJson) {
+        final booksType = collection['booksType'] as List?;
+        if (booksType != null) {
+          allBooks.addAll(
+            booksType.map((book) => Book.fromJson(book)),
+          );
+        }
+      }
+      state.booksList.value = allBooks;
+      // حفظ أنواع الكتب من collections.json - Save book types from collections.json
+      state.bookTypes.value = collectionsJson
+          .map((c) => c['type'] as String? ?? '')
+          .where((t) => t.isNotEmpty)
           .toList();
       log('Books loaded: ${state.booksList.length}', name: 'BooksController');
       loadDownloadedBooks();
@@ -145,6 +159,14 @@ class BooksController extends GetxController {
       baseUrl = useGitLab
           ? ApiConstants.aqeedahGitLabUrl
           : ApiConstants.aqeedahUrl;
+    } else if (bookType == 'asul_el-feqh') {
+      baseUrl = useGitLab
+          ? ApiConstants.asulElfqhGitLabUrl
+          : ApiConstants.asulElfqhUrl;
+    } else if (bookType == 'eulum_alfiqh_wal_awaeid_alfiqhia') {
+      baseUrl = useGitLab
+          ? ApiConstants.eulumFiqhGitLabUrl
+          : ApiConstants.eulumFiqhUrl;
     } else {
       baseUrl = useGitLab
           ? ApiConstants.tafsirGitLabUrl
@@ -445,23 +467,19 @@ class BooksController extends GetxController {
   List<Book> getFilteredBooks(
     List<Book> booksList, {
     bool isDownloadedBooks = false,
-    bool isHadithsBooks = false,
-    bool isTafsirBooks = false,
-    bool isAqeedahBooks = false,
+    String? filterBookType,
     String title = '',
   }) {
     var filtered = _filterByCategory(
       booksList,
       isDownloadedBooks: isDownloadedBooks,
-      isHadithsBooks: isHadithsBooks,
-      isTafsirBooks: isTafsirBooks,
-      isAqeedahBooks: isAqeedahBooks,
-      title: title,
+      filterBookType: filterBookType,
     );
 
     filtered = _filterBySearchQuery(filtered);
 
-    if (isHadithsBooks) {
+    // ترتيب خاص لكتب الأحاديث - Special sort for hadith books
+    if (filterBookType == 'hadiths') {
       filtered = _sortHadithBooks(filtered);
     }
 
@@ -471,18 +489,15 @@ class BooksController extends GetxController {
   List<Book> _filterByCategory(
     List<Book> books, {
     required bool isDownloadedBooks,
-    required bool isHadithsBooks,
-    required bool isTafsirBooks,
-    required bool isAqeedahBooks,
-    required String title,
+    String? filterBookType,
   }) {
     if (isDownloadedBooks) {
       return books
           .where((b) => state.downloaded[b.bookNumber] == true)
           .toList();
     }
-    if (isHadithsBooks || isTafsirBooks || isAqeedahBooks) {
-      return books.where((b) => b.bookType == title).toList();
+    if (filterBookType != null) {
+      return books.where((b) => b.bookType == filterBookType).toList();
     }
     return books;
   }

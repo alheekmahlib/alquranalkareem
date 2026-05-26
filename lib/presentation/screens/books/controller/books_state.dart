@@ -4,6 +4,7 @@ class BooksState {
   /// -------- [Variables] ----------
   final box = GetStorage();
   var booksList = <Book>[].obs;
+  var bookTypes = <String>[].obs;
   var isLoading = true.obs;
   var downloading = <int, bool>{}.obs;
   var downloaded = <int, bool>{}.obs;
