@@ -27,12 +27,18 @@ class ApiConstants {
       'https://alheekmahlib.github.io/alheekmahlib/#/download/';
   static const String quranShareUrl =
       'https://alheekmahlib.github.io/alheekmahlib/#/quran?page=';
+
+  static const String booksGithubUrl =
+      'https://github.com/alheekmahlib/Islamic_database/releases/download';
+  static const String booksGitLabUrl =
+      'https://gitlab.com/api/v4/projects/haozo89%2Fislamic_database/packages/generic/';
+
   static const String tafsirUrl =
-      'https://github.com/alheekmahlib/Islamic_database/releases/download/tafsir_books';
+      'https://github.com/alheekmahlib/Islamic_database/releases/download/tafsir_books_v2';
   static const String hadithsUrl =
-      'https://github.com/alheekmahlib/Islamic_database/releases/download/hadith_books';
+      'https://github.com/alheekmahlib/Islamic_database/releases/download/hadith_books_v2';
   static const String aqeedahUrl =
-      'https://github.com/alheekmahlib/Islamic_database/releases/download/aqeedah_books';
+      'https://github.com/alheekmahlib/Islamic_database/releases/download/aqeedah_books_v2';
   static const String asulElfqhUrl =
       'https://github.com/alheekmahlib/Islamic_database/releases/download/asul_el-feqh_books';
   static const String eulumFiqhUrl =

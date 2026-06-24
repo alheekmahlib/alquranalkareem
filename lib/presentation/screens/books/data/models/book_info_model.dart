@@ -6,6 +6,7 @@ class BookInfo {
   final String title; // عنوان الكتاب - Book title
   final String author; // المؤلف - Author
   final String bookType; // نوع الكتاب - Book type
+  final String bookUrlType; // نوع الكتاب - Book type
   final String about; // نبذة عن الكتاب - About the book
   final String url; // رابط الكتاب - Book URL
   final String id; // معرف الكتاب - Book ID
@@ -19,6 +20,7 @@ class BookInfo {
     required this.title,
     required this.author,
     required this.bookType,
+    required this.bookUrlType,
     required this.about,
     required this.url,
     required this.id,
@@ -34,6 +36,7 @@ class BookInfo {
       title: json['title'] ?? '',
       author: json['author'] ?? '',
       bookType: json['bookType'] ?? '',
+      bookUrlType: json['urlType'] ?? '',
       about: json['about'] ?? '',
       url: json['url'] ?? '',
       id: json['id'] ?? '',
@@ -55,6 +58,7 @@ class BookInfo {
       title: '',
       author: '',
       bookType: '',
+      bookUrlType: '',
       about: '',
       url: '',
       id: '',

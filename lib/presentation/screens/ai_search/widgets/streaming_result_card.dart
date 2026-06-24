@@ -54,14 +54,14 @@ class _StreamingResultCard extends StatelessWidget {
         } else if (isStreaming) {
           textWidget = StreamingTextMarkdown(
             text: meta.preview,
+            chunkSize: 1,
             wordByWord: true,
             latexEnabled: true,
-            chunkSize: 1,
+            markdownEnabled: true,
             // fadeInEnabled: true,
             styleSheet: baseStyle,
             latexStyle: baseStyle,
             textDirection: TextDirection.rtl,
-            markdownEnabled: true,
             onComplete: () {
               ctrl.state.markCardCompleted(cardKey);
             },
@@ -225,6 +225,7 @@ class _StreamingResultCard extends StatelessWidget {
     final book = booksCtrl.state.booksList.firstWhereOrNull(
       (b) => b.bookNumber == bookNumber,
     );
+    final bookInfo = booksCtrl.state.booksInfo;
     if (book == null) return;
 
     Get.dialog(
@@ -266,6 +267,7 @@ class _StreamingResultCard extends StatelessWidget {
                                 await booksCtrl.downloadBook(
                                   bookNumber,
                                   book.bookType,
+                                  bookInfo[0].bookUrlType,
                                 );
                                 // Close dialog and navigate after download
                                 if (booksCtrl.isBookDownloaded(bookNumber)) {

@@ -16,6 +16,9 @@ class ChaptersPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bookInfo = booksCtrl.state.booksInfo.firstWhere(
+      (element) => element.type == book.bookType,
+    );
     return Scaffold(
       backgroundColor: context.theme.colorScheme.primaryContainer,
       appBar: AppBarWidget(
@@ -46,6 +49,7 @@ class ChaptersPage extends StatelessWidget {
                 const Gap(16),
                 BookDetails(
                   book: book,
+                  bookInfo: bookInfo,
                   isSixthBooks: isSixthBooks,
                   isNinthBooks: isNinthBooks,
                 ),
@@ -67,6 +71,7 @@ class ChaptersPage extends StatelessWidget {
                   child: SingleChildScrollView(
                     child: BookDetails(
                       book: book,
+                      bookInfo: bookInfo,
                       isSixthBooks: isSixthBooks,
                       isNinthBooks: isNinthBooks,
                     ),

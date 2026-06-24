@@ -1455,5 +1455,6 @@
   "deleteChat": "I-delete",
   "resultCount": "resulta",
   "hours": "oras",
-  "days": "araw"
+  "days": "araw",
+  "searchingText": "Naghahanap sa mga pamagat ng kabanata at nilalaman ng mga na-download na libro... Ipapakita ang mga resulta sa lalong madaling panahon."
 }

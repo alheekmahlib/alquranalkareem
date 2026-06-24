@@ -1453,5 +1453,6 @@
   "deleteChat": "Sil",
   "resultCount": "sonuç",
   "hours": "saat",
-  "days": "gün"
+  "days": "gün",
+  "searchingText": "Bölüm başlıklarında ve indirilen kitap içeriklerinde arama yapılıyor... Sonuçlar bulunduğunda hemen görüntülenecek."
 }

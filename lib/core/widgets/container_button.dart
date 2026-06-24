@@ -29,6 +29,7 @@ class ContainerButton extends StatelessWidget {
   final double? horizontalMargin;
   final double? verticalMargin;
   final bool? withArrow;
+  final int? arrowQuarterTurns;
   final double? horizontalPadding;
   final double? verticalPadding;
   final MainAxisAlignment? mainAxisAlignment;
@@ -40,6 +41,7 @@ class ContainerButton extends StatelessWidget {
   final Color? progressColor;
   final bool? isTitleCentered;
   final double? selectedValueMargin;
+  final String? customSvgArrowPath;
   const ContainerButton({
     super.key,
     this.onPressed,
@@ -74,6 +76,8 @@ class ContainerButton extends StatelessWidget {
     this.isTitleCentered = false,
     this.progressColor,
     this.selectedValueMargin = 4.0,
+    this.arrowQuarterTurns,
+    this.customSvgArrowPath,
   });
 
   @override
@@ -262,9 +266,10 @@ class ContainerButton extends StatelessWidget {
                           Expanded(
                             flex: 1,
                             child: RotatedBox(
-                              quarterTurns: alignmentLayout(1, 3),
+                              quarterTurns:
+                                  arrowQuarterTurns ?? alignmentLayout(1, 3),
                               child: customSvgWithColor(
-                                SvgPath.svgHomeArrowDown,
+                                customSvgArrowPath ?? SvgPath.svgHomeArrowDown,
                                 color: context.theme.colorScheme.surface,
                                 height: 18,
                               ),

@@ -17,6 +17,7 @@ class ExpansionTileWidget<T extends GetxController> extends StatelessWidget {
   final Widget? titleChild;
   final Color? backgroundColor;
   final Function(bool)? onExpansionChanged;
+  final bool? initiallyExpanded;
 
   const ExpansionTileWidget({
     super.key,
@@ -29,6 +30,7 @@ class ExpansionTileWidget<T extends GetxController> extends StatelessWidget {
     this.titleChild,
     this.backgroundColor,
     this.onExpansionChanged,
+    this.initiallyExpanded = false,
   });
 
   @override
@@ -42,6 +44,7 @@ class ExpansionTileWidget<T extends GetxController> extends StatelessWidget {
 
         return ExpansionTile(
           controller: controller,
+          initiallyExpanded: initiallyExpanded ?? false,
           backgroundColor:
               backgroundColor ??
               context.theme.primaryColorLight.withValues(alpha: .2),
@@ -76,7 +79,9 @@ class ExpansionTileWidget<T extends GetxController> extends StatelessWidget {
                   subtitle!,
                   style: AppTextStyles.bodySmall(
                     fontSize: 12.0,
-                    color: context.theme.primaryColorDark.withValues(alpha: .7),
+                    color: context.theme.colorScheme.inversePrimary.withValues(
+                      alpha: .7,
+                    ),
                   ),
                 )
               : null,

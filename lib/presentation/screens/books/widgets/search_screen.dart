@@ -21,6 +21,10 @@ class SearchScreen extends StatelessWidget {
             onPressed: () {
               booksCtrl.state.searchController.clear();
               booksCtrl.state.searchResults.clear();
+              booksCtrl.state.subjectSearchResults.clear();
+              booksCtrl.state.sectionVisibleCount.clear();
+              booksCtrl.state.searchedBookTypes.clear();
+              booksCtrl.state.activeSearchQuery = null;
             },
             onChanged: null,
             onSubmitted: (value) {

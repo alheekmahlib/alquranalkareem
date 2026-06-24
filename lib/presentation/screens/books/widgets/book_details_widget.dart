@@ -2,12 +2,14 @@ part of '../books.dart';
 
 class BookDetails extends StatelessWidget {
   final Book book;
+  final BookCollection bookInfo;
   final bool? isSixthBooks;
   final bool? isNinthBooks;
 
   BookDetails({
     super.key,
     required this.book,
+    required this.bookInfo,
     this.isSixthBooks = false,
     this.isNinthBooks = false,
   });
@@ -90,7 +92,11 @@ class BookDetails extends StatelessWidget {
                                   context.theme.colorScheme.secondaryContainer,
                             ),
                           )
-                        : BookNotDownloaded(booksCtrl: booksCtrl, book: book),
+                        : BookNotDownloaded(
+                            booksCtrl: booksCtrl,
+                            book: book,
+                            bookInfo: bookInfo,
+                          ),
                   ),
                   const Gap(8.0),
                 ],
@@ -147,10 +153,12 @@ class BookNotDownloaded extends StatelessWidget {
     super.key,
     required this.booksCtrl,
     required this.book,
+    required this.bookInfo,
   });
 
   final BooksController booksCtrl;
   final Book book;
+  final BookCollection bookInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -161,8 +169,11 @@ class BookNotDownloaded extends StatelessWidget {
         children: [
           SizedBox(
             child: CustomButton(
-              onPressed: () async =>
-                  await booksCtrl.downloadBook(book.bookNumber, book.bookType),
+              onPressed: () async => await booksCtrl.downloadBook(
+                book.bookNumber,
+                book.bookType,
+                bookInfo.bookUrlType,
+              ),
               height: 40,
               width: Get.width,
               verticalPadding: 0.0,

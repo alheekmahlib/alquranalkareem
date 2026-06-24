@@ -7,11 +7,9 @@ PODS:
   - awesome_notifications (0.10.0):
     - Flutter
     - IosAwnCore (~> 0.10.0)
-  - awesome_notifications_core (0.0.1):
+  - background_fetch (1.6.2):
     - Flutter
-  - background_fetch (1.6.0):
-    - Flutter
-    - TSBackgroundFetch (~> 4.0)
+    - TSBackgroundFetch (~> 4.1.0)
   - connectivity_plus (0.0.1):
     - Flutter
   - device_info_plus (0.0.1):
@@ -41,7 +39,7 @@ PODS:
     - onnxruntime-c (= 1.22.0)
   - package_info_plus (0.4.5):
     - Flutter
-  - rate_my_app (2.3.2):
+  - rate_my_app (2.4.0):
     - Flutter
     - FlutterMacOS
   - share_plus (0.0.1):
@@ -52,7 +50,7 @@ PODS:
   - sqflite_darwin (0.0.4):
     - Flutter
     - FlutterMacOS
-  - TSBackgroundFetch (4.0.5)
+  - TSBackgroundFetch (4.1.1)
   - url_launcher_ios (0.0.1):
     - Flutter
   - video_player_avfoundation (0.0.1):
@@ -65,7 +63,6 @@ DEPENDENCIES:
   - audio_service (from `.symlinks/plugins/audio_service/darwin`)
   - audio_session (from `.symlinks/plugins/audio_session/ios`)
   - awesome_notifications (from `.symlinks/plugins/awesome_notifications/ios`)
-  - awesome_notifications_core (from `.symlinks/plugins/awesome_notifications_core/ios`)
   - background_fetch (from `.symlinks/plugins/background_fetch/ios`)
   - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
@@ -100,8 +97,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/audio_session/ios"
   awesome_notifications:
     :path: ".symlinks/plugins/awesome_notifications/ios"
-  awesome_notifications_core:
-    :path: ".symlinks/plugins/awesome_notifications_core/ios"
   background_fetch:
     :path: ".symlinks/plugins/background_fetch/ios"
   connectivity_plus:
@@ -145,8 +140,7 @@ SPEC CHECKSUMS:
   audio_service: aa99a6ba2ae7565996015322b0bb024e1d25c6fd
   audio_session: 9bb7f6c970f21241b19f5a3658097ae459681ba0
   awesome_notifications: 0f432b28098d193920b11a44cfa9d2d9313a3888
-  awesome_notifications_core: 429c28df8746780a474de177e5acde33af87da63
-  background_fetch: c66dd9ae5b681c328c8fe336090e9efb792ce7c0
+  background_fetch: 31b1fd797189ec25dc022e4ae5e97bebc6f0935d
   connectivity_plus: cb623214f4e1f6ef8fe7403d580fdad517d2f7dd
   device_info_plus: 21fcca2080fbcd348be798aa36c3e5ed849eefbe
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
@@ -158,16 +152,16 @@ SPEC CHECKSUMS:
   just_audio: 4e391f57b79cad2b0674030a00453ca5ce817eed
   media_kit_libs_ios_video: 5a18affdb97d1f5d466dc79988b13eff6c5e2854
   media_kit_video: 1746e198cb697d1ffb734b1d05ec429d1fcd1474
-  onnxruntime-c: 7f778680e96145956c0a31945f260321eed2611a
+  onnxruntime-c: acebf6dbb9c0d5a91d134e699839911f4b547133
   onnxruntime-objc: 83d28b87525bd971259a66e153ea32b5d023de19
   package_info_plus: af8e2ca6888548050f16fa2f1938db7b5a5df499
-  rate_my_app: cbb89973f870601f80f7bad63aba107260cabc5b
+  rate_my_app: 1bd2a80b234634df4af8634da60fe7d0f695d57f
   share_plus: 50da8cb520a8f0f65671c6c6a99b3617ed10a58a
   shared_preferences_foundation: 7036424c3d8ec98dfe75ff1667cb0cd531ec82bb
   sqflite_darwin: 20b2a3a3b70e43edae938624ce550a3cbf66a3d0
-  TSBackgroundFetch: e91020924db32f27d0a43df7dec6f73f10743571
+  TSBackgroundFetch: 18918b6449a1e3f01eb0f5b44d6d79ce6160a5a5
   url_launcher_ios: 7a95fa5b60cc718a708b8f2966718e93db0cef1b
-  video_player_avfoundation: dd410b52df6d2466a42d28550e33e4146928280a
+  video_player_avfoundation: 3453f792138786248960ca029747fcd9f318ef52
   wakelock_plus: e29112ab3ef0b318e58cfa5c32326458be66b556
 
 PODFILE CHECKSUM: a9348837c27459700d185009b79db4f67a54944e

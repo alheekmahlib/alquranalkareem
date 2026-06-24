@@ -92,8 +92,8 @@ dependencies:
   url_launcher: ^6.3.2
   wakelock_plus: ^1.3.3
   flutter_onnxruntime: ^1.7.0
-  archive: ^4.0.4
-  flutter_streaming_text_markdown: ^1.4.0
+  archive: ^4.0.9
+  flutter_streaming_text_markdown: ^1.8.0
 
 dev_dependencies:
   app_name_localizer: ^1.0.5
