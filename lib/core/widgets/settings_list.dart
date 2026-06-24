@@ -14,6 +14,7 @@ import '../../presentation/screens/ourApp/screen/our_apps_screen.dart';
 import '../../presentation/screens/quran_page/quran.dart';
 import '../utils/constants/extensions/svg_extensions.dart';
 import '../utils/helpers/app_text_styles.dart';
+import 'font_family_picker.dart';
 import 'language_list.dart';
 import 'mushaf_settings.dart';
 import 'select_screen.dart';
@@ -67,6 +68,8 @@ class SettingsList extends StatelessWidget {
                   : const SizedBox.shrink(),
               const Gap(24),
               const ThemeChange(),
+              const Gap(24),
+              FontFamilyPicker(),
               const Gap(24),
               const SelectScreen(),
               const Gap(24),

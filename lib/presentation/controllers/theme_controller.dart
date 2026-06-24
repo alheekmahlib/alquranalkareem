@@ -14,12 +14,16 @@ class ThemeController extends GetxController {
   AppTheme? initialTheme;
   ThemeData? initialThemeData;
   Rx<AppTheme> _currentTheme = AppTheme.green.obs;
+  RxString _fontFamily = 'playpen'.obs;
   final box = GetStorage();
 
   @override
   void onInit() async {
     var theme = await loadThemePreference();
     setTheme(theme);
+    // Load saved font family
+    String savedFont = box.read(APP_FONT_FAMILY) ?? 'playpen';
+    _fontFamily.value = savedFont;
     super.onInit();
   }
 
@@ -95,4 +99,32 @@ class ThemeController extends GetxController {
   bool get isBrownMode => _currentTheme.value == AppTheme.brown;
   bool get isGreenMode => _currentTheme.value == AppTheme.green;
   bool get isDarkMode => _currentTheme.value == AppTheme.dark;
+
+  // ══════════════════════════════════════════════
+  //                  FONT FAMILY
+  // ══════════════════════════════════════════════
+
+  static const List<String> availableFontFamilies = [
+    'playpen',
+    'naskh',
+    'kufi',
+  ];
+
+  static const Map<String, String> fontFamilyTranslationKeys = {
+    'playpen': 'playpenFont',
+    'naskh': 'naskhFont',
+    'kufi': 'kufiFont',
+  };
+
+  String get currentFontFamily => _fontFamily.value;
+
+  String get currentFontDisplayName =>
+      fontFamilyTranslationKeys[_fontFamily.value] ?? 'playpenFont';
+
+  void setFontFamily(String fontFamily) {
+    _fontFamily.value = fontFamily;
+    box.write(APP_FONT_FAMILY, fontFamily);
+    update(['font_family']);
+    Get.forceAppUpdate();
+  }
 }

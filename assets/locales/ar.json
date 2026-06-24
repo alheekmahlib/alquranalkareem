@@ -1471,5 +1471,9 @@
   "sortAuthorAlpha": "اسم المؤلف (أبجدي)",
   "sortDefault": "الترتيب الافتراضي",
   "ascending": "تصاعدي",
-  "descending": "تنازلي"
+  "descending": "تنازلي",
+  "fontFamilyTitle": "اختر الخط",
+  "playpenFont": "بلابين",
+  "naskhFont": "النسخ",
+  "kufiFont": "الكوفي"
 }

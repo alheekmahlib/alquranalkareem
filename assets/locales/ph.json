@@ -1456,5 +1456,9 @@
   "resultCount": "resulta",
   "hours": "oras",
   "days": "araw",
-  "searchingText": "Naghahanap sa mga pamagat ng kabanata at nilalaman ng mga na-download na libro... Ipapakita ang mga resulta sa lalong madaling panahon."
+  "searchingText": "Naghahanap sa mga pamagat ng kabanata at nilalaman ng mga na-download na libro... Ipapakita ang mga resulta sa lalong madaling panahon.",
+  "fontFamilyTitle": "Pumili ng Font",
+  "playpenFont": "Playpen",
+  "naskhFont": "Naskh",
+  "kufiFont": "Kufi"
 }

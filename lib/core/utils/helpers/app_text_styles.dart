@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '/presentation/controllers/theme_controller.dart';
+
 class AppTextStyles {
   AppTextStyles._(); // منع إنشاء instance
 
+  static String get _defaultFontFamily =>
+      ThemeController.instance.currentFontFamily;
   // ══════════════════════════════════════════════
   //                 HEADINGS
   // ══════════════════════════════════════════════
@@ -25,7 +29,7 @@ class AppTextStyles {
       letterSpacing: letterSpacing,
       height: height ?? 1.2,
       decoration: decoration,
-      fontFamily: 'playpen',
+      fontFamily: fontFamily ?? _defaultFontFamily,
     );
   }
 
@@ -46,7 +50,7 @@ class AppTextStyles {
       letterSpacing: letterSpacing,
       height: height ?? 1.2,
       decoration: decoration,
-      fontFamily: 'playpen',
+      fontFamily: fontFamily ?? _defaultFontFamily,
     );
   }
 
@@ -67,7 +71,7 @@ class AppTextStyles {
       letterSpacing: letterSpacing,
       height: height ?? 1.2,
       decoration: decoration,
-      fontFamily: 'playpen',
+      fontFamily: fontFamily ?? _defaultFontFamily,
     );
   }
 
@@ -92,7 +96,7 @@ class AppTextStyles {
       letterSpacing: letterSpacing,
       height: height ?? 1.5,
       decoration: decoration,
-      fontFamily: 'playpen',
+      fontFamily: fontFamily ?? _defaultFontFamily,
     );
   }
 
@@ -113,7 +117,7 @@ class AppTextStyles {
       letterSpacing: letterSpacing,
       height: height ?? 1.5,
       decoration: decoration,
-      fontFamily: 'playpen',
+      fontFamily: fontFamily ?? _defaultFontFamily,
     );
   }
 
@@ -134,7 +138,7 @@ class AppTextStyles {
       letterSpacing: letterSpacing,
       height: height ?? 1.5,
       decoration: decoration,
-      fontFamily: 'playpen',
+      fontFamily: fontFamily ?? _defaultFontFamily,
     );
   }
 
@@ -159,7 +163,7 @@ class AppTextStyles {
       letterSpacing: letterSpacing,
       height: height ?? 1.2,
       decoration: decoration,
-      fontFamily: 'naskh',
+      fontFamily: fontFamily ?? _defaultFontFamily,
     );
   }
 
@@ -180,7 +184,7 @@ class AppTextStyles {
       letterSpacing: letterSpacing,
       height: height ?? 1.2,
       decoration: decoration,
-      fontFamily: 'naskh',
+      fontFamily: fontFamily ?? _defaultFontFamily,
     );
   }
 
@@ -201,7 +205,7 @@ class AppTextStyles {
       letterSpacing: letterSpacing,
       height: height ?? 1.2,
       decoration: decoration,
-      fontFamily: 'naskh',
+      fontFamily: fontFamily ?? _defaultFontFamily,
     );
   }
 }

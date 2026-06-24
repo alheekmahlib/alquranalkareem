@@ -1456,5 +1456,9 @@
   "resultCount": "hasil",
   "hours": "jam",
   "days": "hari",
-  "searchingText": "Sedang mencari di judul bab dan konten buku yang diunduh... Hasil akan ditampilkan segera setelah ditemukan."
+  "searchingText": "Sedang mencari di judul bab dan konten buku yang diunduh... Hasil akan ditampilkan segera setelah ditemukan.",
+  "fontFamilyTitle": "Pilih Font",
+  "playpenFont": "Playpen",
+  "naskhFont": "Naskh",
+  "kufiFont": "Kufi"
 }

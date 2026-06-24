@@ -6,6 +6,7 @@ const String LANG = "lang";
 const String LANG_NAME = "langName";
 const String LANGUAGE_FONT = "languageFont";
 const String SET_THEME = "SET_THEME";
+const String APP_FONT_FAMILY = 'APP_FONT_FAMILY';
 const String SCREEN_SELECTED_VALUE = "SCREEN_SELECTED_VALUE";
 final String SETTED_DATE_FOR_ZEKER = 'SETTED_DATE_FOR_ZEKER';
 final String ZEKER_OF_THE_DAY_AND_ID = 'ZEKER_OF_THE_DAY_AND_ID';

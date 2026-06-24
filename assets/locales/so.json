@@ -1434,5 +1434,9 @@
   "resultCount": "natiijo",
   "hours": "saac",
   "days": "maalinta",
-  "searchingText": "Waxaa lagu raadinayaa tiitalka cutubyada iyo kontentka buugagta la soo dejisay... Natiijada waxay ka muuqan doontaa isla marka la helo."
+  "searchingText": "Waxaa lagu raadinayaa tiitalka cutubyada iyo kontentka buugagta la soo dejisay... Natiijada waxay ka muuqan doontaa isla marka la helo.",
+  "fontFamilyTitle": "Dooro Far",
+  "playpenFont": "Playpen",
+  "naskhFont": "Naskh",
+  "kufiFont": "Kufi"
 }

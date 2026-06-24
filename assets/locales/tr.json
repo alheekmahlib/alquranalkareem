@@ -1454,5 +1454,9 @@
   "resultCount": "sonuç",
   "hours": "saat",
   "days": "gün",
-  "searchingText": "Bölüm başlıklarında ve indirilen kitap içeriklerinde arama yapılıyor... Sonuçlar bulunduğunda hemen görüntülenecek."
+  "searchingText": "Bölüm başlıklarında ve indirilen kitap içeriklerinde arama yapılıyor... Sonuçlar bulunduğunda hemen görüntülenecek.",
+  "fontFamilyTitle": "Yazı Tipi Seçin",
+  "playpenFont": "Playpen",
+  "naskhFont": "Naskh",
+  "kufiFont": "Kufi"
 }
