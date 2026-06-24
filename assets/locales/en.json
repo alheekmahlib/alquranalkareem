@@ -1477,5 +1477,9 @@
   "sortAuthorAlpha": "Author Name (A-Z)",
   "sortDefault": "Default Order",
   "ascending": "Ascending",
-  "descending": "Descending"
+  "descending": "Descending",
+  "fontFamilyTitle": "Choose Font",
+  "playpenFont": "Playpen",
+  "naskhFont": "Naskh",
+  "kufiFont": "Kufi"
 }
