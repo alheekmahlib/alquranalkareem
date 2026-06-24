@@ -258,7 +258,7 @@ class _AiSearchResultsState extends State<AiSearchResults> {
             Text(
               'midadWelcome'.tr,
               style: AppTextStyles.titleMedium(
-                fontSize: 14,
+                fontSize: 12,
                 color: context.theme.colorScheme.surface,
               ),
               textAlign: TextAlign.center,

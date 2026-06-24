@@ -2,30 +2,46 @@ part of '../../books.dart';
 
 extension BooksGetters on BooksController {
   List<int> get sixthBooksNumbers => [
-    216,
-    217,
-    218,
-    219,
-    220,
-    213,
-    214,
-    205,
-    206,
-    207,
-    211,
-    212,
-    208,
-    209,
-    210,
+    735,
+    1376,
+    1681,
+    711,
+    1727,
+    654,
+    1726,
+    117359,
+    1363,
+    7895,
+    829,
+    1339,
+    1194,
+    1198,
+    98138,
   ];
 
-  List<int> get ninthBooksNumbers => [80, 81, 82, 83, 254, 258, 259];
+  List<int> get ninthBooksNumbers => [
+    1699,
+    8140,
+    16050,
+    28107,
+    98139,
+    21795,
+    36114,
+  ];
 
   PageController get pageController {
     return state.bookPageController = PageController(
       initialPage: state.currentPageNumber.value,
       keepPage: true,
     );
+  }
+
+  String getCurrentBookName(int bookNumber) {
+    final book = state.booksList.firstWhere(
+      (b) => b.bookNumber == bookNumber,
+      orElse: () => Book.empty(),
+    );
+    return book.bookName;
   }
 
   /// إنشاء PageController مع حد آمن لرقم الصفحة

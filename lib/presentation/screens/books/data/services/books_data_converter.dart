@@ -20,7 +20,9 @@ class BooksDataConverter {
 
   /// تحويل البنية القديمة للكتاب - Convert old book structure
   static Book _convertOldFormatToBook(
-      Map<String, dynamic> jsonData, int bookNumber) {
+    Map<String, dynamic> jsonData,
+    int bookNumber,
+  ) {
     List<PageContent> pages = [];
     List<Volume> volumes = [];
     List<TocItem> toc = [];

@@ -92,7 +92,7 @@ class BooksBookmarksController extends GetxController {
       );
     } else {
       addBookmark(
-        booksCtrl.state.booksList[bookNumber - 1].bookName,
+        booksCtrl.getCurrentBookName(bookNumber),
         bookNumber,
         index + 1,
       ).then(

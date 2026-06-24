@@ -13,7 +13,9 @@
         {
             "name": "alquranalkareem",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "program": "lib/main.dart",
+            "cwd": "${workspaceFolder}"
         },
         {
             "name": "alquranalkareem (profile mode)",

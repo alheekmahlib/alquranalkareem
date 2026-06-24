@@ -18,10 +18,7 @@ class BooksScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 90.0),
                 child: Obx(() {
                   final tabs = buildBooksTabs(booksCtrl.state.bookTypes);
-                  return BooksTabBarWidget(
-                    topPadding: 120.0,
-                    tabs: tabs,
-                  );
+                  return BooksTabBarWidget(topPadding: 120.0, tabs: tabs);
                 }),
               ),
               TopBarWidget(
@@ -37,13 +34,17 @@ class BooksScreen extends StatelessWidget {
                   horizontalPadding: 0.0,
                   onPressed: () {
                     QuranController.instance.setTopBarType = TopBarType.search;
-                    QuranController.instance.state.tabBarController.open();
+                    BooksController.instance.state.tabBarController.open();
                   },
                   onButtonPressed: () {
                     booksCtrl.state.searchResults.clear();
+                    booksCtrl.state.subjectSearchResults.clear();
+                    booksCtrl.state.searchedBookTypes.clear();
+                    booksCtrl.state.sectionVisibleCount.clear();
+                    booksCtrl.state.activeSearchQuery = null;
                     booksCtrl.state.searchController.clear();
                   },
-                  onChanged: (query) => booksCtrl.searchBooks(query),
+                  // onChanged: (query) => booksCtrl.searchBooks(query),
                   onSubmitted: (query) => booksCtrl.searchBooks(query),
                 ),
               ),

@@ -1455,5 +1455,6 @@
   "deleteChat": "Hapus",
   "resultCount": "hasil",
   "hours": "jam",
-  "days": "hari"
+  "days": "hari",
+  "searchingText": "Sedang mencari di judul bab dan konten buku yang diunduh... Hasil akan ditampilkan segera setelah ditemukan."
 }

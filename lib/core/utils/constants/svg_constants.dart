@@ -190,6 +190,10 @@ class SvgPath {
   /// assets/svg/books/open_book.svg
   static const String svgBooksOpenBook = "assets/svg/books/open_book.svg";
 
+  /// Assets for svgBooksSortDown
+  /// assets/svg/books/sort_down.svg
+  static const String svgBooksSortDown = "assets/svg/books/sort_down.svg";
+
   /// Assets for svgBooksTafsir
   /// assets/svg/books/tafsir.svg
   static const String svgBooksTafsir = "assets/svg/books/tafsir.svg";

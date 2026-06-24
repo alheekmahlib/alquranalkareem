@@ -12,11 +12,40 @@ class BooksTabBarController extends GetxController {
 
   RxInt currentIndex = 0.obs;
 
+  // التابات داخل الـ bottom sheet (بدون الفواصل)
+  late List<BooksTabConfig> sheetTabs;
+  // index تبويب الفواصل
+  late int bookmarksIndex;
+
+  // تهيئة التابات (تُستدعى من الـ build الأول)
+  void initTabs(List<BooksTabConfig> tabs) {
+    sheetTabs = tabs.where((t) => t.title != 'bookmarks').toList();
+    bookmarksIndex = tabs.indexWhere((t) => t.title == 'bookmarks');
+  }
+
   // تغيير التاب الحالي
   // Change current tab
   void changeTab(int index) {
     currentIndex.value = index;
     update();
+  }
+
+  // عدد الكتب في كل قسم
+  int getBookCount(BooksTabConfig tab) {
+    try {
+      final booksCtrl = Get.find<BooksController>();
+      if (tab.title == 'allBooks') {
+        return booksCtrl.state.booksList.length;
+      } else if (tab.title == 'myLibrary') {
+        return booksCtrl.state.downloaded.values.where((v) => v).length;
+      } else if (tab.filterBookType != null) {
+        final collection = booksCtrl.state.booksInfo.firstWhereOrNull(
+          (c) => c.type == tab.filterBookType,
+        );
+        return collection?.books.length ?? 0;
+      }
+    } catch (_) {}
+    return 0;
   }
 }
 
@@ -34,13 +63,13 @@ class BooksTabBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screens = tabs.map((tab) => tab.buildChild()).toList();
-
+    final tabCtrl = BooksTabBarController.instance..initTabs(tabs);
     return SizedBox(
       height: Get.height,
       child: Column(
         children: [
           const Gap(8),
+          // ── شريط علوي: شعار + اسم القسم الحالي + زر الفواصل ──
           Container(
             width: Get.width,
             padding: const EdgeInsets.symmetric(horizontal: 4.0),
@@ -52,35 +81,14 @@ class BooksTabBarWidget extends StatelessWidget {
               borderRadius: const BorderRadius.all(Radius.circular(8)),
             ),
             child: GetBuilder<BooksTabBarController>(
-              init: BooksTabBarController.instance,
+              init: tabCtrl,
               builder: (tabCtrl) => Row(
                 children: [
                   const Gap(8),
-                  Get.locale!.languageCode == 'ar'
-                      ? customSvgWithCustomColor(
-                          SvgPath.svgBooksIslamicLibrary,
-                          height: 60,
-                          color: context.theme.colorScheme.surface.withValues(
-                            alpha: .7,
-                          ),
-                        )
-                      : Center(
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              'islamicLibrary'.tr.replaceAll(' ', '\n'),
-                              style: AppTextStyles.titleMedium(
-                                color: context.theme.colorScheme.surface,
-                                fontSize: 20,
-                                height: 1.4,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
+                  const IslamicLibraryLogo(),
                   const Gap(2),
                   Container(
-                    height: 60,
+                    height: 42,
                     width: 4,
                     margin: const EdgeInsets.symmetric(horizontal: 8.0),
                     decoration: BoxDecoration(
@@ -89,29 +97,62 @@ class BooksTabBarWidget extends StatelessWidget {
                     ),
                   ),
                   const Gap(2),
-                  Flexible(
-                    child: Wrap(
-                      spacing: 4,
-                      runSpacing: 4,
-                      children: List.generate(tabs.length, (index) {
-                        return buttomBuild(
-                          tabCtrl,
-                          context,
-                          index,
-                          tabs[index].svgPath,
-                          tabs[index].title,
+                  // ── اسم القسم الحالي (يفتح الـ bottom sheet عند الضغط) ──
+                  Expanded(
+                    child: GetBuilder<BooksTabBarController>(
+                      id: 'tabDropdown',
+                      builder: (tabCtrl) {
+                        final selectedTab = tabs[tabCtrl.currentIndex.value];
+                        return ContainerButton(
+                          onPressed: () {
+                            ().customBottomSheet(_tabsBuild(tabCtrl, context));
+                          },
+                          height: 48,
+                          withArrow: true,
+                          verticalPadding: 8.0,
+                          arrowQuarterTurns: 0,
+                          horizontalPadding: 12.0,
+                          width: double.infinity,
+                          title: selectedTab.title.tr,
+                          backgroundColor: context.theme.colorScheme.surface
+                              .withValues(alpha: .3),
+                          titleStyle: AppTextStyles.titleMedium(
+                            color: context.theme.colorScheme.inversePrimary,
+                            fontSize: 18,
+                          ),
                         );
-                      }),
+                      },
                     ),
                   ),
+                  // ── زر الفواصل (منفصل عن الـ sheet) ──
+                  if (tabCtrl.bookmarksIndex != -1) ...[
+                    const Gap(8),
+                    ContainerButton(
+                      onPressed: () =>
+                          tabCtrl.changeTab(tabCtrl.bookmarksIndex),
+                      backgroundColor: context.theme.colorScheme.surface
+                          .withValues(alpha: .3),
+                      horizontalPadding: 7.0,
+                      verticalPadding: 7.0,
+                      child: customSvgWithColor(
+                        height: 35,
+                        width: 35,
+                        SvgPath.svgHomeBookmarkList,
+                        color: context.theme.colorScheme.primary,
+                      ),
+                    ),
+                  ],
+                  const Gap(8),
                 ],
               ),
             ),
           ),
+          // ── المحتوى ──
           Flexible(
             child: GetBuilder<BooksTabBarController>(
-              init: BooksTabBarController.instance,
-              builder: (tabCtrl) => screens[tabCtrl.currentIndex.value],
+              init: tabCtrl,
+              builder: (tabCtrl) =>
+                  tabs[tabCtrl.currentIndex.value].buildChild(),
             ),
           ),
         ],
@@ -119,36 +160,43 @@ class BooksTabBarWidget extends StatelessWidget {
     );
   }
 
-  Widget buttomBuild(
-    BooksTabBarController tabCtrl,
-    BuildContext context,
-    int index,
-    String svgPath,
-    String title,
-  ) {
-    return GestureDetector(
-      onTap: () => tabCtrl.changeTab(index),
-      child: Container(
-        height: 45,
-        // width: 75,
-        // alignment: .center,
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        decoration: BoxDecoration(
-          color: tabCtrl.currentIndex.value == index
-              ? context.theme.primaryColorLight.withValues(alpha: .7)
-              : context.theme.primaryColorLight.withValues(alpha: .5),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Text(
-          title.tr.replaceAll('Saved', ''),
-          style: AppTextStyles.titleMedium(
-            color: context.theme.canvasColor,
-            fontSize: 20,
-            height: 2.2,
+  Column _tabsBuild(BooksTabBarController tabCtrl, BuildContext context) {
+    return Column(
+      crossAxisAlignment: .start,
+      children: [
+        TitleWidget(title: 'sections'.tr),
+        const Gap(8),
+        SizedBox(
+          height: Get.height * .5,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: List.generate(tabCtrl.sheetTabs.length, (i) {
+                final tab = tabCtrl.sheetTabs[i];
+                final originalIndex = tabs.indexOf(tab);
+                final isSelected = tabCtrl.currentIndex.value == originalIndex;
+                return ContainerButton(
+                  onPressed: () {
+                    tabCtrl.changeTab(originalIndex);
+                    Get.back();
+                  },
+                  width: double.infinity,
+                  isButton: false,
+                  horizontalMargin: 8.0,
+                  horizontalPadding: 8.0,
+                  verticalMargin: 2.0,
+                  withArrow: true,
+                  title: tab.title.tr,
+                  value: (isSelected ? true : false).obs,
+                  arrowQuarterTurns: 3,
+                  subtitle: '${'booksCount'.tr}: ${tabCtrl.getBookCount(tab)}'
+                      .convertNumbersToCurrentLang(),
+                );
+              }),
+            ),
           ),
-          textAlign: TextAlign.center,
         ),
-      ),
+      ],
     );
   }
 }

@@ -57,7 +57,7 @@ extension BooksUi on BooksController {
         .loadChapters(
           chapterName,
           bookNumber,
-          pageNumber: pageNumber,
+          pageNumber: pageNumber + 1,
           loadChapters: true,
         )
         .then(

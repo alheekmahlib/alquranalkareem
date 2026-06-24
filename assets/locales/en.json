@@ -1466,5 +1466,16 @@
   "deleteChat": "Delete",
   "resultCount": "results",
   "hours": "hours",
-  "days": "days"
+  "days": "days",
+  "subjectSearch": "Subject Search",
+  "showMore": "Show More",
+  "result": "result",
+  "searchingText": "Searching through chapter titles and the contents of downloaded books. Results will appear as soon as they are found.",
+  "sortBooks": "Sort Books",
+  "sortDeathYear": "Author's Death Year",
+  "sortNameAlpha": "Book Name (A-Z)",
+  "sortAuthorAlpha": "Author Name (A-Z)",
+  "sortDefault": "Default Order",
+  "ascending": "Ascending",
+  "descending": "Descending"
 }

@@ -58,7 +58,7 @@ class BookBookmarksScreen extends StatelessWidget {
                           getxCtrl: booksBookmarksCtrl,
                           manager:
                               GeneralController.instance.state.expansionManager,
-                          name: 'language_expansion_tile',
+                          name: 'language_expansion_tile_$index',
                           backgroundColor: context.theme.primaryColorLight
                               .withValues(alpha: .2),
                           titleChild: Row(

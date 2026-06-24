@@ -1460,5 +1460,16 @@
   "resultCount": "نتيجة",
   "hours": "ساعات",
   "days": "أيام",
-  "please_download_book_first": "يجب تحميل الكتاب أولاً للانتقال إلى الكتاب."
+  "please_download_book_first": "يجب تحميل الكتاب أولاً للانتقال إلى الكتاب.",
+  "subjectSearch": "البحث الموضوعي",
+  "showMore": "عرض المزيد",
+  "result": "نتيجة",
+  "searchingText": "يتم الآن البحث داخل عناوين الفصول ومحتويات الكتب المحمّلة، وستظهر النتائج مباشرة عند العثور عليها.",
+  "sortBooks": "ترتيب الكتب",
+  "sortDeathYear": "سنة وفاة المؤلف",
+  "sortNameAlpha": "اسم الكتاب (أبجدي)",
+  "sortAuthorAlpha": "اسم المؤلف (أبجدي)",
+  "sortDefault": "الترتيب الافتراضي",
+  "ascending": "تصاعدي",
+  "descending": "تنازلي"
 }

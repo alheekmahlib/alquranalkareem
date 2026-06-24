@@ -1461,5 +1461,6 @@
   "deleteChat": "Eliminar",
   "resultCount": "resultados",
   "hours": "horas",
-  "days": "días"
+  "days": "días",
+  "searchingText": "Buscando en los títulos de los capítulos y el contenido de los libros descargados... Los resultados aparecerán en cuanto se encuentren."
 }

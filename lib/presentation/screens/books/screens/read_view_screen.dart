@@ -79,6 +79,7 @@ class ReadViewScreen extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         GestureDetector(
+          behavior: HitTestBehavior.translucent,
           onTap: () => booksCtrl.showControl(),
           child: Focus(
             focusNode: booksCtrl.state.bookRLFocusNode,
@@ -123,14 +124,16 @@ class ReadViewScreen extends StatelessWidget {
             horizontalPadding: 0.0,
             onPressed: () {
               QuranController.instance.setTopBarType = TopBarType.search;
-              QuranController.instance.state.tabBarController.open();
+              booksCtrl.state.tabBarController.open();
             },
             onButtonPressed: () {
+              booksCtrl.state.activeSearchQuery = null;
+              booksCtrl.state.isTextSearching.value = false;
               booksCtrl.state.searchResults.clear();
+              booksCtrl.state.subjectSearchResults.clear();
               booksCtrl.state.searchController.clear();
+              booksCtrl.update(['searchResults']);
             },
-            onChanged: (query) =>
-                booksCtrl.searchBooks(query, bookNumber: bookNumber),
             onSubmitted: (query) =>
                 booksCtrl.searchBooks(query, bookNumber: bookNumber),
           ),
@@ -269,7 +272,7 @@ class ReadViewScreen extends StatelessWidget {
     PageContent page,
     GeneralController generalCtrl,
   ) {
-    return GestureDetector(
+    return _TapDetector(
       onTap: () => booksCtrl.showControl(),
       child: Column(
         children: [
@@ -289,13 +292,72 @@ class ReadViewScreen extends StatelessWidget {
         ? mainText
         : mainText.removeDiacriticsQuran(mainText);
 
-    return Text.rich(
-      TextSpan(
-        children: processedText.toFlutterText(isDark),
-        style: _getMainTextStyle(generalCtrl),
+    return SelectionArea(
+      contextMenuBuilder: (context, selectableRegionState) {
+        final defaultItems = selectableRegionState.contextMenuButtonItems;
+        return AdaptiveTextSelectionToolbar.buttonItems(
+          anchors: selectableRegionState.contextMenuAnchors,
+          buttonItems: [
+            ...defaultItems,
+            ContextMenuButtonItem(
+              type: ContextMenuButtonType.custom,
+              label: 'بحث عن الراوي',
+              onPressed: () async {
+                // ignore: deprecated_member_use
+                selectableRegionState.copySelection(
+                    SelectionChangedCause.toolbar);
+                selectableRegionState.hideToolbar();
+                await Future.delayed(const Duration(milliseconds: 300));
+                final data =
+                    await Clipboard.getData(Clipboard.kTextPlain);
+                final selectedText = data?.text ?? '';
+                if (selectedText.isNotEmpty) {
+                  _lookupNarrator(selectedText);
+                }
+              },
+            ),
+          ],
+        );
+      },
+      child: Text.rich(
+        TextSpan(
+          children: processedText.toFlutterText(isDark),
+          style: _getMainTextStyle(generalCtrl),
+        ),
+        textDirection: TextDirection.rtl,
+        textAlign: TextAlign.justify,
       ),
-      textDirection: TextDirection.rtl,
-      textAlign: TextAlign.justify,
+    );
+  }
+
+  /// البحث عن راوي بالنص المحدد / Look up narrator by selected text
+  void _lookupNarrator(String selectedText) async {
+    if (selectedText.trim().isEmpty) return;
+
+    final narratorsService = NarratorsService.instance;
+
+    // إذا الملف ما تحمّل بعد، اعرض شيت التحميل
+    if (!narratorsService.isLoaded.value) {
+      customBottomSheet(const NarratorDownloadSheet());
+      return;
+    }
+
+    final results = narratorsService.lookup(selectedText);
+
+    if (results.isEmpty) {
+      customBottomSheet(
+        _NarratorNotFoundSheet(searchedName: selectedText.trim()),
+      );
+      return;
+    }
+
+    final narrator = results.first;
+    final otherMatches = results.length > 1
+        ? results.sublist(1)
+        : <NarratorInfo>[];
+
+    customBottomSheet(
+      NarratorInfoSheet(narrator: narrator, otherMatches: otherMatches),
     );
   }
 
@@ -375,23 +437,10 @@ class ReadViewScreen extends StatelessWidget {
 
   /// استخراج النص الأساسي بدون الهوامش / Extract main text without footnotes
   String _getMainText(String htmlText) {
-    // إزالة الهوامش (class="hamesh" أو p class="hamesh")
     String mainText = htmlText;
 
-    // إزالة الـ div و hr
-    mainText = mainText.replaceAll(RegExp(r'</?div[^>]*>'), '');
-    mainText = mainText.replaceAll(RegExp(r'</?p[^>]*>'), ' ');
-    mainText = mainText.replaceAll(RegExp(r'<hr[^>]*>'), '');
-
-    mainText = mainText.replaceAllMapped(
-      RegExp(r'<span\s+class="special"[^>]*>(.*?)</span>'),
-      (match) => match.group(1) ?? '',
-    );
-
-    // mainText = mainText.replaceAll(
-    //     RegExp(r'<span\s+class="special"[^>]*>.*</span>'), '\$1');
-
-    // إزالة الهوامش
+    // إزالة الهوامش أولاً — قبل أي تعديل على الوسوم
+    // Remove footnotes FIRST — before any tag modifications
     mainText = mainText.replaceAll(
       RegExp(r'<p\s+class="hamesh"[^>]*>.*?</p>', dotAll: true),
       '',
@@ -401,9 +450,23 @@ class ReadViewScreen extends StatelessWidget {
       '',
     );
 
-    // تحويل <br> إلى \n / Convert <br> to \n
-    mainText = mainText.replaceAll(RegExp(r'<br[^>]*>'), '\n');
+    // إزالة <hr> (الفاصل قبل الهوامش)
+    mainText = mainText.replaceAll(RegExp(r'<hr[^>]*>'), '');
 
+    // إزالة الـ div
+    mainText = mainText.replaceAll(RegExp(r'</?div[^>]*>'), '');
+
+    // تحويل </p> إلى <br> ليفصل بين الفقرات — toFlutterText يعالج <br>
+    // Convert </p> to <br> for paragraph separation — toFlutterText handles <br>
+    mainText = mainText.replaceAll(RegExp(r'</p>'), '<br>');
+    mainText = mainText.replaceAll(RegExp(r'<p[^>]*>'), ' ');
+
+    mainText = mainText.replaceAllMapped(
+      RegExp(r'<span\s+class="special"[^>]*>(.*?)</span>'),
+      (match) => match.group(1) ?? '',
+    );
+
+    // لا نحذف <br> — toFlutterText يعالجه ويحوّله لـ \n
     return mainText.trim();
   }
 
@@ -440,5 +503,103 @@ class ReadViewScreen extends StatelessWidget {
     }
 
     return footnotes.trim();
+  }
+}
+
+/// كاشف ضغطات حقيقي — يتجاهل السكرول وتقليب الصفحات
+/// Only fires onTap for real taps, ignores scroll/swipe/drag
+class _TapDetector extends StatefulWidget {
+  final VoidCallback onTap;
+  final Widget child;
+
+  const _TapDetector({required this.onTap, required this.child});
+
+  @override
+  State<_TapDetector> createState() => _TapDetectorState();
+}
+
+class _TapDetectorState extends State<_TapDetector> {
+  Offset? _downPosition;
+
+  @override
+  Widget build(BuildContext context) {
+    return Listener(
+      behavior: HitTestBehavior.translucent,
+      onPointerDown: (event) {
+        _downPosition = event.position;
+      },
+      onPointerUp: (event) {
+        if (_downPosition == null) return;
+        final distance = (event.position - _downPosition!).distance;
+        _downPosition = null;
+        // فقط إذا الإصبع ما تحرك أكثر من 20px — ضغطة حقيقية
+        if (distance < 20) {
+          widget.onTap();
+        }
+      },
+      child: widget.child,
+    );
+  }
+}
+
+/// شيت "غير موجود" عندما لا توجد معلومات عن الاسم
+class _NarratorNotFoundSheet extends StatelessWidget {
+  final String searchedName;
+
+  const _NarratorNotFoundSheet({required this.searchedName});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // الاسم المبحوث عنه
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: context.theme.colorScheme.surface.withValues(alpha: .1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Text(
+              '"$searchedName"',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'naskh',
+                color: context.theme.colorScheme.inversePrimary,
+              ),
+              textAlign: TextAlign.center,
+              textDirection: TextDirection.rtl,
+            ),
+          ),
+          const Gap(16),
+          // رسالة عدم التوفر
+          Icon(
+            Icons.person_search_outlined,
+            size: 48,
+            color: context.theme.colorScheme.inversePrimary.withValues(
+              alpha: .4,
+            ),
+          ),
+          const Gap(12),
+          Text(
+            'لا تتوفر معلومات عن هذا الاسم حالياً',
+            style: TextStyle(
+              fontSize: 15,
+              fontFamily: 'naskh',
+              color: context.theme.colorScheme.inversePrimary.withValues(
+                alpha: .7,
+              ),
+            ),
+            textAlign: TextAlign.center,
+            textDirection: TextDirection.rtl,
+          ),
+          const Gap(24),
+        ],
+      ),
+    );
   }
 }

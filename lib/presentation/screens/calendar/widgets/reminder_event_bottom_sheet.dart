@@ -26,26 +26,22 @@ class ReminderEventBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      primary: false,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const TitleWidget(title: 'events'),
-            const Gap(8),
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  headerWidget(context),
-                  const Gap(15),
-                  bodyWidget(context),
-                ],
-              ),
-            ),
-          ],
-        ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const TitleWidget(title: 'events'),
+          const Gap(8),
+          ListView(
+            shrinkWrap: true,
+            children: [
+              headerWidget(context),
+              const Gap(15),
+              bodyWidget(context),
+            ],
+          ),
+        ],
       ),
     );
   }

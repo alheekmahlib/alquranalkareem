@@ -8,6 +8,7 @@ import 'package:timezone/timezone.dart' as tz;
 
 import '/presentation/controllers/daily_ayah_controller.dart';
 import '/presentation/controllers/general/general_controller.dart';
+import '/presentation/screens/books/data/services/narrators_service.dart';
 import '/presentation/controllers/settings_controller.dart';
 import '/presentation/controllers/theme_controller.dart';
 import '/presentation/screens/adhkar/controller/adhkar_controller.dart';
@@ -101,6 +102,13 @@ class ServicesLocator {
     sl.registerLazySingleton<BooksController>(
       () => Get.put<BooksController>(BooksController(), permanent: true),
     );
+
+    // تحميل خدمة الرواة في الخلفية
+    Get.putAsync<NarratorsService>(() async {
+      final service = NarratorsService();
+      // لا نحتاج loadIndex — onInit يحاول التحميل من القرص تلقائياً
+      return service;
+    }, permanent: true);
 
     sl.registerLazySingleton<WhatsNewController>(
       () => Get.put<WhatsNewController>(WhatsNewController(), permanent: true),
