@@ -1460,5 +1460,17 @@
   "fontFamilyTitle": "Pilih Font",
   "playpenFont": "Playpen",
   "naskhFont": "Naskh",
-  "kufiFont": "Kufi"
+  "kufiFont": "Kufi",
+  "asul_el-feqh": "Ushul Fikih",
+  "eulum_alfiqh_wal_awaeid_alfiqhia": "Ilmu Fikih dan Kaidah Fikih",
+  "fegh_hanafi": "Fikih Hanafi",
+  "fegh_maliki": "Fikih Maliki",
+  "fegh_shafii": "Fikih Syafi'i",
+  "fegh_hanbali": "Fikih Hanbali",
+  "general_fegh": "Fikih Umum",
+  "fegh_masayil": "Permasalahan Fikih",
+  "alsiyasat_alshareiat_walqada": "Politik Syariah dan Peradilan",
+  "alfarayid_walwasaya": "Waris dan Wasiat",
+  "alraqayiq_waladab_waladhkar": "Zuhud, Adab dan Dzikir",
+  "alsiyrat_alnabawia": "Biografi Nabi"
 }

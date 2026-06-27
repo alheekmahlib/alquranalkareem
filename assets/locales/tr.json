@@ -1458,5 +1458,17 @@
   "fontFamilyTitle": "Yazı Tipi Seçin",
   "playpenFont": "Playpen",
   "naskhFont": "Naskh",
-  "kufiFont": "Kufi"
+  "kufiFont": "Kufi",
+  "asul_el-feqh": "Fıkh Usulü",
+  "eulum_alfiqh_wal_awaeid_alfiqhia": "Fıkh İlimleri ve Fıkhı Kaideler",
+  "fegh_hanafi": "Hanefi Fıkhı",
+  "fegh_maliki": "Maliki Fıkhı",
+  "fegh_shafii": "Şafii Fıkhı",
+  "fegh_hanbali": "Hanbeli Fıkhı",
+  "general_fegh": "Genel Fıkh",
+  "fegh_masayil": "Fıkhî Mes'eleler",
+  "alsiyasat_alshareiat_walqada": "Şerî Siyaset ve Kadılık",
+  "alfarayid_walwasaya": "Miras ve Vasiyetler",
+  "alraqayiq_waladab_waladhkar": "Zühd, Ahlak ve Ezkar",
+  "alsiyrat_alnabawia": "Nebi'nin Siyeri"
 }

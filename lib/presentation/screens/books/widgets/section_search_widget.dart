@@ -103,9 +103,13 @@ class _SectionSearchWidgetState extends State<SectionSearchWidget>
                   opacity: _iconFadeAnimation,
                   child: IgnorePointer(
                     ignoring: _isExpanded,
-                    child: TitleWidget(
-                      title: widget.title,
-                      horizontalPadding: 0.0,
+                    child: SizedBox(
+                      width: Get.width * 0.6,
+                      child: TitleWidget(
+                        title: widget.title,
+                        horizontalPadding: 0.0,
+                        titleOverflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ),
                 ),

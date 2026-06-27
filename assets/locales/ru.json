@@ -1430,5 +1430,17 @@
   "fontFamilyTitle": "Выберите шрифт",
   "playpenFont": "Playpen",
   "naskhFont": "Насх",
-  "kufiFont": "Куфи"
+  "kufiFont": "Куфи",
+  "asul_el-feqh": "Основы Фикха",
+  "eulum_alfiqh_wal_awaeid_alfiqhia": "Науки Фикха и Правовые Максимы",
+  "fegh_hanafi": "Ханафитский Фикх",
+  "fegh_maliki": "Маликитский Фикх",
+  "fegh_shafii": "Шафиитский Фикх",
+  "fegh_hanbali": "Ханбалитский Фикх",
+  "general_fegh": "Общий Фикх",
+  "fegh_masayil": "Фикхические Вопросы",
+  "alsiyasat_alshareiat_walqada": "Исламская Политика и Судопроизводство",
+  "alfarayid_walwasaya": "Наследование и Завещания",
+  "alraqayiq_waladab_waladhkar": "Аскетизм, Этика и Мольбы",
+  "alsiyrat_alnabawia": "Жизнеописание Пророка"
 }

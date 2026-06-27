@@ -113,6 +113,7 @@ class BooksTabBarWidget extends StatelessWidget {
                           arrowQuarterTurns: 0,
                           horizontalPadding: 12.0,
                           width: double.infinity,
+                          titleOverflow: TextOverflow.ellipsis,
                           title: selectedTab.title.tr,
                           backgroundColor: context.theme.colorScheme.surface
                               .withValues(alpha: .3),

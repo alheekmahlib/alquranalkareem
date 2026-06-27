@@ -1438,5 +1438,17 @@
   "fontFamilyTitle": "Dooro Far",
   "playpenFont": "Playpen",
   "naskhFont": "Naskh",
-  "kufiFont": "Kufi"
+  "kufiFont": "Kufi",
+  "asul_el-feqh": "Usul Fiqh",
+  "eulum_alfiqh_wal_awaeid_alfiqhia": "Cilmaha Fiqhiga iyo Qawaabtida Fiqhiga",
+  "fegh_hanafi": "Fiqhiga Xanafiga",
+  "fegh_maliki": "Fiqhiga Maalikiga",
+  "fegh_shafii": "Fiqhiga Shaafici",
+  "fegh_hanbali": "Fiqhiga Xanbaliga",
+  "general_fegh": "Fiqhiga Guud",
+  "fegh_masayil": "Masaail Fiqhiga",
+  "alsiyasat_alshareiat_walqada": "Siyasadaha Islaamka iyo Garsoorka",
+  "alfarayid_walwasaya": "Miraha iyo Wasiiyadda",
+  "alraqayiq_waladab_waladhkar": "Zuhd, Dhaqan iyo Ducooyinka",
+  "alsiyrat_alnabawia": "Nolosha Rasuulka"
 }

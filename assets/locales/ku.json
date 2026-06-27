@@ -1458,5 +1458,17 @@
   "fontFamilyTitle": "فۆنت هەڵبژێرە",
   "playpenFont": "پلایپن",
   "naskhFont": "نسخ",
-  "kufiFont": "کوفی"
+  "kufiFont": "کوفی",
+  "asul_el-feqh": "بنەمای فەقھ",
+  "eulum_alfiqh_wal_awaeid_alfiqhia": "زانستی فەقھ و یاساکانی فەقھ",
+  "fegh_hanafi": "فەقھی حەنەفی",
+  "fegh_maliki": "فەقھی مالیکي",
+  "fegh_shafii": "فەقھی شافعی",
+  "fegh_hanbali": "فەقھی حەنبەلی",
+  "general_fegh": "فەقھی گشتی",
+  "fegh_masayil": "بابەتەکانی فەقھ",
+  "alsiyasat_alshareiat_walqada": "سیاسەتی شرعی و دادگەری",
+  "alfarayid_walwasaya": "میرات و وەسییەت",
+  "alraqayiq_waladab_waladhkar": "زاھد، ڕەفتار و زیکر",
+  "alsiyrat_alnabawia": "ژیانی پێغەمبەر"
 }

@@ -1481,5 +1481,17 @@
   "fontFamilyTitle": "Choose Font",
   "playpenFont": "Playpen",
   "naskhFont": "Naskh",
-  "kufiFont": "Kufi"
+  "kufiFont": "Kufi",
+  "asul_el-feqh": "Principles of Jurisprudence",
+  "eulum_alfiqh_wal_awaeid_alfiqhia": "Jurisprudence Sciences and Maxims",
+  "fegh_hanafi": "Hanafi Jurisprudence",
+  "fegh_maliki": "Maliki Jurisprudence",
+  "fegh_shafii": "Shafi'i Jurisprudence",
+  "fegh_hanbali": "Hanbali Jurisprudence",
+  "general_fegh": "General Jurisprudence",
+  "fegh_masayil": "Jurisprudential Issues",
+  "alsiyasat_alshareiat_walqada": "Islamic Politics and Judiciary",
+  "alfarayid_walwasaya": "Inheritance and Wills",
+  "alraqayiq_waladab_waladhkar": "Asceticism, Manners and Supplications",
+  "alsiyrat_alnabawia": "Prophetic Biography"
 }

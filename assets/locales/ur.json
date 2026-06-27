@@ -1466,5 +1466,17 @@
   "fontFamilyTitle": "فونٹ منتخب کریں",
   "playpenFont": "پلے پین",
   "naskhFont": "نسخ",
-  "kufiFont": "کوفی"
+  "kufiFont": "کوفی",
+  "asul_el-feqh": "اصول فقہ",
+  "eulum_alfiqh_wal_awaeid_alfiqhia": "علوم فقہ اور فقہی قواعد",
+  "fegh_hanafi": "حنفی فقہ",
+  "fegh_maliki": "مالکی فقہ",
+  "fegh_shafii": "شافعی فقہ",
+  "fegh_hanbali": "حنبلی فقہ",
+  "general_fegh": "عام فقہ",
+  "fegh_masayil": "فقہی مسائل",
+  "alsiyasat_alshareiat_walqada": "شریعتی سیاست اور قضاء",
+  "alfarayid_walwasaya": "فرائض اور وصایا",
+  "alraqayiq_waladab_waladhkar": "رقائق، آداب اور اذکار",
+  "alsiyrat_alnabawia": "سیرت نبوی"
 }

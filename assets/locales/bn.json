@@ -1466,5 +1466,17 @@
   "fontFamilyTitle": "ফন্ট নির্বাচন করুন",
   "playpenFont": "প্লেপেন",
   "naskhFont": "নাসখ",
-  "kufiFont": "কুফি"
+  "kufiFont": "কুফি",
+  "asul_el-feqh": "ফিকহের মূলনীতি",
+  "eulum_alfiqh_wal_awaeid_alfiqhia": "ফিকহ বিজ্ঞান ও ফিকহী নীতিমালা",
+  "fegh_hanafi": "হানাফী ফিকহ",
+  "fegh_maliki": "মালিকী ফিকহ",
+  "fegh_shafii": "শাফিঈ ফিকহ",
+  "fegh_hanbali": "হাম্বলী ফিকহ",
+  "general_fegh": "সাধারণ ফিকহ",
+  "fegh_masayil": "ফিকহী বিষয়াবলী",
+  "alsiyasat_alshareiat_walqada": "ইসলামী রাজনীতি ও বিচার ব্যবস্থা",
+  "alfarayid_walwasaya": "ওয়ারিশ ও উইল",
+  "alraqayiq_waladab_waladhkar": "তাকওয়া, আদব ও যিকির",
+  "alsiyrat_alnabawia": "নবীর জীবনী"
 }

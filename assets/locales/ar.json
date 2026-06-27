@@ -1475,5 +1475,17 @@
   "fontFamilyTitle": "اختر الخط",
   "playpenFont": "بلابين",
   "naskhFont": "النسخ",
-  "kufiFont": "الكوفي"
+  "kufiFont": "الكوفي",
+  "asul_el-feqh": "أصول الفقه",
+  "eulum_alfiqh_wal_awaeid_alfiqhia": "علوم الفقه والقواعد الفقهية",
+  "fegh_hanafi": "الفقه الحنفي",
+  "fegh_maliki": "الفقه المالكي",
+  "fegh_shafii": "الفقه الشافعي",
+  "fegh_hanbali": "الفقه الحنبلي",
+  "general_fegh": "الفقه العام",
+  "fegh_masayil": "مسائل فقهية",
+  "alsiyasat_alshareiat_walqada": "السياسات الشرعية والقضاء",
+  "alfarayid_walwasaya": "الفرائض والوصايا",
+  "alraqayiq_waladab_waladhkar": "الرقائق والآداب والأذكار",
+  "alsiyrat_alnabawia": "السيرة النبوية"
 }

@@ -10,6 +10,7 @@ class TitleWidget extends StatelessWidget {
   final Color? containerColor;
   final TextStyle? textStyle;
   final double? horizontalPadding;
+  final TextOverflow? titleOverflow;
   const TitleWidget({
     super.key,
     required this.title,
@@ -17,6 +18,7 @@ class TitleWidget extends StatelessWidget {
     this.containerColor,
     this.textStyle,
     this.horizontalPadding,
+    this.titleOverflow,
   });
 
   @override
@@ -46,6 +48,7 @@ class TitleWidget extends StatelessWidget {
                       AppTextStyles.titleMedium(
                         color: titleColor ?? Get.theme.hintColor,
                       ),
+                  overflow: titleOverflow ?? null,
                 ),
               ),
             ),
