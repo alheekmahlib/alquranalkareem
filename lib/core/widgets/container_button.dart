@@ -42,6 +42,7 @@ class ContainerButton extends StatelessWidget {
   final bool? isTitleCentered;
   final double? selectedValueMargin;
   final String? customSvgArrowPath;
+  final TextOverflow? titleOverflow;
   const ContainerButton({
     super.key,
     this.onPressed,
@@ -78,6 +79,7 @@ class ContainerButton extends StatelessWidget {
     this.selectedValueMargin = 4.0,
     this.arrowQuarterTurns,
     this.customSvgArrowPath,
+    this.titleOverflow,
   });
 
   @override
@@ -205,6 +207,7 @@ class ContainerButton extends StatelessWidget {
                                               context,
                                             ).colorScheme.inversePrimary,
                                       ),
+                                  overflow: titleOverflow ?? null,
                                 ),
                                 if (subtitle != null)
                                   Text(
