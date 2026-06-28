@@ -12,30 +12,49 @@ class $BookmarksTable extends Bookmarks
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _sorahNameMeta =
-      const VerificationMeta('sorahName');
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _sorahNameMeta = const VerificationMeta(
+    'sorahName',
+  );
   @override
   late final GeneratedColumn<String> sorahName = GeneratedColumn<String>(
-      'sorah_name', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _pageNumMeta =
-      const VerificationMeta('pageNum');
+    'sorah_name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _pageNumMeta = const VerificationMeta(
+    'pageNum',
+  );
   @override
   late final GeneratedColumn<int> pageNum = GeneratedColumn<int>(
-      'page_num', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _lastReadMeta =
-      const VerificationMeta('lastRead');
+    'page_num',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _lastReadMeta = const VerificationMeta(
+    'lastRead',
+  );
   @override
   late final GeneratedColumn<String> lastRead = GeneratedColumn<String>(
-      'last_read', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+    'last_read',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
   @override
   List<GeneratedColumn> get $columns => [id, sorahName, pageNum, lastRead];
   @override
@@ -44,28 +63,36 @@ class $BookmarksTable extends Bookmarks
   String get actualTableName => $name;
   static const String $name = 'bookmarks';
   @override
-  VerificationContext validateIntegrity(Insertable<Bookmark> instance,
-      {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<Bookmark> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('sorah_name')) {
-      context.handle(_sorahNameMeta,
-          sorahName.isAcceptableOrUnknown(data['sorah_name']!, _sorahNameMeta));
+      context.handle(
+        _sorahNameMeta,
+        sorahName.isAcceptableOrUnknown(data['sorah_name']!, _sorahNameMeta),
+      );
     } else if (isInserting) {
       context.missing(_sorahNameMeta);
     }
     if (data.containsKey('page_num')) {
-      context.handle(_pageNumMeta,
-          pageNum.isAcceptableOrUnknown(data['page_num']!, _pageNumMeta));
+      context.handle(
+        _pageNumMeta,
+        pageNum.isAcceptableOrUnknown(data['page_num']!, _pageNumMeta),
+      );
     } else if (isInserting) {
       context.missing(_pageNumMeta);
     }
     if (data.containsKey('last_read')) {
-      context.handle(_lastReadMeta,
-          lastRead.isAcceptableOrUnknown(data['last_read']!, _lastReadMeta));
+      context.handle(
+        _lastReadMeta,
+        lastRead.isAcceptableOrUnknown(data['last_read']!, _lastReadMeta),
+      );
     } else if (isInserting) {
       context.missing(_lastReadMeta);
     }
@@ -78,14 +105,22 @@ class $BookmarksTable extends Bookmarks
   Bookmark map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Bookmark(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      sorahName: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}sorah_name'])!,
-      pageNum: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}page_num'])!,
-      lastRead: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}last_read'])!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      sorahName: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}sorah_name'],
+      )!,
+      pageNum: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}page_num'],
+      )!,
+      lastRead: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}last_read'],
+      )!,
     );
   }
 
@@ -100,11 +135,12 @@ class Bookmark extends DataClass implements Insertable<Bookmark> {
   final String sorahName;
   final int pageNum;
   final String lastRead;
-  const Bookmark(
-      {required this.id,
-      required this.sorahName,
-      required this.pageNum,
-      required this.lastRead});
+  const Bookmark({
+    required this.id,
+    required this.sorahName,
+    required this.pageNum,
+    required this.lastRead,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -124,8 +160,10 @@ class Bookmark extends DataClass implements Insertable<Bookmark> {
     );
   }
 
-  factory Bookmark.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
+  factory Bookmark.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Bookmark(
       id: serializer.fromJson<int>(json['id']),
@@ -145,14 +183,17 @@ class Bookmark extends DataClass implements Insertable<Bookmark> {
     };
   }
 
-  Bookmark copyWith(
-          {int? id, String? sorahName, int? pageNum, String? lastRead}) =>
-      Bookmark(
-        id: id ?? this.id,
-        sorahName: sorahName ?? this.sorahName,
-        pageNum: pageNum ?? this.pageNum,
-        lastRead: lastRead ?? this.lastRead,
-      );
+  Bookmark copyWith({
+    int? id,
+    String? sorahName,
+    int? pageNum,
+    String? lastRead,
+  }) => Bookmark(
+    id: id ?? this.id,
+    sorahName: sorahName ?? this.sorahName,
+    pageNum: pageNum ?? this.pageNum,
+    lastRead: lastRead ?? this.lastRead,
+  );
   Bookmark copyWithCompanion(BookmarksCompanion data) {
     return Bookmark(
       id: data.id.present ? data.id.value : this.id,
@@ -201,9 +242,9 @@ class BookmarksCompanion extends UpdateCompanion<Bookmark> {
     required String sorahName,
     required int pageNum,
     required String lastRead,
-  })  : sorahName = Value(sorahName),
-        pageNum = Value(pageNum),
-        lastRead = Value(lastRead);
+  }) : sorahName = Value(sorahName),
+       pageNum = Value(pageNum),
+       lastRead = Value(lastRead);
   static Insertable<Bookmark> custom({
     Expression<int>? id,
     Expression<String>? sorahName,
@@ -218,11 +259,12 @@ class BookmarksCompanion extends UpdateCompanion<Bookmark> {
     });
   }
 
-  BookmarksCompanion copyWith(
-      {Value<int>? id,
-      Value<String>? sorahName,
-      Value<int>? pageNum,
-      Value<String>? lastRead}) {
+  BookmarksCompanion copyWith({
+    Value<int>? id,
+    Value<String>? sorahName,
+    Value<int>? pageNum,
+    Value<String>? lastRead,
+  }) {
     return BookmarksCompanion(
       id: id ?? this.id,
       sorahName: sorahName ?? this.sorahName,
@@ -270,112 +312,158 @@ class $BookmarksAyahsTable extends BookmarksAyahs
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _surahNameMeta =
-      const VerificationMeta('surahName');
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _surahNameMeta = const VerificationMeta(
+    'surahName',
+  );
   @override
   late final GeneratedColumn<String> surahName = GeneratedColumn<String>(
-      'surah_name', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _surahNumberMeta =
-      const VerificationMeta('surahNumber');
+    'surah_name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _surahNumberMeta = const VerificationMeta(
+    'surahNumber',
+  );
   @override
   late final GeneratedColumn<int> surahNumber = GeneratedColumn<int>(
-      'surah_number', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _pageNumberMeta =
-      const VerificationMeta('pageNumber');
+    'surah_number',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _pageNumberMeta = const VerificationMeta(
+    'pageNumber',
+  );
   @override
   late final GeneratedColumn<int> pageNumber = GeneratedColumn<int>(
-      'page_number', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _ayahNumberMeta =
-      const VerificationMeta('ayahNumber');
+    'page_number',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _ayahNumberMeta = const VerificationMeta(
+    'ayahNumber',
+  );
   @override
   late final GeneratedColumn<int> ayahNumber = GeneratedColumn<int>(
-      'ayah_number', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _ayahUQNumberMeta =
-      const VerificationMeta('ayahUQNumber');
+    'ayah_number',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _ayahUQNumberMeta = const VerificationMeta(
+    'ayahUQNumber',
+  );
   @override
   late final GeneratedColumn<int> ayahUQNumber = GeneratedColumn<int>(
-      'ayah_u_q_number', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _lastReadMeta =
-      const VerificationMeta('lastRead');
+    'ayah_u_q_number',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _lastReadMeta = const VerificationMeta(
+    'lastRead',
+  );
   @override
   late final GeneratedColumn<String> lastRead = GeneratedColumn<String>(
-      'last_read', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+    'last_read',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
   @override
   List<GeneratedColumn> get $columns => [
-        id,
-        surahName,
-        surahNumber,
-        pageNumber,
-        ayahNumber,
-        ayahUQNumber,
-        lastRead
-      ];
+    id,
+    surahName,
+    surahNumber,
+    pageNumber,
+    ayahNumber,
+    ayahUQNumber,
+    lastRead,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'bookmarks_ayahs';
   @override
-  VerificationContext validateIntegrity(Insertable<BookmarksAyah> instance,
-      {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<BookmarksAyah> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('surah_name')) {
-      context.handle(_surahNameMeta,
-          surahName.isAcceptableOrUnknown(data['surah_name']!, _surahNameMeta));
+      context.handle(
+        _surahNameMeta,
+        surahName.isAcceptableOrUnknown(data['surah_name']!, _surahNameMeta),
+      );
     } else if (isInserting) {
       context.missing(_surahNameMeta);
     }
     if (data.containsKey('surah_number')) {
       context.handle(
+        _surahNumberMeta,
+        surahNumber.isAcceptableOrUnknown(
+          data['surah_number']!,
           _surahNumberMeta,
-          surahNumber.isAcceptableOrUnknown(
-              data['surah_number']!, _surahNumberMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_surahNumberMeta);
     }
     if (data.containsKey('page_number')) {
       context.handle(
-          _pageNumberMeta,
-          pageNumber.isAcceptableOrUnknown(
-              data['page_number']!, _pageNumberMeta));
+        _pageNumberMeta,
+        pageNumber.isAcceptableOrUnknown(data['page_number']!, _pageNumberMeta),
+      );
     } else if (isInserting) {
       context.missing(_pageNumberMeta);
     }
     if (data.containsKey('ayah_number')) {
       context.handle(
-          _ayahNumberMeta,
-          ayahNumber.isAcceptableOrUnknown(
-              data['ayah_number']!, _ayahNumberMeta));
+        _ayahNumberMeta,
+        ayahNumber.isAcceptableOrUnknown(data['ayah_number']!, _ayahNumberMeta),
+      );
     } else if (isInserting) {
       context.missing(_ayahNumberMeta);
     }
     if (data.containsKey('ayah_u_q_number')) {
       context.handle(
+        _ayahUQNumberMeta,
+        ayahUQNumber.isAcceptableOrUnknown(
+          data['ayah_u_q_number']!,
           _ayahUQNumberMeta,
-          ayahUQNumber.isAcceptableOrUnknown(
-              data['ayah_u_q_number']!, _ayahUQNumberMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_ayahUQNumberMeta);
     }
     if (data.containsKey('last_read')) {
-      context.handle(_lastReadMeta,
-          lastRead.isAcceptableOrUnknown(data['last_read']!, _lastReadMeta));
+      context.handle(
+        _lastReadMeta,
+        lastRead.isAcceptableOrUnknown(data['last_read']!, _lastReadMeta),
+      );
     } else if (isInserting) {
       context.missing(_lastReadMeta);
     }
@@ -388,20 +476,34 @@ class $BookmarksAyahsTable extends BookmarksAyahs
   BookmarksAyah map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return BookmarksAyah(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      surahName: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}surah_name'])!,
-      surahNumber: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}surah_number'])!,
-      pageNumber: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}page_number'])!,
-      ayahNumber: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}ayah_number'])!,
-      ayahUQNumber: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}ayah_u_q_number'])!,
-      lastRead: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}last_read'])!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      surahName: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}surah_name'],
+      )!,
+      surahNumber: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}surah_number'],
+      )!,
+      pageNumber: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}page_number'],
+      )!,
+      ayahNumber: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}ayah_number'],
+      )!,
+      ayahUQNumber: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}ayah_u_q_number'],
+      )!,
+      lastRead: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}last_read'],
+      )!,
     );
   }
 
@@ -419,14 +521,15 @@ class BookmarksAyah extends DataClass implements Insertable<BookmarksAyah> {
   final int ayahNumber;
   final int ayahUQNumber;
   final String lastRead;
-  const BookmarksAyah(
-      {required this.id,
-      required this.surahName,
-      required this.surahNumber,
-      required this.pageNumber,
-      required this.ayahNumber,
-      required this.ayahUQNumber,
-      required this.lastRead});
+  const BookmarksAyah({
+    required this.id,
+    required this.surahName,
+    required this.surahNumber,
+    required this.pageNumber,
+    required this.ayahNumber,
+    required this.ayahUQNumber,
+    required this.lastRead,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -452,8 +555,10 @@ class BookmarksAyah extends DataClass implements Insertable<BookmarksAyah> {
     );
   }
 
-  factory BookmarksAyah.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
+  factory BookmarksAyah.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return BookmarksAyah(
       id: serializer.fromJson<int>(json['id']),
@@ -479,33 +584,36 @@ class BookmarksAyah extends DataClass implements Insertable<BookmarksAyah> {
     };
   }
 
-  BookmarksAyah copyWith(
-          {int? id,
-          String? surahName,
-          int? surahNumber,
-          int? pageNumber,
-          int? ayahNumber,
-          int? ayahUQNumber,
-          String? lastRead}) =>
-      BookmarksAyah(
-        id: id ?? this.id,
-        surahName: surahName ?? this.surahName,
-        surahNumber: surahNumber ?? this.surahNumber,
-        pageNumber: pageNumber ?? this.pageNumber,
-        ayahNumber: ayahNumber ?? this.ayahNumber,
-        ayahUQNumber: ayahUQNumber ?? this.ayahUQNumber,
-        lastRead: lastRead ?? this.lastRead,
-      );
+  BookmarksAyah copyWith({
+    int? id,
+    String? surahName,
+    int? surahNumber,
+    int? pageNumber,
+    int? ayahNumber,
+    int? ayahUQNumber,
+    String? lastRead,
+  }) => BookmarksAyah(
+    id: id ?? this.id,
+    surahName: surahName ?? this.surahName,
+    surahNumber: surahNumber ?? this.surahNumber,
+    pageNumber: pageNumber ?? this.pageNumber,
+    ayahNumber: ayahNumber ?? this.ayahNumber,
+    ayahUQNumber: ayahUQNumber ?? this.ayahUQNumber,
+    lastRead: lastRead ?? this.lastRead,
+  );
   BookmarksAyah copyWithCompanion(BookmarksAyahsCompanion data) {
     return BookmarksAyah(
       id: data.id.present ? data.id.value : this.id,
       surahName: data.surahName.present ? data.surahName.value : this.surahName,
-      surahNumber:
-          data.surahNumber.present ? data.surahNumber.value : this.surahNumber,
-      pageNumber:
-          data.pageNumber.present ? data.pageNumber.value : this.pageNumber,
-      ayahNumber:
-          data.ayahNumber.present ? data.ayahNumber.value : this.ayahNumber,
+      surahNumber: data.surahNumber.present
+          ? data.surahNumber.value
+          : this.surahNumber,
+      pageNumber: data.pageNumber.present
+          ? data.pageNumber.value
+          : this.pageNumber,
+      ayahNumber: data.ayahNumber.present
+          ? data.ayahNumber.value
+          : this.ayahNumber,
       ayahUQNumber: data.ayahUQNumber.present
           ? data.ayahUQNumber.value
           : this.ayahUQNumber,
@@ -528,8 +636,15 @@ class BookmarksAyah extends DataClass implements Insertable<BookmarksAyah> {
   }
 
   @override
-  int get hashCode => Object.hash(id, surahName, surahNumber, pageNumber,
-      ayahNumber, ayahUQNumber, lastRead);
+  int get hashCode => Object.hash(
+    id,
+    surahName,
+    surahNumber,
+    pageNumber,
+    ayahNumber,
+    ayahUQNumber,
+    lastRead,
+  );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -568,12 +683,12 @@ class BookmarksAyahsCompanion extends UpdateCompanion<BookmarksAyah> {
     required int ayahNumber,
     required int ayahUQNumber,
     required String lastRead,
-  })  : surahName = Value(surahName),
-        surahNumber = Value(surahNumber),
-        pageNumber = Value(pageNumber),
-        ayahNumber = Value(ayahNumber),
-        ayahUQNumber = Value(ayahUQNumber),
-        lastRead = Value(lastRead);
+  }) : surahName = Value(surahName),
+       surahNumber = Value(surahNumber),
+       pageNumber = Value(pageNumber),
+       ayahNumber = Value(ayahNumber),
+       ayahUQNumber = Value(ayahUQNumber),
+       lastRead = Value(lastRead);
   static Insertable<BookmarksAyah> custom({
     Expression<int>? id,
     Expression<String>? surahName,
@@ -594,14 +709,15 @@ class BookmarksAyahsCompanion extends UpdateCompanion<BookmarksAyah> {
     });
   }
 
-  BookmarksAyahsCompanion copyWith(
-      {Value<int>? id,
-      Value<String>? surahName,
-      Value<int>? surahNumber,
-      Value<int>? pageNumber,
-      Value<int>? ayahNumber,
-      Value<int>? ayahUQNumber,
-      Value<String>? lastRead}) {
+  BookmarksAyahsCompanion copyWith({
+    Value<int>? id,
+    Value<String>? surahName,
+    Value<int>? surahNumber,
+    Value<int>? pageNumber,
+    Value<int>? ayahNumber,
+    Value<int>? ayahUQNumber,
+    Value<String>? lastRead,
+  }) {
     return BookmarksAyahsCompanion(
       id: id ?? this.id,
       surahName: surahName ?? this.surahName,
@@ -663,85 +779,131 @@ class $AdhkarTable extends Adhkar with TableInfo<$AdhkarTable, AdhkarData> {
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _categoryMeta =
-      const VerificationMeta('category');
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _categoryMeta = const VerificationMeta(
+    'category',
+  );
   @override
   late final GeneratedColumn<String> category = GeneratedColumn<String>(
-      'category', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+    'category',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
   static const VerificationMeta _countMeta = const VerificationMeta('count');
   @override
   late final GeneratedColumn<String> count = GeneratedColumn<String>(
-      'count', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _descriptionMeta =
-      const VerificationMeta('description');
+    'count',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _descriptionMeta = const VerificationMeta(
+    'description',
+  );
   @override
   late final GeneratedColumn<String> description = GeneratedColumn<String>(
-      'description', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _referenceMeta =
-      const VerificationMeta('reference');
+    'description',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _referenceMeta = const VerificationMeta(
+    'reference',
+  );
   @override
   late final GeneratedColumn<String> reference = GeneratedColumn<String>(
-      'reference', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+    'reference',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
   static const VerificationMeta _zekrMeta = const VerificationMeta('zekr');
   @override
   late final GeneratedColumn<String> zekr = GeneratedColumn<String>(
-      'zekr', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+    'zekr',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, category, count, description, reference, zekr];
+  List<GeneratedColumn> get $columns => [
+    id,
+    category,
+    count,
+    description,
+    reference,
+    zekr,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'adhkar';
   @override
-  VerificationContext validateIntegrity(Insertable<AdhkarData> instance,
-      {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<AdhkarData> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('category')) {
-      context.handle(_categoryMeta,
-          category.isAcceptableOrUnknown(data['category']!, _categoryMeta));
+      context.handle(
+        _categoryMeta,
+        category.isAcceptableOrUnknown(data['category']!, _categoryMeta),
+      );
     } else if (isInserting) {
       context.missing(_categoryMeta);
     }
     if (data.containsKey('count')) {
       context.handle(
-          _countMeta, count.isAcceptableOrUnknown(data['count']!, _countMeta));
+        _countMeta,
+        count.isAcceptableOrUnknown(data['count']!, _countMeta),
+      );
     } else if (isInserting) {
       context.missing(_countMeta);
     }
     if (data.containsKey('description')) {
       context.handle(
+        _descriptionMeta,
+        description.isAcceptableOrUnknown(
+          data['description']!,
           _descriptionMeta,
-          description.isAcceptableOrUnknown(
-              data['description']!, _descriptionMeta));
+        ),
+      );
     } else if (isInserting) {
       context.missing(_descriptionMeta);
     }
     if (data.containsKey('reference')) {
-      context.handle(_referenceMeta,
-          reference.isAcceptableOrUnknown(data['reference']!, _referenceMeta));
+      context.handle(
+        _referenceMeta,
+        reference.isAcceptableOrUnknown(data['reference']!, _referenceMeta),
+      );
     } else if (isInserting) {
       context.missing(_referenceMeta);
     }
     if (data.containsKey('zekr')) {
       context.handle(
-          _zekrMeta, zekr.isAcceptableOrUnknown(data['zekr']!, _zekrMeta));
+        _zekrMeta,
+        zekr.isAcceptableOrUnknown(data['zekr']!, _zekrMeta),
+      );
     } else if (isInserting) {
       context.missing(_zekrMeta);
     }
@@ -754,18 +916,30 @@ class $AdhkarTable extends Adhkar with TableInfo<$AdhkarTable, AdhkarData> {
   AdhkarData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return AdhkarData(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      category: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}category'])!,
-      count: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}count'])!,
-      description: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}description'])!,
-      reference: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}reference'])!,
-      zekr: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}zekr'])!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      category: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}category'],
+      )!,
+      count: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}count'],
+      )!,
+      description: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}description'],
+      )!,
+      reference: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}reference'],
+      )!,
+      zekr: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}zekr'],
+      )!,
     );
   }
 
@@ -782,13 +956,14 @@ class AdhkarData extends DataClass implements Insertable<AdhkarData> {
   final String description;
   final String reference;
   final String zekr;
-  const AdhkarData(
-      {required this.id,
-      required this.category,
-      required this.count,
-      required this.description,
-      required this.reference,
-      required this.zekr});
+  const AdhkarData({
+    required this.id,
+    required this.category,
+    required this.count,
+    required this.description,
+    required this.reference,
+    required this.zekr,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -812,8 +987,10 @@ class AdhkarData extends DataClass implements Insertable<AdhkarData> {
     );
   }
 
-  factory AdhkarData.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
+  factory AdhkarData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return AdhkarData(
       id: serializer.fromJson<int>(json['id']),
@@ -837,28 +1014,29 @@ class AdhkarData extends DataClass implements Insertable<AdhkarData> {
     };
   }
 
-  AdhkarData copyWith(
-          {int? id,
-          String? category,
-          String? count,
-          String? description,
-          String? reference,
-          String? zekr}) =>
-      AdhkarData(
-        id: id ?? this.id,
-        category: category ?? this.category,
-        count: count ?? this.count,
-        description: description ?? this.description,
-        reference: reference ?? this.reference,
-        zekr: zekr ?? this.zekr,
-      );
+  AdhkarData copyWith({
+    int? id,
+    String? category,
+    String? count,
+    String? description,
+    String? reference,
+    String? zekr,
+  }) => AdhkarData(
+    id: id ?? this.id,
+    category: category ?? this.category,
+    count: count ?? this.count,
+    description: description ?? this.description,
+    reference: reference ?? this.reference,
+    zekr: zekr ?? this.zekr,
+  );
   AdhkarData copyWithCompanion(AdhkarCompanion data) {
     return AdhkarData(
       id: data.id.present ? data.id.value : this.id,
       category: data.category.present ? data.category.value : this.category,
       count: data.count.present ? data.count.value : this.count,
-      description:
-          data.description.present ? data.description.value : this.description,
+      description: data.description.present
+          ? data.description.value
+          : this.description,
       reference: data.reference.present ? data.reference.value : this.reference,
       zekr: data.zekr.present ? data.zekr.value : this.zekr,
     );
@@ -914,11 +1092,11 @@ class AdhkarCompanion extends UpdateCompanion<AdhkarData> {
     required String description,
     required String reference,
     required String zekr,
-  })  : category = Value(category),
-        count = Value(count),
-        description = Value(description),
-        reference = Value(reference),
-        zekr = Value(zekr);
+  }) : category = Value(category),
+       count = Value(count),
+       description = Value(description),
+       reference = Value(reference),
+       zekr = Value(zekr);
   static Insertable<AdhkarData> custom({
     Expression<int>? id,
     Expression<String>? category,
@@ -937,13 +1115,14 @@ class AdhkarCompanion extends UpdateCompanion<AdhkarData> {
     });
   }
 
-  AdhkarCompanion copyWith(
-      {Value<int>? id,
-      Value<String>? category,
-      Value<String>? count,
-      Value<String>? description,
-      Value<String>? reference,
-      Value<String>? zekr}) {
+  AdhkarCompanion copyWith({
+    Value<int>? id,
+    Value<String>? category,
+    Value<String>? count,
+    Value<String>? description,
+    Value<String>? reference,
+    Value<String>? zekr,
+  }) {
     return AdhkarCompanion(
       id: id ?? this.id,
       category: category ?? this.category,
@@ -1002,22 +1181,27 @@ abstract class _$BookmarkDatabase extends GeneratedDatabase {
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [bookmarks, bookmarksAyahs, adhkar];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [
+    bookmarks,
+    bookmarksAyahs,
+    adhkar,
+  ];
 }
 
-typedef $$BookmarksTableCreateCompanionBuilder = BookmarksCompanion Function({
-  Value<int> id,
-  required String sorahName,
-  required int pageNum,
-  required String lastRead,
-});
-typedef $$BookmarksTableUpdateCompanionBuilder = BookmarksCompanion Function({
-  Value<int> id,
-  Value<String> sorahName,
-  Value<int> pageNum,
-  Value<String> lastRead,
-});
+typedef $$BookmarksTableCreateCompanionBuilder =
+    BookmarksCompanion Function({
+      Value<int> id,
+      required String sorahName,
+      required int pageNum,
+      required String lastRead,
+    });
+typedef $$BookmarksTableUpdateCompanionBuilder =
+    BookmarksCompanion Function({
+      Value<int> id,
+      Value<String> sorahName,
+      Value<int> pageNum,
+      Value<String> lastRead,
+    });
 
 class $$BookmarksTableFilterComposer
     extends Composer<_$BookmarkDatabase, $BookmarksTable> {
@@ -1029,16 +1213,24 @@ class $$BookmarksTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get sorahName => $composableBuilder(
-      column: $table.sorahName, builder: (column) => ColumnFilters(column));
+    column: $table.sorahName,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get pageNum => $composableBuilder(
-      column: $table.pageNum, builder: (column) => ColumnFilters(column));
+    column: $table.pageNum,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get lastRead => $composableBuilder(
-      column: $table.lastRead, builder: (column) => ColumnFilters(column));
+    column: $table.lastRead,
+    builder: (column) => ColumnFilters(column),
+  );
 }
 
 class $$BookmarksTableOrderingComposer
@@ -1051,16 +1243,24 @@ class $$BookmarksTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get sorahName => $composableBuilder(
-      column: $table.sorahName, builder: (column) => ColumnOrderings(column));
+    column: $table.sorahName,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get pageNum => $composableBuilder(
-      column: $table.pageNum, builder: (column) => ColumnOrderings(column));
+    column: $table.pageNum,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get lastRead => $composableBuilder(
-      column: $table.lastRead, builder: (column) => ColumnOrderings(column));
+    column: $table.lastRead,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$BookmarksTableAnnotationComposer
@@ -1085,20 +1285,27 @@ class $$BookmarksTableAnnotationComposer
       $composableBuilder(column: $table.lastRead, builder: (column) => column);
 }
 
-class $$BookmarksTableTableManager extends RootTableManager<
-    _$BookmarkDatabase,
-    $BookmarksTable,
-    Bookmark,
-    $$BookmarksTableFilterComposer,
-    $$BookmarksTableOrderingComposer,
-    $$BookmarksTableAnnotationComposer,
-    $$BookmarksTableCreateCompanionBuilder,
-    $$BookmarksTableUpdateCompanionBuilder,
-    (Bookmark, BaseReferences<_$BookmarkDatabase, $BookmarksTable, Bookmark>),
-    Bookmark,
-    PrefetchHooks Function()> {
+class $$BookmarksTableTableManager
+    extends
+        RootTableManager<
+          _$BookmarkDatabase,
+          $BookmarksTable,
+          Bookmark,
+          $$BookmarksTableFilterComposer,
+          $$BookmarksTableOrderingComposer,
+          $$BookmarksTableAnnotationComposer,
+          $$BookmarksTableCreateCompanionBuilder,
+          $$BookmarksTableUpdateCompanionBuilder,
+          (
+            Bookmark,
+            BaseReferences<_$BookmarkDatabase, $BookmarksTable, Bookmark>,
+          ),
+          Bookmark,
+          PrefetchHooks Function()
+        > {
   $$BookmarksTableTableManager(_$BookmarkDatabase db, $BookmarksTable table)
-      : super(TableManagerState(
+    : super(
+        TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
@@ -1107,69 +1314,72 @@ class $$BookmarksTableTableManager extends RootTableManager<
               $$BookmarksTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $$BookmarksTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<String> sorahName = const Value.absent(),
-            Value<int> pageNum = const Value.absent(),
-            Value<String> lastRead = const Value.absent(),
-          }) =>
-              BookmarksCompanion(
-            id: id,
-            sorahName: sorahName,
-            pageNum: pageNum,
-            lastRead: lastRead,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            required String sorahName,
-            required int pageNum,
-            required String lastRead,
-          }) =>
-              BookmarksCompanion.insert(
-            id: id,
-            sorahName: sorahName,
-            pageNum: pageNum,
-            lastRead: lastRead,
-          ),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> sorahName = const Value.absent(),
+                Value<int> pageNum = const Value.absent(),
+                Value<String> lastRead = const Value.absent(),
+              }) => BookmarksCompanion(
+                id: id,
+                sorahName: sorahName,
+                pageNum: pageNum,
+                lastRead: lastRead,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String sorahName,
+                required int pageNum,
+                required String lastRead,
+              }) => BookmarksCompanion.insert(
+                id: id,
+                sorahName: sorahName,
+                pageNum: pageNum,
+                lastRead: lastRead,
+              ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: null,
-        ));
+        ),
+      );
 }
 
-typedef $$BookmarksTableProcessedTableManager = ProcessedTableManager<
-    _$BookmarkDatabase,
-    $BookmarksTable,
-    Bookmark,
-    $$BookmarksTableFilterComposer,
-    $$BookmarksTableOrderingComposer,
-    $$BookmarksTableAnnotationComposer,
-    $$BookmarksTableCreateCompanionBuilder,
-    $$BookmarksTableUpdateCompanionBuilder,
-    (Bookmark, BaseReferences<_$BookmarkDatabase, $BookmarksTable, Bookmark>),
-    Bookmark,
-    PrefetchHooks Function()>;
-typedef $$BookmarksAyahsTableCreateCompanionBuilder = BookmarksAyahsCompanion
-    Function({
-  Value<int> id,
-  required String surahName,
-  required int surahNumber,
-  required int pageNumber,
-  required int ayahNumber,
-  required int ayahUQNumber,
-  required String lastRead,
-});
-typedef $$BookmarksAyahsTableUpdateCompanionBuilder = BookmarksAyahsCompanion
-    Function({
-  Value<int> id,
-  Value<String> surahName,
-  Value<int> surahNumber,
-  Value<int> pageNumber,
-  Value<int> ayahNumber,
-  Value<int> ayahUQNumber,
-  Value<String> lastRead,
-});
+typedef $$BookmarksTableProcessedTableManager =
+    ProcessedTableManager<
+      _$BookmarkDatabase,
+      $BookmarksTable,
+      Bookmark,
+      $$BookmarksTableFilterComposer,
+      $$BookmarksTableOrderingComposer,
+      $$BookmarksTableAnnotationComposer,
+      $$BookmarksTableCreateCompanionBuilder,
+      $$BookmarksTableUpdateCompanionBuilder,
+      (Bookmark, BaseReferences<_$BookmarkDatabase, $BookmarksTable, Bookmark>),
+      Bookmark,
+      PrefetchHooks Function()
+    >;
+typedef $$BookmarksAyahsTableCreateCompanionBuilder =
+    BookmarksAyahsCompanion Function({
+      Value<int> id,
+      required String surahName,
+      required int surahNumber,
+      required int pageNumber,
+      required int ayahNumber,
+      required int ayahUQNumber,
+      required String lastRead,
+    });
+typedef $$BookmarksAyahsTableUpdateCompanionBuilder =
+    BookmarksAyahsCompanion Function({
+      Value<int> id,
+      Value<String> surahName,
+      Value<int> surahNumber,
+      Value<int> pageNumber,
+      Value<int> ayahNumber,
+      Value<int> ayahUQNumber,
+      Value<String> lastRead,
+    });
 
 class $$BookmarksAyahsTableFilterComposer
     extends Composer<_$BookmarkDatabase, $BookmarksAyahsTable> {
@@ -1181,25 +1391,39 @@ class $$BookmarksAyahsTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get surahName => $composableBuilder(
-      column: $table.surahName, builder: (column) => ColumnFilters(column));
+    column: $table.surahName,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get surahNumber => $composableBuilder(
-      column: $table.surahNumber, builder: (column) => ColumnFilters(column));
+    column: $table.surahNumber,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get pageNumber => $composableBuilder(
-      column: $table.pageNumber, builder: (column) => ColumnFilters(column));
+    column: $table.pageNumber,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get ayahNumber => $composableBuilder(
-      column: $table.ayahNumber, builder: (column) => ColumnFilters(column));
+    column: $table.ayahNumber,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get ayahUQNumber => $composableBuilder(
-      column: $table.ayahUQNumber, builder: (column) => ColumnFilters(column));
+    column: $table.ayahUQNumber,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get lastRead => $composableBuilder(
-      column: $table.lastRead, builder: (column) => ColumnFilters(column));
+    column: $table.lastRead,
+    builder: (column) => ColumnFilters(column),
+  );
 }
 
 class $$BookmarksAyahsTableOrderingComposer
@@ -1212,26 +1436,39 @@ class $$BookmarksAyahsTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get surahName => $composableBuilder(
-      column: $table.surahName, builder: (column) => ColumnOrderings(column));
+    column: $table.surahName,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get surahNumber => $composableBuilder(
-      column: $table.surahNumber, builder: (column) => ColumnOrderings(column));
+    column: $table.surahNumber,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get pageNumber => $composableBuilder(
-      column: $table.pageNumber, builder: (column) => ColumnOrderings(column));
+    column: $table.pageNumber,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get ayahNumber => $composableBuilder(
-      column: $table.ayahNumber, builder: (column) => ColumnOrderings(column));
+    column: $table.ayahNumber,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get ayahUQNumber => $composableBuilder(
-      column: $table.ayahUQNumber,
-      builder: (column) => ColumnOrderings(column));
+    column: $table.ayahUQNumber,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get lastRead => $composableBuilder(
-      column: $table.lastRead, builder: (column) => ColumnOrderings(column));
+    column: $table.lastRead,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$BookmarksAyahsTableAnnotationComposer
@@ -1250,39 +1487,56 @@ class $$BookmarksAyahsTableAnnotationComposer
       $composableBuilder(column: $table.surahName, builder: (column) => column);
 
   GeneratedColumn<int> get surahNumber => $composableBuilder(
-      column: $table.surahNumber, builder: (column) => column);
+    column: $table.surahNumber,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get pageNumber => $composableBuilder(
-      column: $table.pageNumber, builder: (column) => column);
+    column: $table.pageNumber,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get ayahNumber => $composableBuilder(
-      column: $table.ayahNumber, builder: (column) => column);
+    column: $table.ayahNumber,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get ayahUQNumber => $composableBuilder(
-      column: $table.ayahUQNumber, builder: (column) => column);
+    column: $table.ayahUQNumber,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get lastRead =>
       $composableBuilder(column: $table.lastRead, builder: (column) => column);
 }
 
-class $$BookmarksAyahsTableTableManager extends RootTableManager<
-    _$BookmarkDatabase,
-    $BookmarksAyahsTable,
-    BookmarksAyah,
-    $$BookmarksAyahsTableFilterComposer,
-    $$BookmarksAyahsTableOrderingComposer,
-    $$BookmarksAyahsTableAnnotationComposer,
-    $$BookmarksAyahsTableCreateCompanionBuilder,
-    $$BookmarksAyahsTableUpdateCompanionBuilder,
-    (
-      BookmarksAyah,
-      BaseReferences<_$BookmarkDatabase, $BookmarksAyahsTable, BookmarksAyah>
-    ),
-    BookmarksAyah,
-    PrefetchHooks Function()> {
+class $$BookmarksAyahsTableTableManager
+    extends
+        RootTableManager<
+          _$BookmarkDatabase,
+          $BookmarksAyahsTable,
+          BookmarksAyah,
+          $$BookmarksAyahsTableFilterComposer,
+          $$BookmarksAyahsTableOrderingComposer,
+          $$BookmarksAyahsTableAnnotationComposer,
+          $$BookmarksAyahsTableCreateCompanionBuilder,
+          $$BookmarksAyahsTableUpdateCompanionBuilder,
+          (
+            BookmarksAyah,
+            BaseReferences<
+              _$BookmarkDatabase,
+              $BookmarksAyahsTable,
+              BookmarksAyah
+            >,
+          ),
+          BookmarksAyah,
+          PrefetchHooks Function()
+        > {
   $$BookmarksAyahsTableTableManager(
-      _$BookmarkDatabase db, $BookmarksAyahsTable table)
-      : super(TableManagerState(
+    _$BookmarkDatabase db,
+    $BookmarksAyahsTable table,
+  ) : super(
+        TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
@@ -1291,80 +1545,85 @@ class $$BookmarksAyahsTableTableManager extends RootTableManager<
               $$BookmarksAyahsTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $$BookmarksAyahsTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<String> surahName = const Value.absent(),
-            Value<int> surahNumber = const Value.absent(),
-            Value<int> pageNumber = const Value.absent(),
-            Value<int> ayahNumber = const Value.absent(),
-            Value<int> ayahUQNumber = const Value.absent(),
-            Value<String> lastRead = const Value.absent(),
-          }) =>
-              BookmarksAyahsCompanion(
-            id: id,
-            surahName: surahName,
-            surahNumber: surahNumber,
-            pageNumber: pageNumber,
-            ayahNumber: ayahNumber,
-            ayahUQNumber: ayahUQNumber,
-            lastRead: lastRead,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            required String surahName,
-            required int surahNumber,
-            required int pageNumber,
-            required int ayahNumber,
-            required int ayahUQNumber,
-            required String lastRead,
-          }) =>
-              BookmarksAyahsCompanion.insert(
-            id: id,
-            surahName: surahName,
-            surahNumber: surahNumber,
-            pageNumber: pageNumber,
-            ayahNumber: ayahNumber,
-            ayahUQNumber: ayahUQNumber,
-            lastRead: lastRead,
-          ),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> surahName = const Value.absent(),
+                Value<int> surahNumber = const Value.absent(),
+                Value<int> pageNumber = const Value.absent(),
+                Value<int> ayahNumber = const Value.absent(),
+                Value<int> ayahUQNumber = const Value.absent(),
+                Value<String> lastRead = const Value.absent(),
+              }) => BookmarksAyahsCompanion(
+                id: id,
+                surahName: surahName,
+                surahNumber: surahNumber,
+                pageNumber: pageNumber,
+                ayahNumber: ayahNumber,
+                ayahUQNumber: ayahUQNumber,
+                lastRead: lastRead,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String surahName,
+                required int surahNumber,
+                required int pageNumber,
+                required int ayahNumber,
+                required int ayahUQNumber,
+                required String lastRead,
+              }) => BookmarksAyahsCompanion.insert(
+                id: id,
+                surahName: surahName,
+                surahNumber: surahNumber,
+                pageNumber: pageNumber,
+                ayahNumber: ayahNumber,
+                ayahUQNumber: ayahUQNumber,
+                lastRead: lastRead,
+              ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: null,
-        ));
+        ),
+      );
 }
 
-typedef $$BookmarksAyahsTableProcessedTableManager = ProcessedTableManager<
-    _$BookmarkDatabase,
-    $BookmarksAyahsTable,
-    BookmarksAyah,
-    $$BookmarksAyahsTableFilterComposer,
-    $$BookmarksAyahsTableOrderingComposer,
-    $$BookmarksAyahsTableAnnotationComposer,
-    $$BookmarksAyahsTableCreateCompanionBuilder,
-    $$BookmarksAyahsTableUpdateCompanionBuilder,
-    (
+typedef $$BookmarksAyahsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$BookmarkDatabase,
+      $BookmarksAyahsTable,
       BookmarksAyah,
-      BaseReferences<_$BookmarkDatabase, $BookmarksAyahsTable, BookmarksAyah>
-    ),
-    BookmarksAyah,
-    PrefetchHooks Function()>;
-typedef $$AdhkarTableCreateCompanionBuilder = AdhkarCompanion Function({
-  Value<int> id,
-  required String category,
-  required String count,
-  required String description,
-  required String reference,
-  required String zekr,
-});
-typedef $$AdhkarTableUpdateCompanionBuilder = AdhkarCompanion Function({
-  Value<int> id,
-  Value<String> category,
-  Value<String> count,
-  Value<String> description,
-  Value<String> reference,
-  Value<String> zekr,
-});
+      $$BookmarksAyahsTableFilterComposer,
+      $$BookmarksAyahsTableOrderingComposer,
+      $$BookmarksAyahsTableAnnotationComposer,
+      $$BookmarksAyahsTableCreateCompanionBuilder,
+      $$BookmarksAyahsTableUpdateCompanionBuilder,
+      (
+        BookmarksAyah,
+        BaseReferences<_$BookmarkDatabase, $BookmarksAyahsTable, BookmarksAyah>,
+      ),
+      BookmarksAyah,
+      PrefetchHooks Function()
+    >;
+typedef $$AdhkarTableCreateCompanionBuilder =
+    AdhkarCompanion Function({
+      Value<int> id,
+      required String category,
+      required String count,
+      required String description,
+      required String reference,
+      required String zekr,
+    });
+typedef $$AdhkarTableUpdateCompanionBuilder =
+    AdhkarCompanion Function({
+      Value<int> id,
+      Value<String> category,
+      Value<String> count,
+      Value<String> description,
+      Value<String> reference,
+      Value<String> zekr,
+    });
 
 class $$AdhkarTableFilterComposer
     extends Composer<_$BookmarkDatabase, $AdhkarTable> {
@@ -1376,22 +1635,34 @@ class $$AdhkarTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get category => $composableBuilder(
-      column: $table.category, builder: (column) => ColumnFilters(column));
+    column: $table.category,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get count => $composableBuilder(
-      column: $table.count, builder: (column) => ColumnFilters(column));
+    column: $table.count,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get description => $composableBuilder(
-      column: $table.description, builder: (column) => ColumnFilters(column));
+    column: $table.description,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get reference => $composableBuilder(
-      column: $table.reference, builder: (column) => ColumnFilters(column));
+    column: $table.reference,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get zekr => $composableBuilder(
-      column: $table.zekr, builder: (column) => ColumnFilters(column));
+    column: $table.zekr,
+    builder: (column) => ColumnFilters(column),
+  );
 }
 
 class $$AdhkarTableOrderingComposer
@@ -1404,22 +1675,34 @@ class $$AdhkarTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get category => $composableBuilder(
-      column: $table.category, builder: (column) => ColumnOrderings(column));
+    column: $table.category,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get count => $composableBuilder(
-      column: $table.count, builder: (column) => ColumnOrderings(column));
+    column: $table.count,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get description => $composableBuilder(
-      column: $table.description, builder: (column) => ColumnOrderings(column));
+    column: $table.description,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get reference => $composableBuilder(
-      column: $table.reference, builder: (column) => ColumnOrderings(column));
+    column: $table.reference,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get zekr => $composableBuilder(
-      column: $table.zekr, builder: (column) => ColumnOrderings(column));
+    column: $table.zekr,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$AdhkarTableAnnotationComposer
@@ -1441,7 +1724,9 @@ class $$AdhkarTableAnnotationComposer
       $composableBuilder(column: $table.count, builder: (column) => column);
 
   GeneratedColumn<String> get description => $composableBuilder(
-      column: $table.description, builder: (column) => column);
+    column: $table.description,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get reference =>
       $composableBuilder(column: $table.reference, builder: (column) => column);
@@ -1450,20 +1735,27 @@ class $$AdhkarTableAnnotationComposer
       $composableBuilder(column: $table.zekr, builder: (column) => column);
 }
 
-class $$AdhkarTableTableManager extends RootTableManager<
-    _$BookmarkDatabase,
-    $AdhkarTable,
-    AdhkarData,
-    $$AdhkarTableFilterComposer,
-    $$AdhkarTableOrderingComposer,
-    $$AdhkarTableAnnotationComposer,
-    $$AdhkarTableCreateCompanionBuilder,
-    $$AdhkarTableUpdateCompanionBuilder,
-    (AdhkarData, BaseReferences<_$BookmarkDatabase, $AdhkarTable, AdhkarData>),
-    AdhkarData,
-    PrefetchHooks Function()> {
+class $$AdhkarTableTableManager
+    extends
+        RootTableManager<
+          _$BookmarkDatabase,
+          $AdhkarTable,
+          AdhkarData,
+          $$AdhkarTableFilterComposer,
+          $$AdhkarTableOrderingComposer,
+          $$AdhkarTableAnnotationComposer,
+          $$AdhkarTableCreateCompanionBuilder,
+          $$AdhkarTableUpdateCompanionBuilder,
+          (
+            AdhkarData,
+            BaseReferences<_$BookmarkDatabase, $AdhkarTable, AdhkarData>,
+          ),
+          AdhkarData,
+          PrefetchHooks Function()
+        > {
   $$AdhkarTableTableManager(_$BookmarkDatabase db, $AdhkarTable table)
-      : super(TableManagerState(
+    : super(
+        TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
@@ -1472,57 +1764,63 @@ class $$AdhkarTableTableManager extends RootTableManager<
               $$AdhkarTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $$AdhkarTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<String> category = const Value.absent(),
-            Value<String> count = const Value.absent(),
-            Value<String> description = const Value.absent(),
-            Value<String> reference = const Value.absent(),
-            Value<String> zekr = const Value.absent(),
-          }) =>
-              AdhkarCompanion(
-            id: id,
-            category: category,
-            count: count,
-            description: description,
-            reference: reference,
-            zekr: zekr,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            required String category,
-            required String count,
-            required String description,
-            required String reference,
-            required String zekr,
-          }) =>
-              AdhkarCompanion.insert(
-            id: id,
-            category: category,
-            count: count,
-            description: description,
-            reference: reference,
-            zekr: zekr,
-          ),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> category = const Value.absent(),
+                Value<String> count = const Value.absent(),
+                Value<String> description = const Value.absent(),
+                Value<String> reference = const Value.absent(),
+                Value<String> zekr = const Value.absent(),
+              }) => AdhkarCompanion(
+                id: id,
+                category: category,
+                count: count,
+                description: description,
+                reference: reference,
+                zekr: zekr,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String category,
+                required String count,
+                required String description,
+                required String reference,
+                required String zekr,
+              }) => AdhkarCompanion.insert(
+                id: id,
+                category: category,
+                count: count,
+                description: description,
+                reference: reference,
+                zekr: zekr,
+              ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: null,
-        ));
+        ),
+      );
 }
 
-typedef $$AdhkarTableProcessedTableManager = ProcessedTableManager<
-    _$BookmarkDatabase,
-    $AdhkarTable,
-    AdhkarData,
-    $$AdhkarTableFilterComposer,
-    $$AdhkarTableOrderingComposer,
-    $$AdhkarTableAnnotationComposer,
-    $$AdhkarTableCreateCompanionBuilder,
-    $$AdhkarTableUpdateCompanionBuilder,
-    (AdhkarData, BaseReferences<_$BookmarkDatabase, $AdhkarTable, AdhkarData>),
-    AdhkarData,
-    PrefetchHooks Function()>;
+typedef $$AdhkarTableProcessedTableManager =
+    ProcessedTableManager<
+      _$BookmarkDatabase,
+      $AdhkarTable,
+      AdhkarData,
+      $$AdhkarTableFilterComposer,
+      $$AdhkarTableOrderingComposer,
+      $$AdhkarTableAnnotationComposer,
+      $$AdhkarTableCreateCompanionBuilder,
+      $$AdhkarTableUpdateCompanionBuilder,
+      (
+        AdhkarData,
+        BaseReferences<_$BookmarkDatabase, $AdhkarTable, AdhkarData>,
+      ),
+      AdhkarData,
+      PrefetchHooks Function()
+    >;
 
 class $BookmarkDatabaseManager {
   final _$BookmarkDatabase _db;

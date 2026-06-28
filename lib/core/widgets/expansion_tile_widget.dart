@@ -18,6 +18,7 @@ class ExpansionTileWidget<T extends GetxController> extends StatelessWidget {
   final Color? backgroundColor;
   final Function(bool)? onExpansionChanged;
   final bool? initiallyExpanded;
+  final EdgeInsetsGeometry? tilePadding;
 
   const ExpansionTileWidget({
     super.key,
@@ -31,6 +32,7 @@ class ExpansionTileWidget<T extends GetxController> extends StatelessWidget {
     this.backgroundColor,
     this.onExpansionChanged,
     this.initiallyExpanded = false,
+    this.tilePadding,
   });
 
   @override
@@ -52,7 +54,8 @@ class ExpansionTileWidget<T extends GetxController> extends StatelessWidget {
               backgroundColor ??
               context.theme.primaryColorLight.withValues(alpha: .2),
           childrenPadding: const EdgeInsets.symmetric(horizontal: 8.0),
-          tilePadding: const EdgeInsets.symmetric(horizontal: 16.0),
+          tilePadding:
+              tilePadding ?? const EdgeInsets.symmetric(horizontal: 16.0),
           collapsedShape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.0),
           ),

@@ -27,6 +27,7 @@ class KhatmahBuildWidget extends StatelessWidget {
         );
       }
       return ListView.builder(
+        primary: false,
         shrinkWrap: true,
         padding: EdgeInsets.zero,
         physics: const NeverScrollableScrollPhysics(),
@@ -62,6 +63,7 @@ class KhatmahBuildWidget extends StatelessWidget {
                 ),
                 manager: GeneralController.instance.state.expansionManager,
                 name: 'khatmah_expansion_tile_${khatmah.id}',
+                tilePadding: const EdgeInsetsDirectional.fromSTEB(0, 0, 8, 0),
                 titleChild: _titleWidget(
                   khatmah,
                   progress,
@@ -86,33 +88,40 @@ class KhatmahBuildWidget extends StatelessWidget {
     int totalDays,
   ) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
-        Expanded(
-          flex: 2,
-          child: Container(
-            height: 50,
-            width: 50,
-            decoration: BoxDecoration(
-              color: Color(khatmah.color).withValues(alpha: .8),
-              borderRadius: BorderRadius.circular(10),
+        Container(
+          height: 100,
+          width: 70,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(khatmah.color).withValues(alpha: .6),
+                Colors.transparent,
+              ],
+              begin: AlignmentDirectional.centerStart,
+              end: AlignmentDirectional.centerEnd,
             ),
-            child: Center(
-              child: Text(
-                '${(progress * 100).toInt()}%'.convertNumbersToCurrentLang(),
-                style: AppTextStyles.titleSmall(
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
+            color: Color(khatmah.color).withValues(alpha: .8),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Center(
+            child: Text(
+              '${(progress * 100).toInt()}%'.convertNumbersToCurrentLang(),
+              style: AppTextStyles.titleSmall(
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
           ),
         ),
         const Gap(8),
         Expanded(
-          flex: 9,
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
+                width: Get.width,
                 padding: const EdgeInsets.symmetric(
                   horizontal: 12.0,
                   vertical: 6.0,
@@ -121,68 +130,70 @@ class KhatmahBuildWidget extends StatelessWidget {
                   color: Theme.of(context).colorScheme.primaryContainer,
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Text(
-                  khatmah.name ?? 'khatmah'.tr,
-                  style: AppTextStyles.titleMedium(),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              const Gap(4),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(4),
-                child: LinearProgressIndicator(
-                  value: progress,
-                  backgroundColor: Theme.of(
-                    context,
-                  ).colorScheme.surface.withValues(alpha: .2),
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                    Color(khatmah.color),
-                  ),
-                  minHeight: 6,
-                ),
-              ),
-              const Gap(4),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12.0,
-                  vertical: 6.0,
-                ),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primaryContainer,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
+                child: Column(
+                  crossAxisAlignment: .start,
                   children: [
                     Text(
-                      '${'Day'.tr}: ',
-                      style: AppTextStyles.titleSmall(
-                        color: context.theme.primaryColorDark,
-                      ),
+                      khatmah.name ?? 'khatmah'.tr,
+                      style: AppTextStyles.titleMedium(),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    Text(
-                      currentDay > totalDays
-                          ? totalDays.toString().convertNumbersToCurrentLang()
-                          : currentDay.toString().convertNumbersToCurrentLang(),
-                      style: AppTextStyles.titleSmall(),
-                    ),
-                    Text(
-                      '/$totalDays'.convertNumbersToCurrentLang(),
-                      style: AppTextStyles.titleSmall(
-                        color: context.theme.primaryColorDark,
-                      ),
-                    ),
-                    if (khatmah.isTahzibSahabah) ...[
-                      const Gap(8),
-                      Text(
-                        '| ${'divisionBySahabah'.tr}',
-                        style: AppTextStyles.titleSmall(
-                          color: context.theme.primaryColorDark,
+                    const Gap(4),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          '${'Day'.tr}: ',
+                          style: AppTextStyles.titleSmall(
+                            color: context.theme.primaryColorDark,
+                          ),
                         ),
-                      ),
-                    ],
+                        Text(
+                          currentDay > totalDays
+                              ? totalDays
+                                    .toString()
+                                    .convertNumbersToCurrentLang()
+                              : currentDay
+                                    .toString()
+                                    .convertNumbersToCurrentLang(),
+                          style: AppTextStyles.titleSmall(),
+                        ),
+                        Text(
+                          '/$totalDays'.convertNumbersToCurrentLang(),
+                          style: AppTextStyles.titleSmall(
+                            color: context.theme.primaryColorDark,
+                          ),
+                        ),
+                        if (khatmah.isTahzibSahabah) ...[
+                          const Gap(8),
+                          Text(
+                            '| ${'divisionBySahabah'.tr}',
+                            style: AppTextStyles.titleSmall(
+                              color: context.theme.primaryColorDark,
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
                   ],
+                ),
+              ),
+              const Gap(8),
+              SizedBox(
+                width: 220,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(4),
+                  child: LinearProgressIndicator(
+                    value: progress,
+                    backgroundColor: Theme.of(
+                      context,
+                    ).colorScheme.surface.withValues(alpha: .2),
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      Color(khatmah.color),
+                    ),
+                    minHeight: 6,
+                  ),
                 ),
               ),
             ],

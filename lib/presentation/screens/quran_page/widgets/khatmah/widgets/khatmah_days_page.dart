@@ -15,9 +15,11 @@ class KhatmahDaysPage extends StatelessWidget {
         khatmah.dayStatuses.indexWhere((status) => !status.isCompleted) + 1;
 
     return ListView.builder(
+      primary: false,
       shrinkWrap: true,
+      controller: khatmahCtrl.scrollController,
+      physics: const ClampingScrollPhysics(),
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      physics: const NeverScrollableScrollPhysics(),
       itemCount: isTahzibSahabah ? 7 : daysCount,
       itemBuilder: (context, index) {
         final dayStatus = khatmah.dayStatuses[index];
