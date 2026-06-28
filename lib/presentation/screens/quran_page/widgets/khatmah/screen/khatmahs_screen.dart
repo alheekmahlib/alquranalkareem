@@ -6,29 +6,26 @@ class KhatmasScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        // height: Get.height * 0.89,
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primaryContainer,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TitleWidget(title: 'khatmah'.tr),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  AddKhatmahWidget(),
-                  const Gap(8),
-                  KhatmahBuildWidget(),
-                ],
-              ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TitleWidget(title: 'khatmah'.tr),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: SizedBox(
+            height: Get.height * 0.6,
+            child: ListView(
+              shrinkWrap: true,
+              controller: KhatmahController.instance.scrollController,
+              children: [
+                AddKhatmahWidget(),
+                const Gap(8),
+                KhatmahBuildWidget(),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }

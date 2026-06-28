@@ -11,6 +11,7 @@ class KhatmahController extends GetxController {
   RxBool isTahzibSahabah = false.obs;
   RxInt screenPickerColor = 0xff404C6E.obs;
   DateTime now = DateTime.now();
+  final ScrollController scrollController = ScrollController();
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController daysController = TextEditingController();
@@ -27,13 +28,17 @@ class KhatmahController extends GetxController {
     for (var khatmah in loadedKhatmas) {
       final days = await db.getDaysForKhatmah(khatmah.id);
       final dayStatuses = days
-          .map((day) => DayStatus(
+          .map(
+            (day) => DayStatus(
               day: day.day,
               isCompleted: day.isCompleted,
               startPage: day.startPage ?? 1,
-              endPage: day.endPage ?? 604))
+              endPage: day.endPage ?? 604,
+            ),
+          )
           .toList();
-      khatmahList.add(Khatmah(
+      khatmahList.add(
+        Khatmah(
           id: khatmah.id,
           name: khatmah.name,
           currentPage: khatmah.currentPage,
@@ -43,23 +48,29 @@ class KhatmahController extends GetxController {
           daysCount: khatmah.daysCount,
           isTahzibSahabah: khatmah.isTahzibSahabah,
           dayStatuses: dayStatuses,
-          color: khatmah.color ?? 0xff404C6E));
+          color: khatmah.color ?? 0xff404C6E,
+        ),
+      );
     }
     khatmas.assignAll(khatmahList);
   }
 
-  void addKhatmah(
-      {String? name,
-      int? daysCount = 30,
-      bool isTahzibSahabah = false,
-      int? color}) async {
-    final khatmaId = await db.insertKhatma(KhatmahsCompanion(
+  void addKhatmah({
+    String? name,
+    int? daysCount = 30,
+    bool isTahzibSahabah = false,
+    int? color,
+  }) async {
+    final khatmaId = await db.insertKhatma(
+      KhatmahsCompanion(
         name: drift.Value(name),
         currentPage: const drift.Value(1),
         isCompleted: const drift.Value(false),
         daysCount: drift.Value(daysCount!),
         isTahzibSahabah: drift.Value(isTahzibSahabah),
-        color: drift.Value(color!)));
+        color: drift.Value(color!),
+      ),
+    );
 
     if (isTahzibSahabah) {
       // استخدام تقسيم تحزيب السلف
@@ -77,17 +88,19 @@ class KhatmahController extends GetxController {
         446,
         517,
         518,
-        604
+        604,
       ];
 
       for (int i = 0; i < 7; i++) {
-        await db.insertKhatmahDay(KhatmahDaysCompanion(
-          khatmahId: drift.Value(khatmaId),
-          day: drift.Value(i + 1),
-          isCompleted: const drift.Value(false),
-          startPage: drift.Value(pages[i * 2]),
-          endPage: drift.Value(pages[i * 2 + 1]),
-        ));
+        await db.insertKhatmahDay(
+          KhatmahDaysCompanion(
+            khatmahId: drift.Value(khatmaId),
+            day: drift.Value(i + 1),
+            isCompleted: const drift.Value(false),
+            startPage: drift.Value(pages[i * 2]),
+            endPage: drift.Value(pages[i * 2 + 1]),
+          ),
+        );
       }
     } else {
       // استخدام التقسيم العادي
@@ -108,13 +121,15 @@ class KhatmahController extends GetxController {
           endPage = totalPages;
         }
 
-        await db.insertKhatmahDay(KhatmahDaysCompanion(
-          khatmahId: drift.Value(khatmaId),
-          day: drift.Value(i + 1),
-          isCompleted: const drift.Value(false),
-          startPage: drift.Value(startPage),
-          endPage: drift.Value(endPage),
-        ));
+        await db.insertKhatmahDay(
+          KhatmahDaysCompanion(
+            khatmahId: drift.Value(khatmaId),
+            day: drift.Value(i + 1),
+            isCompleted: const drift.Value(false),
+            startPage: drift.Value(startPage),
+            endPage: drift.Value(endPage),
+          ),
+        );
 
         currentPage = endPage + 1;
       }
@@ -125,19 +140,22 @@ class KhatmahController extends GetxController {
 
   void updateKhatmahDayStatus(int khatmaId, int day, bool isCompleted) async {
     try {
-      final existingDay = await (db.select(db.khatmahDays)
-            ..where(
-                (tbl) => tbl.khatmahId.equals(khatmaId) & tbl.day.equals(day)))
-          .getSingleOrNull();
+      final existingDay =
+          await (db.select(db.khatmahDays)..where(
+                (tbl) => tbl.khatmahId.equals(khatmaId) & tbl.day.equals(day),
+              ))
+              .getSingleOrNull();
 
       if (existingDay != null) {
         // تحديث الحالة في قاعدة البيانات
-        await db.updateKhatmahDay(KhatmahDaysCompanion(
-          id: drift.Value(existingDay.id),
-          khatmahId: drift.Value(khatmaId),
-          day: drift.Value(day),
-          isCompleted: drift.Value(isCompleted),
-        ));
+        await db.updateKhatmahDay(
+          KhatmahDaysCompanion(
+            id: drift.Value(existingDay.id),
+            khatmahId: drift.Value(khatmaId),
+            day: drift.Value(day),
+            isCompleted: drift.Value(isCompleted),
+          ),
+        );
         // تحميل البيانات المحدثة
         loadKhatmas();
       } else {
@@ -163,7 +181,7 @@ class KhatmahController extends GetxController {
       446,
       517,
       518,
-      604
+      604,
     ];
 
     if (day < 1 || day > 7) {
@@ -188,10 +206,11 @@ class KhatmahController extends GetxController {
         : nameController.text;
     int days = int.tryParse(daysController.text) ?? 30;
     addKhatmah(
-        name: name,
-        daysCount: days,
-        isTahzibSahabah: isTahzibSahabah.value,
-        color: screenPickerColor.value);
+      name: name,
+      daysCount: days,
+      isTahzibSahabah: isTahzibSahabah.value,
+      color: screenPickerColor.value,
+    );
     nameController.clear();
     daysController.clear();
     isTahzibSahabah.value = false;
