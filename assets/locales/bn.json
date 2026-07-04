@@ -1478,5 +1478,11 @@
   "alsiyasat_alshareiat_walqada": "ইসলামী রাজনীতি ও বিচার ব্যবস্থা",
   "alfarayid_walwasaya": "ওয়ারিশ ও উইল",
   "alraqayiq_waladab_waladhkar": "তাকওয়া, আদব ও যিকির",
-  "alsiyrat_alnabawia": "নবীর জীবনী"
+  "alsiyrat_alnabawia": "নবীর জীবনী",
+  "shareRange": "একাধিক আয়াত শেয়ার করুন",
+  "@shareRange": {},
+  "fromAyah": "আয়াত থেকে",
+  "@fromAyah": {},
+  "toAyah": "আয়াত পর্যন্ত",
+  "@toAyah": {}
 }

@@ -1,3 +1,6 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/convert_number_extension.dart';
+import 'package:alquranalkareem/core/utils/helpers/app_text_styles.dart';
+import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -5,14 +8,21 @@ import 'package:quran_library/quran.dart';
 
 import '/core/utils/constants/extensions/bottom_sheet_extension.dart';
 import '/core/widgets/container_button.dart';
+import '../../../presentation/controllers/general/general_controller.dart';
 import '../../../presentation/screens/quran_page/quran.dart';
 import '../../services/ayah_audio_share_service.dart';
 import '../../services/services_locator.dart';
 import '../../utils/constants/extensions/extensions.dart';
 import '../../utils/constants/svg_constants.dart';
 import '../custom_button.dart';
+import '../custom_switch_widget.dart';
+import '../expansion_tile_widget.dart';
 import '../title_widget.dart';
 import 'share_ayahToImage.dart';
+
+/// حالة مؤقتة للآيات المحددة (من/إلى) — تُدار بالكامل عبر Rx.
+final RxInt _fromAyah = 1.obs;
+final RxInt _toAyah = 1.obs;
 
 class ShareAyahOptions extends StatelessWidget {
   final AyahModel ayah;
@@ -20,6 +30,7 @@ class ShareAyahOptions extends StatelessWidget {
   final int pageNumber;
   final Color? iconColor;
   final bool? withBack;
+
   ShareAyahOptions({
     super.key,
     required this.ayah,
@@ -31,6 +42,24 @@ class ShareAyahOptions extends StatelessWidget {
 
   final shareToImage = ShareController.instance;
 
+  /// قائمة الآيات المحددة (من/إلى)
+  List<AyahModel> get _selectedAyahs {
+    final from = _fromAyah.value;
+    final to = _toAyah.value;
+    final min = from < to ? from : to;
+    final max = from > to ? from : to;
+    return surah.ayahs.where((a) {
+      final n = a.ayahNumber;
+      return n >= min && n <= max;
+    }).toList();
+  }
+
+  /// النص المدمج للآيات المحددة
+  String get _selectedText =>
+      _selectedAyahs.map((a) => a.text + ' ${a.ayahNumber}').join(' ');
+  String get _selectedAyahNumber =>
+      '${_selectedAyahs.first.ayahNumber} - ${_selectedAyahs.last.ayahNumber}';
+
   @override
   Widget build(BuildContext context) {
     return CustomButton(
@@ -41,28 +70,23 @@ class ShareAyahOptions extends StatelessWidget {
       svgPath: SvgPath.svgHomeShare,
       svgColor: iconColor ?? context.theme.canvasColor,
       onPressed: () async {
-        if (withBack == true) {
-          Get.back();
-        }
-        // await QuranLibrary().fetchTranslation();
-        // shareToImage.fetchTafseerSaadi(surahNumber, ayahNumber, ayahUQNumber);
+        if (withBack == true) Get.back();
+        // تهيئة القيم بالآية الحالية
+        _fromAyah.value = ayah.ayahNumber;
+        _toAyah.value = ayah.ayahNumber;
         customBottomSheet(
           backgroundColor: Get.theme.colorScheme.primaryContainer,
-          Container(
-            // height: MediaQuery.sizeOf(context).height * .9,
-            // alignment: Alignment.center,
-            // padding: const EdgeInsets.all(8.0),
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(8),
-                topRight: Radius.circular(8),
-              ),
-            ),
-            child: SafeArea(
+          SafeArea(
+            child: SizedBox(
+              height: Get.height * .8,
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                    _rangeSelector(),
+                    const Gap(4),
+                    context.hDivider(color: Get.theme.colorScheme.primary),
+                    const Gap(4),
                     _ayahText(context),
                     const Gap(4),
                     context.hDivider(color: Get.theme.colorScheme.primary),
@@ -72,7 +96,7 @@ class ShareAyahOptions extends StatelessWidget {
                     context.hDivider(color: Get.theme.colorScheme.primary),
                     const Gap(4),
                     _ayahToImage(context),
-                    // _imageWithTranslation(context),
+                    const Gap(8),
                   ],
                 ),
               ),
@@ -83,259 +107,243 @@ class ShareAyahOptions extends StatelessWidget {
     );
   }
 
+  // ── محدد «من / إلى» داخل ExpansionTileWidget ───────────────
+  Widget _rangeSelector() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: ExpansionTileWidget<QuranCtrl>(
+        name: 'share_range_tile',
+        manager: GeneralController.instance.state.expansionManager,
+        getxCtrl: QuranCtrl.instance,
+        initiallyExpanded: true,
+        title: 'shareRange'.tr,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          child: Row(
+            children: [
+              Expanded(child: _ayahDropdown('fromAyah'.tr, _fromAyah)),
+              const Gap(8),
+              Expanded(child: _ayahDropdown('toAyah'.tr, _toAyah)),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _ayahDropdown(String label, RxInt rxVal) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(label, style: AppTextStyles.titleMedium(fontSize: 12)),
+        const Gap(4),
+        Obx(
+          () => CustomDropdown<int>(
+            excludeSelected: false,
+            initialItem: rxVal.value,
+            // سكرول تلقائي للآية الحالية عند فتح القائمة
+            itemsScrollController: ScrollController(
+              initialScrollOffset: (rxVal.value - 1) * 40.0,
+            ),
+            decoration: CustomDropdownDecoration(
+              closedFillColor: Get.theme.colorScheme.primary.withValues(
+                alpha: .15,
+              ),
+              expandedFillColor: Get.theme.colorScheme.primaryContainer,
+              closedBorderRadius: const BorderRadius.all(Radius.circular(8)),
+              expandedBorderRadius: const BorderRadius.all(Radius.circular(8)),
+              closedBorder: Border.all(color: Colors.transparent),
+              expandedBorder: Border.all(color: Colors.transparent),
+            ),
+            closedHeaderPadding: const EdgeInsets.symmetric(
+              horizontal: 12,
+              vertical: 10,
+            ),
+            hintBuilder: (_, __, ___) =>
+                Text(label, style: AppTextStyles.titleMedium(fontSize: 12)),
+            headerBuilder: (_, value, __) =>
+                Text('$value', style: AppTextStyles.titleMedium(fontSize: 12)),
+            items: surah.ayahs.map((a) => a.ayahNumber).toList(),
+            listItemBuilder: (_, value, __, ___) =>
+                Text('$value', style: AppTextStyles.titleMedium(fontSize: 12)),
+            onChanged: (v) => rxVal.value = v ?? rxVal.value,
+          ),
+        ),
+      ],
+    );
+  }
+
+  // ── مشاركة كنص ──────────────────────────────────────────────
   Widget _ayahText(BuildContext context) {
+    // التقاط الألوان خارج Obx لتجنب deactivated widget ancestor
+    final bg = context.theme.colorScheme.primary.withValues(alpha: .15);
+    final hint = context.theme.hintColor;
+    final width = Get.width;
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const TitleWidget(title: 'shareText'),
-        ContainerButton(
-          height: 90,
-          width: Get.width,
-          isButton: true,
-          withArrow: true,
-          horizontalMargin: 16.0,
-          verticalPadding: 8.0,
-          backgroundColor: context.theme.colorScheme.primary.withValues(
-            alpha: .15,
-          ),
-          child: SizedBox(
-            width: 300,
-            child: Text(
-              "﴿ ${ayah.text} ﴾",
-              style: TextStyle(
-                color: Get.theme.hintColor,
-                fontSize: 18,
-                fontFamily: 'uthmanic2',
+        Obx(() {
+          final ayahs = _selectedAyahs;
+          final isSingle = ayahs.length == 1;
+          final text = isSingle
+              ? ayah.text
+              : _selectedText.convertNumbersToCurrentLang();
+          return ContainerButton(
+            height: isSingle ? 90 : 120,
+            width: width,
+            isButton: true,
+            withArrow: true,
+            horizontalMargin: 16.0,
+            verticalPadding: 8.0,
+            backgroundColor: bg,
+            child: SizedBox(
+              width: 300,
+              child: Text(
+                "﴿ $text ﴾",
+                style: TextStyle(
+                  color: hint,
+                  fontSize: isSingle ? 18 : 16,
+                  fontFamily: 'uthmanic2',
+                ),
+                overflow: TextOverflow.fade,
+                maxLines: 3,
+                textDirection: TextDirection.rtl,
               ),
-              overflow: TextOverflow.fade,
-              textDirection: TextDirection.rtl,
             ),
-          ),
-          onPressed: () {
-            shareToImage.shareText(
-              ayah.text,
+            onPressed: () => shareToImage.shareText(
+              text,
               surah.arabicName,
-              ayah.ayahNumber,
+              _selectedAyahNumber.convertNumbersToCurrentLang(),
               pageNumber + 1,
-              ayah.ayahUQNumber,
-            );
-          },
-        ),
+              ayahs.last.ayahUQNumber,
+            ),
+          );
+        }),
       ],
     );
   }
 
+  // ── مشاركة كصورة ────────────────────────────────────────────
   Widget _ayahToImage(BuildContext context) {
+    final bg = Get.theme.colorScheme.primary.withValues(alpha: .15);
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const TitleWidget(title: 'shareImage'),
-        GestureDetector(
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-            margin: const EdgeInsets.only(
-              top: 4.0,
-              bottom: 16.0,
-              right: 16.0,
-              left: 16.0,
-            ),
-            decoration: BoxDecoration(
-              color: Get.theme.colorScheme.primary.withValues(alpha: .15),
-              borderRadius: const BorderRadius.all(Radius.circular(4)),
-            ),
-            child: VerseImageCreator(ayah: ayah, surah: surah),
-          ),
-          onTap: () async {
-            await sl<ShareController>().createAndShowVerseImage();
-            shareToImage.shareVerse(
-              context,
-              ayah.text,
-              surah.arabicName,
-              ayah.ayahNumber,
-              pageNumber + 1,
-              ayah.ayahUQNumber,
+        GetBuilder<QuranCtrl>(
+          builder: (quran) {
+            return CustomSwitchListTile(
+              contentMargin: const EdgeInsets.symmetric(horizontal: 16.0),
+              title: 'tajweed'.tr,
+              value: quran.state.isTajweedEnabled.value,
+              onChanged: (_) {
+                quran.state.isTajweedEnabled.toggle();
+                QuranController.instance.state.box.write(
+                  'isTajweed',
+                  quran.state.isTajweedEnabled.value,
+                );
+                Get.forceAppUpdate();
+              },
             );
-            // shareVerse(
-            //     context, verseNumber, surahNumber, verseText);
-            Get.back();
           },
         ),
+        Obx(() {
+          final ayahs = _selectedAyahs;
+          final isSingle = ayahs.length == 1;
+          return GestureDetector(
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8.0,
+                vertical: 8.0,
+              ),
+              margin: const EdgeInsets.only(
+                top: 4.0,
+                bottom: 16.0,
+                right: 16.0,
+                left: 16.0,
+              ),
+              decoration: BoxDecoration(
+                color: bg,
+                borderRadius: const BorderRadius.all(Radius.circular(4)),
+              ),
+              child: VerseImageCreator(
+                ayah: ayahs.first,
+                surah: surah,
+                extraAyahs: isSingle ? null : ayahs.sublist(1),
+              ),
+            ),
+            onTap: () async {
+              await sl<ShareController>().createAndShowVerseImage();
+              await shareToImage.shareVerse(
+                context,
+                _selectedText,
+                surah.arabicName,
+                ayahs.last.ayahNumber,
+                pageNumber + 1,
+                ayahs.last.ayahUQNumber,
+              );
+              Get.back();
+            },
+          );
+        }),
       ],
     );
   }
 
-  // Widget _imageWithTranslation(BuildContext context) {
-  //   return Column(
-  //     children: [
-  //       Padding(
-  //         padding: const EdgeInsets.symmetric(horizontal: 16.0),
-  //         child: Row(
-  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //           children: [
-  //             Expanded(
-  //               flex: 6,
-  //               child: Text(
-  //                 'shareImageWTrans'.tr,
-  //                 style: TextStyle(
-  //                     color: Get.theme.hintColor,
-  //                     fontSize: 16,
-  //                     fontFamily: 'kufi'),
-  //               ),
-  //             ),
-  //             Expanded(
-  //               flex: 5,
-  //               child: PopupMenuButton(
-  //                 position: PopupMenuPosition.under,
-  //                 color: Get.theme.colorScheme.primaryContainer,
-  //                 child: Container(
-  //                   // width: 140,
-  //                   padding: const EdgeInsets.all(8.0),
-  //                   decoration: BoxDecoration(
-  //                     color: Get.theme.dividerColor.withValues(alpha: .4),
-  //                     borderRadius: const BorderRadius.all(Radius.circular(8)),
-  //                   ),
-  //                   child: Row(
-  //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                     children: [
-  //                       SizedBox(
-  //                         width: 100,
-  //                         child: FittedBox(
-  //                           fit: BoxFit.scaleDown,
-  //                           child: Obx(
-  //                             () => Text(
-  //                               shareToImage.currentTranslate.value,
-  //                               style: TextStyle(
-  //                                 fontFamily: 'kufi',
-  //                                 fontSize: 14,
-  //                                 color: Get.theme.hintColor,
-  //                               ),
-  //                             ),
-  //                           ),
-  //                         ),
-  //                       ),
-  //                       Icon(
-  //                         Icons.keyboard_arrow_down_rounded,
-  //                         size: 20,
-  //                         color: Get.theme.colorScheme.primary,
-  //                       ),
-  //                     ],
-  //                   ),
-  //                 ),
-  //                 itemBuilder: (context) =>
-  //                     List<PopupMenuItem<dynamic>>.generate(
-  //                   translateNames.length,
-  //                   (i) => PopupMenuItem<Widget>(
-  //                     value: Text(
-  //                       translateNames[i].name,
-  //                       style: TextStyle(
-  //                         fontFamily: 'kufi',
-  //                         fontSize: 18,
-  //                         color: Theme.of(context).hintColor,
-  //                       ),
-  //                     ),
-  //                     child: Obx(
-  //                       () => GestureDetector(
-  //                         onTap: QuranLibrary().getTafsirDownloaded(i)
-  //                             ? () async {
-  //                                 await shareToImage.shareButtonOnTap(
-  //                                   context,
-  //                                   i,
-  //                                   ayahUQNumber,
-  //                                   surahNumber,
-  //                                   ayahNumber,
-  //                                   pageNumber,
-  //                                 );
-  //                               }
-  //                             : null,
-  //                         child: SizedBox(
-  //                           width: MediaQuery.sizeOf(context).width,
-  //                           child: Text(
-  //                             translateNames[i].name,
-  //                             style: TextStyle(
-  //                               fontFamily: 'kufi',
-  //                               fontSize: 18,
-  //                               color: QuranLibrary().getTafsirDownloaded(i)
-  //                                   ? Theme.of(context).hintColor
-  //                                   : Theme.of(context)
-  //                                       .colorScheme
-  //                                       .surface
-  //                                       .withValues(alpha: .4),
-  //                             ),
-  //                           ),
-  //                         ),
-  //                       ),
-  //                     ),
-  //                   ),
-  //                 ),
-  //               ),
-  //             )
-  //           ],
-  //         ),
-  //       ),
-  //       GestureDetector(
-  //         child: Container(
-  //           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-  //           margin: const EdgeInsets.only(
-  //               top: 4.0, bottom: 16.0, right: 16.0, left: 16.0),
-  //           decoration: BoxDecoration(
-  //               color: Get.theme.colorScheme.primary.withValues(alpha: .15),
-  //               borderRadius: const BorderRadius.all(Radius.circular(4))),
-  //           child: TafseerImageCreator(
-  //             verseNumber: ayahNumber,
-  //             verseUQNumber: ayahUQNumber,
-  //             surahNumber: surahNumber,
-  //             verseText: ayahTextNormal,
-  //           ),
-  //         ),
-  //         onTap: () async {
-  //           await shareToImage.createAndShowTafseerImage();
-  //           shareToImage.shareVerseWithTranslate(context);
-  //           Navigator.pop(context);
-  //         },
-  //       ),
-  //     ],
-  //   );
-  // }
-
+  // ── مشاركة كصوت ─────────────────────────────────────────────
   Widget _ayahAudio(BuildContext context) {
     final audioService = sl<AyahAudioShareService>();
+    // التقاط الألوان خارج Obx
+    final bg = context.theme.colorScheme.primary.withValues(alpha: .15);
+    final hint = context.theme.hintColor;
+    final width = Get.width;
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const TitleWidget(title: 'shareAudio'),
-        Obx(
-          () => ContainerButton(
+        Obx(() {
+          final ayahs = _selectedAyahs;
+          final isSingle = ayahs.length == 1;
+          return ContainerButton(
             height: 90,
-            width: Get.width,
+            width: width,
             isButton: true,
             withArrow: true,
             horizontalMargin: 16.0,
             verticalPadding: 8.0,
             isDownloading: audioService.isDownloading.value,
             downloadProgress: audioService.downloadProgress.value,
-            backgroundColor: Get.theme.colorScheme.primary.withValues(
-              alpha: .15,
-            ),
+            backgroundColor: bg,
             svgWithColorPath: SvgPath.svgAudioDownload,
-            svgColor: Get.theme.hintColor,
+            svgColor: hint,
             title: audioService.currentReaderName,
             onPressed: audioService.isDownloading.value
                 ? null
                 : () async {
-                    await shareToImage.shareAudio(
-                      surahName: surah.arabicName,
-                      verseText: ayah.text,
-                      surahNumber: surah.surahNumber,
-                      ayahNumber: ayah.ayahNumber,
-                      pageNumber: pageNumber + 1,
-                      ayahUQNumber: ayah.ayahUQNumber,
-                    );
+                    if (isSingle) {
+                      await shareToImage.shareAudio(
+                        surahName: surah.arabicName,
+                        verseText: ayahs.first.text,
+                        surahNumber: surah.surahNumber,
+                        ayahNumber: ayahs.first.ayahNumber,
+                        pageNumber: pageNumber + 1,
+                        ayahUQNumber: ayahs.first.ayahUQNumber,
+                      );
+                    } else {
+                      await shareToImage.shareAudioRange(
+                        ayahs: ayahs,
+                        surahName: surah.arabicName,
+                        surahNumber: surah.surahNumber,
+                        pageNumber: pageNumber + 1,
+                      );
+                    }
                   },
-          ),
-        ),
+          );
+        }),
       ],
     );
   }

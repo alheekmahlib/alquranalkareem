@@ -1472,5 +1472,11 @@
   "alsiyasat_alshareiat_walqada": "Pulitikang Islamiko at Hudikatura",
   "alfarayid_walwasaya": "Pagmamana at Huling Hiling",
   "alraqayiq_waladab_waladhkar": "Asketismo, Magandang Asal at mga Panalangin",
-  "alsiyrat_alnabawia": "Buhay ng Propeta"
+  "alsiyrat_alnabawia": "Buhay ng Propeta",
+  "shareRange": "Ibahagi ang maraming talata",
+  "@shareRange": {},
+  "fromAyah": "Mula sa talata",
+  "@fromAyah": {},
+  "toAyah": "Hanggang talata",
+  "@toAyah": {}
 }

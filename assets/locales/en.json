@@ -1493,5 +1493,11 @@
   "alsiyasat_alshareiat_walqada": "Islamic Politics and Judiciary",
   "alfarayid_walwasaya": "Inheritance and Wills",
   "alraqayiq_waladab_waladhkar": "Asceticism, Manners and Supplications",
-  "alsiyrat_alnabawia": "Prophetic Biography"
+  "alsiyrat_alnabawia": "Prophetic Biography",
+  "shareRange": "Share multiple verses",
+  "@shareRange": {},
+  "fromAyah": "From verse",
+  "@fromAyah": {},
+  "toAyah": "To verse",
+  "@toAyah": {}
 }

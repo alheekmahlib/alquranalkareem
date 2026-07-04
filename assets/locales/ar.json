@@ -1487,5 +1487,11 @@
   "alsiyasat_alshareiat_walqada": "السياسات الشرعية والقضاء",
   "alfarayid_walwasaya": "الفرائض والوصايا",
   "alraqayiq_waladab_waladhkar": "الرقائق والآداب والأذكار",
-  "alsiyrat_alnabawia": "السيرة النبوية"
+  "alsiyrat_alnabawia": "السيرة النبوية",
+  "shareRange": "مشاركة عدة آيات",
+  "@shareRange": {},
+  "fromAyah": "من آية",
+  "@fromAyah": {},
+  "toAyah": "إلى آية",
+  "@toAyah": {}
 }

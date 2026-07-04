@@ -1470,5 +1470,11 @@
   "alsiyasat_alshareiat_walqada": "Şerî Siyaset ve Kadılık",
   "alfarayid_walwasaya": "Miras ve Vasiyetler",
   "alraqayiq_waladab_waladhkar": "Zühd, Ahlak ve Ezkar",
-  "alsiyrat_alnabawia": "Nebi'nin Siyeri"
+  "alsiyrat_alnabawia": "Nebi'nin Siyeri",
+  "shareRange": "Birden fazla ayet paylaş",
+  "@shareRange": {},
+  "fromAyah": "Ayetten",
+  "@fromAyah": {},
+  "toAyah": "Ayete kadar",
+  "@toAyah": {}
 }

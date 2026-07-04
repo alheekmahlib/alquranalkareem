@@ -15,82 +15,76 @@ class AllBooksBuild extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        const Gap(16.0),
-        Hero(
-          tag: 'lastReadBooks',
-          child: BooksLastRead(
-            horizontalMargin: 16.0,
-            horizontalPadding: 0.0,
-            verticalMargin: 16.0,
-          ),
-        ),
-        const Gap(16.0),
-        SectionSearchWidget(title: title),
-        const Gap(4),
-        GetBuilder<BooksController>(
-          id: 'booksList',
-          builder: (booksCtrl) {
-            if (booksCtrl.state.isLoading.value) {
-              return const Center(child: CircularProgressIndicator.adaptive());
-            }
+    return GetBuilder<BooksController>(
+      id: 'booksList',
+      builder: (booksCtrl) {
+        if (booksCtrl.state.isLoading.value) {
+          return const Center(child: CircularProgressIndicator.adaptive());
+        }
 
-            final allBooks = booksCtrl.getFilteredBooks(
-              booksCtrl.state.booksList,
-              isDownloadedBooks: isDownloadedBooks,
-              filterBookType: filterBookType,
-              title: title,
-            );
+        final allBooks = booksCtrl.getFilteredBooks(
+          booksCtrl.state.booksList,
+          isDownloadedBooks: isDownloadedBooks,
+          filterBookType: filterBookType,
+          title: title,
+        );
 
-            return allBooks.isEmpty
-                ? Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Gap(64),
-                      customSvgWithCustomColor(_getEmptyIcon(), height: 70),
-                      const Gap(16),
-                      Text(
-                        booksCtrl.state.searchQuery.value.isNotEmpty
-                            ? 'noBooksFoundForSearch'.tr
-                            : _getEmptyStateMessage(),
-                        style: AppTextStyles.titleMedium(),
-                      ),
-                      const Gap(64),
-                    ],
-                  )
-                : Column(
-                    children: [
-                      // قسم خاص لكتب الأحاديث المهمة
-                      if (filterBookType == 'hadiths') ...[
-                        _buildSixthBooksSection(context, allBooks, true),
-                        Container(
-                          height: 4,
-                          width: Get.width * .8,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4.0),
-                            color: context.theme.primaryColorLight,
-                          ),
-                        ),
-                        const Gap(8),
-                        _buildSixthBooksSection(context, allBooks, false),
-                        Container(
-                          height: 4,
-                          width: Get.width * .8,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4.0),
-                            color: context.theme.primaryColorLight,
-                          ),
-                        ),
-                        const Gap(8),
-                      ],
-                      _buildRegularBooksSection(allBooks),
-                    ],
-                  );
-          },
-        ),
-      ],
+        if (allBooks.isEmpty) {
+          return Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Gap(64),
+              customSvgWithCustomColor(_getEmptyIcon(), height: 70),
+              const Gap(16),
+              Text(
+                booksCtrl.state.searchQuery.value.isNotEmpty
+                    ? 'noBooksFoundForSearch'.tr
+                    : _getEmptyStateMessage(),
+                style: AppTextStyles.titleMedium(),
+              ),
+              const Gap(64),
+            ],
+          );
+        }
+
+        final isiPad = Responsive.isDesktop(context);
+        final crossAxisCount = isiPad ? 4 : 3;
+
+        return CustomScrollView(
+          slivers: [
+            const SliverToBoxAdapter(child: Gap(16.0)),
+            SliverToBoxAdapter(
+              child: Hero(
+                tag: 'lastReadBooks',
+                child: BooksLastRead(
+                  horizontalMargin: 16.0,
+                  horizontalPadding: 0.0,
+                  verticalMargin: 16.0,
+                ),
+              ),
+            ),
+            const SliverToBoxAdapter(child: Gap(16.0)),
+            SliverToBoxAdapter(child: SectionSearchWidget(title: title)),
+            const SliverToBoxAdapter(child: Gap(4)),
+            if (filterBookType == 'hadiths')
+              ..._buildPriorityBooksSlivers(
+                context,
+                allBooks,
+                true,
+                crossAxisCount,
+              ),
+            if (filterBookType == 'hadiths')
+              ..._buildPriorityBooksSlivers(
+                context,
+                allBooks,
+                false,
+                crossAxisCount,
+              ),
+            _buildRegularBooksSliver(allBooks, crossAxisCount),
+          ],
+        );
+      },
     );
   }
 
@@ -104,29 +98,59 @@ class AllBooksBuild extends StatelessWidget {
     return 'noBooks'.tr;
   }
 
-  Widget _buildSixthBooksSection(
+  // ── Shared grid builder — used by both priority & regular books ──
+  Widget _buildBooksGrid(
+    List<Book> books,
+    int crossAxisCount, {
+    required String heroPrefix,
+    bool isSixthBooks = false,
+    bool isNinthBooks = false,
+  }) {
+    return SliverGrid(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: crossAxisCount,
+        mainAxisSpacing: 4,
+        crossAxisSpacing: 4,
+        childAspectRatio: 87 / 110,
+      ),
+      delegate: SliverChildBuilderDelegate((context, index) {
+        final book = books[index];
+        return Hero(
+          tag: '$heroPrefix-${book.bookNumber}',
+          child: BookCoverWidget(
+            book: book,
+            bookNumber: book.bookNumber,
+            isSixthBooks: isSixthBooks,
+            isNinthBooks: isNinthBooks,
+          ),
+        );
+      }, childCount: books.length),
+    );
+  }
+
+  // ── Priority books (sixth/ninth) as slivers: title + grid + divider ──
+  List<Widget> _buildPriorityBooksSlivers(
     BuildContext context,
     List<Book> allBooks,
     bool isSixthBooks,
+    int crossAxisCount,
   ) {
     final priorityBooks = booksCtrl.getCustomBookNumber(
       allBooks,
       isSixthBooks ? booksCtrl.sixthBooksNumbers : booksCtrl.ninthBooksNumbers,
     );
 
-    if (priorityBooks.isEmpty) return const SizedBox.shrink();
+    if (priorityBooks.isEmpty) return const [];
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        const Gap(8),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+    return [
+      SliverToBoxAdapter(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0),
           child: Row(
             children: [
               customSvgWithColor(
                 SvgPath.svgSliderIc2,
-                color: Get.context!.theme.primaryColorLight,
+                color: context.theme.primaryColorLight,
                 width: 20,
                 height: 20,
               ),
@@ -140,35 +164,35 @@ class AllBooksBuild extends StatelessWidget {
             ],
           ),
         ),
-        const Gap(8),
-        Wrap(
-          alignment: WrapAlignment.center,
-          children: List.generate(priorityBooks.length, (index) {
-            final book = priorityBooks[index];
-            return Hero(
-              tag: isSixthBooks
-                  ? 'sixthBookCover-${book.bookNumber}'
-                  : 'ninthBookCover-${book.bookNumber}',
-              child: BookCoverWidget(
-                book: book,
-                bookNumber: book.bookNumber,
-                isSixthBooks: isSixthBooks,
-                isNinthBooks: !isSixthBooks ? true : false,
+      ),
+      const SliverToBoxAdapter(child: Gap(8)),
+      _buildBooksGrid(
+        priorityBooks,
+        crossAxisCount,
+        heroPrefix: isSixthBooks ? 'sixthBookCover' : 'ninthBookCover',
+        isSixthBooks: isSixthBooks,
+        isNinthBooks: !isSixthBooks,
+      ),
+      SliverToBoxAdapter(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Center(
+            child: Container(
+              height: 4,
+              width: Get.width * .8,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4.0),
+                color: context.theme.primaryColorLight,
               ),
-            );
-          }),
+            ),
+          ),
         ),
-        const Gap(8),
-        context.hDivider(
-          color: context.theme.canvasColor.withValues(alpha: .5),
-          height: 1,
-          width: Get.width * .7,
-        ),
-      ],
-    );
+      ),
+    ];
   }
 
-  Widget _buildRegularBooksSection(List<Book> allBooks) {
+  // ── Regular books as sliver grid ──
+  Widget _buildRegularBooksSliver(List<Book> allBooks, int crossAxisCount) {
     final regularBooks = filterBookType == 'hadiths'
         ? allBooks
               .where(
@@ -179,10 +203,10 @@ class AllBooksBuild extends StatelessWidget {
               .toList()
         : allBooks;
 
-    if (regularBooks.isEmpty) return const SizedBox.shrink();
+    if (regularBooks.isEmpty)
+      return const SliverToBoxAdapter(child: SizedBox.shrink());
 
     // إزالة الكتب المكررة بناءً على bookNumber
-    // Deduplicate books by bookNumber
     final seenNumbers = <int>{};
     final uniqueBooks = <Book>[];
     for (final book in regularBooks) {
@@ -191,15 +215,10 @@ class AllBooksBuild extends StatelessWidget {
       }
     }
 
-    return Wrap(
-      alignment: WrapAlignment.center,
-      children: List.generate(uniqueBooks.length, (index) {
-        final book = uniqueBooks[index];
-        return Hero(
-          tag: 'bookCover-${book.bookNumber}',
-          child: BookCoverWidget(book: book, bookNumber: book.bookNumber),
-        );
-      }),
+    return _buildBooksGrid(
+      uniqueBooks,
+      crossAxisCount,
+      heroPrefix: 'bookCover',
     );
   }
 }

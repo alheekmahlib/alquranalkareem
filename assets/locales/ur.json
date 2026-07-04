@@ -1478,5 +1478,11 @@
   "alsiyasat_alshareiat_walqada": "شریعتی سیاست اور قضاء",
   "alfarayid_walwasaya": "فرائض اور وصایا",
   "alraqayiq_waladab_waladhkar": "رقائق، آداب اور اذکار",
-  "alsiyrat_alnabawia": "سیرت نبوی"
+  "alsiyrat_alnabawia": "سیرت نبوی",
+  "shareRange": "متعدد آیات شیئر کریں",
+  "@shareRange": {},
+  "fromAyah": "آیت سے",
+  "@fromAyah": {},
+  "toAyah": "آیت تک",
+  "@toAyah": {}
 }
