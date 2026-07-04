@@ -1450,5 +1450,11 @@
   "alsiyasat_alshareiat_walqada": "Siyasadaha Islaamka iyo Garsoorka",
   "alfarayid_walwasaya": "Miraha iyo Wasiiyadda",
   "alraqayiq_waladab_waladhkar": "Zuhd, Dhaqan iyo Ducooyinka",
-  "alsiyrat_alnabawia": "Nolosha Rasuulka"
+  "alsiyrat_alnabawia": "Nolosha Rasuulka",
+  "shareRange": "Wadaag aayado badan",
+  "@shareRange": {},
+  "fromAyah": "Ka aayadeeda",
+  "@fromAyah": {},
+  "toAyah": "Ilaa aayad",
+  "@toAyah": {}
 }

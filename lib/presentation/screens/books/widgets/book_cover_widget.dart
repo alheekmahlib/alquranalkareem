@@ -117,7 +117,7 @@ class BookCoverWidget extends StatelessWidget {
               fontSize: isInDetails
                   ? 24
                   : context.definePlatform(
-                      context.customOrientation(16.0.sp, 8.0.sp),
+                      context.customOrientation(18.0.sp, 8.0.sp),
                       22.0,
                     ),
               color: context.theme.canvasColor,

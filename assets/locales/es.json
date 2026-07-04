@@ -1478,5 +1478,11 @@
   "alsiyasat_alshareiat_walqada": "Política Islámica y Judicatura",
   "alfarayid_walwasaya": "Herencia y Testamentos",
   "alraqayiq_waladab_waladhkar": "Ascetismo, Modales y Suplicaciones",
-  "alsiyrat_alnabawia": "Biografía Profética"
+  "alsiyrat_alnabawia": "Biografía Profética",
+  "shareRange": "Compartir varios versículos",
+  "@shareRange": {},
+  "fromAyah": "Desde el versículo",
+  "@fromAyah": {},
+  "toAyah": "Hasta el versículo",
+  "@toAyah": {}
 }

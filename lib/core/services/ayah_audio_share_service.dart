@@ -51,6 +51,87 @@ class AyahAudioShareService extends GetxController {
     return _downloadAyahAudio(url, localPath);
   }
 
+  /// يحمّل ملفات صوت لعدة آيات ويدمجها في ملف MP3 واحد.
+  ///
+  /// يستخدم الكاش الموجود لكل آية، ثم يلحق البايتات معاً.
+  Future<File?> getAyahsAudioFileMerged({
+    required int surahNumber,
+    required List<AyahModel> ayahs,
+  }) async {
+    if (ayahs.isEmpty) return null;
+
+    // آية واحدة: أعد استخدام الدالة الموجودة
+    if (ayahs.length == 1) {
+      return getAyahAudioFile(
+        surahNumber: surahNumber,
+        ayahNumber: ayahs.first.ayahNumber,
+        ayahUQNumber: ayahs.first.ayahUQNumber,
+      );
+    }
+
+    isDownloading.value = true;
+    downloadProgress.value = '0';
+
+    try {
+      final mergedBytes = <int>[];
+
+      for (int i = 0; i < ayahs.length; i++) {
+        final a = ayahs[i];
+        final file = await getAyahAudioFile(
+          surahNumber: surahNumber,
+          ayahNumber: a.ayahNumber,
+          ayahUQNumber: a.ayahUQNumber,
+        );
+        if (file == null) return null;
+
+        final bytes = await file.readAsBytes();
+        // إزالة وسوم ID3v2 من الملفات اللاحقة لدمج نظيف
+        if (i > 0) {
+          mergedBytes.addAll(_stripId3v2(bytes));
+        } else {
+          mergedBytes.addAll(bytes);
+        }
+
+        downloadProgress.value =
+            (((i + 1) / ayahs.length) * 100).toInt().toString();
+      }
+
+      // كتابة الملف المدمج في مجلد مؤقت
+      final dir = await getTemporaryDirectory();
+      final firstNum = ayahs.first.ayahNumber;
+      final lastNum = ayahs.last.ayahNumber;
+      final mergedPath = p.join(
+        dir.path,
+        '${surahNumber}_$firstNum-$lastNum.mp3',
+      );
+      final mergedFile = File(mergedPath);
+      await mergedFile.writeAsBytes(mergedBytes);
+
+      isDownloading.value = false;
+      downloadProgress.value = '0';
+      return mergedFile;
+    } catch (e) {
+      isDownloading.value = false;
+      downloadProgress.value = '0';
+      return null;
+    }
+  }
+
+  /// يزيل وسم ID3v2 من بداية الملف إن وُجد (للملفات اللاحقة في الدمج).
+  List<int> _stripId3v2(List<int> bytes) {
+    if (bytes.length < 10) return bytes;
+    // التحقق من بداية وسم ID3
+    if (bytes[0] == 0x49 && bytes[1] == 0x44 && bytes[2] == 0x33) {
+      // حجم الوسم (synchsafe integer)
+      final size = (bytes[6] << 21) | (bytes[7] << 14) | (bytes[8] << 7) | bytes[9];
+      final headerSize = 10 + size;
+      if (headerSize < bytes.length) {
+        return bytes.sublist(headerSize);
+      }
+    }
+    return bytes;
+  }
+
   /// يلغي التحميل الجاري إن وُجد.
   void cancelDownload() {
     _cancelToken?.cancel();

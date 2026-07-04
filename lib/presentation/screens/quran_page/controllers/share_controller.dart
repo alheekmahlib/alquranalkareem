@@ -72,7 +72,7 @@ class ShareController extends GetxController {
   Future<void> shareText(
     String verseText,
     surahName,
-    int verseNumber,
+    String verseNumber,
     int pageNumber,
     int ayahUQNumber,
   ) async {
@@ -80,7 +80,7 @@ class ShareController extends GetxController {
     final params = ShareParams(
       text:
           '﴿$verseText﴾ '
-          '[$surahName-'
+          '[$surahName'
           '$verseNumber]\n\n'
           '${'appName'.tr}\n'
           '${ApiConstants.quranShareUrl}$pageNumber&ayah=$ayahUQNumber',
@@ -168,6 +168,44 @@ class ShareController extends GetxController {
         subject: '$surahName - ${'ayah'.tr} $ayahNumber',
       );
 
+      await SharePlus.instance.share(params);
+    } on DioException {
+      Get.back();
+      Get.context!.showCustomErrorSnackBar('noInternet'.tr, isDone: false);
+    }
+  }
+
+  /// مشاركة صوت مجموعة آيات — يحمّل كل آية ويدمجها في ملف MP3 واحد
+  Future<void> shareAudioRange({
+    required List<AyahModel> ayahs,
+    required String surahName,
+    required int surahNumber,
+    required int pageNumber,
+  }) async {
+    final audioService = sl<AyahAudioShareService>();
+    try {
+      final file = await audioService.getAyahsAudioFileMerged(
+        surahNumber: surahNumber,
+        ayahs: ayahs,
+      );
+      if (file == null) return;
+
+      final from = ayahs.first.ayahNumber;
+      final to = ayahs.last.ayahNumber;
+      final directory = await getTemporaryDirectory();
+      final fileName =
+          '${surahName}_${'ayah'.tr}_${arabicNumber.convert(from)}-${arabicNumber.convert(to)}.mp3';
+      final shareFile = await file.copy('${directory.path}/$fileName');
+
+      Get.back();
+      final text = ayahs.map((a) => a.text).join(' ');
+      final lastUQ = ayahs.last.ayahUQNumber;
+      final params = ShareParams(
+        files: [XFile(shareFile.path, mimeType: 'audio/mpeg')],
+        text:
+            '﴿$text﴾ [$surahName-$from:$to]\n\n${'appName'.tr}\n${ApiConstants.quranShareUrl}$pageNumber&ayah=$lastUQ',
+        subject: '$surahName - ${'ayah'.tr} $from:$to',
+      );
       await SharePlus.instance.share(params);
     } on DioException {
       Get.back();

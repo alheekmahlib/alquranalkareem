@@ -86,7 +86,7 @@ class HomeScreen extends StatelessWidget {
                           transition: Transition.fadeIn,
                         ),
                         child: Container(
-                          height: 45,
+                          height: 65,
                           width: Get.width,
                           margin: const EdgeInsets.symmetric(vertical: 6),
                           padding: const EdgeInsets.symmetric(
@@ -96,13 +96,9 @@ class HomeScreen extends StatelessWidget {
                           alignment: AlignmentDirectional.centerStart,
                           decoration: BoxDecoration(
                             color: context.theme.colorScheme.surface.withValues(
-                              alpha: .2,
+                              alpha: .5,
                             ),
                             borderRadius: BorderRadius.circular(8),
-                            border: Border.all(
-                              color: context.theme.colorScheme.primary
-                                  .withValues(alpha: .3),
-                            ),
                           ),
                           child: Row(
                             mainAxisAlignment: .spaceBetween,

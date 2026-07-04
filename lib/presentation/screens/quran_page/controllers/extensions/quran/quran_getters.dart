@@ -341,13 +341,13 @@ extension QuranGetters on QuranController {
         height: 25,
         width: 25,
         SvgPath.svgAudioDownload,
-        color: Get.theme.colorScheme.primary,
+        color: Get.theme.hintColor,
       ),
       removeTafsirIconWidget: const SizedBox().customSvgWithColor(
         height: 25,
         width: 25,
         SvgPath.svgHomeRemove,
-        color: Get.theme.colorScheme.error,
+        color: Get.theme.hintColor,
       ),
     );
   }

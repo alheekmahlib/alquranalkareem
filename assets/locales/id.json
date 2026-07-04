@@ -1472,5 +1472,11 @@
   "alsiyasat_alshareiat_walqada": "Politik Syariah dan Peradilan",
   "alfarayid_walwasaya": "Waris dan Wasiat",
   "alraqayiq_waladab_waladhkar": "Zuhud, Adab dan Dzikir",
-  "alsiyrat_alnabawia": "Biografi Nabi"
+  "alsiyrat_alnabawia": "Biografi Nabi",
+  "shareRange": "Bagikan beberapa ayat",
+  "@shareRange": {},
+  "fromAyah": "Dari ayat",
+  "@fromAyah": {},
+  "toAyah": "Sampai ayat",
+  "@toAyah": {}
 }
