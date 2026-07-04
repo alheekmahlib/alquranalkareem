@@ -1282,10 +1282,10 @@ packages:
     dependency: "direct main"
     description:
       name: quran_library
-      sha256: "7c390e4a4c903748bdbc0224ea35a02e1d49c03bcaf6e06b2573cddbd3796cfc"
+      sha256: "70ecd46da07481247091c93d9ae5bfd90711b2c8e6adcd6a5bfaeea44a8a67ed"
       url: "https://pub.dev"
     source: hosted
-    version: "4.2.0"
+    version: "4.2.1"
   rate_my_app:
     dependency: "direct main"
     description:

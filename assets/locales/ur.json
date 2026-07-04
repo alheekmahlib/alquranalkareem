@@ -1484,5 +1484,7 @@
   "fromAyah": "آیت سے",
   "@fromAyah": {},
   "toAyah": "آیت تک",
-  "@toAyah": {}
+  "@toAyah": {},
+  "history": "تاریخ",
+  "meaning": "لفظ کا معنی"
 }

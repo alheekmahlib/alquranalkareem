@@ -1478,5 +1478,7 @@
   "fromAyah": "Dari ayat",
   "@fromAyah": {},
   "toAyah": "Sampai ayat",
-  "@toAyah": {}
+  "@toAyah": {},
+  "history": "Riwayat",
+  "meaning": "Arti kata"
 }

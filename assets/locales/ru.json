@@ -1448,5 +1448,7 @@
   "fromAyah": "От аята",
   "@fromAyah": {},
   "toAyah": "До аята",
-  "@toAyah": {}
+  "@toAyah": {},
+  "history": "История",
+  "meaning": "Значение слова"
 }
