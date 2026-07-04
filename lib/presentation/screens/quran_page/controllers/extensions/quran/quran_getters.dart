@@ -157,6 +157,7 @@ extension QuranGetters on QuranController {
         tabRecitationsText: 'recitations'.tr,
         tabTasreefText: 'tasreef'.tr,
         tabEerabText: 'eerab'.tr,
+        tabMeaningText: 'meaning'.tr,
         withTitle: false,
         withWordText: false,
         withWordAudioButton: false,

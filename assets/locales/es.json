@@ -1484,5 +1484,7 @@
   "fromAyah": "Desde el versículo",
   "@fromAyah": {},
   "toAyah": "Hasta el versículo",
-  "@toAyah": {}
+  "@toAyah": {},
+  "history": "Historia",
+  "meaning": "Significado de la palabra"
 }

@@ -1499,5 +1499,7 @@
   "fromAyah": "From verse",
   "@fromAyah": {},
   "toAyah": "To verse",
-  "@toAyah": {}
+  "@toAyah": {},
+  "history": "History",
+  "meaning": "Word meaning"
 }

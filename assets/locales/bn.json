@@ -1484,5 +1484,7 @@
   "fromAyah": "আয়াত থেকে",
   "@fromAyah": {},
   "toAyah": "আয়াত পর্যন্ত",
-  "@toAyah": {}
+  "@toAyah": {},
+  "history": "ইতিহাস",
+  "meaning": "শব্দের অর্থ"
 }

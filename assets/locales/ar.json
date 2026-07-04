@@ -1493,5 +1493,7 @@
   "fromAyah": "من آية",
   "@fromAyah": {},
   "toAyah": "إلى آية",
-  "@toAyah": {}
+  "@toAyah": {},
+  "history": "التاريخ",
+  "meaning": "معنى الكلمة"
 }

@@ -105,6 +105,7 @@ class AyahMenuHelper {
           Container(
             height: 191.h,
             width: Get.width,
+            alignment: .centerStart,
             margin: const EdgeInsets.symmetric(horizontal: 8.0),
             decoration: BoxDecoration(
               color: Get.theme.colorScheme.surface.withValues(alpha: .2),
