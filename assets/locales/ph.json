@@ -1440,6 +1440,7 @@
   "initializingMidad": "Sinisimulan ang Midad...",
   "initializingMidadDesc": "Maaaring tumagal ng ilang minuto sa unang pagkakataon habang inihahanda ang modelo at data.",
   "askMidad": "Tanungin ang Midad...",
+  "askNow": "Magtanong na",
   "midadNote": "Ang modelong 'Midad' ay nagpapakita ng mga resulta at impormasyong nakuha mula sa mga Islamic na aklat at sanggunian, may kakayahang pumunta sa orihinal na pinagmulan at basahin ang buong paksa mula sa kaugnay na aklat.\nAng modelo ay naglalayong pasimplehin ang pananaliksik at pag-access sa Islamic na nilalaman, at hindi inilaan para sa pag-isyu ng mga fatwa o relihiyosong patakaran.\nPara sa mga relihiyosong usapin at fatwa, mangyaring kumonsulta sa mga kwalipikadong iskolar.",
   "sections": "Mga Seksyon",
   "all": "Lahat",
@@ -1480,5 +1481,7 @@
   "toAyah": "Hanggang talata",
   "@toAyah": {},
   "history": "Kasaysayan",
-  "meaning": "Kahulugan ng salita"
+  "meaning": "Kahulugan ng salita",
+  "booksCount": "Bilang ng mga aklat",
+  "altarajim_waltabaqat": "Mga talambuhay at henerasyon"
 }

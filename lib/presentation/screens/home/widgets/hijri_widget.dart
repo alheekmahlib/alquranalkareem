@@ -323,7 +323,7 @@ class HijriWidget extends StatelessWidget {
             ),
           ),
           Align(
-            alignment: Alignment.topRight,
+            alignment: Alignment.topLeft,
             child: Text(
               '${eventCtrl.now.day}'.convertNumbersToCurrentLang(),
               style: AppTextStyles.titleMedium().copyWith(
@@ -337,7 +337,7 @@ class HijriWidget extends StatelessWidget {
             ),
           ),
           Align(
-            alignment: Alignment.bottomLeft,
+            alignment: Alignment.bottomRight,
             child: Text(
               '${'${eventCtrl.now.year}'.convertNumbersToCurrentLang()} م',
               style: AppTextStyles.titleMedium().copyWith(

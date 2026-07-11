@@ -48,8 +48,16 @@ class AllBooksBuild extends StatelessWidget {
           );
         }
 
-        final isiPad = Responsive.isDesktop(context);
-        final crossAxisCount = isiPad ? 4 : 3;
+        int crossAxisCount = 3;
+        if (Responsive.isDesktop(context)) {
+          crossAxisCount = 5;
+        } else if (Responsive.isTablet(context)) {
+          crossAxisCount = 4;
+        } else if (Responsive.isMobileLarge(context)) {
+          crossAxisCount = 3;
+        } else {
+          crossAxisCount = 2;
+        }
 
         return CustomScrollView(
           slivers: [

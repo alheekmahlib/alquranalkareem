@@ -1446,6 +1446,7 @@
   "initializingMidad": "Iniciando Midad...",
   "initializingMidadDesc": "Esto puede tardar unos minutos la primera vez mientras se prepara el modelo y los datos.",
   "askMidad": "Pregunta a Midad...",
+  "askNow": "Preguntar ahora",
   "midadNote": "El modelo 'Midad' presenta resultados e información extraídos de libros y referencias islámicas, con la capacidad de navegar a la fuente original y leer el tema completo del libro asociado.\nEl modelo tiene como objetivo facilitar la investigación y el acceso al contenido islámico, y no está destinado a emitir fatwas o dictámenes religiosos.\nPara asuntos religiosos y fatwas, consulte a eruditos calificados.",
   "sections": "Secciones",
   "all": "Todo",
@@ -1486,5 +1487,7 @@
   "toAyah": "Hasta el versículo",
   "@toAyah": {},
   "history": "Historia",
-  "meaning": "Significado de la palabra"
+  "meaning": "Significado de la palabra",
+  "booksCount": "Número de libros",
+  "altarajim_waltabaqat": "Biografías y generaciones"
 }
