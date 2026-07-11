@@ -1418,6 +1418,7 @@
   "initializingMidad": "Midad waa la bilaabayaa...",
   "initializingMidadDesc": "Marka hore waa inay qaadan karto dhaqaaq ilaa iyo daqiiqado ah marka moodalka iyo xogta la diyaarinayo.",
   "askMidad": "Midad weydii...",
+  "askNow": "Weydii hadda",
   "midadNote": "Moodalka 'Midad' wuxuu muujinayaa natiijooyin iyo macluumaad ka soo jeeda buugagga iyo la tixraacyada Islaamka, awoodana leeyahay in la aado isha asalka ah oo la akhriyo mawduuca dhamaystiran buugga la xidhiidha.\nMoodalku wuxuu kahaynayaa fududaynta baadhista iyo helitaanka nuxurka Islaamka, laguma talagalin fatwooyin ama xukunno diimeed.\nArrimaha diinta iyo fatwooyinka fadlan la xidhiidh culumada aqoonta leh.",
   "sections": "Qaybaha",
   "all": "Dhammaan",
@@ -1458,5 +1459,7 @@
   "toAyah": "Ilaa aayad",
   "@toAyah": {},
   "history": "Taariikh",
-  "meaning": "Macnaha ereyga"
+  "meaning": "Macnaha ereyga",
+  "booksCount": "Tirada buugagga",
+  "altarajim_waltabaqat": "Siiraya iyo tabaqooyinka"
 }

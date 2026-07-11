@@ -1446,6 +1446,7 @@
   "initializingMidad": "Initializing Midad...",
   "initializingMidadDesc": "This may take a few minutes the first time while the model and data are being prepared.",
   "askMidad": "Ask Midad...",
+  "askNow": "Ask now",
   "midadNote": "The 'Midad' model presents results and information extracted from Islamic books and references, with the ability to navigate to the original source and read the full topic from the associated book.\nThe model aims to facilitate research and access to Islamic content, and is not intended for issuing fatwas or religious rulings.\nFor religious matters and fatwas, please refer to qualified scholars.",
   "sections": "Sections",
   "all": "All",
@@ -1501,5 +1502,7 @@
   "toAyah": "To verse",
   "@toAyah": {},
   "history": "History",
-  "meaning": "Word meaning"
+  "meaning": "Word meaning",
+  "booksCount": "Number of books",
+  "altarajim_waltabaqat": "Biographies and Generations"
 }

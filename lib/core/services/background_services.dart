@@ -18,7 +18,7 @@ const String _androidWidgetName = 'QuranWidget';
 // [Android-only] This "Headless Task" is run when the Android app
 // is terminated with `enableHeadless: true`
 @pragma('vm:entry-point')
-void backgroundFetchHeadlessTask(HeadlessTask task) async {
+void backgroundFetchHeadlessTask(HeadlessEvent task) async {
   final taskId = task.taskId;
   if (task.timeout) {
     log("Headless task timed-out: $taskId", name: 'Background service');

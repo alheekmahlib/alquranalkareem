@@ -1440,6 +1440,7 @@
   "initializingMidad": "جاري تهيئة مداد...",
   "initializingMidadDesc": "قد يستغرق الأمر بضع دقائق في المرة الأولى، حيث يتم تهيئة النموذج والبيانات.",
   "askMidad": "اسأل مداد...",
+  "askNow": "اسأل الآن",
   "sections": "الأقسام",
   "all": "الكل",
   "none_sections": "بدون أقسام",
@@ -1495,5 +1496,7 @@
   "toAyah": "إلى آية",
   "@toAyah": {},
   "history": "التاريخ",
-  "meaning": "معنى الكلمة"
+  "meaning": "معنى الكلمة",
+  "booksCount": "عدد الكتب",
+  "altarajim_waltabaqat": "التراجم والطبقات"
 }

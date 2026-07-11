@@ -1440,6 +1440,7 @@
   "initializingMidad": "Memulai Midad...",
   "initializingMidadDesc": "Ini mungkin membutuhkan beberapa menit saat pertama kali karena model dan data sedang disiapkan.",
   "askMidad": "Tanya Midad...",
+  "askNow": "Tanya sekarang",
   "midadNote": "Model 'Midad' menyajikan hasil dan informasi yang diekstrak dari kitab dan referensi Islam, dengan kemampuan untuk menavigasi ke sumber asli dan membaca topik lengkap dari kitab terkait.\nModel ini bertujuan untuk memfasilitasi penelitian dan akses ke konten Islam, dan tidak dimaksudkan untuk mengeluarkan fatwa atau hukum agama.\nUntuk urusan agama dan fatwa, silakan berkonsultasi dengan ulama yang berkompeten.",
   "sections": "Bagian",
   "all": "Semua",
@@ -1480,5 +1481,7 @@
   "toAyah": "Sampai ayat",
   "@toAyah": {},
   "history": "Riwayat",
-  "meaning": "Arti kata"
+  "meaning": "Arti kata",
+  "booksCount": "Jumlah buku",
+  "altarajim_waltabaqat": "Biografi dan generasi"
 }

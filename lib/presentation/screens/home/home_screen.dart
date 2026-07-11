@@ -1,4 +1,3 @@
-import 'package:alquranalkareem/core/utils/helpers/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -6,14 +5,12 @@ import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
 import '/presentation/controllers/general/general_controller.dart';
-import '/presentation/screens/ai_search/ai_search.dart';
-import '/presentation/screens/home/widgets/hijri_widget.dart';
-import '../../../core/utils/constants/extensions/svg_extensions.dart';
-import '../../../core/utils/constants/svg_constants.dart';
 import '../../../core/widgets/tab_bar_widget.dart';
 import '../../controllers/theme_controller.dart';
 import 'widgets/books_section.dart';
 import 'widgets/daily_zeker.dart';
+import 'widgets/hijri_widget.dart';
+import 'widgets/midad_widget.dart';
 import 'widgets/quran_section.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -36,6 +33,8 @@ class HomeScreen extends StatelessWidget {
                         padding: const EdgeInsets.only(top: 80),
                         children: [
                           HijriWidget(),
+                          const Gap(16),
+                          const MidadWidget(),
                           const Gap(16),
                           QuranSection(),
                           const Gap(16),
@@ -63,7 +62,13 @@ class HomeScreen extends StatelessWidget {
                                   ),
                                 ),
                                 Expanded(
-                                  child: Column(children: [QuranSection()]),
+                                  child: Column(
+                                    children: [
+                                      const MidadWidget(),
+                                      const Gap(8),
+                                      QuranSection(),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
@@ -80,42 +85,6 @@ class HomeScreen extends StatelessWidget {
                       isNotification: true,
                       tabBarController:
                           GeneralController.instance.state.tabBarController,
-                      centerChild: GestureDetector(
-                        onTap: () => Get.to(
-                          () => const AiSearchResults(),
-                          transition: Transition.fadeIn,
-                        ),
-                        child: Container(
-                          height: 65,
-                          width: Get.width,
-                          margin: const EdgeInsets.symmetric(vertical: 6),
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 6,
-                            horizontal: 8.0,
-                          ),
-                          alignment: AlignmentDirectional.centerStart,
-                          decoration: BoxDecoration(
-                            color: context.theme.colorScheme.surface.withValues(
-                              alpha: .5,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: .spaceBetween,
-                            children: [
-                              Text(
-                                'askMidad'.tr,
-                                style: AppTextStyles.titleSmall(),
-                              ),
-                              customSvgWithCustomColor(
-                                SvgPath.svgHomeMidadIcon,
-                                height: 20,
-                                color: context.theme.primaryColorLight,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
                     ),
                   ],
                 ),
