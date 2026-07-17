@@ -1209,7 +1209,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Menambahkan fitur gulir otomatis pada halaman Al-Qur'an, sehingga Anda dapat membaca dengan nyaman tanpa harus berpindah halaman secara manual.\n۞ Menambahkan qari Ali Jaber.",
+  "What'sNewDetails10": "۞ Menambahkan bagian 'Madad' untuk menjadi asisten bagi penuntut ilmu.\nModel 'Madad' menyajikan hasil dan informasi yang diekstrak dari buku-buku dan referensi Islam, dengan kemampuan untuk menuju sumber asli dan membaca topik secara lengkap dari buku yang terkait.\nModel ini bertujuan untuk memudahkan pencarian dan akses ke konten.\n۞ Menambahkan bagian baru ke perpustakaan Islam dengan pencarian yang disempurnakan dan pengalaman pengguna yang lebih baik.\n۞ Menambahkan fitur untuk mengganti jenis font.\n۞ Menambahkan fitur untuk mengirim masukan atau kesalahan yang Anda temukan di aplikasi, atau fitur-fitur yang Anda inginkan di aplikasi.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
@@ -1483,5 +1483,33 @@
   "history": "Riwayat",
   "meaning": "Arti kata",
   "booksCount": "Jumlah buku",
-  "altarajim_waltabaqat": "Biografi dan generasi"
+  "altarajim_waltabaqat": "Biografi dan generasi",
+  "feedback": "Umpan balik",
+  "feedback_subtitle": "Bagikan umpan balik Anda atau laporkan masalah",
+  "send_feedback": "Kirim Umpan Balik",
+  "feedback_message_hint": "Tulis pesan Anda di sini...",
+  "feedback_contact_optional": "Email kontak (opsional)",
+  "feedback_sent_success": "Umpan balik Anda berhasil dikirim!",
+  "feedback_sent_error": "Tidak dapat mengirim umpan balik. Coba lagi.",
+  "my_feedback": "Umpan Balik Saya",
+  "no_feedback_yet": "Anda belum mengirim umpan balik apa pun",
+  "feedback_reply_hint": "Tulis tindak lanjut...",
+  "feedback_reply_title": "Balasan Admin",
+  "feedback_status_planned": "Direncanakan",
+  "feedback_status_in_progress": "Sedang berjalan",
+  "feedback_status_complete": "Selesai",
+  "feedback_admin_role": "Admin",
+  "feedback_you_role": "Saya",
+  "characters_remaining": "karakter tersisa",
+  "feedback_new_reply": "Balasan baru untuk umpan balik Anda",
+  "retry": "Coba lagi",
+  "feedback_pick_images": "Foto",
+  "feedback_pick_video": "Video",
+  "feedback_remove_file": "Hapus",
+  "feedback_max_files": "Maksimum 5 file",
+  "feedback_file_too_large": "Ukuran file terlalu besar",
+  "feedback_invalid_type": "Jenis file tidak didukung",
+  "feedback_uploading": "Mengunggah...",
+  "feedback_add_media": "Tambah media",
+  "shuruh_al-hadiths": "Syarah hadis"
 }

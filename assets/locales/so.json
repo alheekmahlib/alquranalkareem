@@ -1215,7 +1215,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Waxaa lagu daray rogista otomaatiga ah ee bogga Qur'aanka, taasoo kuu sahlaysa akhris raaxo leh adigoon gacanta ugu wareegin bogagga.\n۞ Waxaa lagu daray akhristaha Ali Jaber.",
+  "What'sNewDetails10": "۞ Waxaa lagu daray qaybta 'Madad' si ay u noqoto caawiye ardayda raadinta aqoonta.\nTuruuxa 'Madad' waxay soo bandhigaysaa natiijooyinka iyo macluumaadka la soo saaray kutubta iyo tixsiyaha Islaamiga ah, iyada oo suurtogal ah in la aado xogta asalka ah oo la akhriyo mowduuca dhammaystiran ee kutubta la xidhan.\nTuruuxani waxay oo kaliya ah in la fududeeyo raadinta iyo helitaanka muhiimka.\n۞ Waxaa lagu daray qaybo cusub Maktabadda Islaamiska ah iyada oo la hagaajiyay raadinta iyo khibrada isticmaalaha.\n۞ Waxaa lagu daray astaanta beddelaidda nooca qoraalka.\n۞ Waxaa lagu daray astaanta u diraya ra'yigaaga ama khaladaadka aad aragto barnaamijka, ama astaamaha aad rabto inay jiraan barnaamijka.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
@@ -1461,5 +1461,33 @@
   "history": "Taariikh",
   "meaning": "Macnaha ereyga",
   "booksCount": "Tirada buugagga",
-  "altarajim_waltabaqat": "Siiraya iyo tabaqooyinka"
+  "altarajim_waltabaqat": "Siiraya iyo tabaqooyinka",
+  "feedback": "Rajinta",
+  "feedback_subtitle": "Rajadaada wadaag ama arrin war geli",
+  "send_feedback": "Soo dir Rajinta",
+  "feedback_message_hint": "Fariintaaga halkan qor...",
+  "feedback_contact_optional": "Iimaylka xiriirka (ikhtiyaari)",
+  "feedback_sent_success": "Rajadaada si guul leh ayaa loo diray!",
+  "feedback_sent_error": "Rajinta lama diri karin. Isku day mar kale.",
+  "my_feedback": "Rajadayda",
+  "no_feedback_yet": "Weli rajad ma soo dirtid",
+  "feedback_reply_hint": "Raac-dheeri qor...",
+  "feedback_reply_title": "Jawaabta maamulaha",
+  "feedback_status_planned": "Lagu qorsheeyay",
+  "feedback_status_in_progress": "Socda",
+  "feedback_status_complete": "La soo dhammeeyay",
+  "feedback_admin_role": "Maamule",
+  "feedback_you_role": "Aniga",
+  "characters_remaining": ".character oo hadhay",
+  "feedback_new_reply": "Jawaab cusub ee rajadaada",
+  "retry": "Mar kale isku day",
+  "feedback_pick_images": "Sawiro",
+  "feedback_pick_video": "Bideeo",
+  "feedback_remove_file": "Ka saar",
+  "feedback_max_files": "Ugu badan 5 fayl",
+  "feedback_file_too_large": "Cabbirka faylka aad ayuu weyn yahay",
+  "feedback_invalid_type": "Nooca faylkaan la taageerin",
+  "feedback_uploading": "Soo gudbinta...",
+  "feedback_add_media": "Ku dar media",
+  "shuruh_al-hadiths": "Sharaxaadaha Xadiisyada"
 }

@@ -1215,7 +1215,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ قرآن کے صفحے میں خودکار اسکرول کی خصوصیت شامل کی گئی ہے، جس سے آپ صفحات کے درمیان دستی طور پر جانے کے بغیر آرام سے پڑھ سکتے ہیں۔\n۞ قاری علی جابر شامل کیا گیا۔",
+  "What'sNewDetails10": "۞ علم طلبہ کے لیے معاون کے طور پر ایک 'مداد' سیکشن کا اضافہ کیا گیا ہے۔\n'مداد' ماڈل کتابوں اور اسلامی حوالہ جات سے اخذ کردہ نتائج اور معلومات پیش کرتا ہے، اصل مصدر پر جانے اور متعلقہ کتاب سے مکمل موضوع پڑھنے کی سہولت کے ساتھ۔\nاس ماڈل کا مقصد تلاش اور مواد تک رسائی کو آسان بنانا ہے۔\n۞ بہتر تلاش اور بہتر صارف تجربے کے ساتھ اسلامی لائبریری میں نئے سیکشنز کا اضافہ کیا گیا ہے۔\n۞ فونٹ کی قسم تبدیل کرنے کی خصوصیت کا اضافہ کیا گیا ہے۔\n۞ آپ کی رائے یا ایپ میں دیکھے گئے خامیوں، یا ایپ میں آپ جو خصوصیات چاہتے ہیں، انہیں بھیجنے کی خصوصیت کا اضافہ کیا گیا ہے۔",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
@@ -1489,5 +1489,33 @@
   "history": "تاریخ",
   "meaning": "لفظ کا معنی",
   "booksCount": "کتابوں کی تعداد",
-  "altarajim_waltabaqat": "تراجم اور طبقات"
+  "altarajim_waltabaqat": "تراجم اور طبقات",
+  "feedback": "رائے",
+  "feedback_subtitle": "اپنی رائے شیئر کریں یا کسی مسئلے کی اطلاع دیں",
+  "send_feedback": "رائے بھیجیں",
+  "feedback_message_hint": "اپنا پیغام یہاں لکھیں...",
+  "feedback_contact_optional": "رابطہ ای میل (اختیاری)",
+  "feedback_sent_success": "آپ کی رائے کامیابی سے بھیج دی گئی!",
+  "feedback_sent_error": "رائے نہیں بھیجی جا سکی۔ دوبارہ کوشش کریں۔",
+  "my_feedback": "میری رائے",
+  "no_feedback_yet": "آپ نے ابھی تک کوئی رائے نہیں بھیجی",
+  "feedback_reply_hint": "ایک فالو اپ لکھیں...",
+  "feedback_reply_title": "ایڈمن کا جواب",
+  "feedback_status_planned": "منصوبہ بند",
+  "feedback_status_in_progress": "جاری ہے",
+  "feedback_status_complete": "مکمل",
+  "feedback_admin_role": "ایڈمن",
+  "feedback_you_role": "میں",
+  "characters_remaining": "حروف باقی",
+  "feedback_new_reply": "آپ کی رائے پر نیا جواب",
+  "retry": "دوبارہ کوشش کریں",
+  "feedback_pick_images": "تصاویر",
+  "feedback_pick_video": "ویڈیو",
+  "feedback_remove_file": "ہٹائیں",
+  "feedback_max_files": "زیادہ سے زیادہ 5 فائلیں",
+  "feedback_file_too_large": "فائل کا سائز بہت بڑا ہے",
+  "feedback_invalid_type": "غیر معاون فائل کی قسم",
+  "feedback_uploading": "اپ لوڈ ہو رہا ہے...",
+  "feedback_add_media": "میڈیا شامل کریں",
+  "shuruh_al-hadiths": "احادیث کی شروحات"
 }

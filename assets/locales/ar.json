@@ -1209,7 +1209,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ إضافة ميزة التمرير التلقائي في صفحة القرآن الكريم، مما يتيح لك قراءة مريحة دون الحاجة للتنقل اليدوي بين الصفحات.\n۞ إضافة القارئ علي جابر.",
+  "What'sNewDetails10": "۞ إضافة قسم 'مداد' ليكون مساعد الطالب لطلب العلم.\n يعتمد نموذج 'مداد' على عرض النتائج والمعلومات المستخرجة من الكتب والمراجع الإسلامية، مع إمكانية الانتقال إلى المصدر الأصلي وقراءة الموضوع كاملًا من الكتاب المرتبط بالنتيجة.\nويهدف النموذج إلى تسهيل البحث والوصول إلى المحتوى.\n۞ إضافة أقسام جديدة للمكتبة الإسلامية مع تحسين البحث وتحسين تجربة المستخدم.\n۞ إضافة ميزة تغيير نوع الخط.\n۞ إضافة ميزة إرسال ملاحظاتكم أو الأخطاء التي ترونها في التطبيق أو المميزات التي تريدونها أن تكون في التطبيق.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
@@ -1498,5 +1498,33 @@
   "history": "التاريخ",
   "meaning": "معنى الكلمة",
   "booksCount": "عدد الكتب",
-  "altarajim_waltabaqat": "التراجم والطبقات"
+  "altarajim_waltabaqat": "التراجم والطبقات",
+  "feedback": "الملاحظات",
+  "feedback_subtitle": "شاركنا ملاحظاتك أو أبلغ عن مشكلة",
+  "send_feedback": "إرسال الملاحظة",
+  "feedback_message_hint": "اكتب رسالتك هنا...",
+  "feedback_contact_optional": "بريدك للتواصل (اختياري)",
+  "feedback_sent_success": "تم إرسال ملاحظتك بنجاح!",
+  "feedback_sent_error": "تعذّر إرسال الملاحظة. حاول مرة أخرى.",
+  "my_feedback": "ملاحظاتي",
+  "no_feedback_yet": "لم ترسل أي ملاحظة بعد",
+  "feedback_reply_hint": "اكتب متابعة...",
+  "feedback_reply_title": "ردّ المشرف",
+  "feedback_status_planned": "مُخطّط",
+  "feedback_status_in_progress": "قيد التنفيذ",
+  "feedback_status_complete": "مكتمل",
+  "feedback_admin_role": "المشرف",
+  "feedback_you_role": "أنا",
+  "characters_remaining": "حرف متبقٍ",
+  "feedback_new_reply": "وصل رد جديد على ملاحظتك",
+  "retry": "إعادة المحاولة",
+  "feedback_pick_images": "صور",
+  "feedback_pick_video": "فيديو",
+  "feedback_remove_file": "إزالة",
+  "feedback_max_files": "الحد الأقصى 5 ملفات",
+  "feedback_file_too_large": "حجم الملف كبير جداً",
+  "feedback_invalid_type": "نوع الملف غير مدعوم",
+  "feedback_uploading": "جارٍ الرفع...",
+  "feedback_add_media": "إضافة وسائط",
+  "shuruh_al-hadiths": "شروح الحديث"
 }

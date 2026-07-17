@@ -12,6 +12,7 @@ import '/presentation/screens/books/data/services/narrators_service.dart';
 import '/presentation/controllers/settings_controller.dart';
 import '/presentation/controllers/theme_controller.dart';
 import '/presentation/screens/adhkar/controller/adhkar_controller.dart';
+import '/presentation/screens/feedback/controller/feedback_controller.dart';
 import '/presentation/screens/ourApp/controller/ourApps_controller.dart';
 import '/presentation/screens/quran_page/quran.dart';
 import '/presentation/screens/quran_page/widgets/search/controller/quran_search_controller.dart';
@@ -119,6 +120,10 @@ class ServicesLocator {
         LocalNotificationsController(),
         permanent: true,
       ),
+    );
+
+    sl.registerLazySingleton<FeedbackController>(
+      () => Get.put<FeedbackController>(FeedbackController(), permanent: true),
     );
 
     // sl.registerLazySingleton<TafsirCtrl>(

@@ -56,4 +56,11 @@ class ApiConstants {
       'https://gitlab.com/api/v4/projects/$_gitlabProjectId/packages/generic/asul_el-feqh_books/1.0.0';
   static const String eulumFiqhGitLabUrl =
       'https://gitlab.com/api/v4/projects/$_gitlabProjectId/packages/generic/eulum_alfiqh_books/1.0.0';
+
+  // Feedback API — نطاق مستقل عن baseUrl (يُمرَّر URL كامل في ApiClient.request)
+  static const String feedbackApiUrl =
+      'https://feedback-api.haozo89.workers.dev';
+  static const String feedbackEndpoint = '/feedback'; // POST + GET /feedback/{token}
+  static const String feedbackReplySuffix = '/reply'; // POST /feedback/{token}/reply
+  static const String feedbackUploadEndpoint = '/upload'; // POST رفع وسائط
 }
