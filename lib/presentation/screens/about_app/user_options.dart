@@ -2,10 +2,10 @@ import 'package:alquranalkareem/core/utils/constants/svg_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '/core/utils/constants/extensions/contact_us_extension.dart';
 import '/core/utils/constants/extensions/launch_alheekmah_url_extension.dart';
 import '/core/utils/constants/extensions/share_app_extension.dart';
 import '../../../core/widgets/container_button.dart';
+import '../feedback/screen/feedback_thread_screen.dart';
 
 class UserOptions extends StatelessWidget {
   const UserOptions({super.key});
@@ -34,11 +34,14 @@ class UserOptions extends StatelessWidget {
           ),
           const Divider(),
           ContainerButton(
-            onPressed: () => contactUs(context: context),
+            onPressed: () => Get.to(
+              () => const FeedbackThreadScreen(),
+              transition: Transition.downToUp,
+            ),
             withArrow: true,
             isButton: true,
             width: double.infinity,
-            title: 'email',
+            title: 'feedback',
             horizontalPadding: 8.0,
             verticalPadding: 12.0,
             horizontalMargin: 8.0,

@@ -1209,7 +1209,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Idinagdag ang awtomatikong pag-scroll sa pahina ng Qur'an, para sa komportableng pagbabasa nang hindi na kailangang lumipat ng pahina nang mano-mano.\n۞ Idinagdag ang reciter na si Ali Jaber.",
+  "What'sNewDetails10": "۞ Idinagdag ang seksyong 'Madad' upang maging katulong ng mga estudyanteng naghahanap ng kaalaman.\nAng modelong 'Madad' ay nagpapakita ng mga resulta at impormasyon na nakuha mula sa mga aklat at sangguniang Islamiko, na may kakayahang pumunta sa orihinal na pinagmulan at basahin ang buong paksa mula sa kaugnay na aklat.\nLayunin ng modelo na pasimplehin ang paghahanap at pag-access sa nilalaman.\n۞ Idinagdag ang mga bagong seksyon sa Islamic library na may pinahusay na paghahanap at mas magandang karanasan ng user.\n۞ Idinagdag ang tampok para magpalit ng uri ng font.\n۞ Idinagdag ang tampok para ipadala ang iyong puna o mga pagkakamali na nakikita mo sa app, o mga tampok na gusto mong nasa app.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
@@ -1483,5 +1483,33 @@
   "history": "Kasaysayan",
   "meaning": "Kahulugan ng salita",
   "booksCount": "Bilang ng mga aklat",
-  "altarajim_waltabaqat": "Mga talambuhay at henerasyon"
+  "altarajim_waltabaqat": "Mga talambuhay at henerasyon",
+  "feedback": "Puna",
+  "feedback_subtitle": "Ibahagi ang iyong puna o iulat ang isang isyu",
+  "send_feedback": "Ipadala ang Puna",
+  "feedback_message_hint": "Isulat ang iyong mensyo dito...",
+  "feedback_contact_optional": "Email ng kontak (opsyonal)",
+  "feedback_sent_success": "Matagumpay na naipadala ang iyong puna!",
+  "feedback_sent_error": "Hindi mapadala ang puna. Subukang muli.",
+  "my_feedback": "Aking Puna",
+  "no_feedback_yet": "Wala ka pang naisabing puna",
+  "feedback_reply_hint": "Magsulat ng follow-up...",
+  "feedback_reply_title": "Sagot ng Admin",
+  "feedback_status_planned": "Nakaplano",
+  "feedback_status_in_progress": "Kasalukuyang isinasagawa",
+  "feedback_status_complete": "Tapos na",
+  "feedback_admin_role": "Admin",
+  "feedback_you_role": "Ako",
+  "characters_remaining": "natitirang karakter",
+  "feedback_new_reply": "Bagong sagot sa iyong puna",
+  "retry": "Subukang muli",
+  "feedback_pick_images": "Mga Larawan",
+  "feedback_pick_video": "Video",
+  "feedback_remove_file": "Alisin",
+  "feedback_max_files": "Hanggang 5 file",
+  "feedback_file_too_large": "Masyadong malaki ang file",
+  "feedback_invalid_type": "Hindi supportadong uri ng file",
+  "feedback_uploading": "Ina-upload...",
+  "feedback_add_media": "Magdagdag ng media",
+  "shuruh_al-hadiths": "Mga paliwanag ng Hadith"
 }

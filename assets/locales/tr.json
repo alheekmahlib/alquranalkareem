@@ -1209,7 +1209,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Kur’an sayfasına otomatik kaydırma özelliği eklendi; sayfalar arasında elle geçiş yapmadan rahatça okuyabilirsiniz.\n۞ Ali Cabir okuyucusu eklendi.",
+  "What'sNewDetails10": "۞ İlim talebelerine yardımcı olması için bir 'Madad' bölümü eklendi.\n'Madad' modeli, kitaplardan ve İslami kaynaklardan çıkarılan sonuçları ve bilgileri sunar; orijinal kaynağa geçiş yapma ve ilgili kitaptan konunun tamamını okuma imkânı sağlar.\nModel, aramayı ve içeriğe erişimi kolaylaştırmayı amaçlar.\n۞ İslami kütüphaneye, geliştirilmiş arama ve daha iyi bir kullanıcı deneyimiyle yeni bölümler eklendi.\n۞ Yazı tipi ailesini değiştirme özelliği eklendi.\n۞ Uygulamada fark ettiğiniz geri bildirimleri veya hataları, ya da uygulamada görmek istediğiniz özellikleri gönderme özelliği eklendi.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
@@ -1481,5 +1481,33 @@
   "history": "Geçmiş",
   "meaning": "Kelime anlamı",
   "booksCount": "Kitap sayısı",
-  "altarajim_waltabaqat": "Biyografiler ve kuşaklar"
+  "altarajim_waltabaqat": "Biyografiler ve kuşaklar",
+  "feedback": "Geri Bildirim",
+  "feedback_subtitle": "Geri bildiriminizi paylaşın veya bir sorunu bildirin",
+  "send_feedback": "Geri Bildirim Gönder",
+  "feedback_message_hint": "Mesajınızı buraya yazın...",
+  "feedback_contact_optional": "İletişim e-postası (isteğe bağlı)",
+  "feedback_sent_success": "Geri bildiriminiz başarıyla gönderildi!",
+  "feedback_sent_error": "Geri bildirim gönderilemedi. Tekrar deneyin.",
+  "my_feedback": "Geri Bildirimlerim",
+  "no_feedback_yet": "Henüz geri bildirim göndermediniz",
+  "feedback_reply_hint": "Bir takip yazın...",
+  "feedback_reply_title": "Yönetici Yanıtı",
+  "feedback_status_planned": "Planlandı",
+  "feedback_status_in_progress": "Devam ediyor",
+  "feedback_status_complete": "Tamamlandı",
+  "feedback_admin_role": "Yönetici",
+  "feedback_you_role": "Ben",
+  "characters_remaining": "karakter kaldı",
+  "feedback_new_reply": "Geri bildiriminize yeni yanıt",
+  "retry": "Tekrar dene",
+  "feedback_pick_images": "Fotoğraflar",
+  "feedback_pick_video": "Video",
+  "feedback_remove_file": "Kaldır",
+  "feedback_max_files": "En fazla 5 dosya",
+  "feedback_file_too_large": "Dosya çok büyük",
+  "feedback_invalid_type": "Desteklenmeyen dosya türü",
+  "feedback_uploading": "Yükleniyor...",
+  "feedback_add_media": "Medya ekle",
+  "shuruh_al-hadiths": "Hadis şerhleri"
 }

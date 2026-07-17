@@ -49,7 +49,7 @@ class ApiClient {
       }
 
       // log('Requesting $method $endpoint', name: 'ApiClient');
-      print('Requesting $method $endpoint');
+      // print('Requesting $method $endpoint');
       final Response response = await _dio.request(
         endpoint,
         options:
@@ -86,6 +86,41 @@ class ApiClient {
         return _requestFallback(fallbackUrl, method, headers);
       }
 
+      return Left(DataSource.DEFAULT.getFailure());
+    }
+  }
+
+  /// رفع ملف عبر `multipart/form-data` (لرفع الوسائط لـ R2 مثلاً).
+  ///
+  /// يُرجع `Either<Failure, dynamic>` كالعادة — الرابط يكون في `response.data['url']`.
+  /// ملاحظة: `_dio` مضبوط على baseUrl خاص، لكن Dio يتجاهله عند تمرير URL مطلق في `endpoint`.
+  Future<Either<Failure, dynamic>> uploadFile({
+    required String endpoint,
+    required FormData data,
+    Map<String, String>? headers,
+    void Function(int sent, int total)? onSendProgress,
+    bool? printResponse = false,
+  }) async {
+    try {
+      // print('Uploading to $endpoint');
+      final Response response = await _dio.post(
+        endpoint,
+        data: data,
+        options: Options(headers: headers),
+        onSendProgress: onSendProgress,
+      );
+      if (printResponse!) {
+        log('Upload response received: ${response.data}', name: 'ApiClient');
+      }
+      return Right(response.data);
+    } on DioException catch (e) {
+      log(
+        'Upload DioException: ${e.message}, Status Code: ${e.response?.statusCode}',
+        name: 'ApiClient',
+      );
+      return Left(ErrorHandler.handle(e).failure);
+    } catch (e) {
+      log('Upload error: $e', name: 'ApiClient');
       return Left(DataSource.DEFAULT.getFailure());
     }
   }

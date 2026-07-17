@@ -94,6 +94,7 @@ dependencies:
   flutter_onnxruntime: ^1.7.0
   archive: ^4.0.9
   flutter_streaming_text_markdown: ^1.8.0
+  image_picker: ^1.1.2
 
 dev_dependencies:
   app_name_localizer: ^1.0.5

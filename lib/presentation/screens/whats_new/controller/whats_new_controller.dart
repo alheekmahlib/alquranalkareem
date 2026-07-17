@@ -36,6 +36,11 @@ class WhatsNewController extends GetxController {
   }
 
   List<Map<String, dynamic>> whatsNewList = [
-    {'index': 9, 'title': '', 'details': "What'sNewDetails10", 'imagePath': ''},
+    {
+      'index': 10,
+      'title': '',
+      'details': "What'sNewDetails10",
+      'imagePath': '',
+    },
   ];
 }

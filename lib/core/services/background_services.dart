@@ -11,6 +11,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
 import '../widgets/local_notification/controller/local_notifications_controller.dart';
+import '../../presentation/screens/feedback/controller/feedback_controller.dart';
 
 const String _appGroupId = 'group.com.alheekmah.quran_widget';
 const String _androidWidgetName = 'QuranWidget';
@@ -100,6 +101,9 @@ Future<void> _executeBackgroundTask(String taskId) async {
   // مهمة الإشعارات كل 20 دقيقة
   await _fetchDataAndScheduleNotifications();
 
+  // فحص ردود الـ Feedback الجديدة (معزول في try/catch خاص كي لا يوقف باقي المهام)
+  await _checkFeedbackReplies();
+
   // التحقق من تغيّر التاريخ (يوم جديد بعد منتصف الليل)
   final today = DateTime.now().toIso8601String().substring(0, 10);
   final lastDate = storage.read('last_widget_date') as String?;
@@ -130,6 +134,23 @@ Future<void> _fetchDataAndScheduleNotifications() async {
   await GetStorage.init();
   await LocalNotificationsController.instance.fetchNewNotifications();
   log('Notifications fetch complete', name: 'Background service');
+}
+
+/// فحص ردود الـ Feedback الجديدة من الخلفية.
+///
+/// معزول بالكامل في try/catch حتى لا يؤثر على باقي مهام الخلفية
+/// (الإشعارات، تحديث الـ widget، التاريخ الهجري). يتجاهل أي خطأ بصمت.
+/// يستخدم النسخة الثابتة لتجنب بناء FeedbackController كاملاً في الخلفية.
+Future<void> _checkFeedbackReplies() async {
+  try {
+    log('Checking feedback replies...', name: 'Background service');
+    await GetStorage.init();
+    await FeedbackController.checkForNewRepliesStatic();
+    log('Feedback replies check complete', name: 'Background service');
+  } catch (e) {
+    // لا نسمح لأي خطأ بإيقاف باقي المهام الخلفية.
+    log('Feedback replies check skipped: $e', name: 'Background service');
+  }
 }
 
 // ─── تحديث بيانات التاريخ الهجري في الـ Widget ───

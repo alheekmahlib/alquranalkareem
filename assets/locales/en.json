@@ -1215,7 +1215,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Added an auto-scroll feature on the Qur'an page, allowing comfortable reading without manually navigating between pages.\n۞ Added the reciter Ali Jaber.",
+  "What'sNewDetails10": "۞ Added a 'Madad' section to serve as an assistant for students seeking knowledge.\nThe 'Madad' model presents results and information extracted from books and Islamic references, with the ability to navigate to the original source and read the full topic from the linked book.\nThe model aims to facilitate search and access to content.\n۞ Added new sections to the Islamic library with improved search and an improved user experience.\n۞ Added a feature to change the font family.\n۞ Added a feature to send your feedback or errors you notice in the app, or features you would like to see in the app.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
@@ -1504,5 +1504,33 @@
   "history": "History",
   "meaning": "Word meaning",
   "booksCount": "Number of books",
-  "altarajim_waltabaqat": "Biographies and Generations"
+  "altarajim_waltabaqat": "Biographies and Generations",
+  "feedback": "Feedback",
+  "feedback_subtitle": "Share your feedback or report an issue",
+  "send_feedback": "Send Feedback",
+  "feedback_message_hint": "Write your message here...",
+  "feedback_contact_optional": "Contact email (optional)",
+  "feedback_sent_success": "Your feedback was sent successfully!",
+  "feedback_sent_error": "Could not send feedback. Please try again.",
+  "my_feedback": "My Feedback",
+  "no_feedback_yet": "You haven't sent any feedback yet",
+  "feedback_reply_hint": "Write a follow-up...",
+  "feedback_reply_title": "Admin Reply",
+  "feedback_status_planned": "Planned",
+  "feedback_status_in_progress": "In Progress",
+  "feedback_status_complete": "Complete",
+  "feedback_admin_role": "Admin",
+  "feedback_you_role": "Me",
+  "characters_remaining": "characters remaining",
+  "feedback_new_reply": "New reply to your feedback",
+  "retry": "Retry",
+  "feedback_pick_images": "Photos",
+  "feedback_pick_video": "Video",
+  "feedback_remove_file": "Remove",
+  "feedback_max_files": "Maximum 5 files",
+  "feedback_file_too_large": "File size is too large",
+  "feedback_invalid_type": "Unsupported file type",
+  "feedback_uploading": "Uploading...",
+  "feedback_add_media": "Add media",
+  "shuruh_al-hadiths": "Hadith commentaries"
 }

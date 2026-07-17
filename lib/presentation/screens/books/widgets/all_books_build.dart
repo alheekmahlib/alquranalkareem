@@ -56,7 +56,7 @@ class AllBooksBuild extends StatelessWidget {
         } else if (Responsive.isMobileLarge(context)) {
           crossAxisCount = 3;
         } else {
-          crossAxisCount = 2;
+          crossAxisCount = 3;
         }
 
         return CustomScrollView(
