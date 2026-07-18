@@ -459,6 +459,7 @@ class AiSearchController extends GetxController {
     state.searchTextEditing.clear();
     state.clearResults();
     state.errorMessage.value = '';
+    state.currentQuery.value = '';
   }
 
   void loadPosition() {

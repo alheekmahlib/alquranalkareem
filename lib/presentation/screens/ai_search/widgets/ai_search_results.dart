@@ -464,7 +464,7 @@ class _AiSearchResultsState extends State<AiSearchResults> {
 
   /// Grouped results
   Widget _buildGroupedResults(BuildContext context, AiSearchController ctrl) {
-    final query = ctrl.state.searchTextEditing.text;
+    final query = ctrl.state.currentQuery.value;
 
     return Directionality(
       textDirection: TextDirection.rtl,

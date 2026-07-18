@@ -16,27 +16,30 @@ class AiSearchState {
   final sharedStatus = ''.obs;
 
   // Global states
-  final isSearching = false.obs;
-  final isLoading = false.obs;
-  final errorMessage = ''.obs;
-  final downloadingSectionId = ''.obs; // which section is currently downloading
+  final RxBool isSearching = false.obs;
+  final RxBool isLoading = false.obs;
+  final RxString errorMessage = ''.obs;
+  final RxString downloadingSectionId =
+      ''.obs; // which section is currently downloading
 
   // Search results per section
   final Map<String, RxList<SearchResult>> _allResults = {};
   final Map<String, RxList<SearchResult>> _displayResults = {};
 
   // Progressive loading
-  final searchingCategory = ''.obs;
-  final allResultsReady = false.obs;
+  final RxString searchingCategory = ''.obs;
+  final RxBool allResultsReady = false.obs;
 
   // Streaming state
   final completedCards = <String>{}.obs;
   final nextStreamingKey = RxnString();
-  final introStreamed = false.obs; // streaming intro text completed
+  final RxBool introStreamed = false.obs; // streaming intro text completed
 
   // Enabled sections filter (persisted)
   static const _enabledSectionsKey = 'ai_search_enabled_sections';
   final enabledSections = <String>{}.obs;
+
+  final RxString currentQuery = ''.obs;
 
   void loadEnabledSections() {
     try {
