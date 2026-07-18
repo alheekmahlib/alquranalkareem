@@ -85,6 +85,11 @@ class InputBarWidget extends StatelessWidget {
                         ? () {
                             final query = ctrl.state.searchTextEditing.text
                                 .trim();
+                            ctrl.state.currentQuery.value = ctrl
+                                .state
+                                .searchTextEditing
+                                .text
+                                .trim();
                             if (query.isNotEmpty) {
                               ctrl.search(query);
                               FocusManager.instance.primaryFocus?.unfocus();

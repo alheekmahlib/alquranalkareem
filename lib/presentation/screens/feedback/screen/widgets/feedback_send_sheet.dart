@@ -34,9 +34,7 @@ class _FeedbackSendSheetState extends State<FeedbackSendSheet> {
   @override
   void initState() {
     super.initState();
-    _messageCtrl.addListener(
-      () => _charCount.value = _messageCtrl.text.length,
-    );
+    _messageCtrl.addListener(() => _charCount.value = _messageCtrl.text.length);
   }
 
   @override
@@ -55,8 +53,7 @@ class _FeedbackSendSheetState extends State<FeedbackSendSheet> {
     );
     if (!mounted) return;
     result.fold(
-      (failure) =>
-          context.showCustomErrorSnackBar('feedback_sent_error'.tr),
+      (failure) => context.showCustomErrorSnackBar('feedback_sent_error'.tr),
       (_) {
         _messageCtrl.clear();
         _emailCtrl.clear();
@@ -116,48 +113,46 @@ class _FeedbackSendSheetState extends State<FeedbackSendSheet> {
             valueListenable: _charCount,
             builder: (context, used, _) {
               final hasText = used > 0;
-              return Obx(
-                () {
-                  final busy = _c.isSubmitting.value;
-                  final uploading = _c.isUploading.value;
-                  final hasFiles = _c.selectedFiles.isNotEmpty;
-                  // مفعّل إن وُجد نص أو ملفات، ولسنا مشغولين.
-                  final enabled = (hasText || hasFiles) && !busy && !uploading;
-                  return Opacity(
-                    opacity: enabled ? 1.0 : 0.5,
-                    child: ContainerButton(
-                      onPressed: enabled ? _submit : null,
-                      title: 'send_feedback',
-                      isButton: true,
-                      width: double.infinity,
-                      horizontalPadding: 8.0,
-                      verticalPadding: 12.0,
-                      backgroundColor: colorScheme.primary,
-                      titleColor: colorScheme.secondary,
-                      titleStyle: AppTextStyles.titleMedium(
-                        color: colorScheme.secondary,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 16.sp,
-                      ),
-                      child: busy
-                          ? Padding(
-                              padding: EdgeInsetsDirectional.only(start: 8.w),
-                              child: SizedBox(
-                                width: 20.w,
-                                height: 20.w,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2.0,
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                    colorScheme.secondary,
-                                  ),
+              return Obx(() {
+                final busy = _c.isSubmitting.value;
+                final uploading = _c.isUploading.value;
+                final hasFiles = _c.selectedFiles.isNotEmpty;
+                // مفعّل إن وُجد نص أو ملفات، ولسنا مشغولين.
+                final enabled = (hasText || hasFiles) && !busy && !uploading;
+                return Opacity(
+                  opacity: enabled ? 1.0 : 0.5,
+                  child: ContainerButton(
+                    onPressed: enabled ? _submit : null,
+                    title: 'send_feedback',
+                    isButton: true,
+                    width: double.infinity,
+                    horizontalPadding: 8.0,
+                    verticalPadding: 12.0,
+                    backgroundColor: colorScheme.primary,
+                    titleColor: colorScheme.secondary,
+                    titleStyle: AppTextStyles.titleMedium(
+                      color: colorScheme.secondary,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16.sp,
+                    ),
+                    child: busy
+                        ? Padding(
+                            padding: EdgeInsetsDirectional.only(start: 8.w),
+                            child: SizedBox(
+                              width: 20.w,
+                              height: 20.w,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2.0,
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  colorScheme.secondary,
                                 ),
                               ),
-                            )
-                          : null,
-                    ),
-                  );
-                },
-              );
+                            ),
+                          )
+                        : null,
+                  ),
+                );
+              });
             },
           ),
           Gap(16.h),
@@ -349,6 +344,8 @@ class _FeedbackSendSheetState extends State<FeedbackSendSheet> {
         maxLines: 8,
         minLines: 5,
         maxLength: _maxChars,
+        // أخفِ الكيبورد عند الضغط خارج الحقل.
+        onTapOutside: (_) => FocusScope.of(context).unfocus(),
         style: AppTextStyles.titleMedium(
           color: colorScheme.inversePrimary,
           fontSize: 16.sp,
@@ -377,6 +374,8 @@ class _FeedbackSendSheetState extends State<FeedbackSendSheet> {
       child: TextField(
         controller: _emailCtrl,
         keyboardType: TextInputType.emailAddress,
+        // أخفِ الكيبورد عند الضغط خارج الحقل.
+        onTapOutside: (_) => FocusScope.of(context).unfocus(),
         style: AppTextStyles.titleMedium(
           color: colorScheme.inversePrimary,
           fontSize: 16.sp,

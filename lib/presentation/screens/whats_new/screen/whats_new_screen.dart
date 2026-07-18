@@ -50,8 +50,14 @@ class WhatsNewScreen extends StatelessWidget {
               color: context.theme.canvasColor,
             ),
           ),
-          PageViewBuild(controller: controller, newFeatures: newFeatures),
-          ButtonWidget(controller: controller, newFeatures: newFeatures),
+          Expanded(
+            child: Column(
+              children: [
+                PageViewBuild(controller: controller, newFeatures: newFeatures),
+                ButtonWidget(controller: controller, newFeatures: newFeatures),
+              ],
+            ),
+          ),
         ],
       ),
     );

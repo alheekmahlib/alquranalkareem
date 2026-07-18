@@ -86,6 +86,7 @@ class PageViewBuild extends StatelessWidget {
                   newFeatures[index]['details'] == ''
                       ? const SizedBox.shrink()
                       : Container(
+                          height: 350.h,
                           width: size.width,
                           alignment: Alignment.center,
                           padding: const EdgeInsets.all(16.0),
@@ -100,6 +101,7 @@ class PageViewBuild extends StatelessWidget {
                           child: Text(
                             '${newFeatures[index]['details']}'.tr,
                             style: AppTextStyles.titleMedium(
+                              fontSize: 16.sp,
                               color: context.theme.canvasColor,
                             ),
                           ),
