@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:media_kit/media_kit.dart';
-import 'package:media_kit_video/media_kit_video.dart';
+import 'package:video_player/video_player.dart';
 
 class NotificationVideoPlayer extends StatefulWidget {
   final String url;
@@ -42,11 +41,11 @@ class _NotificationVideoPlayerState extends State<NotificationVideoPlayer> {
         fit: BoxFit.contain,
         errorBuilder: (context, error, stackTrace) =>
             const Center(
-              child: Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Icon(Icons.error_outline, color: Colors.grey, size: 40),
-              ),
-            ),
+          child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Icon(Icons.error_outline, color: Colors.grey, size: 40),
+          ),
+        ),
         loadingBuilder: (context, child, loadingProgress) {
           if (loadingProgress == null) return child;
           return const Center(
@@ -74,25 +73,27 @@ class _VideoPlayer extends StatefulWidget {
 }
 
 class _VideoPlayerState extends State<_VideoPlayer> {
-  late final Player _player;
-  late final VideoController _controller;
+  late final VideoPlayerController _controller;
   bool _hasError = false;
 
   @override
   void initState() {
     super.initState();
-    _player = Player();
-    _controller = VideoController(_player);
-    _player.open(Media(widget.url)).catchError((e) {
+    _controller = VideoPlayerController.networkUrl(Uri.parse(widget.url));
+    _controller.setLooping(true);
+    _controller.initialize().then((_) {
+      if (mounted) {
+        _controller.play();
+        setState(() {});
+      }
+    }).catchError((e) {
       if (mounted) setState(() => _hasError = true);
     });
-    _player.setPlaylistMode(PlaylistMode.loop);
-    _player.play();
   }
 
   @override
   void dispose() {
-    _player.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -106,15 +107,21 @@ class _VideoPlayerState extends State<_VideoPlayer> {
         ),
       );
     }
+    if (!_controller.value.isInitialized) {
+      return const Center(
+        child: Padding(
+          padding: EdgeInsets.all(24.0),
+          child: CircularProgressIndicator.adaptive(),
+        ),
+      );
+    }
     return Column(
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(8),
-          child: Video(
-            controller: _controller,
-            width: double.infinity,
-            height: 200,
-            controls: MaterialVideoControls,
+          child: AspectRatio(
+            aspectRatio: _controller.value.aspectRatio,
+            child: VideoPlayer(_controller),
           ),
         ),
         const Gap(8),
