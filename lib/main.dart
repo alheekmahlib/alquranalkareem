@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_info/flutter_app_info.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:media_kit/media_kit.dart';
 import 'package:quran_library/quran_library.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
@@ -21,7 +20,6 @@ import 'presentation/screens/quran_page/quran.dart';
 
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  MediaKit.ensureInitialized();
   widgetsBinding;
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   Map<String, Map<String, String>> languages = await dep.init();
