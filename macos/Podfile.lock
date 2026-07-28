@@ -14,22 +14,18 @@ PODS:
     - FlutterMacOS
   - flutter_onnxruntime (0.0.1):
     - FlutterMacOS
-    - onnxruntime-objc (= 1.22.0)
+    - onnxruntime-objc (= 1.23.0)
   - flutter_timezone (0.1.0):
     - FlutterMacOS
   - FlutterMacOS (1.0.0)
   - just_audio (0.0.1):
     - Flutter
     - FlutterMacOS
-  - media_kit_libs_macos_video (1.0.4):
-    - FlutterMacOS
-  - media_kit_video (0.0.1):
-    - FlutterMacOS
-  - onnxruntime-c (1.22.0)
-  - onnxruntime-objc (1.22.0):
-    - onnxruntime-objc/Core (= 1.22.0)
-  - onnxruntime-objc/Core (1.22.0):
-    - onnxruntime-c (= 1.22.0)
+  - onnxruntime-c (1.23.0)
+  - onnxruntime-objc (1.23.0):
+    - onnxruntime-objc/Core (= 1.23.0)
+  - onnxruntime-objc/Core (1.23.0):
+    - onnxruntime-c (= 1.23.0)
   - package_info_plus (0.0.1):
     - FlutterMacOS
   - rate_my_app (2.4.0):
@@ -62,8 +58,6 @@ DEPENDENCIES:
   - flutter_timezone (from `Flutter/ephemeral/.symlinks/plugins/flutter_timezone/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
   - just_audio (from `Flutter/ephemeral/.symlinks/plugins/just_audio/darwin`)
-  - media_kit_libs_macos_video (from `Flutter/ephemeral/.symlinks/plugins/media_kit_libs_macos_video/macos`)
-  - media_kit_video (from `Flutter/ephemeral/.symlinks/plugins/media_kit_video/macos`)
   - package_info_plus (from `Flutter/ephemeral/.symlinks/plugins/package_info_plus/macos`)
   - rate_my_app (from `Flutter/ephemeral/.symlinks/plugins/rate_my_app/darwin`)
   - share_plus (from `Flutter/ephemeral/.symlinks/plugins/share_plus/macos`)
@@ -99,10 +93,6 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral
   just_audio:
     :path: Flutter/ephemeral/.symlinks/plugins/just_audio/darwin
-  media_kit_libs_macos_video:
-    :path: Flutter/ephemeral/.symlinks/plugins/media_kit_libs_macos_video/macos
-  media_kit_video:
-    :path: Flutter/ephemeral/.symlinks/plugins/media_kit_video/macos
   package_info_plus:
     :path: Flutter/ephemeral/.symlinks/plugins/package_info_plus/macos
   rate_my_app:
@@ -127,14 +117,12 @@ SPEC CHECKSUMS:
   connectivity_plus: 4adf20a405e25b42b9c9f87feff8f4b6fde18a4e
   device_info_plus: 4fb280989f669696856f8b129e4a5e3cd6c48f76
   file_selector_macos: 9e9e068e90ebee155097d00e89ae91edb2374db7
-  flutter_onnxruntime: 07103445f6b566bf12df4ceae61ef7b901d3e6ec
+  flutter_onnxruntime: caa549d495a20032744e7646f5f060b997187614
   flutter_timezone: d272288c69082ad571630e0d17140b3d6b93dc0c
   FlutterMacOS: d0db08ddef1a9af05a5ec4b724367152bb0500b1
   just_audio: 4e391f57b79cad2b0674030a00453ca5ce817eed
-  media_kit_libs_macos_video: 85a23e549b5f480e72cae3e5634b5514bc692f65
-  media_kit_video: fa6564e3799a0a28bff39442334817088b7ca758
-  onnxruntime-c: acebf6dbb9c0d5a91d134e699839911f4b547133
-  onnxruntime-objc: 83d28b87525bd971259a66e153ea32b5d023de19
+  onnxruntime-c: 3174c63a963d9abbc2bf9627e3d622819c0ed5f7
+  onnxruntime-objc: 1254d12f8160e562e7693ff17f5aa3dd17dc409e
   package_info_plus: f0052d280d17aa382b932f399edf32507174e870
   rate_my_app: 1bd2a80b234634df4af8634da60fe7d0f695d57f
   share_plus: 510bf0af1a42cd602274b4629920c9649c52f4cc
@@ -144,6 +132,6 @@ SPEC CHECKSUMS:
   video_player_avfoundation: 3453f792138786248960ca029747fcd9f318ef52
   wakelock_plus: 917609be14d812ddd9e9528876538b2263aaa03b
 
-PODFILE CHECKSUM: 5ecbfab2e81510fe077e3878db62969cc05bcf23
+PODFILE CHECKSUM: 290a0eafa0c24750b990514373911b1609fa1010
 
 COCOAPODS: 1.16.2

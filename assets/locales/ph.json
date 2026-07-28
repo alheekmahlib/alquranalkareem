@@ -209,6 +209,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "searchAzkar": "Maghanap ng dhikr...",
+  "@searchAzkar": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noAzkarResults": "Walang nahanap",
+  "@noAzkarResults": {
+    "type": "text",
+    "placeholders": {}
+  },
   "themeTitle": "Piliin ang Tema",
   "@themeTitle": {
     "type": "text",

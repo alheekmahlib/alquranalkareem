@@ -380,7 +380,7 @@ class AutoScrollSettings extends StatelessWidget {
             width: MediaQuery.sizeOf(context).width,
             child: FlutterSlider(
               values: [speed],
-              min: 0.1,
+              min: 0.05,
               max: 5.0,
               rtl: alignmentLayout(true, false),
               trackBar: FlutterSliderTrackBar(

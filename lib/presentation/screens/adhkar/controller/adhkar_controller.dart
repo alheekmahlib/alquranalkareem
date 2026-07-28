@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
@@ -11,6 +12,7 @@ import 'package:share_plus/share_plus.dart';
 
 import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 import '../../../../core/utils/constants/api_constants.dart';
+import '../../../../presentation/screens/quran_page/widgets/search/search_extensions/highlight_extension.dart';
 import '../../../../database/bookmark_db/bookmark_database.dart';
 import '../../../../database/bookmark_db/db_bookmark_helper.dart';
 import '../screens/adhkar_item.dart';
@@ -27,6 +29,14 @@ class AzkarController extends GetxController {
   void onInit() async {
     super.onInit();
     await fetchDhekr();
+  }
+
+  @override
+  void onClose() {
+    state.searchController.dispose();
+    state.itemScrollController.dispose();
+    state.highlightTimer?.cancel();
+    super.onClose();
   }
 
   /// -------- [Methods] ----------
@@ -241,6 +251,92 @@ class AzkarController extends GetxController {
 
       await SharePlus.instance.share(params);
     }
+  }
+
+  // ===================== [البحث في الأذكار] =====================
+
+  /// يُستدعى عند تغيّر نص حقل البحث؛ يفلتر الأذكار في الذاكرة (zekr / category / description)
+  /// مع تجاهل التشكيل وتطبيع أ/إ/آ.
+  void searchDhekr(String query) {
+    state.searchQuery.value = query;
+    final cleanQuery = _normalize(query);
+    if (cleanQuery.isEmpty) {
+      state.searchResults.clear();
+      return;
+    }
+    final results = state.allAdhkar.where((z) {
+      return _normalize(z.zekr).contains(cleanQuery) ||
+          _normalize(z.category).contains(cleanQuery) ||
+          _normalize(z.description).contains(cleanQuery);
+    }).toList();
+    state.searchResults.assignAll(results);
+  }
+
+  /// تطبيع النص: إزالة التشكيل وتسوية همزات الألف.
+  String _normalize(String input) =>
+      input.removeDiacriticsQuran(input).trim();
+
+  /// مسح حقل البحث والنتائج.
+  void clearSearch() {
+    state.searchController.clear();
+    state.searchQuery.value = '';
+    state.searchResults.clear();
+  }
+
+  /// الانتقال إلى شاشة القسم الحاوي للذكر مع تعليمه كهدف للتمرير.
+  void navigateToZekr(AdhkarData zekr) {
+    state.targetZekrId.value = zekr.id;
+    state.itemKeys.clear();
+    filterByCategory(zekr.category);
+    Get.to(() => const AdhkarItem(), transition: Transition.downToUp);
+  }
+
+  /// يُستدعى من AdhkarItem عند بنائها (بدلاً من initState) لمزامنة البيانات
+  /// وجدولة التمرير إلى الذكر المستهدف.
+  void onAdhkarItemReady() {
+    getAdhkar();
+    // بعد بناء الشاشة: مرّر إلى الذكر المستهدف (إن جاء من نتيجة بحث).
+    WidgetsBinding.instance.addPostFrameCallback((_) => scrollToTargetZekr());
+  }
+
+  /// يمرّر بسلاسة إلى الذكر المستهدف ثم يفعّل التمييز البصري المؤقت،
+  /// ثم يصفّر الهدف لتجنّب إعادة التمرير عند إعادة بناء الشاشة.
+  void scrollToTargetZekr({int attempt = 0}) {
+    final targetId = state.targetZekrId.value;
+    if (targetId == null) return;
+
+    final key = state.itemKeys[targetId];
+    final ctx = key?.currentContext;
+    if (ctx == null) {
+      // العنصر لم يُبنَ بعد؛ أعد المحاولة في الإطار التالي (بحد أقصى).
+      if (attempt < 10) {
+        WidgetsBinding.instance.addPostFrameCallback(
+          (_) => scrollToTargetZekr(attempt: attempt + 1),
+        );
+      }
+      return;
+    }
+
+    final retryCtx = key!.currentContext;
+    if (retryCtx == null) return;
+    // صفّر الهدف قبل التمرير حتى لا تتكرر المحاولة عند أي rebuild.
+    state.targetZekrId.value = null;
+    Scrollable.ensureVisible(
+      retryCtx,
+      alignment: 0.3,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeOutCubic,
+    );
+    highlightZekr(targetId);
+  }
+
+  /// تفعيل تمييز بصري مؤقت للذكر المستهدف (~3 ثوانٍ).
+  void highlightZekr(int id) {
+    state.highlightTimer?.cancel();
+    state.highlightedZekrId.value = id;
+    state.highlightTimer = Timer(const Duration(seconds: 3), () {
+      state.highlightedZekrId.value = null;
+    });
   }
 
   void onAdhkarNotificationsReceived(String receivedActionBody) {
