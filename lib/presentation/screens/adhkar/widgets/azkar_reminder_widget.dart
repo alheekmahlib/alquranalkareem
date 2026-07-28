@@ -53,69 +53,6 @@ class AdhkarReminderWidget extends StatelessWidget {
                   ),
                   const Gap(16),
                   context.hDivider(width: Get.width),
-                  reminderCtrl.state.customAdhkar.isNotEmpty
-                      ? const Gap(16)
-                      : const SizedBox.shrink(),
-                  reminderCtrl.state.customAdhkar.isNotEmpty
-                      ? Text(
-                          "customReminder".tr,
-                          style: TextStyle(
-                            color: Theme.of(context).canvasColor,
-                            fontFamily: 'kufi',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        )
-                      : const SizedBox.shrink(),
-                  const Gap(16),
-                  ...reminderCtrl.state.customAdhkar.entries.map((entry) {
-                    String id = entry.key;
-                    String reminder = entry.value;
-                    return Flexible(
-                      child: Column(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              color:
-                                  !(reminderCtrl
-                                          .state
-                                          .customAdhkarEnabled[id] ??
-                                      false)
-                                  ? Theme.of(
-                                      context,
-                                    ).canvasColor.withValues(alpha: .1)
-                                  : Theme.of(context).colorScheme.surface
-                                        .withValues(alpha: .15),
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(8),
-                              ),
-                              border: Border.all(
-                                width: 1,
-                                color:
-                                    !(reminderCtrl
-                                            .state
-                                            .customAdhkarEnabled[id] ??
-                                        false)
-                                    ? Colors.transparent
-                                    : Theme.of(context).colorScheme.surface,
-                              ),
-                            ),
-                            child: _buildSwitchListTile(
-                              context,
-                              reminder,
-                              RxBool(
-                                reminderCtrl.state.customAdhkarEnabled[id] ??
-                                    false,
-                              ),
-                              true,
-                              id,
-                            ),
-                          ),
-                          const Gap(8),
-                        ],
-                      ),
-                    );
-                  }).toList(),
                   ContainerButton(
                     onPressed: () => _addNewReminder(context),
                     width: double.infinity,
@@ -127,6 +64,64 @@ class AdhkarReminderWidget extends StatelessWidget {
                       alpha: .1,
                     ),
                   ),
+                  reminderCtrl.state.customAdhkar.isNotEmpty
+                      ? const Gap(16)
+                      : const SizedBox.shrink(),
+                  reminderCtrl.state.customAdhkar.isNotEmpty
+                      ? Text(
+                          "customReminder".tr,
+                          style: AppTextStyles.titleMedium(),
+                        )
+                      : const SizedBox.shrink(),
+                  reminderCtrl.state.customAdhkar.isNotEmpty
+                      ? const Gap(16)
+                      : const SizedBox.shrink(),
+                  // const Gap(16),
+                  ...reminderCtrl.state.customAdhkar.entries.map((entry) {
+                    String id = entry.key;
+                    String reminder = entry.value;
+                    return Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            color:
+                                !(reminderCtrl.state.customAdhkarEnabled[id] ??
+                                    false)
+                                ? Theme.of(
+                                    context,
+                                  ).canvasColor.withValues(alpha: .1)
+                                : Theme.of(
+                                    context,
+                                  ).colorScheme.surface.withValues(alpha: .15),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(8),
+                            ),
+                            border: Border.all(
+                              width: 1,
+                              color:
+                                  !(reminderCtrl
+                                          .state
+                                          .customAdhkarEnabled[id] ??
+                                      false)
+                                  ? Colors.transparent
+                                  : Theme.of(context).colorScheme.surface,
+                            ),
+                          ),
+                          child: _buildSwitchListTile(
+                            context,
+                            reminder,
+                            RxBool(
+                              reminderCtrl.state.customAdhkarEnabled[id] ??
+                                  false,
+                            ),
+                            true,
+                            id,
+                          ),
+                        ),
+                        const Gap(8),
+                      ],
+                    );
+                  }).toList(),
                   const Gap(16),
                 ],
               );

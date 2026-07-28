@@ -210,6 +210,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "searchAzkar": "জিকির খুঁজুন...",
+  "@searchAzkar": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noAzkarResults": "কোনো ফলাফল নেই",
+  "@noAzkarResults": {
+    "type": "text",
+    "placeholders": {}
+  },
   "themeTitle": "রুপ নির্বাচন করুন",
   "@themeTitle": {
     "type": "text",

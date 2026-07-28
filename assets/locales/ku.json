@@ -209,6 +209,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "searchAzkar": "گەڕان بە دوای ذکر...",
+  "@searchAzkar": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noAzkarResults": "هیچ ئەنجامێک نییە",
+  "@noAzkarResults": {
+    "type": "text",
+    "placeholders": {}
+  },
   "themeTitle": "ڕووکار هەڵبژێرە",
   "@themeTitle": {
     "type": "text",

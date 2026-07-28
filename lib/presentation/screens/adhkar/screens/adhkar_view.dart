@@ -1,7 +1,7 @@
-import 'package:alquranalkareem/core/utils/helpers/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/helpers/app_text_styles.dart';
 import '../../../../core/widgets/tab_bar_widget.dart';
 import '../controller/adhkar_controller.dart';
 import '../widgets/tab_bar_view_widget.dart';

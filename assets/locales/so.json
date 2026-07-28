@@ -210,6 +210,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "searchAzkar": "Raadi dhikr...",
+  "@searchAzkar": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noAzkarResults": "Natiijo lama helin",
+  "@noAzkarResults": {
+    "type": "text",
+    "placeholders": {}
+  },
   "themeTitle": "Dooro Muuqaalka",
   "@themeTitle": {
     "type": "text",

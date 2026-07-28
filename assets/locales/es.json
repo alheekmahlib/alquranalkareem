@@ -210,6 +210,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "searchAzkar": "Buscar un dhikr...",
+  "@searchAzkar": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noAzkarResults": "Sin resultados",
+  "@noAzkarResults": {
+    "type": "text",
+    "placeholders": {}
+  },
   "themeTitle": "Elija Apariencia",
   "@themeTitle": {
     "type": "text",

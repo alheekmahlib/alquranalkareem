@@ -209,6 +209,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "searchAzkar": "Поиск зикра...",
+  "@searchAzkar": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noAzkarResults": "Ничего не найдено",
+  "@noAzkarResults": {
+    "type": "text",
+    "placeholders": {}
+  },
   "themeTitle": "Выбор темы",
   "@themeTitle": {
     "type": "text",

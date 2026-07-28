@@ -209,6 +209,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "searchAzkar": "ابحث عن ذكر...",
+  "@searchAzkar": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noAzkarResults": "لا توجد نتائج",
+  "@noAzkarResults": {
+    "type": "text",
+    "placeholders": {}
+  },
   "themeTitle": "أختر المظهر",
   "@themeTitle": {
     "type": "text",

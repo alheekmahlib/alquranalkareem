@@ -210,6 +210,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "searchAzkar": "Search for a dhikr...",
+  "@searchAzkar": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noAzkarResults": "No results found",
+  "@noAzkarResults": {
+    "type": "text",
+    "placeholders": {}
+  },
   "themeTitle": "Choose Appearance",
   "@themeTitle": {
     "type": "text",

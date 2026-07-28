@@ -209,6 +209,16 @@
     "type": "text",
     "placeholders": {}
   },
+  "searchAzkar": "Zikir ara...",
+  "@searchAzkar": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noAzkarResults": "Sonuç bulunamadı",
+  "@noAzkarResults": {
+    "type": "text",
+    "placeholders": {}
+  },
   "themeTitle": "Temayı seç",
   "@themeTitle": {
     "type": "text",
