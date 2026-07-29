@@ -1,219 +1,604 @@
-import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
+part of '../books.dart';
 
-import '/core/utils/constants/extensions/convert_number_extension.dart';
-import '/core/utils/constants/extensions/extensions.dart';
-import '/core/utils/constants/extensions/text_span_extension.dart';
-import '/presentation/screens/books/controller/extensions/books_getters.dart';
-import '/presentation/screens/books/controller/extensions/books_storage_getters.dart';
-import '/presentation/screens/books/controller/extensions/books_ui.dart';
-import '/presentation/screens/quran_page/widgets/search/search_extensions/highlight_extension.dart';
-import '../../../../core/widgets/app_bar_widget.dart';
-import '../../../../core/widgets/shimmer_effect_build.dart';
-import '../../../controllers/general/general_controller.dart';
-import '../controller/books_bookmarks_controller.dart';
-import '../controller/books_controller.dart';
-import '../data/models/page_model.dart';
-import '../widgets/books_top_title_widget.dart';
-
-class PagesPage extends StatelessWidget {
+class ReadViewScreen extends StatelessWidget {
   final int bookNumber;
+  final int initialPage;
   final booksCtrl = BooksController.instance;
   final booksBookmarksCtrl = BooksBookmarksController.instance;
   final generalCtrl = GeneralController.instance;
 
-  PagesPage({required this.bookNumber});
+  ReadViewScreen({super.key, required this.bookNumber, this.initialPage = 0});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-      appBar: AppBarWidget(
-        isTitled: true,
-        title: booksCtrl.state.booksList[bookNumber - 1].bookName,
-        isFontSize: true,
-        searchButton: const SizedBox.shrink(),
-        isNotifi: true,
-        isBooks: true,
+    return PopScope(
+      canPop: true,
+      onPopInvokedWithResult: (bool didPop, _) {
+        booksCtrl.state.tabBarController.showHandle();
+        booksCtrl.state.navBarController.showHandle();
+        if (didPop) {
+          return;
+        }
+      },
+      child: Scaffold(
+        backgroundColor: context.theme.colorScheme.primary,
+        body: _buildBody(),
       ),
-      body: Directionality(
-        textDirection: TextDirection.rtl,
-        child: SafeArea(
-          child: FutureBuilder<List<PageContent>>(
-            future: Future.delayed(
-              const Duration(milliseconds: 600),
-            ).then((_) => booksCtrl.getPages(bookNumber)),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const ShimmerEffectBuild();
-              } else if (snapshot.hasError) {
-                return Center(child: Text('Error: ${snapshot.error}'));
-              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return const Center(child: Text('No pages available'));
-              } else {
-                final pages = snapshot.data!;
-                return Focus(
-                  focusNode: booksCtrl.state.bookRLFocusNode,
-                  onKeyEvent: (node, event) =>
-                      booksCtrl.controlRLByKeyboard(node, event),
-                  child: PageView.builder(
-                    controller: booksCtrl.pageController,
-                    itemCount: pages.length,
-                    onPageChanged: (i) =>
-                        booksCtrl.state.currentPageNumber.value = i,
-                    itemBuilder: (context, index) {
-                      final page = pages[index];
-                      WidgetsBinding.instance.addPostFrameCallback((_) {
-                        booksCtrl.saveLastRead(
-                          page.pageNumber,
-                          booksCtrl.state.booksList[bookNumber - 1].bookName,
-                          bookNumber,
-                          pages.length,
-                        );
-                      });
-                      return Stack(
-                        alignment: Alignment.center,
+    );
+  }
+
+  /// بناء الجسم الرئيسي / Build main body
+  Widget _buildBody() {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: SafeArea(
+        child: FutureBuilder<List<PageContent>>(
+          future: _loadPages(),
+          builder: (context, snapshot) => _buildContent(context, snapshot),
+        ),
+      ),
+    );
+  }
+
+  /// تحميل الصفحات / Load pages
+  Future<List<PageContent>> _loadPages() {
+    return Future.delayed(
+      const Duration(milliseconds: 600),
+    ).then((_) => booksCtrl.getPages(bookNumber));
+  }
+
+  /// بناء المحتوى بناءً على حالة البيانات / Build content based on data state
+  Widget _buildContent(
+    BuildContext context,
+    AsyncSnapshot<List<PageContent>> snapshot,
+  ) {
+    if (snapshot.connectionState == ConnectionState.waiting) {
+      return const ShimmerEffectBuild();
+    } else if (snapshot.hasError) {
+      return _buildErrorWidget(snapshot.error.toString());
+    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+      return _buildEmptyWidget();
+    } else {
+      return _buildPageView(context, snapshot.data!);
+    }
+  }
+
+  /// بناء عنصر الخطأ / Build error widget
+  Widget _buildErrorWidget(String error) {
+    return Center(child: Text('Error: $error'));
+  }
+
+  /// بناء عنصر الفراغ / Build empty widget
+  Widget _buildEmptyWidget() {
+    return const Center(child: Text('لم يتم العثور على صفحات لهذا الكتاب.'));
+  }
+
+  /// بناء عارض الصفحات / Build page view
+  Widget _buildPageView(BuildContext context, List<PageContent> pages) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () => booksCtrl.showControl(),
+          child: Focus(
+            focusNode: booksCtrl.state.bookRLFocusNode,
+            onKeyEvent: (node, event) =>
+                booksCtrl.controlRLByKeyboard(node, event),
+            child: PageView.builder(
+              controller: booksCtrl.getSafePageController(
+                pages.length,
+                initialPage: initialPage,
+              ),
+              itemCount: pages.length,
+              onPageChanged: (i) {
+                booksCtrl.state.currentPageNumber.value = i;
+
+                ChaptersController.instance.onPageChanged(i);
+              },
+              itemBuilder: (context, index) =>
+                  _buildPage(context, pages[index], index, pages.length),
+            ),
+          ),
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: NavBarWidget(
+            navBarController: booksCtrl.state.navBarController,
+            handleChild: BooksTopTitleWidget(
+              bookNumber: bookNumber,
+              index: booksCtrl.state.currentPageNumber.value - 1,
+            ),
+          ),
+        ),
+        TopBarWidget(
+          isHomeChild: true,
+          isQuranSetting: false,
+          isNotification: false,
+          isBackButton: true,
+          tabBarController: BooksController.instance.state.tabBarController,
+          bodyChild: SearchBuild(),
+          centerChild: TextFieldBarWidget(
+            hintText: 'searchInBook'.tr,
+            controller: booksCtrl.state.searchController,
+            horizontalPadding: 0.0,
+            onPressed: () {
+              QuranController.instance.setTopBarType = TopBarType.search;
+              booksCtrl.state.tabBarController.open();
+            },
+            onButtonPressed: () {
+              booksCtrl.state.activeSearchQuery = null;
+              booksCtrl.state.isTextSearching.value = false;
+              booksCtrl.state.searchResults.clear();
+              booksCtrl.state.subjectSearchResults.clear();
+              booksCtrl.state.searchController.clear();
+              booksCtrl.update(['searchResults']);
+            },
+            onSubmitted: (query) =>
+                booksCtrl.searchBooks(query, bookNumber: bookNumber),
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// بناء صفحة واحدة / Build single page
+  Widget _buildPage(
+    BuildContext context,
+    PageContent page,
+    int index,
+    int totalPages,
+  ) {
+    _saveLastRead(page, totalPages);
+    return GetBuilder<BooksController>(
+      init: BooksController.instance,
+      builder: (booksCtrl) {
+        return Container(
+          color: booksCtrl.backgroundColor,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    flex: 9,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          Column(
-                            children: [
-                              BooksTopTitleWidget(
-                                bookNumber: bookNumber,
-                                index: index,
-                                page: page,
-                              ),
-                              Flexible(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: SingleChildScrollView(
-                                    // controller:
-                                    //     booksCtrl.state.ScrollUpDownBook,
-                                    child: GetX<GeneralController>(
-                                      builder: (generalCtrl) {
-                                        return SelectionArea(
-                                          child: Column(
-                                            children: [
-                                              Text.rich(
-                                                TextSpan(
-                                                  children: <InlineSpan>[
-                                                    TextSpan(
-                                                      children:
-                                                          booksCtrl
-                                                              .state
-                                                              .isTashkil
-                                                              .value
-                                                          ? page.content
-                                                                .buildTextSpans()
-                                                          : page.content
-                                                                .removeDiacriticsQuran(
-                                                                  page.content,
-                                                                )
-                                                                .buildTextSpans(),
-                                                      style: TextStyle(
-                                                        color: Get
-                                                            .theme
-                                                            .colorScheme
-                                                            .inversePrimary,
-                                                        height: 1.5,
-                                                        fontSize: generalCtrl
-                                                            .state
-                                                            .fontSizeArabic
-                                                            .value,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                textDirection:
-                                                    TextDirection.rtl,
-                                                textAlign: TextAlign.justify,
-                                              ),
-                                              context.hDivider(
-                                                width: Get.width,
-                                              ),
-                                              ...page.footnotes.map((footnote) {
-                                                return Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                        top: 8.0,
-                                                      ),
-                                                  child: Text(
-                                                    footnote,
-                                                    style: TextStyle(
-                                                      color: Get
-                                                          .theme
-                                                          .colorScheme
-                                                          .inversePrimary
-                                                          .withValues(
-                                                            alpha: .5,
-                                                          ),
-                                                      height: 1.5,
-                                                      fontSize:
-                                                          generalCtrl
-                                                              .state
-                                                              .fontSizeArabic
-                                                              .value -
-                                                          5,
-                                                    ),
-                                                    textDirection:
-                                                        TextDirection.rtl,
-                                                  ),
-                                                );
-                                              }).toList(),
-                                              const Gap(32),
-                                            ],
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
+                          Expanded(
+                            flex: 2,
+                            child: _buildPageNumberIndicator(page),
                           ),
-                          Align(
-                            alignment: AlignmentDirectional.bottomEnd,
-                            child: Container(
-                              padding: const EdgeInsets.all(6.0),
-                              margin: const EdgeInsets.symmetric(
-                                horizontal: 16.0,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Theme.of(
-                                  context,
-                                ).colorScheme.primaryContainer,
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(8),
-                                ),
-                                border: Border.all(
-                                  width: 1,
-                                  color: Theme.of(context).colorScheme.surface,
-                                ),
-                              ),
-                              child: Text(
-                                page.pageNumber
-                                    .toString()
-                                    .convertNumbersToCurrentLang(),
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  height: 1,
-                                  // fontFamily: 'kufi',
-                                  color: Theme.of(
-                                    context,
-                                  ).colorScheme.inversePrimary,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
+                          context.vDivider(
+                            color: Get.theme.colorScheme.inversePrimary
+                                .withValues(alpha: .2),
+                            height: 30,
+                          ),
+                          Expanded(
+                            flex: 10,
+                            child: ChaptersDropdownWidget(
+                              bookNumber: bookNumber,
+                              pageIndex: index,
                             ),
                           ),
                         ],
-                      );
-                    },
+                      ),
+                    ),
                   ),
-                );
-              }
-            },
+                  Expanded(
+                    flex: 1,
+                    child: GetX<BooksBookmarksController>(
+                      builder: (booksBookmarksCtrl) => GestureDetector(
+                        onTap: () => booksBookmarksCtrl.addBookmarkOnTap(
+                          bookNumber,
+                          index,
+                        ),
+                        child: SizedBox(
+                          width: 40,
+                          height: 40,
+                          child: customSvgWithColor(
+                            SvgPath.svgQuranBookmark,
+                            color:
+                                booksBookmarksCtrl.isPageBookmarked(
+                                  bookNumber,
+                                  index + 1,
+                                )
+                                ? context.theme.colorScheme.surface
+                                : context.theme.colorScheme.primary,
+                            width: 24,
+                            height: 24,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Flexible(child: _buildPageContent(context, page, index)),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  /// حفظ آخر قراءة / Save last read
+  void _saveLastRead(PageContent page, int totalPages) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final book = _findCurrentBook();
+      booksCtrl.saveLastRead(
+        page.pageNumber,
+        book.bookName.isNotEmpty ? book.bookName : 'Unknown Book',
+        bookNumber,
+        totalPages,
+      );
+    });
+  }
+
+  /// البحث عن الكتاب الحالي / Find current book
+  Book _findCurrentBook() {
+    return booksCtrl.state.booksList.firstWhere(
+      (book) => book.bookNumber == bookNumber,
+      orElse: () => booksCtrl.state.booksList.isNotEmpty
+          ? booksCtrl.state.booksList.first
+          : Book.empty(),
+    );
+  }
+
+  /// بناء محتوى الصفحة / Build page content
+  Widget _buildPageContent(BuildContext context, PageContent page, int index) {
+    return Column(
+      children: [
+        Flexible(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SingleChildScrollView(
+              child: GetX<GeneralController>(
+                builder: (generalCtrl) =>
+                    _buildTextContent(context, page, generalCtrl),
+              ),
+            ),
           ),
         ),
+      ],
+    );
+  }
+
+  /// بناء محتوى النص / Build text content
+  Widget _buildTextContent(
+    BuildContext context,
+    PageContent page,
+    GeneralController generalCtrl,
+  ) {
+    return _TapDetector(
+      onTap: () => booksCtrl.showControl(),
+      child: Column(
+        children: [
+          _buildMainText(page, generalCtrl),
+          _buildFootnotes(context, page, generalCtrl),
+          const Gap(32),
+        ],
+      ),
+    );
+  }
+
+  /// بناء النص الأساسي / Build main text
+  Widget _buildMainText(PageContent page, GeneralController generalCtrl) {
+    final isDark = ThemeController.instance.isDarkMode;
+    final mainText = _getMainText(page.text);
+    final processedText = booksCtrl.state.isTashkil.value
+        ? mainText
+        : mainText.removeDiacriticsQuran(mainText);
+
+    return SelectionArea(
+      contextMenuBuilder: (context, selectableRegionState) {
+        final defaultItems = selectableRegionState.contextMenuButtonItems;
+        return AdaptiveTextSelectionToolbar.buttonItems(
+          anchors: selectableRegionState.contextMenuAnchors,
+          buttonItems: [
+            ...defaultItems,
+            ContextMenuButtonItem(
+              type: ContextMenuButtonType.custom,
+              label: 'بحث عن الراوي',
+              onPressed: () async {
+                // ignore: deprecated_member_use
+                selectableRegionState.copySelection(
+                    SelectionChangedCause.toolbar);
+                selectableRegionState.hideToolbar();
+                await Future.delayed(const Duration(milliseconds: 300));
+                final data =
+                    await Clipboard.getData(Clipboard.kTextPlain);
+                final selectedText = data?.text ?? '';
+                if (selectedText.isNotEmpty) {
+                  _lookupNarrator(selectedText);
+                }
+              },
+            ),
+          ],
+        );
+      },
+      child: Text.rich(
+        TextSpan(
+          children: processedText.toFlutterText(isDark),
+          style: _getMainTextStyle(generalCtrl),
+        ),
+        textDirection: TextDirection.rtl,
+        textAlign: TextAlign.justify,
+      ),
+    );
+  }
+
+  /// البحث عن راوي بالنص المحدد / Look up narrator by selected text
+  void _lookupNarrator(String selectedText) async {
+    if (selectedText.trim().isEmpty) return;
+
+    final narratorsService = NarratorsService.instance;
+
+    // إذا الملف ما تحمّل بعد، اعرض شيت التحميل
+    if (!narratorsService.isLoaded.value) {
+      customBottomSheet(const NarratorDownloadSheet());
+      return;
+    }
+
+    final results = narratorsService.lookup(selectedText);
+
+    if (results.isEmpty) {
+      customBottomSheet(
+        _NarratorNotFoundSheet(searchedName: selectedText.trim()),
+      );
+      return;
+    }
+
+    final narrator = results.first;
+    final otherMatches = results.length > 1
+        ? results.sublist(1)
+        : <NarratorInfo>[];
+
+    customBottomSheet(
+      NarratorInfoSheet(narrator: narrator, otherMatches: otherMatches),
+    );
+  }
+
+  /// بناء الهوامش / Build footnotes
+  Widget _buildFootnotes(
+    BuildContext context,
+    PageContent page,
+    GeneralController generalCtrl,
+  ) {
+    final footnotes = _getFootnotes(page.text);
+    if (footnotes.isEmpty) return const SizedBox.shrink();
+
+    return Column(
+      children: [
+        const Gap(8),
+        context.hDivider(
+          color: Get.theme.colorScheme.inversePrimary.withValues(alpha: .2),
+          width: context.width,
+        ),
+        const Gap(10),
+        _buildFootnotesText(footnotes, generalCtrl),
+      ],
+    );
+  }
+
+  /// بناء نص الهوامش / Build footnotes text
+  Widget _buildFootnotesText(String footnotes, GeneralController generalCtrl) {
+    footnotes = _getMainText(footnotes);
+    final processedFootnotes = booksCtrl.state.isTashkil.value
+        ? footnotes
+        : footnotes.removeDiacriticsQuran(footnotes);
+
+    return Text.rich(
+      TextSpan(
+        text: processedFootnotes,
+        style: _getFootnotesTextStyle(generalCtrl),
+      ),
+      textDirection: TextDirection.rtl,
+      textAlign: TextAlign.justify,
+    );
+  }
+
+  /// بناء مؤشر رقم الصفحة / Build page number indicator
+  Widget _buildPageNumberIndicator(PageContent page) {
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Text(
+          page.pageNumber.toString().convertNumbersToCurrentLang(),
+          style: AppTextStyles.titleSmall(),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
+
+  /// الحصول على تنسيق النص الأساسي / Get main text style
+  TextStyle _getMainTextStyle(GeneralController generalCtrl) {
+    return TextStyle(
+      color: Get.theme.colorScheme.inversePrimary,
+      height: 1.5,
+      fontFamily: 'naskh',
+      fontSize: generalCtrl.state.fontSizeArabic.value,
+    );
+  }
+
+  /// الحصول على تنسيق نص الهوامش / Get footnotes text style
+  TextStyle _getFootnotesTextStyle(GeneralController generalCtrl) {
+    return TextStyle(
+      color: Get.theme.colorScheme.inversePrimary.withValues(alpha: .8),
+      height: 1.4,
+      fontFamily: 'naskh',
+      fontSize: (generalCtrl.state.fontSizeArabic.value * 0.85).roundToDouble(),
+    );
+  }
+
+  /// استخراج النص الأساسي بدون الهوامش / Extract main text without footnotes
+  String _getMainText(String htmlText) {
+    String mainText = htmlText;
+
+    // إزالة الهوامش أولاً — قبل أي تعديل على الوسوم
+    // Remove footnotes FIRST — before any tag modifications
+    mainText = mainText.replaceAll(
+      RegExp(r'<p\s+class="hamesh"[^>]*>.*?</p>', dotAll: true),
+      '',
+    );
+    mainText = mainText.replaceAll(
+      RegExp(r'<span\s+class="hamesh"[^>]*>.*?</span>', dotAll: true),
+      '',
+    );
+
+    // إزالة <hr> (الفاصل قبل الهوامش)
+    mainText = mainText.replaceAll(RegExp(r'<hr[^>]*>'), '');
+
+    // إزالة الـ div
+    mainText = mainText.replaceAll(RegExp(r'</?div[^>]*>'), '');
+
+    // تحويل </p> إلى <br> ليفصل بين الفقرات — toFlutterText يعالج <br>
+    // Convert </p> to <br> for paragraph separation — toFlutterText handles <br>
+    mainText = mainText.replaceAll(RegExp(r'</p>'), '<br>');
+    mainText = mainText.replaceAll(RegExp(r'<p[^>]*>'), ' ');
+
+    mainText = mainText.replaceAllMapped(
+      RegExp(r'<span\s+class="special"[^>]*>(.*?)</span>'),
+      (match) => match.group(1) ?? '',
+    );
+
+    // لا نحذف <br> — toFlutterText يعالجه ويحوّله لـ \n
+    return mainText.trim();
+  }
+
+  /// استخراج الهوامش فقط / Extract footnotes only
+  String _getFootnotes(String htmlText) {
+    String footnotes = '';
+
+    // البحث عن p class="hamesh"
+    RegExp pHameshRegex = RegExp(
+      r'<p\s+class="hamesh"[^>]*>(.*?)</p>',
+      dotAll: true,
+    );
+    Iterable<Match> pMatches = pHameshRegex.allMatches(htmlText);
+
+    for (Match match in pMatches) {
+      String content = match.group(1) ?? '';
+      // تحويل <br> إلى \n / Convert <br> to \n
+      content = content.replaceAll(RegExp(r'<br[^>]*>'), '\n');
+      footnotes += '$content\n\n';
+    }
+
+    // البحث عن span class="hamesh"
+    RegExp spanHameshRegex = RegExp(
+      r'<span\s+class="hamesh"[^>]*>(.*?)</span>',
+      dotAll: true,
+    );
+    Iterable<Match> spanMatches = spanHameshRegex.allMatches(htmlText);
+
+    for (Match match in spanMatches) {
+      String content = match.group(1) ?? '';
+      // تحويل <br> إلى \n / Convert <br> to \n
+      content = content.replaceAll(RegExp(r'<br[^>]*>'), '\n');
+      footnotes += '$content\n\n';
+    }
+
+    return footnotes.trim();
+  }
+}
+
+/// كاشف ضغطات حقيقي — يتجاهل السكرول وتقليب الصفحات
+/// Only fires onTap for real taps, ignores scroll/swipe/drag
+class _TapDetector extends StatefulWidget {
+  final VoidCallback onTap;
+  final Widget child;
+
+  const _TapDetector({required this.onTap, required this.child});
+
+  @override
+  State<_TapDetector> createState() => _TapDetectorState();
+}
+
+class _TapDetectorState extends State<_TapDetector> {
+  Offset? _downPosition;
+
+  @override
+  Widget build(BuildContext context) {
+    return Listener(
+      behavior: HitTestBehavior.translucent,
+      onPointerDown: (event) {
+        _downPosition = event.position;
+      },
+      onPointerUp: (event) {
+        if (_downPosition == null) return;
+        final distance = (event.position - _downPosition!).distance;
+        _downPosition = null;
+        // فقط إذا الإصبع ما تحرك أكثر من 20px — ضغطة حقيقية
+        if (distance < 20) {
+          widget.onTap();
+        }
+      },
+      child: widget.child,
+    );
+  }
+}
+
+/// شيت "غير موجود" عندما لا توجد معلومات عن الاسم
+class _NarratorNotFoundSheet extends StatelessWidget {
+  final String searchedName;
+
+  const _NarratorNotFoundSheet({required this.searchedName});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // الاسم المبحوث عنه
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: context.theme.colorScheme.surface.withValues(alpha: .1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Text(
+              '"$searchedName"',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'naskh',
+                color: context.theme.colorScheme.inversePrimary,
+              ),
+              textAlign: TextAlign.center,
+              textDirection: TextDirection.rtl,
+            ),
+          ),
+          const Gap(16),
+          // رسالة عدم التوفر
+          Icon(
+            Icons.person_search_outlined,
+            size: 48,
+            color: context.theme.colorScheme.inversePrimary.withValues(
+              alpha: .4,
+            ),
+          ),
+          const Gap(12),
+          Text(
+            'لا تتوفر معلومات عن هذا الاسم حالياً',
+            style: TextStyle(
+              fontSize: 15,
+              fontFamily: 'naskh',
+              color: context.theme.colorScheme.inversePrimary.withValues(
+                alpha: .7,
+              ),
+            ),
+            textAlign: TextAlign.center,
+            textDirection: TextDirection.rtl,
+          ),
+          const Gap(24),
+        ],
       ),
     );
   }

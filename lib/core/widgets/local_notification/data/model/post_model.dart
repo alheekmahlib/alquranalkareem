@@ -7,6 +7,8 @@ class PostModel {
   final String lottie;
   final bool isImage;
   final String image;
+  final bool isVideo;
+  final String video;
   bool opened;
 
   PostModel({
@@ -18,6 +20,8 @@ class PostModel {
     this.lottie = '',
     this.isImage = false,
     this.image = '',
+    this.isVideo = false,
+    this.video = '',
     this.opened = false,
   });
 
@@ -31,6 +35,8 @@ class PostModel {
       lottie: json['lottie'] ?? '',
       isImage: json['isImage'] ?? false,
       image: json['image'] ?? '',
+      isVideo: json['isVideo'] ?? false,
+      video: json['video'] ?? '',
       opened: json['opened'] ?? false,
     );
   }
@@ -45,6 +51,8 @@ class PostModel {
       'lottie': lottie,
       'isImage': isImage,
       'image': image,
+      'isVideo': isVideo,
+      'video': video,
       'opened': opened,
     };
   }

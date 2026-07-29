@@ -81,6 +81,36 @@ class NotifyHelper {
     });
   }
 
+  /// عرض إشعار **فوري** بدون جدولة.
+  ///
+  /// أنظف من [scheduledNotification] لحالات "وصل رد جديد الآن" حيث لا نحتاج
+  /// لأي تأخير زمني. يعيد استخدام نفس القناة الموجودة.
+  Future<void> showNotification({
+    required int id,
+    required String title,
+    required String body,
+    String? summary,
+    Map<String, String?>? payload,
+  }) async {
+    await AwesomeNotifications().createNotification(
+      content: NotificationContent(
+        id: id,
+        groupKey: 'notifications_channel_ak_notification_group',
+        channelKey: 'notifications_channel_ak_notification',
+        actionType: ActionType.Default,
+        title: title,
+        summary: summary,
+        body: body,
+        payload: payload,
+        customSound: 'resource://raw/notification',
+        wakeUpScreen: true,
+        badge: LocalNotificationsController.instance.unreadCount,
+      ),
+      // بدون schedule = عرض فوري مباشر
+    );
+    log('Notification shown: $title', name: 'NotifyHelper');
+  }
+
   Future<void> cancelNotification(int notificationId) {
     log('Notification ID $notificationId was cancelled', name: 'NotifyHelper');
     return AwesomeNotifications().cancelSchedule(notificationId);

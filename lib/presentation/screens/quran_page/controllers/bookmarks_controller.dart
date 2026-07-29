@@ -30,7 +30,6 @@ class BookmarksController extends GetxController {
         ),
       );
       getBookmarks();
-      sl<QuranController>().update(['pageBookmarked']);
       print('bookmark number: $bookmark');
     } catch (e, stacktrace) {
       // طباعة تفاصيل الخطأ مع الاستثناء والمكدس الكامل
@@ -42,6 +41,8 @@ class BookmarksController extends GetxController {
   Future<void> getBookmarks() async {
     final bookmarks = await DbBookmarkHelper.queryB();
     bookmarksList.assignAll(bookmarks);
+    update(['bookmarked']);
+    quranCtrl.update(['pageBookmarked']);
     quranCtrl.update(['clearSelection']);
   }
 
@@ -54,7 +55,7 @@ class BookmarksController extends GetxController {
       await DbBookmarkHelper.deleteBookmark(bookmarkToDelete);
       // تأكد من إزالة العلامة المرجعية من القائمة المحلية
       bookmarksList.remove(bookmarkToDelete);
-      Get.context!.showCustomErrorSnackBar('deletedBookmark'.tr);
+      Get.context!.showCustomErrorSnackBar('deletedBookmark'.tr, isDone: false);
       sl<QuranController>().update(['pageBookmarked']);
       return true;
     }
@@ -96,6 +97,7 @@ class BookmarksController extends GetxController {
   Future<void> getBookmarksText() async {
     final List<BookmarksAyah> bookmarksText = await DbBookmarkHelper.queryT();
     bookmarkTextList.assignAll(bookmarksText); // تحديث القائمة
+    update(['ayah_bookmarked']);
     quranCtrl.update(['bookmarked']);
     quranCtrl.update(['clearSelection']);
   }
@@ -110,8 +112,11 @@ class BookmarksController extends GetxController {
       if (result > 0) {
         // تأكد من إزالة العلامة المرجعية من القائمة المحلية
         bookmarkTextList.remove(bookmarkToDelete);
-        Get.context!.showCustomErrorSnackBar('deletedBookmark'.tr);
-        sl<QuranController>().update(['bookmarked']);
+        Get.context!.showCustomErrorSnackBar(
+          'deletedBookmark'.tr,
+          isDone: false,
+        );
+        getBookmarksText();
         return true;
       }
     }
@@ -134,23 +139,11 @@ class BookmarksController extends GetxController {
         : false.obs;
   }
 
-  RxList<int> hasBookmark2(int pageIndex) {
-    final ayahsLength = quranCtrl.getCurrentPageAyahsSeparatedForBasmalah(
-      pageIndex,
-    );
-
-    final flattenedAyahs = ayahsLength.expand((ayahList) => ayahList).toList();
-
-    return flattenedAyahs
-        .where(
-          (ayah) => bookmarkTextList.any(
-            (element) => element.ayahUQNumber == ayah.ayahUQNumber,
-          ),
-        )
-        .map((ayah) => ayah.ayahUQNumber)
-        .toList()
-        .obs;
-  }
+  // RxBool hasBookmark2(int ayahUQNumber) {
+  //   return bookmarkTextList
+  //       .firstWhere((a) => a.ayahUQNumber == ayahUQNumber)
+  //       .obs;
+  // }
 
   Future<void> addBookmarkText(
     String surahName,
@@ -172,7 +165,6 @@ class BookmarksController extends GetxController {
         ),
       );
       getBookmarksText();
-      sl<QuranController>().update(['bookmarked']);
       print('bookmark number: $bookmark');
     } catch (e, stacktrace) {
       // طباعة تفاصيل الخطأ مع الاستثناء والمكدس الكامل

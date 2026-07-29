@@ -1,19 +1,21 @@
+part of '../../books.dart';
+
 class Chapter {
   final int chapterNumber;
   final String chapterName;
-  final int PageTotal;
+  final int pageTotal;
 
   Chapter({
     required this.chapterNumber,
     required this.chapterName,
-    required this.PageTotal,
+    required this.pageTotal,
   });
 
   factory Chapter.fromJson(Map<String, dynamic> json) {
     return Chapter(
       chapterNumber: json['Chapter_number'] ?? 0,
       chapterName: json['Chapter_name'] ?? '',
-      PageTotal: json['PageTotle'] ?? 0,
+      pageTotal: json['PageTotle'] ?? 0,
     );
   }
 }

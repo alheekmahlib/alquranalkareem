@@ -64,7 +64,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "azkar": "Athkar",
+  "azkar": "Hisn Al-Muslim",
   "@azkar": {
     "type": "text",
     "placeholders": {}
@@ -110,7 +110,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "about_app3": "۞ A new and user-friendly interface: The application has been designed with a modern and intuitive user interface that makes it easy for users to navigate and access different features.\n۞ Adoption of the King Fahd Complex edition: The application uses the edition of the King Fahd Complex for the printing of the Holy Quran, known for its reliability and perfection, ensuring the accuracy and integrity of the text.\n۞ Interactive and integrated reading: The application provides the possibility of interactive reading with the electronic Quran text, in addition to listening to recitations, and studying and memorizing the Holy Quran easily.\n۞ Flexible reading: Users can read the Quran as if they were reading a paper copy or choose the single verse mode for greater focus.\n۞ Textual search feature: The application contains an instant search feature in the verses of the Quran, with the ability to go directly to the desired page or surah.\n۞ Adding bookmark badges: This feature allows saving pages or verses for easy reference at any time.\n۞ Listening to verses: The application provides the possibility to listen to each verse by a number of famous reciters.\n۞ Interpretation and translation of verses: Users can access the interpretation or translation of each verse, and switch between interpretations as desired.\n۞ Easy navigation between surahs: The application facilitates smooth and quick navigation between surahs.\n۞ Reading stop signs: This feature helps to understand the appropriate places to stop while reading.\n۞ Fortress of the Muslim Dhikr: It is possible to read the complete Fortress of the Muslim Dhikr and navigate between sections easily, with the possibility of adding Dhikr to favorites.\n۞ Changing color styles: The application supports changing color styles, including the dark mode, to improve the reading experience.\n۞ Listening and downloading: It is possible to listen to the surahs or download them for later listening without the need for the internet.\n\nThese features make the \"Holy Quran - Hikma Library\" app a comprehensive tool for anyone wishing to read, learn, and contemplate the Holy Quran in an easy and effective way.",
+  "about_app3": "۞ A modern, easy-to-use interface: A contemporary, intuitive design that makes it easy to navigate and access all features, with a new calendar view and the ability to browse the full yearly calendar.\n۞ Adopting the King Fahd Complex edition: The app relies on the King Fahd Complex Mushaf edition, known for its accuracy and reliability.\n۞ Interactive, comprehensive reading: A flexible reading experience in either Mushaf-page mode or single-ayah mode, with full interaction with the text.\n۞ Advanced listening: Listen to ayahs and surahs with voices of selected reciters, with the feature of showing the current ayahs during playback, plus the ability to listen to each word separately to enhance learning.\n۞ Fast search and navigation: Instant search within Qur'an verses with direct jump to the desired surah or page, and smooth navigation between surahs.\n۞ Tafsir and Islamic library: Access a collection of tafsir and translations, in addition to an integrated Islamic library that includes Hadith and tafsir books.\n۞ Tajweed and its rules: Clear display of tajweed and its rules, with the addition of the Ten Qira'at to broaden understanding of recitation methods.\n۞ Advanced linguistic analysis: Display morphology (tasreef) and i'rab for each word, helping deeper understanding of linguistic meanings in the Qur'an.\n۞ Similar verses: A dedicated feature to display similar verses to make memorization and review easier.\n۞ Reading and memorization management: Add bookmarks for ayahs and pages to return to them anytime.\n۞ Reading stop signs: Clarify waqf signs to help users read correctly.\n۞ Hisn Al-Muslim adhkar: A complete section for reading adhkar with favorites and quick navigation between sections.\n۞ Display customization: Support changing color styles, including dark mode, for a comfortable reading experience.\n۞ Downloading and offline use: Download surahs and listen later without an internet connection.\n\nThese features make the \"Holy Quran - Hikma Library\" app an integrated platform combining reading, listening, tafsir, and learning, offering a rich and easy-to-use spiritual and educational experience.",
   "@about_app3": {
     "type": "text",
     "placeholders": {}
@@ -152,6 +152,11 @@
   },
   "waqfName": "Stop Signs",
   "@waqfName": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tajweedRules": "Tajweed Rules",
+  "@tajweedRules": {
     "type": "text",
     "placeholders": {}
   },
@@ -202,6 +207,16 @@
   },
   "azkarfav": "Athkar Favorite",
   "@azkarfav": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "searchAzkar": "Search for a dhikr...",
+  "@searchAzkar": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noAzkarResults": "No results found",
+  "@noAzkarResults": {
     "type": "text",
     "placeholders": {}
   },
@@ -390,6 +405,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "reader21": "Ali Jaber",
+  "@reader21": {
+    "type": "text",
+    "placeholders": {}
+  },
   "alheekmahlib": "Alheekmah Library",
   "@alheekmahlib": {
     "type": "text",
@@ -420,8 +440,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "tafseer": "Al Tafseer",
-  "@tafseer": {
+  "tafsir": "Al tafsir",
+  "@tafsir": {
     "type": "text",
     "placeholders": {}
   },
@@ -595,6 +615,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "shareAudio": "As audio",
+  "@shareAudio": {
+    "type": "text",
+    "placeholders": {}
+  },
   "shareImageWTrans": "As an image with additional content",
   "@shareImageWTrans": {
     "type": "text",
@@ -690,12 +715,57 @@
     "type": "text",
     "placeholders": {}
   },
-  "quran": "The Holy Quran",
+  "surah": "Surah",
+  "@surah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "chooseSurah": "Choose Surah",
+  "@chooseSurah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "segments": "Segments",
+  "@segments": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addSegment": "Add Segment",
+  "@addSegment": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "repeatCount": "Repeat Count",
+  "@repeatCount": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "sleepTimer": "Sleep Timer",
+  "@sleepTimer": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hour": "Hour",
+  "@hour": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "minutes": "Minutes",
+  "@minutes": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "of": "of",
+  "@of": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "quran": "Holy Quran",
   "@quran": {
     "type": "text",
     "placeholders": {}
   },
-  "quranAudio": "Listening to Quran",
+  "quranAudio": "Audio Mushaf",
   "@quranAudio": {
     "type": "text",
     "placeholders": {}
@@ -1155,7 +1225,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Fixed surah download issue.\n۞ General improvements in app performance and stability.",
+  "What'sNewDetails10": "۞ Added a 'Madad' section to serve as an assistant for students seeking knowledge.\nThe 'Madad' model presents results and information extracted from books and Islamic references, with the ability to navigate to the original source and read the full topic from the linked book.\nThe model aims to facilitate search and access to content.\n۞ Added new sections to the Islamic library with improved search and an improved user experience.\n۞ Added a feature to change the font family.\n۞ Added a feature to send your feedback or errors you notice in the app, or features you would like to see in the app.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
@@ -1276,11 +1346,201 @@
   "month": "Month",
   "hijri": "Hijri",
   "Sun": "Sun",
+  "@Sun": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Mon": "Mon",
+  "@Mon": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Tue": "Tue",
+  "@Tue": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Wed": "Wed",
+  "@Wed": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Thu": "Thu",
+  "@Thu": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Fri": "Fri",
+  "@Fri": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Sat": "Sat",
-  "manager_ayah_downloads": "Manage Ayah Downloads"
+  "@Sat": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "manager_ayah_downloads": "Manage Ayah Downloads",
+  "load_error": "Failed to load data for this word.",
+  "no_data": "No data available for this word.",
+  "recitations": "Recitations",
+  "tasreef": "Conjugation",
+  "eerab": "I'rab",
+  "unavailableDataTemplate": "@kind data is not downloaded on this device",
+  "@unavailableDataTemplate": {
+    "type": "text",
+    "placeholders": {
+      "kind": {}
+    }
+  },
+  "mushafOrthographicMarks": "Mushaf Diacritics",
+  "bookRemovedFromLastRead": "Book removed from Last Read",
+  "hadiths": "Hadiths",
+  "sixthBooks": "The Six Books",
+  "ninthBooks": "The Nine Books",
+  "noHadithBooks": "No Hadith books are downloaded on this device.",
+  "noTafsirBooks": "No Tafsir books are downloaded on this device.",
+  "noBooks": "No books.",
+  "bookJuz": "Book Parts",
+  "downloadBookFirstToSeeTheContents": "Please download the book first to view the contents",
+  "chapter": "Chapter",
+  "goToStartOfJuz": "Go to the start of the part",
+  "noBooksReadedYet": "You haven't read any book yet.",
+  "noBooksFoundForSearch": "No books found.",
+  "islamicLibrary": "Islamic Library",
+  "tajweed": "With Tajweed",
+  "useEnglishNumbers": "Use English numbers",
+  "changeTafsir": "Change Tafsir",
+  "mutashabihat": "Similar verses",
+  "no_mutashabihat": "No similar phrases found for this ayah",
+  "browse_mutashabihat": "Browse similar verses",
+  "mutashabihat_in": "Similar verses in",
+  "repeated": "Repetition",
+  "times": "times",
+  "surahs": "Surahs",
+  "ayah": "Ayah",
+  "tajweedUnavailableText": "Tajweed rules data is not downloaded.",
+  "tajweedSurahNumberErrorText": "Failed to determine the surah number",
+  "tajweedLoadErrorText": "Failed to load Tajweed rules data",
+  "tajweedNoDataText": "No Tajweed data available for this ayah.",
+  "twoDays": "Two days",
+  "searchInBook": "Search in the book",
+  "autoScrollSettings": "Auto scroll settings",
+  "stopCondition": "Stop at:",
+  "pageCount": "Page count:",
+  "speed": "Speed:",
+  "slow": "Slow",
+  "fast": "Fast",
+  "nextHizb": "Next Hizb",
+  "nextJuz": "Next Juz",
+  "manual": "Manual",
+  "tabsira": "Tabsira",
+  "readProgress": "Reading progress",
+  "tableOfContents": "Table of Contents",
+  "downloadError": "An error occurred during download",
+  "aqeedah": "Aqeedah",
+  "midadDescription": "Your companion for seeking knowledge",
+  "downloadSections": "Download the sections you want to search in",
+  "quranTafsir": "Quran & Tafsir",
+  "quranTafsirDescription": "Quranic verses with five of the most famous Tafsir books",
+  "hadith": "Hadith",
+  "hadithsDescription": "Prophetic hadiths from the most famous hadith books: Sahih al-Bukhari, Sahih Muslim, Sunan Abi Dawud, Jami' at-Tirmidhi, Sunan an-Nasa'i, and Sunan Ibn Majah",
+  "aqeedahDescription": "Books on Aqeedah, Tawheed, and Iman",
+  "fiqh": "Fiqh",
+  "fiqhDescription": "Books on Islamic jurisprudence and rulings",
+  "seerah": "Seerah & History",
+  "seerahDescription": "Biography of the Prophet ﷺ and Islamic history",
+  "noResultsFound": "I couldn't find anything about this topic",
+  "tryDifferentQuery": "Try rephrasing your question or using different words",
+  "startSearchPrompt": "Start searching for any Islamic topic...",
+  "initializingMidad": "Initializing Midad...",
+  "initializingMidadDesc": "This may take a few minutes the first time while the model and data are being prepared.",
+  "askMidad": "Ask Midad...",
+  "askNow": "Ask now",
+  "midadNote": "The 'Midad' model presents results and information extracted from Islamic books and references, with the ability to navigate to the original source and read the full topic from the associated book.\nThe model aims to facilitate research and access to Islamic content, and is not intended for issuing fatwas or religious rulings.\nFor religious matters and fatwas, please refer to qualified scholars.",
+  "sections": "Sections",
+  "all": "All",
+  "none_sections": "No sections",
+  "midadWelcome": "Midad — Your Ink for Seeking Knowledge\n(Smart search is still in development. We appreciate your understanding as we continue to improve it.)",
+  "midadWelcomeDesc": "A smart search engine across Islamic knowledge sources, helping you find what you need from the Quran, Tafsir, Hadith, and Islamic books.",
+  "midadSelectSections": "Choose a section to search in to get started.",
+  "sharedFiles": "Shared Files",
+  "sharedFilesDesc": "Core search model files — must be downloaded first",
+  "sharedFilesReady": "Search model files downloaded ✓",
+  "sharedFilesRequired": "Shared files must be downloaded before any section",
+  "sharedFilesDownloadFailed": "Shared files download failed, please try again",
+  "midadLaterHint": "You can download additional sections later from Settings.",
+  "downloadAll": "Download All",
+  "chatHistory": "Chat History",
+  "noChatHistory": "No previous chats",
+  "clearAllHistory": "Clear All",
+  "deleteChat": "Delete",
+  "resultCount": "results",
+  "hours": "hours",
+  "days": "days",
+  "subjectSearch": "Subject Search",
+  "showMore": "Show More",
+  "result": "result",
+  "searchingText": "Searching through chapter titles and the contents of downloaded books. Results will appear as soon as they are found.",
+  "sortBooks": "Sort Books",
+  "sortDeathYear": "Author's Death Year",
+  "sortNameAlpha": "Book Name (A-Z)",
+  "sortAuthorAlpha": "Author Name (A-Z)",
+  "sortDefault": "Default Order",
+  "ascending": "Ascending",
+  "descending": "Descending",
+  "fontFamilyTitle": "Choose Font",
+  "playpenFont": "Playpen",
+  "naskhFont": "Naskh",
+  "kufiFont": "Kufi",
+  "asul_el-feqh": "Principles of Jurisprudence",
+  "eulum_alfiqh_wal_awaeid_alfiqhia": "Jurisprudence Sciences and Maxims",
+  "fegh_hanafi": "Hanafi Jurisprudence",
+  "fegh_maliki": "Maliki Jurisprudence",
+  "fegh_shafii": "Shafi'i Jurisprudence",
+  "fegh_hanbali": "Hanbali Jurisprudence",
+  "general_fegh": "General Jurisprudence",
+  "fegh_masayil": "Jurisprudential Issues",
+  "alsiyasat_alshareiat_walqada": "Islamic Politics and Judiciary",
+  "alfarayid_walwasaya": "Inheritance and Wills",
+  "alraqayiq_waladab_waladhkar": "Asceticism, Manners and Supplications",
+  "alsiyrat_alnabawia": "Prophetic Biography",
+  "shareRange": "Share multiple verses",
+  "@shareRange": {},
+  "fromAyah": "From verse",
+  "@fromAyah": {},
+  "toAyah": "To verse",
+  "@toAyah": {},
+  "history": "History",
+  "meaning": "Word meaning",
+  "booksCount": "Number of books",
+  "altarajim_waltabaqat": "Biographies and Generations",
+  "feedback": "Feedback",
+  "feedback_subtitle": "Share your feedback or report an issue",
+  "send_feedback": "Send Feedback",
+  "feedback_message_hint": "Write your message here...",
+  "feedback_contact_optional": "Contact email (optional)",
+  "feedback_sent_success": "Your feedback was sent successfully!",
+  "feedback_sent_error": "Could not send feedback. Please try again.",
+  "my_feedback": "My Feedback",
+  "no_feedback_yet": "You haven't sent any feedback yet",
+  "feedback_reply_hint": "Write a follow-up...",
+  "feedback_reply_title": "Admin Reply",
+  "feedback_status_planned": "Planned",
+  "feedback_status_in_progress": "In Progress",
+  "feedback_status_complete": "Complete",
+  "feedback_admin_role": "Admin",
+  "feedback_you_role": "Me",
+  "characters_remaining": "characters remaining",
+  "feedback_new_reply": "New reply to your feedback",
+  "retry": "Retry",
+  "feedback_pick_images": "Photos",
+  "feedback_pick_video": "Video",
+  "feedback_remove_file": "Remove",
+  "feedback_max_files": "Maximum 5 files",
+  "feedback_file_too_large": "File size is too large",
+  "feedback_invalid_type": "Unsupported file type",
+  "feedback_uploading": "Uploading...",
+  "feedback_add_media": "Add media",
+  "shuruh_al-hadiths": "Hadith commentaries"
 }

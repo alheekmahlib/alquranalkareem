@@ -1,6 +1,6 @@
 part of '../events.dart';
 
-class EventController extends GetxController {
+class EventController extends GetxController with WidgetsBindingObserver {
   static EventController get instance => Get.isRegistered<EventController>()
       ? Get.find<EventController>()
       : Get.put<EventController>(EventController());
@@ -17,20 +17,69 @@ class EventController extends GetxController {
   int? startYear;
   int? endYear;
   RxInt adjustHijriDays = 0.obs;
-  BoxController boxController = BoxController();
   Rx<HijriDate> calenderMonth = HijriDate.now().obs;
+  late final SheetController controller;
+  late final SheetScrollController scrollController;
+  Orientation _lastOrientation = Orientation.portrait;
+  final tabBarController = FlexibleSheetController();
+
+  String? _lastInitializedIntlLocale;
+
+  String get gregorianMonthFormat {
+    final locale = Get.locale?.languageCode ?? 'ar';
+    if (_lastInitializedIntlLocale != locale) {
+      unawaited(_ensureDateFormattingInitialized());
+    }
+    try {
+      return DateFormat('MMM', locale).format(now);
+    } catch (_) {
+      return DateFormat('MMM', 'en').format(now);
+    }
+  }
+
+  HijriDate get hijriMin => hijriNow.subtractDays(7);
+  HijriDate get hijriMax => hijriNow.addDays(7);
+  String get languageCode =>
+      Get.locale?.languageCode == 'ar' &&
+          GeneralController.instance.state.isUseEnglishNumbers.value
+      ? 'en'
+      : Get.locale?.languageCode ?? 'ar';
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
+    controller = SheetController();
+    scrollController = SheetScrollController();
+    WidgetsBinding.instance.addObserver(this);
+
+    unawaited(_ensureDateFormattingInitialized());
+
     adjustHijriDays.value = box.read('adjustHijriDays') ?? 0;
     selectedDate = HijriDate.now();
     initializeMonths();
-    pageController = PageController(initialPage: selectedDate.hMonth - 1);
+    final context = Get.context;
+    if (context != null) {
+      _lastOrientation = MediaQuery.orientationOf(context);
+    }
+    pageController = PageController(
+      initialPage: selectedDate.hMonth - 1,
+      viewportFraction: _lastOrientation == Orientation.portrait ? 0.38 : 1,
+    );
+    await loadJson();
     Future.delayed(const Duration(seconds: 20), () async {
-      await loadJson();
       await ramadhanOrEidGreeting();
     });
+  }
+
+  Future<void> _ensureDateFormattingInitialized() async {
+    final locale = Get.locale?.languageCode ?? 'ar';
+    if (_lastInitializedIntlLocale == locale) return;
+    try {
+      await initializeDateFormatting(locale);
+      _lastInitializedIntlLocale = locale;
+    } catch (_) {
+      // Ignore: we'll fall back to 'en' in formatting.
+    }
   }
 
   void initializeMonths() {
@@ -286,21 +335,37 @@ class EventController extends GetxController {
   bool get isLastDayOfMonth => hijriNow.hDay == getLengthOfMonth ? true : false;
 
   @override
+  void didChangeMetrics() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!Get.isRegistered<EventController>()) return;
+      if (pageController.hasClients) {
+        final orientation = MediaQuery.orientationOf(Get.context!);
+        if (orientation != _lastOrientation) {
+          _lastOrientation = orientation;
+          final currentPage =
+              pageController.page?.round() ?? (selectedDate.hMonth - 1);
+          pageController.dispose();
+          pageController = PageController(
+            initialPage: currentPage,
+            viewportFraction: orientation == Orientation.portrait ? 0.38 : 1,
+          );
+          update();
+        }
+      }
+    });
+  }
+
+  @override
   void onClose() {
-    pageController.dispose();
+    WidgetsBinding.instance.removeObserver(this);
     super.onClose();
+    pageController.dispose();
+    controller.dispose();
+    scrollController.dispose();
   }
 
   String getWeekdayShortName(int index) {
-    final weekdays = [
-      'Sunday',
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-    ];
+    final weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     return weekdays[index].tr;
   }
 
@@ -346,6 +411,7 @@ class EventController extends GetxController {
   void increaseDay() {
     adjustHijriDays.value += 1;
     box.write('adjustHijriDays', adjustHijriDays.value);
+    HomeWidgetService.instance.updateHijriDate();
     initializeMonths();
     update();
   }
@@ -353,6 +419,7 @@ class EventController extends GetxController {
   void decreaseDay() {
     adjustHijriDays.value -= 1;
     box.write('adjustHijriDays', adjustHijriDays.value);
+    HomeWidgetService.instance.updateHijriDate();
     initializeMonths();
     update();
   }

@@ -21,9 +21,12 @@ class ApiClient {
   ApiClient._internal()
     : _dio = Dio(
         BaseOptions(
-          baseUrl: ApiConstants.baseUrl, // يمكنك تحديد baseUrl هنا
+          baseUrl: ApiConstants.baseUrl,
           connectTimeout: const Duration(seconds: 5),
           receiveTimeout: const Duration(seconds: 5),
+          validateStatus: (status) {
+            return status != null && status < 500;
+          },
         ),
       );
 
@@ -33,87 +36,197 @@ class ApiClient {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? data,
     Map<String, String>? headers,
+    Options? options,
+    bool? printResponse = false,
+    void Function(int, int)? onReceiveProgress,
     String? token,
-    Duration? connectTimeoutOverride,
-    Duration? receiveTimeoutOverride,
-    int retryCount = 0,
+    String? fallbackUrl,
   }) async {
-    final originalConnectTimeout = _dio.options.connectTimeout;
-    final originalReceiveTimeout = _dio.options.receiveTimeout;
     try {
       final Map<String, String> finalHeaders = headers ?? {};
       if (token != null) {
         finalHeaders['Authorization'] = 'Bearer $token';
       }
 
-      if (connectTimeoutOverride != null || receiveTimeoutOverride != null) {
-        _dio.options = _dio.options.copyWith(
-          connectTimeout: connectTimeoutOverride ?? originalConnectTimeout,
-          receiveTimeout: receiveTimeoutOverride ?? originalReceiveTimeout,
-        );
-      }
-
-      log(
-        'Requesting $method $endpoint (retry=$retryCount)',
-        name: 'ApiClient',
-      );
+      // log('Requesting $method $endpoint', name: 'ApiClient');
+      // print('Requesting $method $endpoint');
       final Response response = await _dio.request(
         endpoint,
-        options: Options(
-          method: method.name.toUpperCase(),
-          headers: finalHeaders,
-          sendTimeout: connectTimeoutOverride,
-          receiveTimeout: receiveTimeoutOverride,
-        ),
+        options:
+            options ??
+            Options(method: method.name.toUpperCase(), headers: finalHeaders),
         queryParameters: queryParameters,
         data: data,
+        onReceiveProgress: onReceiveProgress,
       );
 
-      // 404 => نعيد قائمة فارغة بدلاً من فشل (ملف JSON غير موجود أو فارغ على GitHub)
-      if (response.statusCode == 404) {
-        log('404 for $endpoint -> empty list returned', name: 'ApiClient');
-        return const Right([]);
+      if (printResponse!) {
+        // log('Response received: ${response.data}', name: 'ApiClient');
+        log('Response received: ${response.data}', name: 'ApiClient');
       }
-
-      log('Response received: ${response.data}', name: 'ApiClient');
       return Right(response.data);
     } on DioException catch (e) {
-      log('DioException occurred: ${e.message}', name: 'ApiClient');
-      final type = e.type;
-      final isTimeout =
-          type == DioExceptionType.connectionTimeout ||
-          type == DioExceptionType.receiveTimeout;
-      if (isTimeout) {
-        log(
-          'Timeout details: connect=${_dio.options.connectTimeout} receive=${_dio.options.receiveTimeout}',
-          name: 'ApiClient',
-        );
-        if (retryCount == 0) {
-          log('Retrying with extended timeouts...', name: 'ApiClient');
-          return request(
-            endpoint: endpoint,
-            method: method,
-            queryParameters: queryParameters,
-            data: data,
-            headers: headers,
-            token: token,
-            connectTimeoutOverride: const Duration(seconds: 12),
-            receiveTimeoutOverride: const Duration(seconds: 12),
-            retryCount: 1,
-          );
-        }
+      // log(
+      log(
+        'DioException occurred: ${e.message}, Status Code: ${e.response?.statusCode}',
+        name: 'ApiClient',
+      );
+
+      // إذا فشل الطلب ووجد رابط بديل، حاول GitLab
+      if (fallbackUrl != null) {
+        return _requestFallback(fallbackUrl, method, headers);
       }
+
       return Left(ErrorHandler.handle(e).failure);
     } catch (e) {
+      // log('Unexpected error: $e', name: 'ApiClient');
       log('Unexpected error: $e', name: 'ApiClient');
-      return Left(DataSource.DEFAULT.getFailure());
-    } finally {
-      if (connectTimeoutOverride != null || receiveTimeoutOverride != null) {
-        _dio.options = _dio.options.copyWith(
-          connectTimeout: originalConnectTimeout,
-          receiveTimeout: originalReceiveTimeout,
-        );
+
+      if (fallbackUrl != null) {
+        return _requestFallback(fallbackUrl, method, headers);
       }
+
+      return Left(DataSource.DEFAULT.getFailure());
+    }
+  }
+
+  /// رفع ملف عبر `multipart/form-data` (لرفع الوسائط لـ R2 مثلاً).
+  ///
+  /// يُرجع `Either<Failure, dynamic>` كالعادة — الرابط يكون في `response.data['url']`.
+  /// ملاحظة: `_dio` مضبوط على baseUrl خاص، لكن Dio يتجاهله عند تمرير URL مطلق في `endpoint`.
+  Future<Either<Failure, dynamic>> uploadFile({
+    required String endpoint,
+    required FormData data,
+    Map<String, String>? headers,
+    void Function(int sent, int total)? onSendProgress,
+    bool? printResponse = false,
+  }) async {
+    try {
+      // print('Uploading to $endpoint');
+      final Response response = await _dio.post(
+        endpoint,
+        data: data,
+        options: Options(headers: headers),
+        onSendProgress: onSendProgress,
+      );
+      if (printResponse!) {
+        log('Upload response received: ${response.data}', name: 'ApiClient');
+      }
+      return Right(response.data);
+    } on DioException catch (e) {
+      log(
+        'Upload DioException: ${e.message}, Status Code: ${e.response?.statusCode}',
+        name: 'ApiClient',
+      );
+      return Left(ErrorHandler.handle(e).failure);
+    } catch (e) {
+      log('Upload error: $e', name: 'ApiClient');
+      return Left(DataSource.DEFAULT.getFailure());
+    }
+  }
+
+  /// طلب بديل من GitLab عند فشل GitHub
+  Future<Either<Failure, dynamic>> _requestFallback(
+    String fallbackUrl,
+    HttpMethod method,
+    Map<String, String>? headers,
+  ) async {
+    try {
+      // log('Trying fallback URL: $fallbackUrl', name: 'ApiClient');
+      log('Trying fallback URL: $fallbackUrl', name: 'ApiClient');
+      final response = await Dio().get(
+        fallbackUrl,
+        options: Options(headers: headers),
+      );
+      // log('Fallback request succeeded', name: 'ApiClient');
+      log('Fallback request succeeded', name: 'ApiClient');
+      return Right(response.data);
+    } on DioException catch (e) {
+      // log('Fallback also failed: ${e.message}', name: 'ApiClient');
+      log('Fallback also failed: ${e.message}', name: 'ApiClient');
+      return Left(ErrorHandler.handle(e).failure);
+    } catch (e) {
+      // log('Fallback error: $e', name: 'ApiClient');
+      log('Fallback error: $e', name: 'ApiClient');
+      return Left(DataSource.DEFAULT.getFailure());
+    }
+  }
+
+  /// تحميل ملف من رابط خارجي مع تتبع التقدم ودعم الرابط البديل
+  Future<Either<Failure, dynamic>> downloadFile({
+    required String url,
+    void Function(int received, int total)? onProgress,
+    Duration? timeout,
+    String? fallbackUrl,
+  }) async {
+    try {
+      // log('Downloading from: $url', name: 'ApiClient');
+      log('Downloading from: $url', name: 'ApiClient');
+
+      final response = await Dio().get(
+        url,
+        options: Options(receiveTimeout: timeout ?? const Duration(minutes: 5)),
+        onReceiveProgress: (received, total) {
+          if (total != -1) {
+            onProgress?.call(received, total);
+          }
+        },
+      );
+
+      // log('Download completed', name: 'ApiClient');
+      log('Download completed', name: 'ApiClient');
+      return Right(response.data);
+    } on DioException catch (e) {
+      // log('Download failed: ${e.message}', name: 'ApiClient');
+      log('Download failed: ${e.message}', name: 'ApiClient');
+
+      // إذا فشل التحميل ووجد رابط بديل، حاول منه
+      if (fallbackUrl != null) {
+        return _downloadFallback(fallbackUrl, onProgress, timeout);
+      }
+
+      return Left(ErrorHandler.handle(e).failure);
+    } catch (e) {
+      // log('Download error: $e', name: 'ApiClient');
+      log('Download error: $e', name: 'ApiClient');
+
+      if (fallbackUrl != null) {
+        return _downloadFallback(fallbackUrl, onProgress, timeout);
+      }
+
+      return Left(DataSource.DEFAULT.getFailure());
+    }
+  }
+
+  /// تحميل بديل من GitLab عند فشل GitHub
+  Future<Either<Failure, dynamic>> _downloadFallback(
+    String fallbackUrl,
+    void Function(int, int)? onProgress,
+    Duration? timeout,
+  ) async {
+    try {
+      // log('Trying fallback download: $fallbackUrl', name: 'ApiClient');
+      log('Trying fallback download: $fallbackUrl', name: 'ApiClient');
+      final response = await Dio().get(
+        fallbackUrl,
+        options: Options(receiveTimeout: timeout ?? const Duration(minutes: 5)),
+        onReceiveProgress: (received, total) {
+          if (total != -1) {
+            onProgress?.call(received, total);
+          }
+        },
+      );
+      // log('Fallback download completed', name: 'ApiClient');
+      log('Fallback download completed', name: 'ApiClient');
+      return Right(response.data);
+    } on DioException catch (e) {
+      // log('Fallback download also failed: ${e.message}', name: 'ApiClient');
+      log('Fallback download also failed: ${e.message}', name: 'ApiClient');
+      return Left(ErrorHandler.handle(e).failure);
+    } catch (e) {
+      // log('Fallback download error: $e', name: 'ApiClient');
+      log('Fallback download error: $e', name: 'ApiClient');
+      return Left(DataSource.DEFAULT.getFailure());
     }
   }
 }

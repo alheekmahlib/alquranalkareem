@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 
 import '../../../../presentation/controllers/settings_controller.dart';
 import '../../utils/constants/shared_preferences_constants.dart';
+import '../home_widget_service.dart';
 import '../services_locator.dart';
 import 'app_constants.dart';
 import 'language_models.dart';
@@ -23,6 +24,8 @@ class LocalizationController extends GetxController implements GetxService {
   List<LanguageModel> _languages = [];
   Locale get locale => _locale;
   List<LanguageModel> get languages => _languages;
+
+  bool get isArabic => _locale.languageCode == 'ar';
 
   void loadCurrentLanguage() {
     // قراءة لغة التطبيق المحفوظة من التخزين
@@ -91,5 +94,7 @@ class LocalizationController extends GetxController implements GetxService {
     await box.write(LANG, lang.languageCode);
     await box.write(LANG_NAME, lang.languageName);
     sl<SettingsController>().languageName.value = lang.languageName;
+    HomeWidgetService.instance.updateTextData();
+    HomeWidgetService.instance.updateHijriDate();
   }
 }

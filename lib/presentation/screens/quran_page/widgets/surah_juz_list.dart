@@ -8,13 +8,14 @@ class SurahJuzList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15.0),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Container(
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.primaryContainer,
         ),
         child: DefaultTabController(
-            length: 2,
+          length: 2,
+          child: ClipRect(
             child: Column(
               children: [
                 const Gap(6),
@@ -23,52 +24,37 @@ class SurahJuzList extends StatelessWidget {
                   padding: const EdgeInsets.all(4.0),
                   margin: const EdgeInsets.symmetric(horizontal: 8.0),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.primary,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(8),
-                    ),
+                    color: Theme.of(
+                      context,
+                    ).primaryColorDark.withValues(alpha: .3),
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
                   ),
                   child: TabBar(
-                    unselectedLabelColor: Colors.grey,
+                    unselectedLabelColor:
+                        context.theme.colorScheme.inversePrimary,
                     indicatorSize: TabBarIndicatorSize.tab,
                     dividerColor: Colors.transparent,
-                    labelStyle: TextStyle(
-                      color: Theme.of(context).colorScheme.surface,
-                      fontFamily: 'kufi',
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    unselectedLabelStyle: TextStyle(
-                      color: Theme.of(context).colorScheme.surface,
-                      fontFamily: 'kufi',
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    labelStyle: AppTextStyles.titleSmall(),
+                    unselectedLabelStyle: AppTextStyles.titleSmall(),
                     indicator: BoxDecoration(
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(8),
-                        ),
-                        color: Theme.of(context).colorScheme.primaryContainer),
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      color: Theme.of(context).colorScheme.primaryContainer,
+                    ),
                     tabs: [
-                      Tab(
-                        text: 'quran_sorah'.tr,
-                      ),
-                      Tab(
-                        text: 'allJuz'.tr,
-                      ),
+                      Tab(text: 'quran_sorah'.tr),
+                      Tab(text: 'allJuz'.tr),
                     ],
                   ),
                 ),
                 Expanded(
                   child: TabBarView(
-                    children: <Widget>[
-                      QuranSurahList(),
-                      QuranJuz(),
-                    ],
+                    children: <Widget>[QuranSurahList(), QuranJuzList()],
                   ),
-                )
+                ),
               ],
-            )),
+            ),
+          ),
+        ),
       ),
     );
   }

@@ -39,40 +39,40 @@ class ShareController extends GetxController {
     }
   }
 
-  Future<void> shareButtonOnTap(
-    BuildContext context,
-    int selectedIndex,
-    int verseUQNumber,
-    int surahNumber,
-    int verseNumber,
-    int pageNumber,
-  ) async {
-    sl<TafsirAndTranslateController>().shareTransValue.value == selectedIndex;
-    box.write(SHARE_TRANSLATE_VALUE, selectedIndex);
-    box.write(CURRENT_TRANSLATE, shareTranslateName[selectedIndex]);
-    currentTranslate.value = shareTranslateName[selectedIndex];
-    QuranLibrary().changeTafsirSwitch(selectedIndex, pageNumber: pageNumber);
-    await QuranLibrary().fetchTranslation();
-    sl<TafsirAndTranslateController>().update();
-    Get.back();
-  }
+  // Future<void> shareButtonOnTap(
+  //   BuildContext context,
+  //   int selectedIndex,
+  //   int verseUQNumber,
+  //   int surahNumber,
+  //   int verseNumber,
+  //   int pageNumber,
+  // ) async {
+  //   sl<TafsirAndTranslateController>().shareTransValue.value == selectedIndex;
+  //   box.write(SHARE_TRANSLATE_VALUE, selectedIndex);
+  //   box.write(CURRENT_TRANSLATE, shareTranslateName[selectedIndex]);
+  //   currentTranslate.value = shareTranslateName[selectedIndex];
+  //   QuranLibrary().changeTafsirSwitch(selectedIndex, pageNumber: pageNumber);
+  //   await QuranLibrary().fetchTranslation();
+  //   sl<TafsirAndTranslateController>().update();
+  //   Get.back();
+  // }
 
-  void fetchTafseerSaadi(int surahNum, int ayahNum, int ayahUQNum) {
-    if (isTafseer.value &&
-        sl<TafsirAndTranslateController>().shareTransValue.value == 8) {
-      // sl<TafsirController>().dBName =
-      //     sl<TafsirController>().saadiClient?.database;
-      // sl<TafsirController>().selectedDBName = MufaserName.saadi.name;
-      // sl<TafsirController>()
-      //     .fetchTafsirPage(sl<QuranController>().state.currentPageNumber.value);
-      // sl<TafsirController>().ayahsTafseer(ayahUQNum, surahNum);
-    }
-  }
+  // void fetchTafseerSaadi(int surahNum, int ayahNum, int ayahUQNum) {
+  //   if (isTafseer.value &&
+  //       sl<TafsirAndTranslateController>().shareTransValue.value == 8) {
+  //     // sl<TafsirController>().dBName =
+  //     //     sl<TafsirController>().saadiClient?.database;
+  //     // sl<TafsirController>().selectedDBName = MufaserName.saadi.name;
+  //     // sl<TafsirController>()
+  //     //     .fetchTafsirPage(sl<QuranController>().state.currentPageNumber.value);
+  //     // sl<TafsirController>().ayahsTafseer(ayahUQNum, surahNum);
+  //   }
+  // }
 
   Future<void> shareText(
     String verseText,
     surahName,
-    int verseNumber,
+    String verseNumber,
     int pageNumber,
     int ayahUQNumber,
   ) async {
@@ -80,7 +80,7 @@ class ShareController extends GetxController {
     final params = ShareParams(
       text:
           '﴿$verseText﴾ '
-          '[$surahName-'
+          '[$surahName'
           '$verseNumber]\n\n'
           '${'appName'.tr}\n'
           '${ApiConstants.quranShareUrl}$pageNumber&ayah=$ayahUQNumber',
@@ -131,5 +131,85 @@ class ShareController extends GetxController {
     );
 
     await SharePlus.instance.share(params);
+  }
+
+  Future<void> shareAudio({
+    required String surahName,
+    required String verseText,
+    required int surahNumber,
+    required int ayahNumber,
+    required int pageNumber,
+    required int ayahUQNumber,
+  }) async {
+    final audioService = sl<AyahAudioShareService>();
+    try {
+      final file = await audioService.getAyahAudioFile(
+        surahNumber: surahNumber,
+        ayahNumber: ayahNumber,
+        ayahUQNumber: ayahUQNumber,
+      );
+      if (file == null) return;
+
+      final directory = await getTemporaryDirectory();
+      final fileName =
+          '${surahName}_${'ayah'.tr}_${arabicNumber.convert(ayahNumber)}.mp3';
+      final shareFile = await file.copy('${directory.path}/$fileName');
+
+      Get.back();
+      final shareText =
+          '﴿$verseText﴾ '
+          '[$surahName-'
+          '$ayahNumber]\n\n'
+          '${'appName'.tr}\n'
+          '${ApiConstants.quranShareUrl}$pageNumber&ayah=$ayahUQNumber';
+      final params = ShareParams(
+        files: [XFile(shareFile.path, mimeType: 'audio/mpeg')],
+        text: shareText,
+        subject: '$surahName - ${'ayah'.tr} $ayahNumber',
+      );
+
+      await SharePlus.instance.share(params);
+    } on DioException {
+      Get.back();
+      Get.context!.showCustomErrorSnackBar('noInternet'.tr, isDone: false);
+    }
+  }
+
+  /// مشاركة صوت مجموعة آيات — يحمّل كل آية ويدمجها في ملف MP3 واحد
+  Future<void> shareAudioRange({
+    required List<AyahModel> ayahs,
+    required String surahName,
+    required int surahNumber,
+    required int pageNumber,
+  }) async {
+    final audioService = sl<AyahAudioShareService>();
+    try {
+      final file = await audioService.getAyahsAudioFileMerged(
+        surahNumber: surahNumber,
+        ayahs: ayahs,
+      );
+      if (file == null) return;
+
+      final from = ayahs.first.ayahNumber;
+      final to = ayahs.last.ayahNumber;
+      final directory = await getTemporaryDirectory();
+      final fileName =
+          '${surahName}_${'ayah'.tr}_${arabicNumber.convert(from)}-${arabicNumber.convert(to)}.mp3';
+      final shareFile = await file.copy('${directory.path}/$fileName');
+
+      Get.back();
+      final text = ayahs.map((a) => a.text).join(' ');
+      final lastUQ = ayahs.last.ayahUQNumber;
+      final params = ShareParams(
+        files: [XFile(shareFile.path, mimeType: 'audio/mpeg')],
+        text:
+            '﴿$text﴾ [$surahName-$from:$to]\n\n${'appName'.tr}\n${ApiConstants.quranShareUrl}$pageNumber&ayah=$lastUQ',
+        subject: '$surahName - ${'ayah'.tr} $from:$to',
+      );
+      await SharePlus.instance.share(params);
+    } on DioException {
+      Get.back();
+      Get.context!.showCustomErrorSnackBar('noInternet'.tr, isDone: false);
+    }
   }
 }

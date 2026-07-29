@@ -76,7 +76,7 @@ class $KhatmahsTable extends Khatmahs with TableInfo<$KhatmahsTable, Khatmah> {
     defaultConstraints: GeneratedColumn.constraintIsAlways(
       'CHECK ("is_completed" IN (0, 1))',
     ),
-    defaultValue: Constant(false),
+    defaultValue: const Constant(false),
   );
   static const VerificationMeta _daysCountMeta = const VerificationMeta(
     'daysCount',
@@ -88,7 +88,7 @@ class $KhatmahsTable extends Khatmahs with TableInfo<$KhatmahsTable, Khatmah> {
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    defaultValue: Constant(30),
+    defaultValue: const Constant(30),
   );
   static const VerificationMeta _isTahzibSahabahMeta = const VerificationMeta(
     'isTahzibSahabah',
@@ -103,7 +103,7 @@ class $KhatmahsTable extends Khatmahs with TableInfo<$KhatmahsTable, Khatmah> {
     defaultConstraints: GeneratedColumn.constraintIsAlways(
       'CHECK ("is_tahzib_sahabah" IN (0, 1))',
     ),
-    defaultValue: Constant(false),
+    defaultValue: const Constant(false),
   );
   static const VerificationMeta _colorMeta = const VerificationMeta('color');
   @override
@@ -732,7 +732,7 @@ class $KhatmahDaysTable extends KhatmahDays
     defaultConstraints: GeneratedColumn.constraintIsAlways(
       'CHECK ("is_completed" IN (0, 1))',
     ),
-    defaultValue: Constant(false),
+    defaultValue: const Constant(false),
   );
   static const VerificationMeta _startPageMeta = const VerificationMeta(
     'startPage',
@@ -1151,7 +1151,7 @@ final class $$KhatmahsTableReferences
     final manager = $$KhatmahDaysTableTableManager(
       $_db,
       $_db.khatmahDays,
-    ).filter((f) => f.khatmahId.id($_item.id));
+    ).filter((f) => f.khatmahId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_khatmahDaysRefsTable($_db));
     return ProcessedTableManager(
@@ -1487,7 +1487,11 @@ class $$KhatmahsTableTableManager
               getPrefetchedDataCallback: (items) async {
                 return [
                   if (khatmahDaysRefs)
-                    await $_getPrefetchedData(
+                    await $_getPrefetchedData<
+                      Khatmah,
+                      $KhatmahsTable,
+                      KhatmahDay
+                    >(
                       currentTable: table,
                       referencedTable: $$KhatmahsTableReferences
                           ._khatmahDaysRefsTable(db),
@@ -1550,12 +1554,13 @@ final class $$KhatmahDaysTableReferences
         $_aliasNameGenerator(db.khatmahDays.khatmahId, db.khatmahs.id),
       );
 
-  $$KhatmahsTableProcessedTableManager? get khatmahId {
-    if ($_item.khatmahId == null) return null;
+  $$KhatmahsTableProcessedTableManager get khatmahId {
+    final $_column = $_itemColumn<int>('khatmah_id')!;
+
     final manager = $$KhatmahsTableTableManager(
       $_db,
       $_db.khatmahs,
-    ).filter((f) => f.id($_item.khatmahId!));
+    ).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_khatmahIdTable($_db));
     if (item == null) return manager;
     return ProcessedTableManager(

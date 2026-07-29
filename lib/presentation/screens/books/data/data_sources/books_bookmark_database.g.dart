@@ -12,30 +12,49 @@ class $BooksBookmarkTable extends BooksBookmark
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _bookNameMeta =
-      const VerificationMeta('bookName');
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _bookNameMeta = const VerificationMeta(
+    'bookName',
+  );
   @override
   late final GeneratedColumn<String> bookName = GeneratedColumn<String>(
-      'book_name', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _bookNumberMeta =
-      const VerificationMeta('bookNumber');
+    'book_name',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _bookNumberMeta = const VerificationMeta(
+    'bookNumber',
+  );
   @override
   late final GeneratedColumn<int> bookNumber = GeneratedColumn<int>(
-      'book_number', aliasedName, true,
-      type: DriftSqlType.int, requiredDuringInsert: false);
-  static const VerificationMeta _currentPageMeta =
-      const VerificationMeta('currentPage');
+    'book_number',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _currentPageMeta = const VerificationMeta(
+    'currentPage',
+  );
   @override
   late final GeneratedColumn<int> currentPage = GeneratedColumn<int>(
-      'current_page', aliasedName, true,
-      type: DriftSqlType.int, requiredDuringInsert: false);
+    'current_page',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
   @override
   List<GeneratedColumn> get $columns => [id, bookName, bookNumber, currentPage];
   @override
@@ -44,28 +63,35 @@ class $BooksBookmarkTable extends BooksBookmark
   String get actualTableName => $name;
   static const String $name = 'books_bookmark';
   @override
-  VerificationContext validateIntegrity(Insertable<BooksBookmarkData> instance,
-      {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<BooksBookmarkData> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('book_name')) {
-      context.handle(_bookNameMeta,
-          bookName.isAcceptableOrUnknown(data['book_name']!, _bookNameMeta));
+      context.handle(
+        _bookNameMeta,
+        bookName.isAcceptableOrUnknown(data['book_name']!, _bookNameMeta),
+      );
     }
     if (data.containsKey('book_number')) {
       context.handle(
-          _bookNumberMeta,
-          bookNumber.isAcceptableOrUnknown(
-              data['book_number']!, _bookNumberMeta));
+        _bookNumberMeta,
+        bookNumber.isAcceptableOrUnknown(data['book_number']!, _bookNumberMeta),
+      );
     }
     if (data.containsKey('current_page')) {
       context.handle(
+        _currentPageMeta,
+        currentPage.isAcceptableOrUnknown(
+          data['current_page']!,
           _currentPageMeta,
-          currentPage.isAcceptableOrUnknown(
-              data['current_page']!, _currentPageMeta));
+        ),
+      );
     }
     return context;
   }
@@ -76,14 +102,22 @@ class $BooksBookmarkTable extends BooksBookmark
   BooksBookmarkData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return BooksBookmarkData(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      bookName: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}book_name']),
-      bookNumber: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}book_number']),
-      currentPage: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}current_page']),
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      bookName: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}book_name'],
+      ),
+      bookNumber: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}book_number'],
+      ),
+      currentPage: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}current_page'],
+      ),
     );
   }
 
@@ -99,8 +133,12 @@ class BooksBookmarkData extends DataClass
   final String? bookName;
   final int? bookNumber;
   final int? currentPage;
-  const BooksBookmarkData(
-      {required this.id, this.bookName, this.bookNumber, this.currentPage});
+  const BooksBookmarkData({
+    required this.id,
+    this.bookName,
+    this.bookNumber,
+    this.currentPage,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -132,8 +170,10 @@ class BooksBookmarkData extends DataClass
     );
   }
 
-  factory BooksBookmarkData.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
+  factory BooksBookmarkData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return BooksBookmarkData(
       id: serializer.fromJson<int>(json['id']),
@@ -153,25 +193,27 @@ class BooksBookmarkData extends DataClass
     };
   }
 
-  BooksBookmarkData copyWith(
-          {int? id,
-          Value<String?> bookName = const Value.absent(),
-          Value<int?> bookNumber = const Value.absent(),
-          Value<int?> currentPage = const Value.absent()}) =>
-      BooksBookmarkData(
-        id: id ?? this.id,
-        bookName: bookName.present ? bookName.value : this.bookName,
-        bookNumber: bookNumber.present ? bookNumber.value : this.bookNumber,
-        currentPage: currentPage.present ? currentPage.value : this.currentPage,
-      );
+  BooksBookmarkData copyWith({
+    int? id,
+    Value<String?> bookName = const Value.absent(),
+    Value<int?> bookNumber = const Value.absent(),
+    Value<int?> currentPage = const Value.absent(),
+  }) => BooksBookmarkData(
+    id: id ?? this.id,
+    bookName: bookName.present ? bookName.value : this.bookName,
+    bookNumber: bookNumber.present ? bookNumber.value : this.bookNumber,
+    currentPage: currentPage.present ? currentPage.value : this.currentPage,
+  );
   BooksBookmarkData copyWithCompanion(BooksBookmarkCompanion data) {
     return BooksBookmarkData(
       id: data.id.present ? data.id.value : this.id,
       bookName: data.bookName.present ? data.bookName.value : this.bookName,
-      bookNumber:
-          data.bookNumber.present ? data.bookNumber.value : this.bookNumber,
-      currentPage:
-          data.currentPage.present ? data.currentPage.value : this.currentPage,
+      bookNumber: data.bookNumber.present
+          ? data.bookNumber.value
+          : this.bookNumber,
+      currentPage: data.currentPage.present
+          ? data.currentPage.value
+          : this.currentPage,
     );
   }
 
@@ -229,11 +271,12 @@ class BooksBookmarkCompanion extends UpdateCompanion<BooksBookmarkData> {
     });
   }
 
-  BooksBookmarkCompanion copyWith(
-      {Value<int>? id,
-      Value<String?>? bookName,
-      Value<int?>? bookNumber,
-      Value<int?>? currentPage}) {
+  BooksBookmarkCompanion copyWith({
+    Value<int>? id,
+    Value<String?>? bookName,
+    Value<int?>? bookNumber,
+    Value<int?>? currentPage,
+  }) {
     return BooksBookmarkCompanion(
       id: id ?? this.id,
       bookName: bookName ?? this.bookName,
@@ -284,20 +327,20 @@ abstract class _$BooksBookmarkDatabase extends GeneratedDatabase {
   List<DatabaseSchemaEntity> get allSchemaEntities => [booksBookmark];
 }
 
-typedef $$BooksBookmarkTableCreateCompanionBuilder = BooksBookmarkCompanion
-    Function({
-  Value<int> id,
-  Value<String?> bookName,
-  Value<int?> bookNumber,
-  Value<int?> currentPage,
-});
-typedef $$BooksBookmarkTableUpdateCompanionBuilder = BooksBookmarkCompanion
-    Function({
-  Value<int> id,
-  Value<String?> bookName,
-  Value<int?> bookNumber,
-  Value<int?> currentPage,
-});
+typedef $$BooksBookmarkTableCreateCompanionBuilder =
+    BooksBookmarkCompanion Function({
+      Value<int> id,
+      Value<String?> bookName,
+      Value<int?> bookNumber,
+      Value<int?> currentPage,
+    });
+typedef $$BooksBookmarkTableUpdateCompanionBuilder =
+    BooksBookmarkCompanion Function({
+      Value<int> id,
+      Value<String?> bookName,
+      Value<int?> bookNumber,
+      Value<int?> currentPage,
+    });
 
 class $$BooksBookmarkTableFilterComposer
     extends Composer<_$BooksBookmarkDatabase, $BooksBookmarkTable> {
@@ -309,16 +352,24 @@ class $$BooksBookmarkTableFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<String> get bookName => $composableBuilder(
-      column: $table.bookName, builder: (column) => ColumnFilters(column));
+    column: $table.bookName,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get bookNumber => $composableBuilder(
-      column: $table.bookNumber, builder: (column) => ColumnFilters(column));
+    column: $table.bookNumber,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get currentPage => $composableBuilder(
-      column: $table.currentPage, builder: (column) => ColumnFilters(column));
+    column: $table.currentPage,
+    builder: (column) => ColumnFilters(column),
+  );
 }
 
 class $$BooksBookmarkTableOrderingComposer
@@ -331,16 +382,24 @@ class $$BooksBookmarkTableOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get bookName => $composableBuilder(
-      column: $table.bookName, builder: (column) => ColumnOrderings(column));
+    column: $table.bookName,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get bookNumber => $composableBuilder(
-      column: $table.bookNumber, builder: (column) => ColumnOrderings(column));
+    column: $table.bookNumber,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<int> get currentPage => $composableBuilder(
-      column: $table.currentPage, builder: (column) => ColumnOrderings(column));
+    column: $table.currentPage,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$BooksBookmarkTableAnnotationComposer
@@ -359,31 +418,43 @@ class $$BooksBookmarkTableAnnotationComposer
       $composableBuilder(column: $table.bookName, builder: (column) => column);
 
   GeneratedColumn<int> get bookNumber => $composableBuilder(
-      column: $table.bookNumber, builder: (column) => column);
+    column: $table.bookNumber,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get currentPage => $composableBuilder(
-      column: $table.currentPage, builder: (column) => column);
+    column: $table.currentPage,
+    builder: (column) => column,
+  );
 }
 
-class $$BooksBookmarkTableTableManager extends RootTableManager<
-    _$BooksBookmarkDatabase,
-    $BooksBookmarkTable,
-    BooksBookmarkData,
-    $$BooksBookmarkTableFilterComposer,
-    $$BooksBookmarkTableOrderingComposer,
-    $$BooksBookmarkTableAnnotationComposer,
-    $$BooksBookmarkTableCreateCompanionBuilder,
-    $$BooksBookmarkTableUpdateCompanionBuilder,
-    (
-      BooksBookmarkData,
-      BaseReferences<_$BooksBookmarkDatabase, $BooksBookmarkTable,
-          BooksBookmarkData>
-    ),
-    BooksBookmarkData,
-    PrefetchHooks Function()> {
+class $$BooksBookmarkTableTableManager
+    extends
+        RootTableManager<
+          _$BooksBookmarkDatabase,
+          $BooksBookmarkTable,
+          BooksBookmarkData,
+          $$BooksBookmarkTableFilterComposer,
+          $$BooksBookmarkTableOrderingComposer,
+          $$BooksBookmarkTableAnnotationComposer,
+          $$BooksBookmarkTableCreateCompanionBuilder,
+          $$BooksBookmarkTableUpdateCompanionBuilder,
+          (
+            BooksBookmarkData,
+            BaseReferences<
+              _$BooksBookmarkDatabase,
+              $BooksBookmarkTable,
+              BooksBookmarkData
+            >,
+          ),
+          BooksBookmarkData,
+          PrefetchHooks Function()
+        > {
   $$BooksBookmarkTableTableManager(
-      _$BooksBookmarkDatabase db, $BooksBookmarkTable table)
-      : super(TableManagerState(
+    _$BooksBookmarkDatabase db,
+    $BooksBookmarkTable table,
+  ) : super(
+        TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
@@ -392,53 +463,59 @@ class $$BooksBookmarkTableTableManager extends RootTableManager<
               $$BooksBookmarkTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $$BooksBookmarkTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<String?> bookName = const Value.absent(),
-            Value<int?> bookNumber = const Value.absent(),
-            Value<int?> currentPage = const Value.absent(),
-          }) =>
-              BooksBookmarkCompanion(
-            id: id,
-            bookName: bookName,
-            bookNumber: bookNumber,
-            currentPage: currentPage,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<String?> bookName = const Value.absent(),
-            Value<int?> bookNumber = const Value.absent(),
-            Value<int?> currentPage = const Value.absent(),
-          }) =>
-              BooksBookmarkCompanion.insert(
-            id: id,
-            bookName: bookName,
-            bookNumber: bookNumber,
-            currentPage: currentPage,
-          ),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String?> bookName = const Value.absent(),
+                Value<int?> bookNumber = const Value.absent(),
+                Value<int?> currentPage = const Value.absent(),
+              }) => BooksBookmarkCompanion(
+                id: id,
+                bookName: bookName,
+                bookNumber: bookNumber,
+                currentPage: currentPage,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String?> bookName = const Value.absent(),
+                Value<int?> bookNumber = const Value.absent(),
+                Value<int?> currentPage = const Value.absent(),
+              }) => BooksBookmarkCompanion.insert(
+                id: id,
+                bookName: bookName,
+                bookNumber: bookNumber,
+                currentPage: currentPage,
+              ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: null,
-        ));
+        ),
+      );
 }
 
-typedef $$BooksBookmarkTableProcessedTableManager = ProcessedTableManager<
-    _$BooksBookmarkDatabase,
-    $BooksBookmarkTable,
-    BooksBookmarkData,
-    $$BooksBookmarkTableFilterComposer,
-    $$BooksBookmarkTableOrderingComposer,
-    $$BooksBookmarkTableAnnotationComposer,
-    $$BooksBookmarkTableCreateCompanionBuilder,
-    $$BooksBookmarkTableUpdateCompanionBuilder,
-    (
+typedef $$BooksBookmarkTableProcessedTableManager =
+    ProcessedTableManager<
+      _$BooksBookmarkDatabase,
+      $BooksBookmarkTable,
       BooksBookmarkData,
-      BaseReferences<_$BooksBookmarkDatabase, $BooksBookmarkTable,
-          BooksBookmarkData>
-    ),
-    BooksBookmarkData,
-    PrefetchHooks Function()>;
+      $$BooksBookmarkTableFilterComposer,
+      $$BooksBookmarkTableOrderingComposer,
+      $$BooksBookmarkTableAnnotationComposer,
+      $$BooksBookmarkTableCreateCompanionBuilder,
+      $$BooksBookmarkTableUpdateCompanionBuilder,
+      (
+        BooksBookmarkData,
+        BaseReferences<
+          _$BooksBookmarkDatabase,
+          $BooksBookmarkTable,
+          BooksBookmarkData
+        >,
+      ),
+      BooksBookmarkData,
+      PrefetchHooks Function()
+    >;
 
 class $BooksBookmarkDatabaseManager {
   final _$BooksBookmarkDatabase _db;

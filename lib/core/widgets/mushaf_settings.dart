@@ -1,14 +1,21 @@
+import 'package:another_xlider/another_xlider.dart';
+import 'package:another_xlider/models/handler.dart';
+import 'package:another_xlider/models/handler_animation.dart';
+import 'package:another_xlider/models/trackbar.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:quran_library/quran.dart';
+import 'package:quran_library/quran_library.dart';
 
-import '/core/utils/constants/extensions/extensions.dart';
-import '/core/utils/constants/lists.dart';
 import '../../presentation/screens/quran_page/quran.dart';
+import '../utils/constants/extensions/alignment_rotated_extension.dart';
 import '../utils/constants/shared_preferences_constants.dart';
+import '../utils/helpers/app_text_styles.dart';
+import 'animated_counter_button.dart';
+import 'container_button.dart';
+import 'custom_switch_widget.dart';
 
 class MushafSettings extends StatelessWidget {
   MushafSettings({super.key});
@@ -20,186 +27,49 @@ class MushafSettings extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'choseQuran'.tr,
-            style: TextStyle(
-              color: Theme.of(context).hintColor,
-              fontFamily: 'kufi',
-              fontStyle: FontStyle.italic,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
+          Text('choseQuran'.tr, style: AppTextStyles.titleMedium()),
+          const Gap(4),
+          Divider(
+            thickness: 1.0,
+            height: 1.0,
+            endIndent: 32.0,
+            indent: 32.0,
+            color: Theme.of(context).primaryColorLight.withValues(alpha: .5),
           ),
           const Gap(4),
-          Container(
-            padding: const EdgeInsets.all(4.0),
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Theme.of(context).colorScheme.surface,
-                width: 1,
-              ),
-              borderRadius: const BorderRadius.all(Radius.circular(8)),
-            ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4.0),
             child: Column(
               children: [
                 const Gap(8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: List.generate(
-                    mushafSettingsList.length,
-                    (index) => Obx(() {
-                      return AnimatedOpacity(
-                        opacity: quranCtrl.state.isPages.value == index
-                            ? 1
-                            : .5,
-                        duration: const Duration(milliseconds: 300),
-                        child: GestureDetector(
-                          onTap: () => quranCtrl.switchMode(index),
-                          child: Column(
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(4.0),
-                                  ),
-                                  border: Border.all(
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.surface,
-                                    width: 1,
-                                  ),
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                                child: Image.asset(
-                                  mushafSettingsList[index]['imageUrl'],
-                                  width: 50,
-                                ),
-                              ),
-                              const Gap(6),
-                              Container(
-                                height: 20,
-                                width: 20,
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(20.0),
-                                  ),
-                                  border: Border.all(
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.surface,
-                                    width: 2,
-                                  ),
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                                child: quranCtrl.state.isPages.value == index
-                                    ? const Icon(
-                                        Icons.done,
-                                        size: 14,
-                                        color: Colors.white,
-                                      )
-                                    : null,
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    }),
-                  ),
+                withTajweedWidget(context),
+                const Gap(8),
+                Divider(
+                  thickness: 1.0,
+                  height: 1.0,
+                  endIndent: 32.0,
+                  indent: 32.0,
+                  color: Theme.of(
+                    context,
+                  ).primaryColorLight.withValues(alpha: .5),
                 ),
                 const Gap(8),
-                _page(context),
+                _changeFontSize(context),
                 const Gap(8),
-                // context.hDivider(width: MediaQuery.sizeOf(context).width),
-                // const Gap(8),
-                // _fontsBuild(context),
-                // QuranLibrary().getFontsDownloadWidget(context,
-                //     languageCode: Get.locale!.languageCode,
-                //     isFontsLocal: true,
-                //     downloadFontsDialogStyle: DownloadFontsDialogStyle(
-                //       defaultFontText: 'defaultFontText'.tr,
-                //       downloadedFontsText: 'downloadedFontsText'.tr,
-                //       title: 'fonts'.tr,
-                //       notes: 'fontsNotes'.tr,
-                //       downloadingText: 'downloading'.tr,
-                //       linearProgressColor: Get.theme.colorScheme.surface,
-                //       linearProgressBackgroundColor:
-                //           Get.theme.colorScheme.surface.withValues(alpha: .2),
-                //       titleColor: Get.theme.colorScheme.inversePrimary,
-                //       notesColor: Get.theme.colorScheme.inversePrimary,
-                //       iconColor: Get.theme.colorScheme.surface,
-                //       downloadButtonBackgroundColor:
-                //           Get.theme.colorScheme.surface,
-                //       dividerColor: Get.theme.colorScheme.surface,
-                //     )),
-                // const Gap(8),
-                context.hDivider(width: MediaQuery.sizeOf(context).width),
-                const Gap(8),
-                Column(
-                  children: List.generate(
-                    2,
-                    (index) => Obx(
-                      () => GestureDetector(
-                        onTap: () {
-                          QuranCtrl.instance.state.isBold.value = index.isEven
-                              ? true
-                              : false;
-                          GetStorage().write(
-                            IS_BOLD,
-                            QuranCtrl.instance.state.isBold.value,
-                          );
-                          quranCtrl.update(['clearSelection']);
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              height: 20,
-                              width: 20,
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(20.0),
-                                ),
-                                border: Border.all(
-                                  color: Theme.of(context).colorScheme.surface,
-                                  width: 2,
-                                ),
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                              child:
-                                  QuranCtrl.instance.state.isBold.value ==
-                                      index.isEven
-                                  ? const Icon(
-                                      Icons.done,
-                                      size: 14,
-                                      color: Colors.white,
-                                    )
-                                  : null,
-                            ),
-                            const Gap(6),
-                            Text(
-                              'ٱللَّهُ لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡحَيُّ ٱلۡقَيُّومُ',
-                              style: TextStyle(
-                                fontFamily: 'uthmanic2',
-                                fontSize: 18,
-                                height: 1.9,
-                                fontWeight: index.isEven
-                                    ? FontWeight.bold
-                                    : FontWeight.normal,
-                                color: Theme.of(
-                                  context,
-                                ).colorScheme.inversePrimary,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
+                Divider(
+                  thickness: 1.0,
+                  height: 1.0,
+                  endIndent: 32.0,
+                  indent: 32.0,
+                  color: Theme.of(
+                    context,
+                  ).primaryColorLight.withValues(alpha: .5),
                 ),
                 const Gap(8),
                 _changeBackgroundColor(context),
+                const Gap(8),
+                const AutoScrollSettings(),
               ],
             ),
           ),
@@ -208,470 +78,357 @@ class MushafSettings extends StatelessWidget {
     );
   }
 
-  Widget _page(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        AnimatedOpacity(
-          opacity: quranCtrl.state.isPageMode.value ? 1 : .5,
-          duration: const Duration(milliseconds: 300),
-          child: GestureDetector(
-            onTap: () => quranCtrl.pageModeOnTap(true),
-            child: Column(
-              children: [
-                GetX<QuranController>(
-                  builder: (quranCtrl) => Container(
-                    height: 100,
-                    width: 60,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(4.0),
-                      ),
-                      border: Border.all(
-                        color: Theme.of(context).colorScheme.surface,
-                        width: 1,
-                      ),
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                    child: Container(
-                      margin: context.customOrientation(
-                        const EdgeInsets.only(right: 4.0),
-                        const EdgeInsets.only(right: 4.0),
-                      ),
-                      decoration: BoxDecoration(
-                        color: Get.isDarkMode
-                            ? Theme.of(
-                                context,
-                              ).primaryColorDark.withValues(alpha: .5)
-                            : Theme.of(
-                                context,
-                              ).dividerColor.withValues(alpha: .5),
-                        borderRadius: const BorderRadius.only(
-                          topRight: Radius.circular(12),
-                          bottomRight: Radius.circular(12),
-                        ),
-                      ),
-                      child: Container(
-                        margin: const EdgeInsets.only(right: 4.0),
-                        decoration: BoxDecoration(
-                          color: Get.isDarkMode
-                              ? Theme.of(
-                                  context,
-                                ).primaryColorDark.withValues(alpha: .7)
-                              : Theme.of(
-                                  context,
-                                ).dividerColor.withValues(alpha: .7),
-                          borderRadius: const BorderRadius.only(
-                            topRight: Radius.circular(12),
-                            bottomRight: Radius.circular(12),
-                          ),
-                        ),
-                        child: Container(
-                          margin: const EdgeInsets.only(right: 4.0),
-                          decoration: BoxDecoration(
-                            color: quranCtrl.backgroundColor,
-                            borderRadius: const BorderRadius.only(
-                              topRight: Radius.circular(12),
-                              bottomRight: Radius.circular(12),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                const Gap(6),
-                Container(
-                  height: 20,
-                  width: 20,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(20.0)),
-                    border: Border.all(
-                      color: Theme.of(context).colorScheme.surface,
-                      width: 2,
-                    ),
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  child: quranCtrl.state.isPageMode.value
-                      ? const Icon(Icons.done, size: 14, color: Colors.white)
-                      : null,
-                ),
-              ],
+  Widget _changeFontSize(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+      margin: EdgeInsets.zero,
+      decoration: BoxDecoration(
+        color: Theme.of(context).primaryColorLight.withValues(alpha: .15),
+        borderRadius: const BorderRadius.all(Radius.circular(8)),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'fontSize'.tr,
+            style: AppTextStyles.titleMedium().copyWith(height: 2),
+          ),
+          GetBuilder<QuranCtrl>(
+            id: '_pageViewBuild',
+            builder: (ctr) => AnimatedCounterButton(
+              value: ctr.state.scaleFactor.value,
+              height: 32,
+              counterType: CounterType.decimal,
+              onChanged: (newValue) {
+                if (newValue < 1) return;
+                ctr.state.scaleFactor.value = newValue;
+                ctr.state.baseScaleFactor.value = newValue;
+                ctr.update(['_pageViewBuild']);
+              },
             ),
           ),
-        ),
-        AnimatedOpacity(
-          opacity: !quranCtrl.state.isPageMode.value ? 1 : .5,
-          duration: const Duration(milliseconds: 300),
-          child: GestureDetector(
-            onTap: () => quranCtrl.pageModeOnTap(false),
-            child: Column(
-              children: [
-                GetX<QuranController>(
-                  builder: (quranCtrl) => Container(
-                    height: 100,
-                    width: 60,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(4.0),
-                      ),
-                      border: Border.all(
-                        color: Theme.of(context).colorScheme.surface,
-                        width: 1,
-                      ),
-                      color: quranCtrl.backgroundColor,
-                    ),
-                  ),
-                ),
-                const Gap(6),
-                Container(
-                  height: 20,
-                  width: 20,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(20.0)),
-                    border: Border.all(
-                      color: Theme.of(context).colorScheme.surface,
-                      width: 2,
-                    ),
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  child: !quranCtrl.state.isPageMode.value
-                      ? const Icon(Icons.done, size: 14, color: Colors.white)
-                      : null,
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _changeBackgroundColor(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Get.dialog(
-          Dialog(
-            alignment: Alignment.center,
-            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-            surfaceTintColor: Theme.of(context).colorScheme.primary,
-            child: SizedBox(
-              height: 240,
-              width: double.infinity,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 8.0,
-                  horizontal: 16.0,
-                ),
-                child: Column(
-                  children: [
-                    ColorPicker(
-                      wheelHasBorder: true,
-                      wheelDiameter: 300,
-                      color: Color(quranCtrl.state.backgroundPickerColor.value),
-                      onColorChanged: (Color color) =>
-                          quranCtrl.state.temporaryBackgroundColor.value = color
-                              .toARGB32(),
-                      pickersEnabled: {
-                        ColorPickerType.wheel: false,
-                        ColorPickerType.both: false,
-                        ColorPickerType.primary: false,
-                        ColorPickerType.accent: false,
-                        ColorPickerType.custom: true,
-                      },
-                      customColorSwatchesAndNames: {
-                        const MaterialColor(0xffFFFBF8, <int, Color>{
-                          50: Color(0xffffffff),
-                          100: Color(0xfffffbfb),
-                          200: Color(0xffFFFBF8),
-                          300: Color(0xfffff9f5),
-                          400: Color(0xfffff7f1),
-                          500: Color(0xfffff6e2),
-                          600: Color(0xffefe3d1),
-                          700: Color(0xffdacdba),
-                          800: Color(0xffc8bba6),
-                          900: Color(0xffe3d0ac),
-                        }): 'Brown',
-                      },
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 4,
-                          child: GestureDetector(
-                            onTap: () {
-                              quranCtrl.state.backgroundPickerColor.value =
-                                  0xfffaf7f3;
-                              quranCtrl.state.box.remove(
-                                BACKGROUND_PICKER_COLOR,
-                              );
-                              quranCtrl.update();
-                              Get.back();
-                            },
-                            child: Container(
-                              height: 30,
-                              alignment: Alignment.center,
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16.0,
-                                vertical: 4.0,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Theme.of(
-                                  context,
-                                ).colorScheme.primary.withValues(alpha: .1),
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(8),
-                                ),
-                                border: Border.all(
-                                  width: 1,
-                                  color: Theme.of(context).colorScheme.surface,
-                                ),
-                              ),
-                              child: FittedBox(
-                                fit: BoxFit.scaleDown,
-                                child: Text(
-                                  'reset'.tr,
-                                  style: TextStyle(
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.inversePrimary,
-                                    fontFamily: 'kufi',
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const Spacer(),
-                        Expanded(
-                          flex: 3,
-                          child: GestureDetector(
-                            onTap: () => Get.back(),
-                            child: Container(
-                              height: 30,
-                              alignment: Alignment.center,
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16.0,
-                                vertical: 4.0,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Theme.of(
-                                  context,
-                                ).colorScheme.primary.withValues(alpha: .1),
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(8),
-                                ),
-                                border: Border.all(
-                                  width: 1,
-                                  color: Theme.of(context).colorScheme.surface,
-                                ),
-                              ),
-                              child: FittedBox(
-                                fit: BoxFit.scaleDown,
-                                child: Text(
-                                  'cancel'.tr,
-                                  style: TextStyle(
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.inversePrimary,
-                                    fontFamily: 'kufi',
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const Gap(8),
-                        Expanded(
-                          flex: 3,
-                          child: GestureDetector(
-                            onTap: () {
-                              quranCtrl.state.backgroundPickerColor.value =
-                                  quranCtrl
-                                      .state
-                                      .temporaryBackgroundColor
-                                      .value;
-                              quranCtrl.state.box.write(
-                                BACKGROUND_PICKER_COLOR,
-                                quranCtrl.state.backgroundPickerColor.value,
-                              );
-                              quranCtrl.update();
-                              Get.back();
-                            },
-                            child: Container(
-                              height: 30,
-                              alignment: Alignment.center,
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16.0,
-                                vertical: 4.0,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Theme.of(
-                                  context,
-                                ).colorScheme.primary.withValues(alpha: .1),
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(8),
-                                ),
-                                border: Border.all(
-                                  width: 1,
-                                  color: Theme.of(context).colorScheme.surface,
-                                ),
-                              ),
-                              child: FittedBox(
-                                fit: BoxFit.scaleDown,
-                                child: Text(
-                                  'ok'.tr,
-                                  style: TextStyle(
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.inversePrimary,
-                                    fontFamily: 'kufi',
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        );
-      },
-      child: Container(
-        height: 40,
-        width: Get.width,
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 7.0),
-        margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 7.0),
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface.withValues(alpha: .2),
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
-          border: Border.all(
-            width: 1,
-            color: Theme.of(context).colorScheme.surface,
-          ),
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              flex: 8,
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Text(
-                  'choiceBackgroundColor'.tr,
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.inversePrimary,
-                    fontSize: 16,
-                    fontFamily: 'kufi',
-                  ),
-                ),
-              ),
-            ),
-            const Spacer(),
-            Expanded(
-              flex: 1,
-              child: Obx(
-                () => Container(
-                  height: 30,
-                  width: 30,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8.0,
-                    vertical: 7.0,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Color(quranCtrl.state.backgroundPickerColor.value),
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+        ],
       ),
     );
   }
 
-  // Widget _fontsBuild(BuildContext context) {
-  //   List<String> titleList = [
-  //     'defaultFontText',
-  //     'downloadedFontsText',
-  //   ];
-  //   return Padding(
-  //     padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-  //     child: Column(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       mainAxisSize: MainAxisSize.min,
-  //       children: [
-  //         Text(
-  //           'fonts'.tr,
-  //           style: TextStyle(
-  //             fontSize: 16.0,
-  //             fontWeight: FontWeight.bold,
-  //             fontFamily: 'kufi',
-  //             color: Get.theme.colorScheme.inversePrimary,
-  //           ),
-  //           textAlign: TextAlign.start,
-  //         ),
-  //         const Gap(8.0),
-  //         context.horizontalDivider(
-  //           width: Get.width,
-  //           color: Get.theme.colorScheme.surface,
-  //         ),
-  //         const Gap(8.0),
-  //         Column(
-  //           mainAxisSize: MainAxisSize.min,
-  //           children: List.generate(
-  //             titleList.length,
-  //             (i) => Container(
-  //               margin: const EdgeInsets.symmetric(vertical: 2.0),
-  //               decoration: BoxDecoration(
-  //                 border: Border.all(
-  //                   color: Get.theme.colorScheme.surface.withValues(alpha: .2),
-  //                   width: 1.0,
-  //                 ),
-  //                 borderRadius: BorderRadius.circular(8.0),
-  //               ),
-  //               child: Container(
-  //                 height: 50,
-  //                 margin: const EdgeInsets.symmetric(vertical: 4.0),
-  //                 color:
-  //                     QuranLibrary().quranCtrl.state.fontsSelected2.value == i
-  //                         ? Get.theme.colorScheme.surface.withValues(alpha: .05)
-  //                         : null,
-  //                 child: CheckboxListTile(
-  //                   value:
-  //                       (QuranLibrary().quranCtrl.state.fontsSelected2.value ==
-  //                               i)
-  //                           ? true
-  //                           : false,
-  //                   activeColor: Get.theme.colorScheme.surface,
-  //                   title: Text(
-  //                     titleList[i].tr,
-  //                     style: TextStyle(
-  //                       fontSize: 16,
-  //                       fontFamily: 'naskh',
-  //                       color: Get.theme.colorScheme.inversePrimary,
-  //                     ),
-  //                   ),
-  //                   onChanged: (_) {
-  //                     QuranLibrary().quranCtrl.state.fontsSelected2.value = i;
-  //                     GetStorage().write('fontsSelected2', i);
-  //                     log('fontsSelected: $i');
-  //                     Get.forceAppUpdate();
-  //                   },
-  //                 ),
-  //               ),
-  //             ),
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
+  Widget withTajweedWidget(BuildContext context) {
+    final quran = QuranCtrl.instance.state;
+    return CustomSwitchListTile(
+      title: 'tajweed'.tr,
+      value: quran.isTajweedEnabled.value,
+      onChanged: (_) {
+        quran.isTajweedEnabled.toggle();
+        quranCtrl.state.box.write('isTajweed', quran.isTajweedEnabled.value);
+        Get.forceAppUpdate();
+      },
+    );
+  }
+
+  Widget _changeBackgroundColor(BuildContext context) {
+    return Obx(
+      () => ContainerButton(
+        onPressed: () {
+          Get.dialog(
+            Dialog(
+              alignment: Alignment.center,
+              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+              surfaceTintColor: Theme.of(context).colorScheme.primary,
+              child: SizedBox(
+                height: 380,
+                width: double.infinity,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 8.0,
+                    horizontal: 16.0,
+                  ),
+                  child: Column(
+                    children: [
+                      ColorPicker(
+                        hasBorder: true,
+                        wheelHasBorder: true,
+                        wheelDiameter: 150,
+                        color: Color(
+                          quranCtrl.state.backgroundPickerColor.value,
+                        ),
+                        borderColor: context.theme.colorScheme.primary,
+                        onColorChanged: (Color color) =>
+                            quranCtrl.state.temporaryBackgroundColor.value =
+                                color.toARGB32(),
+                        pickersEnabled: {
+                          ColorPickerType.wheel: true,
+                          ColorPickerType.both: false,
+                          ColorPickerType.primary: false,
+                          ColorPickerType.accent: false,
+                          ColorPickerType.custom: true,
+                        },
+                        customColorSwatchesAndNames: {
+                          const MaterialColor(0xffFFFBF8, <int, Color>{
+                            50: Color(0xffffffff),
+                            100: Color(0xfffffbfb),
+                            200: Color(0xffFFFBF8),
+                            300: Color(0xfffff9f5),
+                            400: Color(0xfffff7f1),
+                            500: Color(0xfffff6e2),
+                            600: Color(0xffefe3d1),
+                            700: Color(0xffdacdba),
+                            800: Color(0xffc8bba6),
+                            900: Color(0xffe3d0ac),
+                          }): 'Brown',
+                        },
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 4,
+                            child: ContainerButton(
+                              onPressed: () {
+                                quranCtrl.state.backgroundPickerColor.value =
+                                    context.theme.colorScheme.primaryContainer
+                                        .toARGB32();
+                                quranCtrl.state.box.remove(
+                                  BACKGROUND_PICKER_COLOR,
+                                );
+                                quranCtrl.update(['backgroundColor']);
+                                Get.back();
+                              },
+                              height: 35,
+                              title: 'reset',
+                              mainAxisAlignment: MainAxisAlignment.center,
+                            ),
+                          ),
+                          const Spacer(),
+                          Expanded(
+                            flex: 3,
+                            child: ContainerButton(
+                              onPressed: () => Get.back(),
+                              height: 35,
+                              title: 'cancel',
+                              mainAxisAlignment: MainAxisAlignment.center,
+                            ),
+                          ),
+                          const Gap(8),
+                          Expanded(
+                            flex: 3,
+                            child: ContainerButton(
+                              onPressed: () {
+                                quranCtrl.state.backgroundPickerColor.value =
+                                    quranCtrl
+                                        .state
+                                        .temporaryBackgroundColor
+                                        .value;
+                                quranCtrl.state.box.write(
+                                  BACKGROUND_PICKER_COLOR,
+                                  quranCtrl.state.backgroundPickerColor.value,
+                                );
+                                quranCtrl.update(['backgroundColor']);
+                                Get.back();
+                              },
+                              height: 35,
+                              title: 'ok',
+                              mainAxisAlignment: MainAxisAlignment.center,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+        value: true.obs,
+        height: 45,
+        width: double.infinity,
+        borderRadius: 8,
+        selectedColor: Color(quranCtrl.state.backgroundPickerColor.value),
+        backgroundColor: context.theme.primaryColorLight.withValues(alpha: .4),
+        title: 'choiceBackgroundColor',
+      ),
+    );
+  }
+}
+
+/// إعدادات السكرول التلقائي — تُضاف داخل FontsDownloadWidget
+///
+/// [AutoScrollSettings] settings section for auto-scroll:
+/// stop condition selector, page count input, and initial speed slider.
+class AutoScrollSettings extends StatelessWidget {
+  const AutoScrollSettings({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final autoScrollCtrl = AutoScrollCtrl.instance;
+
+    return Obx(() {
+      final selectedCondition = autoScrollCtrl.state.stopCondition.value;
+      final speed = autoScrollCtrl.state.speed.value;
+      final pageCount = autoScrollCtrl.state.targetPageCount.value;
+
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Gap(16),
+          // العنوان
+          Center(
+            child: Text(
+              'autoScrollSettings'.tr,
+              style: AppTextStyles.titleMedium(),
+            ),
+          ),
+          const Gap(4),
+          Divider(
+            thickness: 1.0,
+            height: 1.0,
+            endIndent: 32.0,
+            indent: 32.0,
+            color: Theme.of(context).primaryColorLight.withValues(alpha: .5),
+          ),
+          const Gap(10),
+
+          // شرط التوقف
+          Text(
+            'stopCondition'.tr,
+            style: AppTextStyles.bodySmall().copyWith(
+              color: context.theme.colorScheme.inversePrimary.withValues(
+                alpha: .7,
+              ),
+            ),
+          ),
+          const Gap(6),
+          Wrap(
+            children: AutoScrollStopCondition.values.map((condition) {
+              final isSelected = selectedCondition == condition;
+              final chipLabel =
+                  QuranController
+                      .instance
+                      .autoScrollStyle
+                      .stopConditionLabels?[condition] ??
+                  condition.labelAr;
+              return ContainerButton(
+                title: chipLabel,
+                titleColor: context.theme.colorScheme.inversePrimary,
+                value: isSelected.obs,
+                horizontalPadding: 8.0,
+                verticalPadding: 8.0,
+                horizontalMargin: 4.0,
+                verticalMargin: 4.0,
+                onPressed: () => autoScrollCtrl.updateStopCondition(condition),
+              );
+            }).toList(),
+          ),
+
+          // حقل عدد الصفحات (يظهر فقط عند اختيار pageCount)
+          AnimatedSize(
+            duration: const Duration(milliseconds: 250),
+            curve: Curves.easeInOut,
+            child: selectedCondition == AutoScrollStopCondition.pageCount
+                ? Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 3,
+                    ),
+                    margin: const EdgeInsets.only(top: 8),
+                    decoration: BoxDecoration(
+                      color: Theme.of(
+                        context,
+                      ).primaryColorLight.withValues(alpha: .15),
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'pageCount'.tr,
+                          style: AppTextStyles.titleMedium().copyWith(
+                            height: 2,
+                          ),
+                        ),
+                        AnimatedCounterButton(
+                          value: pageCount,
+                          height: 32,
+                          counterType: CounterType.integer,
+                          onChanged: (newValue) {
+                            autoScrollCtrl.updateTargetPageCount(newValue);
+                          },
+                        ),
+                      ],
+                    ),
+                  )
+                : const SizedBox.shrink(),
+          ),
+
+          // سرعة البداية
+          const Gap(10),
+          Row(
+            children: [
+              Text('speed'.tr, style: AppTextStyles.titleSmall()),
+              const SizedBox(width: 4),
+              Text(
+                speed.toStringAsFixed(1).convertNumbersAccordingToLang(),
+                style: AppTextStyles.titleSmall().copyWith(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: context.theme.colorScheme.surface,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 30,
+            width: MediaQuery.sizeOf(context).width,
+            child: FlutterSlider(
+              values: [speed],
+              min: 0.05,
+              max: 5.0,
+              rtl: alignmentLayout(true, false),
+              trackBar: FlutterSliderTrackBar(
+                inactiveTrackBarHeight: 5,
+                activeTrackBarHeight: 5,
+                inactiveTrackBar: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: Get.theme.colorScheme.surface.withValues(alpha: .2),
+                ),
+                activeTrackBar: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  color: Get.theme.colorScheme.surface,
+                ),
+              ),
+              handlerAnimation: const FlutterSliderHandlerAnimation(
+                curve: Curves.elasticOut,
+                reverseCurve: null,
+                duration: Duration(milliseconds: 700),
+                scale: 1.4,
+              ),
+              onDragging: (handlerIndex, lowerValue, upperValue) {
+                autoScrollCtrl.updateSpeed(lowerValue);
+              },
+              handler: FlutterSliderHandler(
+                decoration: const BoxDecoration(),
+                child: Material(
+                  type: MaterialType.circle,
+                  color: Colors.transparent,
+                  elevation: 3,
+                  child: SvgPicture.asset('assets/svg/slider_ic.svg'),
+                ),
+              ),
+            ),
+          ),
+          // تسميات بطيء / سريع
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('slow'.tr, style: AppTextStyles.titleSmall()),
+                Text('fast'.tr, style: AppTextStyles.titleSmall()),
+              ],
+            ),
+          ),
+          const Gap(8),
+        ],
+      );
+    });
+  }
 }

@@ -30,8 +30,8 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace "com.alheekmah.alquranalkareem.alquranalkareem"
-    compileSdkVersion 36
-    ndkVersion "27.0.12077973" // flutter.ndkVersion
+    compileSdkVersion 37
+    ndkVersion flutter.ndkVersion
 
     defaultConfig {
         multiDexEnabled true
@@ -44,7 +44,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = '17' // JavaVersion.VERSION_17
+        jvmTarget = '17'
     }
 
     // Ensure Kotlin uses JDK 17 toolchain
@@ -62,7 +62,7 @@ android {
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion 24
-        targetSdkVersion 36
+        targetSdkVersion 37
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
@@ -79,8 +79,6 @@ android {
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.release
         }
     }

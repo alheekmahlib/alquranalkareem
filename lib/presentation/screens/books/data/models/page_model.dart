@@ -1,43 +1,41 @@
+part of '../../books.dart';
+
+// نموذج محتوى الصفحة - Page content model
+// يحتوي على بيانات الصفحة الواحدة
 class PageContent {
-  final String title;
-  final int pageNumber;
-  final String content;
-  final List<dynamic> footnotes;
-  final String bookTitle;
-  final int bookNumber; // Add this line
+  final int pageNumber; // رقم الصفحة - Page number
+  final int page; // رقم الصفحة الفعلي - Actual page number
+  final String text; // نص الصفحة - Page text
+  final String bookTitle; // عنوان الكتاب - Book title
+  final int bookNumber; // رقم الكتاب - Book number
 
   PageContent({
-    required this.title,
     required this.pageNumber,
-    required this.content,
-    required this.footnotes,
+    required this.page,
+    required this.text,
     required this.bookTitle,
-    required this.bookNumber, // Add this line
+    required this.bookNumber,
   });
 
-  factory PageContent.fromJson(Map<String, dynamic> json, String bookTitle) {
+  factory PageContent.fromJson(
+      Map<String, dynamic> json, String bookTitle, int bookNumber) {
     return PageContent(
-      title: json['title'] ?? '',
-      pageNumber: json['pageNumber'] ??
-          int.tryParse(json['page']?.toString() ?? '0') ??
-          0,
-      content: json['content'] ?? '',
-      footnotes: json['footnotes'] ?? [],
+      pageNumber: json['page_number'] ?? 0,
+      page: json['page'] ?? 0,
+      text: json['text'] ?? '',
       bookTitle: bookTitle,
-      bookNumber: json['bookNumber'] ??
-          0, // Ensure this line matches how bookNumber is stored
+      bookNumber: bookNumber,
     );
   }
 
-  // Factory method for an empty PageContent instance
+  // إنشاء مثيل فارغ - Factory method for an empty PageContent instance
   factory PageContent.empty() {
     return PageContent(
-      title: '',
       pageNumber: 0,
-      content: '',
-      footnotes: [],
+      page: 0,
+      text: '',
       bookTitle: '',
-      bookNumber: 0, // Add this line
+      bookNumber: 0,
     );
   }
 }

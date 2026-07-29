@@ -6,10 +6,6 @@ import '../general_controller.dart';
 extension GeneralUi on GeneralController {
   /// -------- [GeneralUi] ----------
 
-  void selectScreenToggleView() {
-    state.showSelectScreenPage.value = !state.showSelectScreenPage.value;
-  }
-
   double screenWidth(double smallWidth, double largeWidth) {
     final size = Get.width;
     if (size <= 600) {
@@ -19,7 +15,11 @@ extension GeneralUi on GeneralController {
   }
 
   double customSize(
-      double mobile, double largeMobile, double tablet, double desktop) {
+    double mobile,
+    double largeMobile,
+    double tablet,
+    double desktop,
+  ) {
     if (Responsive.isMobile(Get.context!)) {
       return mobile;
     } else if (Responsive.isMobileLarge(Get.context!)) {

@@ -24,53 +24,45 @@ class AdhkarFav extends StatelessWidget {
             child: Obx(() {
               if (azkarCtrl.state.adhkarList.isEmpty) {
                 return customLottieWithColor(
-                    LottieConstants.assetsLottieOpenBook,
-                    height: 250.0,
-                    width: 250.0);
+                  LottieConstants.assetsLottieOpenBook,
+                  height: 250.0,
+                  width: 250.0,
+                );
               } else {
                 return AnimationLimiter(
                   child: Align(
                     alignment: Alignment.topCenter,
                     child: ListView.builder(
-                        shrinkWrap: true,
-                        controller: azkarCtrl.state.favController,
-                        padding: EdgeInsets.zero,
-                        itemCount: azkarCtrl.state.adhkarList.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          var azkar = azkarCtrl.state.adhkarList[index];
-                          return AnimationConfiguration.staggeredList(
-                            position: index,
-                            duration: const Duration(milliseconds: 450),
-                            child: SlideAnimation(
-                              verticalOffset: 50.0,
-                              child: FadeInAnimation(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Gap(32),
-                                      OptionsRow(
-                                        zekr: azkar,
-                                        azkarFav: true,
-                                      ),
-                                      TextWidget(
-                                        zekr: azkar,
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                      shrinkWrap: true,
+                      controller: azkarCtrl.state.favController,
+                      padding: EdgeInsets.zero,
+                      itemCount: azkarCtrl.state.adhkarList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        var azkar = azkarCtrl.state.adhkarList[index];
+                        return AnimationConfiguration.staggeredList(
+                          position: index,
+                          duration: const Duration(milliseconds: 450),
+                          child: SlideAnimation(
+                            verticalOffset: 50.0,
+                            child: FadeInAnimation(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Gap(32),
+                                  OptionsRow(zekr: azkar, azkarFav: true),
+                                  TextWidget(zekr: azkar),
+                                ],
                               ),
                             ),
-                          );
-                        }),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 );
               }
             }),
-          )
+          ),
         ],
       ),
     );

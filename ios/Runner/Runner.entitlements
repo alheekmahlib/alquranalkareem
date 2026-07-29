@@ -6,7 +6,7 @@
 	<string>development</string>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.com.alheekmah.alquranalkareem.alquranalkareem.hijri-calendar-extension-widget</string>
+		<string>group.com.alheekmah.quran_widget</string>
 	</array>
 </dict>
 </plist>

@@ -1,7 +1,13 @@
 import 'package:get/get.dart';
 
+import '../../../../presentation/controllers/general/general_controller.dart';
+
 extension ConvertNumberExtension on String {
   String convertNumbersToCurrentLang() {
+    if (GeneralController.instance.state.isUseEnglishNumbers.value) {
+      return this;
+    }
+
     Map<String, Map<String, String>> numberSets = {
       'ar': {
         // Arabic

@@ -1,6 +1,6 @@
 ext {
-    compileSdkVersion = 36
-    targetSdkVersion = 36
+    compileSdkVersion = 37
+    targetSdkVersion = 37
     appCompatVersion = "1.4.2"
 }
 
@@ -13,7 +13,7 @@ buildscript {
 
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.android.tools.build:gradle:8.12.3'
+        classpath 'com.android.tools.build:gradle:8.13.2'
     }
 }
 
@@ -33,6 +33,48 @@ subprojects {
 }
 subprojects {
     project.evaluationDependsOn(':app')
+}
+
+// Force every subproject (including Flutter plugins like home_widget, whose own
+// build.gradle pins jvmTarget = "1.8") to compile Kotlin/Java against JVM 17.
+// This fixes: "Cannot inline bytecode built with JVM target 11 into bytecode
+// that is being built with JVM target 1.8."
+subprojects {
+    // `:app` is already evaluated due to evaluationDependsOn(':app') above,
+    // so configure it immediately; others via afterEvaluate.
+    if (project.state.executed) {
+        configureJvm17(project)
+    } else {
+        afterEvaluate { configureJvm17(project) }
+    }
+}
+
+void configureJvm17(Project project) {
+    if (project.hasProperty('android')) {
+        project.android {
+            compileOptions {
+                sourceCompatibility JavaVersion.VERSION_17
+                targetCompatibility JavaVersion.VERSION_17
+            }
+            // kotlinOptions is a DSL method inside the android block, added by
+            // the kotlin-android plugin. Only invoke it when that plugin is applied.
+            if (project.plugins.hasPlugin('kotlin-android')) {
+                kotlinOptions {
+                    jvmTarget = '17'
+                }
+            }
+        }
+    }
+}
+
+// Exclude problematic alpha deps and force stable versions
+subprojects {
+    configurations.all {
+        resolutionStrategy {
+            force 'androidx.glance:glance-appwidget:1.1.1'
+        }
+        exclude group: 'androidx.compose.remote', module: 'remote-creation-android'
+    }
 }
 
 tasks.register("clean", Delete) {

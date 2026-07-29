@@ -64,7 +64,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "azkar": "Dzikir",
+  "azkar": "Dzikir Hisnul Muslim",
   "@azkar": {
     "type": "text",
     "placeholders": {}
@@ -109,7 +109,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "about_app3": "۞ Antarmuka baru dan mudah digunakan: Aplikasi ini dirancang dengan antarmuka modern dan intuitif yang memudahkan pengguna untuk bernavigasi dan mengakses fitur-fitur.\n۞ Menggunakan Edisi King Fahd: Aplikasi ini menggunakan edisi King Fahd yang terkenal dengan keandalannya dan ketepatannya, menjamin keakuratan teks.\n۞ Membaca interaktif: Aplikasi ini memungkinkan membaca interaktif, mendengarkan bacaan, dan mempelajari serta menghafal Al-Qur'an dengan mudah.\n۞ Membaca fleksibel: Pengguna dapat membaca Al-Qur'an seperti mushaf cetak atau menggunakan mode satu ayat untuk fokus yang lebih.\n۞ Fitur pencarian teks: Aplikasi ini memiliki pencarian langsung pada ayat-ayat Al-Qur'an dengan opsi langsung menuju halaman atau surah yang dicari.\n۞ Menambah penanda halaman: Fitur ini memungkinkan menyimpan halaman atau ayat untuk akses mudah kapan saja.\n۞ Mendengarkan ayat: Aplikasi ini memungkinkan mendengarkan ayat-ayat dari berbagai qari terkenal.\n۞ Tafsir dan terjemahan: Pengguna dapat mengakses tafsir atau terjemahan setiap ayat dan berganti antara tafsir sesuai keinginan.\n۞ Navigasi mudah antar surah: Aplikasi ini memungkinkan navigasi antar surah dengan cepat dan mudah.\n۞ Membaca tanda waqaf: Fitur ini membantu memahami tempat-tempat berhenti saat membaca.\n۞ Dzikir: Pengguna dapat membaca Dzikir lengkap dan menambah dzikir ke favorit.\n۞ Mengubah tema warna: Aplikasi ini mendukung perubahan tema warna, termasuk mode gelap untuk kenyamanan membaca.\n۞ Mendengarkan dan mengunduh: Pengguna dapat mendengarkan atau mengunduh surah untuk didengarkan nanti tanpa internet.\n\nFitur-fitur ini menjadikan aplikasi \"Al-Qur'an Al-Karim - Perpustakaan Hikmah\" alat yang komprehensif bagi siapa saja yang ingin membaca, belajar, dan memahami Al-Qur'an dengan cara yang mudah dan efektif.",
+  "about_app3": "۞ Antarmuka modern dan mudah digunakan: Desain yang modern dan intuitif memudahkan navigasi dan akses ke semua fitur, dengan tampilan kalender baru serta kemampuan menelusuri kalender tahunan secara lengkap.\n۞ Mengadopsi cetakan Kompleks Raja Fahd: Aplikasi ini menggunakan cetakan Kompleks Raja Fahd untuk Mushaf, yang dikenal akurat dan tepercaya.\n۞ Membaca interaktif dan menyeluruh: Pengalaman membaca yang fleksibel, baik mode mushaf (halaman) maupun mode satu ayat, dengan interaksi penuh dengan teks.\n۞ Mendengarkan tingkat lanjut: Mendengarkan ayat dan surah dari para qari pilihan, dengan fitur menampilkan ayat yang sedang diputar, serta kemampuan mendengarkan tiap kata secara terpisah untuk meningkatkan pembelajaran.\n۞ Pencarian dan navigasi cepat: Pencarian instan di ayat-ayat Al-Qur'an dengan kemampuan langsung menuju surah atau halaman yang diinginkan, dan navigasi mulus antar surah.\n۞ Tafsir dan perpustakaan Islam: Akses berbagai tafsir dan terjemahan, serta perpustakaan Islam terintegrasi yang mencakup kitab hadits dan tafsir.\n۞ Tajwid dan kaidahnya: Dukungan tampilan tajwid dan kaidahnya dengan jelas, serta penambahan Qira'at 'Asyr (sepuluh qira'at) untuk memperluas pemahaman cara membaca.\n۞ Analisis bahasa tingkat lanjut: Menampilkan tashrif dan i'rab untuk setiap kata sehingga membantu pemahaman makna bahasa dalam Al-Qur'an.\n۞ Ayat-ayat serupa: Fitur khusus untuk menampilkan ayat-ayat yang serupa agar memudahkan hafalan dan murajaah.\n۞ Manajemen membaca dan hafalan: Menambahkan penanda (bookmark) untuk ayat dan halaman agar mudah kembali kapan saja.\n۞ Membaca tanda waqf: Menjelaskan tanda-tanda waqf untuk membantu membaca dengan benar.\n۞ Dzikir Hisnul Muslim: Bagian lengkap untuk membaca dzikir dengan fitur favorit dan navigasi cepat antar bagian.\n۞ Kustomisasi tampilan: Mendukung perubahan tema warna, termasuk mode gelap, untuk pengalaman membaca yang nyaman.\n۞ Unduh dan penggunaan offline: Mengunduh surah dan mendengarkannya nanti tanpa koneksi internet.\n\nFitur-fitur ini menjadikan aplikasi \"Al-Qur'an Al-Karim - Perpustakaan Hikmah\" sebagai platform terpadu yang menggabungkan membaca, mendengarkan, tafsir, dan pembelajaran, sehingga menghadirkan pengalaman spiritual dan edukatif yang kaya serta mudah digunakan.",
   "@about_app3": {
     "type": "text",
     "placeholders": {}
@@ -151,6 +151,11 @@
   },
   "waqfName": "Tanda Waqf",
   "@waqfName": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "tajweedRules": "Hukum Tajwid",
+  "@tajweedRules": {
     "type": "text",
     "placeholders": {}
   },
@@ -201,6 +206,16 @@
   },
   "azkarfav": "Dzikir Favorit",
   "@azkarfav": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "searchAzkar": "Cari dzikir...",
+  "@searchAzkar": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "noAzkarResults": "Tidak ada hasil",
+  "@noAzkarResults": {
     "type": "text",
     "placeholders": {}
   },
@@ -389,6 +404,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "reader21": "Ali Jaber",
+  "@reader21": {
+    "type": "text",
+    "placeholders": {}
+  },
   "alheekmahlib": "Perpustakaan Hikmah",
   "@alheekmahlib": {
     "type": "text",
@@ -419,8 +439,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "tafseer": "Tafsir",
-  "@tafseer": {
+  "tafsir": "Tafsir",
+  "@tafsir": {
     "type": "text",
     "placeholders": {}
   },
@@ -594,6 +614,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "shareAudio": "Sebagai Audio",
+  "@shareAudio": {
+    "type": "text",
+    "placeholders": {}
+  },
   "shareImageWTrans": "Sebagai Gambar dengan Konten Tambahan",
   "@shareImageWTrans": {
     "type": "text",
@@ -689,12 +714,57 @@
     "type": "text",
     "placeholders": {}
   },
+  "surah": "Surah",
+  "@surah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "chooseSurah": "Pilih Surah",
+  "@chooseSurah": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "segments": "Segmen",
+  "@segments": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "addSegment": "Tambah Segmen",
+  "@addSegment": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "repeatCount": "Jumlah Pengulangan",
+  "@repeatCount": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "sleepTimer": "Timer Tidur",
+  "@sleepTimer": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "hour": "Jam",
+  "@hour": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "minutes": "Menit",
+  "@minutes": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "of": "dari",
+  "@of": {
+    "type": "text",
+    "placeholders": {}
+  },
   "quran": "Al-Qur'an",
   "@quran": {
     "type": "text",
     "placeholders": {}
   },
-  "quranAudio": "Mendengarkan Al-Qur'an",
+  "quranAudio": "Mushaf audio",
   "@quranAudio": {
     "type": "text",
     "placeholders": {}
@@ -1149,7 +1219,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Memperbaiki masalah unduhan surah.\n۞ Perbaikan umum pada performa dan stabilitas aplikasi.",
+  "What'sNewDetails10": "۞ Menambahkan bagian 'Madad' untuk menjadi asisten bagi penuntut ilmu.\nModel 'Madad' menyajikan hasil dan informasi yang diekstrak dari buku-buku dan referensi Islam, dengan kemampuan untuk menuju sumber asli dan membaca topik secara lengkap dari buku yang terkait.\nModel ini bertujuan untuk memudahkan pencarian dan akses ke konten.\n۞ Menambahkan bagian baru ke perpustakaan Islam dengan pencarian yang disempurnakan dan pengalaman pengguna yang lebih baik.\n۞ Menambahkan fitur untuk mengganti jenis font.\n۞ Menambahkan fitur untuk mengirim masukan atau kesalahan yang Anda temukan di aplikasi, atau fitur-fitur yang Anda inginkan di aplikasi.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
@@ -1270,11 +1340,186 @@
   "month": "Bulan",
   "hijri": "Hijriah",
   "Sun": "Min",
+  "@Sun": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Mon": "Sen",
+  "@Mon": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Tue": "Sel",
+  "@Tue": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Wed": "Rab",
+  "@Wed": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Thu": "Kam",
+  "@Thu": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Fri": "Jum",
+  "@Fri": {
+    "type": "text",
+    "placeholders": {}
+  },
   "Sat": "Sab",
-  "manager_ayah_downloads": "Kelola Unduhan Ayat"
+  "@Sat": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "manager_ayah_downloads": "Kelola Unduhan Ayat",
+  "load_error": "Gagal memuat data untuk kata ini.",
+  "no_data": "Tidak ada data untuk kata ini.",
+  "recitations": "Qiraat",
+  "tasreef": "Konjugasi",
+  "eerab": "I'rab",
+  "unavailableDataTemplate": "Data @kind belum diunduh di perangkat ini",
+  "@unavailableDataTemplate": {
+    "type": "text",
+    "placeholders": {
+      "kind": {}
+    }
+  },
+  "mushafOrthographicMarks": "Harakat Mushaf",
+  "bookRemovedFromLastRead": "Buku dihapus dari Terakhir Dibaca",
+  "hadiths": "Hadis",
+  "sixthBooks": "Enam Kitab",
+  "ninthBooks": "Sembilan Kitab",
+  "noHadithBooks": "Tidak ada buku hadis yang diunduh di perangkat ini.",
+  "noTafsirBooks": "Tidak ada buku tafsir yang diunduh di perangkat ini.",
+  "noBooks": "Tidak ada buku.",
+  "bookJuz": "Bagian Buku",
+  "downloadBookFirstToSeeTheContents": "Silakan unduh buku terlebih dahulu untuk melihat isinya",
+  "chapter": "Bab",
+  "goToStartOfJuz": "Pergi ke awal bagian",
+  "noBooksReadedYet": "Anda belum membaca buku apa pun.",
+  "noBooksFoundForSearch": "Tidak ditemukan buku.",
+  "islamicLibrary": "Perpustakaan Islam",
+  "tajweed": "Dengan tajwid",
+  "useEnglishNumbers": "Gunakan angka Inggris",
+  "changeTafsir": "Ganti tafsir",
+  "mutashabihat": "Ayat serupa",
+  "no_mutashabihat": "Tidak ada frasa serupa untuk ayat ini",
+  "browse_mutashabihat": "Telusuri ayat serupa",
+  "mutashabihat_in": "Ayat serupa di",
+  "repeated": "Pengulangan",
+  "times": "kali",
+  "surahs": "Surah",
+  "ayah": "Ayat",
+  "tajweedUnavailableText": "Data aturan tajwid belum diunduh.",
+  "tajweedSurahNumberErrorText": "Gagal menentukan nomor surah",
+  "tajweedLoadErrorText": "Gagal memuat data aturan tajwid",
+  "tajweedNoDataText": "Tidak ada data tajwid untuk ayat ini.",
+  "twoDays": "Dua hari",
+  "searchInBook": "Cari di buku",
+  "autoScrollSettings": "Pengaturan gulir otomatis",
+  "stopCondition": "Berhenti pada:",
+  "pageCount": "Jumlah halaman:",
+  "speed": "Kecepatan:",
+  "slow": "Lambat",
+  "fast": "Cepat",
+  "nextHizb": "Hizb berikutnya",
+  "nextJuz": "Juz berikutnya",
+  "manual": "Manual",
+  "tabsira": "Tabsira",
+  "readProgress": "Kemajuan membaca",
+  "tableOfContents": "Daftar Isi",
+  "downloadError": "Terjadi kesalahan saat mengunduh",
+  "aqeedah": "Aqeedah",
+  "midadDescription": "Temannya untuk menuntut ilmu",
+  "downloadSections": "Unduh bagian yang ingin Anda cari",
+  "quranTafsir": "Al-Quran & Tafsir",
+  "quranTafsirDescription": "Ayat-ayat Al-Quran dengan lima kitab tafsir terkenal",
+  "hadith": "Hadits",
+  "hadithsDescription": "Hadits-hadits Nabi dari kitab-kitab hadits terkenal: Shahih al-Bukhari, Shahih Muslim, Sunan Abu Dawud, Jami' at-Tirmidzi, Sunan an-Nasa'i, dan Sunan Ibnu Majah",
+  "aqeedahDescription": "Kitab-kitab tentang Akidah, Tauhid, dan Iman",
+  "fiqh": "Fiqh",
+  "fiqhDescription": "Kitab-kitab tentang fikih dan hukum Islam",
+  "seerah": "Sirah & Sejarah",
+  "seerahDescription": "Biografi Nabi ﷺ dan sejarah Islam",
+  "noResultsFound": "Saya tidak menemukan apa pun tentang topik ini",
+  "tryDifferentQuery": "Coba ubah kalimat pertanyaan Anda atau gunakan kata lain",
+  "startSearchPrompt": "Mulai mencari topik Islam apa pun...",
+  "initializingMidad": "Memulai Midad...",
+  "initializingMidadDesc": "Ini mungkin membutuhkan beberapa menit saat pertama kali karena model dan data sedang disiapkan.",
+  "askMidad": "Tanya Midad...",
+  "askNow": "Tanya sekarang",
+  "midadNote": "Model 'Midad' menyajikan hasil dan informasi yang diekstrak dari kitab dan referensi Islam, dengan kemampuan untuk menavigasi ke sumber asli dan membaca topik lengkap dari kitab terkait.\nModel ini bertujuan untuk memfasilitasi penelitian dan akses ke konten Islam, dan tidak dimaksudkan untuk mengeluarkan fatwa atau hukum agama.\nUntuk urusan agama dan fatwa, silakan berkonsultasi dengan ulama yang berkompeten.",
+  "sections": "Bagian",
+  "all": "Semua",
+  "none_sections": "Tanpa bagian",
+  "midadWelcome": "Midad — Tinta Anda untuk Menuntut Ilmu\n(Pencarian cerdas masih dalam pengembangan. Kami menghargai pengertian Anda saat terus meningkatkannya.)",
+  "midadWelcomeDesc": "Mesin pencari cerdas di sumber ilmu Islam, membantu Anda menemukan apa yang Anda butuhkan dari Al-Qur'an, Tafsir, Hadis, dan kitab-kitab Islam.",
+  "midadSelectSections": "Pilih bagian yang ingin Anda cari untuk memulai.",
+  "midadLaterHint": "Anda dapat mengunduh bagian tambahan nanti dari Pengaturan.",
+  "downloadAll": "Unduh Semua",
+  "chatHistory": "Riwayat Obrolan",
+  "noChatHistory": "Tidak ada obrolan sebelumnya",
+  "clearAllHistory": "Hapus Semua",
+  "deleteChat": "Hapus",
+  "resultCount": "hasil",
+  "hours": "jam",
+  "days": "hari",
+  "searchingText": "Sedang mencari di judul bab dan konten buku yang diunduh... Hasil akan ditampilkan segera setelah ditemukan.",
+  "fontFamilyTitle": "Pilih Font",
+  "playpenFont": "Playpen",
+  "naskhFont": "Naskh",
+  "kufiFont": "Kufi",
+  "asul_el-feqh": "Ushul Fikih",
+  "eulum_alfiqh_wal_awaeid_alfiqhia": "Ilmu Fikih dan Kaidah Fikih",
+  "fegh_hanafi": "Fikih Hanafi",
+  "fegh_maliki": "Fikih Maliki",
+  "fegh_shafii": "Fikih Syafi'i",
+  "fegh_hanbali": "Fikih Hanbali",
+  "general_fegh": "Fikih Umum",
+  "fegh_masayil": "Permasalahan Fikih",
+  "alsiyasat_alshareiat_walqada": "Politik Syariah dan Peradilan",
+  "alfarayid_walwasaya": "Waris dan Wasiat",
+  "alraqayiq_waladab_waladhkar": "Zuhud, Adab dan Dzikir",
+  "alsiyrat_alnabawia": "Biografi Nabi",
+  "shareRange": "Bagikan beberapa ayat",
+  "@shareRange": {},
+  "fromAyah": "Dari ayat",
+  "@fromAyah": {},
+  "toAyah": "Sampai ayat",
+  "@toAyah": {},
+  "history": "Riwayat",
+  "meaning": "Arti kata",
+  "booksCount": "Jumlah buku",
+  "altarajim_waltabaqat": "Biografi dan generasi",
+  "feedback": "Umpan balik",
+  "feedback_subtitle": "Bagikan umpan balik Anda atau laporkan masalah",
+  "send_feedback": "Kirim Umpan Balik",
+  "feedback_message_hint": "Tulis pesan Anda di sini...",
+  "feedback_contact_optional": "Email kontak (opsional)",
+  "feedback_sent_success": "Umpan balik Anda berhasil dikirim!",
+  "feedback_sent_error": "Tidak dapat mengirim umpan balik. Coba lagi.",
+  "my_feedback": "Umpan Balik Saya",
+  "no_feedback_yet": "Anda belum mengirim umpan balik apa pun",
+  "feedback_reply_hint": "Tulis tindak lanjut...",
+  "feedback_reply_title": "Balasan Admin",
+  "feedback_status_planned": "Direncanakan",
+  "feedback_status_in_progress": "Sedang berjalan",
+  "feedback_status_complete": "Selesai",
+  "feedback_admin_role": "Admin",
+  "feedback_you_role": "Saya",
+  "characters_remaining": "karakter tersisa",
+  "feedback_new_reply": "Balasan baru untuk umpan balik Anda",
+  "retry": "Coba lagi",
+  "feedback_pick_images": "Foto",
+  "feedback_pick_video": "Video",
+  "feedback_remove_file": "Hapus",
+  "feedback_max_files": "Maksimum 5 file",
+  "feedback_file_too_large": "Ukuran file terlalu besar",
+  "feedback_invalid_type": "Jenis file tidak didukung",
+  "feedback_uploading": "Mengunggah...",
+  "feedback_add_media": "Tambah media",
+  "shuruh_al-hadiths": "Syarah hadis"
 }

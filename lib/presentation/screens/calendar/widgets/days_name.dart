@@ -7,12 +7,8 @@ class DaysName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16.0),
-      decoration: BoxDecoration(
-        color: Get.theme.colorScheme.primary.withValues(alpha: .1),
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
-      ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: List.generate(
@@ -21,17 +17,12 @@ class DaysName extends StatelessWidget {
             flex: 2,
             child: FittedBox(
               fit: BoxFit.scaleDown,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                child: Text(
-                  eventCtrl.getWeekdayShortName(index).tr,
-                  style: TextStyle(
-                    fontFamily: 'kufi',
-                    fontSize: 16,
-                    color: Theme.of(context).textTheme.bodyLarge!.color,
-                  ),
-                  textAlign: TextAlign.center,
+              child: Text(
+                eventCtrl.getWeekdayShortName(index).tr,
+                style: AppTextStyles.titleMedium().copyWith(
+                  color: context.theme.canvasColor,
                 ),
+                textAlign: TextAlign.center,
               ),
             ),
           ),

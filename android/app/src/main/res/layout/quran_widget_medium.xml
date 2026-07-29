@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Medium Widget: تقدم القراءة + بطاقة التاريخ — مطابق لـ iOS MediumWidgetView -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_outer_bg"
+    android:padding="8dp">
+
+    <!-- المحتوى الرئيسي -->
+    <LinearLayout
+        android:id="@+id/content_card"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="18dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="@drawable/widget_hijri_card_bg"
+        android:padding="10dp">
+
+        <!-- ═══════ القسم الأيمن: تقدم القراءة ═══════ -->
+        <LinearLayout
+            android:id="@+id/reading_section"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="start"
+            android:orientation="vertical">
+
+            <!-- عنوان آخر قراءة مع أيقونة -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_marginBottom="4dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📖"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/last_read_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="@string/last_reading"
+                    android:textColor="#283618"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- مخطوطة اسم السورة -->
+            <ImageView
+                android:id="@+id/surah_name_image"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="4dp"
+                android:contentDescription="@string/surah_label"
+                android:scaleType="fitStart"
+                android:visibility="gone" />
+
+            <!-- اسم السورة (نص احتياطي) -->
+            <TextView
+                android:id="@+id/surah_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/kufi"
+                android:maxLines="1"
+                android:textColor="#283618"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <!-- شريط التقدم مع رقم الصفحة متراكب فوقه -->
+            <FrameLayout
+                android:id="@+id/progress_container"
+                android:layout_width="match_parent"
+                android:layout_height="26dp"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/widget_progress_overlay_bg">
+
+                <!-- شريط التقدم -->
+                <ProgressBar
+                    android:id="@+id/reading_progress_bar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:max="100"
+                    android:progress="0"
+                    android:progressDrawable="@drawable/widget_progress_fill" />
+
+                <!-- رقم الصفحة فوق شريط التقدم -->
+                <TextView
+                    android:id="@+id/page_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="start|center_vertical"
+                    android:gravity="center_vertical"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="6dp"
+                    android:textColor="#283618"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <!-- نسبة التقدم -->
+            <TextView
+                android:id="@+id/progress_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#28361880"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <!-- ═══════ الفاصل العمودي ═══════ -->
+        <ImageView
+            android:id="@+id/divider"
+            android:layout_width="2dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="#30DDA15E"
+            android:contentDescription="@null"
+            android:importantForAccessibility="no" />
+
+        <!-- ═══════ القسم الأيسر: بطاقة التاريخ الهجري ═══════ -->
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <!-- رقم اليوم الهجري — كبير وشفاف خلف المخطوطة -->
+            <TextView
+                android:id="@+id/hijri_day_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|top"
+                android:alpha="0.4"
+                android:textColor="#DDA15E"
+                android:textSize="42sp"
+                android:textStyle="bold" />
+
+            <!-- مخطوطة الشهر الهجري -->
+            <ImageView
+                android:id="@+id/hijri_month_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:contentDescription="@string/hijri_widget_name"
+                android:padding="4dp"
+                android:scaleType="fitCenter"
+                android:visibility="gone" />
+
+            <!-- اسم الشهر (نص احتياطي) -->
+            <TextView
+                android:id="@+id/hijri_month_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/kufi"
+                android:textColor="#283618"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <!-- التاريخ الميلادي + السنة الهجرية -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="2dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/gregorian_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#DDA15E"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="6dp"
+                    android:text="•"
+                    android:textColor="#DDA15E"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/hijri_year_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#DDA15E"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+
+    <!-- شعار القرآن الكريم -->
+    <ImageView
+        android:id="@+id/quran_logo"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_gravity="center_horizontal|bottom"
+        android:scaleType="fitCenter"
+        android:src="@drawable/quran_logo"
+        android:contentDescription="@string/hijri_widget_name" />
+
+</FrameLayout>

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-const rtlLang = ['العربية', 'עברית', 'فارسی', 'اردو', 'کوردی'];
+const rtlLang = ['ar', 'he', 'fa', 'ur', 'ku'];
 
 extension StringExtension on String {
   bool isRtlLanguage() {
@@ -15,7 +15,7 @@ extension StringExtension on String {
 
 extension RotatedAndAlignmentExtension on Widget {
   Widget rotatedRtlLayout() {
-    if ('lang'.tr.isRtlLanguage()) {
+    if (Get.locale?.languageCode.isRtlLanguage() ?? false) {
       return RotatedBox(quarterTurns: 0, child: this);
     } else {
       return RotatedBox(quarterTurns: 2, child: this);
@@ -23,7 +23,7 @@ extension RotatedAndAlignmentExtension on Widget {
   }
 
   alignmentLayout(var rtl, var ltr) {
-    if ('lang'.tr.isRtlLanguage()) {
+    if (Get.locale?.languageCode.isRtlLanguage() ?? false) {
       return rtl;
     } else {
       return ltr;
@@ -45,7 +45,8 @@ extension StringExtensionApp on String {
   bool _containsRtlCharacters() {
     // نطاق الأحرف العربية والفارسية والعبرية
     final rtlRange = RegExp(
-        r'[\u0590-\u05FF\u0600-\u06FF\u0750-\u077F\uFB50-\uFDFF\uFE70-\uFEFF]');
+      r'[\u0590-\u05FF\u0600-\u06FF\u0750-\u077F\uFB50-\uFDFF\uFE70-\uFEFF]',
+    );
     return rtlRange.hasMatch(this);
   }
 
@@ -90,8 +91,9 @@ extension StringExtensionApp on String {
 
     // إذا كان أكثر من 70% من النص يحتوي على أحرف RTL
     if (length > 0) {
-      final rtlCharCount =
-          split('').where((char) => char._containsRtlCharacters()).length;
+      final rtlCharCount = split(
+        '',
+      ).where((char) => char._containsRtlCharacters()).length;
       final rtlPercentage = rtlCharCount / length;
       if (rtlPercentage > 0.7) return true;
     }

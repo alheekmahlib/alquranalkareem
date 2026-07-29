@@ -10,41 +10,47 @@ class PlayBanner extends StatelessWidget {
       enabled: true,
       label: 'Play Banner',
       child: GestureDetector(
-        child: Container(
-          width: 150,
-          height: 50,
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface.withValues(alpha: .2),
-            borderRadius: const BorderRadius.all(Radius.circular(8)),
-          ),
-          margin: context.customOrientation(
-            const EdgeInsets.only(top: 75.0, right: 16.0),
-            const EdgeInsets.only(bottom: 16.0, left: 32.0),
-          ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Obx(
-                () => RepaintBoundary(
-                  child: customSvgWithColor(
-                    'assets/svg/surah_name/00${AudioCtrl.instance.state.currentAudioListSurahNum}.svg',
-                    width: 100,
-                    color: context.theme.colorScheme.inversePrimary,
-                  ),
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                height: 50,
+                width: 8,
+                decoration: BoxDecoration(
+                  color: context.theme.primaryColorLight,
+                  borderRadius: BorderRadius.circular(8),
                 ),
               ),
-              MiniMusicVisualizer(
-                color: Theme.of(context).colorScheme.surface,
-                width: 4,
-                height: 15,
-                animate: true,
-              ),
+              const Gap(8),
               Container(
-                height: 80,
-                width: 10,
+                width: 150,
+                height: 50,
+                padding: const EdgeInsets.symmetric(horizontal: 6.0),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surface,
+                  color: context.theme.primaryColorLight.withValues(alpha: .1),
                   borderRadius: const BorderRadius.all(Radius.circular(8)),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Obx(
+                      () => RepaintBoundary(
+                        child: customSvgWithColor(
+                          'assets/svg/surah_name/00${AudioCtrl.instance.state.currentAudioListSurahNum}.svg',
+                          width: 100,
+                          color: context.theme.colorScheme.inversePrimary,
+                        ),
+                      ),
+                    ),
+                    MiniMusicVisualizer(
+                      color: context.theme.colorScheme.surface,
+                      width: 4,
+                      height: 15,
+                      animate: true,
+                    ),
+                  ],
                 ),
               ),
             ],

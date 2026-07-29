@@ -6,18 +6,26 @@ class KhatmasScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8.0),
-      margin: const EdgeInsets.all(8.0),
-      decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primaryContainer,
-          borderRadius: const BorderRadius.all(Radius.circular(8))),
-      child: ListView(
-        children: [
-          AddKhatmahWidget(),
-          KhatmahBuildWidget(),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TitleWidget(title: 'khatmah'.tr),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: SizedBox(
+            height: Get.height * 0.6,
+            child: ListView(
+              shrinkWrap: true,
+              controller: KhatmahController.instance.scrollController,
+              children: [
+                AddKhatmahWidget(),
+                const Gap(8),
+                KhatmahBuildWidget(),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
