@@ -1,9 +1,9 @@
 import 'package:floating_menu_expendable/floating_menu_expendable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '/core/services/languages/localization_controller.dart';
 import '/core/utils/constants/svg_constants.dart';
 import '/core/utils/helpers/app_text_styles.dart';
 import '/core/widgets/container_button.dart';
@@ -19,6 +19,7 @@ class AppsInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appInfo = OurAppsController.instance;
+    final langCode = Get.find<LocalizationController>().locale.languageCode;
     return Material(
       color: context.theme.primaryColorLight.withValues(alpha: 0.2),
       child: SizedBox(
@@ -38,11 +39,11 @@ class AppsInfo extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 32.0),
                 child: ListView(
                   children: [
-                    SvgPicture.network(apps.appLogo, width: 80),
+                    Image.network(apps.logoUrl, width: 80),
                     const Gap(8.0),
                     Center(
                       child: Text(
-                        '| ${apps.appTitle} |',
+                        '| ${apps.localizedAppTitle(langCode)} |',
                         style: AppTextStyles.titleMedium(),
                       ),
                     ),
@@ -57,10 +58,10 @@ class AppsInfo extends StatelessWidget {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(12),
-                          child: apps.appBanner == ''
+                          child: apps.bannerUrl.isEmpty
                               ? const SizedBox.shrink()
                               : Image.network(
-                                  apps.appBanner,
+                                  apps.bannerUrl,
                                   // height: 400,
                                 ),
                         ),

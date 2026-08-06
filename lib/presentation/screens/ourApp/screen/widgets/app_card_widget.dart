@@ -2,6 +2,7 @@ import 'package:floating_menu_expendable/floating_menu_expendable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '/core/services/languages/localization_controller.dart';
 import '/core/utils/helpers/app_text_styles.dart';
 import '/presentation/screens/ourApp/controller/ourApps_controller.dart';
 import '../../data/models/ourApp_model.dart';
@@ -19,6 +20,7 @@ class AppCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final apps = app;
+    final langCode = Get.find<LocalizationController>().locale.languageCode;
     return AnimatedContainer(
       duration: const Duration(milliseconds: 160),
       curve: Curves.easeOut,
@@ -53,14 +55,19 @@ class AppCard extends StatelessWidget {
           onTap: () {
             toggle();
           },
-          child: _gridCard(apps, scheme, context),
+          child: _gridCard(apps, scheme, context, langCode),
         ),
-        child: _gridCard(apps, scheme, context),
+        child: _gridCard(apps, scheme, context, langCode),
       ),
     );
   }
 
-  Column _gridCard(OurAppInfo apps, ColorScheme scheme, BuildContext context) {
+  Column _gridCard(
+    OurAppInfo apps,
+    ColorScheme scheme,
+    BuildContext context,
+    String langCode,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -73,7 +80,7 @@ class AppCard extends StatelessWidget {
           child: AspectRatio(
             aspectRatio: 16 / 9,
             child: Image.network(
-              apps.appBanner,
+              apps.bannerUrl,
               fit: BoxFit.cover,
               loadingBuilder: (context, child, progress) {
                 if (progress == null) return child;
@@ -107,7 +114,7 @@ class AppCard extends StatelessWidget {
           child: FittedBox(
             fit: BoxFit.scaleDown,
             child: Text(
-              apps.appTitle,
+              apps.localizedAppTitle(langCode),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: AppTextStyles.titleMedium(),
@@ -118,7 +125,7 @@ class AppCard extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
           child: Text(
-            apps.body,
+            apps.localizedBody(langCode),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.start,

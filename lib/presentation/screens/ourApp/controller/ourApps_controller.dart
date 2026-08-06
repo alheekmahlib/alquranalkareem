@@ -22,6 +22,13 @@ class OurAppsController extends GetxController {
   static const _cacheKey = 'our_apps_cache';
   final _box = GetStorage();
 
+  // نعرض فقط تطبيقات مكتبة الحكمة
+  static const _companyName = 'Alheekmah Library';
+
+  /// يُرجع التطبيقات التي تنتمي لمكتبة الحكمة فقط.
+  List<OurAppInfo> _filterByCompany(List<OurAppInfo> apps) =>
+      apps.where((app) => app.companyName == _companyName).toList();
+
   /// جلب بيانات التطبيقات: من الشبكة مع حفظ في الكاش، أو من الكاش عند عدم وجود اتصال
   Future<List<OurAppInfo>> fetchApps() async {
     final isConnected = InternetConnectionController.instance.isConnected;
@@ -32,7 +39,6 @@ class OurAppsController extends GetxController {
         final result = await apiClient.request(
           endpoint: ApiConstants.ourAppsUrl,
           method: HttpMethod.get,
-          fallbackUrl: ApiConstants.ourAppsGitLabUrl,
         );
 
         return result.fold(
@@ -47,17 +53,27 @@ class OurAppsController extends GetxController {
           (data) {
             log('Data fetched successfully', name: 'OurAppsController');
 
+            // الـ API الجديد يُغلّف المصفوفة داخل { "apps": [...] }
+            // يدعم أيضاً الردود غير المغلّفة (Array مباشرة) للمرونة.
             List<dynamic> jsonData;
             if (data is String) {
-              jsonData = jsonDecode(data) as List<dynamic>;
+              final decoded = jsonDecode(data);
+              jsonData = decoded is List
+                  ? decoded
+                  : (decoded['apps'] as List<dynamic>? ?? const []);
+            } else if (data is List) {
+              jsonData = data;
             } else {
-              jsonData = data as List<dynamic>;
+              final map = data as Map<String, dynamic>;
+              jsonData = map['apps'] as List<dynamic>? ?? const [];
             }
 
             // حفظ البيانات في الكاش
             _box.write(_cacheKey, jsonData);
 
-            return jsonData.map((item) => OurAppInfo.fromJson(item)).toList();
+            final apps =
+                jsonData.map((item) => OurAppInfo.fromJson(item)).toList();
+            return _filterByCompany(apps);
           },
         );
       } catch (e) {
@@ -76,25 +92,23 @@ class OurAppsController extends GetxController {
     final cached = _box.read<List<dynamic>>(_cacheKey);
     if (cached != null && cached.isNotEmpty) {
       log('Loading data from cache', name: 'OurAppsController');
-      return cached
+      final apps = cached
           .map((item) => OurAppInfo.fromJson(Map<String, dynamic>.from(item)))
           .toList();
+      return _filterByCompany(apps);
     }
     log('No cached data available', name: 'OurAppsController');
     return [];
   }
 
-  // إطلاق رابط التطبيق حسب النظام الأساسي
-  // Launch app URL based on platform
+  // إطلاق رابط التحميل القادم من الـ API (dynamicLink)
+  // Launch the app's dynamic download link from the API
   Future<void> launchURL(BuildContext context, OurAppInfo ourAppInfo) async {
-    if (await canLaunchUrl(
-      Uri.parse('${ApiConstants.downloadAppsUrl}${ourAppInfo.appName}'),
-    )) {
-      await launchUrl(
-        Uri.parse('${ApiConstants.downloadAppsUrl}${ourAppInfo.appName}'),
-      );
+    final uri = Uri.parse(ourAppInfo.dynamicLink);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
     } else {
-      throw 'Could not launch ${ApiConstants.downloadAppsUrl}${ourAppInfo.appName}';
+      throw 'Could not launch ${ourAppInfo.dynamicLink}';
     }
   }
 }
