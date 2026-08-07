@@ -1,12 +1,21 @@
 {
   "pins" : [
     {
+      "identity" : "iosawncore",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/rafaelsetragni/IosAwnCore.git",
+      "state" : {
+        "revision" : "2253f8cad36e8020c409c82a13f7fd5b9ec49b5b",
+        "version" : "0.12.1"
+      }
+    },
+    {
       "identity" : "onnxruntime-swift-package-manager",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/masicai/onnxruntime-swift-package-manager",
       "state" : {
-        "revision" : "eab1ddb7622b40b6c03526a51f2384843f7af767",
-        "version" : "1.23.0"
+        "revision" : "57f28b1fdd6fe33585370b146a46c597d6750953",
+        "version" : "1.23.1"
       }
     },
     {
