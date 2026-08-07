@@ -108,7 +108,7 @@ class QuranSearch extends StatelessWidget {
                   child: Container(
                     child: Column(
                       children: <Widget>[
-                        Container(
+                        Material(
                           color: (index % 2 == 0
                               ? Theme.of(
                                   context,
@@ -117,12 +117,12 @@ class QuranSearch extends StatelessWidget {
                                   context,
                                 ).colorScheme.surface.withValues(alpha: .1)),
                           child: ListTile(
-                            onTap: () {
-                              quranCtrl.changeSurahListOnTap(search.page);
-                              QuranLibrary.quranCtrl.toggleAyahSelection(
-                                search.ayahUQNumber,
-                              );
-                            },
+                          onTap: () {
+                            quranCtrl.changeSurahListOnTap(search.page);
+                            QuranLibrary.quranCtrl.toggleAyahSelection(
+                              search.ayahUQNumber,
+                            );
+                          },
                             title: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: RichText(

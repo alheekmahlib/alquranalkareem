@@ -6,6 +6,7 @@ import 'dart:isolate';
 import 'dart:math' show max, min, pow, sqrt;
 import 'dart:typed_data';
 
+import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
 import 'package:alquranalkareem/core/utils/constants/svg_constants.dart';
 import 'package:alquranalkareem/core/widgets/animated_drawing_widget.dart';
 import 'package:alquranalkareem/core/widgets/app_bar_widget.dart';

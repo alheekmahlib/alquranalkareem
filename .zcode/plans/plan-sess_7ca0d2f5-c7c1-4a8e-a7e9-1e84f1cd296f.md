@@ -1,130 +1,82 @@
-# خطة: اختيار النموذج (Multi-Provider) في المساعد الذكي
+# خطة: دمج المساعد الذكي في بحث القرآن (زر AI بدل زر Home)
 
-## الحقائق المؤكدة
-كل المزودين **OpenAI-compatible** (نفس `/chat/completions` + `tools`):
-- **z.ai GLM-4.7-Flash** (الافتراضي، مجاني غير محدود): `https://api.z.ai/api/paas/v4/`، model `glm-4.7-flash`، key `ZAI_API_KEY`
-- **Google Gemini 2.5 Flash** (مجاني): `https://generativelanguage.googleapis.com/v1beta/openai/`، model `gemini-2.5-flash`، key `GEMINI_API_KEY`
-- **Groq** (مجاني، سريع جداً): `https://api.groq.com/openai/v1`، models `llama-3.3-70b-versatile` / `gemma2-9b-it` / `mixtral-8x7b-32768`، key `GROQ_API_KEY`
-- **OpenRouter** (احتياطي): `https://openrouter.ai/api/v1`، key `OPENROUTER_API_KEY`
+## الفكرة المحورية (من اقتراح المستخدم)
+زر `HomeChild` في `TopBarWidget` (الأسطر 127-180 من `tab_bar_widget.dart`) يتبدّل بـ **زر AI** فقط عندما يكون `topBarType == search` و `isHomeChild == true` (بحث القرآن). عند الإغلاق أو التبديل لقسم آخر → يعود زر Home الأصلي. هكذا تستغل المساحة ولا تتأثر بقية استخدامات `TopBarWidget` (التقويم، الأذكار، الكتب — 8 أماكن).
+
+## تجنّب تعارض المكتبات
+`QuranSearch` هو `part of quran.dart`، و `AssistantView/ModelSelectorWidget` هما `part of ai_search.dart`. دمج الاستيرادين يُخاطر بتعارضات (`Response`, أسماء كلاسات). **الحل**: أعرض widgets الـ AI عبر `bodyChild` parameter في `TopBarWidget` (الموجود فعلاً في السطر 232: `bodyChild ?? QuranSearch()`). هكذا أبني الـ widget في `quran_home.dart` (الذي يمكنه استيراد ai_search بأمان) وأمرّره كـ `bodyChild`، بدل دمج المكتبتين.
 
 ---
 
-## 1. تعميم `OpenRouterService` → `LlmService` متعدد المزودين
-
-في `services/openrouter_service.dart` (نُعيد تسميتها منطقياً لـ LlmService):
-
-### نموذج `LlmProvider` (نموذج بيانات ثابت):
+## 1. حالة التبديل في `SearchState`
+في `search_state.dart`، أضيف:
 ```dart
-class LlmProvider {
-  final String id;              // 'zai'
-  final String displayName;     // 'GLM 4.7 Flash (z.ai)'
-  final String baseUrl;         // 'https://api.z.ai/api/paas/v4'
-  final String model;           // 'glm-4.7-flash'
-  final String envKeyName;      // 'ZAI_API_KEY'
-  final bool isFreeUnlimited;   // true لـ z.ai
-  const LlmProvider({...});
-}
+final RxBool isAiMode = false.obs;
 ```
 
-### قائمة المزودين الثابتة:
+---
+
+## 2. زر التبديل في `TopBarWidget` (tab_bar_widget.dart)
+داخل فرع `isHomeChild == true` (السطر 129)، ألفّه بـ `Obx`:
 ```dart
-static const List<LlmProvider> providers = [
-  LlmProvider(id: 'zai', displayName: 'GLM 4.7 Flash', baseUrl: 'https://api.z.ai/api/paas/v4', model: 'glm-4.7-flash', envKeyName: 'ZAI_API_KEY', isFreeUnlimited: true),
-  LlmProvider(id: 'gemini', displayName: 'Gemini 2.5 Flash', baseUrl: 'https://generativelanguage.googleapis.com/v1beta/openai', model: 'gemini-2.5-flash', envKeyName: 'GEMINI_API_KEY'),
-  LlmProvider(id: 'groq-llama', displayName: 'Llama 3.3 70B (Groq)', baseUrl: 'https://api.groq.com/openai/v1', model: 'llama-3.3-70b-versatile', envKeyName: 'GROQ_API_KEY'),
-  LlmProvider(id: 'groq-gemma', displayName: 'Gemma 2 9B (Groq)', baseUrl: 'https://api.groq.com/openai/v1', model: 'gemma2-9b-it', envKeyName: 'GROQ_API_KEY'),
-  LlmProvider(id: 'groq-mixtral', displayName: 'Mixtral 8x7B (Groq)', baseUrl: 'https://api.groq.com/openai/v1', model: 'mixtral-8x7b-32768', envKeyName: 'GROQ_API_KEY'),
-  LlmProvider(id: 'nemotron', displayName: 'Nemotron Ultra 550B', baseUrl: 'https://openrouter.ai/api/v1', model: 'nvidia/nemotron-3-ultra-550b-a55b:free', envKeyName: 'OPENROUTER_API_KEY'),
-];
+isHomeChild
+  ? Obx(() {
+      // فقط في وضع بحث القرآن: اعرض زر AI بدل زر Home.
+      if (quranCtrl.getTopBarType(TopBarType.search)) {
+        return _buildAiToggleButton(context);  // زر ✨ للتبديل
+      }
+      // وإلا: زر Home الأصلي كما هو (الكود الحالي).
+      return ContainerButton(/* ... زر home الحالي ... */);
+    })
+  : ...
 ```
-
-### `chatCompletion` يصبح dynamic:
-- يأخذ `provider` محدد (يحدّد baseUrl + model + apiKey).
-- يبني `Dio` جديد لكل مزود (لأن baseUrl يختلف) بدل singleton بـ baseUrl ثابت.
-- `apiKey` يُقرأ من `dotenv.get(provider.envKeyName)`.
-- يحتفظ بـ fallback (للمزودين المجانيين فقط، عبر تبديل المزود لا النموذج).
-
-### إزالة المنطك القديم:
-- حذف `_freeModels`, `_modelsToTry`, `_defaultModel`, `OPENROUTER_MODEL` (لم نعد نحتاجه — الاختيار صريح الآن).
+- `_buildAiToggleButton`: `ContainerButton` بأيقونة `SvgPath.svgHomeAiMcp` (أو Icons.auto_awesome). عند الضغط: يقلب `searchCtrl.state.isAiMode.value` ويضبط `AiSearchController.instance.state.midasMode = MidasMode.assistant`.
+- **لا يتأثر أي استخدام آخر** لـ TopBarWidget لأن الشرط يتطلب `topBarType == search`.
 
 ---
 
-## 2. حالة المزود المختار في `AiSearchState`
-
-أضيف:
-```dart
-/// المزود المختار حالياً (يُحفظ في GetStorage).
-final Rx<LlmProvider> selectedProvider = LlmService.defaultProvider.obs;
-```
-- `defaultProvider` = مزود z.ai glm-4.7-flash (طالما مفتاحه موجود، وإلا أول مزود له مفتاح).
-- الاختيار يُحفظ في GetStorage (مفتاح `ai_search_selected_provider`).
-- عند الإقلاع: اقرأ المحفوظ، وتحقق أن مفتاحه موجود، وإلا ارجع للـ default.
+## 3. تعديل ربط `TextFieldBarWidget` في `quran_home.dart`
+أعدّل callbacks الحالية:
+- **`onChanged`**: في وضع AI (`searchCtrl.state.isAiMode.value == true`)، لا تفعل شيئاً (لا search ولا surahSearchMethod). في الوضع العادي، الكود الحالي.
+- **`onSubmitted`**: في وضع AI، يستدعي `AiSearchController.instance.sendAssistantMessage(query)` ويمسح حقل quran_search. في الوضع العادي، `searchCtrl.addSearchItem(query)`.
+- **`onButtonPressed` (زر X)**: في وضع AI، يمسح محادثة المساعد أيضاً.
 
 ---
 
-## 3. `AssistantOrchestrator` يستخدم المزود المختار
-
-`chatCompletion` يُمرَّر له `provider: state.selectedProvider.value`.
-- الـ fallback: إن فشل المزود المختار (429/401)، جرّب بقية المزودين الذين لهم مفاتيح.
-
----
-
-## 4. Dropdown النماذج في `InputBarWidget` (وضع المساعد)
-
-widget جديد `ModelSelectorWidget` (StatelessWidget، `part of`) بنمط `SectionFilterWidget`:
-- `DropdownButton2<LlmProvider>` مع `customButton` على شكل pill (أيقونة `Icons.psychology`/`model_training` + اسم النموذج المختار).
-- يعرض فقط المزودين الذين **لهم مفاتيح** في `.env` (يتحقّص `_availableProviders()`).
-- عند الاختيار: `ctrl.selectProvider(provider)`.
-- في `InputBarWidget`، الصف السفلي في وضع المساعد يصبح:
-  ```
-  [زر الإرسال] [ModelSelectorWidget أو ToolCallIndicator]
-  ```
-  إن كانت أداة جارية → `ToolCallIndicator`؛ وإلا → `ModelSelectorWidget`.
+## 4. عرض `AssistantView` عبر `bodyChild`
+في `quran_home.dart`، ألفّ الـ `bodyChild` بـ `Obx`:
+- **`isAiMode == true`**: أمرّر widget جديد أبنيه هنا يستدعي `AssistantView()` (من ai_search) + شريط `ModelSelectorWidget` أسفله (أو فوقه). هذا الـ widget يُمرَّر كـ `bodyChild` لـ `TopBarWidget`، فيُعرض بدل `QuranSearch()` عند تفعيل AI.
+- **`isAiMode == false`**: `bodyChild: null` → يُعرض `QuranSearch()` الافتراضي.
 
 ---
 
-## 5. التحكم في `AiSearchController`
+## 5. إعادة الضبط عند الإغلاق
+في `tab_bar_widget.dart` السطر 67-73 (`onStateChanged`)، عند `!isOpen`:
+- أضيف `searchCtrl.state.isAiMode.value = false;`.
+- وأيضاً `AiSearchController.instance.clearAssistantConversation();` لمسح المحادثة.
 
-أضيف طرقاً:
-- `List<LlmProvider> get availableProviders` — المزودون الذين لهم مفاتيح.
-- `void selectProvider(LlmProvider p)` — يضبط `state.selectedProvider` ويحفظه في GetStorage.
-- في `sendAssistantMessage`: يمرّر `state.selectedProvider.value` للـ orchestrator.
-
----
-
-## 6. تحديث `.env` و `.env.example`
-
-أضيف مفاتيح كل المزودين (بقيم placeholder):
-```
-ZAI_API_KEY=
-GEMINI_API_KEY=
-GROQ_API_KEY=
-OPENROUTER_API_KEY=...  # موجود مسبقاً
-```
+ملاحظة: `QuranSearchController` و `AiSearchController` كلاهما singleton متاح عبر `Get.find`، فالوصول آمن من `TopBarWidget`.
 
 ---
 
-## 7. التوطين
-مفاتيح جديدة لـ 11 لغة:
-- `selectModel` (اختر النموذج)
-- `noApiKey` (لا يوجد مفتاح لهذا النموذج في .env)
-- أسماء المزودين تُعرض كما هي (نصوص مباشرة، لا توطين).
+## 6. السلوك النهائي
+1. المستخدم يفتح بحث القرآن → `topBarType = search` → زر Home يتبدّل بزر ✨ AI.
+2. يضغط ✨ → يدخل وضع AI → يظهر `ModelSelectorWidget` + `AssistantView`.
+3. يكتب سؤالاً → عند Enter → `sendAssistantMessage` → إجابة streaming.
+4. يضغط ✨ مرة أخرى → يعود البحث العادي (آيات/سور).
+5. يغلق `TopBarWidget` → كل شيء يُعاد ضبطه (isAiMode = false، محادثة ممسوحة).
 
 ---
 
-## 8. الترتيب
-1. تحديث `.env` و `.env.example` بالمفاتيح الجديدة.
-2. تعميم `OpenRouterService` → `LlmService` + `LlmProvider` model.
-3. إضافة `selectedProvider` لـ `AiSearchState` + الحفظ/الاستعادة.
-4. تحديث `AssistantOrchestrator` لتمرير المزود.
-5. إضافة `ModelSelectorWidget`.
-6. دمج `ModelSelectorWidget` في `InputBarWidget` (وضع المساعد).
-7. طرق التحكم في `AiSearchController` (availableProviders, selectProvider).
-8. التوطين.
-9. `flutter analyze`.
+## 7. الترتيب
+1. إضافة `isAiMode` لـ `SearchState`.
+2. تعديل `tab_bar_widget.dart`: زر AI بدل Home في وضع search + إعادة ضبط عند الإغلاق.
+3. تعديل `quran_home.dart`: callbacks (onChanged/onSubmitted) + `bodyChild` يعرض AssistantView.
+4. `flutter analyze`.
 
 ## القيود
-- ✅ لا StatefulWidget، لا تكرار كود، فصل اللوجيك عن الـ UI.
-- ✅ إعادة استخدام DropdownButton2 و نمط SectionFilterWidget.
-- ✅ كل المزودين عبر service واحد (OpenAI-compatible).
-- ✅ الاختيار محفوظ في GetStorage، والنماذج بلا مفتاح تُخفى.
+- ✅ لا StatefulWidget، لا تكرار كود (AssistantView/ModelSelectorWidget/AiSearchController جاهزة).
+- ✅ إرسال عند Enter فقط في وضع AI.
+- ✅ لا يتأثر أي استخدام آخر لـ TopBarWidget.
+- ✅ بدون ChatHistorySheet.
+- ✅ إعادة ضبط كاملة عند الإغلاق/التبديل.

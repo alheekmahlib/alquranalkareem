@@ -1543,5 +1543,16 @@
   "freeUnlimited": "Gratis e ilimitado",
   "selectModel": "Seleccionar modelo",
   "fallbackNotice": "Cambiado automáticamente a @model (modelo anterior no disponible)",
-  "slowModelNotice": "@model todavía está procesando tu respuesta... Algunos modelos tardan más, por favor espera"
+  "slowModelNotice": "@model todavía está procesando tu respuesta... Algunos modelos tardan más, por favor espera",
+  "assistantNoFinalAnswer": "No pude formular una respuesta final. Intenta reformular tu pregunta.",
+  "assistantMcpError": "No se pudo conectar al servidor Tafsir. Revisa tu conexion a internet e intentalo de nuevo.",
+  "assistantUnexpectedError": "Ocurrio un error inesperado. Intentalo de nuevo.",
+  "assistantRateLimit": "Se ha superado el limite de uso de este modelo. Prueba otro modelo o espera un momento.",
+  "assistantPaymentRequired": "La cuota gratuita de este modelo se ha agotado. Elige otro modelo de la lista.",
+  "assistantInvalidKey": "Clave de API no valida. Comprueba las claves en el archivo .env.",
+  "assistantModelUnavailable": "Este modelo no esta disponible actualmente. Elige otro modelo de la lista.",
+  "assistantOverloaded": "El servidor esta ocupado actualmente. Intentalo de nuevo en un momento.",
+  "assistantTooLarge": "La pregunta es demasiado larga. Intenta acortarla.",
+  "assistantGenericError": "No se pudo obtener una respuesta del modelo. Intentalo de nuevo o elige otro modelo.",
+  "assistantNoData": "No hay datos disponibles para esta consulta en este momento."
 }

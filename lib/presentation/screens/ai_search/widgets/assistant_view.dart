@@ -5,7 +5,15 @@ part of '../ai_search.dart';
 /// StatelessWidget بالكامل؛ تستهلك [AiSearchController.state] عبر `Obx`.
 /// شريط الإدخال موحّد ويُوفَّر من الشاشة الأم (InputBarWidget).
 class AssistantView extends StatelessWidget {
-  AssistantView({super.key});
+  final Color? textColor;
+  final Color? iconColor;
+  final bool? isInMidad;
+  AssistantView({
+    super.key,
+    this.textColor,
+    this.iconColor,
+    this.isInMidad = true,
+  });
 
   final ctrl = AiSearchController.instance;
 
@@ -29,7 +37,11 @@ class AssistantView extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: .center,
       children: [
-        const SizedBox().customSvg(SvgPath.svgHomeMidadIcon, height: 70),
+        const SizedBox().customSvgWithCustomColor(
+          SvgPath.svgHomeMidadIcon,
+          height: 70,
+          color: iconColor ?? theme.canvasColor,
+        ),
         const Gap(8),
         Text(
           'assistantWelcome'.tr,
@@ -44,7 +56,9 @@ class AssistantView extends StatelessWidget {
           'assistantWelcomeDesc'.tr,
           style: AppTextStyles.titleMedium(
             fontSize: 14,
-            color: theme.colorScheme.surface.withValues(alpha: 0.7),
+            color: (textColor ?? theme.colorScheme.surface).withValues(
+              alpha: 0.7,
+            ),
           ),
           textAlign: TextAlign.center,
         ),
@@ -87,7 +101,7 @@ class AssistantView extends StatelessWidget {
             Expanded(
               child: ListView(
                 children: [
-                  const IconWidget(),
+                  if (isInMidad == true) const IconWidget(),
                   ListView.builder(
                     shrinkWrap: true,
                     controller: ctrl.assistantScrollController,
@@ -111,9 +125,11 @@ class AssistantView extends StatelessWidget {
                       // هل هذه آخر رسالة مساعد؟ (لعرضها بحركة streaming).
                       bool isLast = false;
                       if (message.isAssistant) {
-                        for (int i = ctrl.state.assistantMessages.length - 1;
-                            i >= 0;
-                            i--) {
+                        for (
+                          int i = ctrl.state.assistantMessages.length - 1;
+                          i >= 0;
+                          i--
+                        ) {
                           if (ctrl.state.assistantMessages[i].isAssistant) {
                             isLast = (i == index);
                             break;
@@ -124,6 +140,8 @@ class AssistantView extends StatelessWidget {
                         message: message,
                         associatedQuestion: question,
                         isLastMessage: isLast,
+                        textColor: textColor,
+                        iconColor: iconColor,
                       );
                     },
                   ),
@@ -153,7 +171,7 @@ class AssistantView extends StatelessWidget {
                     err,
                     style: AppTextStyles.titleMedium(
                       fontSize: 13,
-                      color: theme.colorScheme.error,
+                      color: textColor ?? theme.colorScheme.error,
                     ),
                   ),
                 ),
@@ -171,7 +189,9 @@ class AssistantView extends StatelessWidget {
                 return const SizedBox.shrink();
               }
               return Container(
-                color: theme.colorScheme.primary.withValues(alpha: 0.4),
+                color: isInMidad == true
+                    ? theme.colorScheme.primary.withValues(alpha: 0.4)
+                    : Colors.transparent,
                 alignment: Alignment.center,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -182,14 +202,14 @@ class AssistantView extends StatelessWidget {
                       width: 160,
                       isRepeat: true,
                       duration: 3,
-                      customColor: theme.canvasColor,
+                      customColor: iconColor ?? theme.canvasColor,
                     ),
                     const Gap(16),
                     Text(
                       'thinking'.tr,
                       style: AppTextStyles.titleMedium(
                         fontSize: 18,
-                        color: theme.colorScheme.surface,
+                        color: textColor ?? theme.colorScheme.surface,
                       ),
                     ),
                   ],

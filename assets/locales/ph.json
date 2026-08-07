@@ -1537,5 +1537,16 @@
   "freeUnlimited": "Libre at walang limitasyon",
   "selectModel": "Pumili ng model",
   "fallbackNotice": "Awtomatikong lumipat sa @model (hindi available ang naunang model)",
-  "slowModelNotice": "Mas pinaglalawian pa ng @model ang iyong sagot... Ang ilang modelo ay tumatagal, mangyaring maghintay"
+  "slowModelNotice": "Mas pinaglalawian pa ng @model ang iyong sagot... Ang ilang modelo ay tumatagal, mangyaring maghintay",
+  "assistantNoFinalAnswer": "Hindi ako makabuo ng pinal na sagot. Subukang muling iwasto ang iyong tanong.",
+  "assistantMcpError": "Hindi makakonekta sa Tafsir server. Suriin ang iyong internet connection at subukang muli.",
+  "assistantUnexpectedError": "May naganap na hindi inaasahang error. Pakiusap subukang muli.",
+  "assistantRateLimit": "Na-exceed na ang limitasyon ng paggamit para sa model na ito. Subukan ang ibang model o maghintay sandali.",
+  "assistantPaymentRequired": "Ubos na ang libreng quota para sa model na ito. Pumili ng ibang model sa listahan.",
+  "assistantInvalidKey": "Hindi wastong API key. Suriin ang mga key sa .env file.",
+  "assistantModelUnavailable": "Hindi available ngayon ang model na ito. Pumili ng ibang model sa listahan.",
+  "assistantOverloaded": "Busy ngayon ang server. Subukang muli pagkalipas ng ilang sandali.",
+  "assistantTooLarge": "Masyadong mahaba ang tanong. Subukang paliitin ito.",
+  "assistantGenericError": "Hindi makakuha ng sagot mula sa model. Subukang muli o pumili ng ibang model.",
+  "assistantNoData": "Walang available na data para sa query na ito sa ngayon."
 }
