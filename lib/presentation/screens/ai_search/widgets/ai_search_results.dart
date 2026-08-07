@@ -1,35 +1,9 @@
 part of '../ai_search.dart';
 
-class AiSearchResults extends StatefulWidget {
-  const AiSearchResults({super.key});
+class AiSearchResults extends StatelessWidget {
+  AiSearchResults({super.key});
 
-  @override
-  State<AiSearchResults> createState() => _AiSearchResultsState();
-}
-
-class _AiSearchResultsState extends State<AiSearchResults> {
   final ctrl = AiSearchController.instance;
-  @override
-  void initState() {
-    super.initState();
-    AiSearchController.instance.state.searchTextEditing.addListener(
-      _onTextChanged,
-    );
-    // Init AI search only when screen opens (not on app start)
-    AiSearchController.instance.ensureInitialized();
-  }
-
-  @override
-  void dispose() {
-    AiSearchController.instance.state.searchTextEditing.removeListener(
-      _onTextChanged,
-    );
-    super.dispose();
-  }
-
-  void _onTextChanged() {
-    if (mounted) setState(() {});
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,53 +12,113 @@ class _AiSearchResultsState extends State<AiSearchResults> {
       appBar: AppBarWidget(
         isTitled: false,
         isFontSize: false,
-        searchButton: IconButton(
-          onPressed: () {
-            customBottomSheet(const ChatHistorySheet());
-          },
-          icon: const SizedBox().customSvgWithColor(
-            SvgPath.svgHomeHistory,
-            height: 26,
-            color: context.theme.canvasColor,
-          ),
-        ),
+        searchButton: _buildAppBarActions(context),
         isNotifi: false,
         isBooks: false,
         arrowBackColor: context.theme.canvasColor,
         color: Colors.transparent,
       ),
       body: SafeArea(
-        child: Stack(
-          alignment: .center,
+        child: Obx(() {
+          // بدّل المحتوى بحسب الوضع النشط.
+          if (ctrl.state.midasMode.value == MidasMode.assistant) {
+            return _buildAssistantMode(context);
+          }
+          return _buildSemanticMode(context);
+        }),
+      ),
+    );
+  }
+
+  /// أزرار الـ AppBar: تبديل الوضع + محادثة جديدة (مساعد) + سجل المحادثة.
+  Widget _buildAppBarActions(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        // زر تبديل الوضع (دلالي ↔ مساعد).
+        Obx(() {
+          final isAssistant = ctrl.state.midasMode.value == MidasMode.assistant;
+          return CustomButton(
+            // tooltip: isAssistant ? 'semanticMode'.tr : 'assistantMode'.tr,
+            onPressed: () {
+              ctrl.state.midasMode.value = isAssistant
+                  ? MidasMode.semantic
+                  : MidasMode.assistant;
+            },
+            isCustomSvgColor: true,
+            svgColor: context.theme.canvasColor,
+            svgPath: isAssistant
+                ? SvgPath.svgHomeOffline
+                : SvgPath.svgHomeAiMcp,
+          );
+        }),
+        const Gap(6),
+        // زر "محادثة جديدة" — يظهر فقط في وضع المساعد.
+        // Obx(() {
+        //   if (ctrl.state.searchTextEditing.text.isNotEmpty) {
+        //     return const SizedBox.shrink();
+        //   }
+        // return
+        CustomButton(
+          // tooltip: 'newChat'.tr,
+          onPressed: () => ctrl.clearAssistantConversation(),
+          isCustomSvgColor: true,
+          svgPath: SvgPath.svgHomeNewChat,
+          svgColor: context.theme.canvasColor,
+        ),
+        const Gap(6),
+        // سجل المحادثة — يظهر في الوضعين (موحّد).
+        CustomButton(
+          // tooltip: 'newChat'.tr,
+          onPressed: () => customBottomSheet(const ChatHistorySheet()),
+          isCustomSvgColor: true,
+          svgPath: SvgPath.svgHomeHistory,
+          svgColor: context.theme.canvasColor,
+        ),
+      ],
+    );
+  }
+
+  /// وضع البحث الدلالي (الموجود سابقاً) — يحافظ على كل سلوكه.
+  Widget _buildSemanticMode(BuildContext context) {
+    // Init AI search only when screen opens (not on app start).
+    ctrl.ensureInitialized();
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Column(
           children: [
-            Column(
-              children: [
-                // Main scrollable content
-                Expanded(
-                  child: Center(child: Obx(() => _buildContent(context, ctrl))),
-                ),
-                // Fixed input bar at bottom — only when sections are loaded
-                Obx(() {
-                  if (!ctrl.state.hasAnySectionLoaded) {
-                    return const SizedBox.shrink();
-                  }
-                  return Align(
-                    alignment: .bottomCenter,
-                    child: InputBarWidget(),
-                  );
-                }),
-              ],
+            Expanded(
+              child: Center(child: Obx(() => _buildContent(context, ctrl))),
             ),
-            // Settings floating menu — only when sections are loaded
             Obx(() {
               if (!ctrl.state.hasAnySectionLoaded) {
                 return const SizedBox.shrink();
               }
-              return FloatingMenuWidget(ctrl: ctrl);
+              return Align(
+                alignment: Alignment.bottomCenter,
+                child: InputBarWidget(),
+              );
             }),
           ],
         ),
-      ),
+        Obx(() {
+          if (!ctrl.state.hasAnySectionLoaded) {
+            return const SizedBox.shrink();
+          }
+          return FloatingMenuWidget(ctrl: ctrl);
+        }),
+      ],
+    );
+  }
+
+  /// وضع المساعد الذكي (tafsir-mcp). يستخدم InputBarWidget الموحد.
+  Widget _buildAssistantMode(BuildContext context) {
+    return Column(
+      children: [
+        Expanded(child: AssistantView()),
+        Align(alignment: Alignment.bottomCenter, child: InputBarWidget()),
+      ],
     );
   }
 
@@ -126,7 +160,7 @@ class _AiSearchResultsState extends State<AiSearchResults> {
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(
               children: [
-                _iconWidget(context, ctrl),
+                const IconWidget(),
                 Text(
                   'startSearchPrompt'.tr,
                   style: AppTextStyles.titleMedium(
@@ -215,25 +249,6 @@ class _AiSearchResultsState extends State<AiSearchResults> {
         ctrl.state.searchTextEditing.text = text;
         ctrl.search(text);
       },
-    );
-  }
-
-  Widget _iconWidget(BuildContext context, AiSearchController ctrl) {
-    return Column(
-      children: [
-        const SizedBox().customSvg(SvgPath.svgHomeMidadIcon, height: 70),
-        const Gap(8),
-        Text(
-          ctrl.state.hasAnySectionLoaded
-              ? 'midadDescription'.tr
-              : 'downloadSections'.tr,
-          style: AppTextStyles.titleMedium(
-            fontSize: 14,
-            color: context.theme.colorScheme.surface,
-          ),
-        ),
-        const Gap(24),
-      ],
     );
   }
 
@@ -433,7 +448,7 @@ class _AiSearchResultsState extends State<AiSearchResults> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _iconWidget(context, ctrl),
+            const IconWidget(),
             Icon(
               Icons.search_off,
               size: 48,
@@ -473,7 +488,7 @@ class _AiSearchResultsState extends State<AiSearchResults> {
       child: ListView(
         padding: const EdgeInsets.only(top: 16, bottom: 16),
         children: [
-          _iconWidget(context, ctrl),
+          const IconWidget(),
           // User query bubble
           if (query.isNotEmpty) _buildUserQuery(context, query),
           const Gap(12),

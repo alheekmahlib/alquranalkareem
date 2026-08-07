@@ -13,18 +13,18 @@ class ApiConstants {
   static const baseUrl = "https://raw.githubusercontent.com/";
   static const String notificationsUrl =
       'alheekmahlib/data/main/notifications.json';
-  static const String ourAppsUrl =
-      'alheekmahlib/thegarlanded/master/ourApps.json';
+
+  // قسم التطبيقات — مصدر REST حيّ (يُرجع البيانات مترجمةً لكل لغة).
+  // Dio يتجاهل baseUrl عند تمرير URL مطلق في endpoint، لذا يعمل كما هو.
+  static const String ourAppsUrl = 'https://dash.vexaltech.dev/api/apps';
+  // مجال استضافة وسائط التطبيقات (الشعار/البنر) — تُضاف للمسارات النسبية القادمة من الـ API.
+  static const String appsMediaBaseUrl = 'https://dash.vexaltech.dev';
 
   // GitLab fallback URLs
   static const String notificationsGitLabUrl =
       'https://gitlab.com/haozo89/data/-/raw/main/noti.json?ref_type=heads';
-  static const String ourAppsGitLabUrl =
-      'https://gitlab.com/haozo89/data/-/raw/main/ourApps.json?ref_type=heads';
   static const String appUrl =
       'https://alheekmahlib.github.io/alheekmahlib/#/download/quran';
-  static const String downloadAppsUrl =
-      'https://alheekmahlib.github.io/alheekmahlib/#/download/';
   static const String quranShareUrl =
       'https://alheekmahlib.github.io/alheekmahlib/#/quran?page=';
 
@@ -58,9 +58,10 @@ class ApiConstants {
       'https://gitlab.com/api/v4/projects/$_gitlabProjectId/packages/generic/eulum_alfiqh_books/1.0.0';
 
   // Feedback API — نطاق مستقل عن baseUrl (يُمرَّر URL كامل في ApiClient.request)
-  static const String feedbackApiUrl =
-      'https://feedback-api.haozo89.workers.dev';
-  static const String feedbackEndpoint = '/feedback'; // POST + GET /feedback/{token}
-  static const String feedbackReplySuffix = '/reply'; // POST /feedback/{token}/reply
+  static const String feedbackApiUrl = 'https://vexaltech.dev/api/feedback';
+  static const String feedbackEndpoint =
+      '/feedback'; // POST + GET /feedback/{token}
+  static const String feedbackReplySuffix =
+      '/reply'; // POST /feedback/{token}/reply
   static const String feedbackUploadEndpoint = '/upload'; // POST رفع وسائط
 }

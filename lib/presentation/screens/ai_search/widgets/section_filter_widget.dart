@@ -57,7 +57,7 @@ class SectionFilterWidget extends StatelessWidget {
         ),
         isDense: true,
         items: SearchSection.all.map((section) {
-          return DropdownMenuItem<String>(
+          return DropdownItem<String>(
             value: section.id,
             enabled: ctrl.state.isSectionLoaded(section.id).value,
             // Obx inside each item so checkbox updates in-place
@@ -170,7 +170,6 @@ class SectionFilterWidget extends StatelessWidget {
           ),
         ),
         menuItemStyleData: MenuItemStyleData(
-          height: 44,
           padding: EdgeInsets.zero,
           overlayColor: WidgetStateProperty.all(Colors.transparent),
         ),

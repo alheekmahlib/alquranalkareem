@@ -67,6 +67,13 @@ class QuranHome extends StatelessWidget {
                               isNotification: false,
                               tabBarController:
                                   quranCtrl.state.tabBarController,
+                              // في وضع AI: اعرض AssistantView + ModelSelector بدل QuranSearch.
+                              bodyChild: Obx(() {
+                                if (searchCtrl.state.isAiMode.value) {
+                                  return _buildAiBody(context);
+                                }
+                                return QuranSearch();
+                              }),
                               centerChild: TextFieldBarWidget(
                                 controller: searchCtrl.state.searchTextEditing,
                                 horizontalPadding: 0.0,
@@ -78,8 +85,15 @@ class QuranHome extends StatelessWidget {
                                   searchCtrl.state.searchTextEditing.clear();
                                   searchCtrl.state.ayahList.clear();
                                   searchCtrl.state.surahList.clear();
+                                  // امسح محادثة المساعد أيضاً إن كانت نشطة.
+                                  if (searchCtrl.state.isAiMode.value) {
+                                    AiSearchController.instance
+                                        .clearAssistantConversation();
+                                  }
                                 },
                                 onChanged: (query) {
+                                  // في وضع AI: لا بحث مباشر (الإرسال عند Enter فقط).
+                                  if (searchCtrl.state.isAiMode.value) return;
                                   if (searchCtrl
                                           .state
                                           .searchTextEditing
@@ -95,12 +109,20 @@ class QuranHome extends StatelessWidget {
                                   }
                                 },
                                 onSubmitted: (query) {
+                                  // في وضع AI: أرسل للمساعد الذكي.
+                                  if (searchCtrl.state.isAiMode.value) {
+                                    if (query.trim().isNotEmpty) {
+                                      AiSearchController.instance
+                                          .sendAssistantMessage(query);
+                                      searchCtrl.state.searchTextEditing
+                                          .clear();
+                                    }
+                                    return;
+                                  }
                                   if (query.length <= 0 ||
                                       query.trim().isNotEmpty) {
                                     searchCtrl.addSearchItem(query);
                                   }
-                                  // await sl<QuranSearchControllers>().addSearchItem(query);
-                                  // searchCtrl.textSearchController.clear();
                                 },
                               ),
                             ),
@@ -119,6 +141,61 @@ class QuranHome extends StatelessWidget {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  /// يبني جسم وضع AI: شريط اختيار النموذج + واجهة المساعد.
+  Widget _buildAiBody(BuildContext context) {
+    final ctrl = AiSearchController.instance;
+    // اضبط وضع المساعد في AiSearchController ليقرأه AssistantView.
+    ctrl.state.midasMode.value = MidasMode.assistant;
+    return Container(
+      height: Get.height,
+      width: Get.width,
+      color: context.theme.colorScheme.primaryContainer,
+      child: SafeArea(
+        child: Column(
+          children: [
+            // واجهة المساعد الذكي (المحادثة + مؤشر التفكير + أزرار النسخ).
+            Expanded(
+              child: AssistantView(
+                isInMidad: false,
+                iconColor: context.theme.primaryColorLight,
+                textColor: context.theme.colorScheme.inversePrimary,
+              ),
+            ),
+            // شريط اختيار النموذج (ModelSelectorWidget من ai_search).
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                mainAxisAlignment: .spaceBetween,
+                children: [
+                  // سجل المحادثة — يظهر في الوضعين (موحّد).
+                  CustomButton(
+                    // tooltip: 'newChat'.tr,
+                    onPressed: () =>
+                        customBottomSheet(const ChatHistorySheet()),
+                    isCustomSvgColor: true,
+                    svgPath: SvgPath.svgHomeHistory,
+                    svgColor: context.theme.primaryColorLight,
+                  ),
+                  ModelSelectorWidget(
+                    textColor: context.theme.colorScheme.inversePrimary,
+                    backgroundColor: context.theme.primaryColorLight,
+                  ),
+                  CustomButton(
+                    // tooltip: 'newChat'.tr,
+                    onPressed: () => ctrl.clearAssistantConversation(),
+                    isCustomSvgColor: true,
+                    svgPath: SvgPath.svgHomeNewChat,
+                    svgColor: context.theme.primaryColorLight,
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

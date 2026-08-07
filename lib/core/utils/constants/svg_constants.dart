@@ -260,6 +260,10 @@ class SvgPath {
   /// assets/svg/home.svg
   static const String svgHome = "assets/svg/home.svg";
 
+  /// Assets for svgHomeAiMcp
+  /// assets/svg/home/ai_mcp.svg
+  static const String svgHomeAiMcp = "assets/svg/home/ai_mcp.svg";
+
   /// Assets for svgHomeArrowBack
   /// assets/svg/home/arrow_back.svg
   static const String svgHomeArrowBack = "assets/svg/home/arrow_back.svg";
@@ -300,10 +304,18 @@ class SvgPath {
   /// assets/svg/home/midad_icon.svg
   static const String svgHomeMidadIcon = "assets/svg/home/midad_icon.svg";
 
+  /// Assets for svgHomeNewChat
+  /// assets/svg/home/new_chat.svg
+  static const String svgHomeNewChat = "assets/svg/home/new_chat.svg";
+
   /// Assets for svgHomeNotifications
   /// assets/svg/home/notifications.svg
   static const String svgHomeNotifications =
       "assets/svg/home/notifications.svg";
+
+  /// Assets for svgHomeOffline
+  /// assets/svg/home/offline.svg
+  static const String svgHomeOffline = "assets/svg/home/offline.svg";
 
   /// Assets for svgHomeQuranAi
   /// assets/svg/home/quran_ai.svg

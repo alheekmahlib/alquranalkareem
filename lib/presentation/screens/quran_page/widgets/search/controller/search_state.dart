@@ -16,6 +16,9 @@ class SearchState {
   var ayahList = <AyahModel>[].obs;
   var surahList = <SurahModel>[].obs;
   var errorMessage = ''.obs;
+
+  /// هل وضع المساعد الذكي (AI) مفعّل في بحث القرآن؟
+  final RxBool isAiMode = false.obs;
   int currentPage = 1;
   int itemsPerPage = 5;
   bool hasMore = true;
