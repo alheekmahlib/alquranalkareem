@@ -4,7 +4,9 @@ part of '../ai_search.dart';
 ///
 /// تظهر فقط المزودين الذين لهم مفاتيح في .env.
 class ModelSelectorWidget extends StatelessWidget {
-  ModelSelectorWidget({super.key});
+  final Color? textColor;
+  final Color? backgroundColor;
+  ModelSelectorWidget({super.key, this.textColor, this.backgroundColor});
 
   final ctrl = AiSearchController.instance;
 
@@ -25,7 +27,9 @@ class ModelSelectorWidget extends StatelessWidget {
         customButton: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
           decoration: BoxDecoration(
-            color: theme.colorScheme.surface.withValues(alpha: 0.08),
+            color:
+                backgroundColor?.withValues(alpha: 0.2) ??
+                theme.colorScheme.surface.withValues(alpha: 0.08),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Row(
@@ -34,7 +38,9 @@ class ModelSelectorWidget extends StatelessWidget {
               Icon(
                 Icons.auto_awesome,
                 size: 16,
-                color: theme.colorScheme.surface.withValues(alpha: 0.6),
+                color:
+                    backgroundColor ??
+                    theme.colorScheme.surface.withValues(alpha: 0.6),
               ),
               const Gap(4),
               Text(
@@ -42,7 +48,7 @@ class ModelSelectorWidget extends StatelessWidget {
                 style: AppTextStyles.titleMedium(
                   height: 2,
                   fontSize: 13,
-                  color: theme.colorScheme.surface,
+                  color: textColor ?? theme.colorScheme.surface,
                 ),
               ),
             ],

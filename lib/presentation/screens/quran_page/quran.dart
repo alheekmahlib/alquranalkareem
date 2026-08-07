@@ -66,6 +66,7 @@ import '../../../core/widgets/tab_bar_widget.dart';
 import '../../../database/bookmark_db/bookmark_database.dart';
 import '../../../database/bookmark_db/db_bookmark_helper.dart';
 import '../../controllers/theme_controller.dart';
+import '../ai_search/ai_search.dart';
 import '../mushaf_orthographic/alwaqf_screen.dart';
 import 'data/helper/ayah_menu_helper.dart';
 import 'widgets/khatmah/data/data_source/khatmah_database.dart';

@@ -66,15 +66,14 @@ class AiSearchResults extends StatelessWidget {
           svgPath: SvgPath.svgHomeNewChat,
           svgColor: context.theme.canvasColor,
         ),
-        // }),
+        const Gap(6),
         // سجل المحادثة — يظهر في الوضعين (موحّد).
-        IconButton(
+        CustomButton(
+          // tooltip: 'newChat'.tr,
           onPressed: () => customBottomSheet(const ChatHistorySheet()),
-          icon: const SizedBox().customSvgWithColor(
-            SvgPath.svgHomeHistory,
-            height: 26,
-            color: context.theme.canvasColor,
-          ),
+          isCustomSvgColor: true,
+          svgPath: SvgPath.svgHomeHistory,
+          svgColor: context.theme.canvasColor,
         ),
       ],
     );

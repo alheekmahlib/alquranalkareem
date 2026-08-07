@@ -1537,5 +1537,16 @@
   "freeUnlimited": "Gratis & tanpa batas",
   "selectModel": "Pilih model",
   "fallbackNotice": "Beralih otomatis ke @model (model sebelumnya tidak tersedia)",
-  "slowModelNotice": "@model masih memproses jawaban Anda... Beberapa model membutuhkan waktu lebih lama, mohon tunggu"
+  "slowModelNotice": "@model masih memproses jawaban Anda... Beberapa model membutuhkan waktu lebih lama, mohon tunggu",
+  "assistantNoFinalAnswer": "Saya tidak dapat merumuskan jawaban akhir. Coba ubah kalimat pertanyaan Anda.",
+  "assistantMcpError": "Tidak dapat terhubung ke server Tafsir. Periksa koneksi internet Anda dan coba lagi.",
+  "assistantUnexpectedError": "Terjadi kesalahan tak terduga. Silakan coba lagi.",
+  "assistantRateLimit": "Batas penggunaan untuk model ini telah terlampaui. Coba model lain atau tunggu sebentar.",
+  "assistantPaymentRequired": "Kuota gratis untuk model ini telah habis. Pilih model lain dari daftar.",
+  "assistantInvalidKey": "Kunci API tidak valid. Periksa kunci di file .env.",
+  "assistantModelUnavailable": "Model ini saat ini tidak tersedia. Pilih model lain dari daftar.",
+  "assistantOverloaded": "Server saat ini sibuk. Coba lagi dalam beberapa saat.",
+  "assistantTooLarge": "Pertanyaan terlalu panjang. Coba persingkat.",
+  "assistantGenericError": "Tidak bisa mendapatkan jawaban dari model. Coba lagi atau pilih model lain.",
+  "assistantNoData": "Tidak ada data yang tersedia untuk kueri ini saat ini."
 }

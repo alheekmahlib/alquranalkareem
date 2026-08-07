@@ -1515,5 +1515,16 @@
   "freeUnlimited": "Bilaash waafaqsan",
   "selectModel": "Dooro moodelka",
   "fallbackNotice": "Si toos ah ayaa lo beddelay @model (tusaalihii hore ma heli karo)",
-  "slowModelNotice": "@model weli waa shaqeeyaya jawaabtaada... Qaar ka mid ah moodelyada waxay qaataan waqti badan, fadlan sug"
+  "slowModelNotice": "@model weli waa shaqeeyaya jawaabtaada... Qaar ka mid ah moodelyada waxay qaataan waqti badan, fadlan sug",
+  "assistantNoFinalAnswer": "Ma aan ku qaban karin jawaab ugu dambeysa. Isku day inaad su aashaaga dib u dhigato.",
+  "assistantMcpError": "Lama xiriirin karo server-ka tafsiirka. Iska hubso isku xirka internetka oo isku day mar kale.",
+  "assistantUnexpectedError": "Khalad aan la filayay ayaa dhacay. Fadlan isku day mar kale.",
+  "assistantRateLimit": "Xadka isticmaalka moodelkan waa la dhaafay. Isku day moodel kale ama wax yar sug.",
+  "assistantPaymentRequired": "Hakabka bilaashka ah ee moodelkan waa dhammaaday. Dooro moodel kale liiska.",
+  "assistantInvalidKey": "Furaha API-ga maaha mid sax ah. Hubi furayaasha faylka .env.",
+  "assistantModelUnavailable": "Moodelkan hadda lama heli karo. Dooro moodel kale liiska.",
+  "assistantOverloaded": "Server-ku hadda waa mashqulay. Isku day mar kale dabool kasta.",
+  "assistantTooLarge": "Su aashu waa dheer tahay. Isku day inaad gaabisato.",
+  "assistantGenericError": "Lama heli karin jawaab moodelka. Isku day mar kale ama dooro moodel kale.",
+  "assistantNoData": "Ma jiro xog la heli karo weydintan hadda."
 }

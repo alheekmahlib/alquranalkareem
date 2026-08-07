@@ -1535,5 +1535,16 @@
   "freeUnlimited": "Ücretsiz ve sınırsız",
   "selectModel": "Model seç",
   "fallbackNotice": "Otomatik olarak @model modeline geçildi (önceki model kullanılamıyor)",
-  "slowModelNotice": "@model hâlâ cevabınızı işliyor... Bazı modeller daha uzun sürer, lütfen bekleyin"
+  "slowModelNotice": "@model hâlâ cevabınızı işliyor... Bazı modeller daha uzun sürer, lütfen bekleyin",
+  "assistantNoFinalAnswer": "Nihai bir cevap olusturamadim. Sorunuzu yeniden ifade etmeyi deneyin.",
+  "assistantMcpError": "Tefsir sunucusuna baglanilamadi. Internet baglartinizi kontrol edin ve tekrar deneyin.",
+  "assistantUnexpectedError": "Beklenmeyen bir hata olustu. Lutfen tekrar deneyin.",
+  "assistantRateLimit": "Bu modelin kullanim limiti asildi. Baska bir model deneyin veya biraz bekleyin.",
+  "assistantPaymentRequired": "Bu modelin ucretsiz kotasi doldu. Listeden baska bir model secin.",
+  "assistantInvalidKey": "Gecersiz API anahtari. .env dosyasindaki anahtarlari kontrol edin.",
+  "assistantModelUnavailable": "Bu model su anda kullanilamiyor. Listeden baska bir model secin.",
+  "assistantOverloaded": "Sunucu su anda mesgul. Biraz sonra tekrar deneyin.",
+  "assistantTooLarge": "Soru cok uzun. Kisaltmayi deneyin.",
+  "assistantGenericError": "Modelden cevap alinamadi. Tekrar deneyin veya baska bir model secin.",
+  "assistantNoData": "Su anda bu sorgu icin veri mevcut degil."
 }

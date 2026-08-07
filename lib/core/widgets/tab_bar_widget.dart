@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '/core/utils/constants/extensions/bottom_sheet_extension.dart';
 import '/core/utils/constants/svg_constants.dart';
 import '/presentation/screens/home/home_screen.dart';
+import '/presentation/screens/quran_page/widgets/search/controller/quran_search_controller.dart';
 import '../../presentation/screens/quran_page/quran.dart';
 import '../services/services_locator.dart';
 import '../utils/constants/extensions/extensions.dart';
@@ -67,6 +68,12 @@ class TopBarWidget extends StatelessWidget {
           onStateChanged: (state) {
             if (!tabBarController.isOpen) {
               quranCtrl.state.topBarType.value = TopBarType.none.name;
+              // أعد ضبط وضع AI عند إغلاق الـ sheet.
+              final searchCtrl = QuranSearchController.instance;
+              if (searchCtrl.state.isAiMode.value) {
+                searchCtrl.state.isAiMode.value = false;
+                searchCtrl.state.searchTextEditing.clear();
+              }
             } else {
               quranCtrl.state.isPlayExpanded.value = false;
             }
@@ -127,38 +134,46 @@ class TopBarWidget extends StatelessWidget {
                           Expanded(
                             flex: 2,
                             child: isHomeChild
-                                ? ContainerButton(
-                                    onPressed: () async {
-                                      // if (isQuranSetting ?? true) {
-                                      //   await HomeWidgetService.instance
-                                      //       .updateReadingProgress();
-                                      // }
-                                      if (isBackButton ?? false) {
+                                ? Obx(() {
+                                    // فقط في وضع بحث القرآن: اعرض زر التبديل لـ AI
+                                    // بدل زر Home لاستغلال المساحة.
+                                    if (quranCtrl.getTopBarType(
+                                      TopBarType.search,
+                                    )) {
+                                      return _buildAiToggleButton(context);
+                                    }
+                                    // وإلا: زر Home الأصلي كما هو.
+                                    return ContainerButton(
+                                      onPressed: () async {
+                                        if (isBackButton ?? false) {
+                                          quranCtrl.setTopBarType =
+                                              TopBarType.none;
+                                          Get.back();
+                                          return;
+                                        }
                                         quranCtrl.setTopBarType =
                                             TopBarType.none;
-                                        Get.back();
-                                        return;
-                                      }
-                                      quranCtrl.setTopBarType = TopBarType.none;
-                                      Get.offAll(
-                                        () => const HomeScreen(),
-                                        transition: Transition.upToDown,
-                                      );
-                                      sl<QuranController>()
-                                          .state
-                                          .selectedAyahIndexes
-                                          .clear();
-                                    },
-                                    svgHeight: 35,
-                                    svgWidth: 35,
-                                    horizontalMargin: 4.0,
-                                    verticalMargin: 5.0,
-                                    backgroundColor: Colors.transparent,
-                                    svgColor: context.theme.colorScheme.primary,
-                                    svgWithColorPath: isBackButton ?? false
-                                        ? SvgPath.svgHomeArrowBack
-                                        : SvgPath.svgHomeHome,
-                                  )
+                                        Get.offAll(
+                                          () => const HomeScreen(),
+                                          transition: Transition.upToDown,
+                                        );
+                                        sl<QuranController>()
+                                            .state
+                                            .selectedAyahIndexes
+                                            .clear();
+                                      },
+                                      svgHeight: 35,
+                                      svgWidth: 35,
+                                      horizontalMargin: 4.0,
+                                      verticalMargin: 5.0,
+                                      backgroundColor: Colors.transparent,
+                                      svgColor:
+                                          context.theme.colorScheme.primary,
+                                      svgWithColorPath: isBackButton ?? false
+                                          ? SvgPath.svgHomeArrowBack
+                                          : SvgPath.svgHomeHome,
+                                    );
+                                  })
                                 : isNotification
                                 ? FittedBox(
                                     fit: BoxFit.scaleDown,
@@ -245,5 +260,31 @@ class TopBarWidget extends StatelessWidget {
         );
       },
     );
+  }
+
+  /// زر التبديل بين البحث العادي والـ AI — يظهر فقط في وضع بحث القرآن.
+  Widget _buildAiToggleButton(BuildContext context) {
+    final searchCtrl = QuranSearchController.instance;
+    return Obx(() {
+      final isAi = searchCtrl.state.isAiMode.value;
+      return ContainerButton(
+        onPressed: () {
+          searchCtrl.state.isAiMode.value = !isAi;
+          // امسح حقل البحث عند التبديل لتفادي نتائج مختلطة.
+          searchCtrl.state.searchTextEditing.clear();
+          searchCtrl.state.ayahList.clear();
+          searchCtrl.state.surahList.clear();
+        },
+        svgHeight: 35,
+        svgWidth: 35,
+        horizontalMargin: 4.0,
+        verticalMargin: 5.0,
+        backgroundColor: Colors.transparent,
+        svgColor: isAi
+            ? context.theme.colorScheme.primary
+            : context.theme.colorScheme.primary.withValues(alpha: 0.5),
+        svgWithColorPath: SvgPath.svgHomeAiMcp,
+      );
+    });
   }
 }

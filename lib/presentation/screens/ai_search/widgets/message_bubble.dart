@@ -11,6 +11,8 @@ class MessageBubble extends StatelessWidget {
     required this.message,
     this.associatedQuestion,
     this.isLastMessage = false,
+    this.textColor,
+    this.iconColor,
   });
 
   final ChatMessage message;
@@ -21,6 +23,8 @@ class MessageBubble extends StatelessWidget {
   /// هل هذه آخر رسالة مساعد؟ (تُعرض بحركة streaming وهمية، البقية فوراً).
   final bool isLastMessage;
 
+  final Color? textColor;
+  final Color? iconColor;
   @override
   Widget build(BuildContext context) {
     if (message.isAssistant) return _buildAssistantAnswer(context);
@@ -37,7 +41,9 @@ class MessageBubble extends StatelessWidget {
         margin: const EdgeInsets.only(right: 16, left: 48, top: 8, bottom: 4),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         decoration: BoxDecoration(
-          color: theme.colorScheme.surface.withValues(alpha: 0.08),
+          color:
+              iconColor?.withValues(alpha: 0.2) ??
+              theme.colorScheme.surface.withValues(alpha: 0.08),
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(16),
             topRight: Radius.circular(16),
@@ -52,7 +58,7 @@ class MessageBubble extends StatelessWidget {
             style: AppTextStyles.titleMedium(
               fontSize: 17,
               height: 1.4,
-              color: theme.colorScheme.surface,
+              color: textColor ?? theme.colorScheme.surface,
             ),
           ),
         ),
@@ -83,7 +89,7 @@ class MessageBubble extends StatelessWidget {
                 style: AppTextStyles.titleMedium(
                   fontSize: 17,
                   height: 1.6,
-                  color: theme.canvasColor,
+                  color: textColor ?? theme.canvasColor,
                 ),
                 child: StreamingTextMarkdown(
                   text: message.content,
@@ -94,7 +100,7 @@ class MessageBubble extends StatelessWidget {
                   styleSheet: AppTextStyles.titleMedium(
                     fontSize: 17,
                     height: 1.6,
-                    color: theme.canvasColor,
+                    color: textColor ?? theme.canvasColor,
                   ),
                   textDirection: TextDirection.rtl,
                   fadeInEnabled: false,
@@ -103,6 +109,12 @@ class MessageBubble extends StatelessWidget {
                 ),
               ),
             ),
+          ),
+          context.hDivider(
+            width: Get.width * 0.5,
+            color:
+                iconColor?.withValues(alpha: 0.2) ??
+                theme.canvasColor.withValues(alpha: 0.08),
           ),
           // أزرار نسخ/مشاركة أسفل الإجابة (مثل ChatGPT).
           _buildActionButtons(context, ctrl),
@@ -158,7 +170,9 @@ class MessageBubble extends StatelessWidget {
         svgPath: svgPath,
         isCustomSvgColor: true,
         horizontalPadding: 8,
-        svgColor: theme.colorScheme.surface.withValues(alpha: 0.6),
+        svgColor:
+            iconColor?.withValues(alpha: 0.8) ??
+            theme.colorScheme.surface.withValues(alpha: 0.6),
       ),
     );
   }
@@ -174,9 +188,11 @@ class MessageBubble extends StatelessWidget {
   ) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4),
-      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       decoration: BoxDecoration(
-        color: theme.colorScheme.surface.withValues(alpha: 0.08),
+        color:
+            iconColor?.withValues(alpha: 0.2) ??
+            theme.colorScheme.surface.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Text(
@@ -187,7 +203,7 @@ class MessageBubble extends StatelessWidget {
           fontFamily: 'uthmanic2',
           fontSize: 22,
           height: 1.9,
-          color: theme.canvasColor,
+          color: textColor ?? theme.canvasColor,
         ),
       ),
     );
@@ -196,7 +212,7 @@ class MessageBubble extends StatelessWidget {
   /// يبني ثيم GptMarkdown مخصصاً يجعل كل العناوين والروابط بلون canvasColor
   /// وخط التطبيق، بدل الأنماط الافتراضية السوداء (Typography.tall2021).
   GptMarkdownThemeData _buildMarkdownTheme(ThemeData theme) {
-    final baseColor = theme.canvasColor;
+    final baseColor = textColor ?? theme.canvasColor;
     final fontFamily = ThemeController.instance.currentFontFamily;
     final baseStyle = TextStyle(color: baseColor, fontFamily: fontFamily);
     return GptMarkdownThemeData(
