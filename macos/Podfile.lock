@@ -1,136 +1,21 @@
 PODS:
-  - audio_service (0.0.1):
-    - Flutter
-    - FlutterMacOS
-  - audio_session (0.0.1):
-    - FlutterMacOS
-  - awesome_notifications (0.0.1):
-    - FlutterMacOS
-  - connectivity_plus (0.0.1):
-    - FlutterMacOS
-  - device_info_plus (0.0.1):
-    - FlutterMacOS
-  - file_selector_macos (0.0.1):
-    - FlutterMacOS
-  - flutter_onnxruntime (0.0.1):
-    - FlutterMacOS
-    - onnxruntime-objc (= 1.23.0)
-  - flutter_timezone (0.1.0):
+  - awesome_notifications (0.12.0):
     - FlutterMacOS
   - FlutterMacOS (1.0.0)
-  - just_audio (0.0.1):
-    - Flutter
-    - FlutterMacOS
-  - onnxruntime-c (1.23.0)
-  - onnxruntime-objc (1.23.0):
-    - onnxruntime-objc/Core (= 1.23.0)
-  - onnxruntime-objc/Core (1.23.0):
-    - onnxruntime-c (= 1.23.0)
-  - package_info_plus (0.0.1):
-    - FlutterMacOS
-  - rate_my_app (2.4.0):
-    - Flutter
-    - FlutterMacOS
-  - share_plus (0.0.1):
-    - FlutterMacOS
-  - shared_preferences_foundation (0.0.1):
-    - Flutter
-    - FlutterMacOS
-  - sqflite_darwin (0.0.4):
-    - Flutter
-    - FlutterMacOS
-  - url_launcher_macos (0.0.1):
-    - FlutterMacOS
-  - video_player_avfoundation (0.0.1):
-    - Flutter
-    - FlutterMacOS
-  - wakelock_plus (0.0.1):
-    - FlutterMacOS
 
 DEPENDENCIES:
-  - audio_service (from `Flutter/ephemeral/.symlinks/plugins/audio_service/darwin`)
-  - audio_session (from `Flutter/ephemeral/.symlinks/plugins/audio_session/macos`)
   - awesome_notifications (from `Flutter/ephemeral/.symlinks/plugins/awesome_notifications/macos`)
-  - connectivity_plus (from `Flutter/ephemeral/.symlinks/plugins/connectivity_plus/macos`)
-  - device_info_plus (from `Flutter/ephemeral/.symlinks/plugins/device_info_plus/macos`)
-  - file_selector_macos (from `Flutter/ephemeral/.symlinks/plugins/file_selector_macos/macos`)
-  - flutter_onnxruntime (from `Flutter/ephemeral/.symlinks/plugins/flutter_onnxruntime/macos`)
-  - flutter_timezone (from `Flutter/ephemeral/.symlinks/plugins/flutter_timezone/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
-  - just_audio (from `Flutter/ephemeral/.symlinks/plugins/just_audio/darwin`)
-  - package_info_plus (from `Flutter/ephemeral/.symlinks/plugins/package_info_plus/macos`)
-  - rate_my_app (from `Flutter/ephemeral/.symlinks/plugins/rate_my_app/darwin`)
-  - share_plus (from `Flutter/ephemeral/.symlinks/plugins/share_plus/macos`)
-  - shared_preferences_foundation (from `Flutter/ephemeral/.symlinks/plugins/shared_preferences_foundation/darwin`)
-  - sqflite_darwin (from `Flutter/ephemeral/.symlinks/plugins/sqflite_darwin/darwin`)
-  - url_launcher_macos (from `Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos`)
-  - video_player_avfoundation (from `Flutter/ephemeral/.symlinks/plugins/video_player_avfoundation/darwin`)
-  - wakelock_plus (from `Flutter/ephemeral/.symlinks/plugins/wakelock_plus/macos`)
-
-SPEC REPOS:
-  trunk:
-    - onnxruntime-c
-    - onnxruntime-objc
 
 EXTERNAL SOURCES:
-  audio_service:
-    :path: Flutter/ephemeral/.symlinks/plugins/audio_service/darwin
-  audio_session:
-    :path: Flutter/ephemeral/.symlinks/plugins/audio_session/macos
   awesome_notifications:
     :path: Flutter/ephemeral/.symlinks/plugins/awesome_notifications/macos
-  connectivity_plus:
-    :path: Flutter/ephemeral/.symlinks/plugins/connectivity_plus/macos
-  device_info_plus:
-    :path: Flutter/ephemeral/.symlinks/plugins/device_info_plus/macos
-  file_selector_macos:
-    :path: Flutter/ephemeral/.symlinks/plugins/file_selector_macos/macos
-  flutter_onnxruntime:
-    :path: Flutter/ephemeral/.symlinks/plugins/flutter_onnxruntime/macos
-  flutter_timezone:
-    :path: Flutter/ephemeral/.symlinks/plugins/flutter_timezone/macos
   FlutterMacOS:
     :path: Flutter/ephemeral
-  just_audio:
-    :path: Flutter/ephemeral/.symlinks/plugins/just_audio/darwin
-  package_info_plus:
-    :path: Flutter/ephemeral/.symlinks/plugins/package_info_plus/macos
-  rate_my_app:
-    :path: Flutter/ephemeral/.symlinks/plugins/rate_my_app/darwin
-  share_plus:
-    :path: Flutter/ephemeral/.symlinks/plugins/share_plus/macos
-  shared_preferences_foundation:
-    :path: Flutter/ephemeral/.symlinks/plugins/shared_preferences_foundation/darwin
-  sqflite_darwin:
-    :path: Flutter/ephemeral/.symlinks/plugins/sqflite_darwin/darwin
-  url_launcher_macos:
-    :path: Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos
-  video_player_avfoundation:
-    :path: Flutter/ephemeral/.symlinks/plugins/video_player_avfoundation/darwin
-  wakelock_plus:
-    :path: Flutter/ephemeral/.symlinks/plugins/wakelock_plus/macos
 
 SPEC CHECKSUMS:
-  audio_service: aa99a6ba2ae7565996015322b0bb024e1d25c6fd
-  audio_session: eaca2512cf2b39212d724f35d11f46180ad3a33e
-  awesome_notifications: 7818a3dbad4836238a68df439c06981d9f0b276c
-  connectivity_plus: 4adf20a405e25b42b9c9f87feff8f4b6fde18a4e
-  device_info_plus: 4fb280989f669696856f8b129e4a5e3cd6c48f76
-  file_selector_macos: 9e9e068e90ebee155097d00e89ae91edb2374db7
-  flutter_onnxruntime: caa549d495a20032744e7646f5f060b997187614
-  flutter_timezone: d272288c69082ad571630e0d17140b3d6b93dc0c
+  awesome_notifications: 4e05708c3d44949fca858ace458b3c2ee823da8f
   FlutterMacOS: d0db08ddef1a9af05a5ec4b724367152bb0500b1
-  just_audio: 4e391f57b79cad2b0674030a00453ca5ce817eed
-  onnxruntime-c: 3174c63a963d9abbc2bf9627e3d622819c0ed5f7
-  onnxruntime-objc: 1254d12f8160e562e7693ff17f5aa3dd17dc409e
-  package_info_plus: f0052d280d17aa382b932f399edf32507174e870
-  rate_my_app: 1bd2a80b234634df4af8634da60fe7d0f695d57f
-  share_plus: 510bf0af1a42cd602274b4629920c9649c52f4cc
-  shared_preferences_foundation: 7036424c3d8ec98dfe75ff1667cb0cd531ec82bb
-  sqflite_darwin: 20b2a3a3b70e43edae938624ce550a3cbf66a3d0
-  url_launcher_macos: f87a979182d112f911de6820aefddaf56ee9fbfd
-  video_player_avfoundation: 3453f792138786248960ca029747fcd9f318ef52
-  wakelock_plus: 917609be14d812ddd9e9528876538b2263aaa03b
 
 PODFILE CHECKSUM: 290a0eafa0c24750b990514373911b1609fa1010
 

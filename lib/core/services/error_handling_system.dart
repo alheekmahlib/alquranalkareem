@@ -58,6 +58,8 @@ class ErrorHandler implements Exception {
         return Failure(501, "Unknown resource with this certificate");
       case DioExceptionType.connectionError:
         return Failure(500, "Internal Server Error");
+      case DioExceptionType.transformTimeout:
+        return DataSource.RECIEVE_TIMEOUT.getFailure();
     }
   }
 }

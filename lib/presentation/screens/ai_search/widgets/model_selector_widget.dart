@@ -57,7 +57,7 @@ class ModelSelectorWidget extends StatelessWidget {
         isDense: true,
         items: providers.map((provider) {
           final isSelected = provider.id == selected.id;
-          return DropdownMenuItem<LlmProvider>(
+          return DropdownItem<LlmProvider>(
             value: provider,
             // صف واحد بسيط (لا Column) لتفادي الفيض.
             child: Padding(
@@ -126,7 +126,6 @@ class ModelSelectorWidget extends StatelessWidget {
           ),
         ),
         menuItemStyleData: MenuItemStyleData(
-          height: 44,
           padding: EdgeInsets.zero,
           overlayColor: WidgetStateProperty.all(Colors.transparent),
         ),
