@@ -81,25 +81,49 @@ class SerializableSearchResult {
   }
 }
 
-/// A single chat history entry — one search query + its results
+/// نوع السجل: بحث دلالي أحادي الدور، أو محادثة مساعد متعددة الأدوار.
+enum ChatHistoryType { semanticSearch, assistant }
+
+/// A single chat history entry — supports both semantic-search results and
+/// multi-turn assistant conversations.
 class ChatHistoryEntry {
   final String id;
+
+  /// العنوان المعروض في السجل (أول استفسار للمستخدم).
   final String query;
   final DateTime date;
+  final ChatHistoryType type;
+
+  /// نتائج البحث الدلالي (للنوع semanticSearch فقط).
   final Map<String, List<SerializableSearchResult>> sectionResults;
+
+  /// رسائل محادثة المساعد (للنوع assistant فقط).
+  final List<ChatMessage> messages;
 
   const ChatHistoryEntry({
     required this.id,
     required this.query,
     required this.date,
-    required this.sectionResults,
+    this.type = ChatHistoryType.semanticSearch,
+    this.sectionResults = const {},
+    this.messages = const [],
   });
 
-  /// Total results across all sections
+  /// Total results across all sections (semantic search only).
   int get totalResults =>
       sectionResults.values.fold(0, (sum, list) => sum + list.length);
 
+  /// عدد رسائل المستخدم في محادثة المساعد (للعرض في السجل).
+  int get userMessageCount =>
+      messages.where((m) => m.isUser).length;
+
   factory ChatHistoryEntry.fromJson(Map<String, dynamic> json) {
+    final typeStr = json['type'] as String? ?? 'semanticSearch';
+    final type = typeStr == 'assistant'
+        ? ChatHistoryType.assistant
+        : ChatHistoryType.semanticSearch;
+
+    // نتائج البحث الدلالي.
     final results = <String, List<SerializableSearchResult>>{};
     final raw = json['results'] as Map<String, dynamic>? ?? {};
     for (final entry in raw.entries) {
@@ -107,22 +131,40 @@ class ChatHistoryEntry {
           .map((e) => SerializableSearchResult.fromJson(e as Map<String, dynamic>))
           .toList();
     }
+
+    // رسائل المساعد.
+    final msgs = <ChatMessage>[];
+    final rawMsgs = json['msgs'] as List? ?? [];
+    for (final m in rawMsgs) {
+      msgs.add(ChatMessage.fromJson(m as Map<String, dynamic>));
+    }
+
     return ChatHistoryEntry(
       id: json['id'] as String,
       query: json['q'] as String,
       date: DateTime.fromMillisecondsSinceEpoch(json['d'] as int),
+      type: type,
       sectionResults: results,
+      messages: msgs,
     );
   }
 
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'q': query,
-        'd': date.millisecondsSinceEpoch,
-        'results': sectionResults.map(
-          (k, v) => MapEntry(k, v.map((r) => r.toJson()).toList()),
-        ),
-      };
+  Map<String, dynamic> toJson() {
+    final json = <String, dynamic>{
+      'id': id,
+      'q': query,
+      'd': date.millisecondsSinceEpoch,
+      'type': type.name,
+    };
+    if (type == ChatHistoryType.semanticSearch) {
+      json['results'] = sectionResults.map(
+        (k, v) => MapEntry(k, v.map((r) => r.toJson()).toList()),
+      );
+    } else {
+      json['msgs'] = messages.map((m) => m.toJson()).toList();
+    }
+    return json;
+  }
 }
 
 /// Service for persisting chat history to disk

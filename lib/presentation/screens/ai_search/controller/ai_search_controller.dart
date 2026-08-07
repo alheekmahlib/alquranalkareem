@@ -10,6 +10,11 @@ class AiSearchController extends GetxController {
   final _embeddingService = EmbeddingService();
   final _bm25Service = BM25Service();
   final _chatHistoryService = ChatHistoryService();
+  final _orchestrator = AssistantOrchestrator();
+
+  /// متحكم التمرير لقائمة رسائل المساعد.
+  final ScrollController assistantScrollController = ScrollController();
+  bool _isAssistantProcessing = false;
 
   // Track active downloads per section
   final Map<String, CancelToken> _cancelTokens = {};
@@ -33,6 +38,54 @@ class AiSearchController extends GetxController {
   void onInit() {
     super.onInit();
     loadPosition();
+    // زامن حالة "هل يوجد نص؟" مع حقل الإدخال ليُعيد بناء زر الإرسال.
+    state.searchTextEditing.addListener(_syncInputText);
+    // مرّر قائمة رسائل المساعد للأسفل تلقائياً.
+    ever<dynamic>(state.assistantMessages, (_) => _scrollAssistantToBottom());
+    // استعد المزود المحفوظ (إن كان لا يزال له مفتاح).
+    _restoreSelectedProvider();
+  }
+
+  static const _selectedProviderKey = 'ai_search_selected_provider';
+
+  /// استعادة المزود المحفوظ من GetStorage، إن كان له مفتاح.
+  void _restoreSelectedProvider() {
+    try {
+      final savedId = GetStorage().read<String>(_selectedProviderKey);
+      if (savedId != null) {
+        final match = LlmService.providers
+            .where((p) => p.id == savedId && p.hasKey)
+            .firstOrNull;
+        if (match != null) {
+          state.selectedProvider.value = match;
+        }
+      }
+    } catch (_) {}
+  }
+
+  /// المزودون الذين لهم مفاتيح في .env (لعرضهم في القائمة المنسدلة).
+  List<LlmProvider> get availableProviders => LlmService.availableProviders;
+
+  /// يختار مزوّداً/نموذجاً ويحفظ الاختيار في GetStorage.
+  void selectProvider(LlmProvider provider) {
+    state.selectedProvider.value = provider;
+    GetStorage().write(_selectedProviderKey, provider.id);
+  }
+
+  void _syncInputText() {
+    state.hasInputText.value = state.searchTextEditing.text.trim().isNotEmpty;
+  }
+
+  void _scrollAssistantToBottom() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!assistantScrollController.hasClients) return;
+      final max = assistantScrollController.position.maxScrollExtent;
+      assistantScrollController.animateTo(
+        max,
+        duration: const Duration(milliseconds: 250),
+        curve: Curves.easeOut,
+      );
+    });
   }
 
   Future<void> _initCheck() async {
@@ -421,24 +474,8 @@ class AiSearchController extends GetxController {
     }
   }
 
-  /// Load a chat history entry into the current state
-  void loadFromHistory(ChatHistoryEntry entry) {
-    state.searchTextEditing.text = entry.query;
-    state.clearResults();
-
-    for (final section in SearchSection.all) {
-      final savedResults = entry.sectionResults[section.id];
-      if (savedResults != null && savedResults.isNotEmpty) {
-        final results = savedResults.map((r) => r.toSearchResult()).toList();
-        state.setSectionResults(section.id, results);
-      }
-    }
-
-    state.introStreamed.value = true;
-    state.allResultsReady.value = true;
-    // Mark all cards as completed (no streaming for history)
-    state._markNewCardsCompleted();
-  }
+  /// Load a chat history entry into the current state.
+  /// (تُعرّف لاحقاً مع منطق المساعد — تدعم النوعين semantic و assistant).
 
   /// Get all history entries
   Future<List<ChatHistoryEntry>> getHistoryEntries() {
@@ -490,6 +527,159 @@ class AiSearchController extends GetxController {
         }
       }
     }
+  }
+
+  // ─── المساعد الذكي (tafsir-mcp) ──────────────────────────────────
+
+  /// يرسل رسالة المستخدم إلى المساعد الذكي ويبدأ دورة المعالجة.
+  Future<void> sendAssistantMessage(String query) async {
+    final text = query.trim();
+    if (text.isEmpty || _isAssistantProcessing) return;
+
+    _isAssistantProcessing = true;
+    state.addAssistantUserMessage(text);
+    state.searchTextEditing.clear();
+    state.hasInputText.value = false;
+
+    // اعرض تنويهاً بعد 10 ثوانٍ إن لم تصل الإجابة بعد (بعض النماذج تتأخر).
+    final slowNoticeTimer = Timer(const Duration(seconds: 10), () {
+      final ctx = Get.context;
+      if (ctx != null && state.isAssistantThinking.value) {
+        ctx.showCustomErrorSnackBar(
+          'slowModelNotice'.trParams({
+            'model': state.selectedProvider.value.displayName,
+          }),
+          isDone: false,
+          durationInSeconds: 7,
+        );
+      }
+    });
+
+    try {
+      await _orchestrator.handleUserMessage(
+        userText: text,
+        state: state,
+        onFallback: (fallback) {
+          // حدّث القائمة لتعكس النموذج الناجح.
+          selectProvider(fallback);
+          // أظهر تنبيهاً للمستخدم.
+          final ctx = Get.context;
+          if (ctx != null) {
+            ctx.showCustomErrorSnackBar(
+              'fallbackNotice'.trParams({'model': fallback.displayName}),
+              isDone: true,
+            );
+          }
+        },
+      );
+
+      // احفظ المحادثة في السجل بعد اكتمال الإجابة.
+      _saveAssistantToHistory(text);
+    } finally {
+      slowNoticeTimer.cancel();
+      _isAssistantProcessing = false;
+    }
+  }
+
+  /// يمسح محادثة المساعد الحالية ويبدأ محادثة جديدة.
+  void clearAssistantConversation() {
+    state.clearAssistantMessages();
+    state.searchTextEditing.clear();
+    state.hasInputText.value = false;
+  }
+
+  /// ينسخ نص إجابة المساعد (مع السؤال المرتبط) إلى الحافظة ويعرض تأكيداً.
+  Future<void> copyAssistantAnswer(
+    BuildContext context,
+    String answer, [
+    String? question,
+  ]) async {
+    final text = _formatAnswerForExport(answer, question);
+    await Clipboard.setData(ClipboardData(text: text)).then(
+      (_) => context.showCustomErrorSnackBar('copyAnswer'.tr, isDone: true),
+    );
+  }
+
+  /// يشارك نص إجابة المساعد (مع السؤال المرتبط) عبر مشاركة النظام.
+  Future<void> shareAssistantAnswer(String answer, [String? question]) async {
+    final text = _formatAnswerForExport(answer, question);
+    await SharePlus.instance.share(ShareParams(text: text));
+  }
+
+  /// ينسّق الإجابة (مع السؤال إن وُجد) للنسخ/المشاركة — Markdown خام قابل للقراءة.
+  String _formatAnswerForExport(String answer, String? question) {
+    final buffer = StringBuffer();
+    if (question != null && question.trim().isNotEmpty) {
+      buffer.writeln('س: $question');
+      buffer.writeln();
+    }
+    buffer.write(answer);
+    buffer.writeln();
+    buffer.writeln();
+    buffer.write('— ${'appName'.tr}');
+    return buffer.toString();
+  }
+
+  /// يحفظ محادثة المساعد الحالية في السجل.
+  void _saveAssistantToHistory(String firstQuery) {
+    try {
+      if (state.assistantMessages.isEmpty) return;
+      final now = DateTime.now();
+      final entry = ChatHistoryEntry(
+        id: '${now.millisecondsSinceEpoch}',
+        query: firstQuery,
+        date: now,
+        type: ChatHistoryType.assistant,
+        sectionResults: const {},
+        messages: state.assistantMessages.toList(),
+      );
+      _chatHistoryService.saveEntry(entry);
+    } catch (e) {
+      print('[AiSearch] Failed to save assistant history: $e');
+    }
+  }
+
+  /// يحمّل محادثة مساعد سابقة من السجل إلى الواجهة.
+  void loadAssistantFromHistory(ChatHistoryEntry entry) {
+    state.searchTextEditing.clear();
+    state.hasInputText.value = false;
+    state.clearAssistantMessages();
+    for (final msg in entry.messages) {
+      state.assistantMessages.add(msg);
+    }
+    state.midasMode.value = MidasMode.assistant;
+  }
+
+  /// يحمّل سجل محادثات سابق (يفرّع حسب النوع).
+  void loadFromHistory(ChatHistoryEntry entry) {
+    if (entry.type == ChatHistoryType.assistant) {
+      loadAssistantFromHistory(entry);
+      return;
+    }
+    // البحث الدلالي (السلوك الأصلي).
+    state.searchTextEditing.text = entry.query;
+    state.clearResults();
+
+    for (final section in SearchSection.all) {
+      final savedResults = entry.sectionResults[section.id];
+      if (savedResults != null && savedResults.isNotEmpty) {
+        final results = savedResults.map((r) => r.toSearchResult()).toList();
+        state.setSectionResults(section.id, results);
+      }
+    }
+
+    state.introStreamed.value = true;
+    state.allResultsReady.value = true;
+    state._markNewCardsCompleted();
+    state.midasMode.value = MidasMode.semantic;
+  }
+
+  @override
+  void onClose() {
+    state.searchTextEditing.removeListener(_syncInputText);
+    state.searchTextEditing.dispose();
+    assistantScrollController.dispose();
+    super.onClose();
   }
 }
 

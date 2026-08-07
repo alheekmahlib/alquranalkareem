@@ -1519,5 +1519,21 @@
   "feedback_invalid_type": "Desteklenmeyen dosya türü",
   "feedback_uploading": "Yükleniyor...",
   "feedback_add_media": "Medya ekle",
-  "shuruh_al-hadiths": "Hadis şerhleri"
+  "shuruh_al-hadiths": "Hadis şerhleri",
+  "assistantMode": "Yapay Zekâ Asistanı",
+  "semanticMode": "Anlamsal Arama",
+  "askAssistant": "Asistana sor...",
+  "assistantWelcome": "Kur'an ve İlimleri Yapay Zekâ Asistanı",
+  "assistantWelcomeDesc": "Kur'an-ı Kerim ve ilimlerinde (Tefsir, sarf, nahiv, nüzul sebepleri, kıraatler) uzman bir asistan. İstediğin şekilde soru sor, güvenilir kaynaklarla cevap vereceğim.",
+  "thinking": "Düşünüyor...",
+  "callingTool": "@tool çağrılıyor...",
+  "clearChat": "Sohbeti temizle",
+  "assistantError": "Cevap alınamadı. Lütfen tekrar deneyin.",
+  "messages": "mesaj",
+  "copyAnswer": "Cevap kopyalandı",
+  "newChat": "Yeni sohbet",
+  "freeUnlimited": "Ücretsiz ve sınırsız",
+  "selectModel": "Model seç",
+  "fallbackNotice": "Otomatik olarak @model modeline geçildi (önceki model kullanılamıyor)",
+  "slowModelNotice": "@model hâlâ cevabınızı işliyor... Bazı modeller daha uzun sürer, lütfen bekleyin"
 }

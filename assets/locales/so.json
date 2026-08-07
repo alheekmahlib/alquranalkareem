@@ -1499,5 +1499,21 @@
   "feedback_invalid_type": "Nooca faylkaan la taageerin",
   "feedback_uploading": "Soo gudbinta...",
   "feedback_add_media": "Ku dar media",
-  "shuruh_al-hadiths": "Sharaxaadaha Xadiisyada"
+  "shuruh_al-hadiths": "Sharaxaadaha Xadiisyada",
+  "assistantMode": "Caawiyaha AI",
+  "semanticMode": "Raadinta macnaha",
+  "askAssistant": "Caawiyaha weydii...",
+  "assistantWelcome": "Caawiyaha AI ee Quraanka iyo Cilmigiisa",
+  "assistantWelcomeDesc": "Caawiye ku takhusushay Quraanka Kariimka ah iyo cilmigiisa (tafsiir, naxwo, sarf, sababta soo dejinta, qira'aat). Weydii si kasta oo aad jeceshahay, waan isticmaali doonaa ilo aamin ah si aan u jawaabo.",
+  "thinking": "Fikirayaa...",
+  "callingTool": "waxaa la wacayaa @tool...",
+  "clearChat": "Tirtir wada hadal",
+  "assistantError": "Jawaab lama helin. Fadlan isku day mar kale.",
+  "messages": "farriimo",
+  "copyAnswer": "Jawaabta waa la koobiyey",
+  "newChat": "Wada hadal cusub",
+  "freeUnlimited": "Bilaash waafaqsan",
+  "selectModel": "Dooro moodelka",
+  "fallbackNotice": "Si toos ah ayaa lo beddelay @model (tusaalihii hore ma heli karo)",
+  "slowModelNotice": "@model weli waa shaqeeyaya jawaabtaada... Qaar ka mid ah moodelyada waxay qaataan waqti badan, fadlan sug"
 }

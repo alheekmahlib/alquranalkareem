@@ -1527,5 +1527,21 @@
   "feedback_invalid_type": "غیر معاون فائل کی قسم",
   "feedback_uploading": "اپ لوڈ ہو رہا ہے...",
   "feedback_add_media": "میڈیا شامل کریں",
-  "shuruh_al-hadiths": "احادیث کی شروحات"
+  "shuruh_al-hadiths": "احادیث کی شروحات",
+  "assistantMode": "اے آئی اسسٹنٹ",
+  "semanticMode": "معنوی تلاش",
+  "askAssistant": "اسسٹنٹ سے پوچھیں...",
+  "assistantWelcome": "قرآن اور اس کے علوم کا اے آئی اسسٹنٹ",
+  "assistantWelcomeDesc": "قرآن کریم اور اس کے علوم (تفسیر، نحو، صرف، نزول کے اسباب، قرات) میں ماہر اسسٹنٹ۔ کسی بھی طرح سوال پوچھیں، میں قابلِ اعتماد ذرائع سے جواب دوں گا۔",
+  "thinking": "سوچ رہا ہے...",
+  "callingTool": "@tool بلایا جا رہا ہے...",
+  "clearChat": "چیٹ صاف کریں",
+  "assistantError": "جواب نہیں مل سکا۔ دوبارہ کوشش کریں۔",
+  "messages": "پیغامات",
+  "copyAnswer": "جواب کاپی ہو گیا",
+  "newChat": "نئی چیٹ",
+  "freeUnlimited": "مفت اور لامحدود",
+  "selectModel": "ماڈل منتخب کریں",
+  "fallbackNotice": "خودکار طور پر @model پر تبدیل کر دیا گیا (پچھلا ماڈل دستیاب نہیں)",
+  "slowModelNotice": "@model ابھی بھی آپ کے جواب پر کام کر رہا ہے... کچھ ماڈلز زیادہ وقت لیتے ہیں، براہ کرم انتظار کریں"
 }
