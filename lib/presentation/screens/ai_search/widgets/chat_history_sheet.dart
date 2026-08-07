@@ -89,6 +89,7 @@ class ChatHistorySheet extends StatelessWidget {
 
   Widget _buildHistoryItem(BuildContext context, ChatHistoryEntry entry) {
     final ctrl = AiSearchController.instance;
+    final isAssistant = entry.type == ChatHistoryType.assistant;
     return Dismissible(
       key: Key(entry.id),
       direction: DismissDirection.horizontal,
@@ -111,8 +112,9 @@ class ChatHistorySheet extends StatelessWidget {
         title: entry.query.length > 60
             ? '${entry.query.substring(0, 60)}...'
             : entry.query,
-        subtitle:
-            '${_formatRelativeDate(entry.date)}  •  ${entry.totalResults} ${'resultCount'.tr}',
+        subtitle: isAssistant
+            ? '${_formatRelativeDate(entry.date)}  •  ${entry.userMessageCount + (entry.messages.where((m) => m.isAssistant).length)} ${'messages'.tr}'
+            : '${_formatRelativeDate(entry.date)}  •  ${entry.totalResults} ${'resultCount'.tr}',
       ),
     );
   }

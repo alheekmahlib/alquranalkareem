@@ -1542,5 +1542,21 @@
   "feedback_invalid_type": "Unsupported file type",
   "feedback_uploading": "Uploading...",
   "feedback_add_media": "Add media",
-  "shuruh_al-hadiths": "Hadith commentaries"
+  "shuruh_al-hadiths": "Hadith commentaries",
+  "assistantMode": "AI Assistant",
+  "semanticMode": "Semantic Search",
+  "askAssistant": "Ask the assistant...",
+  "assistantWelcome": "Quran & Sciences AI Assistant",
+  "assistantWelcomeDesc": "A specialized assistant in the Holy Quran and its sciences (Tafsir, grammar, morphology, revelation reasons, recitations). Ask in any way and I will use trusted sources to answer.",
+  "thinking": "Thinking...",
+  "callingTool": "Calling @tool...",
+  "clearChat": "Clear chat",
+  "assistantError": "Could not get an answer. Please try again.",
+  "messages": "messages",
+  "copyAnswer": "Answer copied",
+  "newChat": "New chat",
+  "freeUnlimited": "Free & unlimited",
+  "selectModel": "Select model",
+  "fallbackNotice": "Automatically switched to @model (previous model unavailable)",
+  "slowModelNotice": "@model is still working on your answer... Some models take longer, please wait"
 }

@@ -1521,5 +1521,21 @@
   "feedback_invalid_type": "Jenis file tidak didukung",
   "feedback_uploading": "Mengunggah...",
   "feedback_add_media": "Tambah media",
-  "shuruh_al-hadiths": "Syarah hadis"
+  "shuruh_al-hadiths": "Syarah hadis",
+  "assistantMode": "Asisten AI",
+  "semanticMode": "Pencarian Semantik",
+  "askAssistant": "Tanya asisten...",
+  "assistantWelcome": "Asisten AI Al-Qur'an & Ilmunya",
+  "assistantWelcomeDesc": "Asisten yang berspesialisasi dalam Al-Qur'an dan ilmunya (tafsir, nahwu, sharf, asbabun nuzul, qira'at). Tanya dalam bentuk apa pun, saya akan menggunakan sumber tepercaya untuk menjawab.",
+  "thinking": "Berfikir...",
+  "callingTool": "Memanggil @tool...",
+  "clearChat": "Hapus obrolan",
+  "assistantError": "Tidak bisa mendapatkan jawaban. Silakan coba lagi.",
+  "messages": "pesan",
+  "copyAnswer": "Jawaban disalin",
+  "newChat": "Obrolan baru",
+  "freeUnlimited": "Gratis & tanpa batas",
+  "selectModel": "Pilih model",
+  "fallbackNotice": "Beralih otomatis ke @model (model sebelumnya tidak tersedia)",
+  "slowModelNotice": "@model masih memproses jawaban Anda... Beberapa model membutuhkan waktu lebih lama, mohon tunggu"
 }

@@ -1,5 +1,8 @@
 part of '../ai_search.dart';
 
+/// أوضاع شاشة مداد: البحث الدلالي على الجهاز، أو المساعد الذكي (LLM + tafsir-mcp).
+enum MidasMode { semantic, assistant }
+
 class AiSearchState {
   final searchTextEditing = TextEditingController();
 
@@ -40,6 +43,55 @@ class AiSearchState {
   final enabledSections = <String>{}.obs;
 
   final RxString currentQuery = ''.obs;
+
+  /// الوضع النشط حالياً في شاشة مداد (دلالي ↔ مساعد ذكي).
+  final Rx<MidasMode> midasMode = MidasMode.semantic.obs;
+
+  // ─── حالة المساعد الذكي (tafsir-mcp) ──────────────────────────────
+
+  /// المزود/النموذج المختار حالياً (يُحفظ في GetStorage).
+  final Rx<LlmProvider> selectedProvider = LlmService.defaultProvider.obs;
+
+  /// سجل رسائل محادثة المساعد المعروض في الواجهة.
+  final RxList<ChatMessage> assistantMessages = <ChatMessage>[].obs;
+
+  /// هل المساعد يعالج طلباً الآن (يفكر/يستدعي أداة)؟
+  final RxBool isAssistantThinking = false.obs;
+
+  /// اسم الأداة الجاري تنفيذها الآن ('' إن لم تكن أداة قيد التشغيل).
+  final RxString currentToolName = ''.obs;
+
+  /// رسالة خطأ المساعد ('' عند عدم وجود خطأ).
+  final RxString assistantError = ''.obs;
+
+  /// هل يوجد نص في حقل الإدخال؟ (Rx ليُعيد بناء زر الإرسال عند الكتابة).
+  final RxBool hasInputText = false.obs;
+
+  bool get isAssistantEmpty => assistantMessages.isEmpty;
+
+  void addAssistantUserMessage(String text) =>
+      assistantMessages.add(ChatMessage(role: ChatRole.user, content: text));
+
+  void addAssistantMessage(String text) => assistantMessages
+      .add(ChatMessage(role: ChatRole.assistant, content: text));
+
+  void clearAssistantMessages() {
+    assistantMessages.clear();
+    assistantError.value = '';
+    currentToolName.value = '';
+    isAssistantThinking.value = false;
+  }
+
+  /// يحوّل رسائل المساعد إلى صيغة OpenAI (يتجاهل رسائل الأداة المعروضة).
+  List<Map<String, dynamic>> assistantMessagesToOpenAi() {
+    return assistantMessages
+        .where((m) => !m.isTool)
+        .map((m) => {
+              'role': m.isUser ? 'user' : 'assistant',
+              'content': m.content,
+            })
+        .toList();
+  }
 
   void loadEnabledSections() {
     try {

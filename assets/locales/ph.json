@@ -1521,5 +1521,21 @@
   "feedback_invalid_type": "Hindi supportadong uri ng file",
   "feedback_uploading": "Ina-upload...",
   "feedback_add_media": "Magdagdag ng media",
-  "shuruh_al-hadiths": "Mga paliwanag ng Hadith"
+  "shuruh_al-hadiths": "Mga paliwanag ng Hadith",
+  "assistantMode": "AI Assistant",
+  "semanticMode": "Semantic na Paghahanap",
+  "askAssistant": "Tanungin ang assistant...",
+  "assistantWelcome": "AI Assistant ng Quran at Agham Nito",
+  "assistantWelcomeDesc": "Isang assistant na dalubhasa sa Banal na Quran at sa mga agham nito (tafsir, grammar, morphology, mga dahilan ng paghahayag, mga pagbasa). Magtanong sa anumang anyo at gagamitin ko ang mga pinagkakatiwalaang pinagmulan upang sumagot.",
+  "thinking": "Nagiisip...",
+  "callingTool": "Tinatawag ang @tool...",
+  "clearChat": "I-clear ang chat",
+  "assistantError": "Hindi makuha ang sagot. Pakisubukang muli.",
+  "messages": "mensahe",
+  "copyAnswer": "Nakopya ang sagot",
+  "newChat": "Bagong chat",
+  "freeUnlimited": "Libre at walang limitasyon",
+  "selectModel": "Pumili ng model",
+  "fallbackNotice": "Awtomatikong lumipat sa @model (hindi available ang naunang model)",
+  "slowModelNotice": "Mas pinaglalawian pa ng @model ang iyong sagot... Ang ilang modelo ay tumatagal, mangyaring maghintay"
 }

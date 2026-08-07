@@ -1527,5 +1527,21 @@
   "feedback_invalid_type": "Tipo de archivo no admitido",
   "feedback_uploading": "Subiendo...",
   "feedback_add_media": "Agregar medios",
-  "shuruh_al-hadiths": "Comentarios de hadices"
+  "shuruh_al-hadiths": "Comentarios de hadices",
+  "assistantMode": "Asistente IA",
+  "semanticMode": "Búsqueda semántica",
+  "askAssistant": "Pregunta al asistente...",
+  "assistantWelcome": "Asistente de IA del Corán y sus ciencias",
+  "assistantWelcomeDesc": "Un asistente especializado en el Sagrado Corán y sus ciencias (Tafsir, gramática, morfología, razones de revelación, recitaciones). Pregunta de cualquier forma y usaré fuentes confiables para responder.",
+  "thinking": "Pensando...",
+  "callingTool": "Llamando a @tool...",
+  "clearChat": "Borrar chat",
+  "assistantError": "No se pudo obtener una respuesta. Inténtalo de nuevo.",
+  "messages": "mensajes",
+  "copyAnswer": "Respuesta copiada",
+  "newChat": "Nueva conversación",
+  "freeUnlimited": "Gratis e ilimitado",
+  "selectModel": "Seleccionar modelo",
+  "fallbackNotice": "Cambiado automáticamente a @model (modelo anterior no disponible)",
+  "slowModelNotice": "@model todavía está procesando tu respuesta... Algunos modelos tardan más, por favor espera"
 }

@@ -92,6 +92,7 @@ dependencies:
   archive: ^4.0.9
   flutter_streaming_text_markdown: ^1.8.0
   image_picker: ^1.1.2
+  flutter_dotenv: ^5.2.1
 
 dev_dependencies:
   app_name_localizer: ^1.0.5
@@ -180,6 +181,7 @@ flutter:
     - assets/lottie/
     - assets/locales/
     - assets/json/azkar.json
+    - assets/.env
     - assets/quran_logo.png
     - assets/quran_logo_mac.png
     - assets/quran_logo512.png

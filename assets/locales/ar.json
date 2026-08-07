@@ -1536,5 +1536,21 @@
   "feedback_invalid_type": "نوع الملف غير مدعوم",
   "feedback_uploading": "جارٍ الرفع...",
   "feedback_add_media": "إضافة وسائط",
-  "shuruh_al-hadiths": "شروح الحديث"
+  "shuruh_al-hadiths": "شروح الحديث",
+  "assistantMode": "المساعد الذكي",
+  "semanticMode": "البحث الدلالي",
+  "askAssistant": "اسأل المساعد...",
+  "assistantWelcome": "المساعد الذكي للقرآن وعلومه",
+  "assistantWelcomeDesc": "مساعد متخصص في القرآن الكريم وعلومه (التفسير، الإعراب، الصرف، أسباب النزول، القراءات). اسأل بأي صيغة وسأستخدم مصادر موثوقة للإجابة.",
+  "thinking": "يفكّر...",
+  "callingTool": "جارٍ @tool...",
+  "clearChat": "مسح المحادثة",
+  "assistantError": "تعذّر الحصول على إجابة. حاول مرة أخرى.",
+  "messages": "رسالة",
+  "copyAnswer": "تم نسخ الإجابة",
+  "newChat": "محادثة جديدة",
+  "freeUnlimited": "مجاني وغير محدود",
+  "selectModel": "اختر النموذج",
+  "fallbackNotice": "تم التحويل تلقائياً إلى @model (النموذج السابق غير متاح)",
+  "slowModelNotice": "لا يزال @model يعمل على إجابتك... بعض النماذج تستغرق وقتاً أطول، يُرجى الانتظار"
 }

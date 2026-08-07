@@ -6,11 +6,15 @@ import 'package:delightful_toast/toast/components/toast_card.dart';
 import 'package:flutter/material.dart';
 
 extension CustomErrorSnackBarExtension on BuildContext {
-  void showCustomErrorSnackBar(String text, {bool? isDone = false}) {
+  void showCustomErrorSnackBar(
+    String text, {
+    bool? isDone = false,
+    int? durationInSeconds = 2,
+  }) {
     final backgroundColor = Theme.of(this).colorScheme.primaryContainer;
     DelightToastBar(
       autoDismiss: true,
-      snackbarDuration: const Duration(seconds: 2),
+      snackbarDuration: Duration(seconds: durationInSeconds!),
       builder: (context) => ToastCard(
         color: backgroundColor,
         leading: const SizedBox().customSvgWithColor(

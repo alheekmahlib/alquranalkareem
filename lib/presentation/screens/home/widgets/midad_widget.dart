@@ -15,7 +15,7 @@ class MidadWidget extends StatelessWidget {
     return IntrinsicHeight(
       child: GestureDetector(
         onTap: () => Get.to(
-          () => const AiSearchResults(),
+          () => AiSearchResults(),
           transition: Transition.fadeIn,
         ),
         child: Row(
