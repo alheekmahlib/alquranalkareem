@@ -33,47 +33,50 @@ class AssistantView extends StatelessWidget {
   /// شاشة الترحيب الافتراضية مع اقتراحات أسئلة.
   Widget _buildEmptyState(BuildContext context) {
     final theme = context.theme;
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: .center,
-      children: [
-        const SizedBox().customSvgWithCustomColor(
-          SvgPath.svgHomeMidadIcon,
-          height: 70,
-          color: iconColor ?? theme.canvasColor,
-        ),
-        const Gap(8),
-        Text(
-          'assistantWelcome'.tr,
-          style: AppTextStyles.titleMedium(
-            fontSize: 16,
-            color: theme.colorScheme.surface,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: .center,
+        children: [
+          const SizedBox().customSvgWithCustomColor(
+            SvgPath.svgHomeMidadIcon,
+            height: 70,
+            color: iconColor ?? theme.canvasColor,
           ),
-          textAlign: TextAlign.center,
-        ),
-        const Gap(8),
-        Text(
-          'assistantWelcomeDesc'.tr,
-          style: AppTextStyles.titleMedium(
-            fontSize: 14,
-            color: (textColor ?? theme.colorScheme.surface).withValues(
-              alpha: 0.7,
+          const Gap(8),
+          Text(
+            'assistantWelcome'.tr,
+            style: AppTextStyles.titleMedium(
+              fontSize: 16,
+              color: theme.colorScheme.surface,
             ),
+            textAlign: TextAlign.center,
           ),
-          textAlign: TextAlign.center,
-        ),
-        const Gap(32),
-        // اقتراحات أسئلة جاهزة.
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          alignment: WrapAlignment.center,
-          children: _defaultSuggestions
-              .map((s) => _suggestionChip(context, s))
-              .toList(),
-        ),
-        const Gap(32),
-      ],
+          const Gap(8),
+          Text(
+            'assistantWelcomeDesc'.tr,
+            style: AppTextStyles.titleMedium(
+              fontSize: 14,
+              color: (textColor ?? theme.colorScheme.surface).withValues(
+                alpha: 0.7,
+              ),
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const Gap(32),
+          // اقتراحات أسئلة جاهزة.
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            alignment: WrapAlignment.center,
+            children: _defaultSuggestions
+                .map((s) => _suggestionChip(context, s))
+                .toList(),
+          ),
+          const Gap(32),
+        ],
+      ),
     );
   }
 

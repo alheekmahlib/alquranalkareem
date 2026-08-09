@@ -1569,5 +1569,19 @@
   "assistantOverloaded": "The server is currently busy. Try again in a moment.",
   "assistantTooLarge": "The question is too long. Try shortening it.",
   "assistantGenericError": "Could not get an answer from the model. Try again or choose another model.",
-  "assistantNoData": "No data available for this query at the moment."
+  "assistantNoData": "No data available for this query at the moment.",
+  "quranSearch": "Quran & Its Sciences",
+  "onlineSearch": "Islamic Sciences",
+  "onlineSearchDesc": "Hadith, Fiqh, Aqeedah, and Seerah",
+  "heekmahWelcome": "Smart Assistant for Islamic Sciences",
+  "heekmahWelcomeDesc": "A specialized assistant in Hadith, Fiqh, Aqeedah, Prophetic Biography, and Islamic History. Ask in any way and I will search the books of scholars and quote texts as they are.",
+  "askHeekmah": "Ask the sections assistant...",
+  "heekmahSuggestion1": "What is the ruling on praying in a garment with impurity?",
+  "heekmahSuggestion2": "Hadiths about patience",
+  "heekmahSuggestion3": "Evidence of Allah's attributes from the Sunnah",
+  "heekmahSuggestion4": "What are the conditions of La ilaha illa Allah?",
+  "heekmahError": "Could not connect to the sections server. Check your internet connection.",
+  "heekmahNoFinalAnswer": "Could not formulate a final answer. Try rephrasing your question.",
+  "heekmahUnexpectedError": "An unexpected error occurred. Try again.",
+  "heekmahMcpError": "Could not connect to the sections server. Check your internet connection and try again."
 }

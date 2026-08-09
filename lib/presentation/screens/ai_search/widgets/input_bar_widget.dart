@@ -32,6 +32,9 @@ class InputBarWidget extends StatelessWidget {
               Obx(() {
                 final isAssistant =
                     ctrl.state.midasMode.value == MidasMode.assistant;
+                // السويتش الآن داخل وضع assistant: isOnline = assistant + مُفعّل.
+                final isOnline =
+                    isAssistant && ctrl.state.isOnlineSearch.value;
                 final hasText = ctrl.state.hasInputText.value;
                 return Row(
                   children: [
@@ -49,8 +52,10 @@ class InputBarWidget extends StatelessWidget {
                             fontSize: 15,
                           ),
                           decoration: InputDecoration(
-                            // hint موحّد للوضعين (مثل SemanticMode).
-                            hintText: 'askMidad'.tr,
+                            // hint يتبدّل حسب الوضع.
+                            hintText: isOnline
+                                ? 'askHeekmah'.tr
+                                : 'askMidad'.tr,
                             hintStyle: AppTextStyles.titleMedium(
                               color: theme.colorScheme.surface,
                               fontSize: 15,
@@ -65,7 +70,13 @@ class InputBarWidget extends StatelessWidget {
                           textInputAction: TextInputAction.send,
                           onSubmitted: (query) {
                             if (query.trim().isEmpty) return;
-                            if (isAssistant) {
+                            // افحص الأقسام الشرعية أولاً (isOnline يتطلب isAssistant).
+                            if (isOnline) {
+                              if (!ctrl.state.isHeekmahThinking.value) {
+                                ctrl.sendHeekmahMessage(query);
+                                FocusManager.instance.primaryFocus?.unfocus();
+                              }
+                            } else if (isAssistant) {
                               if (!ctrl.state.isAssistantThinking.value) {
                                 ctrl.sendAssistantMessage(query);
                                 FocusManager.instance.primaryFocus?.unfocus();
@@ -83,7 +94,7 @@ class InputBarWidget extends StatelessWidget {
                       IconButton(
                         onPressed: () {
                           ctrl.state.searchTextEditing.clear();
-                          if (!isAssistant) ctrl.clearSearch();
+                          if (!isAssistant && !isOnline) ctrl.clearSearch();
                         },
                         icon: Icon(
                           Icons.close,
@@ -102,11 +113,18 @@ class InputBarWidget extends StatelessWidget {
               Obx(() {
                 final isAssistant =
                     ctrl.state.midasMode.value == MidasMode.assistant;
+                // السويتش الآن داخل وضع assistant: isOnline = assistant + مُفعّل.
+                final isOnline =
+                    isAssistant && ctrl.state.isOnlineSearch.value;
                 final hasText = ctrl.state.hasInputText.value;
-                final isBusy =
-                    isAssistant &&
-                    (ctrl.state.isAssistantThinking.value ||
-                        ctrl.state.currentToolName.value.isNotEmpty);
+                // مؤشر الانشغال: افحص الوضع النشط فقط (لا تخلط بين القسمين).
+                final isBusy = isOnline
+                    ? (ctrl.state.isHeekmahThinking.value ||
+                        ctrl.state.heekmahToolName.value.isNotEmpty)
+                    : isAssistant
+                        ? (ctrl.state.isAssistantThinking.value ||
+                            ctrl.state.currentToolName.value.isNotEmpty)
+                        : false;
                 return Row(
                   children: [
                     // زر الإرسال (سهم لأعلى) أو مؤشر تحميل أثناء المعالجة.
@@ -129,7 +147,10 @@ class InputBarWidget extends StatelessWidget {
                                 final query = ctrl.state.searchTextEditing.text
                                     .trim();
                                 if (query.isEmpty) return;
-                                if (isAssistant) {
+                                // افحص الأقسام الشرعية أولاً (isOnline يتطلب isAssistant).
+                                if (isOnline) {
+                                  ctrl.sendHeekmahMessage(query);
+                                } else if (isAssistant) {
                                   ctrl.sendAssistantMessage(query);
                                 } else {
                                   ctrl.state.currentQuery.value = query;
@@ -153,12 +174,21 @@ class InputBarWidget extends StatelessWidget {
                           ),
                         ),
                       ),
-                    // العنصر الجانبي: فلتر الأقسام (دلالي) أو مؤشر الأداة/اختيار النموذج (مساعد).
-                    if (isAssistant)
+                    // العنصر الجانبي حسب الوضع:
+                    // - online (alheekmah-mcp): مؤشر الأداة أو اختيار النموذج.
+                    // - assistant (tafsir-mcp): مؤشر الأداة أو اختيار النموذج.
+                    // - محلي: فلتر الأقسام.
+                    // ملاحظة: افحص isOnline أولاً لأنه يتطلب isAssistant=true.
+                    if (isAssistant || isOnline)
                       Expanded(
-                        child: ctrl.state.currentToolName.value.isNotEmpty
+                        child: (isOnline
+                                ? ctrl.state.heekmahToolName.value
+                                : ctrl.state.currentToolName.value)
+                                .isNotEmpty
                             ? ToolCallIndicator(
-                                toolName: ctrl.state.currentToolName.value,
+                                toolName: isOnline
+                                    ? ctrl.state.heekmahToolName.value
+                                    : ctrl.state.currentToolName.value,
                               )
                             : ModelSelectorWidget(),
                       )
