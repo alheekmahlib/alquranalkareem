@@ -93,49 +93,6 @@ class AiSearchState {
         .toList();
   }
 
-  // ─── حالة الوضع الأونلاين داخل الشاشة الدلالية (alheekmah-mcp) ───
-
-  /// هل البحث في الوضع الأونلاين؟ (مبدّل محلي/أونلاين داخل semantic mode).
-  final RxBool isOnlineSearch = false.obs;
-
-  /// سجل رسائل محادثة الأقسام (منفصل عن assistantMessages لـ tafsir-mcp).
-  final RxList<ChatMessage> heekmahMessages = <ChatMessage>[].obs;
-
-  /// هل مساعد الأقسام يعالج طلباً الآن؟
-  final RxBool isHeekmahThinking = false.obs;
-
-  /// اسم الأداة الجاري تنفيذها الآن في مساعد الأقسام.
-  final RxString heekmahToolName = ''.obs;
-
-  /// رسالة خطأ مساعد الأقسام.
-  final RxString heekmahError = ''.obs;
-
-  bool get isHeekmahEmpty => heekmahMessages.isEmpty;
-
-  void addHeekmahUserMessage(String text) =>
-      heekmahMessages.add(ChatMessage(role: ChatRole.user, content: text));
-
-  void addHeekmahMessage(String text) => heekmahMessages
-      .add(ChatMessage(role: ChatRole.assistant, content: text));
-
-  void clearHeekmahMessages() {
-    heekmahMessages.clear();
-    heekmahError.value = '';
-    heekmahToolName.value = '';
-    isHeekmahThinking.value = false;
-  }
-
-  /// يحوّل رسائل الأقسام إلى صيغة OpenAI (يتجاهل رسائل الأداة).
-  List<Map<String, dynamic>> heekmahMessagesToOpenAi() {
-    return heekmahMessages
-        .where((m) => !m.isTool)
-        .map((m) => {
-              'role': m.isUser ? 'user' : 'assistant',
-              'content': m.content,
-            })
-        .toList();
-  }
-
   void loadEnabledSections() {
     try {
       final box = GetStorage();

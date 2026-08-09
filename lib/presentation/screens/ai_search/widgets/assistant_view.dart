@@ -88,7 +88,7 @@ class AssistantView extends StatelessWidget {
       titleStyle: AppTextStyles.titleSmall(color: Colors.black),
       onPressed: () {
         ctrl.state.searchTextEditing.text = text;
-        ctrl.sendAssistantMessage(text);
+        ctrl.sendMessage(text);
         FocusManager.instance.primaryFocus?.unfocus();
       },
     );

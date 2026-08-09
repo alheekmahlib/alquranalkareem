@@ -53,25 +53,13 @@ class AiSearchResults extends StatelessWidget {
           );
         }),
         const Gap(6),
-        // زر "محادثة جديدة" — يفرّع حسب الوضع النشط.
-        Obx(() {
-          final isAssistant =
-              ctrl.state.midasMode.value == MidasMode.assistant;
-          final isOnline =
-              isAssistant && ctrl.state.isOnlineSearch.value;
-          return CustomButton(
-            onPressed: () {
-              if (isOnline) {
-                ctrl.clearHeekmahConversation();
-              } else {
-                ctrl.clearAssistantConversation();
-              }
-            },
-            isCustomSvgColor: true,
-            svgPath: SvgPath.svgHomeNewChat,
-            svgColor: context.theme.canvasColor,
-          );
-        }),
+        // زر "محادثة جديدة".
+        CustomButton(
+          onPressed: () => ctrl.clearConversation(),
+          isCustomSvgColor: true,
+          svgPath: SvgPath.svgHomeNewChat,
+          svgColor: context.theme.canvasColor,
+        ),
         const Gap(6),
         // سجل المحادثة — يظهر في الوضعين (موحّد).
         CustomButton(
@@ -81,6 +69,7 @@ class AiSearchResults extends StatelessWidget {
           svgPath: SvgPath.svgHomeHistory,
           svgColor: context.theme.canvasColor,
         ),
+        const Gap(8),
       ],
     );
   }
@@ -96,9 +85,8 @@ class AiSearchResults extends StatelessWidget {
           children: [
             Expanded(child: Center(child: _buildContent(context, ctrl))),
             Obx(() {
-              // شريط الإدخال يظهر في المحلي (عند تحميل قسم) أو الأونلاين دائماً.
-              if (!ctrl.state.isOnlineSearch.value &&
-                  !ctrl.state.hasAnySectionLoaded) {
+              // شريط الإدخال يظهر فقط عند تحميل قسم محلي.
+              if (!ctrl.state.hasAnySectionLoaded) {
                 return const SizedBox.shrink();
               }
               return Align(
@@ -113,35 +101,11 @@ class AiSearchResults extends StatelessWidget {
     );
   }
 
-  /// مبدّل البحث بين المحلي والأونلاين (CustomSwitchListTile).
-  Widget _buildOnlineToggle(BuildContext context) {
-    final isOnline = ctrl.state.isOnlineSearch.value;
-    return CustomSwitchListTile(
-      title: isOnline ? 'onlineSearch'.tr : 'quranSearch'.tr,
-      value: isOnline,
-      titleColor: context.theme.canvasColor,
-      onChanged: (_) => ctrl.toggleOnlineSearch(),
-    );
-  }
-
-  /// وضع المساعد الذكي (tafsir-mcp). يستخدم InputBarWidget الموحد.
+  /// وضع المساعد الموحَّد — يجمع القرآن وعلومه والأقسام الشرعية.
   Widget _buildAssistantMode(BuildContext context) {
     return Column(
       children: [
-        // مبدّل البحث: محلي (ONNX) ↔ أونلاين (alheekmah-mcp).
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-          child: _buildOnlineToggle(context),
-        ),
-        Expanded(
-          child: Obx(() {
-            // الوضع الأونلاين: محادثة LLM مع مساعد الأقسام.
-            if (ctrl.state.isOnlineSearch.value) {
-              return HeekmahAssistantView();
-            }
-            return AssistantView();
-          }),
-        ),
+        Expanded(child: UnifiedAssistantView()),
         Align(alignment: Alignment.bottomCenter, child: InputBarWidget()),
       ],
     );
