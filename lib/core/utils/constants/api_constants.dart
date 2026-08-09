@@ -23,8 +23,7 @@ class ApiConstants {
   // GitLab fallback URLs
   static const String notificationsGitLabUrl =
       'https://gitlab.com/haozo89/data/-/raw/main/noti.json?ref_type=heads';
-  static const String appUrl =
-      'https://alheekmahlib.github.io/alheekmahlib/#/download/quran';
+  static const String appUrl = 'https://alhikmah.vexaltech.dev/download/quran';
   static const String quranShareUrl =
       'https://alheekmahlib.github.io/alheekmahlib/#/quran?page=';
 

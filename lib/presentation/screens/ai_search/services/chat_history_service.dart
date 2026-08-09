@@ -81,8 +81,8 @@ class SerializableSearchResult {
   }
 }
 
-/// نوع السجل: بحث دلالي أحادي الدور، أو محادثة مساعد متعددة الأدوار.
-enum ChatHistoryType { semanticSearch, assistant, heekmah }
+/// نوع السجل: بحث دلالي أحادي الدور، أو محادثة مساعد موحَّدة متعددة الأدوار.
+enum ChatHistoryType { semanticSearch, assistant }
 
 /// A single chat history entry — supports both semantic-search results and
 /// multi-turn assistant conversations.
@@ -121,9 +121,7 @@ class ChatHistoryEntry {
     final typeStr = json['type'] as String? ?? 'semanticSearch';
     final type = typeStr == 'assistant'
         ? ChatHistoryType.assistant
-        : typeStr == 'heekmah'
-            ? ChatHistoryType.heekmah
-            : ChatHistoryType.semanticSearch;
+        : ChatHistoryType.semanticSearch;
 
     // نتائج البحث الدلالي.
     final results = <String, List<SerializableSearchResult>>{};

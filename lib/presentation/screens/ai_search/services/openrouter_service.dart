@@ -24,6 +24,10 @@ class LlmProvider {
   /// هل النموذج مجاني وغير محدود؟ (يؤثر على أولوية الـ fallback).
   final bool isFreeUnlimited;
 
+  /// هل النموذج يدعم function calling (tools) بشكل موثوق؟
+  /// النماذج التي لا تدعم tools تُستبعد من fallback عند طلبات tool calling.
+  final bool supportsTools;
+
   const LlmProvider({
     required this.id,
     required this.displayName,
@@ -31,6 +35,7 @@ class LlmProvider {
     required this.model,
     required this.envKeyName,
     this.isFreeUnlimited = false,
+    this.supportsTools = true,
   });
 
   @override
@@ -103,6 +108,8 @@ class LlmService {
       baseUrl: 'https://openrouter.ai/api/v1',
       model: 'nvidia/nemotron-3-ultra-550b-a55b:free',
       envKeyName: 'OPENROUTER_API_KEY',
+      // Nemotron لا يدعم function calling بشكل موثوق — يكتب tool_calls كنص خام.
+      supportsTools: false,
     ),
   ];
 
@@ -177,9 +184,13 @@ class LlmService {
     void Function(LlmProvider fallbackProvider)? onFallback,
   }) async {
     // ابنِ قائمة المحاولة: المختار أولاً، ثم بقية المزودين المتاحين.
+    // عند طلب tool calling، استبعد النماذج التي لا تدعم tools (تكتبها كنص خام).
+    final wantsTools = tools.isNotEmpty;
     final candidates = <LlmProvider>[provider];
     for (final p in availableProviders) {
-      if (!candidates.contains(p)) candidates.add(p);
+      if (candidates.contains(p)) continue;
+      if (wantsTools && !p.supportsTools) continue;
+      candidates.add(p);
     }
 
     Object? lastError;

@@ -88,7 +88,7 @@ class QuranHome extends StatelessWidget {
                                   // امسح محادثة المساعد أيضاً إن كانت نشطة.
                                   if (searchCtrl.state.isAiMode.value) {
                                     AiSearchController.instance
-                                        .clearAssistantConversation();
+                                        .clearConversation();
                                   }
                                 },
                                 onChanged: (query) {
@@ -113,7 +113,7 @@ class QuranHome extends StatelessWidget {
                                   if (searchCtrl.state.isAiMode.value) {
                                     if (query.trim().isNotEmpty) {
                                       AiSearchController.instance
-                                          .sendAssistantMessage(query);
+                                          .sendMessage(query);
                                       searchCtrl.state.searchTextEditing
                                           .clear();
                                     }
@@ -158,9 +158,9 @@ class QuranHome extends StatelessWidget {
       child: SafeArea(
         child: Column(
           children: [
-            // واجهة المساعد الذكي (المحادثة + مؤشر التفكير + أزرار النسخ).
+            // واجهة المساعد الموحَّد (المحادثة + مؤشر التفكير + أزرار النسخ).
             Expanded(
-              child: AssistantView(
+              child: UnifiedAssistantView(
                 isInMidad: false,
                 iconColor: context.theme.primaryColorLight,
                 textColor: context.theme.colorScheme.inversePrimary,
@@ -187,7 +187,7 @@ class QuranHome extends StatelessWidget {
                   ),
                   CustomButton(
                     // tooltip: 'newChat'.tr,
-                    onPressed: () => ctrl.clearAssistantConversation(),
+                    onPressed: () => ctrl.clearConversation(),
                     isCustomSvgColor: true,
                     svgPath: SvgPath.svgHomeNewChat,
                     svgColor: context.theme.primaryColorLight,
