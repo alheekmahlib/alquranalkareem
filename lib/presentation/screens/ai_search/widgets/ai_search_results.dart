@@ -53,19 +53,25 @@ class AiSearchResults extends StatelessWidget {
           );
         }),
         const Gap(6),
-        // زر "محادثة جديدة" — يظهر فقط في وضع المساعد.
-        // Obx(() {
-        //   if (ctrl.state.searchTextEditing.text.isNotEmpty) {
-        //     return const SizedBox.shrink();
-        //   }
-        // return
-        CustomButton(
-          // tooltip: 'newChat'.tr,
-          onPressed: () => ctrl.clearAssistantConversation(),
-          isCustomSvgColor: true,
-          svgPath: SvgPath.svgHomeNewChat,
-          svgColor: context.theme.canvasColor,
-        ),
+        // زر "محادثة جديدة" — يفرّع حسب الوضع النشط.
+        Obx(() {
+          final isAssistant =
+              ctrl.state.midasMode.value == MidasMode.assistant;
+          final isOnline =
+              isAssistant && ctrl.state.isOnlineSearch.value;
+          return CustomButton(
+            onPressed: () {
+              if (isOnline) {
+                ctrl.clearHeekmahConversation();
+              } else {
+                ctrl.clearAssistantConversation();
+              }
+            },
+            isCustomSvgColor: true,
+            svgPath: SvgPath.svgHomeNewChat,
+            svgColor: context.theme.canvasColor,
+          );
+        }),
         const Gap(6),
         // سجل المحادثة — يظهر في الوضعين (موحّد).
         CustomButton(
@@ -88,11 +94,11 @@ class AiSearchResults extends StatelessWidget {
       children: [
         Column(
           children: [
-            Expanded(
-              child: Center(child: Obx(() => _buildContent(context, ctrl))),
-            ),
+            Expanded(child: Center(child: _buildContent(context, ctrl))),
             Obx(() {
-              if (!ctrl.state.hasAnySectionLoaded) {
+              // شريط الإدخال يظهر في المحلي (عند تحميل قسم) أو الأونلاين دائماً.
+              if (!ctrl.state.isOnlineSearch.value &&
+                  !ctrl.state.hasAnySectionLoaded) {
                 return const SizedBox.shrink();
               }
               return Align(
@@ -102,13 +108,19 @@ class AiSearchResults extends StatelessWidget {
             }),
           ],
         ),
-        Obx(() {
-          if (!ctrl.state.hasAnySectionLoaded) {
-            return const SizedBox.shrink();
-          }
-          return FloatingMenuWidget(ctrl: ctrl);
-        }),
+        FloatingMenuWidget(ctrl: ctrl),
       ],
+    );
+  }
+
+  /// مبدّل البحث بين المحلي والأونلاين (CustomSwitchListTile).
+  Widget _buildOnlineToggle(BuildContext context) {
+    final isOnline = ctrl.state.isOnlineSearch.value;
+    return CustomSwitchListTile(
+      title: isOnline ? 'onlineSearch'.tr : 'quranSearch'.tr,
+      value: isOnline,
+      titleColor: context.theme.canvasColor,
+      onChanged: (_) => ctrl.toggleOnlineSearch(),
     );
   }
 
@@ -116,7 +128,20 @@ class AiSearchResults extends StatelessWidget {
   Widget _buildAssistantMode(BuildContext context) {
     return Column(
       children: [
-        Expanded(child: AssistantView()),
+        // مبدّل البحث: محلي (ONNX) ↔ أونلاين (alheekmah-mcp).
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+          child: _buildOnlineToggle(context),
+        ),
+        Expanded(
+          child: Obx(() {
+            // الوضع الأونلاين: محادثة LLM مع مساعد الأقسام.
+            if (ctrl.state.isOnlineSearch.value) {
+              return HeekmahAssistantView();
+            }
+            return AssistantView();
+          }),
+        ),
         Align(alignment: Alignment.bottomCenter, child: InputBarWidget()),
       ],
     );

@@ -1,19 +1,17 @@
 part of '../ai_search.dart';
 
-/// واجهة المساعد الذكي — تُعرض داخل شاشة مداد عند تفعيل وضع المساعد.
+/// واجهة محادثة مساعد الأقسام الإسلامية (alheekmah-mcp).
 ///
-/// StatelessWidget بالكامل؛ تستهلك [AiSearchController.state] عبر `Obx`.
-/// شريط الإدخال موحّد ويُوفَّر من الشاشة الأم (InputBarWidget).
-class AssistantView extends StatelessWidget {
+/// نسخة من [AssistantView] لكنها تقرأ من `state.heekmahMessages` بدلاً من
+/// `state.assistantMessages`. تُعرض داخل `_buildSemanticMode` عند تفعيل
+/// المبدّل الأونلاين. شريط الإدخال موحّد ويُوفَّر من الشاشة الأم (InputBarWidget).
+///
+/// تُعيد استخدام [MessageBubble] كما هو (نموذج عام يعرض أي [ChatMessage]).
+class HeekmahAssistantView extends StatelessWidget {
   final Color? textColor;
   final Color? iconColor;
-  final bool? isInMidad;
-  AssistantView({
-    super.key,
-    this.textColor,
-    this.iconColor,
-    this.isInMidad = true,
-  });
+
+  HeekmahAssistantView({super.key, this.textColor, this.iconColor});
 
   final ctrl = AiSearchController.instance;
 
@@ -21,8 +19,7 @@ class AssistantView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() {
       // محتوى فارغ: شاشة الترحيب + الاقتراحات.
-      if (ctrl.state.isAssistantEmpty &&
-          ctrl.state.assistantError.value.isEmpty) {
+      if (ctrl.state.isHeekmahEmpty && ctrl.state.heekmahError.value.isEmpty) {
         return _buildEmptyState(context);
       }
       // محادثة نشطة: قائمة الرسائل.
@@ -37,7 +34,7 @@ class AssistantView extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: .center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const SizedBox().customSvgWithCustomColor(
             SvgPath.svgHomeMidadIcon,
@@ -46,7 +43,7 @@ class AssistantView extends StatelessWidget {
           ),
           const Gap(8),
           Text(
-            'assistantWelcome'.tr,
+            'heekmahWelcome'.tr,
             style: AppTextStyles.titleMedium(
               fontSize: 16,
               color: theme.colorScheme.surface,
@@ -55,7 +52,7 @@ class AssistantView extends StatelessWidget {
           ),
           const Gap(8),
           Text(
-            'assistantWelcomeDesc'.tr,
+            'heekmahWelcomeDesc'.tr,
             style: AppTextStyles.titleMedium(
               fontSize: 14,
               color: (textColor ?? theme.colorScheme.surface).withValues(
@@ -88,7 +85,7 @@ class AssistantView extends StatelessWidget {
       titleStyle: AppTextStyles.titleSmall(color: Colors.black),
       onPressed: () {
         ctrl.state.searchTextEditing.text = text;
-        ctrl.sendAssistantMessage(text);
+        ctrl.sendHeekmahMessage(text);
         FocusManager.instance.primaryFocus?.unfocus();
       },
     );
@@ -104,21 +101,21 @@ class AssistantView extends StatelessWidget {
             Expanded(
               child: ListView(
                 children: [
-                  if (isInMidad == true) const IconWidget(),
+                  const IconWidget(),
                   ListView.builder(
                     shrinkWrap: true,
-                    controller: ctrl.assistantScrollController,
+                    controller: ctrl.heekmahScrollController,
                     padding: const EdgeInsets.only(top: 16, bottom: 16),
-                    itemCount: ctrl.state.assistantMessages.length,
+                    itemCount: ctrl.state.heekmahMessages.length,
                     itemBuilder: (context, index) {
-                      final message = ctrl.state.assistantMessages[index];
+                      final message = ctrl.state.heekmahMessages[index];
                       // رسائل الأداة لا تُعرض كفقاعات.
                       if (message.isTool) return const SizedBox.shrink();
-                      // ابحث عن نص السؤال المرتبط (آخر رسالة مستخدم قبل هذه الإجابة).
+                      // ابحث عن نص السؤال المرتبط.
                       String? question;
                       if (message.isAssistant) {
                         for (int i = index - 1; i >= 0; i--) {
-                          final prev = ctrl.state.assistantMessages[i];
+                          final prev = ctrl.state.heekmahMessages[i];
                           if (prev.isUser) {
                             question = prev.content;
                             break;
@@ -129,11 +126,11 @@ class AssistantView extends StatelessWidget {
                       bool isLast = false;
                       if (message.isAssistant) {
                         for (
-                          int i = ctrl.state.assistantMessages.length - 1;
+                          int i = ctrl.state.heekmahMessages.length - 1;
                           i >= 0;
                           i--
                         ) {
-                          if (ctrl.state.assistantMessages[i].isAssistant) {
+                          if (ctrl.state.heekmahMessages[i].isAssistant) {
                             isLast = (i == index);
                             break;
                           }
@@ -153,7 +150,7 @@ class AssistantView extends StatelessWidget {
             ),
             // شريط رسالة الخطأ (إن وُجد).
             Obx(() {
-              final err = ctrl.state.assistantError.value;
+              final err = ctrl.state.heekmahError.value;
               if (err.isEmpty) return const SizedBox.shrink();
               return Container(
                 margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
@@ -182,19 +179,16 @@ class AssistantView extends StatelessWidget {
             }),
           ],
         ),
-        // مؤشر "يفكر" — overlay في وسط الشاشة مع AnimatedDrawingWidget.
+        // مؤشر "يفكر" — overlay في وسط الشاشة.
         Positioned.fill(
           child: IgnorePointer(
             child: Obx(() {
-              // يظهر فقط عند التفكير (وليس أثناء استدعاء أداة — تلك لها مؤشرها الخاص).
-              if (!ctrl.state.isAssistantThinking.value ||
-                  ctrl.state.currentToolName.value.isNotEmpty) {
+              if (!ctrl.state.isHeekmahThinking.value ||
+                  ctrl.state.heekmahToolName.value.isNotEmpty) {
                 return const SizedBox.shrink();
               }
               return Container(
-                color: isInMidad == true
-                    ? theme.colorScheme.primary.withValues(alpha: 0.4)
-                    : Colors.transparent,
+                color: theme.colorScheme.primary.withValues(alpha: 0.4),
                 alignment: Alignment.center,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -225,12 +219,11 @@ class AssistantView extends StatelessWidget {
     );
   }
 
-  /// اقتراحات أسئلة افتراضية تختبر مختلف أدوات خادم tafsir-mcp.
-  static const List<String> _defaultSuggestions = [
-    'أعرب الآية الأولى من سورة الفاتحة',
-    'ما تفسير آية الكرسي؟',
-    'كم عدد كلمات سورة البقرة؟',
-    'ما سبب نزول أول آية من سورة العلق؟',
-    'ما القراءات في كلمة "مالك" بسورة الفاتحة؟',
+  /// اقتراحات أسئلة افتراضية تختبر أدوات خادم alheekmah-mcp (الأقسام).
+  List<String> get _defaultSuggestions => [
+    'heekmahSuggestion2'.tr, // أحاديث عن الصبر
+    'heekmahSuggestion3'.tr, // أدلة على صفات الله من السنة
+    'heekmahSuggestion4'.tr, // ما هي شروط لا إله إلا الله؟
+    'heekmahSuggestion1'.tr, // ما حكم الصلاة في الثوب النجس؟
   ];
 }

@@ -11,10 +11,15 @@ class AiSearchController extends GetxController {
   final _bm25Service = BM25Service();
   final _chatHistoryService = ChatHistoryService();
   final _orchestrator = AssistantOrchestrator();
+  final _heekmahOrchestrator = HeekmahOrchestrator();
 
-  /// متحكم التمرير لقائمة رسائل المساعد.
+  /// متحكم التمرير لقائمة رسائل المساعد (tafsir-mcp).
   final ScrollController assistantScrollController = ScrollController();
   bool _isAssistantProcessing = false;
+
+  /// متحكم التمرير لقائمة رسائل مساعد الأقسام (alheekmah-mcp).
+  final ScrollController heekmahScrollController = ScrollController();
+  bool _isHeekmahProcessing = false;
 
   // Track active downloads per section
   final Map<String, CancelToken> _cancelTokens = {};
@@ -588,6 +593,91 @@ class AiSearchController extends GetxController {
     state.hasInputText.value = false;
   }
 
+  // ─── منطق الوضع الأونلاين (alheekmah-mcp — الأقسام الإسلامية) ──────
+
+  /// يبدّل بين «القرآن وعلومه» (tafsir-mcp) و«الأقسام الشرعية» (alheekmah-mcp)
+  /// داخل وضع المساعد.
+  void toggleOnlineSearch() {
+    state.isOnlineSearch.toggle();
+    // عند العودة لقسم القرآن، امسح محادثة الأقسام (لا داعي لإبقائها).
+    if (!state.isOnlineSearch.value) {
+      state.clearHeekmahMessages();
+      state.searchTextEditing.clear();
+      state.hasInputText.value = false;
+    }
+  }
+
+  /// يرسل رسالة المستخدم إلى مساعد الأقسام (alheekmah-mcp).
+  ///
+  /// مشابه لـ [sendAssistantMessage] لكنه يستخدم [HeekmahOrchestrator]
+  /// و `state.heekmahMessages`.
+  Future<void> sendHeekmahMessage(String query) async {
+    final text = query.trim();
+    if (text.isEmpty || _isHeekmahProcessing) return;
+
+    _isHeekmahProcessing = true;
+    state.addHeekmahUserMessage(text);
+    state.searchTextEditing.clear();
+    state.hasInputText.value = false;
+
+    // اعرض تنويهاً بعد 10 ثوانٍ إن لم تصل الإجابة بعد.
+    final slowNoticeTimer = Timer(const Duration(seconds: 10), () {
+      final ctx = Get.context;
+      if (ctx != null && state.isHeekmahThinking.value) {
+        ctx.showCustomErrorSnackBar(
+          'slowModelNotice'.trParams({
+            'model': state.selectedProvider.value.displayName,
+          }),
+          isDone: false,
+          durationInSeconds: 7,
+        );
+      }
+    });
+
+    try {
+      await _heekmahOrchestrator.handleUserMessage(
+        userText: text,
+        state: state,
+        onFallback: (fallback) {
+          selectProvider(fallback);
+          final ctx = Get.context;
+          if (ctx != null) {
+            ctx.showCustomErrorSnackBar(
+              'fallbackNotice'.trParams({'model': fallback.displayName}),
+              isDone: true,
+            );
+          }
+        },
+      );
+      // احفظ المحادثة في السجل بعد اكتمال الإجابة.
+      _saveHeekmahToHistory(text);
+      // مرّر لأسفل بعد وصول الإجابة.
+      _scrollHeekmahToBottom();
+    } finally {
+      slowNoticeTimer.cancel();
+      _isHeekmahProcessing = false;
+    }
+  }
+
+  /// يمسح محادثة مساعد الأقسام الحالية.
+  void clearHeekmahConversation() {
+    state.clearHeekmahMessages();
+    state.searchTextEditing.clear();
+    state.hasInputText.value = false;
+  }
+
+  void _scrollHeekmahToBottom() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!heekmahScrollController.hasClients) return;
+      final max = heekmahScrollController.position.maxScrollExtent;
+      heekmahScrollController.animateTo(
+        max,
+        duration: const Duration(milliseconds: 250),
+        curve: Curves.easeOut,
+      );
+    });
+  }
+
   /// ينسخ نص إجابة المساعد (مع السؤال المرتبط) إلى الحافظة ويعرض تأكيداً.
   Future<void> copyAssistantAnswer(
     BuildContext context,
@@ -650,10 +740,46 @@ class AiSearchController extends GetxController {
     state.midasMode.value = MidasMode.assistant;
   }
 
+  /// يحفظ محادثة مساعد الأقسام (alheekmah-mcp) الحالية في السجل.
+  void _saveHeekmahToHistory(String firstQuery) {
+    try {
+      if (state.heekmahMessages.isEmpty) return;
+      final now = DateTime.now();
+      final entry = ChatHistoryEntry(
+        id: '${now.millisecondsSinceEpoch}',
+        query: firstQuery,
+        date: now,
+        type: ChatHistoryType.heekmah,
+        sectionResults: const {},
+        messages: state.heekmahMessages.toList(),
+      );
+      _chatHistoryService.saveEntry(entry);
+    } catch (e) {
+      print('[AiSearch] Failed to save heekmah history: $e');
+    }
+  }
+
+  /// يحمّل محادثة مساعد أقسام سابقة من السجل إلى الواجهة.
+  void loadHeekmahFromHistory(ChatHistoryEntry entry) {
+    state.searchTextEditing.clear();
+    state.hasInputText.value = false;
+    state.clearHeekmahMessages();
+    for (final msg in entry.messages) {
+      state.heekmahMessages.add(msg);
+    }
+    // ادخل وضع المساعد + فعّل البحث الأونلاين لعرض HeekmahAssistantView.
+    state.midasMode.value = MidasMode.assistant;
+    state.isOnlineSearch.value = true;
+  }
+
   /// يحمّل سجل محادثات سابق (يفرّع حسب النوع).
   void loadFromHistory(ChatHistoryEntry entry) {
     if (entry.type == ChatHistoryType.assistant) {
       loadAssistantFromHistory(entry);
+      return;
+    }
+    if (entry.type == ChatHistoryType.heekmah) {
+      loadHeekmahFromHistory(entry);
       return;
     }
     // البحث الدلالي (السلوك الأصلي).
@@ -679,6 +805,7 @@ class AiSearchController extends GetxController {
     state.searchTextEditing.removeListener(_syncInputText);
     state.searchTextEditing.dispose();
     assistantScrollController.dispose();
+    heekmahScrollController.dispose();
     super.onClose();
   }
 }
