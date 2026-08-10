@@ -150,6 +150,7 @@ class MessageBubble extends StatelessWidget {
               context,
               message.content,
               associatedQuestion,
+              message.quotations,
             ),
           ),
           // زر المشاركة.
@@ -157,8 +158,8 @@ class MessageBubble extends StatelessWidget {
             context,
             svgPath: SvgPath.svgHomeShare,
             tooltip: 'shareText'.tr,
-            onPressed: () =>
-                ctrl.shareAssistantAnswer(message.content, associatedQuestion),
+            onPressed: () => ctrl.shareAssistantAnswer(
+                message.content, associatedQuestion, message.quotations),
           ),
         ],
       ),

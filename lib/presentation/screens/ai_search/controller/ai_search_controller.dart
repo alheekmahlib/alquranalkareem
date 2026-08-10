@@ -615,26 +615,38 @@ class AiSearchController extends GetxController {
     state.hasInputText.value = false;
   }
 
-  /// ينسخ نص إجابة المساعد (مع السؤال المرتبط) إلى الحافظة ويعرض تأكيداً.
+  /// ينسخ نص إجابة المساعد (مع السؤال المرتبط والاقتباسات) إلى الحافظة ويعرض تأكيداً.
   Future<void> copyAssistantAnswer(
     BuildContext context,
     String answer, [
     String? question,
+    List<Quotation> quotations = const [],
   ]) async {
-    final text = _formatAnswerForExport(answer, question);
+    final text = _formatAnswerForExport(answer, question, quotations);
     await Clipboard.setData(ClipboardData(text: text)).then(
       (_) => context.showCustomErrorSnackBar('copyAnswer'.tr, isDone: true),
     );
   }
 
-  /// يشارك نص إجابة المساعد (مع السؤال المرتبط) عبر مشاركة النظام.
-  Future<void> shareAssistantAnswer(String answer, [String? question]) async {
-    final text = _formatAnswerForExport(answer, question);
+  /// يشارك نص إجابة المساعد (مع السؤال المرتبط والاقتباسات) عبر مشاركة النظام.
+  Future<void> shareAssistantAnswer(
+    String answer, [
+    String? question,
+    List<Quotation> quotations = const [],
+  ]) async {
+    final text = _formatAnswerForExport(answer, question, quotations);
     await SharePlus.instance.share(ShareParams(text: text));
   }
 
-  /// ينسّق الإجابة (مع السؤال إن وُجد) للنسخ/المشاركة — Markdown خام قابل للقراءة.
-  String _formatAnswerForExport(String answer, String? question) {
+  /// ينسّق الإجابة (مع السؤال والاقتباسات) للنسخ/المشاركة — Markdown خام قابل للقراءة.
+  ///
+  /// الترتيب مطابق لترتيب العرض في الواجهة: السؤال → مقدمة المساعد → الاقتباسات
+  /// (بنفس ترتيبها) → تذييل التطبيق.
+  String _formatAnswerForExport(
+    String answer,
+    String? question, [
+    List<Quotation> quotations = const [],
+  ]) {
     final buffer = StringBuffer();
     if (question != null && question.trim().isNotEmpty) {
       buffer.writeln('س: $question');
@@ -642,12 +654,53 @@ class AiSearchController extends GetxController {
     }
     buffer.write(answer);
     buffer.writeln();
+
+    // الاقتباسات المنقولة بنفس ترتيب عرضها في الواجهة.
+    for (final q in quotations) {
+      buffer.writeln();
+      buffer.writeln('—');
+      buffer.writeln();
+      // النسبة التفصيلية (اسم الكتاب + المؤلف) قبل النص المنقول.
+      if (q.attribution != null && q.attribution!.trim().isNotEmpty) {
+        buffer.writeln('📖 ${q.attribution}');
+        buffer.writeln();
+      }
+      // النص المنقول حرفياً.
+      buffer.writeln(q.text);
+      // النوع كتلميح.
+      buffer.writeln();
+      buffer.writeln('(${_quotationTypeLabel(q.type)})');
+    }
+
+    buffer.writeln();
     buffer.writeln();
     buffer.write(
       '${'appName'.tr}\n'
       '${ApiConstants.appUrl}',
     );
     return buffer.toString();
+  }
+
+  /// يعيد تسمية عربية لنوع الاقتباس (للنسخ/المشاركة).
+  String _quotationTypeLabel(QuotationType type) {
+    switch (type) {
+      case QuotationType.ayah:
+        return 'آية قرآنية';
+      case QuotationType.hadith:
+        return 'حديث نبوي';
+      case QuotationType.tafsir:
+        return 'تفسير';
+      case QuotationType.scholar:
+        return 'قول لعالم';
+      case QuotationType.fiqh:
+        return 'نص فقهي';
+      case QuotationType.aqeedah:
+        return 'نص عقدي';
+      case QuotationType.seerah:
+        return 'سيرة وتاريخ';
+      case QuotationType.other:
+        return 'نص منقول';
+    }
   }
 
   /// يحفظ محادثة المساعد الحالية في السجل.
