@@ -72,8 +72,13 @@ class AiSearchState {
   void addAssistantUserMessage(String text) =>
       assistantMessages.add(ChatMessage(role: ChatRole.user, content: text));
 
-  void addAssistantMessage(String text) => assistantMessages
-      .add(ChatMessage(role: ChatRole.assistant, content: text));
+  /// يضيف رسالة مساعد، مع دعم إرفاق اقتباسات منقولة من MCP (دون تمريرها للـ LLM).
+  void addAssistantMessage(String text, {List<Quotation> quotations = const []}) =>
+      assistantMessages.add(ChatMessage(
+        role: ChatRole.assistant,
+        content: text,
+        quotations: quotations,
+      ));
 
   void clearAssistantMessages() {
     assistantMessages.clear();
@@ -82,10 +87,21 @@ class AiSearchState {
     isAssistantThinking.value = false;
   }
 
-  /// يحوّل رسائل المساعد إلى صيغة OpenAI (يتجاهل رسائل الأداة المعروضة).
+  /// يحوّل رسائل المساعد إلى صيغة OpenAI (يتجاهل رسائل الأداة والاقتباسات).
+  ///
+  /// **تقليم context window:** نُبقي آخر [_maxHistoryMessages] رسالة فقط
+  /// (تقريباً آخر 3 أزوار سؤال/جواب) لمنع نموّ الـ context بلا حدّ،
+  /// ولتفادي خطأ 413 (payload too large) مع المحادثات الطويلة.
+  /// الاقتباسات [ChatMessage.quotations] لا تُرسل للنموذج إطلاقاً (هي منفصلة).
+  static const int _maxHistoryMessages = 6;
+
   List<Map<String, dynamic>> assistantMessagesToOpenAi() {
-    return assistantMessages
-        .where((m) => !m.isTool)
+    final nonTool = assistantMessages.where((m) => !m.isTool).toList();
+    // تقليم: نُبقي آخر N رسالة فقط.
+    final trimmed = nonTool.length > _maxHistoryMessages
+        ? nonTool.sublist(nonTool.length - _maxHistoryMessages)
+        : nonTool;
+    return trimmed
         .map((m) => {
               'role': m.isUser ? 'user' : 'assistant',
               'content': m.content,

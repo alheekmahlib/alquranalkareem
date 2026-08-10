@@ -1576,6 +1576,7 @@
   "assistantTooLarge": "The question is too long. Try shortening it.",
   "assistantGenericError": "Could not get an answer from the model. Try again or choose another model.",
   "assistantNoData": "No data available for this query at the moment.",
+  "assistantQuotationsOnly": "The assistant could not draft an introduction, but here are the quoted texts as they appear in their sources:",
   "quranSearch": "Quran & Its Sciences",
   "onlineSearch": "Islamic Sciences",
   "onlineSearchDesc": "Hadith, Fiqh, Aqeedah, and Seerah",
