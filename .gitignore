@@ -68,3 +68,6 @@ app.*.map.json
 
 # ZCode CLI settings (local agent config — never commit)
 .zcode/
+
+# Cloudflare Wrangler local state (never commit)
+.wrangler/

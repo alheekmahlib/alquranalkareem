@@ -111,6 +111,15 @@ class LlmService {
       // Nemotron لا يدعم function calling بشكل موثوق — يكتب tool_calls كنص خام.
       supportsTools: false,
     ),
+    // ── GPT-OSS 20B: مجاني على OpenRouter، قوي في اتباع التعليمات ──
+    // مفيد للمقدمة/التصنيف (الـ LLM لم يعد يلمس النصوص المنقولة بعد إعادة الهيكلة).
+    LlmProvider(
+      id: 'gpt-oss-20b',
+      displayName: 'GPT-OSS 20B (OpenRouter)',
+      baseUrl: 'https://openrouter.ai/api/v1',
+      model: 'openai/gpt-oss-20b:free',
+      envKeyName: 'OPENROUTER_API_KEY',
+    ),
   ];
 
   /// المزود الافتراضي: أول مزود له مفتاح (الأولوية لـ z.ai المجاني غير المحدود).
@@ -152,8 +161,8 @@ class LlmService {
 مثل: «قرأ نافع بالوقف». لا تعرض الرمز `@...@` أبداً.
   - علامات الإعراب الصرفية والرموز التقنية: اشرحها بالعربية المبسّطة.
 - اعرض الآيات القرآنية **كاملةً** بإحاطتها بعلامات backtick مفردة، \
-مثل: `بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ`. \
-لكن **أعد صياغة** التفاسير وكلام العلماء بكلامك دون تحريف للمعنى.
+مثل: `بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ`.
+- انسخ التفاسير وكلام العلماء حرفياً كما وردت، دون إعادة صياغة.
 
 ## نسبة المصادر (مهم جداً)
 - المصدر الفعلي للبيانات هو **«مركز تفسير» (tafsir.net)** عبر خادم tafsir-mcp، \
@@ -182,6 +191,7 @@ class LlmService {
     List<Map<String, dynamic>> tools = const [],
     required LlmProvider provider,
     void Function(LlmProvider fallbackProvider)? onFallback,
+    bool forceToolUse = false,
   }) async {
     // ابنِ قائمة المحاولة: المختار أولاً، ثم بقية المزودين المتاحين.
     // عند طلب tool calling، استبعد النماذج التي لا تدعم tools (تكتبها كنص خام).
@@ -200,6 +210,7 @@ class LlmService {
           provider: candidate,
           messages: messages,
           tools: tools,
+          forceToolUse: forceToolUse,
         );
         // لو نجح نموذج غير المختار → أبلغ عن الـ fallback.
         if (candidate.id != provider.id) {
@@ -222,6 +233,7 @@ class LlmService {
     required LlmProvider provider,
     required List<Map<String, dynamic>> messages,
     required List<Map<String, dynamic>> tools,
+    bool forceToolUse = false,
   }) async {
     final apiKey = _getKey(provider);
     final body = <String, dynamic>{
@@ -231,10 +243,15 @@ class LlmService {
       // الأدوات دائماً بدل التخمين/الهلوسة. القيمة الافتراضية (1.0) تسبب عشوائية
       // فيتجاهل النموذج الأدوات أحياناً ويعطي إجابات وهمية.
       'temperature': 0,
+      // حدٌّ علوي لإكمال الجملة: يمنع قطع المقدمات الطويلة على بعض المزودين،
+      // ويحدّ التكلفة. 4096 كافية لمقدمة المساعد (لا نصوص منقولة — هي منفصلة).
+      'max_tokens': 4096,
     };
     if (tools.isNotEmpty) {
       body['tools'] = tools;
-      body['tool_choice'] = 'auto';
+      // forceToolUse: أجبر النموذج على استدعاء أداة واحدة على الأقل بدل الإجابة
+      // مباشرةً من ذاكرته. ضروري لمنع الاعتذار دون بحث في الجولة الأولى.
+      body['tool_choice'] = forceToolUse ? 'required' : 'auto';
     }
     // عطّل «التفكير الداخلي» (reasoning) لمزودي z.ai لأنه يسبب تأخيراً كبيراً
     // (دقائق) مع حلقة الأدوات. الاختبار أظهر تسريعاً 10×+ مع تعطيله.
@@ -257,6 +274,11 @@ class LlmService {
         responseType: ResponseType.json,
       ),
     );
+
+    // DEBUG: اطبع tool_choice المرسل للتحقق.
+    log('LLM request to ${provider.id}: tool_choice=${body['tool_choice']}, '
+        'tools=${tools.length}, forceToolUse=$forceToolUse',
+        name: 'LlmService');
 
     final status = response.statusCode ?? 0;
     // أخطاء "جرّب مزوّداً آخر" (بما فيها 400 للنماذج المستغنى عنها).

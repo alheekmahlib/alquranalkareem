@@ -25,6 +25,7 @@ class MessageBubble extends StatelessWidget {
 
   final Color? textColor;
   final Color? iconColor;
+
   @override
   Widget build(BuildContext context) {
     if (message.isAssistant) return _buildAssistantAnswer(context);
@@ -67,6 +68,11 @@ class MessageBubble extends StatelessWidget {
   }
 
   /// إجابة المساعد — بدون فقاعة، كامل العرض، مع Markdown + أزرار نسخ/مشاركة.
+  ///
+  /// تعرض مقدمة المساعد (نص الـ LLM) متبوعةً ببطاقات الاقتباسات المنقولة من MCP
+  /// (تُعرض كاملةً كما جاءت من المصدر، دون تمريرها عبر LLM، لضمان نسخ حرفي بلا تحريف).
+  ///
+  /// الاقتباسات تظهر تدريجياً (fade-in) بعد انتهاء streaming المقدمة، بأسلوب ChatGPT.
   Widget _buildAssistantAnswer(BuildContext context) {
     final theme = context.theme;
     final ctrl = AiSearchController.instance;
@@ -76,15 +82,12 @@ class MessageBubble extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // نص الإجابة بتنسيق Markdown + محاكاة streaming (كلمة بكلمة).
-          // StreamingTextMarkdown يلفّ GptMarkdown داخلياً، وGptMarkdownTheme
-          // (InheritedWidget) يُلتقط تلقائياً فتظهر الألوان والخطوط الصحيحة.
+          // نص مقدمة المساعد بتنسيق Markdown + محاكاة streaming (كلمة بكلمة).
           // الرسالة الأخيرة: حركة streaming؛ الرسائل السابقة (من السجل): فورية.
           // highlightBuilder يطبّق خط المصحف (uthmanic2) على الآيات المحاطة بـ backticks.
-          Directionality(
-            textDirection: TextDirection.rtl,
-            child: GptMarkdownTheme(
-              gptThemeData: _buildMarkdownTheme(theme),
+          if (message.content.trim().isNotEmpty)
+            Directionality(
+              textDirection: TextDirection.rtl,
               child: DefaultTextStyle(
                 style: AppTextStyles.titleMedium(
                   fontSize: 17,
@@ -108,6 +111,14 @@ class MessageBubble extends StatelessWidget {
                       _buildAyahWidget(ctx, text, style, theme),
                 ),
               ),
+            ),
+          // بطاقات الاقتباسات المنقولة من MCP (نصوص الكتب كاملةً كما هي).
+          // النص يظهر تدريجياً (streaming كلمة بكلمة) لكل الرسائل.
+          ...message.quotations.map(
+            (q) => QuotationCard(
+              quotation: q,
+              textColor: textColor,
+              enableStreaming: true,
             ),
           ),
           context.hDivider(
@@ -206,39 +217,6 @@ class MessageBubble extends StatelessWidget {
           color: textColor ?? theme.canvasColor,
         ),
       ),
-    );
-  }
-
-  /// يبني ثيم GptMarkdown مخصصاً يجعل كل العناوين والروابط بلون canvasColor
-  /// وخط التطبيق، بدل الأنماط الافتراضية السوداء (Typography.tall2021).
-  GptMarkdownThemeData _buildMarkdownTheme(ThemeData theme) {
-    final baseColor = textColor ?? theme.canvasColor;
-    final fontFamily = ThemeController.instance.currentFontFamily;
-    final baseStyle = TextStyle(color: baseColor, fontFamily: fontFamily);
-    return GptMarkdownThemeData(
-      brightness: theme.brightness,
-      highlightColor: baseColor.withValues(alpha: 0.15),
-      linkColor: theme.colorScheme.primary,
-      linkHoverColor: theme.colorScheme.primary,
-      hrLineColor: baseColor.withValues(alpha: 0.2),
-      h1: baseStyle.copyWith(
-        fontSize: 22,
-        fontWeight: FontWeight.bold,
-        height: 1.4,
-      ),
-      h2: baseStyle.copyWith(
-        fontSize: 19,
-        fontWeight: FontWeight.bold,
-        height: 1.4,
-      ),
-      h3: baseStyle.copyWith(
-        fontSize: 17,
-        fontWeight: FontWeight.w600,
-        height: 1.4,
-      ),
-      h4: baseStyle.copyWith(fontSize: 16, fontWeight: FontWeight.w600),
-      h5: baseStyle.copyWith(fontSize: 15, fontWeight: FontWeight.w600),
-      h6: baseStyle.copyWith(fontSize: 14, fontWeight: FontWeight.w600),
     );
   }
 }
