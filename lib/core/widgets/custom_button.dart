@@ -23,6 +23,7 @@ class CustomButton extends StatelessWidget {
   final bool? isCustomSvgColor;
   final double? horizontalPadding;
   final double? verticalPadding;
+  final TextStyle? textStyle;
   const CustomButton({
     super.key,
     this.svgPath,
@@ -41,6 +42,7 @@ class CustomButton extends StatelessWidget {
     this.isCustomSvgColor = false,
     this.horizontalPadding,
     this.verticalPadding,
+    this.textStyle,
   });
 
   @override
@@ -75,12 +77,17 @@ class CustomButton extends StatelessWidget {
                   title != null
                       ? Text(
                           title!.tr,
-                          style: AppTextStyles.titleMedium(
-                            color:
-                                titleColor ??
-                                context.theme.colorScheme.secondaryContainer,
-                            height: 1.4,
-                          ),
+                          style:
+                              textStyle ??
+                              AppTextStyles.titleMedium(
+                                color:
+                                    titleColor ??
+                                    context
+                                        .theme
+                                        .colorScheme
+                                        .secondaryContainer,
+                                height: 1.4,
+                              ),
                           textAlign: TextAlign.center,
                         )
                       : const SizedBox.shrink(),

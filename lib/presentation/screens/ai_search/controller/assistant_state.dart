@@ -27,12 +27,29 @@ class Quotation {
   /// لا تدخل في أي منطق بحث/استخراج، فقط للعرض.
   final String? sourceLabel;
 
+  /// المعرّف الرقمي للقطعة في خادم MCP (لجلب النص الكامل عبر fetch_passage).
+  /// يكون null للنصوص التي لا تدعم الجلب (آيات، تفاسير من fetch_tafsir).
+  /// يكون موجوداً لنتائج search_* من heekmah/seerah (كل نتيجة لها معرّف).
+  final int? passageId;
+
+  /// اسم الكتاب كما جاء من MCP (مثل «المجموع شرح المهذب - ط المنيرية»).
+  /// يُستخدم لمطابقة الكتاب في BooksController للتنقل لصفحته.
+  /// يكون null للاقتباسات التي لا تدعم التنقل (آيات، تفاسير من tafsir-mcp).
+  final String? bookSourceName;
+
+  /// رقم الصفحة في الكتاب (مستخرج من حقل المرجع في MCP).
+  /// يُستخدم مع bookSourceName للتنقل للصفحة الصحيحة.
+  final int? pageNumber;
+
   const Quotation({
     required this.text,
     required this.type,
     this.attribution,
     this.toolName,
     this.sourceLabel,
+    this.passageId,
+    this.bookSourceName,
+    this.pageNumber,
   });
 
   factory Quotation.fromJson(Map<String, dynamic> json) {
@@ -67,6 +84,11 @@ class Quotation {
       sourceLabel: (json['sl'] as String?)?.trim().isEmpty == true
           ? null
           : json['sl'] as String?,
+      passageId: json['pid'] as int?,
+      bookSourceName: (json['bn'] as String?)?.trim().isEmpty == true
+          ? null
+          : json['bn'] as String?,
+      pageNumber: json['pg'] as int?,
     );
   }
 
@@ -76,6 +98,10 @@ class Quotation {
         'tp': type.name,
         if (toolName != null) 'tn': toolName,
         if (sourceLabel != null && sourceLabel!.isNotEmpty) 'sl': sourceLabel,
+        if (passageId != null) 'pid': passageId,
+        if (bookSourceName != null && bookSourceName!.isNotEmpty)
+          'bn': bookSourceName,
+        if (pageNumber != null) 'pg': pageNumber,
       };
 }
 
