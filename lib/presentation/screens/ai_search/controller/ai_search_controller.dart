@@ -608,9 +608,17 @@ class AiSearchController extends GetxController {
     }
   }
 
-  /// يمسح المحادثة الحالية ويبدأ محادثة جديدة.
+  /// يمسح المحادثة/البحث الحالي ويبدأ جلسة جديدة — حسب الوضع النشط.
+  ///
+  /// - وضع المساعد: يمسح رسائل المساعد.
+  /// - وضع البحث المحلي (semantic): يمسح نتائج البحث ويعيد للشاشة الفارغة.
   void clearConversation() {
-    state.clearAssistantMessages();
+    if (state.midasMode.value == MidasMode.assistant) {
+      state.clearAssistantMessages();
+    } else {
+      state.clearResults();
+      state.currentQuery.value = '';
+    }
     state.searchTextEditing.clear();
     state.hasInputText.value = false;
   }

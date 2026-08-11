@@ -263,7 +263,7 @@ class HijriWidget extends StatelessWidget {
             alignment: Alignment.center,
             child: customSvgWithColor(
               'assets/svg/hijri/${eventCtrl.hijriNow.hMonth}.svg',
-              width: 120,
+              width: 100,
               color: isInCalendar
                   ? context.theme.canvasColor
                   : Theme.of(context).colorScheme.inversePrimary,
@@ -311,15 +311,23 @@ class HijriWidget extends StatelessWidget {
         children: [
           Align(
             alignment: Alignment.center,
-            child: Text(
-              '${eventCtrl.gregorianMonthFormat}'.convertNumbersToCurrentLang(),
-              style: AppTextStyles.titleLarge().copyWith(
-                fontSize: 34,
-                color: isInCalendar
-                    ? context.theme.canvasColor
-                    : Theme.of(context).colorScheme.inversePrimary,
+            child: SizedBox(
+              width: 100,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  '${eventCtrl.gregorianMonthFormat}'
+                      .convertNumbersToCurrentLang(),
+                  style: AppTextStyles.titleLarge().copyWith(
+                    fontSize: 34,
+                    fontWeight: FontWeight.w500,
+                    color: isInCalendar
+                        ? context.theme.canvasColor
+                        : Theme.of(context).colorScheme.inversePrimary,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
               ),
-              textAlign: TextAlign.center,
             ),
           ),
           Align(

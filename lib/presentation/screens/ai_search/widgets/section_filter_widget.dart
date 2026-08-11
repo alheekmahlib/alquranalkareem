@@ -27,6 +27,7 @@ class SectionFilterWidget extends StatelessWidget {
       }
       return DropdownButton2<String>(
         isExpanded: false,
+        underline: const SizedBox.shrink(),
         customButton: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
           decoration: BoxDecoration(

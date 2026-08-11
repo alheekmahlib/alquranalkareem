@@ -89,42 +89,55 @@ class _StreamingResultCard extends StatelessWidget {
                 ),
               ),
             ),
-            child: InkWell(
-              onTap: isPending ? null : () => _navigateToSource(context, meta),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12.0,
-                  vertical: 10.0,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    textWidget,
-                    const Gap(6),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.bookmark_outline,
-                          size: 12,
-                          color: color.withValues(alpha: 0.6),
-                        ),
-                        const Gap(4),
-                        Expanded(
-                          child: Text(
-                            meta.reference,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: AppTextStyles.titleMedium(
-                              color: context.theme.colorScheme.surface
-                                  .withValues(alpha: 0.6),
-                              fontSize: 11,
-                            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12.0,
+                vertical: 10.0,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  textWidget,
+                  const Gap(6),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.bookmark_outline,
+                        size: 12,
+                        color: color.withValues(alpha: 0.6),
+                      ),
+                      const Gap(4),
+                      Expanded(
+                        child: Text(
+                          meta.reference,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: AppTextStyles.titleMedium(
+                            color: context.theme.colorScheme.surface
+                                .withValues(alpha: 0.6),
+                            fontSize: 11,
                           ),
                         ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                      // زر "الانتقال للكتاب" منفصل (لا يستخدم الضغط المباشر على النص).
+                      if (!isPending && meta.details['book_number'] != null)
+                        CustomButton(
+                          onPressed: () => _navigateToSource(context, meta),
+                          height: 25,
+                          width: 130,
+                          isCustomSvgColor: true,
+                          svgPath: SvgPath.svgBooksOpenBook,
+                          svgColor: context.theme.colorScheme.surface,
+                          title: 'الانتقال للكتاب',
+                          textStyle: AppTextStyles.titleMedium(
+                            color: context.theme.colorScheme.surface,
+                            fontSize: 12,
+                            height: 1.4,
+                          ),
+                        ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ),
