@@ -703,6 +703,220 @@ class AiSearchController extends GetxController {
     }
   }
 
+  /// يجلب النص الكامل لقطعة من خادم MCP (عبر fetch_passage).
+  /// يُستدعى من زر "عرض النص الكامل" في QuotationCard.
+  /// يُحدّث الحالة في [state.fullTextCache] أثناء الجلب، وبعد النجاح يُحدّث الاقتباس
+  /// في الرسائل حتى ينعكس على النسخ/المشاركة.
+  Future<String?> fetchFullPassage(int passageId) async {
+    // عيّن حالة loading.
+    state.fullTextCache[passageId] = 'loading';
+    final fullText = await _unifiedOrchestrator.fetchFullPassage(passageId);
+    if (fullText != null && fullText.trim().isNotEmpty) {
+      state.fullTextCache[passageId] = fullText;
+      _updateQuotationText(passageId, fullText);
+    } else {
+      state.fullTextCache[passageId] = 'failed';
+    }
+    return fullText;
+  }
+
+  /// يطابق اسم الكتاب من MCP مع BooksController وينتقل للصفحة الصحيحة.
+  /// يعيد استخدام نفس منطق البحث المحلي (streaming_result_card.dart).
+  void navigateQuotationToBook(String sourceName, int pageNumber) {
+    final book = _findBookBySourceName(sourceName);
+    if (book == null) {
+      Get.snackbar(
+        'الكتاب غير متاح',
+        'لم يتم العثور على الكتاب «$sourceName» في مكتبة الكتب.',
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return;
+    }
+
+    final booksCtrl = BooksController.instance;
+    final bookNumber = book.bookNumber;
+    if (booksCtrl.isBookDownloaded(bookNumber)) {
+      booksCtrl.moveToBookPageByNumber(pageNumber - 1, bookNumber);
+    } else {
+      _showBookDownloadDialog(bookNumber, pageNumber);
+    }
+  }
+
+  /// يبحث عن كتاب في BooksController بمطابقة اسم المصدر من MCP.
+  static Book? _findBookBySourceName(String sourceName) {
+    final books = BooksController.instance.state.booksList;
+    String clean(String s) {
+      var v = s.trim();
+      if (v.startsWith('كتاب ')) v = v.substring(6).trim();
+      return v;
+    }
+
+    final cleaned = clean(sourceName);
+    var match = books.firstWhereOrNull((b) => clean(b.bookFullName) == cleaned);
+    if (match != null) return match;
+    match = books.firstWhereOrNull((b) => clean(b.bookName) == cleaned);
+    if (match != null) return match;
+    match = books.firstWhereOrNull(
+      (b) => clean(b.bookFullName).contains(cleaned),
+    );
+    if (match != null) return match;
+    match = books.firstWhereOrNull((b) => clean(b.bookName).contains(cleaned));
+    return match;
+  }
+
+  /// dialog تحميل الكتاب ثم الانتقال — نسخة من streaming_result_card.dart.
+  void _showBookDownloadDialog(int bookNumber, int pageNumber) {
+    final context = Get.context;
+    if (context == null) return;
+    final booksCtrl = BooksController.instance;
+    final book = booksCtrl.state.booksList.firstWhereOrNull(
+      (b) => b.bookNumber == bookNumber,
+    );
+    if (book == null) return;
+
+    Get.dialog(
+      Obx(
+        () => Dialog(
+          backgroundColor: context.theme.colorScheme.primaryContainer,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TitleWidget(title: book.bookName, horizontalPadding: 0.0),
+                const Gap(12),
+                Text(
+                  'please_download_book_first'.tr,
+                  style: AppTextStyles.titleMedium(
+                    fontSize: 14,
+                    color: context.theme.colorScheme.inversePrimary.withValues(
+                      alpha: 0.6,
+                    ),
+                  ),
+                ),
+                const Gap(16),
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      child: ContainerButton(
+                        onPressed:
+                            booksCtrl.state.downloading[bookNumber] == true
+                            ? () {}
+                            : () async {
+                                // ابحث عن urlType الصحيح للمجموعة التي ينتمي
+                                // لها الكتاب (urlType ≠ type في بعض المجموعات،
+                                // مثل tafsir → tafsir_books_v2).
+                                final collection = booksCtrl.state.booksInfo
+                                    .firstWhereOrNull(
+                                      (c) => c.type == book.bookType,
+                                    );
+                                final urlType =
+                                    collection?.bookUrlType ?? book.bookType;
+                                await booksCtrl
+                                    .downloadBook(
+                                      bookNumber,
+                                      book.bookType,
+                                      urlType,
+                                    )
+                                    .then((_) async {
+                                      Get.back();
+                                      await booksCtrl.moveToBookPageByNumber(
+                                        pageNumber - 1,
+                                        bookNumber,
+                                      );
+                                    });
+                                if (booksCtrl.isBookDownloaded(bookNumber)) {
+                                  Get.back();
+                                  await booksCtrl.moveToBookPageByNumber(
+                                    pageNumber - 1,
+                                    bookNumber,
+                                  );
+                                }
+                              },
+                        height: 44,
+                        width: Get.width,
+                        verticalPadding: 0.0,
+                        horizontalPadding: 0.0,
+                        isTitleCentered: true,
+                        progressBackgroundColor: context
+                            .theme
+                            .colorScheme
+                            .primary
+                            .withValues(alpha: 0.2),
+                        progressColor: context.theme.colorScheme.primary,
+                        svgPath: SvgPath.svgAudioDownload,
+                        backgroundColor: context.theme.colorScheme.surface,
+                        svgColor: context.theme.colorScheme.secondaryContainer,
+                        downloadProgress:
+                            '${(booksCtrl.state.downloadProgress[bookNumber] ?? 0).round()}',
+                        isDownloading:
+                            booksCtrl.state.downloading[bookNumber] == true,
+                        title: booksCtrl.state.downloading[bookNumber] == true
+                            ? 'downloading'.tr
+                            : 'download'.tr,
+                      ),
+                    ),
+                  ],
+                ),
+                const Gap(16),
+                TextButton(
+                  onPressed: () => Get.back(),
+                  child: Text('cancel'.tr, style: AppTextStyles.titleSmall()),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// يُحدّث نص اقتباس (حسب passageId) في كل الرسائل بالبحث عنه.
+  /// ضروري لانعكاس النص الكامل على النسخ/المشاركة بعد جلبه.
+  void _updateQuotationText(int passageId, String newText) {
+    final messages = state.assistantMessages;
+    for (int mi = 0; mi < messages.length; mi++) {
+      final msg = messages[mi];
+      if (msg.quotations.isEmpty) continue;
+      bool changed = false;
+      final newQuotations = <Quotation>[];
+      for (final q in msg.quotations) {
+        if (q.passageId == passageId) {
+          // استبدل النص بالكامل، وأزل passageId (لا حاجة لزر النص الكامل بعد الجلب).
+          // نُبقي bookSourceName/pageNumber ليبقى زر الانتقال للكتاب متاحاً.
+          newQuotations.add(
+            Quotation(
+              text: newText,
+              type: q.type,
+              attribution: q.attribution,
+              toolName: q.toolName,
+              sourceLabel: q.sourceLabel,
+              bookSourceName: q.bookSourceName,
+              pageNumber: q.pageNumber,
+            ),
+          );
+          changed = true;
+        } else {
+          newQuotations.add(q);
+        }
+      }
+      if (changed) {
+        messages[mi] = ChatMessage(
+          role: msg.role,
+          content: msg.content,
+          toolName: msg.toolName,
+          quotations: newQuotations,
+        );
+      }
+    }
+  }
+
   /// يحفظ محادثة المساعد الحالية في السجل.
   void _saveAssistantToHistory(String firstQuery) {
     try {

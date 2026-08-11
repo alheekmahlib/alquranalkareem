@@ -455,6 +455,56 @@ class UnifiedOrchestrator {
     }
   }
 
+  /// يجلب النص الكامل لقطعة من خادم heekmah أو seerah عبر `fetch_passage`.
+  ///
+  /// يُستدعى من زر "عرض النص الكامل" في [QuotationCard] عند توفّر [Quotation.passageId].
+  /// يُعيد النص الكامل المنظَّف، أو null عند الفشل.
+  /// يجرب heekmah أولاً (لأنه الشامل)، ثم seerah كـ fallback.
+  Future<String?> fetchFullPassage(int passageId) async {
+    // جرّب heekmah أولاً (الأقسام الشرعية الشاملة).
+    if (HeekmahMcpClient.isConfigured) {
+      final result = await _tryFetchPassage(passageId, _McpSource.heekmah);
+      if (result != null) return result;
+    }
+    // fallback: جرّب seerah.
+    if (SeerahMcpClient.isConfigured) {
+      return _tryFetchPassage(passageId, _McpSource.seerah);
+    }
+    return null;
+  }
+
+  /// محاولة جلب قطعة من خادم محدد. يعيد null عند الفشل.
+  Future<String?> _tryFetchPassage(int passageId, _McpSource source) async {
+    try {
+      final McpToolResult result;
+      if (source == _McpSource.seerah) {
+        await _seerahMcp.ensureInitialized();
+        result = await _seerahMcp.callTool('fetch_passage', {'id': passageId});
+      } else {
+        await _heekmahMcp.ensureInitialized();
+        result = await _heekmahMcp.callTool('fetch_passage', {'id': passageId});
+      }
+      if (result.isError) {
+        log('fetch_passage($passageId) on $source error: ${result.text}',
+            name: 'Unified');
+        return null;
+      }
+      // استخرج النص الكامل (fetch_passage يُعيد Markdown بنفس صيغة search_*).
+      final extraction = QuotationExtractor.extract(
+        toolResult: result.text,
+        toolName: 'fetch_passage',
+        source: source,
+      );
+      if (extraction.quotations.isNotEmpty) {
+        return extraction.quotations.first.text;
+      }
+      return extraction.rawText.isEmpty ? null : extraction.rawText;
+    } catch (e) {
+      log('fetch_passage($passageId) on $source failed: $e', name: 'Unified');
+      return null;
+    }
+  }
+
   /// يفلتر نتائج `search_all_sections` لتبقى فقط نتائج القسم المطلوب.
   ///
   /// كل نتيجة في الـ Markdown تحوي سطراً مثل:

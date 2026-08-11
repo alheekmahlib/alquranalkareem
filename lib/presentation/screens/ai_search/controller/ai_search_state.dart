@@ -67,6 +67,28 @@ class AiSearchState {
   /// هل يوجد نص في حقل الإدخال؟ (Rx ليُعيد بناء زر الإرسال عند الكتابة).
   final RxBool hasInputText = false.obs;
 
+  // ─── حالة جلب النص الكامل للاقتباسات ──────────────────────────────
+  // مفاتيح RxMap = passageId. القيم:
+  //   'loading'  → الجلب جارٍ الآن.
+  //   'failed'   → فشل الجلب (لإعادة المحاولة).
+  //   النص الكامل → نجح الجلب (يُعرض بدل snippet).
+  final RxMap<int, String> fullTextCache = <int, String>{}.obs;
+
+  /// هل النص الكامل لـ [passageId] جارٍ الجلب؟
+  bool isFetchingFullText(int passageId) =>
+      fullTextCache[passageId] == 'loading';
+
+  /// هل فشل جلب النص الكامل لـ [passageId]؟
+  bool hasFetchFailed(int passageId) =>
+      fullTextCache[passageId] == 'failed';
+
+  /// النص الكامل المجلوب لـ [passageId] (null لو لم يُجلب أو جارٍ/فاشل).
+  String? getFullText(int passageId) {
+    final v = fullTextCache[passageId];
+    if (v == null || v == 'loading' || v == 'failed') return null;
+    return v;
+  }
+
   bool get isAssistantEmpty => assistantMessages.isEmpty;
 
   void addAssistantUserMessage(String text) =>

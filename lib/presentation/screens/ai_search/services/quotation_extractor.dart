@@ -96,13 +96,17 @@ class QuotationExtractor {
     }
 
     // أضف نسبة المصدر العام لكل اقتباس (للعرض فقط، لا تدخل في المنطق).
+    final sourceLabel = _sourceLabelFor(source);
     final labeled = quotations
         .map((q) => Quotation(
               text: q.text,
               type: q.type,
               attribution: q.attribution,
               toolName: q.toolName,
-              sourceLabel: _sourceLabelFor(source),
+              sourceLabel: sourceLabel,
+              passageId: q.passageId,
+              bookSourceName: q.bookSourceName,
+              pageNumber: q.pageNumber,
             ))
         .toList();
 
@@ -400,6 +404,25 @@ class QuotationExtractor {
 
     if (body.isEmpty) return null;
 
+    // استخرج المعرّف الرقمي من سطر العنوان: «### النتيجة N — معرّف XXXXX».
+    int? passageId;
+    for (final line in lines) {
+      final m = RegExp(r'معرّف\s*(\d+)').firstMatch(line);
+      if (m != null) {
+        passageId = int.tryParse(m.group(1)!);
+        break;
+      }
+    }
+
+    // استخرج رقم الصفحة من المرجع: «... — ص 181» أو «... ص181».
+    int? pageNumber;
+    if (reference != null && reference.isNotEmpty) {
+      final pageMatch = RegExp(r'ص\s*\.?\s*(\d+)').firstMatch(reference);
+      if (pageMatch != null) {
+        pageNumber = int.tryParse(pageMatch.group(1)!);
+      }
+    }
+
     // ابنِ نسبة المصدر: "اسم الكتاب — المؤلف" أو ما يتوفر.
     final attribution = _buildHeekmahAttribution(
       source: source,
@@ -412,6 +435,10 @@ class QuotationExtractor {
       type: _inferHeekmahType(section, toolName),
       attribution: attribution,
       toolName: toolName,
+      passageId: passageId,
+      // اسم الكتاب ورقم الصفحة للتنقل للكتاب (مطابقة مع BooksController).
+      bookSourceName: source,
+      pageNumber: pageNumber,
     );
   }
 
