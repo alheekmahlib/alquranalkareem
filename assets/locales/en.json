@@ -1225,7 +1225,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Added a 'Madad' section to serve as an assistant for students seeking knowledge.\nThe 'Madad' model presents results and information extracted from books and Islamic references, with the ability to navigate to the original source and read the full topic from the linked book.\nThe model aims to facilitate search and access to content.\n۞ Added new sections to the Islamic library with improved search and an improved user experience.\n۞ Added a feature to change the font family.\n۞ Added a feature to send your feedback or errors you notice in the app, or features you would like to see in the app.",
+  "What'sNewDetails10": "۞ Enhanced the 'Madad' section to include more categories with online search capability.\n۞ Online search now includes an additional section based on Tafsir Center data.\n۞ Ability to switch between search models.\n۞ Ability to navigate to the book to read the full text.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
