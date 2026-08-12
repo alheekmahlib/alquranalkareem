@@ -40,20 +40,7 @@ class UnifiedAssistantView extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SizedBox().customSvgWithCustomColor(
-            SvgPath.svgHomeMidadIcon,
-            height: 70,
-            color: iconColor ?? theme.canvasColor,
-          ),
-          const Gap(8),
-          Text(
-            'unifiedWelcome'.tr,
-            style: AppTextStyles.titleMedium(
-              fontSize: 16,
-              color: theme.colorScheme.surface,
-            ),
-            textAlign: TextAlign.center,
-          ),
+          const IconWidget(),
           const Gap(8),
           Text(
             'unifiedWelcomeDesc'.tr,
@@ -111,7 +98,8 @@ class UnifiedAssistantView extends StatelessWidget {
                   controller: ctrl.assistantScrollController,
                   padding: const EdgeInsets.only(top: 16, bottom: 16),
                   // +1 للأيقونة في البداية، +1 لمؤشر التفكير في النهاية (إن وُجد).
-                  itemCount: ctrl.state.assistantMessages.length +
+                  itemCount:
+                      ctrl.state.assistantMessages.length +
                       (isInMidad == true ? 1 : 0) +
                       (ctrl.state.isAssistantThinking.value ? 1 : 0),
                   itemBuilder: (context, index) {
@@ -136,7 +124,8 @@ class UnifiedAssistantView extends StatelessWidget {
                                   'thinking'.tr,
                                   style: AppTextStyles.titleMedium(
                                     fontSize: 18,
-                                    color: textColor ??
+                                    color:
+                                        textColor ??
                                         context.theme.colorScheme.surface,
                                   ),
                                 ),
@@ -174,9 +163,11 @@ class UnifiedAssistantView extends StatelessWidget {
                     // هل هذه آخر رسالة مساعد؟ (لعرضها بحركة streaming).
                     bool isLast = false;
                     if (message.isAssistant) {
-                      for (int i = ctrl.state.assistantMessages.length - 1;
-                          i >= 0;
-                          i--) {
+                      for (
+                        int i = ctrl.state.assistantMessages.length - 1;
+                        i >= 0;
+                        i--
+                      ) {
                         if (ctrl.state.assistantMessages[i].isAssistant) {
                           isLast = (i == msgIndex);
                           break;
