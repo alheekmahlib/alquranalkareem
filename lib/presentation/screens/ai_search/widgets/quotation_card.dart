@@ -121,21 +121,21 @@ class QuotationCard extends StatelessWidget {
   (String, IconData) _typeLabel() {
     switch (quotation.type) {
       case QuotationType.ayah:
-        return ('آية قرآنية', Icons.menu_book);
+        return ('quotationAyah'.tr, Icons.menu_book);
       case QuotationType.hadith:
-        return ('حديث نبوي', Icons.auto_stories);
+        return ('quotationHadith'.tr, Icons.auto_stories);
       case QuotationType.tafsir:
-        return ('تفسير', Icons.library_books);
+        return ('quotationTafsir'.tr, Icons.library_books);
       case QuotationType.scholar:
-        return ('قول لعالم', Icons.format_quote);
+        return ('quotationScholar'.tr, Icons.format_quote);
       case QuotationType.fiqh:
-        return ('نص فقهي', Icons.gavel);
+        return ('quotationFiqh'.tr, Icons.gavel);
       case QuotationType.aqeedah:
-        return ('نص عقدي', Icons.shield);
+        return ('quotationAqeedah'.tr, Icons.shield);
       case QuotationType.seerah:
-        return ('سيرة وتاريخ', Icons.history_edu);
+        return ('quotationSeerah'.tr, Icons.history_edu);
       case QuotationType.other:
-        return ('نص منقول', Icons.bookmark_outline);
+        return ('quotationOther'.tr, Icons.bookmark_outline);
     }
   }
 
@@ -348,7 +348,7 @@ class QuotationCard extends StatelessWidget {
             ),
             const Gap(6),
             Text(
-              'جارٍ جلب النص الكامل...',
+              'fetchingFullText'.tr,
               style: AppTextStyles.titleMedium(
                 color: baseColor.withValues(alpha: 0.5),
                 fontSize: 11,
@@ -368,7 +368,7 @@ class QuotationCard extends StatelessWidget {
             color: baseColor.withValues(alpha: 0.6),
           ),
           label: Text(
-            'إعادة المحاولة',
+            'retry'.tr,
             style: AppTextStyles.titleMedium(
               color: baseColor.withValues(alpha: 0.6),
               fontSize: 11,
@@ -391,7 +391,7 @@ class QuotationCard extends StatelessWidget {
           color: baseColor.withValues(alpha: 0.6),
         ),
         label: Text(
-          'عرض النص الكامل',
+          'showFullText'.tr,
           style: AppTextStyles.titleMedium(
             color: baseColor.withValues(alpha: 0.6),
             fontSize: 11,
@@ -419,7 +419,7 @@ class QuotationCard extends StatelessWidget {
       isCustomSvgColor: true,
       svgPath: SvgPath.svgBooksOpenBook,
       svgColor: theme.colorScheme.surface,
-      title: 'الانتقال للكتاب',
+      title: 'navigateToBook'.tr,
       textStyle: AppTextStyles.titleMedium(
         color: theme.colorScheme.surface,
         fontSize: 12,
