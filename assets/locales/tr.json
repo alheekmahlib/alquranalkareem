@@ -1219,7 +1219,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ İlim talebelerine yardımcı olması için bir 'Madad' bölümü eklendi.\n'Madad' modeli, kitaplardan ve İslami kaynaklardan çıkarılan sonuçları ve bilgileri sunar; orijinal kaynağa geçiş yapma ve ilgili kitaptan konunun tamamını okuma imkânı sağlar.\nModel, aramayı ve içeriğe erişimi kolaylaştırmayı amaçlar.\n۞ İslami kütüphaneye, geliştirilmiş arama ve daha iyi bir kullanıcı deneyimiyle yeni bölümler eklendi.\n۞ Yazı tipi ailesini değiştirme özelliği eklendi.\n۞ Uygulamada fark ettiğiniz geri bildirimleri veya hataları, ya da uygulamada görmek istediğiniz özellikleri gönderme özelliği eklendi.",
+  "What'sNewDetails10": "۞ 'Madad' bölümü; daha fazla kategoriyi kapsayacak şekilde ve çevrimiçi arama özelliğiyle geliştirildi.\n۞ Çevrimiçi arama artık Tefsir Merkezi verilerine dayalı ek bir bölüm içeriyor.\n۞ Arama modelleri arasında geçiş yapma imkânı.\n۞ Tam metni okumak için kitaba gitme imkânı.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}

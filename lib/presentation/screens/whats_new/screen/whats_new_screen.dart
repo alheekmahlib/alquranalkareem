@@ -13,13 +13,21 @@ class WhatsNewScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 32.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                TitleWidget(
+                  title: "What's New".tr,
+                  horizontalPadding: 0,
+                  containerColor: context.theme.colorScheme.surface,
+                  textStyle: AppTextStyles.titleLarge(
+                    color: context.theme.canvasColor,
+                  ),
+                ),
                 GestureDetector(
                   child: Text(
                     'skip'.tr,
@@ -35,25 +43,19 @@ class WhatsNewScreen extends StatelessWidget {
                     whatsNewCtrl.saveLastShownIndex(newFeatures.last['index']);
                   },
                 ),
-                SmoothPageIndicatorWidget(
-                  controller: controller,
-                  newFeatures: newFeatures,
-                ),
               ],
             ),
           ),
-          const Gap(16),
-          TitleWidget(
-            title: "What's New".tr,
-            containerColor: context.theme.colorScheme.surface,
-            textStyle: AppTextStyles.titleLarge(
-              color: context.theme.canvasColor,
-            ),
+          SmoothPageIndicatorWidget(
+            controller: controller,
+            newFeatures: newFeatures,
           ),
+          const Gap(16),
           Expanded(
             child: Column(
               children: [
                 PageViewBuild(controller: controller, newFeatures: newFeatures),
+                const Gap(50),
                 ButtonWidget(controller: controller, newFeatures: newFeatures),
               ],
             ),

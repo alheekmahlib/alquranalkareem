@@ -1219,7 +1219,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Menambahkan bagian 'Madad' untuk menjadi asisten bagi penuntut ilmu.\nModel 'Madad' menyajikan hasil dan informasi yang diekstrak dari buku-buku dan referensi Islam, dengan kemampuan untuk menuju sumber asli dan membaca topik secara lengkap dari buku yang terkait.\nModel ini bertujuan untuk memudahkan pencarian dan akses ke konten.\n۞ Menambahkan bagian baru ke perpustakaan Islam dengan pencarian yang disempurnakan dan pengalaman pengguna yang lebih baik.\n۞ Menambahkan fitur untuk mengganti jenis font.\n۞ Menambahkan fitur untuk mengirim masukan atau kesalahan yang Anda temukan di aplikasi, atau fitur-fitur yang Anda inginkan di aplikasi.",
+  "What'sNewDetails10": "۞ Penyempurnaan bagian 'Madad' untuk mencakup lebih banyak kategori dengan kemampuan pencarian online.\n۞ Pencarian online kini mencakup bagian tambahan berdasarkan data Pusat Tafsir.\n۞ Kemampuan untuk mengganti model pencarian.\n۞ Kemampuan untuk membuka buku dan membaca teks lengkap.",
   "@What'sNewDetails10": {
     "type": "text",
     "placeholders": {}
