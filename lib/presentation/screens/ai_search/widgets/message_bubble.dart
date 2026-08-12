@@ -6,7 +6,7 @@ part of '../ai_search.dart';
 /// - **رسالة المساعد**: **بدون فقاعة**، تأخذ كامل عرض الشاشة، مع تنسيق Markdown
 ///   وجداول ملتفّة (بدون تمرير أفقي)، وأزرار نسخ/مشاركة أسفلها.
 class MessageBubble extends StatelessWidget {
-  const MessageBubble({
+  MessageBubble({
     super.key,
     required this.message,
     this.associatedQuestion,
@@ -26,9 +26,40 @@ class MessageBubble extends StatelessWidget {
   final Color? textColor;
   final Color? iconColor;
 
+  final ctrl = AiSearchController.instance;
+
   @override
   Widget build(BuildContext context) {
     if (message.isAssistant) return _buildAssistantAnswer(context);
+
+    // if (ctrl.state.isAssistantThinking.value) {
+    //   return IgnorePointer(
+    //     child: Obx(() {
+    //       // يظهر فقط عند التفكير (وليس أثناء استدعاء أداة — تلك لها مؤشرها الخاص).
+    //       return Column(
+    //         mainAxisSize: MainAxisSize.min,
+    //         children: [
+    //           AnimatedDrawingWidget(
+    //             svgPath: SvgPath.svgHomeMidadIcon,
+    //             height: 80,
+    //             width: 160,
+    //             isRepeat: true,
+    //             duration: 3,
+    //             customColor: iconColor ?? context.theme.canvasColor,
+    //           ),
+    //           const Gap(16),
+    //           Text(
+    //             'thinking'.tr,
+    //             style: AppTextStyles.titleMedium(
+    //               fontSize: 18,
+    //               color: textColor ?? context.theme.colorScheme.surface,
+    //             ),
+    //           ),
+    //         ],
+    //       );
+    //     }),
+    //   );
+    // }
     return _buildUserQuestion(context);
   }
 
@@ -159,7 +190,10 @@ class MessageBubble extends StatelessWidget {
             svgPath: SvgPath.svgHomeShare,
             tooltip: 'shareText'.tr,
             onPressed: () => ctrl.shareAssistantAnswer(
-                message.content, associatedQuestion, message.quotations),
+              message.content,
+              associatedQuestion,
+              message.quotations,
+            ),
           ),
         ],
       ),

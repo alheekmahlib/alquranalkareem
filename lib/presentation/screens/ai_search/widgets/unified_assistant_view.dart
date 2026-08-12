@@ -148,6 +148,41 @@ class UnifiedAssistantView extends StatelessWidget {
                       );
                     },
                   ),
+
+                  if (ctrl.state.isAssistantThinking.value)
+                    IgnorePointer(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Obx(() {
+                          // يظهر فقط عند التفكير (وليس أثناء استدعاء أداة — تلك لها مؤشرها الخاص).
+                          return Row(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: .center,
+                            children: [
+                              Text(
+                                'thinking'.tr,
+                                style: AppTextStyles.titleMedium(
+                                  fontSize: 18,
+                                  color:
+                                      textColor ??
+                                      context.theme.colorScheme.surface,
+                                ),
+                              ),
+                              const Gap(8),
+                              AnimatedDrawingWidget(
+                                svgPath: SvgPath.svgHomeMidadIcon,
+                                height: 15,
+                                width: 30,
+                                isRepeat: true,
+                                duration: 3,
+                                customColor:
+                                    iconColor ?? context.theme.canvasColor,
+                              ),
+                            ],
+                          );
+                        }),
+                      ),
+                    ),
                 ],
               ),
             ),
@@ -183,43 +218,43 @@ class UnifiedAssistantView extends StatelessWidget {
           ],
         ),
         // مؤشر "يفكر".
-        Positioned.fill(
-          child: IgnorePointer(
-            child: Obx(() {
-              if (!ctrl.state.isAssistantThinking.value ||
-                  ctrl.state.currentToolName.value.isNotEmpty) {
-                return const SizedBox.shrink();
-              }
-              return Container(
-                color: isInMidad == true
-                    ? theme.colorScheme.primary.withValues(alpha: 0.4)
-                    : Colors.transparent,
-                alignment: Alignment.center,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    AnimatedDrawingWidget(
-                      svgPath: SvgPath.svgHomeMidadIcon,
-                      height: 80,
-                      width: 160,
-                      isRepeat: true,
-                      duration: 3,
-                      customColor: iconColor ?? theme.canvasColor,
-                    ),
-                    const Gap(16),
-                    Text(
-                      'thinking'.tr,
-                      style: AppTextStyles.titleMedium(
-                        fontSize: 18,
-                        color: textColor ?? theme.colorScheme.surface,
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            }),
-          ),
-        ),
+        // Positioned.fill(
+        //   child: IgnorePointer(
+        //     child: Obx(() {
+        //       if (!ctrl.state.isAssistantThinking.value ||
+        //           ctrl.state.currentToolName.value.isNotEmpty) {
+        //         return const SizedBox.shrink();
+        //       }
+        //       return Container(
+        //         color: isInMidad == true
+        //             ? theme.colorScheme.primary.withValues(alpha: 0.4)
+        //             : Colors.transparent,
+        //         alignment: Alignment.center,
+        //         child: Column(
+        //           mainAxisSize: MainAxisSize.min,
+        //           children: [
+        //             AnimatedDrawingWidget(
+        //               svgPath: SvgPath.svgHomeMidadIcon,
+        //               height: 80,
+        //               width: 160,
+        //               isRepeat: true,
+        //               duration: 3,
+        //               customColor: iconColor ?? theme.canvasColor,
+        //             ),
+        //             const Gap(16),
+        //             Text(
+        //               'thinking'.tr,
+        //               style: AppTextStyles.titleMedium(
+        //                 fontSize: 18,
+        //                 color: textColor ?? theme.colorScheme.surface,
+        //               ),
+        //             ),
+        //           ],
+        //         ),
+        //       );
+        //     }),
+        //   ),
+        // ),
       ],
     );
   }

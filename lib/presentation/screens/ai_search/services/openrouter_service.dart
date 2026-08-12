@@ -111,14 +111,16 @@ class LlmService {
       // Nemotron لا يدعم function calling بشكل موثوق — يكتب tool_calls كنص خام.
       supportsTools: false,
     ),
-    // ── GPT-OSS 20B: مجاني على OpenRouter، قوي في اتباع التعليمات ──
-    // مفيد للمقدمة/التصنيف (الـ LLM لم يعد يلمس النصوص المنقولة بعد إعادة الهيكلة).
+    // ── GPT-OSS 20B: مجاني لكن يُفرغ tool_calls كنص XML خام ──
+    // يسبب تسرّب <invoke name=...> وانهيار في المحادثات متعددة الأسئلة.
+    // معطّل (supportsTools: false) ليُستبعد من كل الجولات التي تستخدم tools.
     LlmProvider(
       id: 'gpt-oss-20b',
       displayName: 'GPT-OSS 20B (OpenRouter)',
       baseUrl: 'https://openrouter.ai/api/v1',
       model: 'openai/gpt-oss-20b:free',
       envKeyName: 'OPENROUTER_API_KEY',
+      supportsTools: false,
     ),
   ];
 
@@ -239,13 +241,15 @@ class LlmService {
     final body = <String, dynamic>{
       'model': provider.model,
       'messages': messages,
-      // temperature=0 يجعل النموذج حتمياً (deterministic) وأكثر التزاماً باستدعاء
-      // الأدوات دائماً بدل التخمين/الهلوسة. القيمة الافتراضية (1.0) تسبب عشوائية
-      // فيتجاهل النموذج الأدوات أحياناً ويعطي إجابات وهمية.
+      // temperature=0 يجعل النموذج حتمياً (deterministic) — لا هلوسة ولا إفتاء
+      // من تفكيره. ضروري لتطبيق إسلامي.
       'temperature': 0,
-      // حدٌّ علوي لإكمال الجملة: يمنع قطع المقدمات الطويلة على بعض المزودين،
-      // ويحدّ التكلفة. 4096 كافية لمقدمة المساعد (لا نصوص منقولة — هي منفصلة).
-      'max_tokens': 4096,
+      // frequency_penalty يكسر حلقات التكرار (degeneration) التي تُقع فيها
+      // النماذج الصغيرة مع temperature=0 (مثل 1.0.0.0.0... أو تكرار البريد).
+      // يعاقب تكرار الـ tokens السابقة دون تشجيع الإبداع أو الإفتاء.
+      'frequency_penalty': 0.6,
+      // حدٌّ علوي لإكمال الجملة: المقدمة قصيرة (لا نصوص منقولة — هي منفصلة).
+      'max_tokens': 2048,
     };
     if (tools.isNotEmpty) {
       body['tools'] = tools;
