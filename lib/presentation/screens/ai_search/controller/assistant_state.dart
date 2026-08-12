@@ -41,6 +41,10 @@ class Quotation {
   /// يُستخدم مع bookSourceName للتنقل للصفحة الصحيحة.
   final int? pageNumber;
 
+  /// حواشي الكتاب (فروق النسخ، تخريج الأحاديث) من tafsir-mcp.
+  /// تُعرض كحواشي مرقمة في أسفل البطاقة. فارغة للاقتباسات بلا حواشي.
+  final List<String> footnotes;
+
   const Quotation({
     required this.text,
     required this.type,
@@ -50,6 +54,7 @@ class Quotation {
     this.passageId,
     this.bookSourceName,
     this.pageNumber,
+    this.footnotes = const [],
   });
 
   factory Quotation.fromJson(Map<String, dynamic> json) {
@@ -89,6 +94,10 @@ class Quotation {
           ? null
           : json['bn'] as String?,
       pageNumber: json['pg'] as int?,
+      footnotes: (json['fn'] as List?)
+              ?.map((f) => f.toString())
+              .toList(growable: false) ??
+          const [],
     );
   }
 
@@ -102,6 +111,7 @@ class Quotation {
         if (bookSourceName != null && bookSourceName!.isNotEmpty)
           'bn': bookSourceName,
         if (pageNumber != null) 'pg': pageNumber,
+        if (footnotes.isNotEmpty) 'fn': footnotes,
       };
 }
 

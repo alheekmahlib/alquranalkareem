@@ -64,6 +64,11 @@ class QuotationCard extends StatelessWidget {
             const Gap(4),
             _buildSourceLabel(theme, accent),
           ],
+          // حواشي الكتاب (فروق النسخ، التخريج) — تُعرض كقائمة مرقمة في الأسفل.
+          if (quotation.footnotes.isNotEmpty) ...[
+            const Gap(8),
+            _buildFootnotes(theme, accent),
+          ],
         ],
       ),
     );
@@ -178,6 +183,41 @@ class QuotationCard extends StatelessWidget {
     );
   }
 
+  /// يبني قسم الحواشي (فروق النسخ، التخريج) في أسفل البطاقة.
+  /// يُعرض كقائمة مرقمة بخط أصغر ومميّز، مثل حواشي الكتب المحققة.
+  Widget _buildFootnotes(ThemeData theme, Color accent) {
+    final baseColor = textColor ?? theme.canvasColor;
+    final fnColor = baseColor.withValues(alpha: 0.55);
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.only(top: 8),
+      decoration: BoxDecoration(
+        border: Border(
+          top: BorderSide(color: accent.withValues(alpha: 0.2), width: 1),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          for (final fn in quotation.footnotes)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 3),
+              child: Text(
+                fn,
+                textAlign: TextAlign.start,
+                textDirection: TextDirection.rtl,
+                style: AppTextStyles.titleMedium(
+                  color: fnColor,
+                  fontSize: 11,
+                  height: 1.5,
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
   /// النص المنقول — يقرأ من الـ controller: النص الكامل إن جُلب، وإلا snippet الأصلي.
   /// يُعاد بناؤه تلقائياً عند تغيّر حالة الجلب (عبر Obx).
   Widget _buildQuotedText(ThemeData theme) {
@@ -206,10 +246,12 @@ class QuotationCard extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 6),
         child: useStreaming
             ? _buildStreamingText(displayText, style, align: TextAlign.center)
-            : Text(displayText,
+            : Text(
+                displayText,
                 textAlign: TextAlign.center,
                 textDirection: TextDirection.rtl,
-                style: style),
+                style: style,
+              ),
       );
     }
     if (isHadith) {
@@ -223,10 +265,12 @@ class QuotationCard extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 2),
         child: useStreaming
             ? _buildStreamingText('«$displayText»', style)
-            : Text('«$displayText»',
+            : Text(
+                '«$displayText»',
                 textAlign: TextAlign.start,
                 textDirection: TextDirection.rtl,
-                style: style),
+                style: style,
+              ),
       );
     }
     final style = AppTextStyles.titleMedium(
@@ -238,28 +282,37 @@ class QuotationCard extends StatelessWidget {
       width: double.infinity,
       child: useStreaming
           ? _buildStreamingText(displayText, style, align: TextAlign.justify)
-          : Text(displayText,
+          : Text(
+              displayText,
               textAlign: TextAlign.justify,
               textDirection: TextDirection.rtl,
-              style: style),
+              style: style,
+            ),
     );
   }
 
   /// يبني النص بآلية streaming كلمة بكلمة (مثل ChatGPT).
-  Widget _buildStreamingText(String text, TextStyle style,
-      {TextAlign align = TextAlign.start}) {
+  /// markdownEnabled معطّل لأن النصوص المنقولة عربية خالصة لا تحتاج تنسيق Markdown،
+  /// وتفعيله يُفسّر علامات الحاشية [1] [2] كروابط ويعرضها كدوائر سوداء.
+  Widget _buildStreamingText(
+    String text,
+    TextStyle style, {
+    TextAlign align = TextAlign.start,
+  }) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: DefaultTextStyle(
         style: style,
         textAlign: align,
         child: StreamingTextMarkdown(
-          text: text,
+          text: text.replaceAll('[', '(').replaceAll(']', ')'),
           wordByWord: true,
           chunkSize: 1,
+          latexEnabled: true,
           markdownEnabled: true,
           animationsEnabled: true,
           styleSheet: style,
+          latexStyle: style,
           textDirection: TextDirection.rtl,
           textAlign: align,
           fadeInEnabled: false,
@@ -309,8 +362,11 @@ class QuotationCard extends StatelessWidget {
       if (failed) {
         return TextButton.icon(
           onPressed: () => ctrl.fetchFullPassage(pid),
-          icon: Icon(Icons.refresh,
-              size: 14, color: baseColor.withValues(alpha: 0.6)),
+          icon: Icon(
+            Icons.refresh,
+            size: 14,
+            color: baseColor.withValues(alpha: 0.6),
+          ),
           label: Text(
             'إعادة المحاولة',
             style: AppTextStyles.titleMedium(
@@ -329,8 +385,11 @@ class QuotationCard extends StatelessWidget {
       // الحالة الافتراضية → زر "عرض النص الكامل".
       return TextButton.icon(
         onPressed: () => ctrl.fetchFullPassage(pid),
-        icon: Icon(Icons.expand_more,
-            size: 16, color: baseColor.withValues(alpha: 0.6)),
+        icon: Icon(
+          Icons.expand_more,
+          size: 16,
+          color: baseColor.withValues(alpha: 0.6),
+        ),
         label: Text(
           'عرض النص الكامل',
           style: AppTextStyles.titleMedium(

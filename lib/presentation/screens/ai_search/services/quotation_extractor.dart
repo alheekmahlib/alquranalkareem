@@ -107,6 +107,7 @@ class QuotationExtractor {
               passageId: q.passageId,
               bookSourceName: q.bookSourceName,
               pageNumber: q.pageNumber,
+              footnotes: q.footnotes,
             ))
         .toList();
 
@@ -177,19 +178,29 @@ class QuotationExtractor {
       return quotations;
     }
 
-    // الحالة 2: fetch_tafsir — {tafsirs: [{text, attribution}]}.
+    // الحالة 2: fetch_tafsir — {tafsirs: [{text, text_display, attribution, footnotes}]}.
     if (decoded is Map && decoded['tafsirs'] is List) {
       for (final t in decoded['tafsirs'] as List) {
         if (t is! Map) continue;
-        final tText = (t['text'] ?? t['uthmanic_text'] ?? '').toString();
+        // أفضل نسخة للعرض: text_display (نظيف مع علامات حاشية مرقمة [N])،
+        // ثم text_clean (نظيف بلا حواشي)، ثم text (خام مع ¬...¥).
+        final tText = (t['text_display'] ??
+                t['text_clean'] ??
+                t['text'] ??
+                t['uthmanic_text'] ??
+                '')
+            .toString();
         final attribution = _cleanAttribution(
             (t['attribution'] ?? '').toString());
+        // استخرج الحواشي (فروق النسخ، التخريج) كقائمة نصوص مرقمة.
+        final footnotes = _extractFootnotes(t['footnotes']);
         if (tText.trim().isNotEmpty) {
           quotations.add(Quotation(
             text: _cleanRaw(tText),
             type: QuotationType.tafsir,
             attribution: attribution.isEmpty ? null : attribution,
             toolName: toolName,
+            footnotes: footnotes,
           ));
         }
       }
@@ -444,6 +455,25 @@ class QuotationExtractor {
 
   // ─── مساعدات ─────────────────────────────────────────────────────
 
+  /// يستخرج الحواشي (فروق النسخ، التخريج) من حقل footnotes في tafsir-mcp.
+  ///
+  /// كل حاشية في MCP بصيغة: `{index: 1, marker: "[1]", text: "...", type: "..."}`
+  /// نُعيد قائمة نصوص مرقمة جاهزة للعرض: `["[1] كذا في (ب)...", "[2] في (ب)..."]`
+  static List<String> _extractFootnotes(dynamic footnotesField) {
+    if (footnotesField is! List || footnotesField.isEmpty) return const [];
+    final result = <String>[];
+    for (final fn in footnotesField) {
+      if (fn is! Map) continue;
+      final marker = (fn['marker'] ?? '').toString();
+      final text = (fn['text'] ?? '').toString().trim();
+      if (text.isNotEmpty) {
+        // ادمج المعرّف مع النص: "[1] كذا في (ب)..."
+        result.add(marker.isEmpty ? text : '$marker $text');
+      }
+    }
+    return result;
+  }
+
   /// ينظّف نص النسبة (attribution) من البيانات غير المرغوبة.
   ///
   /// يحذف: الروابط (http/https)، أسماء التطبيقات/القواعد الملتصقة، المسافات الزائدة.
@@ -485,6 +515,10 @@ class QuotationExtractor {
     for (final pattern in techPatterns) {
       cleaned = cleaned.replaceAll(pattern, '');
     }
+    // احذف رموز جهاز النقد (apparatus criticus) إن تسلّلت من text_raw.
+    // text_display/text_clean لا يحويانها، لكن text_raw قد يُستخدم كـ fallback.
+    // نحذف الرموز فقط؛ نص الحاشية يُعرض منفصلاً عبر حقل footnotes.
+    cleaned = cleaned.replaceAll('¥', '').replaceAll('¬', '');
     // حوّل رموز الأسطر الجديدة الحرفية لأسطر فعلية.
     cleaned = cleaned.replaceAll('\\n', '\n');
     // اقلب تسلسل الأسطر الفارغة الزائد.

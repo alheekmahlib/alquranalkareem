@@ -76,7 +76,8 @@ class UnifiedOrchestrator {
           name: 'Unified');
 
       // 4) ابنِ سجل الرسائل (system موحَّد + history + الرسالة الجديدة).
-      final messages = <Map<String, dynamic>>[
+      // نستخدم var (لا final) لأن الجولات بلا أدوات تستبدل القائمة بنسخة منظَّفة.
+      var messages = <Map<String, dynamic>>[
         UnifiedLlmService.systemMessage,
         ...state.assistantMessagesToOpenAi(),
         {'role': 'user', 'content': userText},
@@ -100,6 +101,10 @@ class UnifiedOrchestrator {
         if (noTools) {
           toolsForThisIteration = const [];
           forceThisIteration = false;
+          // نظّف السياق قبل الجولات بلا أدوات: انزع رسائل role:tool وحقول tool_calls.
+          // هذا يمنع النموذج من رؤية سياق تناقضي ("كنت أستدعي أدوات والآن لا أدوات")
+          // فيهلوس استدعاءات أدوات كنص خام (<invoke name=...>).
+          messages = _sanitizeMessagesForFinalAnswer(messages);
         } else if (iteration == 0) {
           toolsForThisIteration = searchOnlyTools;
           forceThisIteration = true;
@@ -597,6 +602,62 @@ class UnifiedOrchestrator {
 
   /// ينظّف إجابة الـ LLM النهائية (المقدمة/الخلاصة فقط) قبل عرضها.
   ///
+  /// ينظّف قائمة الرسائل قبل الجولات النهائية (بلا أدوات) لمنع degeneration.
+  ///
+  /// عند الانتقال لجولة بلا أدوات (iteration >= 2)، يصبح السياق تناقضياً:
+  /// رسائل `role: tool` وحقول `tool_calls` في `assistant` تشير لأدوات لم تَعُد
+  /// متاحة. النماذج الضعيفة تتفاعب بإفراغ استدعاءات الأدوات كنص خام
+  /// (`<invoke name=...>`).
+  ///
+  /// هذه الدالة:
+  /// - تدمج نتائج الأدوات (`role: tool`) في رسالة `role: assistant` واحدة.
+  /// - تنزع حقول `tool_calls` من رسائل `assistant`.
+  /// - تبقي الـ system + history + user + النصوص المنظّمة فقط.
+  List<Map<String, dynamic>> _sanitizeMessagesForFinalAnswer(
+      List<Map<String, dynamic>> messages) {
+    // اجمع محتوى رسائل tool في ملخص واحد.
+    final toolSummaries = <String>[];
+    final cleaned = <Map<String, dynamic>>[];
+    for (final m in messages) {
+      final role = m['role'] as String?;
+      if (role == 'tool') {
+        // خزّن محتوى الأداة لدمجه لاحقاً.
+        final content = m['content']?.toString() ?? '';
+        if (content.trim().isNotEmpty) {
+          toolSummaries.add(content);
+        }
+        // تخطّى رسالة tool الأصلية (لا نُضيفها).
+        continue;
+      }
+      if (role == 'assistant') {
+        // انزع tool_calls واحتفظ بنص content فقط.
+        final content = m['content']?.toString() ?? '';
+        if (m.containsKey('tool_calls')) {
+          // كانت رسالة استدعاء أدوات — استبدلها بنصها فقط (أو تخطّاها إن فارغ).
+          if (content.trim().isEmpty) continue;
+          cleaned.add({'role': 'assistant', 'content': content});
+        } else {
+          cleaned.add({'role': 'assistant', 'content': content});
+        }
+        continue;
+      }
+      // system / user — أبقِها كما هي.
+      cleaned.add(m);
+    }
+    // أضف ملخص نتائج الأدوات كرسالة user (سياق للإجابة النهائية).
+    if (toolSummaries.isNotEmpty) {
+      cleaned.insert(
+        cleaned.length,
+        {
+          'role': 'user',
+          'content': '(معلومات من البحث)\n${toolSummaries.join('\n')}\n\n'
+              'اكتب المقدمة فقط بناءً على ما سبق. لا تكتب استدعاءات أدوات.',
+        },
+      );
+    }
+    return cleaned;
+  }
+
   /// **هام:** هذه الدالة تُطبَّق فقط على نص الـ LLM (الذي يرى ملخصات، لا النصوص
   /// المنقولة). النصوص المنقولة من الكتب لا تمر عبرها إطلاقاً — هي محفوظة في
   /// [Quotation] منفصلة وتُعرض كاملةً كما هي. لذا التنظيف هنا خفيف وآمن.
@@ -609,16 +670,29 @@ class UnifiedOrchestrator {
     // حوّل `\\n` (escape sequence مزدوج) أولاً ثم `\n` المفردة.
     cleaned = cleaned.replaceAll('\\n', '\n');
 
-    // كشف تسرب استدعاءات الأدوات كنص خام.
+    // كشف تسرب استدعاءات الأدوات كنص خام (صيغ متعددة من نماذج مختلفة).
     final hasLeakedToolCall = cleaned.contains('<tool_call>') ||
         cleaned.contains('<arg_key>') ||
         cleaned.contains('<arg_value>') ||
         cleaned.contains('tool_calls_begin') ||
         cleaned.contains('<｜tool') ||
-        cleaned.contains('<|tool');
+        cleaned.contains('<|tool') ||
+        // صيغة GPT-OSS/Hermes/Qwen:
+        cleaned.contains('<invoke') ||
+        cleaned.contains('</invoke>') ||
+        cleaned.contains('<function') ||
+        // بادئة استدعاء دالة خام:
+        cleaned.contains('functions.') && cleaned.contains('</');
 
     if (hasLeakedToolCall) {
-      log('Detected leaked tool_call in content, replacing with error message',
+      log('Detected leaked tool_call (XML/invoke) in content, replacing with error message',
+          name: 'Unified');
+      return 'assistantGenericError'.tr;
+    }
+
+    // كشف التكرار المهووس (degeneration) — حلقات مثل 1.0.0.0.0 أو تكرار سطر.
+    if (_detectDegeneration(cleaned)) {
+      log('Detected degeneration (repetition loop) in content, replacing with error message',
           name: 'Unified');
       return 'assistantGenericError'.tr;
     }
@@ -676,6 +750,56 @@ class UnifiedOrchestrator {
   /// كـ [Quotation] وتُعرض مباشرة دون أي تقسيم أو تمرير للـ LLM.
   // ignore: unused_element
   String _chunkLongText(String text) => text;
+
+  // ─── كشف التكرار المهووس (degeneration) ──────────────────────────
+
+  /// يكشف حلقات التكرار المهووسة التي تُقع فيها النماذج الصغيرة مع temperature=0.
+  ///
+  /// العلامات:
+  /// - نمط رقمي متكرر مثل `1.0.0.0.0.0...` (أكثر من 10 مرات).
+  /// - نفس السطر يتكرر > 4 مرات متتالية.
+  /// - نسبة تكرار عالية (أكثر من 60% من النص مكرر).
+  bool _detectDegeneration(String text) {
+    if (text.length < 50) return false;
+
+    // 1) نمط رقمي متكرر: سلسلة من `.0` أو `.1` أو أرقام متكررة (> 10 مرات).
+    if (RegExp(r'(\.\d){10,}').hasMatch(text)) return true;
+    // نمط `1.0.0.0.0...` تحديداً.
+    if (RegExp(r'\b\d(\.\d){8,}').hasMatch(text)) return true;
+
+    // 2) نفس السطر يتكرر > 4 مرات متتالية.
+    final lines = text.split('\n');
+    int maxRepeat = 1;
+    int currentRepeat = 1;
+    for (int i = 1; i < lines.length; i++) {
+      final prev = lines[i - 1].trim();
+      final curr = lines[i].trim();
+      if (prev.isNotEmpty && prev == curr) {
+        currentRepeat++;
+        if (currentRepeat > maxRepeat) maxRepeat = currentRepeat;
+      } else {
+        currentRepeat = 1;
+      }
+    }
+    if (maxRepeat > 4) return true;
+
+    // 3) نسبة تكرار عالية: نفس الكلمة (> 5 أحرف) تتكرر > 8 مرات في كامل النص.
+    final words = text
+        .replaceAll(RegExp(r'[\s\n\r]+'), ' ')
+        .split(' ')
+        .where((w) => w.length > 5)
+        .toList();
+    if (words.isNotEmpty) {
+      final counts = <String, int>{};
+      for (final w in words) {
+        counts[w] = (counts[w] ?? 0) + 1;
+      }
+      final maxCount = counts.values.fold(0, (a, b) => a > b ? a : b);
+      if (maxCount > 8) return true;
+    }
+
+    return false;
+  }
 
   // ─── مساعدات ─────────────────────────────────────────────────────
 
