@@ -44,6 +44,7 @@ import '../../../core/utils/constants/lottie_constants.dart';
 import '../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../../core/utils/constants/svg_constants.dart';
 import '../../../core/utils/helpers/responsive.dart';
+import '../../../core/widgets/ai_body_widget.dart';
 import '../../../core/widgets/app_bar_widget.dart';
 import '../../../core/widgets/container_button.dart';
 import '../../../core/widgets/custom_button.dart';
