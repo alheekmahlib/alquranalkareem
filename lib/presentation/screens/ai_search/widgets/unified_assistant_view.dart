@@ -40,7 +40,7 @@ class UnifiedAssistantView extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const IconWidget(isOnlineMode: true),
+          IconWidget(isOnlineMode: true, iconColor: iconColor),
           const Gap(8),
           Text(
             'unifiedWelcomeDesc'.tr,
@@ -106,7 +106,10 @@ class UnifiedAssistantView extends StatelessWidget {
                     // العنصر الأول: الأيقونة (إن كنا في مداد).
                     final iconOffset = isInMidad == true ? 1 : 0;
                     if (isInMidad == true && index == 0) {
-                      return const IconWidget(isOnlineMode: true);
+                      return IconWidget(
+                        isOnlineMode: true,
+                        iconColor: iconColor,
+                      );
                     }
                     // العنصر الأخير: مؤشر التفكير.
                     final msgCount = ctrl.state.assistantMessages.length;

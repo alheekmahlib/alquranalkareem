@@ -96,4 +96,7 @@ class BooksState {
   // كاش صفحات الكتب في الذاكرة - In-memory book pages cache
   final Map<int, List<Map<String, dynamic>>> _pagesCache = {};
   final expansionManager = ExpansionTileManager();
+
+  /// هل وضع المساعد الذكي (AI) مفعّل في بحث القرآن؟
+  final RxBool isAiMode = false.obs;
 }

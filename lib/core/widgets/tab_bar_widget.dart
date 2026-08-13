@@ -6,6 +6,7 @@ import '/core/utils/constants/extensions/bottom_sheet_extension.dart';
 import '/core/utils/constants/svg_constants.dart';
 import '/presentation/screens/home/home_screen.dart';
 import '/presentation/screens/quran_page/widgets/search/controller/quran_search_controller.dart';
+import '../../presentation/screens/books/books.dart';
 import '../../presentation/screens/quran_page/quran.dart';
 import '../services/services_locator.dart';
 import '../utils/constants/extensions/extensions.dart';
@@ -44,6 +45,7 @@ class TopBarWidget extends StatelessWidget {
   });
 
   final quranCtrl = QuranController.instance;
+  final booksCtrl = BooksController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -142,6 +144,11 @@ class TopBarWidget extends StatelessWidget {
                                     )) {
                                       return _buildAiToggleButton(context);
                                     }
+                                    // if (booksCtrl.getTopBarType(
+                                    //   TopBarType.search,
+                                    // )) {
+                                    //   return _buildAiToggleButton(context);
+                                    // }
                                     // وإلا: زر Home الأصلي كما هو.
                                     return ContainerButton(
                                       onPressed: () async {
@@ -266,10 +273,12 @@ class TopBarWidget extends StatelessWidget {
   Widget _buildAiToggleButton(BuildContext context) {
     final searchCtrl = QuranSearchController.instance;
     return Obx(() {
-      final isAi = searchCtrl.state.isAiMode.value;
+      final isAi =
+          searchCtrl.state.isAiMode.value || booksCtrl.state.isAiMode.value;
       return ContainerButton(
         onPressed: () {
           searchCtrl.state.isAiMode.value = !isAi;
+          booksCtrl.state.isAiMode.value = !isAi;
           // امسح حقل البحث عند التبديل لتفادي نتائج مختلطة.
           searchCtrl.state.searchTextEditing.clear();
           searchCtrl.state.ayahList.clear();

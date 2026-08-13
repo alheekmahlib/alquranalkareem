@@ -27,7 +27,12 @@ class BooksScreen extends StatelessWidget {
                 isNotification: false,
                 tabBarController:
                     BooksController.instance.state.tabBarController,
-                bodyChild: SearchBuild(),
+                bodyChild: Obx(() {
+                  if (booksCtrl.state.isAiMode.value) {
+                    return AiBodyWidget();
+                  }
+                  return SearchBuild();
+                }),
                 centerChild: TextFieldBarWidget(
                   hintText: 'searchInBooks'.tr,
                   controller: booksCtrl.state.searchController,
