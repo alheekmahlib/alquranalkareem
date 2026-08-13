@@ -236,7 +236,11 @@ class QuotationCard extends StatelessWidget {
     final fullText = quotation.passageId != null
         ? ctrl.state.getFullText(quotation.passageId!)
         : null;
-    final displayText = fullText ?? quotation.text;
+    // انزع علامات التوكيد Markdown (**) من نص العرض: مصادر MCP (خاصة تراجم
+    // الرواة) تُرجع تسميات الحقول كـ «**الاسم:**»، وGptMarkdown يفشل في عرض
+    // العريض في سياق عربي/RTL فيُظهر العلامات حرفياً. النصوص المنقولة عربية
+    // خالصة فلا تحتاج تنسيقاً أصلاً.
+    final displayText = (fullText ?? quotation.text).replaceAll('**', '');
     // عطّل streaming عند عرض النص الكامل (النص الطويل لا يحتاج streaming).
     final useStreaming = enableStreaming && fullText == null;
 
@@ -316,7 +320,7 @@ class QuotationCard extends StatelessWidget {
           chunkSize: 1,
           latexEnabled: true,
           markdownEnabled: true,
-          animationsEnabled: true,
+          animationsEnabled: enableStreaming,
           styleSheet: style,
           latexStyle: style,
           textDirection: TextDirection.rtl,

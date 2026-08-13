@@ -107,6 +107,12 @@ class MessageBubble extends StatelessWidget {
   Widget _buildAssistantAnswer(BuildContext context) {
     final theme = context.theme;
     final ctrl = AiSearchController.instance;
+    // هل تُعرض هذه الرسالة بحركة streaming؟ مرة واحدة فقط للرسالة الأخيرة الحيّة،
+    // ثم تُعرض ثابتةً (عبر onComplete → markAssistantStreamed) فلا تُعاد عند التمرير.
+    final shouldStream = ctrl.state.shouldStreamAssistant(
+      message.content,
+      isLastMessage: isLastMessage,
+    );
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.symmetric(vertical: 4),
@@ -114,7 +120,7 @@ class MessageBubble extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           // نص مقدمة المساعد بتنسيق Markdown + محاكاة streaming (كلمة بكلمة).
-          // الرسالة الأخيرة: حركة streaming؛ الرسائل السابقة (من السجل): فورية.
+          // الرسالة الأخيرة الحيّة: حركة streaming مرة واحدة فقط؛ البقية (والسجل): فورية.
           // highlightBuilder يطبّق خط المصحف (uthmanic2) على الآيات المحاطة بـ backticks.
           if (message.content.trim().isNotEmpty)
             Directionality(
@@ -130,7 +136,7 @@ class MessageBubble extends StatelessWidget {
                   wordByWord: true,
                   chunkSize: 1,
                   markdownEnabled: true,
-                  animationsEnabled: isLastMessage,
+                  animationsEnabled: shouldStream,
                   styleSheet: AppTextStyles.titleMedium(
                     fontSize: 17,
                     height: 1.6,
@@ -138,18 +144,21 @@ class MessageBubble extends StatelessWidget {
                   ),
                   textDirection: TextDirection.rtl,
                   fadeInEnabled: false,
+                  onComplete: shouldStream
+                      ? () => ctrl.state.markAssistantStreamed()
+                      : null,
                   highlightBuilder: (ctx, text, style) =>
                       _buildAyahWidget(ctx, text, style, theme),
                 ),
               ),
             ),
           // بطاقات الاقتباسات المنقولة من MCP (نصوص الكتب كاملةً كما هي).
-          // النص يظهر تدريجياً (streaming كلمة بكلمة) لكل الرسائل.
+          // streaming مقترن بحداثة الرسالة (shouldStream): مرة واحدة للرسالة الحيّة فقط.
           ...message.quotations.map(
             (q) => QuotationCard(
               quotation: q,
               textColor: textColor,
-              enableStreaming: true,
+              enableStreaming: shouldStream,
             ),
           ),
           context.hDivider(
