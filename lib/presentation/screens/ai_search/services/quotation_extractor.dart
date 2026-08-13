@@ -317,10 +317,10 @@ class QuotationExtractor {
       return [];
     }
 
-    // قسّم النص على عناوين النتائج/القطع.
-    // نطابق: "### النتيجة N" أو "### القطعة رقم N".
+    // قسّم النص على عناوين النتائج/القطع/الرواة.
+    // نطابق: "### النتيجة N" أو "### القطعة رقم N" أو "### الراوي N".
     final sectionRegex = RegExp(
-      r'^###\s+(?:النتيجة\s+\d+|القطعة\s+رقم\s+\d+).*$',
+      r'^###\s+(?:النتيجة\s+\d+|القطعة\s+رقم\s+\d+|الراوي\s+\d+).*$',
       multiLine: true,
     );
     final matches = sectionRegex.allMatches(text);
@@ -360,14 +360,17 @@ class QuotationExtractor {
     final lines = block.split('\n');
 
     // ابحث عن سطر "المصدر: ..." (النسبة).
+    // ندعم شكلين: «المصدر: ...» (أقسام heekmah) و «**المصدر:** ...» (الرواة).
     String? source, author, reference, section;
     int? metaLineIndex;
     for (int i = 0; i < lines.length; i++) {
       final line = lines[i].trim();
-      if (line.startsWith('المصدر:') || line.startsWith('المصدر :')) {
+      // انزع علامات Markdown المؤكِّدة (**) لمطابقة موحَّدة.
+      final cleanLine = line.replaceAll('**', '');
+      if (cleanLine.startsWith('المصدر:') || cleanLine.startsWith('المصدر :')) {
         metaLineIndex = i;
         // حلّل الحقول المفصولة بـ |.
-        final parts = line.split('|');
+        final parts = cleanLine.split('|');
         for (final p in parts) {
           final kv = p.split(':');
           if (kv.length < 2) continue;
@@ -416,12 +419,18 @@ class QuotationExtractor {
     if (body.isEmpty) return null;
 
     // استخرج المعرّف الرقمي من سطر العنوان: «### النتيجة N — معرّف XXXXX».
+    // **استثناء:** لا تستخرج passageId لتراجم الرواة (search_narrator) —
+    // المعرّف هناك هو id الراوي في جدول narrators، لا رقم مقطع في passages.
+    // لو مرّرناه كـ passageId، سيحاول fetch_passage جلب مقطع سيرة بنفس الرقم
+    // (نصٌّ مختلف تماماً عن بيانات الراوي). بيانات الراوي كاملة في النص أصلاً.
     int? passageId;
-    for (final line in lines) {
-      final m = RegExp(r'معرّف\s*(\d+)').firstMatch(line);
-      if (m != null) {
-        passageId = int.tryParse(m.group(1)!);
-        break;
+    if (toolName != 'search_narrator') {
+      for (final line in lines) {
+        final m = RegExp(r'معرّف\s*(\d+)').firstMatch(line);
+        if (m != null) {
+          passageId = int.tryParse(m.group(1)!);
+          break;
+        }
       }
     }
 
@@ -577,6 +586,8 @@ class QuotationExtractor {
 
   /// يستنتج نوع الاقتباس من قسم/تصنيف heekmah.
   static QuotationType _inferHeekmahType(String? section, String toolName) {
+    // search_narrator = ترجمة راوٍ (معلومات عن شخص).
+    if (toolName == 'search_narrator') return QuotationType.scholar;
     final s = section?.toLowerCase() ?? '';
     if (s.contains('حديث')) return QuotationType.hadith;
     if (s.contains('فقه')) return QuotationType.fiqh;
@@ -647,6 +658,37 @@ class QuotationExtractor {
   static String _buildLlmSummary(List<Quotation> quotations) {
     if (quotations.isEmpty) return 'لا توجد نتائج.';
 
+    // **هام:** لتراجم الرواة (search_narrator)، استخرج أسماء الرواة الفعلية
+    // من نص الاقتباس ليكون الملخص دقيقاً — يمنع الـ LLM من اختلاق أسماء
+    // من ذاكرته بدلاً من ذكر الأسماء الفعلية الموجودة في النتائج.
+    final isNarratorSearch = quotations.isNotEmpty &&
+        quotations.every((q) => q.toolName == 'search_narrator');
+
+    if (isNarratorSearch) {
+      final names = <String>[];
+      for (final q in quotations) {
+        // استخرج اسم الراوي من سطر "**الاسم:** XXX".
+        final nameMatch = RegExp(r'\*\*الاسم:\*\*\s*(.+)').firstMatch(q.text);
+        if (nameMatch != null) {
+          final name = nameMatch.group(1)!.split('\n').first.trim();
+          if (name.isNotEmpty) names.add(name);
+        }
+      }
+      final buffer = StringBuffer();
+      if (names.isNotEmpty) {
+        buffer.write('تم العثور على ${names.length} راوٍ: ${names.take(5).join('، ')}');
+        if (names.length > 5) buffer.write('…');
+        buffer.write('. ');
+      } else {
+        buffer.write('تم العثور على ${quotations.length} ترجمة راوٍ. ');
+      }
+      buffer.write('البيانات الكاملة (الاسم، الشهرة، الرتبة، الكنية، الميلاد، '
+          'الوفاة، الطلاب، الشيوخ، أقوال العلماء) تُعرض للمستخدم منفصلة. '
+          'لا تنسخها ولا تكررها. لا تضف أي معلومات من عندك عن الراوي — '
+          'اكتب فقط جملة قصيرة جداً (سطر واحد) تشير لأن النتائج معروضة أدناه.');
+      return buffer.toString();
+    }
+
     final buffer = StringBuffer();
     buffer.write('تم العثور على ${quotations.length} ');
 
@@ -685,7 +727,7 @@ class QuotationExtractor {
       buffer.write('.');
     }
 
-    // تلميح حرجة للـ LLM.
+    // تلميحات حرجة للـ LLM.
     buffer.write(' النصوص الكاملة تُعرض للمستخدم منفصلة، لا تنسخها ولا تذكرها حرفياً؛ '
         'اكتب فقط مقدمة قصيرة تربط السؤال بهذه النتائج.');
     return buffer.toString();

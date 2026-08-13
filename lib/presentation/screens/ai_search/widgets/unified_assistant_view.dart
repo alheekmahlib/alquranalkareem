@@ -40,7 +40,7 @@ class UnifiedAssistantView extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const IconWidget(),
+          const IconWidget(isOnlineMode: true),
           const Gap(8),
           Text(
             'unifiedWelcomeDesc'.tr,
@@ -106,7 +106,7 @@ class UnifiedAssistantView extends StatelessWidget {
                     // العنصر الأول: الأيقونة (إن كنا في مداد).
                     final iconOffset = isInMidad == true ? 1 : 0;
                     if (isInMidad == true && index == 0) {
-                      return const IconWidget();
+                      return const IconWidget(isOnlineMode: true);
                     }
                     // العنصر الأخير: مؤشر التفكير.
                     final msgCount = ctrl.state.assistantMessages.length;
@@ -226,5 +226,6 @@ class UnifiedAssistantView extends StatelessWidget {
     'أحاديث عن الصبر',
     'ما حكم الصلاة في الثوب النجس؟',
     'ما سبب نزول آية المباهلة؟',
+    'من هو مالك بن أنس؟',
   ];
 }
