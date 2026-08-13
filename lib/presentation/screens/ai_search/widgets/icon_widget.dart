@@ -1,7 +1,8 @@
 part of '../ai_search.dart';
 
 class IconWidget extends StatelessWidget {
-  const IconWidget({super.key});
+  final bool? isOnlineMode;
+  const IconWidget({super.key, this.isOnlineMode = false});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +12,9 @@ class IconWidget extends StatelessWidget {
         const SizedBox().customSvg(SvgPath.svgHomeMidadIcon, height: 70),
         const Gap(8),
         Text(
-          ctrl.state.hasAnySectionLoaded
+          isOnlineMode == true
+              ? 'midadDescription'.tr
+              : ctrl.state.hasAnySectionLoaded
               ? 'midadDescription'.tr
               : 'downloadSections'.tr,
           style: AppTextStyles.titleMedium(

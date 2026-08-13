@@ -71,6 +71,12 @@ class UnifiedOrchestrator {
 
       // 3) اختيار الأدوات المناسبة بناءً على التصنيف.
       final selectedTools = _selectToolsForCategory(category);
+      // ابنِ مجموعة بأسماء الأدوات المختارة فعلاً — تُستخدم للتحقق من استدعاءات
+      // الـ LLM لمنع تنفيذ أدوات لم تُعرَض عليه (بعض النماذج تهلوس أسماء أدوات).
+      final selectedToolNames = selectedTools
+          .map((t) => (t['function'] as Map?)?['name'] as String?)
+          .whereType<String>()
+          .toSet();
       log('Unified tools selected: ${selectedTools.length} for category "$category": '
           '${selectedTools.map((t) => (t['function'] as Map?)?['name'] ?? '?').join(', ')}',
           name: 'Unified');
@@ -143,14 +149,18 @@ class UnifiedOrchestrator {
         // نفّذ كل أداة وأضف نتيجتها.
         state.isAssistantThinking.value = false;
         for (final call in resp.toolCalls) {
-          // تحقق من أن الأداة موجودة فعلاً — بعض النماذج تخترع أسماء أدوات.
-          if (!_toolToSource.containsKey(call.name)) {
-            log('Unified: unknown tool "${call.name}" — skipping', name: 'Unified');
+          // تحقق من أن الأداة مُختارة فعلاً لهذا التصنيف — بعض النماذج
+          // تهلوس أسماء أدوات لم تُعرَض عليها (مثل search_all_sections لسؤال
+          // عن راوٍ). نتحقق من selectedToolNames وليس _toolToSource العام.
+          if (!selectedToolNames.contains(call.name)) {
+            log('Unified: tool "${call.name}" not in selected set for '
+                'category "$category" — skipping', name: 'Unified');
             messages.add({
               'role': 'tool',
               'tool_call_id': call.id,
-              'content': 'هذه الأداة غير متاحة. الأدوات المتاحة هي: '
-                  '${_toolToSource.keys.join(', ')}. استخدم إحداها أو أجب من النتائج المتاحة.',
+              'content': 'هذه الأداة غير متاحة لهذا النوع من الأسئلة. '
+                  'الأدوات المتاحة هي: ${selectedToolNames.join(', ')}. '
+                  'استخدم إحداها أو أجب من النتائج المتاحة.',
             });
             continue;
           }
@@ -291,8 +301,9 @@ class UnifiedOrchestrator {
       if (t.name == 'search_seerah') {
         _toolToSource[t.name] = _McpSource.seerah;
       }
-      // باقي أدوات seerah (search_all_sections, search_fiqh, ...) لا نستبدلها —
-      // تبقى موجّهة لـ heekmah من الحلقة السابقة.
+      if (t.name == 'search_narrator') {
+        _toolToSource[t.name] = _McpSource.seerah;
+      }
     }
   }
 
@@ -311,6 +322,7 @@ class UnifiedOrchestrator {
       'fiqh',
       'aqeedah',
       'seerah',
+      'narrator',
       'mixed',
     ];
     try {
@@ -325,6 +337,7 @@ class UnifiedOrchestrator {
                 '- fiqh: الأحكام الفقهية والعبادات والمعاملات.\n'
                 '- aqeedah: العقيدة والإيمان والتوحيد وأسماء الله وصفاته.\n'
                 '- seerah: السيرة النبوية والتاريخ الإسلامي والغزوات.\n'
+                '- narrator: السؤال عن راوٍ حديث بالاسم، أو معلومات عن صحابي أو تابعي أو عالم الحديث.\n'
                 '- mixed: يشمل أكثر من مجال مما سبق.\n'
                 'أرجع الكلمة فقط دون أي شرح.',
           },
@@ -361,9 +374,12 @@ class UnifiedOrchestrator {
   List<Map<String, dynamic>> _selectToolsForCategory(String category) {
     final selected = <McpTool>[];
 
-    // أدوات tafsir-mcp تُضاف دائماً (آيات، تفاسير، أسباب نزول، إعراب، إحصاءات).
-    // هي فريدة الأسماء ولا تتعارض مع أدوات الأقسام الشرعية.
-    selected.addAll(_tafsirTools);
+    // أدوات tafsir-mcp تُضاف دائماً (آيات، تفاسير، أسباب نزول، إعراب، إحصاءات)
+    // **باستثناء** narrator — البحث عن راوٍ لا يحتاج آيات/تفاسير، وإتاحتها
+    // قد يُغرى الـ LLM باستدعائها وإضافة نتائج غير مرتبطة.
+    if (category != 'narrator') {
+      selected.addAll(_tafsirTools);
+    }
 
     switch (category) {
       case 'quran':
@@ -395,6 +411,13 @@ class UnifiedOrchestrator {
         }
         break;
 
+      case 'narrator':
+        // الرواة: search_narrator من خادم السيرة (42K راوي).
+        if (SeerahMcpClient.isConfigured && _seerahTools.isNotEmpty) {
+          selected.addAll(_seerahTools.where((t) => t.name == 'search_narrator'));
+        }
+        break;
+
       case 'mixed':
       default:
         // mixed: search_all_sections + fetch_passage + search_seerah.
@@ -408,6 +431,9 @@ class UnifiedOrchestrator {
         if (SeerahMcpClient.isConfigured && _seerahTools.isNotEmpty) {
           selected.addAll(
               _seerahTools.where((t) => t.name == 'search_seerah'));
+          // أضف search_narrator لـ mixed أيضاً — قد يشمل السؤال راوياً.
+          selected.addAll(
+              _seerahTools.where((t) => t.name == 'search_narrator'));
         }
         break;
     }

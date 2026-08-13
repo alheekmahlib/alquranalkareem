@@ -59,7 +59,9 @@ class QuotationCard extends StatelessWidget {
             _buildAttribution(theme, accent),
           ],
           // نسبة المصدر العام (مركز تفسير / مكتبة الحكمة) في الأسفل.
-          if (quotation.sourceLabel != null &&
+          // تُخفى للرواة لأن التسمية والنسبة تكفيان (تجنّب التكرار).
+          if (quotation.toolName != 'search_narrator' &&
+              quotation.sourceLabel != null &&
               quotation.sourceLabel!.isNotEmpty) ...[
             const Gap(4),
             _buildSourceLabel(theme, accent),
@@ -119,6 +121,10 @@ class QuotationCard extends StatelessWidget {
 
   /// يعيد (التسمية، الأيقونة) حسب نوع النص.
   (String, IconData) _typeLabel() {
+    // تراجم الرواة: تسمية مخصصة بدل «قول لعالم».
+    if (quotation.toolName == 'search_narrator') {
+      return ('مكتبة الحكمة', Icons.person_search);
+    }
     switch (quotation.type) {
       case QuotationType.ayah:
         return ('quotationAyah'.tr, Icons.menu_book);
