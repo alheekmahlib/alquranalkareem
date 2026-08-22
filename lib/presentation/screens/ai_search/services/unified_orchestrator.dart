@@ -10,9 +10,11 @@ enum _McpSource { tafsir, heekmah, seerah }
 /// للخادم الصحيح بناءً على اسمها.
 ///
 /// التدفق:
-///   1. يهيّئ كلا الخادمين ويبني خريطة (اسم الأداة → الخادم).
-///   2. يصنّف السؤال في جولة LLM خفيفة (لا أدوات) → مجال واحد.
-///   3. يختار الأدوات المناسبة فقط للتصنيف.
+///   1. يصنّف السؤال في جولة LLM خفيفة (لا أدوات) → مجال واحد.
+///   2. يرفض فوراً (رسالة ثابتة، لا أدوات ولا بحث) إن كان السؤال طائفياً
+///      (مذهب الشيعة) أو خارج العلوم الإسلامية كلياً.
+///   3. يهيّئ الخوادم ويبني خريطة (اسم الأداة → الخادم)، ويختار الأدوات
+///      المناسبة فقط للتصنيف.
 ///   4. حلقة tool calling (مثل AssistantOrchestrator) لكن _executeTool يوجّه للخادم الصحيح.
 class UnifiedOrchestrator {
   UnifiedOrchestrator();
@@ -24,6 +26,21 @@ class UnifiedOrchestrator {
 
   /// الحد الأقصى لعدد جولات استدعاء الأدوات.
   static const int maxIterations = 4;
+
+  /// رفض ثابت للأسئلة الطائفية (تصنيف `sectarian`) — لا يُولَّد من الـ LLM
+  /// لضمان رفض نظيف لا ينهار في حلقات تكرار مع النماذج الصغيرة.
+  /// المساعد عربي فقط بتصميمه، لذا النص ثابت بالعربية كسائر نصوص المساعد.
+  static const String _sectarianRefusal =
+      'هذا السؤال يتعلق بمذهب الشيعة، وهو مذهب خارج عن ملّة الإسلام، '
+      'ولذلك فهو خارج نطاق هذا المساعد المختص بالعلوم الإسلامية.\n\n'
+      'يسعدني خدمتك في القرآن الكريم والحديث الشريف والفقه والعقيدة والسيرة النبوية، '
+      'وفي فضائل الصحابة وآل البيت رضي الله عنهم.';
+
+  /// رفض ثابت للأسئلة الخارجة عن العلوم الإسلامية (تصنيف `off_topic`).
+  static const String _offTopicRefusal =
+      'أنا مساعد متخصص في العلوم الإسلامية (القرآن والحديث والفقه والعقيدة والسيرة)، '
+      'وهذا السؤال خارج نطاق تخصصي.\n\n'
+      'يسعدني خدمتك في أي موضوع إسلامي.';
 
   bool _isProcessing = false;
 
@@ -59,17 +76,30 @@ class UnifiedOrchestrator {
     final collectedQuotations = <Quotation>[];
 
     try {
-      // 1) تأكد من تهيئة كلا الخادمين + بناء خريطة الأدوات.
-      await _ensureAllInitialized();
-      _buildToolMap();
-
-      // 2) تصنيف خفيف للسؤال (جولة LLM واحدة بلا أدوات).
+      // 1) تصنيف خفيف للسؤال (جولة LLM واحدة بلا أدوات) — يسبق تهيئة الخوادم
+      // حتى يُرفض السؤال الخارج عن النطاق فوراً دون مصافحة MCP أو بحث.
       final provider = state.selectedProvider.value;
       final category = await _classify(userText, provider, onFallback);
       log('Unified category: "$category" for query: "${userText.substring(0, userText.length.clamp(0, 50))}"',
           name: 'Unified');
 
-      // 3) اختيار الأدوات المناسبة بناءً على التصنيف.
+      // 2) رفض فوري للأسئلة الخارجة عن نطاق المساعد — برسالة ثابتة لا تُولَّد
+      // من الـ LLM (تمنع انهيارات التكرار)، ودون أي بحث في المكتبة:
+      // - sectarian: أسئلة مذهب الشيعة وخلافاته الطائفية.
+      // - off_topic: ما ليس من العلوم الإسلامية أصلاً.
+      if (category == 'sectarian' || category == 'off_topic') {
+        state.isAssistantThinking.value = false;
+        state.addAssistantMessage(
+          category == 'sectarian' ? _sectarianRefusal : _offTopicRefusal,
+        );
+        return;
+      }
+
+      // 3) تأكد من تهيئة كلا الخادمين + بناء خريطة الأدوات.
+      await _ensureAllInitialized();
+      _buildToolMap();
+
+      // 4) اختيار الأدوات المناسبة بناءً على التصنيف.
       final selectedTools = _selectToolsForCategory(category);
       // ابنِ مجموعة بأسماء الأدوات المختارة فعلاً — تُستخدم للتحقق من استدعاءات
       // الـ LLM لمنع تنفيذ أدوات لم تُعرَض عليه (بعض النماذج تهلوس أسماء أدوات).
@@ -81,7 +111,7 @@ class UnifiedOrchestrator {
           '${selectedTools.map((t) => (t['function'] as Map?)?['name'] ?? '?').join(', ')}',
           name: 'Unified');
 
-      // 4) ابنِ سجل الرسائل (system موحَّد + history + الرسالة الجديدة).
+      // 5) ابنِ سجل الرسائل (system موحَّد + history + الرسالة الجديدة).
       // نستخدم var (لا final) لأن الجولات بلا أدوات تستبدل القائمة بنسخة منظَّفة.
       var messages = <Map<String, dynamic>>[
         UnifiedLlmService.systemMessage,
@@ -89,7 +119,7 @@ class UnifiedOrchestrator {
         {'role': 'user', 'content': userText},
       ];
 
-      // 5) حلقة tool calling.
+      // 6) حلقة tool calling.
       // استراتيجية الجولات (4 جولات فقط):
       // - الجولة 0: أجبر النموذج على البحث (forceToolUse + أدوات بحث فقط).
       // - الجولة 1: اتركه حرّاً (قد يطلب fetch_passage أو يصيغ الإجابة).
@@ -310,7 +340,12 @@ class UnifiedOrchestrator {
   // ─── التصنيف المسبق ──────────────────────────────────────────────
 
   /// يصنّف سؤال المستخدم في جولة LLM خفيفة (لا أدوات، لا تاريخ).
-  /// يرجع أحد: quran, hadith, fiqh, aqeedah, seerah, mixed.
+  /// يرجع أحد: quran, hadith, fiqh, aqeedah, seerah, narrator, mixed,
+  /// sectarian, off_topic.
+  ///
+  /// الفئتان الأخيرتان تؤديان لرفض فوري برسالة ثابتة في [handleUserMessage]:
+  /// - `sectarian`: أي سؤال يخص مذهب الشيعة (عقائده، خلافاته، مقارناته، شبهاته).
+  /// - `off_topic`: ما ليس من العلوم الإسلامية أصلاً (رياضيات، برمجة، ترفيه...).
   Future<String> _classify(
     String userText,
     LlmProvider provider,
@@ -324,6 +359,8 @@ class UnifiedOrchestrator {
       'seerah',
       'narrator',
       'mixed',
+      'sectarian',
+      'off_topic',
     ];
     try {
       final resp = await _llm.chatCompletion(
@@ -338,7 +375,26 @@ class UnifiedOrchestrator {
                 '- aqeedah: العقيدة والإيمان والتوحيد وأسماء الله وصفاته.\n'
                 '- seerah: السيرة النبوية والتاريخ الإسلامي والغزوات.\n'
                 '- narrator: السؤال عن راوٍ حديث بالاسم، أو معلومات عن صحابي أو تابعي أو عالم الحديث.\n'
-                '- mixed: يشمل أكثر من مجال مما سبق.\n'
+                '- mixed: يشمل أكثر من مجال إسلامي مما سبق.\n'
+                '- sectarian: أي سؤال يخص مذهب الشيعة: عقائده أو فرقه أو دعاواه أو '
+                'خلافاته مع أهل السنة أو المقارنة بينهما أو الرد على شبهاته، '
+                'ومنها مسائل الإمامة ومن الأحق بالخلافة. أي ذكر للشيعة أو الرافضة '
+                'أو الإمامية أو الاثني عشرية أو التشيع يجعل السؤال sectarian '
+                'حتى لو تضمن جزءاً إسلامياً.\n'
+                '- off_topic: ما ليس من العلوم الإسلامية أصلاً: رياضيات، علوم '
+                'دنيوية، برمجة، رياضة، ترفيه، سياسة، أسئلة شخصية عامة، أو سؤال '
+                'عن ديانة أو طائفة أخرى غير الإسلام.\n\n'
+                'تنبيه مهم: علي بن أبي طالب وآل البيت والصحابة رضي الله عنهم '
+                'مسلمون جليلون لا صلة لهم بمذهب الشيعة — أسئلة فضائلهم وسيرتهم '
+                'وعلمهم ليست sectarian بل seerah أو narrator أو aqeedah.\n\n'
+                'أمثلة:\n'
+                '- «هل علي بن أبي طالب أحق بالخلافة من أبو بكر الصديق؟» → sectarian\n'
+                '- «ما الفرق بين أهل السنة والشيعة؟» → sectarian\n'
+                '- «كيف نرد على شبهة الشيعة في مسألة كذا؟» → sectarian\n'
+                '- «ما فضائل علي بن أبي طالب؟» → seerah\n'
+                '- «من هم العشرة المبشرون بالجنة؟» → narrator\n'
+                '- «كم ناتج اثنين ضرب ثمانية؟» → off_topic\n'
+                '- «ما حكم الصلاة في الثوب النجس؟» → fiqh\n'
                 'أرجع الكلمة فقط دون أي شرح.',
           },
           {'role': 'user', 'content': userText},

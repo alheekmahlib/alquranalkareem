@@ -13,6 +13,7 @@ import 'package:another_xlider/another_xlider.dart';
 import 'package:another_xlider/models/handler.dart';
 import 'package:another_xlider/models/handler_animation.dart';
 import 'package:another_xlider/models/trackbar.dart';
+import 'package:connectivity_kit/connectivity_kit.dart';
 import 'package:drift/drift.dart' as drift;
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flexible_sheet/flexible_sheet.dart';
@@ -28,7 +29,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as html_parser;
 import 'package:path_provider/path_provider.dart';
-import 'package:quran_library/src/service/internet_connection_controller.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/constants/extensions/extensions.dart';

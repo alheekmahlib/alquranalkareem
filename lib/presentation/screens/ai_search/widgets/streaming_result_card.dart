@@ -113,8 +113,9 @@ class _StreamingResultCard extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: AppTextStyles.titleMedium(
-                            color: context.theme.colorScheme.surface
-                                .withValues(alpha: 0.6),
+                            color: context.theme.colorScheme.surface.withValues(
+                              alpha: 0.6,
+                            ),
                             fontSize: 11,
                           ),
                         ),

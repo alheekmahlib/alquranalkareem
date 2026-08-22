@@ -25,13 +25,15 @@ class SearchBuild extends StatelessWidget {
           final isSearching = booksCtrl.state.isTextSearching.value;
 
           if (!hasSubjectResults && !hasTextResults && !isSearching) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Gap(32),
-                const IslamicLibraryLogo(logoHeight: 70.0),
-                _emptyState(context, downloadedBooks),
-              ],
+            return SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Gap(32),
+                  const IslamicLibraryLogo(logoHeight: 70.0),
+                  _emptyState(context, downloadedBooks),
+                ],
+              ),
             );
           }
 
@@ -137,8 +139,9 @@ class SearchBuild extends StatelessWidget {
     // تجميع النتائج حسب نوع الكتاب - Group results by book type
     final Map<String, List<PageContent>> grouped = {};
     for (var result in booksCtrl.state.searchResults) {
-      final book = booksCtrl.state.booksList
-          .firstWhereOrNull((b) => b.bookNumber == result.bookNumber);
+      final book = booksCtrl.state.booksList.firstWhereOrNull(
+        (b) => b.bookNumber == result.bookNumber,
+      );
       if (book == null) continue;
       final type = book.bookType;
       grouped.putIfAbsent(type, () => []).add(result);
