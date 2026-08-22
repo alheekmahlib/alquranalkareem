@@ -281,6 +281,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.19.1"
+  connectivity_kit:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: "v0.1.1"
+      resolved-ref: ca38f785dfa3f4722a99f2219dc47da21f6a7144
+      url: "https://github.com/alheekmahlib/connectivity_kit.git"
+    source: git
+    version: "0.1.1"
   connectivity_plus:
     dependency: "direct main"
     description:
@@ -1346,10 +1355,10 @@ packages:
     dependency: "direct main"
     description:
       name: quran_library
-      sha256: "70ecd46da07481247091c93d9ae5bfd90711b2c8e6adcd6a5bfaeea44a8a67ed"
+      sha256: e7c99f171237cbf5f9084cd788ca45ae3bdba19d191adbac82c07f71616f98fe
       url: "https://pub.dev"
     source: hosted
-    version: "4.2.1"
+    version: "4.3.0"
   rate_my_app:
     dependency: "direct main"
     description:

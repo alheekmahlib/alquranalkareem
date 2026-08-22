@@ -1,10 +1,12 @@
 import 'dart:io' show Platform;
 
+import 'package:connectivity_kit/connectivity_kit.dart';
 import 'package:drift/drift.dart' show driftRuntimeOptions;
 import 'package:flutter/material.dart';
 import 'package:flutter_app_info/flutter_app_info.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:quran_library/quran_library.dart';
 import 'package:timezone/data/latest.dart' as tz;
@@ -42,6 +44,13 @@ Future<void> initializeApp() async {
   } catch (_) {
     // الملف اختياري — المساعد الذكي سيُظهر رسالة خطأ عند الاستخدام دون مفتاح.
   }
+  final service = ConnectionService(
+    options: const ConnectionOptions(enableReachability: true),
+  );
+  await service.init();
+
+  Get.put(service, permanent: true);
+  Get.put(ConnectionController(), permanent: true);
   await GetStorage.init();
   await QuranLibrary.init(
     numberConverter: (text, {languageCode}) =>

@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:developer' show log;
 
+import 'package:connectivity_kit/connectivity_kit.dart';
 import 'package:floating_menu_expendable/floating_menu_expendable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:quran_library/src/service/internet_connection_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '/core/services/api_client.dart';
@@ -31,7 +31,7 @@ class OurAppsController extends GetxController {
 
   /// جلب بيانات التطبيقات: من الشبكة مع حفظ في الكاش، أو من الكاش عند عدم وجود اتصال
   Future<List<OurAppInfo>> fetchApps() async {
-    final isConnected = InternetConnectionController.instance.isConnected;
+    final isConnected = ConnectionController.instance.isOnline;
 
     if (isConnected) {
       try {
@@ -71,8 +71,9 @@ class OurAppsController extends GetxController {
             // حفظ البيانات في الكاش
             _box.write(_cacheKey, jsonData);
 
-            final apps =
-                jsonData.map((item) => OurAppInfo.fromJson(item)).toList();
+            final apps = jsonData
+                .map((item) => OurAppInfo.fromJson(item))
+                .toList();
             return _filterByCompany(apps);
           },
         );

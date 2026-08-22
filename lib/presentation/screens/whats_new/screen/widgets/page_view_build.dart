@@ -64,7 +64,7 @@ class PageViewBuild extends StatelessWidget {
                             final imageWidth =
                                 context.customOrientation(
                                       MediaQuery.of(context).size.width * 3 / 4,
-                                      MediaQuery.of(context).size.width,
+                                      MediaQuery.of(context).size.width * .3,
                                     )
                                     as double;
                             if (imagePath.toLowerCase().endsWith('.svg')) {

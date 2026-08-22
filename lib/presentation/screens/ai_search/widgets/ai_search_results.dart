@@ -19,13 +19,15 @@ class AiSearchResults extends StatelessWidget {
         color: Colors.transparent,
       ),
       body: SafeArea(
-        child: Obx(() {
-          // بدّل المحتوى بحسب الوضع النشط.
-          if (ctrl.state.midasMode.value == MidasMode.assistant) {
-            return _buildAssistantMode(context);
-          }
-          return _buildSemanticMode(context);
-        }),
+        child: Center(
+          child: Obx(() {
+            // بدّل المحتوى بحسب الوضع النشط.
+            if (ctrl.state.midasMode.value == MidasMode.assistant) {
+              return _buildAssistantMode(context);
+            }
+            return _buildSemanticMode(context);
+          }),
+        ),
       ),
     );
   }
@@ -103,12 +105,34 @@ class AiSearchResults extends StatelessWidget {
 
   /// وضع المساعد الموحَّد — يجمع القرآن وعلومه والأقسام الشرعية.
   Widget _buildAssistantMode(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(child: UnifiedAssistantView()),
-        Align(alignment: Alignment.bottomCenter, child: InputBarWidget()),
-      ],
-    );
+    return Obx(() {
+      final controller = ConnectionController.instance;
+      if (!controller.isOnline) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const IconWidget(isOnlineMode: true),
+            const Gap(8),
+            Text(
+              'noInternet'.tr,
+              style: AppTextStyles.titleMedium(
+                fontSize: 22,
+                color: context.theme.colorScheme.surface,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            customLottie(LottieConstants.assetsLottieNoInternet, width: 90.0),
+          ],
+        );
+      }
+      return Column(
+        children: [
+          Expanded(child: UnifiedAssistantView()),
+          Align(alignment: Alignment.bottomCenter, child: InputBarWidget()),
+        ],
+      );
+    });
   }
 
   Widget _buildContent(BuildContext context, AiSearchController ctrl) {
@@ -174,50 +198,7 @@ class AiSearchResults extends StatelessWidget {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Stack(
-              alignment: AlignmentDirectional.topStart,
-              children: [
-                Container(
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                    vertical: 16.0,
-                  ),
-                  padding: const EdgeInsets.only(
-                    right: 12.0,
-                    left: 12.0,
-                    top: 12.0,
-                    bottom: 8.0,
-                  ),
-                  decoration: BoxDecoration(
-                    color: context.theme.colorScheme.surface.withValues(
-                      alpha: 0.1,
-                    ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Text(
-                    'midadNote'.tr,
-                    style: AppTextStyles.titleMedium(
-                      fontSize: 13,
-                      color: context.theme.canvasColor.withValues(alpha: 0.8),
-                    ),
-                    textAlign: TextAlign.justify,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: const SizedBox().customSvgWithColor(
-                    SvgPath.svgAlert,
-                    height: 24,
-                    color: context.theme.colorScheme.surface.withValues(
-                      alpha: 0.8,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          const MidadNoteWidget(),
         ],
       ),
     );
@@ -474,49 +455,51 @@ class AiSearchResults extends StatelessWidget {
 
     return Directionality(
       textDirection: TextDirection.rtl,
-      child: ListView(
-        padding: const EdgeInsets.only(top: 16, bottom: 16),
-        children: [
-          const IconWidget(),
-          // User query bubble
-          if (query.isNotEmpty) _buildUserQuery(context, query),
-          const Gap(12),
+      child: SelectionArea(
+        child: ListView(
+          padding: const EdgeInsets.only(top: 16, bottom: 16),
+          children: [
+            const IconWidget(),
+            // User query bubble
+            if (query.isNotEmpty) _buildUserQuery(context, query),
+            const Gap(12),
 
-          // Streaming intro text (ChatGPT-style)
-          if (!ctrl.state.introStreamed.value)
-            _buildStreamingIntro(context, ctrl, query)
-          else if (ctrl.state.hasAnyResult)
-            _buildStaticIntro(context, ctrl, query),
+            // Streaming intro text (ChatGPT-style)
+            if (!ctrl.state.introStreamed.value)
+              _buildStreamingIntro(context, ctrl, query)
+            else if (ctrl.state.hasAnyResult)
+              _buildStaticIntro(context, ctrl, query),
 
-          const Gap(16),
-
-          // Results per section — after intro streaming completes
-          if (ctrl.state.introStreamed.value)
-            for (final section in SearchSection.all) ...[
-              if (ctrl.state.sectionResults(section.id).isNotEmpty)
-                _CategorySection(
-                  title: '${'from'.tr} ${section.titleAr.tr}',
-                  results: ctrl.state.sectionResults(section.id),
-                  sectionId: section.id,
-                  query: query,
-                  hasMore: ctrl.state.hasMore(section.id),
-                  remainingCount: ctrl.state.remainingCount(section.id),
-                  totalCount: ctrl.state.totalCount(section.id),
-                  onShowMore: () => ctrl.state.showMore(section.id),
-                ),
-              if (ctrl.state.searchingCategory.value == section.id)
-                _buildSearchingIndicator(
-                  context,
-                  'جاري البحث في ${section.titleAr}...',
-                ),
-            ],
-
-          // Follow-up suggestions
-          if (ctrl.state.allResultsReady.value) ...[
             const Gap(16),
-            _buildFollowUpSuggestions(context, query),
+
+            // Results per section — after intro streaming completes
+            if (ctrl.state.introStreamed.value)
+              for (final section in SearchSection.all) ...[
+                if (ctrl.state.sectionResults(section.id).isNotEmpty)
+                  _CategorySection(
+                    title: '${'from'.tr} ${section.titleAr.tr}',
+                    results: ctrl.state.sectionResults(section.id),
+                    sectionId: section.id,
+                    query: query,
+                    hasMore: ctrl.state.hasMore(section.id),
+                    remainingCount: ctrl.state.remainingCount(section.id),
+                    totalCount: ctrl.state.totalCount(section.id),
+                    onShowMore: () => ctrl.state.showMore(section.id),
+                  ),
+                if (ctrl.state.searchingCategory.value == section.id)
+                  _buildSearchingIndicator(
+                    context,
+                    'جاري البحث في ${section.titleAr}...',
+                  ),
+              ],
+
+            // Follow-up suggestions
+            if (ctrl.state.allResultsReady.value) ...[
+              const Gap(16),
+              _buildFollowUpSuggestions(context, query),
+            ],
           ],
-        ],
+        ),
       ),
     );
   }

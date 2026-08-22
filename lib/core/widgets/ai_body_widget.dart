@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../../presentation/screens/ai_search/ai_search.dart';
@@ -22,6 +23,7 @@ class AiBodyWidget extends StatelessWidget {
       child: SafeArea(
         child: Column(
           children: [
+            const Gap(16),
             // واجهة المساعد الموحَّد (المحادثة + مؤشر التفكير + أزرار النسخ).
             Expanded(
               child: UnifiedAssistantView(

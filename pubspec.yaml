@@ -71,7 +71,7 @@ dependencies:
   package_rename: ^1.10.1
   path: ^1.9.1
   path_provider: ^2.1.6
-  quran_library: ^4.2.1
+  quran_library: ^4.3.0
     # git:
     #   ref: main
     #   url: https://github.com/alheekmahlib/quran_library.git
@@ -93,6 +93,10 @@ dependencies:
   flutter_streaming_text_markdown: ^1.9.1
   image_picker: ^1.2.3
   flutter_dotenv: ^6.0.1
+  connectivity_kit:
+    git:
+      url: https://github.com/alheekmahlib/connectivity_kit.git
+      ref: v0.1.1
 
 dev_dependencies:
   app_name_localizer: ^1.0.5

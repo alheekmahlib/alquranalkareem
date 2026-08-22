@@ -87,7 +87,8 @@ class BooksController extends GetxController {
     String bookType,
     String bookUrlType,
   ) async {
-    if (!InternetConnectionController.instance.isConnected) {
+    final controller = ConnectionController.instance;
+    if (!controller.isOnline) {
       return Get.context!.showCustomErrorSnackBar(
         'noInternet'.tr,
         isDone: false,
@@ -263,9 +264,11 @@ class BooksController extends GetxController {
     final Map<int, List<TocItem>> mapping = {};
     for (final volume in volumes) {
       mapping[volume.startPage] = allToc
-          .where((tocItem) =>
-              tocItem.page >= volume.startPage &&
-              tocItem.page <= volume.endPage)
+          .where(
+            (tocItem) =>
+                tocItem.page >= volume.startPage &&
+                tocItem.page <= volume.endPage,
+          )
           .toList();
     }
     state.volumeChaptersCache[bookNumber] = mapping;

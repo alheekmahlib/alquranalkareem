@@ -1,8 +1,10 @@
+import 'package:alquranalkareem/core/utils/constants/svg_constants.dart';
 import 'package:get/get.dart';
 
 import '/presentation/screens/home/home_screen.dart';
 import '/presentation/screens/mushaf_orthographic/alwaqf_screen.dart';
 import '../../../presentation/screens/adhkar/screens/adhkar_view.dart';
+import '../../../presentation/screens/ai_search/ai_search.dart';
 import '../../../presentation/screens/books/books.dart';
 import '../../../presentation/screens/quran_page/quran.dart';
 import '../../../presentation/screens/surah_audio/surah_audio.dart';
@@ -88,6 +90,13 @@ final List screensList = [
     'svgUrl': 'assets/svg/tafseer_white.svg',
     'imagePath': 'assets/images/tafsir_books.jpg',
     'route': () => BooksScreen(),
+    'width': 326.0,
+  },
+  {
+    'name': 'midadDescription',
+    'svgUrl': SvgPath.svgHomeMidadIcon,
+    'imagePath': 'assets/images/tafsir_books.jpg',
+    'route': () => AiSearchResults(),
     'width': 326.0,
   },
 ];
