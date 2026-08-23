@@ -8,6 +8,9 @@ class HijriCalendarScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     eventsCtrl.resetDate();
+    // ضبط ذاتي لكسر الـ PageView حسب الاتجاه الحالي — يعالج حالة فوات
+    // إشعار الدوران (دخول الشاشة بكسر الاتجاه الخاطئ).
+    eventsCtrl.ensureViewportFraction(MediaQuery.orientationOf(context));
     return GetBuilder<EventController>(
       builder: (eventCtrl) => Scaffold(
         backgroundColor: Get.theme.colorScheme.primary,
@@ -19,7 +22,7 @@ class HijriCalendarScreen extends StatelessWidget {
                 const SizedBox.shrink(),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: _pageViewBuild(eventCtrl),
+                  child: _pageViewBuild(context, eventCtrl),
                 ),
               ),
               context.customOrientation(
@@ -37,14 +40,25 @@ class HijriCalendarScreen extends StatelessWidget {
                 ),
                 Align(
                   alignment: AlignmentDirectional.centerStart,
-                  child: Container(
-                    height: Get.height,
-                    width: Get.width * .5,
-                    decoration: BoxDecoration(
-                      color: context.theme.colorScheme.primaryContainer,
-                      borderRadius: BorderRadius.circular(16.0),
+                  child: FractionallySizedBox(
+                    alignment: AlignmentDirectional.centerStart,
+                    widthFactor: .5,
+                    child: Column(
+                      children: [
+                        const Gap(8),
+                        HijriWidget(isInCalendar: true, width: double.infinity),
+                        const Gap(8),
+                        Expanded(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: context.theme.colorScheme.primaryContainer,
+                              borderRadius: BorderRadius.circular(16.0),
+                            ),
+                            child: AllCalculatingEventsWidget(),
+                          ),
+                        ),
+                      ],
                     ),
-                    child: AllCalculatingEventsWidget(),
                   ),
                 ),
               ),
@@ -82,7 +96,7 @@ class HijriCalendarScreen extends StatelessWidget {
             if (!isSheetOpen) ...[
               const Gap(16.0),
               context.customOrientation(
-                _pageViewBuild(eventCtrl),
+                _pageViewBuild(context, eventCtrl),
                 const SizedBox.shrink(),
               ),
             ],
@@ -92,22 +106,19 @@ class HijriCalendarScreen extends StatelessWidget {
     );
   }
 
-  Widget _pageViewBuild(EventController eventCtrl) {
+  Widget _pageViewBuild(BuildContext context, EventController eventCtrl) {
     return Align(
-      alignment: Get.context!.customOrientation(
+      alignment: context.customOrientation(
         Alignment.center,
         AlignmentDirectional.centerEnd,
       ),
       child: SizedBox(
-        height: Get.height * .8,
-        width: Get.context!.customOrientation(Get.width, Get.width * .4),
+        height: context.customOrientation(Get.height * .8, Get.height * .9),
+        width: context.customOrientation(Get.width, Get.width * .4),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Get.context!.customOrientation(
-              const SizedBox.shrink(),
-              const Gap(80),
-            ),
+            context.customOrientation(const SizedBox.shrink(), const Gap(72)),
             Expanded(
               child: PageView.builder(
                 padEnds: true,
@@ -127,11 +138,15 @@ class HijriCalendarScreen extends StatelessWidget {
                     eventCtrl.calenderMonth.value.hMonth,
                     eventCtrl.calenderMonth.value.hYear,
                   );
+                  // أثناء الدوران قد يبقى موضع الـ PageView الآخر ملتصقًا
+                  // بالمتحكم لحظة، وقراءة page تشترط موضعًا واحدًا.
+                  final controller = eventCtrl.pageController;
+                  final currentPage =
+                      controller.hasClients && controller.positions.length == 1
+                      ? controller.page?.round()
+                      : null;
                   return Opacity(
-                    opacity:
-                        monthIndex == eventCtrl.pageController.page?.round()
-                        ? 1.0
-                        : 0.5,
+                    opacity: monthIndex == currentPage ? 1.0 : 0.5,
                     child: Column(
                       children: [
                         Padding(

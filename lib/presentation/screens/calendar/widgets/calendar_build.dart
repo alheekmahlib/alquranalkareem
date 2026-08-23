@@ -47,11 +47,11 @@ class CalendarBuild extends StatelessWidget {
               return const SizedBox();
             }
 
-            final isCurrentDay = eventCtrl.isCurrentDay(month, dayOffset).value;
+            final isCurrentDay = eventCtrl.isCurrentDay(month, dayOffset);
 
             List<int> myMonths = [month.hMonth];
             return GestureDetector(
-              onTap: eventCtrl.isEvent(myMonths, dayOffset).value
+              onTap: eventCtrl.isEvent(myMonths, dayOffset)
                   ? () => eventCtrl.showEvent(dayOffset, month.hMonth)
                   : null,
               child: Container(

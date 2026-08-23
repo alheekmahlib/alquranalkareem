@@ -154,20 +154,19 @@ class EventController extends GetxController with WidgetsBindingObserver {
   bool get isNewHadith =>
       noHadithInMonth.contains(hijriNow.hMonth - 1) ? false : true;
 
-  RxBool isEvent(List<int> months, days) {
+  bool isEvent(List<int> months, days) {
     for (Event event in events) {
       if (months.contains(event.month) && event.day.contains(days)) {
-        return true.obs;
+        return true;
       }
     }
-    return false.obs;
+    return false;
   }
 
-  RxBool isCurrentDay(HijriDate month, int dayOffset) =>
-      (month.hYear == hijriNow.hYear &&
-              month.hMonth == hijriNow.hMonth &&
-              dayOffset == hijriNow.hDay)
-          .obs;
+  bool isCurrentDay(HijriDate month, int dayOffset) =>
+      month.hYear == hijriNow.hYear &&
+      month.hMonth == hijriNow.hMonth &&
+      dayOffset == hijriNow.hDay;
 
   Event? getIsReminder(List<int> months, int days) {
     return events.firstWhere(
@@ -195,7 +194,7 @@ class EventController extends GetxController with WidgetsBindingObserver {
 
     final reminder = getIsReminder(months, days);
 
-    if (!isEvent(months, days).value) {
+    if (!isEvent(months, days)) {
       return Get.context!.theme.colorScheme.primary.withValues(alpha: .1);
     } else if (reminder != null && reminder.isReminder) {
       return Get.context!.theme.colorScheme.surface.withValues(alpha: .15);
@@ -334,24 +333,46 @@ class EventController extends GetxController with WidgetsBindingObserver {
 
   bool get isLastDayOfMonth => hijriNow.hDay == getLengthOfMonth ? true : false;
 
+  /// يضمن أن viewportFraction يطابق الاتجاه الحالي — يُستدعى من build
+  /// لأن إشعار didChangeMetrics قد يفوّت الدوران (قراءة قديمة أو شاشة
+  /// مغلقة) فيبقى المتحكم على كسر الاتجاه الخاطئ (٣ أشهر أفقيًا مثلًا).
+  /// لا يستدعي update(): البناء الجاري يلتقط المتحكم الجديد مباشرة.
+  void ensureViewportFraction(Orientation orientation) {
+    final wanted = orientation == Orientation.portrait ? 0.38 : 1.0;
+    if (pageController.viewportFraction == wanted) return;
+    _rebuildPageController(orientation, notify: false);
+  }
+
+  void _rebuildPageController(Orientation orientation, {bool notify = true}) {
+    _lastOrientation = orientation;
+    // القراءة محصّنة: أثناء الدوران قد يكون هناك أكثر من موضع ملتصق
+    // بالمتحكم القديم، وقراءة page تشترط موضعًا واحدًا.
+    final oldController = pageController;
+    final currentPage =
+        oldController.hasClients && oldController.positions.length == 1
+        ? oldController.page?.round() ?? (selectedDate.hMonth - 1)
+        : oldController.initialPage;
+    pageController = PageController(
+      initialPage: currentPage,
+      viewportFraction: orientation == Orientation.portrait ? 0.38 : 1,
+    );
+    if (notify) update();
+    // أتلف المتحكم القديم بعد إعادة البناء حتى لا يُتلف وهو ما زال
+    // مرتبطًا بـ PageView في الشجرة.
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => oldController.dispose(),
+    );
+  }
+
   @override
   void didChangeMetrics() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!Get.isRegistered<EventController>()) return;
-      if (pageController.hasClients) {
-        final orientation = MediaQuery.orientationOf(Get.context!);
-        if (orientation != _lastOrientation) {
-          _lastOrientation = orientation;
-          final currentPage =
-              pageController.page?.round() ?? (selectedDate.hMonth - 1);
-          pageController.dispose();
-          pageController = PageController(
-            initialPage: currentPage,
-            viewportFraction: orientation == Orientation.portrait ? 0.38 : 1,
-          );
-          update();
-        }
-      }
+      final context = Get.context;
+      if (context == null) return;
+      final orientation = MediaQuery.orientationOf(context);
+      if (orientation == _lastOrientation) return;
+      _rebuildPageController(orientation);
     });
   }
 
@@ -362,6 +383,7 @@ class EventController extends GetxController with WidgetsBindingObserver {
     pageController.dispose();
     controller.dispose();
     scrollController.dispose();
+    tabBarController.dispose();
   }
 
   String getWeekdayShortName(int index) {

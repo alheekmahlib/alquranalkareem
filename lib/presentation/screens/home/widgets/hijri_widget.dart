@@ -14,7 +14,11 @@ import '../../calendar/events.dart';
 
 class HijriWidget extends StatelessWidget {
   final bool? isInCalendar;
-  HijriWidget({super.key, this.isInCalendar = false});
+
+  /// عرض مخصص للودجت — يفيد عند وضعه داخل حاوية بعرض محدد (مثل لوحة الأحداث
+  /// في الوضع الأفقي لشاشة التقويم) بدل الاعتماد على عرض الشاشة كاملًا.
+  final double? width;
+  HijriWidget({super.key, this.isInCalendar = false, this.width});
 
   final generalCtrl = GeneralController.instance;
   final eventCtrl = EventController.instance;
@@ -28,7 +32,7 @@ class HijriWidget extends StatelessWidget {
         AlignmentDirectional.centerEnd,
       ),
       child: SizedBox(
-        width: context.customOrientation(Get.width, Get.width * .5),
+        width: width ?? context.customOrientation(Get.width, Get.width * .5),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: isInCalendar ? 8.0 : 16.0),
           child: Column(

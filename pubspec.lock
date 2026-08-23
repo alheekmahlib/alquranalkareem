@@ -45,10 +45,10 @@ packages:
     dependency: "direct main"
     description:
       name: animations
-      sha256: "9cb469212ea51be27097f23b519d594c01171721347b55df9334fff653659e7f"
+      sha256: "5ec868ffa78851e6f3f32e9377b780c7ae2087a5523d8b5e6df59bd8287ac5dd"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.0"
+    version: "3.0.0"
   another_xlider:
     dependency: "direct main"
     description:
@@ -93,10 +93,10 @@ packages:
     dependency: "direct main"
     description:
       name: archive
-      sha256: a96e8b390886ee8abb49b7bd3ac8df6f451c621619f52a26e815fdcf568959ff
+      sha256: ace891da0862b0e4cabbb064ee3fd87b2728b898949fdb366d83fe98342c9f19
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.9"
+    version: "4.2.0"
   args:
     dependency: transitive
     description:
@@ -346,6 +346,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.9"
+  cupertino_ui:
+    dependency: transitive
+    description:
+      name: cupertino_ui
+      sha256: "7ed8ce4159d342eec4c65f4ea6eec57adaf9365404378541f38efc1da20a5b3d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   dart_style:
     dependency: transitive
     description:
@@ -1111,6 +1119,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.13.0"
+  material_ui:
+    dependency: transitive
+    description:
+      name: material_ui
+      sha256: "4f3f38b9953df0a87d6bf5f21880029f77c47048487d5339410c39936be4683b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   media_kit:
     dependency: transitive
     description:
@@ -1515,10 +1531,10 @@ packages:
     dependency: "direct main"
     description:
       name: shimmer
-      sha256: "5f88c883a22e9f9f299e5ba0e4f7e6054857224976a5d9f839d4ebdc94a14ac9"
+      sha256: "61ef3b8de6bdb9f16db1bb78d502cb991a12b5223fd2c0b9114d41e782227b55"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.0"
+    version: "4.0.0"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -1528,18 +1544,18 @@ packages:
     dependency: "direct main"
     description:
       name: smooth_page_indicator
-      sha256: "4b497e9898d095de40d246db943371183fa7482492a88391cfa8415ef94d57ba"
+      sha256: ab2253be8d65ed7a341a43fe62d5cfba404b5969c23bc998964fe5aa8aae465c
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.1"
+    version: "3.0.0"
   smooth_sheets:
     dependency: "direct main"
     description:
       name: smooth_sheets
-      sha256: "6f8b4218706662479401d16a770744b20d305ba86bbacdaa3a516fe158b5faf0"
+      sha256: "1dc609c2388a6462910149ae81910928ef39b323d31321f3124e1c5fc5ac62cb"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.1.1"
   source_gen:
     dependency: transitive
     description:
@@ -1856,10 +1872,10 @@ packages:
     dependency: "direct main"
     description:
       name: video_player
-      sha256: "20ef311160e2ced020a62f38e4cc399a1bf289e722fc5fe37c9d7b18e44c9e8d"
+      sha256: "8c837b570dccb9ae6ff73d2e0b03c7e708bfefd3bd1194faa7f3e7f200dfc399"
       url: "https://pub.dev"
     source: hosted
-    version: "2.13.0"
+    version: "2.14.0"
   video_player_android:
     dependency: transitive
     description:
