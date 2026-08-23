@@ -1568,5 +1568,6 @@
   "assistantOverloaded": "El servidor esta ocupado actualmente. Intentalo de nuevo en un momento.",
   "assistantTooLarge": "La pregunta es demasiado larga. Intenta acortarla.",
   "assistantGenericError": "No se pudo obtener una respuesta del modelo. Intentalo de nuevo o elige otro modelo.",
-  "assistantNoData": "No hay datos disponibles para esta consulta en este momento."
+  "assistantNoData": "No hay datos disponibles para esta consulta en este momento.",
+  "midad": "Midad"
 }

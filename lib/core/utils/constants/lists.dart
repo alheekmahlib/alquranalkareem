@@ -93,7 +93,7 @@ final List screensList = [
     'width': 326.0,
   },
   {
-    'name': 'midadDescription',
+    'name': 'midad',
     'svgUrl': SvgPath.svgHomeMidadIcon,
     'imagePath': 'assets/images/tafsir_books.jpg',
     'route': () => AiSearchResults(),

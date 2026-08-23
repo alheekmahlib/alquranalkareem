@@ -1560,5 +1560,6 @@
   "assistantOverloaded": "Sunucu su anda mesgul. Biraz sonra tekrar deneyin.",
   "assistantTooLarge": "Soru cok uzun. Kisaltmayi deneyin.",
   "assistantGenericError": "Modelden cevap alinamadi. Tekrar deneyin veya baska bir model secin.",
-  "assistantNoData": "Su anda bu sorgu icin veri mevcut degil."
+  "assistantNoData": "Su anda bu sorgu icin veri mevcut degil.",
+  "midad": "Midad"
 }

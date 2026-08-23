@@ -1540,5 +1540,6 @@
   "assistantOverloaded": "Server-ku hadda waa mashqulay. Isku day mar kale dabool kasta.",
   "assistantTooLarge": "Su aashu waa dheer tahay. Isku day inaad gaabisato.",
   "assistantGenericError": "Lama heli karin jawaab moodelka. Isku day mar kale ama dooro moodel kale.",
-  "assistantNoData": "Ma jiro xog la heli karo weydintan hadda."
+  "assistantNoData": "Ma jiro xog la heli karo weydintan hadda.",
+  "midad": "Midad"
 }
