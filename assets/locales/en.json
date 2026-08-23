@@ -1598,5 +1598,6 @@
   "heekmahError": "Could not connect to the sections server. Check your internet connection.",
   "heekmahNoFinalAnswer": "Could not formulate a final answer. Try rephrasing your question.",
   "heekmahUnexpectedError": "An unexpected error occurred. Try again.",
-  "heekmahMcpError": "Could not connect to the sections server. Check your internet connection and try again."
+  "heekmahMcpError": "Could not connect to the sections server. Check your internet connection and try again.",
+  "midad": "Midad"
 }

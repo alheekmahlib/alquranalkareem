@@ -1562,5 +1562,6 @@
   "assistantOverloaded": "Busy ngayon ang server. Subukang muli pagkalipas ng ilang sandali.",
   "assistantTooLarge": "Masyadong mahaba ang tanong. Subukang paliitin ito.",
   "assistantGenericError": "Hindi makakuha ng sagot mula sa model. Subukang muli o pumili ng ibang model.",
-  "assistantNoData": "Walang available na data para sa query na ito sa ngayon."
+  "assistantNoData": "Walang available na data para sa query na ito sa ngayon.",
+  "midad": "Midad"
 }

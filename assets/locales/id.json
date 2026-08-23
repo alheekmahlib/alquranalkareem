@@ -1562,5 +1562,6 @@
   "assistantOverloaded": "Server saat ini sibuk. Coba lagi dalam beberapa saat.",
   "assistantTooLarge": "Pertanyaan terlalu panjang. Coba persingkat.",
   "assistantGenericError": "Tidak bisa mendapatkan jawaban dari model. Coba lagi atau pilih model lain.",
-  "assistantNoData": "Tidak ada data yang tersedia untuk kueri ini saat ini."
+  "assistantNoData": "Tidak ada data yang tersedia untuk kueri ini saat ini.",
+  "midad": "Midad"
 }
