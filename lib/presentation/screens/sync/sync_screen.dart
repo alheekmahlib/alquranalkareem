@@ -21,7 +21,7 @@ class SyncScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final syncCtrl = Get.find<SyncController>();
+    final syncCtrl = SyncController.instance;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       appBar: AppBarWidget(
@@ -71,7 +71,7 @@ class _UnpairedView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final syncCtrl = Get.find<SyncController>();
+    final syncCtrl = SyncController.instance;
     final codeController = TextEditingController();
 
     return ListView(
@@ -171,7 +171,7 @@ class _PairedView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final syncCtrl = Get.find<SyncController>();
+    final syncCtrl = SyncController.instance;
 
     return ListView(
       children: [

@@ -28,6 +28,9 @@ PODS:
   - just_audio (0.0.1):
     - Flutter
     - FlutterMacOS
+  - mobile_scanner (7.0.0):
+    - Flutter
+    - FlutterMacOS
   - onnxruntime-c (1.23.0)
   - onnxruntime-objc (1.23.0):
     - onnxruntime-objc/Core (= 1.23.0)
@@ -68,6 +71,7 @@ DEPENDENCIES:
   - home_widget (from `.symlinks/plugins/home_widget/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - just_audio (from `.symlinks/plugins/just_audio/darwin`)
+  - mobile_scanner (from `.symlinks/plugins/mobile_scanner/darwin`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - rate_my_app (from `.symlinks/plugins/rate_my_app/darwin`)
   - share_plus (from `.symlinks/plugins/share_plus/ios`)
@@ -109,6 +113,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/image_picker_ios/ios"
   just_audio:
     :path: ".symlinks/plugins/just_audio/darwin"
+  mobile_scanner:
+    :path: ".symlinks/plugins/mobile_scanner/darwin"
   package_info_plus:
     :path: ".symlinks/plugins/package_info_plus/ios"
   rate_my_app:
@@ -140,6 +146,7 @@ SPEC CHECKSUMS:
   image_picker_ios: e0ece4aa2a75771a7de3fa735d26d90817041326
   IosAwnCore: ea91b2d2ee2fd3236748e1b9cdc16194f9558327
   just_audio: 4e391f57b79cad2b0674030a00453ca5ce817eed
+  mobile_scanner: 9157936403f5a0644ca3779a38ff8404c5434a93
   onnxruntime-c: 3174c63a963d9abbc2bf9627e3d622819c0ed5f7
   onnxruntime-objc: 1254d12f8160e562e7693ff17f5aa3dd17dc409e
   package_info_plus: af8e2ca6888548050f16fa2f1938db7b5a5df499

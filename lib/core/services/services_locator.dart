@@ -77,8 +77,10 @@ class ServicesLocator {
       ),
     );
 
-    sl.registerLazySingleton<SyncController>(
-      () => Get.put<SyncController>(SyncController(), permanent: true),
+    // eager وليس lazy: حتى يعمل تريغر الإطلاق/العودة للمستخدمين المُقرنين
+    // دون الحاجة لفتح شاشة المزامنة أولًا (GetStorage مهيأ قبل init).
+    sl.registerSingleton<SyncController>(
+      Get.put<SyncController>(SyncController(), permanent: true),
     );
 
     sl.registerLazySingleton<PlayListController>(
