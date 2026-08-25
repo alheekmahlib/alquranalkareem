@@ -10,6 +10,7 @@ import '../../../database/bookmark_db/bookmark_database.dart';
 import '../../../presentation/screens/books/data/data_sources/books_bookmark_database.dart';
 import '../../../presentation/screens/quran_page/widgets/khatmah/data/data_source/khatmah_database.dart';
 import 'sync_api.dart';
+import 'sync_logic.dart';
 import 'sync_models.dart';
 
 /// محرك مزامنة الأجهزة عبر QR.
@@ -71,7 +72,7 @@ class SyncService {
 
   /// الانضمام لغرفة قائمة عبر QR أو رمز نصي (يقبل رابط deep-link كاملًا).
   Future<Either2<String>> joinGroup(String scanned) async {
-    final roomId = _extractRoomId(scanned);
+    final roomId = SyncLogic.extractRoomId(scanned);
     if (roomId == null || roomId.length < 10) {
       return Either2.fail('invalidSyncCode');
     }
@@ -84,7 +85,9 @@ class SyncService {
       _box.write(SyncConstants.deviceId, deviceId);
       _box.write(SyncConstants.lastPushedAt, 0);
       // دمج تلقائي: نطبّق snapshot ثم ندفع كل ما هو محلي.
-      final applied = await _applyItems(_sortParentsFirst(result.items));
+      final applied = await _applyItems(
+        SyncLogic.sortParentsFirst(result.items),
+      );
       _box.write(SyncConstants.cursor, result.latestSeq);
       await syncNow();
       if (applied) onRemoteChangesApplied?.call();
@@ -100,18 +103,6 @@ class SyncService {
     await _box.remove(SyncConstants.lastPushedAt);
     await _box.remove(SyncConstants.lastSyncAt);
     await _box.remove(SyncConstants.lastSyncedKv);
-  }
-
-  String? _extractRoomId(String input) {
-    final trimmed = input.trim();
-    if (trimmed.startsWith(SyncConstants.qrPrefix)) {
-      return trimmed.substring(SyncConstants.qrPrefix.length);
-    }
-    final uri = Uri.tryParse(trimmed);
-    if (uri != null && uri.queryParameters.containsKey('room')) {
-      return uri.queryParameters['room'];
-    }
-    return trimmed;
   }
 
   // ---------- دورة المزامنة ----------
@@ -147,7 +138,7 @@ class SyncService {
       final foreign = changes
           .where((change) => change.deviceId != deviceId)
           .toList(growable: false);
-      final applied = await _applyItems(_sortParentsFirst(foreign));
+      final applied = await _applyItems(SyncLogic.sortParentsFirst(foreign));
       appliedAny = appliedAny || applied;
       since = latestSeq;
       _box.write(SyncConstants.cursor, latestSeq);
@@ -166,7 +157,7 @@ class SyncService {
       return false;
     }
     // الخطة قبل أيامها حتى يجد الجهاز الآخر الأب قبل الأبناء.
-    final sorted = _sortParentsFirstChanges(dirty);
+    final sorted = SyncLogic.sortParentsFirst(dirty);
     for (var i = 0; i < sorted.length; i += SyncConstants.maxBatchSize) {
       final chunk = sorted.sublist(
         i,
@@ -418,21 +409,7 @@ class SyncService {
         (GetStorage().read(SyncConstants.lastSyncedKv) as Map?)
             ?.cast<String, dynamic>() ??
         <String, dynamic>{};
-    final changes = <SyncChange>[];
-    current.forEach((key, value) {
-      if (!lastSynced.containsKey(key) || lastSynced[key] != value) {
-        changes.add(
-          SyncChange(
-            kind: 'kv',
-            key: key,
-            payload: jsonEncode({'v': value}),
-            updatedAt: now,
-            deleted: false,
-          ),
-        );
-      }
-    });
-    return changes;
+    return SyncLogic.kvDiff(current, lastSynced, now);
   }
 
   Future<List<SyncChange>> _collectDirtyKv() async =>
@@ -453,15 +430,6 @@ class SyncService {
   }
 
   // ---------- تطبيق التغييرات البعيدة (LWW) ----------
-
-  List<SyncChange> _sortParentsFirst(List<SyncChange> items) {
-    final parents = items.where((item) => item.kind != 'khatmah_day').toList();
-    final days = items.where((item) => item.kind == 'khatmah_day').toList();
-    return [...parents, ...days];
-  }
-
-  List<SyncChange> _sortParentsFirstChanges(List<SyncChange> items) =>
-      _sortParentsFirst(items);
 
   Future<bool> _applyItems(List<SyncChange> items) async {
     var appliedAny = false;
