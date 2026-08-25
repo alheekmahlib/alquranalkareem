@@ -19,7 +19,16 @@ import 'sync_models.dart';
 /// (صفوف Drift عبر updatedAt + فرق KV) ← تحديث المؤشرات. جميع العمليات
 /// idempotent وفشل الشبكة يُعاد عند التريغر التالي.
 class SyncService {
-  SyncService({SyncApi? api}) : _api = api ?? SyncApi();
+  SyncService({SyncApi? api}) : _api = api ?? SyncApi() {
+    // إصلاح لمرة واحدة: الإصدارات الأولى كانت ترمّز قيم KV غير الأولية
+    // (خرائط مثل lastRead_) بصيغة toString غير الصالحة للتفكيك، وsnapshot
+    // المحلي يعتبرها مُزامَنة فلن تُعاد. نمسح snapshot فيُعاد دفع كل الـ KV
+    // بالترميز الصالح مرة واحدة.
+    if (_box.read(SyncConstants.kvEncodingV2Flag) != true) {
+      _box.remove(SyncConstants.lastSyncedKv);
+      _box.write(SyncConstants.kvEncodingV2Flag, true);
+    }
+  }
 
   final SyncApi _api;
   final GetStorage _box = GetStorage();
