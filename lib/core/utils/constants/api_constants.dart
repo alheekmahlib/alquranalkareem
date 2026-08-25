@@ -63,4 +63,7 @@ class ApiConstants {
   static const String feedbackReplySuffix =
       '/reply'; // POST /feedback/{token}/reply
   static const String feedbackUploadEndpoint = '/upload'; // POST رفع وسائط
+
+  // QR Device Sync — Cloudflare Worker + D1 (انظر sync_service/ بالمستودع)
+  static const String syncApiUrl = 'https://alquran-sync.haozo89.workers.dev';
 }
