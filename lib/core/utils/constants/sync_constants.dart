@@ -15,6 +15,9 @@ class SyncConstants {
   static const String lastSyncAt = 'SYNC_LAST_AT';
   static const String lastPushedAt = 'SYNC_LAST_PUSHED_AT';
 
+  /// علم لمرة واحدة: إبطال snapshot القديم الذي حُفظ بترميز KV غير صالح.
+  static const String kvEncodingV2Flag = 'SYNC_KV_ENCODING_V2';
+
   /// محتوى QR — رابط deep-link قابل للنسخ يدويًا كبديل عن المسح.
   static const String qrPrefix = 'alquranalkareem://sync?room=';
 

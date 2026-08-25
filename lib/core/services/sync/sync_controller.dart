@@ -165,6 +165,10 @@ class SyncController extends GetxController with WidgetsBindingObserver {
     if (Get.isRegistered<BooksBookmarksController>()) {
       Get.find<BooksBookmarksController>().fetchBookmarks();
     }
+    if (Get.isRegistered<BooksController>()) {
+      // لتحديث قائمة "آخر قراءة" بعد وصول lastRead_* من الأجهزة الأخرى.
+      Get.find<BooksController>().loadLastRead();
+    }
   }
 
   @override
