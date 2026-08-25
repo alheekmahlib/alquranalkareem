@@ -136,6 +136,44 @@ class $KhatmahsTable extends Khatmahs with TableInfo<$KhatmahsTable, Khatmah> {
     type: DriftSqlType.int,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _syncUuidMeta = const VerificationMeta(
+    'syncUuid',
+  );
+  @override
+  late final GeneratedColumn<String> syncUuid = GeneratedColumn<String>(
+    'sync_uuid',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<int> updatedAt = GeneratedColumn<int>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _deletedMeta = const VerificationMeta(
+    'deleted',
+  );
+  @override
+  late final GeneratedColumn<bool> deleted = GeneratedColumn<bool>(
+    'deleted',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("deleted" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -149,6 +187,9 @@ class $KhatmahsTable extends Khatmahs with TableInfo<$KhatmahsTable, Khatmah> {
     color,
     startPage,
     endPage,
+    syncUuid,
+    updatedAt,
+    deleted,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -240,6 +281,24 @@ class $KhatmahsTable extends Khatmahs with TableInfo<$KhatmahsTable, Khatmah> {
         endPage.isAcceptableOrUnknown(data['end_page']!, _endPageMeta),
       );
     }
+    if (data.containsKey('sync_uuid')) {
+      context.handle(
+        _syncUuidMeta,
+        syncUuid.isAcceptableOrUnknown(data['sync_uuid']!, _syncUuidMeta),
+      );
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    }
+    if (data.containsKey('deleted')) {
+      context.handle(
+        _deletedMeta,
+        deleted.isAcceptableOrUnknown(data['deleted']!, _deletedMeta),
+      );
+    }
     return context;
   }
 
@@ -293,6 +352,18 @@ class $KhatmahsTable extends Khatmahs with TableInfo<$KhatmahsTable, Khatmah> {
         DriftSqlType.int,
         data['${effectivePrefix}end_page'],
       ),
+      syncUuid: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}sync_uuid'],
+      ),
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      deleted: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}deleted'],
+      )!,
     );
   }
 
@@ -314,6 +385,9 @@ class Khatmah extends DataClass implements Insertable<Khatmah> {
   final int? color;
   final int? startPage;
   final int? endPage;
+  final String? syncUuid;
+  final int updatedAt;
+  final bool deleted;
   const Khatmah({
     required this.id,
     this.name,
@@ -326,6 +400,9 @@ class Khatmah extends DataClass implements Insertable<Khatmah> {
     this.color,
     this.startPage,
     this.endPage,
+    this.syncUuid,
+    required this.updatedAt,
+    required this.deleted,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -355,6 +432,11 @@ class Khatmah extends DataClass implements Insertable<Khatmah> {
     if (!nullToAbsent || endPage != null) {
       map['end_page'] = Variable<int>(endPage);
     }
+    if (!nullToAbsent || syncUuid != null) {
+      map['sync_uuid'] = Variable<String>(syncUuid);
+    }
+    map['updated_at'] = Variable<int>(updatedAt);
+    map['deleted'] = Variable<bool>(deleted);
     return map;
   }
 
@@ -383,6 +465,11 @@ class Khatmah extends DataClass implements Insertable<Khatmah> {
       endPage: endPage == null && nullToAbsent
           ? const Value.absent()
           : Value(endPage),
+      syncUuid: syncUuid == null && nullToAbsent
+          ? const Value.absent()
+          : Value(syncUuid),
+      updatedAt: Value(updatedAt),
+      deleted: Value(deleted),
     );
   }
 
@@ -403,6 +490,9 @@ class Khatmah extends DataClass implements Insertable<Khatmah> {
       color: serializer.fromJson<int?>(json['color']),
       startPage: serializer.fromJson<int?>(json['startPage']),
       endPage: serializer.fromJson<int?>(json['endPage']),
+      syncUuid: serializer.fromJson<String?>(json['syncUuid']),
+      updatedAt: serializer.fromJson<int>(json['updatedAt']),
+      deleted: serializer.fromJson<bool>(json['deleted']),
     );
   }
   @override
@@ -420,6 +510,9 @@ class Khatmah extends DataClass implements Insertable<Khatmah> {
       'color': serializer.toJson<int?>(color),
       'startPage': serializer.toJson<int?>(startPage),
       'endPage': serializer.toJson<int?>(endPage),
+      'syncUuid': serializer.toJson<String?>(syncUuid),
+      'updatedAt': serializer.toJson<int>(updatedAt),
+      'deleted': serializer.toJson<bool>(deleted),
     };
   }
 
@@ -435,6 +528,9 @@ class Khatmah extends DataClass implements Insertable<Khatmah> {
     Value<int?> color = const Value.absent(),
     Value<int?> startPage = const Value.absent(),
     Value<int?> endPage = const Value.absent(),
+    Value<String?> syncUuid = const Value.absent(),
+    int? updatedAt,
+    bool? deleted,
   }) => Khatmah(
     id: id ?? this.id,
     name: name.present ? name.value : this.name,
@@ -451,6 +547,9 @@ class Khatmah extends DataClass implements Insertable<Khatmah> {
     color: color.present ? color.value : this.color,
     startPage: startPage.present ? startPage.value : this.startPage,
     endPage: endPage.present ? endPage.value : this.endPage,
+    syncUuid: syncUuid.present ? syncUuid.value : this.syncUuid,
+    updatedAt: updatedAt ?? this.updatedAt,
+    deleted: deleted ?? this.deleted,
   );
   Khatmah copyWithCompanion(KhatmahsCompanion data) {
     return Khatmah(
@@ -475,6 +574,9 @@ class Khatmah extends DataClass implements Insertable<Khatmah> {
       color: data.color.present ? data.color.value : this.color,
       startPage: data.startPage.present ? data.startPage.value : this.startPage,
       endPage: data.endPage.present ? data.endPage.value : this.endPage,
+      syncUuid: data.syncUuid.present ? data.syncUuid.value : this.syncUuid,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      deleted: data.deleted.present ? data.deleted.value : this.deleted,
     );
   }
 
@@ -491,7 +593,10 @@ class Khatmah extends DataClass implements Insertable<Khatmah> {
           ..write('isTahzibSahabah: $isTahzibSahabah, ')
           ..write('color: $color, ')
           ..write('startPage: $startPage, ')
-          ..write('endPage: $endPage')
+          ..write('endPage: $endPage, ')
+          ..write('syncUuid: $syncUuid, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deleted: $deleted')
           ..write(')'))
         .toString();
   }
@@ -509,6 +614,9 @@ class Khatmah extends DataClass implements Insertable<Khatmah> {
     color,
     startPage,
     endPage,
+    syncUuid,
+    updatedAt,
+    deleted,
   );
   @override
   bool operator ==(Object other) =>
@@ -524,7 +632,10 @@ class Khatmah extends DataClass implements Insertable<Khatmah> {
           other.isTahzibSahabah == this.isTahzibSahabah &&
           other.color == this.color &&
           other.startPage == this.startPage &&
-          other.endPage == this.endPage);
+          other.endPage == this.endPage &&
+          other.syncUuid == this.syncUuid &&
+          other.updatedAt == this.updatedAt &&
+          other.deleted == this.deleted);
 }
 
 class KhatmahsCompanion extends UpdateCompanion<Khatmah> {
@@ -539,6 +650,9 @@ class KhatmahsCompanion extends UpdateCompanion<Khatmah> {
   final Value<int?> color;
   final Value<int?> startPage;
   final Value<int?> endPage;
+  final Value<String?> syncUuid;
+  final Value<int> updatedAt;
+  final Value<bool> deleted;
   const KhatmahsCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
@@ -551,6 +665,9 @@ class KhatmahsCompanion extends UpdateCompanion<Khatmah> {
     this.color = const Value.absent(),
     this.startPage = const Value.absent(),
     this.endPage = const Value.absent(),
+    this.syncUuid = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deleted = const Value.absent(),
   });
   KhatmahsCompanion.insert({
     this.id = const Value.absent(),
@@ -564,6 +681,9 @@ class KhatmahsCompanion extends UpdateCompanion<Khatmah> {
     this.color = const Value.absent(),
     this.startPage = const Value.absent(),
     this.endPage = const Value.absent(),
+    this.syncUuid = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deleted = const Value.absent(),
   });
   static Insertable<Khatmah> custom({
     Expression<int>? id,
@@ -577,6 +697,9 @@ class KhatmahsCompanion extends UpdateCompanion<Khatmah> {
     Expression<int>? color,
     Expression<int>? startPage,
     Expression<int>? endPage,
+    Expression<String>? syncUuid,
+    Expression<int>? updatedAt,
+    Expression<bool>? deleted,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -590,6 +713,9 @@ class KhatmahsCompanion extends UpdateCompanion<Khatmah> {
       if (color != null) 'color': color,
       if (startPage != null) 'start_page': startPage,
       if (endPage != null) 'end_page': endPage,
+      if (syncUuid != null) 'sync_uuid': syncUuid,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (deleted != null) 'deleted': deleted,
     });
   }
 
@@ -605,6 +731,9 @@ class KhatmahsCompanion extends UpdateCompanion<Khatmah> {
     Value<int?>? color,
     Value<int?>? startPage,
     Value<int?>? endPage,
+    Value<String?>? syncUuid,
+    Value<int>? updatedAt,
+    Value<bool>? deleted,
   }) {
     return KhatmahsCompanion(
       id: id ?? this.id,
@@ -618,6 +747,9 @@ class KhatmahsCompanion extends UpdateCompanion<Khatmah> {
       color: color ?? this.color,
       startPage: startPage ?? this.startPage,
       endPage: endPage ?? this.endPage,
+      syncUuid: syncUuid ?? this.syncUuid,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deleted: deleted ?? this.deleted,
     );
   }
 
@@ -657,6 +789,15 @@ class KhatmahsCompanion extends UpdateCompanion<Khatmah> {
     if (endPage.present) {
       map['end_page'] = Variable<int>(endPage.value);
     }
+    if (syncUuid.present) {
+      map['sync_uuid'] = Variable<String>(syncUuid.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<int>(updatedAt.value);
+    }
+    if (deleted.present) {
+      map['deleted'] = Variable<bool>(deleted.value);
+    }
     return map;
   }
 
@@ -673,7 +814,10 @@ class KhatmahsCompanion extends UpdateCompanion<Khatmah> {
           ..write('isTahzibSahabah: $isTahzibSahabah, ')
           ..write('color: $color, ')
           ..write('startPage: $startPage, ')
-          ..write('endPage: $endPage')
+          ..write('endPage: $endPage, ')
+          ..write('syncUuid: $syncUuid, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deleted: $deleted')
           ..write(')'))
         .toString();
   }
@@ -756,6 +900,44 @@ class $KhatmahDaysTable extends KhatmahDays
     type: DriftSqlType.int,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _syncUuidMeta = const VerificationMeta(
+    'syncUuid',
+  );
+  @override
+  late final GeneratedColumn<String> syncUuid = GeneratedColumn<String>(
+    'sync_uuid',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<int> updatedAt = GeneratedColumn<int>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _deletedMeta = const VerificationMeta(
+    'deleted',
+  );
+  @override
+  late final GeneratedColumn<bool> deleted = GeneratedColumn<bool>(
+    'deleted',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("deleted" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -764,6 +946,9 @@ class $KhatmahDaysTable extends KhatmahDays
     isCompleted,
     startPage,
     endPage,
+    syncUuid,
+    updatedAt,
+    deleted,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -817,6 +1002,24 @@ class $KhatmahDaysTable extends KhatmahDays
         endPage.isAcceptableOrUnknown(data['end_page']!, _endPageMeta),
       );
     }
+    if (data.containsKey('sync_uuid')) {
+      context.handle(
+        _syncUuidMeta,
+        syncUuid.isAcceptableOrUnknown(data['sync_uuid']!, _syncUuidMeta),
+      );
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    }
+    if (data.containsKey('deleted')) {
+      context.handle(
+        _deletedMeta,
+        deleted.isAcceptableOrUnknown(data['deleted']!, _deletedMeta),
+      );
+    }
     return context;
   }
 
@@ -850,6 +1053,18 @@ class $KhatmahDaysTable extends KhatmahDays
         DriftSqlType.int,
         data['${effectivePrefix}end_page'],
       ),
+      syncUuid: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}sync_uuid'],
+      ),
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      deleted: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}deleted'],
+      )!,
     );
   }
 
@@ -866,6 +1081,9 @@ class KhatmahDay extends DataClass implements Insertable<KhatmahDay> {
   final bool isCompleted;
   final int? startPage;
   final int? endPage;
+  final String? syncUuid;
+  final int updatedAt;
+  final bool deleted;
   const KhatmahDay({
     required this.id,
     required this.khatmahId,
@@ -873,6 +1091,9 @@ class KhatmahDay extends DataClass implements Insertable<KhatmahDay> {
     required this.isCompleted,
     this.startPage,
     this.endPage,
+    this.syncUuid,
+    required this.updatedAt,
+    required this.deleted,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -887,6 +1108,11 @@ class KhatmahDay extends DataClass implements Insertable<KhatmahDay> {
     if (!nullToAbsent || endPage != null) {
       map['end_page'] = Variable<int>(endPage);
     }
+    if (!nullToAbsent || syncUuid != null) {
+      map['sync_uuid'] = Variable<String>(syncUuid);
+    }
+    map['updated_at'] = Variable<int>(updatedAt);
+    map['deleted'] = Variable<bool>(deleted);
     return map;
   }
 
@@ -902,6 +1128,11 @@ class KhatmahDay extends DataClass implements Insertable<KhatmahDay> {
       endPage: endPage == null && nullToAbsent
           ? const Value.absent()
           : Value(endPage),
+      syncUuid: syncUuid == null && nullToAbsent
+          ? const Value.absent()
+          : Value(syncUuid),
+      updatedAt: Value(updatedAt),
+      deleted: Value(deleted),
     );
   }
 
@@ -917,6 +1148,9 @@ class KhatmahDay extends DataClass implements Insertable<KhatmahDay> {
       isCompleted: serializer.fromJson<bool>(json['isCompleted']),
       startPage: serializer.fromJson<int?>(json['startPage']),
       endPage: serializer.fromJson<int?>(json['endPage']),
+      syncUuid: serializer.fromJson<String?>(json['syncUuid']),
+      updatedAt: serializer.fromJson<int>(json['updatedAt']),
+      deleted: serializer.fromJson<bool>(json['deleted']),
     );
   }
   @override
@@ -929,6 +1163,9 @@ class KhatmahDay extends DataClass implements Insertable<KhatmahDay> {
       'isCompleted': serializer.toJson<bool>(isCompleted),
       'startPage': serializer.toJson<int?>(startPage),
       'endPage': serializer.toJson<int?>(endPage),
+      'syncUuid': serializer.toJson<String?>(syncUuid),
+      'updatedAt': serializer.toJson<int>(updatedAt),
+      'deleted': serializer.toJson<bool>(deleted),
     };
   }
 
@@ -939,6 +1176,9 @@ class KhatmahDay extends DataClass implements Insertable<KhatmahDay> {
     bool? isCompleted,
     Value<int?> startPage = const Value.absent(),
     Value<int?> endPage = const Value.absent(),
+    Value<String?> syncUuid = const Value.absent(),
+    int? updatedAt,
+    bool? deleted,
   }) => KhatmahDay(
     id: id ?? this.id,
     khatmahId: khatmahId ?? this.khatmahId,
@@ -946,6 +1186,9 @@ class KhatmahDay extends DataClass implements Insertable<KhatmahDay> {
     isCompleted: isCompleted ?? this.isCompleted,
     startPage: startPage.present ? startPage.value : this.startPage,
     endPage: endPage.present ? endPage.value : this.endPage,
+    syncUuid: syncUuid.present ? syncUuid.value : this.syncUuid,
+    updatedAt: updatedAt ?? this.updatedAt,
+    deleted: deleted ?? this.deleted,
   );
   KhatmahDay copyWithCompanion(KhatmahDaysCompanion data) {
     return KhatmahDay(
@@ -957,6 +1200,9 @@ class KhatmahDay extends DataClass implements Insertable<KhatmahDay> {
           : this.isCompleted,
       startPage: data.startPage.present ? data.startPage.value : this.startPage,
       endPage: data.endPage.present ? data.endPage.value : this.endPage,
+      syncUuid: data.syncUuid.present ? data.syncUuid.value : this.syncUuid,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      deleted: data.deleted.present ? data.deleted.value : this.deleted,
     );
   }
 
@@ -968,14 +1214,26 @@ class KhatmahDay extends DataClass implements Insertable<KhatmahDay> {
           ..write('day: $day, ')
           ..write('isCompleted: $isCompleted, ')
           ..write('startPage: $startPage, ')
-          ..write('endPage: $endPage')
+          ..write('endPage: $endPage, ')
+          ..write('syncUuid: $syncUuid, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deleted: $deleted')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode =>
-      Object.hash(id, khatmahId, day, isCompleted, startPage, endPage);
+  int get hashCode => Object.hash(
+    id,
+    khatmahId,
+    day,
+    isCompleted,
+    startPage,
+    endPage,
+    syncUuid,
+    updatedAt,
+    deleted,
+  );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -985,7 +1243,10 @@ class KhatmahDay extends DataClass implements Insertable<KhatmahDay> {
           other.day == this.day &&
           other.isCompleted == this.isCompleted &&
           other.startPage == this.startPage &&
-          other.endPage == this.endPage);
+          other.endPage == this.endPage &&
+          other.syncUuid == this.syncUuid &&
+          other.updatedAt == this.updatedAt &&
+          other.deleted == this.deleted);
 }
 
 class KhatmahDaysCompanion extends UpdateCompanion<KhatmahDay> {
@@ -995,6 +1256,9 @@ class KhatmahDaysCompanion extends UpdateCompanion<KhatmahDay> {
   final Value<bool> isCompleted;
   final Value<int?> startPage;
   final Value<int?> endPage;
+  final Value<String?> syncUuid;
+  final Value<int> updatedAt;
+  final Value<bool> deleted;
   const KhatmahDaysCompanion({
     this.id = const Value.absent(),
     this.khatmahId = const Value.absent(),
@@ -1002,6 +1266,9 @@ class KhatmahDaysCompanion extends UpdateCompanion<KhatmahDay> {
     this.isCompleted = const Value.absent(),
     this.startPage = const Value.absent(),
     this.endPage = const Value.absent(),
+    this.syncUuid = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deleted = const Value.absent(),
   });
   KhatmahDaysCompanion.insert({
     this.id = const Value.absent(),
@@ -1010,6 +1277,9 @@ class KhatmahDaysCompanion extends UpdateCompanion<KhatmahDay> {
     this.isCompleted = const Value.absent(),
     this.startPage = const Value.absent(),
     this.endPage = const Value.absent(),
+    this.syncUuid = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deleted = const Value.absent(),
   }) : khatmahId = Value(khatmahId),
        day = Value(day);
   static Insertable<KhatmahDay> custom({
@@ -1019,6 +1289,9 @@ class KhatmahDaysCompanion extends UpdateCompanion<KhatmahDay> {
     Expression<bool>? isCompleted,
     Expression<int>? startPage,
     Expression<int>? endPage,
+    Expression<String>? syncUuid,
+    Expression<int>? updatedAt,
+    Expression<bool>? deleted,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -1027,6 +1300,9 @@ class KhatmahDaysCompanion extends UpdateCompanion<KhatmahDay> {
       if (isCompleted != null) 'is_completed': isCompleted,
       if (startPage != null) 'start_page': startPage,
       if (endPage != null) 'end_page': endPage,
+      if (syncUuid != null) 'sync_uuid': syncUuid,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (deleted != null) 'deleted': deleted,
     });
   }
 
@@ -1037,6 +1313,9 @@ class KhatmahDaysCompanion extends UpdateCompanion<KhatmahDay> {
     Value<bool>? isCompleted,
     Value<int?>? startPage,
     Value<int?>? endPage,
+    Value<String?>? syncUuid,
+    Value<int>? updatedAt,
+    Value<bool>? deleted,
   }) {
     return KhatmahDaysCompanion(
       id: id ?? this.id,
@@ -1045,6 +1324,9 @@ class KhatmahDaysCompanion extends UpdateCompanion<KhatmahDay> {
       isCompleted: isCompleted ?? this.isCompleted,
       startPage: startPage ?? this.startPage,
       endPage: endPage ?? this.endPage,
+      syncUuid: syncUuid ?? this.syncUuid,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deleted: deleted ?? this.deleted,
     );
   }
 
@@ -1069,6 +1351,15 @@ class KhatmahDaysCompanion extends UpdateCompanion<KhatmahDay> {
     if (endPage.present) {
       map['end_page'] = Variable<int>(endPage.value);
     }
+    if (syncUuid.present) {
+      map['sync_uuid'] = Variable<String>(syncUuid.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<int>(updatedAt.value);
+    }
+    if (deleted.present) {
+      map['deleted'] = Variable<bool>(deleted.value);
+    }
     return map;
   }
 
@@ -1080,7 +1371,10 @@ class KhatmahDaysCompanion extends UpdateCompanion<KhatmahDay> {
           ..write('day: $day, ')
           ..write('isCompleted: $isCompleted, ')
           ..write('startPage: $startPage, ')
-          ..write('endPage: $endPage')
+          ..write('endPage: $endPage, ')
+          ..write('syncUuid: $syncUuid, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deleted: $deleted')
           ..write(')'))
         .toString();
   }
@@ -1121,6 +1415,9 @@ typedef $$KhatmahsTableCreateCompanionBuilder =
       Value<int?> color,
       Value<int?> startPage,
       Value<int?> endPage,
+      Value<String?> syncUuid,
+      Value<int> updatedAt,
+      Value<bool> deleted,
     });
 typedef $$KhatmahsTableUpdateCompanionBuilder =
     KhatmahsCompanion Function({
@@ -1135,6 +1432,9 @@ typedef $$KhatmahsTableUpdateCompanionBuilder =
       Value<int?> color,
       Value<int?> startPage,
       Value<int?> endPage,
+      Value<String?> syncUuid,
+      Value<int> updatedAt,
+      Value<bool> deleted,
     });
 
 final class $$KhatmahsTableReferences
@@ -1144,7 +1444,7 @@ final class $$KhatmahsTableReferences
   static MultiTypedResultKey<$KhatmahDaysTable, List<KhatmahDay>>
   _khatmahDaysRefsTable(_$KhatmahDatabase db) => MultiTypedResultKey.fromTable(
     db.khatmahDays,
-    aliasName: $_aliasNameGenerator(db.khatmahs.id, db.khatmahDays.khatmahId),
+    aliasName: 'khatmahs__id__khatmah_days__khatmah_id',
   );
 
   $$KhatmahDaysTableProcessedTableManager get khatmahDaysRefs {
@@ -1221,6 +1521,21 @@ class $$KhatmahsTableFilterComposer
 
   ColumnFilters<int> get endPage => $composableBuilder(
     column: $table.endPage,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get syncUuid => $composableBuilder(
+    column: $table.syncUuid,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get deleted => $composableBuilder(
+    column: $table.deleted,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -1313,6 +1628,21 @@ class $$KhatmahsTableOrderingComposer
     column: $table.endPage,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<String> get syncUuid => $composableBuilder(
+    column: $table.syncUuid,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get deleted => $composableBuilder(
+    column: $table.deleted,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$KhatmahsTableAnnotationComposer
@@ -1366,6 +1696,15 @@ class $$KhatmahsTableAnnotationComposer
 
   GeneratedColumn<int> get endPage =>
       $composableBuilder(column: $table.endPage, builder: (column) => column);
+
+  GeneratedColumn<String> get syncUuid =>
+      $composableBuilder(column: $table.syncUuid, builder: (column) => column);
+
+  GeneratedColumn<int> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  GeneratedColumn<bool> get deleted =>
+      $composableBuilder(column: $table.deleted, builder: (column) => column);
 
   Expression<T> khatmahDaysRefs<T extends Object>(
     Expression<T> Function($$KhatmahDaysTableAnnotationComposer a) f,
@@ -1432,6 +1771,9 @@ class $$KhatmahsTableTableManager
                 Value<int?> color = const Value.absent(),
                 Value<int?> startPage = const Value.absent(),
                 Value<int?> endPage = const Value.absent(),
+                Value<String?> syncUuid = const Value.absent(),
+                Value<int> updatedAt = const Value.absent(),
+                Value<bool> deleted = const Value.absent(),
               }) => KhatmahsCompanion(
                 id: id,
                 name: name,
@@ -1444,6 +1786,9 @@ class $$KhatmahsTableTableManager
                 color: color,
                 startPage: startPage,
                 endPage: endPage,
+                syncUuid: syncUuid,
+                updatedAt: updatedAt,
+                deleted: deleted,
               ),
           createCompanionCallback:
               ({
@@ -1458,6 +1803,9 @@ class $$KhatmahsTableTableManager
                 Value<int?> color = const Value.absent(),
                 Value<int?> startPage = const Value.absent(),
                 Value<int?> endPage = const Value.absent(),
+                Value<String?> syncUuid = const Value.absent(),
+                Value<int> updatedAt = const Value.absent(),
+                Value<bool> deleted = const Value.absent(),
               }) => KhatmahsCompanion.insert(
                 id: id,
                 name: name,
@@ -1470,6 +1818,9 @@ class $$KhatmahsTableTableManager
                 color: color,
                 startPage: startPage,
                 endPage: endPage,
+                syncUuid: syncUuid,
+                updatedAt: updatedAt,
+                deleted: deleted,
               ),
           withReferenceMapper: (p0) => p0
               .map(
@@ -1534,6 +1885,9 @@ typedef $$KhatmahDaysTableCreateCompanionBuilder =
       Value<bool> isCompleted,
       Value<int?> startPage,
       Value<int?> endPage,
+      Value<String?> syncUuid,
+      Value<int> updatedAt,
+      Value<bool> deleted,
     });
 typedef $$KhatmahDaysTableUpdateCompanionBuilder =
     KhatmahDaysCompanion Function({
@@ -1543,6 +1897,9 @@ typedef $$KhatmahDaysTableUpdateCompanionBuilder =
       Value<bool> isCompleted,
       Value<int?> startPage,
       Value<int?> endPage,
+      Value<String?> syncUuid,
+      Value<int> updatedAt,
+      Value<bool> deleted,
     });
 
 final class $$KhatmahDaysTableReferences
@@ -1550,9 +1907,7 @@ final class $$KhatmahDaysTableReferences
   $$KhatmahDaysTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
   static $KhatmahsTable _khatmahIdTable(_$KhatmahDatabase db) =>
-      db.khatmahs.createAlias(
-        $_aliasNameGenerator(db.khatmahDays.khatmahId, db.khatmahs.id),
-      );
+      db.khatmahs.createAlias('khatmah_days__khatmah_id__khatmahs__id');
 
   $$KhatmahsTableProcessedTableManager get khatmahId {
     final $_column = $_itemColumn<int>('khatmah_id')!;
@@ -1600,6 +1955,21 @@ class $$KhatmahDaysTableFilterComposer
 
   ColumnFilters<int> get endPage => $composableBuilder(
     column: $table.endPage,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get syncUuid => $composableBuilder(
+    column: $table.syncUuid,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get deleted => $composableBuilder(
+    column: $table.deleted,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -1661,6 +2031,21 @@ class $$KhatmahDaysTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get syncUuid => $composableBuilder(
+    column: $table.syncUuid,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get deleted => $composableBuilder(
+    column: $table.deleted,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   $$KhatmahsTableOrderingComposer get khatmahId {
     final $$KhatmahsTableOrderingComposer composer = $composerBuilder(
       composer: this,
@@ -1710,6 +2095,15 @@ class $$KhatmahDaysTableAnnotationComposer
 
   GeneratedColumn<int> get endPage =>
       $composableBuilder(column: $table.endPage, builder: (column) => column);
+
+  GeneratedColumn<String> get syncUuid =>
+      $composableBuilder(column: $table.syncUuid, builder: (column) => column);
+
+  GeneratedColumn<int> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  GeneratedColumn<bool> get deleted =>
+      $composableBuilder(column: $table.deleted, builder: (column) => column);
 
   $$KhatmahsTableAnnotationComposer get khatmahId {
     final $$KhatmahsTableAnnotationComposer composer = $composerBuilder(
@@ -1769,6 +2163,9 @@ class $$KhatmahDaysTableTableManager
                 Value<bool> isCompleted = const Value.absent(),
                 Value<int?> startPage = const Value.absent(),
                 Value<int?> endPage = const Value.absent(),
+                Value<String?> syncUuid = const Value.absent(),
+                Value<int> updatedAt = const Value.absent(),
+                Value<bool> deleted = const Value.absent(),
               }) => KhatmahDaysCompanion(
                 id: id,
                 khatmahId: khatmahId,
@@ -1776,6 +2173,9 @@ class $$KhatmahDaysTableTableManager
                 isCompleted: isCompleted,
                 startPage: startPage,
                 endPage: endPage,
+                syncUuid: syncUuid,
+                updatedAt: updatedAt,
+                deleted: deleted,
               ),
           createCompanionCallback:
               ({
@@ -1785,6 +2185,9 @@ class $$KhatmahDaysTableTableManager
                 Value<bool> isCompleted = const Value.absent(),
                 Value<int?> startPage = const Value.absent(),
                 Value<int?> endPage = const Value.absent(),
+                Value<String?> syncUuid = const Value.absent(),
+                Value<int> updatedAt = const Value.absent(),
+                Value<bool> deleted = const Value.absent(),
               }) => KhatmahDaysCompanion.insert(
                 id: id,
                 khatmahId: khatmahId,
@@ -1792,6 +2195,9 @@ class $$KhatmahDaysTableTableManager
                 isCompleted: isCompleted,
                 startPage: startPage,
                 endPage: endPage,
+                syncUuid: syncUuid,
+                updatedAt: updatedAt,
+                deleted: deleted,
               ),
           withReferenceMapper: (p0) => p0
               .map(

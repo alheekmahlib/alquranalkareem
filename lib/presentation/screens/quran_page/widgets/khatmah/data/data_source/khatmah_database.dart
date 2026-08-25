@@ -20,6 +20,11 @@ class Khatmahs extends Table {
   IntColumn get color => integer().nullable()();
   IntColumn get startPage => integer().nullable()();
   IntColumn get endPage => integer().nullable()();
+
+  // أعمدة مزامنة الأجهزة عبر QR — انظر docs/superpowers/specs
+  TextColumn get syncUuid => text().nullable()();
+  IntColumn get updatedAt => integer().withDefault(const Constant(0))();
+  BoolColumn get deleted => boolean().withDefault(const Constant(false))();
 }
 
 class KhatmahDays extends Table {
@@ -31,6 +36,11 @@ class KhatmahDays extends Table {
   BoolColumn get isCompleted => boolean().withDefault(const Constant(false))();
   IntColumn get startPage => integer().nullable()(); // إضافة حقل startPage
   IntColumn get endPage => integer().nullable()(); // إضافة حقل endPage
+
+  // أعمدة مزامنة الأجهزة عبر QR — انظر docs/superpowers/specs
+  TextColumn get syncUuid => text().nullable()();
+  IntColumn get updatedAt => integer().withDefault(const Constant(0))();
+  BoolColumn get deleted => boolean().withDefault(const Constant(false))();
 }
 
 @DriftDatabase(tables: [Khatmahs, KhatmahDays])
@@ -42,7 +52,7 @@ class KhatmahDatabase extends _$KhatmahDatabase {
   factory KhatmahDatabase() => _instance;
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 6;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -50,15 +60,47 @@ class KhatmahDatabase extends _$KhatmahDatabase {
       await m.createAll();
     },
     onUpgrade: (Migrator m, int from, int to) async {
-      if (from < 2) {
-        await m.createTable(khatmahDays);
-      }
-      if (from < 3) {
-        await m.addColumn(khatmahs, khatmahs.color);
-      }
-      if (from < 5) {
-        await m.addColumn(khatmahDays, khatmahDays.startPage);
-        await m.addColumn(khatmahDays, khatmahDays.endPage);
+      if (from < 6) {
+        // ظل schemaVersion مثبتًا على 1 عبر إصدارات سابقة رغم تغير الجداول،
+        // لذا ننفذ خطوات التطور القديمة والحديثة بشكل محمي من التكرار.
+        try {
+          await m.createTable(khatmahDays);
+        } catch (_) {
+          // الجدول موجود مسبقًا في قواعد المستخدمين الحاليين.
+        }
+        await _addColumnIfMissing('khatmahs', 'color', 'INTEGER NULL');
+        await _addColumnIfMissing('khatmah_days', 'startPage', 'INTEGER NULL');
+        await _addColumnIfMissing('khatmah_days', 'endPage', 'INTEGER NULL');
+        await _addColumnIfMissing('khatmahs', 'syncUuid', 'TEXT');
+        await _addColumnIfMissing(
+          'khatmahs',
+          'updatedAt',
+          'INTEGER NOT NULL DEFAULT 0',
+        );
+        await _addColumnIfMissing(
+          'khatmahs',
+          'deleted',
+          'INTEGER NOT NULL DEFAULT 0',
+        );
+        await _addColumnIfMissing('khatmah_days', 'syncUuid', 'TEXT');
+        await _addColumnIfMissing(
+          'khatmah_days',
+          'updatedAt',
+          'INTEGER NOT NULL DEFAULT 0',
+        );
+        await _addColumnIfMissing(
+          'khatmah_days',
+          'deleted',
+          'INTEGER NOT NULL DEFAULT 0',
+        );
+        // ختم الصفوف القائمة حتى تُدفع في أول مزامنة.
+        final now = DateTime.now().millisecondsSinceEpoch;
+        await (update(
+          khatmahs,
+        )).write(KhatmahsCompanion(updatedAt: Value(now)));
+        await (update(
+          khatmahDays,
+        )).write(KhatmahDaysCompanion(updatedAt: Value(now)));
       }
     },
     beforeOpen: (details) async {
@@ -66,31 +108,81 @@ class KhatmahDatabase extends _$KhatmahDatabase {
     },
   );
 
-  Future<List<Khatmah>> getAllKhatmas() => select(khatmahs).get();
-  Future<List<KhatmahDay>> getDaysForKhatmah(int khatmahId) => (select(
-    khatmahDays,
-  )..where((tbl) => tbl.khatmahId.equals(khatmahId))).get();
+  static int _nowMs() => DateTime.now().millisecondsSinceEpoch;
 
-  Future insertKhatma(Insertable<Khatmah> khatma) =>
-      into(khatmahs).insert(khatma);
+  Future<void> _addColumnIfMissing(
+    String table,
+    String column,
+    String ddl,
+  ) async {
+    final columns = await customSelect('PRAGMA table_info($table)').get();
+    final exists = columns.any((row) => row.read<String>('name') == column);
+    if (!exists) {
+      await customStatement('ALTER TABLE $table ADD COLUMN $column $ddl');
+    }
+  }
+
+  Future<List<Khatmah>> getAllKhatmas() =>
+      (select(khatmahs)..where((tbl) => tbl.deleted.equals(false))).get();
+  Future<List<KhatmahDay>> getDaysForKhatmah(int khatmahId) =>
+      (select(khatmahDays)..where(
+            (tbl) =>
+                tbl.khatmahId.equals(khatmahId) & tbl.deleted.equals(false),
+          ))
+          .get();
+
+  Future insertKhatma(Insertable<Khatmah> khatma) => into(khatmahs).insert(
+    khatma is KhatmahsCompanion
+        ? khatma.copyWith(updatedAt: Value(_nowMs()))
+        : khatma,
+  );
   Future insertKhatmahDay(Insertable<KhatmahDay> day) =>
-      into(khatmahDays).insert(day);
+      into(khatmahDays).insert(
+        day is KhatmahDaysCompanion
+            ? day.copyWith(updatedAt: Value(_nowMs()))
+            : day,
+      );
 
-  Future updateKhatma(Insertable<Khatmah> khatma) =>
-      update(khatmahs).replace(khatma);
+  Future updateKhatma(Insertable<Khatmah> khatma) => (update(khatmahs)).replace(
+    khatma is KhatmahsCompanion
+        ? khatma.copyWith(updatedAt: Value(_nowMs()))
+        : khatma,
+  );
   Future updateKhatmahDay(Insertable<KhatmahDay> day) =>
-      update(khatmahDays).replace(day);
+      (update(khatmahDays)).replace(
+        day is KhatmahDaysCompanion
+            ? day.copyWith(updatedAt: Value(_nowMs()))
+            : day,
+      );
 
-  Future deleteKhatma(Insertable<Khatmah> khatma) =>
-      delete(khatmahs).delete(khatma);
+  Future deleteKhatma(Insertable<Khatmah> khatma) async {
+    if (khatma is KhatmahsCompanion && khatma.id.present) {
+      await deleteKhatmaById(khatma.id.value);
+    } else if (khatma is Khatmah) {
+      await deleteKhatmaById(khatma.id);
+    }
+  }
+
+  /// حذف ناعم (tombstone) للخطة وأيامها حتى ينتقل الحذف لبقية الأجهزة.
   Future<void> deleteKhatmaById(int id) async {
-    await (delete(khatmahs)..where((t) => t.id.equals(id))).go();
+    final now = _nowMs();
+    await (update(khatmahs)..where((t) => t.id.equals(id))).write(
+      KhatmahsCompanion(deleted: const Value(true), updatedAt: Value(now)),
+    );
+    await (update(khatmahDays)..where((t) => t.khatmahId.equals(id))).write(
+      KhatmahDaysCompanion(deleted: const Value(true), updatedAt: Value(now)),
+    );
   }
 
   Future<void> deleteKhatmahDaysByKhatmahId(int khatmahId) async {
-    await (delete(
+    await (update(
       khatmahDays,
-    )..where((t) => t.khatmahId.equals(khatmahId))).go();
+    )..where((t) => t.khatmahId.equals(khatmahId))).write(
+      KhatmahDaysCompanion(
+        deleted: const Value(true),
+        updatedAt: Value(_nowMs()),
+      ),
+    );
   }
 }
 

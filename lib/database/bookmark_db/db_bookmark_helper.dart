@@ -9,7 +9,7 @@ class DbBookmarkHelper {
     print('Save Adhkar Bookmarks');
     final db = BookmarkDatabase(); // قم بتهيئة قاعدة البيانات
     try {
-      return await db.into(db.adhkar).insert(adhkar);
+      return await db.addAdhkar(adhkar);
     } catch (e) {
       print('Error adding Adhkar bookmark: $e');
       return 90000;
@@ -21,7 +21,7 @@ class DbBookmarkHelper {
     print('Save Text Bookmarks');
     final db = BookmarkDatabase(); // قم بتهيئة قاعدة البيانات
     try {
-      return await db.into(db.bookmarks).insert(bookmark);
+      return await db.addBookmark(bookmark);
     } catch (e) {
       print('Error adding bookmark: $e');
       return 90000;
@@ -31,23 +31,31 @@ class DbBookmarkHelper {
   /// -------[BookmarkAyah]--------
 
   static Future<int?> addBookmarkText(
-      BookmarksAyahsCompanion bookmarkText) async {
+    BookmarksAyahsCompanion bookmarkText,
+  ) async {
     print('Save Text Bookmarks');
     final db = BookmarkDatabase(); // قم بتهيئة قاعدة البيانات
     try {
-      return await db.into(db.bookmarksAyahs).insert(bookmarkText);
+      return await db.addBookmarkAyah(bookmarkText);
     } catch (e) {
       print('Error adding bookmark: $e');
       return 90000;
     }
   }
 
+  /// حذف ناعم حتى ينتقل الحذف إلى بقية الأجهزة عبر المزامنة.
   static Future<int> deleteAdhkar(String category, String zekr) async {
     print('Delete Azkar');
     final db = BookmarkDatabase();
-    return await (db.delete(db.adhkar)
-          ..where((t) => t.zekr.equals(zekr) & t.category.equals(category)))
-        .go();
+    final now = DateTime.now().millisecondsSinceEpoch;
+    return await (db.update(
+      db.adhkar,
+    )..where((t) => t.zekr.equals(zekr) & t.category.equals(category))).write(
+      AdhkarCompanion(
+        deleted: const drift.Value(true),
+        updatedAt: drift.Value(now),
+      ),
+    );
   }
 
   static Future<int> deleteBookmark(Bookmark bookmark) async {
@@ -55,9 +63,7 @@ class DbBookmarkHelper {
     final db = BookmarkDatabase();
 
     try {
-      return await (db.delete(db.bookmarks)
-            ..where((t) => t.id.equals(bookmark.id)))
-          .go();
+      return await db.deleteBookmark(bookmark.id);
     } catch (e) {
       print('Error deleting bookmark: $e');
       return 0;
@@ -69,9 +75,7 @@ class DbBookmarkHelper {
     final db = BookmarkDatabase();
 
     try {
-      return await (db.delete(db.bookmarksAyahs)
-            ..where((t) => t.id.equals(bookmarkText.id)))
-          .go();
+      return await db.deleteBookmarkAyah(bookmarkText.id);
     } catch (e) {
       print('Error deleting bookmark: $e');
       return 0;
@@ -80,9 +84,7 @@ class DbBookmarkHelper {
 
   static Future<List<AdhkarData>> getAllAdhkar() async {
     final db = BookmarkDatabase();
-    return await db
-        .select(db.adhkar)
-        .get(); // استرجاع الأذكار من قاعدة البيانات
+    return await db.getAllAdhkar(); // استرجاع الأذكار من قاعدة البيانات
   }
 
   static Future<List<Bookmark>> queryB() async {
@@ -95,7 +97,7 @@ class DbBookmarkHelper {
   static Future<List<AdhkarData>> queryC() async {
     print('Get Azkar');
     final db = BookmarkDatabase();
-    return await db.select(db.adhkar).get();
+    return await db.getAllAdhkar();
   }
 
   static Future<List<BookmarksAyah>> queryT() async {
@@ -107,8 +109,7 @@ class DbBookmarkHelper {
   static Future<int> updateAdhkar(AdhkarCompanion adhkar, int id) async {
     print('Update Azkar');
     final db = BookmarkDatabase();
-    return await (db.update(db.adhkar)..where((t) => t.id.equals(id)))
-        .write(adhkar);
+    return await db.updateAdhkar(adhkar, id);
   }
 
   static Future<int> updateBookmarks(Bookmark bookmark) async {

@@ -22,6 +22,7 @@ const ALLOWED_KINDS = new Set([
   "adhkar",
   "khatmah",
   "khatmah_day",
+  "books_bookmark",
   "kv",
 ]);
 

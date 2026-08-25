@@ -5,6 +5,11 @@ class Bookmarks extends Table {
   TextColumn get sorahName => text()();
   IntColumn get pageNum => integer()();
   TextColumn get lastRead => text()();
+
+  // أعمدة مزامنة الأجهزة عبر QR — انظر docs/superpowers/specs
+  TextColumn get syncUuid => text().nullable()();
+  IntColumn get updatedAt => integer().withDefault(const Constant(0))();
+  BoolColumn get deleted => boolean().withDefault(const Constant(false))();
 }
 
 // class Bookmarks {
