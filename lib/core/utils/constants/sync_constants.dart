@@ -13,6 +13,7 @@ class SyncConstants {
   static const String cursor = 'SYNC_CURSOR';
   static const String lastSyncedKv = 'SYNC_LAST_SYNCED_KV';
   static const String lastSyncAt = 'SYNC_LAST_AT';
+  static const String lastPushedAt = 'SYNC_LAST_PUSHED_AT';
 
   /// محتوى QR — رابط deep-link قابل للنسخ يدويًا كبديل عن المسح.
   static const String qrPrefix = 'alquranalkareem://sync?room=';

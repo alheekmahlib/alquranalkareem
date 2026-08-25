@@ -6,6 +6,14 @@ class KhatmahController extends GetxController {
 
   /// -------- [Variables] ----------
   final db = KhatmahDatabase();
+
+  /// إشعار محرك المزامنة بعد أي كتابة محلية (يعمل فقط عند الإقران).
+  void _notifySync() {
+    if (Get.isRegistered<SyncController>()) {
+      Get.find<SyncController>().onLocalChange();
+    }
+  }
+
   final RxList<Khatmah> khatmas = <Khatmah>[].obs;
   final int totalPages = 604;
   RxBool isTahzibSahabah = false.obs;
@@ -136,6 +144,7 @@ class KhatmahController extends GetxController {
     }
 
     loadKhatmas();
+    _notifySync();
   }
 
   void updateKhatmahDayStatus(int khatmaId, int day, bool isCompleted) async {
@@ -156,6 +165,7 @@ class KhatmahController extends GetxController {
             isCompleted: drift.Value(isCompleted),
           ),
         );
+        _notifySync();
         // إكمال يوم ختمة يُحسب حدث قراءة في الإشعارات الذكية.
         if (isCompleted) {
           NotificationManager.instance.trackKhatmahUpdate();
@@ -225,6 +235,7 @@ class KhatmahController extends GetxController {
       await db.deleteKhatmahDaysByKhatmahId(id);
       await db.deleteKhatmaById(id);
       khatmas.removeWhere((k) => k.id == id);
+      _notifySync();
     } catch (e) {
       print("Error deleting Khatmah: $e");
     }
