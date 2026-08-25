@@ -42,6 +42,36 @@ class SyncService {
 
   bool get isPaired => roomId != null && deviceId != null;
 
+  /// فحص محلي خفيف (بلا شبكة): هل توجد تغييرات محلية لم تُدفع؟
+  /// يستخدمه المؤقت القصير وحدث مغادرة التطبيق لدفع KV فور توفره.
+  Future<bool> hasLocalChanges() async {
+    if (!isPaired) return false;
+    final since = lastPushedAt;
+    Future<bool> anyRows(String table, db) async {
+      final row = await db
+          .customSelect(
+            'SELECT COUNT(*) AS n FROM $table WHERE "updated_at" > ?',
+            variables: [drift.Variable.withInt(since)],
+          )
+          .get();
+      return (row.first.read<int>('n')) > 0;
+    }
+
+    if (await anyRows('bookmarks', _bookmarksDb) ||
+        await anyRows('bookmarks_ayahs', _bookmarksDb) ||
+        await anyRows('adhkar', _bookmarksDb) ||
+        await anyRows('khatmahs', _khatmahDb) ||
+        await anyRows('khatmah_days', _khatmahDb) ||
+        await anyRows('books_bookmark', _booksDb)) {
+      return true;
+    }
+    final lastSynced =
+        (_box.read(SyncConstants.lastSyncedKv) as Map?)
+            ?.cast<String, dynamic>() ??
+        <String, dynamic>{};
+    return SyncLogic.kvDiff(_readKvSnapshot(), lastSynced, 0).isNotEmpty;
+  }
+
   /// معلومات الغرفة لشاشة الحالة — يعيد null عند غياب الشبكة.
   Future<SyncRoomInfo?> roomInfo() async {
     if (!isPaired) return null;
@@ -434,8 +464,14 @@ class SyncService {
   Future<bool> _applyItems(List<SyncChange> items) async {
     var appliedAny = false;
     for (final item in items) {
-      final applied = await _applyItem(item);
-      appliedAny = appliedAny || applied;
+      try {
+        final applied = await _applyItem(item);
+        appliedAny = appliedAny || applied;
+      } catch (e) {
+        // عنصر واحد تالف (مثل حمولة JSON غير صالحة من إصدار سابق)
+        // يجب ألا يوقف السحب كله — تخطَّه وتابع.
+        print('Sync: skipping malformed item ${item.kind}/${item.key}: $e');
+      }
     }
     return appliedAny;
   }
@@ -780,7 +816,8 @@ class SyncService {
         <String, dynamic>{};
     final current = _box.read(item.key);
     final isDirtyLocally =
-        !lastSynced.containsKey(item.key) || lastSynced[item.key] != current;
+        !lastSynced.containsKey(item.key) ||
+        !SyncLogic.kvEquals(lastSynced[item.key], current);
     if (isDirtyLocally && current != null) {
       // التغيير المحلي أحدث — سيُدفع في الدورة نفسها.
       return false;

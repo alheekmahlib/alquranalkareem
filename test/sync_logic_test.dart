@@ -111,6 +111,31 @@ void main() {
       final decoded = (jsonDecode(diff.single.payload) as Map)['v'];
       expect(decoded, 'a"b\\c');
     });
+
+    test('يقارن الخرائط بالمحتوى لا بالمرجع (منع الدفعات الوهمية)', () {
+      final diff = SyncLogic.kvDiff(
+        {
+          'lastRead_1': {'page': 2, 'name': 'x'},
+        },
+        {
+          'lastRead_1': {'page': 2, 'name': 'x'},
+        },
+        now,
+      );
+      expect(diff, isEmpty);
+    });
+
+    test('يرمّز قيم الخرائط كـ JSON صالح قابل للتفكيك على الجهاز الآخر', () {
+      final diff = SyncLogic.kvDiff(
+        {
+          'lastRead_1': {'page': 2, 'name': 'تفسير'},
+        },
+        {},
+        now,
+      );
+      final decoded = (jsonDecode(diff.single.payload) as Map)['v'];
+      expect(decoded, {'page': 2, 'name': 'تفسير'});
+    });
   });
 
   group('SyncConstants.isTrackedKey', () {

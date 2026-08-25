@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import '../../utils/constants/sync_constants.dart';
 import 'sync_models.dart';
 
@@ -26,6 +28,23 @@ class SyncLogic {
     return [...parents, ...days];
   }
 
+  /// ترميز قيمة KV إلى JSON صالح — الخرائط والقوائم تُرمَّز تضمينيًا
+  /// (toString ينتج صيغة Dart غير صالحة للتفكيك على الجهاز الآخر).
+  static String encodeKvValue(dynamic value) {
+    if (value == null) return 'null';
+    if (value is String) {
+      final escaped = value.replaceAll('\\', '\\\\').replaceAll('"', '\\"');
+      return '"$escaped"';
+    }
+    if (value is num || value is bool) return value.toString();
+    return jsonEncode(value);
+  }
+
+  /// مقارنة قيم KV بالمحتوى لا بالمرجع — مثالان مختلفان من نفس الخريطة
+  /// متساويان (== على Map يقارن الهوية فيولد دفعات وهمية متكررة).
+  static bool kvEquals(dynamic a, dynamic b) =>
+      encodeKvValue(a) == encodeKvValue(b);
+
   /// فرق KV: المفاتيح الجديدة أو المتغيرة منذ آخر snapshot.
   /// المفاتيح المحذوفة محليًا لا تُزامن في v1 (الحذف الناعم للجداول فقط).
   static List<SyncChange> kvDiff(
@@ -35,12 +54,12 @@ class SyncLogic {
   ) {
     final changes = <SyncChange>[];
     current.forEach((key, value) {
-      if (!lastSynced.containsKey(key) || lastSynced[key] != value) {
+      if (!lastSynced.containsKey(key) || !kvEquals(lastSynced[key], value)) {
         changes.add(
           SyncChange(
             kind: 'kv',
             key: key,
-            payload: '{"v":${_encodeValue(value)}}',
+            payload: '{"v":${encodeKvValue(value)}}',
             updatedAt: now,
             deleted: false,
           ),
@@ -48,14 +67,5 @@ class SyncLogic {
       }
     });
     return changes;
-  }
-
-  static String _encodeValue(dynamic value) {
-    if (value == null) return 'null';
-    if (value is String) {
-      final escaped = value.replaceAll('\\', '\\\\').replaceAll('"', '\\"');
-      return '"$escaped"';
-    }
-    return value.toString();
   }
 }

@@ -29,6 +29,7 @@ class SyncController extends GetxController with WidgetsBindingObserver {
 
   Timer? _debounceTimer;
   Timer? _pullTimer;
+  Timer? _dirtyCheckTimer;
   bool _disposed = false;
 
   @override
@@ -54,6 +55,13 @@ class SyncController extends GetxController with WidgetsBindingObserver {
   void _startPullTimer() {
     _pullTimer?.cancel();
     _pullTimer = Timer.periodic(const Duration(minutes: 10), (_) => _runSync());
+    // فحص محلي خفيف كل 30 ثانية: يدفع كتابات KV (مثل موضع القراءة) التي
+    // لا تملك خطاف كتابة فوريًا — بلا شبكة إلا عند وجود تغيير فعلي.
+    _dirtyCheckTimer?.cancel();
+    _dirtyCheckTimer = Timer.periodic(const Duration(seconds: 30), (_) async {
+      if (_disposed || isSyncing.value) return;
+      if (await syncService.hasLocalChanges()) _runSync();
+    });
   }
 
   @override
@@ -61,7 +69,17 @@ class SyncController extends GetxController with WidgetsBindingObserver {
     if (state == AppLifecycleState.resumed) {
       _runSync();
       refreshRoomInfo();
+    } else if (state == AppLifecycleState.inactive ||
+        state == AppLifecycleState.hidden ||
+        state == AppLifecycleState.paused) {
+      // لحظة مغادرة التطبيق هي لحظة تبديل الجهاز — ادفع المحلي فورًا.
+      _pushIfDirty();
     }
+  }
+
+  Future<void> _pushIfDirty() async {
+    if (_disposed || isSyncing.value) return;
+    if (await syncService.hasLocalChanges()) _runSync();
   }
 
   Future<void> _runSync() async {
@@ -71,6 +89,8 @@ class SyncController extends GetxController with WidgetsBindingObserver {
       await syncService.syncNow();
       lastError.value = null;
     } catch (e) {
+      // لا تبتلع الأخطاء بصمت — ظهورها في الكونسول أساسي للتشخيص.
+      print('SyncController: sync failed: $e');
       lastError.value = '$e';
     } finally {
       isSyncing.value = false;
@@ -152,6 +172,7 @@ class SyncController extends GetxController with WidgetsBindingObserver {
     _disposed = true;
     _debounceTimer?.cancel();
     _pullTimer?.cancel();
+    _dirtyCheckTimer?.cancel();
     WidgetsBinding.instance.removeObserver(this);
     super.onClose();
   }
