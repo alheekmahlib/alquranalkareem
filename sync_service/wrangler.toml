@@ -5,7 +5,7 @@ compatibility_date = "2025-06-01"
 [[d1_databases]]
 binding = "SYNC_DB"
 database_name = "alquran-sync"
-database_id = "PLACEHOLDER_FILL_AFTER_CREATE"
+database_id = "7cd12f7e-ff99-4b51-a4b4-2fef378cc847"
 
 [triggers]
 crons = ["0 3 * * *"]
