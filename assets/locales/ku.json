@@ -1605,5 +1605,135 @@
   "assistantTooLarge": "پرسیارەکە زۆر درێژە. هەوڵبدە کورتی بکەیتەوە.",
   "assistantGenericError": "نەتوانرا وەڵام لە مۆدێلەکە وەربگیرێت. دووبارە هەوڵبدەوە یان مۆدێلێکی تر هەڵبژێرە.",
   "assistantNoData": "لە ئێستادا هیچ داتایەک بەردەست نییە بۆ ئەم پرسیارە.",
-  "midad": "مداد"
+  "midad": "مداد",
+  "deviceSync": "هاوکات‌کردنی ئامێرەکان",
+  "@deviceSync": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceSyncDesc": "نیشانەکەت و زیکرەکەت و پلانەکانت و ڕێکخستنەکانت لە نێو ئامێرەکانتدا هاوکات بکە بە کۆدی QR — بەبێ هەژمار",
+  "@deviceSyncDesc": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "createSyncGroup": "دروستکردنی گروپی هاوکات‌کردن",
+  "@createSyncGroup": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "joinSyncGroup": "بەشداری بە سکانکردنی کۆدی QR",
+  "@joinSyncGroup": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "enterSyncCodeManually": "یان کۆدی هاوکات‌کردن بە دەست بنووسە",
+  "@enterSyncCodeManually": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncCodeHint": "کۆدی هاوکات‌کردن",
+  "@syncCodeHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "joinWithCode": "بەشداری بە کۆد",
+  "@joinWithCode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanQrTitle": "سکانکردنی کۆدی QR",
+  "@scanQrTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanQrInstruction": "کامێراکە بەرەو کۆدەکە بگرە کە لەسەر ئامێرەکەی تریت پیشاندراوە",
+  "@scanQrInstruction": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "cameraPermissionDenied": "سکانکردن پێویستی بە ڕێگەی کامێرایە — کۆدەکە بە دەست بنووسە",
+  "@cameraPermissionDenied": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pairingQrTitle": "کۆدی پەیوەستکردنی ئەم ئامێرە",
+  "@pairingQrTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pairingQrHint": "ئەم کۆدە لە ئامێرەکەی تریت سکان بکە بۆ بەشداریکردن لە گروپ",
+  "@pairingQrHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "devicesConnected": "ئامێرە پەیوەستکراوەکان",
+  "@devicesConnected": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lastSync": "دوا هاوکات‌کردن",
+  "@lastSync": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncNow": "هاوکات‌کردن ئێستا",
+  "@syncNow": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncing": "هاوکات‌کردن…",
+  "@syncing": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "resetSync": "لابردنی هاوکات‌کردنی ئەم ئامێرە",
+  "@resetSync": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "resetSyncConfirm": "ئەم ئامێرە لە گروپی هاوکات‌کردن دەکرێتە دەرەوە. داتاکانی ناوخۆیی وەک خۆی دەمێنێتەوە. بەردەوام دەبیت؟",
+  "@resetSyncConfirm": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "copySyncCode": "کۆپیکردنی کۆدی هاوکات‌کردن",
+  "@copySyncCode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncCreateError": "دروستکردنی گروپ سەرکەوتوو نەبوو — پەیوەندییەکەت بپشکنە",
+  "@syncCreateError": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncJoinFailed": "بەشداری سەرکەوتوو نەبوو — کۆد و پەیوەندی بپشکنە",
+  "@syncJoinFailed": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncRoomFull": "گروپ پڕە (بەرزترین 5 ئامێر)",
+  "@syncRoomFull": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncRoomNotFound": "کۆد هەڵەیە یان بەسەرچووە",
+  "@syncRoomNotFound": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "invalidSyncCode": "کۆدی نادروست",
+  "@invalidSyncCode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "neverSynced": "هێشتا هاوکات‌کردن ئەنجام نەدراوە",
+  "@neverSynced": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "confirm": "پشتڕاستکردنەوە",
+  "@confirm": {
+    "type": "text",
+    "placeholders": {}
+  }
 }

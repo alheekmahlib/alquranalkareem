@@ -1613,5 +1613,135 @@
   "assistantTooLarge": "প্রশ্নটি খুব দীর্ঘ। এটি সংক্ষিপ্ত করার চেষ্টা করুন।",
   "assistantGenericError": "মডেল থেকে উত্তর পাওয়া যায়নি। আবার চেষ্টা করুন বা অন্য মডেল বেছে নিন।",
   "assistantNoData": "এই মুহূর্তে এই প্রশ্নের জন্য কোনো তথ্য নেই।",
-  "midad": "মিদাদ"
+  "midad": "মিদাদ",
+  "deviceSync": "ডিভাইস সিঙ্ক",
+  "@deviceSync": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceSyncDesc": "আপনার বুকমার্ক, জিকির, পরিকল্পনা ও সেটিংস QR কোডের মাধ্যমে ডিভাইসগুলোর মধ্যে সিঙ্ক করুন — অ্যাকাউন্ট ছাড়াই",
+  "@deviceSyncDesc": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "createSyncGroup": "সিঙ্ক গ্রুপ তৈরি করুন",
+  "@createSyncGroup": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "joinSyncGroup": "QR কোড স্ক্যান করে যোগ দিন",
+  "@joinSyncGroup": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "enterSyncCodeManually": "অথবা সিঙ্ক কোড হাতে লিখুন",
+  "@enterSyncCodeManually": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncCodeHint": "সিঙ্ক কোড",
+  "@syncCodeHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "joinWithCode": "কোড দিয়ে যোগ দিন",
+  "@joinWithCode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanQrTitle": "QR কোড স্ক্যান করুন",
+  "@scanQrTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanQrInstruction": "ক্যামেরা অন্য ডিভাইসে দেখানো কোডের দিকে ধরুন",
+  "@scanQrInstruction": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "cameraPermissionDenied": "স্ক্যান করতে ক্যামেরার অনুমতি দরকার — কোড হাতে লিখুন",
+  "@cameraPermissionDenied": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pairingQrTitle": "এই ডিভাইসের পেয়ারিং কোড",
+  "@pairingQrTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pairingQrHint": "গ্রুপে যোগ দিতে এই কোডটি অন্য ডিভাইস থেকে স্ক্যান করুন",
+  "@pairingQrHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "devicesConnected": "সংযুক্ত ডিভাইস",
+  "@devicesConnected": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lastSync": "সর্বশেষ সিঙ্ক",
+  "@lastSync": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncNow": "এখনই সিঙ্ক করুন",
+  "@syncNow": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncing": "সিঙ্ক হচ্ছে…",
+  "@syncing": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "resetSync": "এই ডিভাইসের সিঙ্ক বাতিল করুন",
+  "@resetSync": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "resetSyncConfirm": "এই ডিভাইসটি সিঙ্ক গ্রুপ থেকে বিচ্ছিন্ন হবে। আপনার লোকাল ডেটা থেকে যাবে। চালিয়ে যাবেন?",
+  "@resetSyncConfirm": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "copySyncCode": "সিঙ্ক কোড কপি করুন",
+  "@copySyncCode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncCreateError": "গ্রুপ তৈরি করা যায়নি — সংযোগ পরীক্ষা করুন",
+  "@syncCreateError": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncJoinFailed": "যোগ দেওয়া যায়নি — কোড ও সংযোগ পরীক্ষা করুন",
+  "@syncJoinFailed": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncRoomFull": "গ্রুপ পূর্ণ (সর্বোচ্চ ৫টি ডিভাইস)",
+  "@syncRoomFull": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncRoomNotFound": "ভুল বা মেয়াদোত্তীর্ণ কোড",
+  "@syncRoomNotFound": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "invalidSyncCode": "ভুল কোড",
+  "@invalidSyncCode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "neverSynced": "এখনও সিঙ্ক হয়নি",
+  "@neverSynced": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "confirm": "নিশ্চিত করুন",
+  "@confirm": {
+    "type": "text",
+    "placeholders": {}
+  }
 }

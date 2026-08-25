@@ -1605,5 +1605,135 @@
   "assistantTooLarge": "Soru cok uzun. Kisaltmayi deneyin.",
   "assistantGenericError": "Modelden cevap alinamadi. Tekrar deneyin veya baska bir model secin.",
   "assistantNoData": "Su anda bu sorgu icin veri mevcut degil.",
-  "midad": "Midad"
+  "midad": "Midad",
+  "deviceSync": "Cihaz senkronizasyonu",
+  "@deviceSync": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceSyncDesc": "Yer imlerinizi, zikirlerinizi, planlarınızı ve ayarlarınızı QR kod ile cihazlarınız arasında senkronize edin — hesap gerekmez",
+  "@deviceSyncDesc": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "createSyncGroup": "Senkronizasyon grubu oluştur",
+  "@createSyncGroup": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "joinSyncGroup": "QR kod okutarak katıl",
+  "@joinSyncGroup": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "enterSyncCodeManually": "Veya senkronizasyon kodunu elle girin",
+  "@enterSyncCodeManually": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncCodeHint": "Senkronizasyon kodu",
+  "@syncCodeHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "joinWithCode": "Kod ile katıl",
+  "@joinWithCode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanQrTitle": "QR kod tara",
+  "@scanQrTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanQrInstruction": "Kamerayı diğer cihazınızda görünen koda doğrultun",
+  "@scanQrInstruction": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "cameraPermissionDenied": "Tarama kamera izni gerektirir — kodu elle girin",
+  "@cameraPermissionDenied": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pairingQrTitle": "Bu cihazın eşleştirme kodu",
+  "@pairingQrTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pairingQrHint": "Gruba katılmak için bu kodu diğer cihazınızdan okutun",
+  "@pairingQrHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "devicesConnected": "Bağlı cihazlar",
+  "@devicesConnected": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lastSync": "Son senkronizasyon",
+  "@lastSync": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncNow": "Şimdi senkronize et",
+  "@syncNow": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncing": "Senkronize ediliyor…",
+  "@syncing": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "resetSync": "Bu cihazın senkronizasyonunu kaldır",
+  "@resetSync": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "resetSyncConfirm": "Bu cihaz senkronizasyon grubundan ayrılacak. Yerel verileriniz olduğu gibi kalır. Devam edilsin mi?",
+  "@resetSyncConfirm": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "copySyncCode": "Senkronizasyon kodunu kopyala",
+  "@copySyncCode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncCreateError": "Grup oluşturulamadı — bağlantınızı kontrol edin",
+  "@syncCreateError": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncJoinFailed": "Katılamadı — kodu ve bağlantınızı kontrol edin",
+  "@syncJoinFailed": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncRoomFull": "Grup dolu (en fazla 5 cihaz)",
+  "@syncRoomFull": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncRoomNotFound": "Geçersiz veya süresi geçmiş kod",
+  "@syncRoomNotFound": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "invalidSyncCode": "Geçersiz kod",
+  "@invalidSyncCode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "neverSynced": "Hiç senkronize edilmedi",
+  "@neverSynced": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "confirm": "Onayla",
+  "@confirm": {
+    "type": "text",
+    "placeholders": {}
+  }
 }

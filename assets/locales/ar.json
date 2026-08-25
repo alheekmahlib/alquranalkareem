@@ -1637,5 +1637,135 @@
   "heekmahMcpError": "تعذّر الاتصال بخادم الأقسام. تحقق من اتصال الإنترنت ثم حاول مرة أخرى.",
   "assistantNoData": "لا توجد بيانات متاحة لهذا الاستفسار حالياً.",
   "assistantQuotationsOnly": "تعذّرت صياغة مقدمة من المساعد، لكن إليك النصوص المنقولة كما وردت في مصادرها:",
-  "midad": "مداد"
+  "midad": "مداد",
+  "deviceSync": "المزامنة بين الأجهزة",
+  "@deviceSync": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceSyncDesc": "زامن علاماتك وأذكارك وخططك وإعداداتك بين أجهزتك عبر رمز QR — بدون حساب",
+  "@deviceSyncDesc": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "createSyncGroup": "إنشاء مجموعة مزامنة",
+  "@createSyncGroup": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "joinSyncGroup": "الانضمام بمسح رمز QR",
+  "@joinSyncGroup": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "enterSyncCodeManually": "أو أدخل رمز المزامنة يدويًا",
+  "@enterSyncCodeManually": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncCodeHint": "رمز المزامنة",
+  "@syncCodeHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "joinWithCode": "انضمام بالرمز",
+  "@joinWithCode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanQrTitle": "مسح رمز QR",
+  "@scanQrTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanQrInstruction": "وجّه الكاميرا نحو الرمز المعروض على جهازك الآخر",
+  "@scanQrInstruction": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "cameraPermissionDenied": "المسح يحتاج إذن الكاميرا — أدخل الرمز يدويًا",
+  "@cameraPermissionDenied": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pairingQrTitle": "رمز إقران هذا الجهاز",
+  "@pairingQrTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pairingQrHint": "امسح هذا الرمز من جهازك الآخر للانضمام للمجموعة",
+  "@pairingQrHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "devicesConnected": "الأجهزة المتصلة",
+  "@devicesConnected": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lastSync": "آخر مزامنة",
+  "@lastSync": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncNow": "مزامنة الآن",
+  "@syncNow": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncing": "جارٍ المزامنة…",
+  "@syncing": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "resetSync": "إلغاء مزامنة هذا الجهاز",
+  "@resetSync": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "resetSyncConfirm": "سيُفصل هذا الجهاز عن مجموعة المزامنة وتبقى بياناتك المحلية كما هي. هل تريد المتابعة؟",
+  "@resetSyncConfirm": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "copySyncCode": "نسخ رمز المزامنة",
+  "@copySyncCode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncCreateError": "تعذر إنشاء مجموعة المزامنة — تحقق من اتصالك",
+  "@syncCreateError": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncJoinFailed": "تعذر الانضمام — تحقق من الرمز واتصالك",
+  "@syncJoinFailed": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncRoomFull": "المجموعة كاملة (5 أجهزة كحد أقصى)",
+  "@syncRoomFull": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncRoomNotFound": "الرمز غير صحيح أو منتهي الصلاحية",
+  "@syncRoomNotFound": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "invalidSyncCode": "رمز غير صالح",
+  "@invalidSyncCode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "neverSynced": "لم تتم مزامنة بعد",
+  "@neverSynced": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "confirm": "تأكيد",
+  "@confirm": {
+    "type": "text",
+    "placeholders": {}
+  }
 }

@@ -1607,5 +1607,135 @@
   "assistantTooLarge": "Masyadong mahaba ang tanong. Subukang paliitin ito.",
   "assistantGenericError": "Hindi makakuha ng sagot mula sa model. Subukang muli o pumili ng ibang model.",
   "assistantNoData": "Walang available na data para sa query na ito sa ngayon.",
-  "midad": "Midad"
+  "midad": "Midad",
+  "deviceSync": "Pag-sync ng mga device",
+  "@deviceSync": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceSyncDesc": "I-sync ang iyong mga bookmark, adhkar, plano, at setting sa iba pang device gamit ang QR code — walang account",
+  "@deviceSyncDesc": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "createSyncGroup": "Gumawa ng sync group",
+  "@createSyncGroup": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "joinSyncGroup": "Sumali sa pamamagitan ng pag-scan ng QR code",
+  "@joinSyncGroup": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "enterSyncCodeManually": "O i-type manually ang sync code",
+  "@enterSyncCodeManually": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncCodeHint": "Sync code",
+  "@syncCodeHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "joinWithCode": "Sumali gamit ang code",
+  "@joinWithCode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanQrTitle": "I-scan ang QR code",
+  "@scanQrTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanQrInstruction": "Ituro ang camera sa code na nakikita sa iyong ibang device",
+  "@scanQrInstruction": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "cameraPermissionDenied": "Kailangan ng camera permission ang pag-scan — i-type na lang ang code",
+  "@cameraPermissionDenied": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pairingQrTitle": "Pairing code ng device na ito",
+  "@pairingQrTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pairingQrHint": "I-scan ang code na ito mula sa iyong ibang device para sumali sa grupo",
+  "@pairingQrHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "devicesConnected": "Mga konektadong device",
+  "@devicesConnected": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lastSync": "Huling pag-sync",
+  "@lastSync": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncNow": "I-sync ngayon",
+  "@syncNow": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncing": "Nagsi-sync…",
+  "@syncing": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "resetSync": "Alisin ang sync ng device na ito",
+  "@resetSync": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "resetSyncConfirm": "Mawawala ang device na ito sa sync group. Mananatili ang iyong lokal na data. Magpatuloy?",
+  "@resetSyncConfirm": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "copySyncCode": "Kopyahin ang sync code",
+  "@copySyncCode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncCreateError": "Hindi nagawa ang grupo — tingnan ang koneksyon",
+  "@syncCreateError": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncJoinFailed": "Hindi nakasali — tingnan ang code at koneksyon",
+  "@syncJoinFailed": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncRoomFull": "Puno na ang grupo (max 5 device)",
+  "@syncRoomFull": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncRoomNotFound": "Mali o expired na code",
+  "@syncRoomNotFound": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "invalidSyncCode": "Maling code",
+  "@invalidSyncCode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "neverSynced": "Hindi pa kailanman na-sync",
+  "@neverSynced": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "confirm": "Kumpirmahin",
+  "@confirm": {
+    "type": "text",
+    "placeholders": {}
+  }
 }
