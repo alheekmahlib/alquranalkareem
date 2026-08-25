@@ -55,8 +55,54 @@ class $BooksBookmarkTable extends BooksBookmark
     type: DriftSqlType.int,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _syncUuidMeta = const VerificationMeta(
+    'syncUuid',
+  );
   @override
-  List<GeneratedColumn> get $columns => [id, bookName, bookNumber, currentPage];
+  late final GeneratedColumn<String> syncUuid = GeneratedColumn<String>(
+    'sync_uuid',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<int> updatedAt = GeneratedColumn<int>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _deletedMeta = const VerificationMeta(
+    'deleted',
+  );
+  @override
+  late final GeneratedColumn<bool> deleted = GeneratedColumn<bool>(
+    'deleted',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("deleted" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    bookName,
+    bookNumber,
+    currentPage,
+    syncUuid,
+    updatedAt,
+    deleted,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -93,6 +139,24 @@ class $BooksBookmarkTable extends BooksBookmark
         ),
       );
     }
+    if (data.containsKey('sync_uuid')) {
+      context.handle(
+        _syncUuidMeta,
+        syncUuid.isAcceptableOrUnknown(data['sync_uuid']!, _syncUuidMeta),
+      );
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    }
+    if (data.containsKey('deleted')) {
+      context.handle(
+        _deletedMeta,
+        deleted.isAcceptableOrUnknown(data['deleted']!, _deletedMeta),
+      );
+    }
     return context;
   }
 
@@ -118,6 +182,18 @@ class $BooksBookmarkTable extends BooksBookmark
         DriftSqlType.int,
         data['${effectivePrefix}current_page'],
       ),
+      syncUuid: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}sync_uuid'],
+      ),
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      deleted: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}deleted'],
+      )!,
     );
   }
 
@@ -133,11 +209,17 @@ class BooksBookmarkData extends DataClass
   final String? bookName;
   final int? bookNumber;
   final int? currentPage;
+  final String? syncUuid;
+  final int updatedAt;
+  final bool deleted;
   const BooksBookmarkData({
     required this.id,
     this.bookName,
     this.bookNumber,
     this.currentPage,
+    this.syncUuid,
+    required this.updatedAt,
+    required this.deleted,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -152,6 +234,11 @@ class BooksBookmarkData extends DataClass
     if (!nullToAbsent || currentPage != null) {
       map['current_page'] = Variable<int>(currentPage);
     }
+    if (!nullToAbsent || syncUuid != null) {
+      map['sync_uuid'] = Variable<String>(syncUuid);
+    }
+    map['updated_at'] = Variable<int>(updatedAt);
+    map['deleted'] = Variable<bool>(deleted);
     return map;
   }
 
@@ -167,6 +254,11 @@ class BooksBookmarkData extends DataClass
       currentPage: currentPage == null && nullToAbsent
           ? const Value.absent()
           : Value(currentPage),
+      syncUuid: syncUuid == null && nullToAbsent
+          ? const Value.absent()
+          : Value(syncUuid),
+      updatedAt: Value(updatedAt),
+      deleted: Value(deleted),
     );
   }
 
@@ -180,6 +272,9 @@ class BooksBookmarkData extends DataClass
       bookName: serializer.fromJson<String?>(json['bookName']),
       bookNumber: serializer.fromJson<int?>(json['bookNumber']),
       currentPage: serializer.fromJson<int?>(json['currentPage']),
+      syncUuid: serializer.fromJson<String?>(json['syncUuid']),
+      updatedAt: serializer.fromJson<int>(json['updatedAt']),
+      deleted: serializer.fromJson<bool>(json['deleted']),
     );
   }
   @override
@@ -190,6 +285,9 @@ class BooksBookmarkData extends DataClass
       'bookName': serializer.toJson<String?>(bookName),
       'bookNumber': serializer.toJson<int?>(bookNumber),
       'currentPage': serializer.toJson<int?>(currentPage),
+      'syncUuid': serializer.toJson<String?>(syncUuid),
+      'updatedAt': serializer.toJson<int>(updatedAt),
+      'deleted': serializer.toJson<bool>(deleted),
     };
   }
 
@@ -198,11 +296,17 @@ class BooksBookmarkData extends DataClass
     Value<String?> bookName = const Value.absent(),
     Value<int?> bookNumber = const Value.absent(),
     Value<int?> currentPage = const Value.absent(),
+    Value<String?> syncUuid = const Value.absent(),
+    int? updatedAt,
+    bool? deleted,
   }) => BooksBookmarkData(
     id: id ?? this.id,
     bookName: bookName.present ? bookName.value : this.bookName,
     bookNumber: bookNumber.present ? bookNumber.value : this.bookNumber,
     currentPage: currentPage.present ? currentPage.value : this.currentPage,
+    syncUuid: syncUuid.present ? syncUuid.value : this.syncUuid,
+    updatedAt: updatedAt ?? this.updatedAt,
+    deleted: deleted ?? this.deleted,
   );
   BooksBookmarkData copyWithCompanion(BooksBookmarkCompanion data) {
     return BooksBookmarkData(
@@ -214,6 +318,9 @@ class BooksBookmarkData extends DataClass
       currentPage: data.currentPage.present
           ? data.currentPage.value
           : this.currentPage,
+      syncUuid: data.syncUuid.present ? data.syncUuid.value : this.syncUuid,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      deleted: data.deleted.present ? data.deleted.value : this.deleted,
     );
   }
 
@@ -223,13 +330,24 @@ class BooksBookmarkData extends DataClass
           ..write('id: $id, ')
           ..write('bookName: $bookName, ')
           ..write('bookNumber: $bookNumber, ')
-          ..write('currentPage: $currentPage')
+          ..write('currentPage: $currentPage, ')
+          ..write('syncUuid: $syncUuid, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deleted: $deleted')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, bookName, bookNumber, currentPage);
+  int get hashCode => Object.hash(
+    id,
+    bookName,
+    bookNumber,
+    currentPage,
+    syncUuid,
+    updatedAt,
+    deleted,
+  );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -237,7 +355,10 @@ class BooksBookmarkData extends DataClass
           other.id == this.id &&
           other.bookName == this.bookName &&
           other.bookNumber == this.bookNumber &&
-          other.currentPage == this.currentPage);
+          other.currentPage == this.currentPage &&
+          other.syncUuid == this.syncUuid &&
+          other.updatedAt == this.updatedAt &&
+          other.deleted == this.deleted);
 }
 
 class BooksBookmarkCompanion extends UpdateCompanion<BooksBookmarkData> {
@@ -245,29 +366,44 @@ class BooksBookmarkCompanion extends UpdateCompanion<BooksBookmarkData> {
   final Value<String?> bookName;
   final Value<int?> bookNumber;
   final Value<int?> currentPage;
+  final Value<String?> syncUuid;
+  final Value<int> updatedAt;
+  final Value<bool> deleted;
   const BooksBookmarkCompanion({
     this.id = const Value.absent(),
     this.bookName = const Value.absent(),
     this.bookNumber = const Value.absent(),
     this.currentPage = const Value.absent(),
+    this.syncUuid = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deleted = const Value.absent(),
   });
   BooksBookmarkCompanion.insert({
     this.id = const Value.absent(),
     this.bookName = const Value.absent(),
     this.bookNumber = const Value.absent(),
     this.currentPage = const Value.absent(),
+    this.syncUuid = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deleted = const Value.absent(),
   });
   static Insertable<BooksBookmarkData> custom({
     Expression<int>? id,
     Expression<String>? bookName,
     Expression<int>? bookNumber,
     Expression<int>? currentPage,
+    Expression<String>? syncUuid,
+    Expression<int>? updatedAt,
+    Expression<bool>? deleted,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (bookName != null) 'book_name': bookName,
       if (bookNumber != null) 'book_number': bookNumber,
       if (currentPage != null) 'current_page': currentPage,
+      if (syncUuid != null) 'sync_uuid': syncUuid,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (deleted != null) 'deleted': deleted,
     });
   }
 
@@ -276,12 +412,18 @@ class BooksBookmarkCompanion extends UpdateCompanion<BooksBookmarkData> {
     Value<String?>? bookName,
     Value<int?>? bookNumber,
     Value<int?>? currentPage,
+    Value<String?>? syncUuid,
+    Value<int>? updatedAt,
+    Value<bool>? deleted,
   }) {
     return BooksBookmarkCompanion(
       id: id ?? this.id,
       bookName: bookName ?? this.bookName,
       bookNumber: bookNumber ?? this.bookNumber,
       currentPage: currentPage ?? this.currentPage,
+      syncUuid: syncUuid ?? this.syncUuid,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deleted: deleted ?? this.deleted,
     );
   }
 
@@ -300,6 +442,15 @@ class BooksBookmarkCompanion extends UpdateCompanion<BooksBookmarkData> {
     if (currentPage.present) {
       map['current_page'] = Variable<int>(currentPage.value);
     }
+    if (syncUuid.present) {
+      map['sync_uuid'] = Variable<String>(syncUuid.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<int>(updatedAt.value);
+    }
+    if (deleted.present) {
+      map['deleted'] = Variable<bool>(deleted.value);
+    }
     return map;
   }
 
@@ -309,7 +460,10 @@ class BooksBookmarkCompanion extends UpdateCompanion<BooksBookmarkData> {
           ..write('id: $id, ')
           ..write('bookName: $bookName, ')
           ..write('bookNumber: $bookNumber, ')
-          ..write('currentPage: $currentPage')
+          ..write('currentPage: $currentPage, ')
+          ..write('syncUuid: $syncUuid, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deleted: $deleted')
           ..write(')'))
         .toString();
   }
@@ -333,6 +487,9 @@ typedef $$BooksBookmarkTableCreateCompanionBuilder =
       Value<String?> bookName,
       Value<int?> bookNumber,
       Value<int?> currentPage,
+      Value<String?> syncUuid,
+      Value<int> updatedAt,
+      Value<bool> deleted,
     });
 typedef $$BooksBookmarkTableUpdateCompanionBuilder =
     BooksBookmarkCompanion Function({
@@ -340,6 +497,9 @@ typedef $$BooksBookmarkTableUpdateCompanionBuilder =
       Value<String?> bookName,
       Value<int?> bookNumber,
       Value<int?> currentPage,
+      Value<String?> syncUuid,
+      Value<int> updatedAt,
+      Value<bool> deleted,
     });
 
 class $$BooksBookmarkTableFilterComposer
@@ -368,6 +528,21 @@ class $$BooksBookmarkTableFilterComposer
 
   ColumnFilters<int> get currentPage => $composableBuilder(
     column: $table.currentPage,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get syncUuid => $composableBuilder(
+    column: $table.syncUuid,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get deleted => $composableBuilder(
+    column: $table.deleted,
     builder: (column) => ColumnFilters(column),
   );
 }
@@ -400,6 +575,21 @@ class $$BooksBookmarkTableOrderingComposer
     column: $table.currentPage,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<String> get syncUuid => $composableBuilder(
+    column: $table.syncUuid,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get deleted => $composableBuilder(
+    column: $table.deleted,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$BooksBookmarkTableAnnotationComposer
@@ -426,6 +616,15 @@ class $$BooksBookmarkTableAnnotationComposer
     column: $table.currentPage,
     builder: (column) => column,
   );
+
+  GeneratedColumn<String> get syncUuid =>
+      $composableBuilder(column: $table.syncUuid, builder: (column) => column);
+
+  GeneratedColumn<int> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  GeneratedColumn<bool> get deleted =>
+      $composableBuilder(column: $table.deleted, builder: (column) => column);
 }
 
 class $$BooksBookmarkTableTableManager
@@ -469,11 +668,17 @@ class $$BooksBookmarkTableTableManager
                 Value<String?> bookName = const Value.absent(),
                 Value<int?> bookNumber = const Value.absent(),
                 Value<int?> currentPage = const Value.absent(),
+                Value<String?> syncUuid = const Value.absent(),
+                Value<int> updatedAt = const Value.absent(),
+                Value<bool> deleted = const Value.absent(),
               }) => BooksBookmarkCompanion(
                 id: id,
                 bookName: bookName,
                 bookNumber: bookNumber,
                 currentPage: currentPage,
+                syncUuid: syncUuid,
+                updatedAt: updatedAt,
+                deleted: deleted,
               ),
           createCompanionCallback:
               ({
@@ -481,11 +686,17 @@ class $$BooksBookmarkTableTableManager
                 Value<String?> bookName = const Value.absent(),
                 Value<int?> bookNumber = const Value.absent(),
                 Value<int?> currentPage = const Value.absent(),
+                Value<String?> syncUuid = const Value.absent(),
+                Value<int> updatedAt = const Value.absent(),
+                Value<bool> deleted = const Value.absent(),
               }) => BooksBookmarkCompanion.insert(
                 id: id,
                 bookName: bookName,
                 bookNumber: bookNumber,
                 currentPage: currentPage,
+                syncUuid: syncUuid,
+                updatedAt: updatedAt,
+                deleted: deleted,
               ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))

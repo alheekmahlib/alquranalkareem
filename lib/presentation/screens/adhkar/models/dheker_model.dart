@@ -7,6 +7,11 @@ class Adhkar extends Table {
   TextColumn get description => text()();
   TextColumn get reference => text()();
   TextColumn get zekr => text()();
+
+  // أعمدة مزامنة الأجهزة عبر QR — انظر docs/superpowers/specs
+  TextColumn get syncUuid => text().nullable()();
+  IntColumn get updatedAt => integer().withDefault(const Constant(0))();
+  BoolColumn get deleted => boolean().withDefault(const Constant(false))();
 }
 
 // class Dhekr {

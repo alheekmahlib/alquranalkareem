@@ -100,6 +100,8 @@ class OptionsRow extends StatelessWidget {
                                     description: zekr.description,
                                     reference: zekr.reference,
                                     zekr: zekr.zekr,
+                                    updatedAt: 0,
+                                    deleted: false,
                                   ),
                                 );
                         },

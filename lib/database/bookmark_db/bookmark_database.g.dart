@@ -55,8 +55,54 @@ class $BookmarksTable extends Bookmarks
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _syncUuidMeta = const VerificationMeta(
+    'syncUuid',
+  );
   @override
-  List<GeneratedColumn> get $columns => [id, sorahName, pageNum, lastRead];
+  late final GeneratedColumn<String> syncUuid = GeneratedColumn<String>(
+    'sync_uuid',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<int> updatedAt = GeneratedColumn<int>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _deletedMeta = const VerificationMeta(
+    'deleted',
+  );
+  @override
+  late final GeneratedColumn<bool> deleted = GeneratedColumn<bool>(
+    'deleted',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("deleted" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    sorahName,
+    pageNum,
+    lastRead,
+    syncUuid,
+    updatedAt,
+    deleted,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -96,6 +142,24 @@ class $BookmarksTable extends Bookmarks
     } else if (isInserting) {
       context.missing(_lastReadMeta);
     }
+    if (data.containsKey('sync_uuid')) {
+      context.handle(
+        _syncUuidMeta,
+        syncUuid.isAcceptableOrUnknown(data['sync_uuid']!, _syncUuidMeta),
+      );
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    }
+    if (data.containsKey('deleted')) {
+      context.handle(
+        _deletedMeta,
+        deleted.isAcceptableOrUnknown(data['deleted']!, _deletedMeta),
+      );
+    }
     return context;
   }
 
@@ -121,6 +185,18 @@ class $BookmarksTable extends Bookmarks
         DriftSqlType.string,
         data['${effectivePrefix}last_read'],
       )!,
+      syncUuid: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}sync_uuid'],
+      ),
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      deleted: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}deleted'],
+      )!,
     );
   }
 
@@ -135,11 +211,17 @@ class Bookmark extends DataClass implements Insertable<Bookmark> {
   final String sorahName;
   final int pageNum;
   final String lastRead;
+  final String? syncUuid;
+  final int updatedAt;
+  final bool deleted;
   const Bookmark({
     required this.id,
     required this.sorahName,
     required this.pageNum,
     required this.lastRead,
+    this.syncUuid,
+    required this.updatedAt,
+    required this.deleted,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -148,6 +230,11 @@ class Bookmark extends DataClass implements Insertable<Bookmark> {
     map['sorah_name'] = Variable<String>(sorahName);
     map['page_num'] = Variable<int>(pageNum);
     map['last_read'] = Variable<String>(lastRead);
+    if (!nullToAbsent || syncUuid != null) {
+      map['sync_uuid'] = Variable<String>(syncUuid);
+    }
+    map['updated_at'] = Variable<int>(updatedAt);
+    map['deleted'] = Variable<bool>(deleted);
     return map;
   }
 
@@ -157,6 +244,11 @@ class Bookmark extends DataClass implements Insertable<Bookmark> {
       sorahName: Value(sorahName),
       pageNum: Value(pageNum),
       lastRead: Value(lastRead),
+      syncUuid: syncUuid == null && nullToAbsent
+          ? const Value.absent()
+          : Value(syncUuid),
+      updatedAt: Value(updatedAt),
+      deleted: Value(deleted),
     );
   }
 
@@ -170,6 +262,9 @@ class Bookmark extends DataClass implements Insertable<Bookmark> {
       sorahName: serializer.fromJson<String>(json['sorahName']),
       pageNum: serializer.fromJson<int>(json['pageNum']),
       lastRead: serializer.fromJson<String>(json['lastRead']),
+      syncUuid: serializer.fromJson<String?>(json['syncUuid']),
+      updatedAt: serializer.fromJson<int>(json['updatedAt']),
+      deleted: serializer.fromJson<bool>(json['deleted']),
     );
   }
   @override
@@ -180,6 +275,9 @@ class Bookmark extends DataClass implements Insertable<Bookmark> {
       'sorahName': serializer.toJson<String>(sorahName),
       'pageNum': serializer.toJson<int>(pageNum),
       'lastRead': serializer.toJson<String>(lastRead),
+      'syncUuid': serializer.toJson<String?>(syncUuid),
+      'updatedAt': serializer.toJson<int>(updatedAt),
+      'deleted': serializer.toJson<bool>(deleted),
     };
   }
 
@@ -188,11 +286,17 @@ class Bookmark extends DataClass implements Insertable<Bookmark> {
     String? sorahName,
     int? pageNum,
     String? lastRead,
+    Value<String?> syncUuid = const Value.absent(),
+    int? updatedAt,
+    bool? deleted,
   }) => Bookmark(
     id: id ?? this.id,
     sorahName: sorahName ?? this.sorahName,
     pageNum: pageNum ?? this.pageNum,
     lastRead: lastRead ?? this.lastRead,
+    syncUuid: syncUuid.present ? syncUuid.value : this.syncUuid,
+    updatedAt: updatedAt ?? this.updatedAt,
+    deleted: deleted ?? this.deleted,
   );
   Bookmark copyWithCompanion(BookmarksCompanion data) {
     return Bookmark(
@@ -200,6 +304,9 @@ class Bookmark extends DataClass implements Insertable<Bookmark> {
       sorahName: data.sorahName.present ? data.sorahName.value : this.sorahName,
       pageNum: data.pageNum.present ? data.pageNum.value : this.pageNum,
       lastRead: data.lastRead.present ? data.lastRead.value : this.lastRead,
+      syncUuid: data.syncUuid.present ? data.syncUuid.value : this.syncUuid,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      deleted: data.deleted.present ? data.deleted.value : this.deleted,
     );
   }
 
@@ -209,13 +316,24 @@ class Bookmark extends DataClass implements Insertable<Bookmark> {
           ..write('id: $id, ')
           ..write('sorahName: $sorahName, ')
           ..write('pageNum: $pageNum, ')
-          ..write('lastRead: $lastRead')
+          ..write('lastRead: $lastRead, ')
+          ..write('syncUuid: $syncUuid, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deleted: $deleted')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, sorahName, pageNum, lastRead);
+  int get hashCode => Object.hash(
+    id,
+    sorahName,
+    pageNum,
+    lastRead,
+    syncUuid,
+    updatedAt,
+    deleted,
+  );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -223,7 +341,10 @@ class Bookmark extends DataClass implements Insertable<Bookmark> {
           other.id == this.id &&
           other.sorahName == this.sorahName &&
           other.pageNum == this.pageNum &&
-          other.lastRead == this.lastRead);
+          other.lastRead == this.lastRead &&
+          other.syncUuid == this.syncUuid &&
+          other.updatedAt == this.updatedAt &&
+          other.deleted == this.deleted);
 }
 
 class BookmarksCompanion extends UpdateCompanion<Bookmark> {
@@ -231,17 +352,26 @@ class BookmarksCompanion extends UpdateCompanion<Bookmark> {
   final Value<String> sorahName;
   final Value<int> pageNum;
   final Value<String> lastRead;
+  final Value<String?> syncUuid;
+  final Value<int> updatedAt;
+  final Value<bool> deleted;
   const BookmarksCompanion({
     this.id = const Value.absent(),
     this.sorahName = const Value.absent(),
     this.pageNum = const Value.absent(),
     this.lastRead = const Value.absent(),
+    this.syncUuid = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deleted = const Value.absent(),
   });
   BookmarksCompanion.insert({
     this.id = const Value.absent(),
     required String sorahName,
     required int pageNum,
     required String lastRead,
+    this.syncUuid = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deleted = const Value.absent(),
   }) : sorahName = Value(sorahName),
        pageNum = Value(pageNum),
        lastRead = Value(lastRead);
@@ -250,12 +380,18 @@ class BookmarksCompanion extends UpdateCompanion<Bookmark> {
     Expression<String>? sorahName,
     Expression<int>? pageNum,
     Expression<String>? lastRead,
+    Expression<String>? syncUuid,
+    Expression<int>? updatedAt,
+    Expression<bool>? deleted,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (sorahName != null) 'sorah_name': sorahName,
       if (pageNum != null) 'page_num': pageNum,
       if (lastRead != null) 'last_read': lastRead,
+      if (syncUuid != null) 'sync_uuid': syncUuid,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (deleted != null) 'deleted': deleted,
     });
   }
 
@@ -264,12 +400,18 @@ class BookmarksCompanion extends UpdateCompanion<Bookmark> {
     Value<String>? sorahName,
     Value<int>? pageNum,
     Value<String>? lastRead,
+    Value<String?>? syncUuid,
+    Value<int>? updatedAt,
+    Value<bool>? deleted,
   }) {
     return BookmarksCompanion(
       id: id ?? this.id,
       sorahName: sorahName ?? this.sorahName,
       pageNum: pageNum ?? this.pageNum,
       lastRead: lastRead ?? this.lastRead,
+      syncUuid: syncUuid ?? this.syncUuid,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deleted: deleted ?? this.deleted,
     );
   }
 
@@ -288,6 +430,15 @@ class BookmarksCompanion extends UpdateCompanion<Bookmark> {
     if (lastRead.present) {
       map['last_read'] = Variable<String>(lastRead.value);
     }
+    if (syncUuid.present) {
+      map['sync_uuid'] = Variable<String>(syncUuid.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<int>(updatedAt.value);
+    }
+    if (deleted.present) {
+      map['deleted'] = Variable<bool>(deleted.value);
+    }
     return map;
   }
 
@@ -297,7 +448,10 @@ class BookmarksCompanion extends UpdateCompanion<Bookmark> {
           ..write('id: $id, ')
           ..write('sorahName: $sorahName, ')
           ..write('pageNum: $pageNum, ')
-          ..write('lastRead: $lastRead')
+          ..write('lastRead: $lastRead, ')
+          ..write('syncUuid: $syncUuid, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deleted: $deleted')
           ..write(')'))
         .toString();
   }
@@ -388,6 +542,44 @@ class $BookmarksAyahsTable extends BookmarksAyahs
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _syncUuidMeta = const VerificationMeta(
+    'syncUuid',
+  );
+  @override
+  late final GeneratedColumn<String> syncUuid = GeneratedColumn<String>(
+    'sync_uuid',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<int> updatedAt = GeneratedColumn<int>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _deletedMeta = const VerificationMeta(
+    'deleted',
+  );
+  @override
+  late final GeneratedColumn<bool> deleted = GeneratedColumn<bool>(
+    'deleted',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("deleted" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -397,6 +589,9 @@ class $BookmarksAyahsTable extends BookmarksAyahs
     ayahNumber,
     ayahUQNumber,
     lastRead,
+    syncUuid,
+    updatedAt,
+    deleted,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -467,6 +662,24 @@ class $BookmarksAyahsTable extends BookmarksAyahs
     } else if (isInserting) {
       context.missing(_lastReadMeta);
     }
+    if (data.containsKey('sync_uuid')) {
+      context.handle(
+        _syncUuidMeta,
+        syncUuid.isAcceptableOrUnknown(data['sync_uuid']!, _syncUuidMeta),
+      );
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    }
+    if (data.containsKey('deleted')) {
+      context.handle(
+        _deletedMeta,
+        deleted.isAcceptableOrUnknown(data['deleted']!, _deletedMeta),
+      );
+    }
     return context;
   }
 
@@ -504,6 +717,18 @@ class $BookmarksAyahsTable extends BookmarksAyahs
         DriftSqlType.string,
         data['${effectivePrefix}last_read'],
       )!,
+      syncUuid: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}sync_uuid'],
+      ),
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      deleted: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}deleted'],
+      )!,
     );
   }
 
@@ -521,6 +746,9 @@ class BookmarksAyah extends DataClass implements Insertable<BookmarksAyah> {
   final int ayahNumber;
   final int ayahUQNumber;
   final String lastRead;
+  final String? syncUuid;
+  final int updatedAt;
+  final bool deleted;
   const BookmarksAyah({
     required this.id,
     required this.surahName,
@@ -529,6 +757,9 @@ class BookmarksAyah extends DataClass implements Insertable<BookmarksAyah> {
     required this.ayahNumber,
     required this.ayahUQNumber,
     required this.lastRead,
+    this.syncUuid,
+    required this.updatedAt,
+    required this.deleted,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -540,6 +771,11 @@ class BookmarksAyah extends DataClass implements Insertable<BookmarksAyah> {
     map['ayah_number'] = Variable<int>(ayahNumber);
     map['ayah_u_q_number'] = Variable<int>(ayahUQNumber);
     map['last_read'] = Variable<String>(lastRead);
+    if (!nullToAbsent || syncUuid != null) {
+      map['sync_uuid'] = Variable<String>(syncUuid);
+    }
+    map['updated_at'] = Variable<int>(updatedAt);
+    map['deleted'] = Variable<bool>(deleted);
     return map;
   }
 
@@ -552,6 +788,11 @@ class BookmarksAyah extends DataClass implements Insertable<BookmarksAyah> {
       ayahNumber: Value(ayahNumber),
       ayahUQNumber: Value(ayahUQNumber),
       lastRead: Value(lastRead),
+      syncUuid: syncUuid == null && nullToAbsent
+          ? const Value.absent()
+          : Value(syncUuid),
+      updatedAt: Value(updatedAt),
+      deleted: Value(deleted),
     );
   }
 
@@ -568,6 +809,9 @@ class BookmarksAyah extends DataClass implements Insertable<BookmarksAyah> {
       ayahNumber: serializer.fromJson<int>(json['ayahNumber']),
       ayahUQNumber: serializer.fromJson<int>(json['ayahUQNumber']),
       lastRead: serializer.fromJson<String>(json['lastRead']),
+      syncUuid: serializer.fromJson<String?>(json['syncUuid']),
+      updatedAt: serializer.fromJson<int>(json['updatedAt']),
+      deleted: serializer.fromJson<bool>(json['deleted']),
     );
   }
   @override
@@ -581,6 +825,9 @@ class BookmarksAyah extends DataClass implements Insertable<BookmarksAyah> {
       'ayahNumber': serializer.toJson<int>(ayahNumber),
       'ayahUQNumber': serializer.toJson<int>(ayahUQNumber),
       'lastRead': serializer.toJson<String>(lastRead),
+      'syncUuid': serializer.toJson<String?>(syncUuid),
+      'updatedAt': serializer.toJson<int>(updatedAt),
+      'deleted': serializer.toJson<bool>(deleted),
     };
   }
 
@@ -592,6 +839,9 @@ class BookmarksAyah extends DataClass implements Insertable<BookmarksAyah> {
     int? ayahNumber,
     int? ayahUQNumber,
     String? lastRead,
+    Value<String?> syncUuid = const Value.absent(),
+    int? updatedAt,
+    bool? deleted,
   }) => BookmarksAyah(
     id: id ?? this.id,
     surahName: surahName ?? this.surahName,
@@ -600,6 +850,9 @@ class BookmarksAyah extends DataClass implements Insertable<BookmarksAyah> {
     ayahNumber: ayahNumber ?? this.ayahNumber,
     ayahUQNumber: ayahUQNumber ?? this.ayahUQNumber,
     lastRead: lastRead ?? this.lastRead,
+    syncUuid: syncUuid.present ? syncUuid.value : this.syncUuid,
+    updatedAt: updatedAt ?? this.updatedAt,
+    deleted: deleted ?? this.deleted,
   );
   BookmarksAyah copyWithCompanion(BookmarksAyahsCompanion data) {
     return BookmarksAyah(
@@ -618,6 +871,9 @@ class BookmarksAyah extends DataClass implements Insertable<BookmarksAyah> {
           ? data.ayahUQNumber.value
           : this.ayahUQNumber,
       lastRead: data.lastRead.present ? data.lastRead.value : this.lastRead,
+      syncUuid: data.syncUuid.present ? data.syncUuid.value : this.syncUuid,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      deleted: data.deleted.present ? data.deleted.value : this.deleted,
     );
   }
 
@@ -630,7 +886,10 @@ class BookmarksAyah extends DataClass implements Insertable<BookmarksAyah> {
           ..write('pageNumber: $pageNumber, ')
           ..write('ayahNumber: $ayahNumber, ')
           ..write('ayahUQNumber: $ayahUQNumber, ')
-          ..write('lastRead: $lastRead')
+          ..write('lastRead: $lastRead, ')
+          ..write('syncUuid: $syncUuid, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deleted: $deleted')
           ..write(')'))
         .toString();
   }
@@ -644,6 +903,9 @@ class BookmarksAyah extends DataClass implements Insertable<BookmarksAyah> {
     ayahNumber,
     ayahUQNumber,
     lastRead,
+    syncUuid,
+    updatedAt,
+    deleted,
   );
   @override
   bool operator ==(Object other) =>
@@ -655,7 +917,10 @@ class BookmarksAyah extends DataClass implements Insertable<BookmarksAyah> {
           other.pageNumber == this.pageNumber &&
           other.ayahNumber == this.ayahNumber &&
           other.ayahUQNumber == this.ayahUQNumber &&
-          other.lastRead == this.lastRead);
+          other.lastRead == this.lastRead &&
+          other.syncUuid == this.syncUuid &&
+          other.updatedAt == this.updatedAt &&
+          other.deleted == this.deleted);
 }
 
 class BookmarksAyahsCompanion extends UpdateCompanion<BookmarksAyah> {
@@ -666,6 +931,9 @@ class BookmarksAyahsCompanion extends UpdateCompanion<BookmarksAyah> {
   final Value<int> ayahNumber;
   final Value<int> ayahUQNumber;
   final Value<String> lastRead;
+  final Value<String?> syncUuid;
+  final Value<int> updatedAt;
+  final Value<bool> deleted;
   const BookmarksAyahsCompanion({
     this.id = const Value.absent(),
     this.surahName = const Value.absent(),
@@ -674,6 +942,9 @@ class BookmarksAyahsCompanion extends UpdateCompanion<BookmarksAyah> {
     this.ayahNumber = const Value.absent(),
     this.ayahUQNumber = const Value.absent(),
     this.lastRead = const Value.absent(),
+    this.syncUuid = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deleted = const Value.absent(),
   });
   BookmarksAyahsCompanion.insert({
     this.id = const Value.absent(),
@@ -683,6 +954,9 @@ class BookmarksAyahsCompanion extends UpdateCompanion<BookmarksAyah> {
     required int ayahNumber,
     required int ayahUQNumber,
     required String lastRead,
+    this.syncUuid = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deleted = const Value.absent(),
   }) : surahName = Value(surahName),
        surahNumber = Value(surahNumber),
        pageNumber = Value(pageNumber),
@@ -697,6 +971,9 @@ class BookmarksAyahsCompanion extends UpdateCompanion<BookmarksAyah> {
     Expression<int>? ayahNumber,
     Expression<int>? ayahUQNumber,
     Expression<String>? lastRead,
+    Expression<String>? syncUuid,
+    Expression<int>? updatedAt,
+    Expression<bool>? deleted,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -706,6 +983,9 @@ class BookmarksAyahsCompanion extends UpdateCompanion<BookmarksAyah> {
       if (ayahNumber != null) 'ayah_number': ayahNumber,
       if (ayahUQNumber != null) 'ayah_u_q_number': ayahUQNumber,
       if (lastRead != null) 'last_read': lastRead,
+      if (syncUuid != null) 'sync_uuid': syncUuid,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (deleted != null) 'deleted': deleted,
     });
   }
 
@@ -717,6 +997,9 @@ class BookmarksAyahsCompanion extends UpdateCompanion<BookmarksAyah> {
     Value<int>? ayahNumber,
     Value<int>? ayahUQNumber,
     Value<String>? lastRead,
+    Value<String?>? syncUuid,
+    Value<int>? updatedAt,
+    Value<bool>? deleted,
   }) {
     return BookmarksAyahsCompanion(
       id: id ?? this.id,
@@ -726,6 +1009,9 @@ class BookmarksAyahsCompanion extends UpdateCompanion<BookmarksAyah> {
       ayahNumber: ayahNumber ?? this.ayahNumber,
       ayahUQNumber: ayahUQNumber ?? this.ayahUQNumber,
       lastRead: lastRead ?? this.lastRead,
+      syncUuid: syncUuid ?? this.syncUuid,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deleted: deleted ?? this.deleted,
     );
   }
 
@@ -753,6 +1039,15 @@ class BookmarksAyahsCompanion extends UpdateCompanion<BookmarksAyah> {
     if (lastRead.present) {
       map['last_read'] = Variable<String>(lastRead.value);
     }
+    if (syncUuid.present) {
+      map['sync_uuid'] = Variable<String>(syncUuid.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<int>(updatedAt.value);
+    }
+    if (deleted.present) {
+      map['deleted'] = Variable<bool>(deleted.value);
+    }
     return map;
   }
 
@@ -765,7 +1060,10 @@ class BookmarksAyahsCompanion extends UpdateCompanion<BookmarksAyah> {
           ..write('pageNumber: $pageNumber, ')
           ..write('ayahNumber: $ayahNumber, ')
           ..write('ayahUQNumber: $ayahUQNumber, ')
-          ..write('lastRead: $lastRead')
+          ..write('lastRead: $lastRead, ')
+          ..write('syncUuid: $syncUuid, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deleted: $deleted')
           ..write(')'))
         .toString();
   }
@@ -840,6 +1138,44 @@ class $AdhkarTable extends Adhkar with TableInfo<$AdhkarTable, AdhkarData> {
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _syncUuidMeta = const VerificationMeta(
+    'syncUuid',
+  );
+  @override
+  late final GeneratedColumn<String> syncUuid = GeneratedColumn<String>(
+    'sync_uuid',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<int> updatedAt = GeneratedColumn<int>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _deletedMeta = const VerificationMeta(
+    'deleted',
+  );
+  @override
+  late final GeneratedColumn<bool> deleted = GeneratedColumn<bool>(
+    'deleted',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("deleted" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -848,6 +1184,9 @@ class $AdhkarTable extends Adhkar with TableInfo<$AdhkarTable, AdhkarData> {
     description,
     reference,
     zekr,
+    syncUuid,
+    updatedAt,
+    deleted,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -907,6 +1246,24 @@ class $AdhkarTable extends Adhkar with TableInfo<$AdhkarTable, AdhkarData> {
     } else if (isInserting) {
       context.missing(_zekrMeta);
     }
+    if (data.containsKey('sync_uuid')) {
+      context.handle(
+        _syncUuidMeta,
+        syncUuid.isAcceptableOrUnknown(data['sync_uuid']!, _syncUuidMeta),
+      );
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    }
+    if (data.containsKey('deleted')) {
+      context.handle(
+        _deletedMeta,
+        deleted.isAcceptableOrUnknown(data['deleted']!, _deletedMeta),
+      );
+    }
     return context;
   }
 
@@ -940,6 +1297,18 @@ class $AdhkarTable extends Adhkar with TableInfo<$AdhkarTable, AdhkarData> {
         DriftSqlType.string,
         data['${effectivePrefix}zekr'],
       )!,
+      syncUuid: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}sync_uuid'],
+      ),
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      deleted: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}deleted'],
+      )!,
     );
   }
 
@@ -956,6 +1325,9 @@ class AdhkarData extends DataClass implements Insertable<AdhkarData> {
   final String description;
   final String reference;
   final String zekr;
+  final String? syncUuid;
+  final int updatedAt;
+  final bool deleted;
   const AdhkarData({
     required this.id,
     required this.category,
@@ -963,6 +1335,9 @@ class AdhkarData extends DataClass implements Insertable<AdhkarData> {
     required this.description,
     required this.reference,
     required this.zekr,
+    this.syncUuid,
+    required this.updatedAt,
+    required this.deleted,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -973,6 +1348,11 @@ class AdhkarData extends DataClass implements Insertable<AdhkarData> {
     map['description'] = Variable<String>(description);
     map['reference'] = Variable<String>(reference);
     map['zekr'] = Variable<String>(zekr);
+    if (!nullToAbsent || syncUuid != null) {
+      map['sync_uuid'] = Variable<String>(syncUuid);
+    }
+    map['updated_at'] = Variable<int>(updatedAt);
+    map['deleted'] = Variable<bool>(deleted);
     return map;
   }
 
@@ -984,6 +1364,11 @@ class AdhkarData extends DataClass implements Insertable<AdhkarData> {
       description: Value(description),
       reference: Value(reference),
       zekr: Value(zekr),
+      syncUuid: syncUuid == null && nullToAbsent
+          ? const Value.absent()
+          : Value(syncUuid),
+      updatedAt: Value(updatedAt),
+      deleted: Value(deleted),
     );
   }
 
@@ -999,6 +1384,9 @@ class AdhkarData extends DataClass implements Insertable<AdhkarData> {
       description: serializer.fromJson<String>(json['description']),
       reference: serializer.fromJson<String>(json['reference']),
       zekr: serializer.fromJson<String>(json['zekr']),
+      syncUuid: serializer.fromJson<String?>(json['syncUuid']),
+      updatedAt: serializer.fromJson<int>(json['updatedAt']),
+      deleted: serializer.fromJson<bool>(json['deleted']),
     );
   }
   @override
@@ -1011,6 +1399,9 @@ class AdhkarData extends DataClass implements Insertable<AdhkarData> {
       'description': serializer.toJson<String>(description),
       'reference': serializer.toJson<String>(reference),
       'zekr': serializer.toJson<String>(zekr),
+      'syncUuid': serializer.toJson<String?>(syncUuid),
+      'updatedAt': serializer.toJson<int>(updatedAt),
+      'deleted': serializer.toJson<bool>(deleted),
     };
   }
 
@@ -1021,6 +1412,9 @@ class AdhkarData extends DataClass implements Insertable<AdhkarData> {
     String? description,
     String? reference,
     String? zekr,
+    Value<String?> syncUuid = const Value.absent(),
+    int? updatedAt,
+    bool? deleted,
   }) => AdhkarData(
     id: id ?? this.id,
     category: category ?? this.category,
@@ -1028,6 +1422,9 @@ class AdhkarData extends DataClass implements Insertable<AdhkarData> {
     description: description ?? this.description,
     reference: reference ?? this.reference,
     zekr: zekr ?? this.zekr,
+    syncUuid: syncUuid.present ? syncUuid.value : this.syncUuid,
+    updatedAt: updatedAt ?? this.updatedAt,
+    deleted: deleted ?? this.deleted,
   );
   AdhkarData copyWithCompanion(AdhkarCompanion data) {
     return AdhkarData(
@@ -1039,6 +1436,9 @@ class AdhkarData extends DataClass implements Insertable<AdhkarData> {
           : this.description,
       reference: data.reference.present ? data.reference.value : this.reference,
       zekr: data.zekr.present ? data.zekr.value : this.zekr,
+      syncUuid: data.syncUuid.present ? data.syncUuid.value : this.syncUuid,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      deleted: data.deleted.present ? data.deleted.value : this.deleted,
     );
   }
 
@@ -1050,14 +1450,26 @@ class AdhkarData extends DataClass implements Insertable<AdhkarData> {
           ..write('count: $count, ')
           ..write('description: $description, ')
           ..write('reference: $reference, ')
-          ..write('zekr: $zekr')
+          ..write('zekr: $zekr, ')
+          ..write('syncUuid: $syncUuid, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deleted: $deleted')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode =>
-      Object.hash(id, category, count, description, reference, zekr);
+  int get hashCode => Object.hash(
+    id,
+    category,
+    count,
+    description,
+    reference,
+    zekr,
+    syncUuid,
+    updatedAt,
+    deleted,
+  );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1067,7 +1479,10 @@ class AdhkarData extends DataClass implements Insertable<AdhkarData> {
           other.count == this.count &&
           other.description == this.description &&
           other.reference == this.reference &&
-          other.zekr == this.zekr);
+          other.zekr == this.zekr &&
+          other.syncUuid == this.syncUuid &&
+          other.updatedAt == this.updatedAt &&
+          other.deleted == this.deleted);
 }
 
 class AdhkarCompanion extends UpdateCompanion<AdhkarData> {
@@ -1077,6 +1492,9 @@ class AdhkarCompanion extends UpdateCompanion<AdhkarData> {
   final Value<String> description;
   final Value<String> reference;
   final Value<String> zekr;
+  final Value<String?> syncUuid;
+  final Value<int> updatedAt;
+  final Value<bool> deleted;
   const AdhkarCompanion({
     this.id = const Value.absent(),
     this.category = const Value.absent(),
@@ -1084,6 +1502,9 @@ class AdhkarCompanion extends UpdateCompanion<AdhkarData> {
     this.description = const Value.absent(),
     this.reference = const Value.absent(),
     this.zekr = const Value.absent(),
+    this.syncUuid = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deleted = const Value.absent(),
   });
   AdhkarCompanion.insert({
     this.id = const Value.absent(),
@@ -1092,6 +1513,9 @@ class AdhkarCompanion extends UpdateCompanion<AdhkarData> {
     required String description,
     required String reference,
     required String zekr,
+    this.syncUuid = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deleted = const Value.absent(),
   }) : category = Value(category),
        count = Value(count),
        description = Value(description),
@@ -1104,6 +1528,9 @@ class AdhkarCompanion extends UpdateCompanion<AdhkarData> {
     Expression<String>? description,
     Expression<String>? reference,
     Expression<String>? zekr,
+    Expression<String>? syncUuid,
+    Expression<int>? updatedAt,
+    Expression<bool>? deleted,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -1112,6 +1539,9 @@ class AdhkarCompanion extends UpdateCompanion<AdhkarData> {
       if (description != null) 'description': description,
       if (reference != null) 'reference': reference,
       if (zekr != null) 'zekr': zekr,
+      if (syncUuid != null) 'sync_uuid': syncUuid,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (deleted != null) 'deleted': deleted,
     });
   }
 
@@ -1122,6 +1552,9 @@ class AdhkarCompanion extends UpdateCompanion<AdhkarData> {
     Value<String>? description,
     Value<String>? reference,
     Value<String>? zekr,
+    Value<String?>? syncUuid,
+    Value<int>? updatedAt,
+    Value<bool>? deleted,
   }) {
     return AdhkarCompanion(
       id: id ?? this.id,
@@ -1130,6 +1563,9 @@ class AdhkarCompanion extends UpdateCompanion<AdhkarData> {
       description: description ?? this.description,
       reference: reference ?? this.reference,
       zekr: zekr ?? this.zekr,
+      syncUuid: syncUuid ?? this.syncUuid,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deleted: deleted ?? this.deleted,
     );
   }
 
@@ -1154,6 +1590,15 @@ class AdhkarCompanion extends UpdateCompanion<AdhkarData> {
     if (zekr.present) {
       map['zekr'] = Variable<String>(zekr.value);
     }
+    if (syncUuid.present) {
+      map['sync_uuid'] = Variable<String>(syncUuid.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<int>(updatedAt.value);
+    }
+    if (deleted.present) {
+      map['deleted'] = Variable<bool>(deleted.value);
+    }
     return map;
   }
 
@@ -1165,7 +1610,10 @@ class AdhkarCompanion extends UpdateCompanion<AdhkarData> {
           ..write('count: $count, ')
           ..write('description: $description, ')
           ..write('reference: $reference, ')
-          ..write('zekr: $zekr')
+          ..write('zekr: $zekr, ')
+          ..write('syncUuid: $syncUuid, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deleted: $deleted')
           ..write(')'))
         .toString();
   }
@@ -1194,6 +1642,9 @@ typedef $$BookmarksTableCreateCompanionBuilder =
       required String sorahName,
       required int pageNum,
       required String lastRead,
+      Value<String?> syncUuid,
+      Value<int> updatedAt,
+      Value<bool> deleted,
     });
 typedef $$BookmarksTableUpdateCompanionBuilder =
     BookmarksCompanion Function({
@@ -1201,6 +1652,9 @@ typedef $$BookmarksTableUpdateCompanionBuilder =
       Value<String> sorahName,
       Value<int> pageNum,
       Value<String> lastRead,
+      Value<String?> syncUuid,
+      Value<int> updatedAt,
+      Value<bool> deleted,
     });
 
 class $$BookmarksTableFilterComposer
@@ -1229,6 +1683,21 @@ class $$BookmarksTableFilterComposer
 
   ColumnFilters<String> get lastRead => $composableBuilder(
     column: $table.lastRead,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get syncUuid => $composableBuilder(
+    column: $table.syncUuid,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get deleted => $composableBuilder(
+    column: $table.deleted,
     builder: (column) => ColumnFilters(column),
   );
 }
@@ -1261,6 +1730,21 @@ class $$BookmarksTableOrderingComposer
     column: $table.lastRead,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<String> get syncUuid => $composableBuilder(
+    column: $table.syncUuid,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get deleted => $composableBuilder(
+    column: $table.deleted,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$BookmarksTableAnnotationComposer
@@ -1283,6 +1767,15 @@ class $$BookmarksTableAnnotationComposer
 
   GeneratedColumn<String> get lastRead =>
       $composableBuilder(column: $table.lastRead, builder: (column) => column);
+
+  GeneratedColumn<String> get syncUuid =>
+      $composableBuilder(column: $table.syncUuid, builder: (column) => column);
+
+  GeneratedColumn<int> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  GeneratedColumn<bool> get deleted =>
+      $composableBuilder(column: $table.deleted, builder: (column) => column);
 }
 
 class $$BookmarksTableTableManager
@@ -1320,11 +1813,17 @@ class $$BookmarksTableTableManager
                 Value<String> sorahName = const Value.absent(),
                 Value<int> pageNum = const Value.absent(),
                 Value<String> lastRead = const Value.absent(),
+                Value<String?> syncUuid = const Value.absent(),
+                Value<int> updatedAt = const Value.absent(),
+                Value<bool> deleted = const Value.absent(),
               }) => BookmarksCompanion(
                 id: id,
                 sorahName: sorahName,
                 pageNum: pageNum,
                 lastRead: lastRead,
+                syncUuid: syncUuid,
+                updatedAt: updatedAt,
+                deleted: deleted,
               ),
           createCompanionCallback:
               ({
@@ -1332,11 +1831,17 @@ class $$BookmarksTableTableManager
                 required String sorahName,
                 required int pageNum,
                 required String lastRead,
+                Value<String?> syncUuid = const Value.absent(),
+                Value<int> updatedAt = const Value.absent(),
+                Value<bool> deleted = const Value.absent(),
               }) => BookmarksCompanion.insert(
                 id: id,
                 sorahName: sorahName,
                 pageNum: pageNum,
                 lastRead: lastRead,
+                syncUuid: syncUuid,
+                updatedAt: updatedAt,
+                deleted: deleted,
               ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
@@ -1369,6 +1874,9 @@ typedef $$BookmarksAyahsTableCreateCompanionBuilder =
       required int ayahNumber,
       required int ayahUQNumber,
       required String lastRead,
+      Value<String?> syncUuid,
+      Value<int> updatedAt,
+      Value<bool> deleted,
     });
 typedef $$BookmarksAyahsTableUpdateCompanionBuilder =
     BookmarksAyahsCompanion Function({
@@ -1379,6 +1887,9 @@ typedef $$BookmarksAyahsTableUpdateCompanionBuilder =
       Value<int> ayahNumber,
       Value<int> ayahUQNumber,
       Value<String> lastRead,
+      Value<String?> syncUuid,
+      Value<int> updatedAt,
+      Value<bool> deleted,
     });
 
 class $$BookmarksAyahsTableFilterComposer
@@ -1422,6 +1933,21 @@ class $$BookmarksAyahsTableFilterComposer
 
   ColumnFilters<String> get lastRead => $composableBuilder(
     column: $table.lastRead,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get syncUuid => $composableBuilder(
+    column: $table.syncUuid,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get deleted => $composableBuilder(
+    column: $table.deleted,
     builder: (column) => ColumnFilters(column),
   );
 }
@@ -1469,6 +1995,21 @@ class $$BookmarksAyahsTableOrderingComposer
     column: $table.lastRead,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<String> get syncUuid => $composableBuilder(
+    column: $table.syncUuid,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get deleted => $composableBuilder(
+    column: $table.deleted,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$BookmarksAyahsTableAnnotationComposer
@@ -1508,6 +2049,15 @@ class $$BookmarksAyahsTableAnnotationComposer
 
   GeneratedColumn<String> get lastRead =>
       $composableBuilder(column: $table.lastRead, builder: (column) => column);
+
+  GeneratedColumn<String> get syncUuid =>
+      $composableBuilder(column: $table.syncUuid, builder: (column) => column);
+
+  GeneratedColumn<int> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  GeneratedColumn<bool> get deleted =>
+      $composableBuilder(column: $table.deleted, builder: (column) => column);
 }
 
 class $$BookmarksAyahsTableTableManager
@@ -1554,6 +2104,9 @@ class $$BookmarksAyahsTableTableManager
                 Value<int> ayahNumber = const Value.absent(),
                 Value<int> ayahUQNumber = const Value.absent(),
                 Value<String> lastRead = const Value.absent(),
+                Value<String?> syncUuid = const Value.absent(),
+                Value<int> updatedAt = const Value.absent(),
+                Value<bool> deleted = const Value.absent(),
               }) => BookmarksAyahsCompanion(
                 id: id,
                 surahName: surahName,
@@ -1562,6 +2115,9 @@ class $$BookmarksAyahsTableTableManager
                 ayahNumber: ayahNumber,
                 ayahUQNumber: ayahUQNumber,
                 lastRead: lastRead,
+                syncUuid: syncUuid,
+                updatedAt: updatedAt,
+                deleted: deleted,
               ),
           createCompanionCallback:
               ({
@@ -1572,6 +2128,9 @@ class $$BookmarksAyahsTableTableManager
                 required int ayahNumber,
                 required int ayahUQNumber,
                 required String lastRead,
+                Value<String?> syncUuid = const Value.absent(),
+                Value<int> updatedAt = const Value.absent(),
+                Value<bool> deleted = const Value.absent(),
               }) => BookmarksAyahsCompanion.insert(
                 id: id,
                 surahName: surahName,
@@ -1580,6 +2139,9 @@ class $$BookmarksAyahsTableTableManager
                 ayahNumber: ayahNumber,
                 ayahUQNumber: ayahUQNumber,
                 lastRead: lastRead,
+                syncUuid: syncUuid,
+                updatedAt: updatedAt,
+                deleted: deleted,
               ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
@@ -1614,6 +2176,9 @@ typedef $$AdhkarTableCreateCompanionBuilder =
       required String description,
       required String reference,
       required String zekr,
+      Value<String?> syncUuid,
+      Value<int> updatedAt,
+      Value<bool> deleted,
     });
 typedef $$AdhkarTableUpdateCompanionBuilder =
     AdhkarCompanion Function({
@@ -1623,6 +2188,9 @@ typedef $$AdhkarTableUpdateCompanionBuilder =
       Value<String> description,
       Value<String> reference,
       Value<String> zekr,
+      Value<String?> syncUuid,
+      Value<int> updatedAt,
+      Value<bool> deleted,
     });
 
 class $$AdhkarTableFilterComposer
@@ -1661,6 +2229,21 @@ class $$AdhkarTableFilterComposer
 
   ColumnFilters<String> get zekr => $composableBuilder(
     column: $table.zekr,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get syncUuid => $composableBuilder(
+    column: $table.syncUuid,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get deleted => $composableBuilder(
+    column: $table.deleted,
     builder: (column) => ColumnFilters(column),
   );
 }
@@ -1703,6 +2286,21 @@ class $$AdhkarTableOrderingComposer
     column: $table.zekr,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<String> get syncUuid => $composableBuilder(
+    column: $table.syncUuid,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get deleted => $composableBuilder(
+    column: $table.deleted,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$AdhkarTableAnnotationComposer
@@ -1733,6 +2331,15 @@ class $$AdhkarTableAnnotationComposer
 
   GeneratedColumn<String> get zekr =>
       $composableBuilder(column: $table.zekr, builder: (column) => column);
+
+  GeneratedColumn<String> get syncUuid =>
+      $composableBuilder(column: $table.syncUuid, builder: (column) => column);
+
+  GeneratedColumn<int> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  GeneratedColumn<bool> get deleted =>
+      $composableBuilder(column: $table.deleted, builder: (column) => column);
 }
 
 class $$AdhkarTableTableManager
@@ -1772,6 +2379,9 @@ class $$AdhkarTableTableManager
                 Value<String> description = const Value.absent(),
                 Value<String> reference = const Value.absent(),
                 Value<String> zekr = const Value.absent(),
+                Value<String?> syncUuid = const Value.absent(),
+                Value<int> updatedAt = const Value.absent(),
+                Value<bool> deleted = const Value.absent(),
               }) => AdhkarCompanion(
                 id: id,
                 category: category,
@@ -1779,6 +2389,9 @@ class $$AdhkarTableTableManager
                 description: description,
                 reference: reference,
                 zekr: zekr,
+                syncUuid: syncUuid,
+                updatedAt: updatedAt,
+                deleted: deleted,
               ),
           createCompanionCallback:
               ({
@@ -1788,6 +2401,9 @@ class $$AdhkarTableTableManager
                 required String description,
                 required String reference,
                 required String zekr,
+                Value<String?> syncUuid = const Value.absent(),
+                Value<int> updatedAt = const Value.absent(),
+                Value<bool> deleted = const Value.absent(),
               }) => AdhkarCompanion.insert(
                 id: id,
                 category: category,
@@ -1795,6 +2411,9 @@ class $$AdhkarTableTableManager
                 description: description,
                 reference: reference,
                 zekr: zekr,
+                syncUuid: syncUuid,
+                updatedAt: updatedAt,
+                deleted: deleted,
               ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
