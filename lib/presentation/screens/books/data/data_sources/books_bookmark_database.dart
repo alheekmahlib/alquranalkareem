@@ -39,7 +39,7 @@ class BooksBookmarkDatabase extends _$BooksBookmarkDatabase {
     onUpgrade: (Migrator m, int from, int to) async {
       if (from < 2) {
         // أعمدة مزامنة الأجهزة: مفتاح مستقر + طابع زمني LWW + حذف ناعم.
-        await _addColumnIfMissing('books_bookmark', 'syncUuid', 'TEXT');
+        await _addColumnIfMissing('books_bookmark', 'sync_uuid', 'TEXT');
         await _addColumnIfMissing(
           'books_bookmark',
           'updatedAt',
@@ -52,7 +52,7 @@ class BooksBookmarkDatabase extends _$BooksBookmarkDatabase {
         );
         // ختم الصفوف القائمة حتى تُدفع في أول مزامنة.
         await customStatement(
-          'UPDATE books_bookmark SET "updatedAt" = ${DateTime.now().millisecondsSinceEpoch}',
+          'UPDATE books_bookmark SET "updated_at" = ${DateTime.now().millisecondsSinceEpoch}',
         );
       }
     },

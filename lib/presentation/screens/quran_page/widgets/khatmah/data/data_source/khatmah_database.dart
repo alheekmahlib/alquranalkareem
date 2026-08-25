@@ -69,9 +69,9 @@ class KhatmahDatabase extends _$KhatmahDatabase {
           // الجدول موجود مسبقًا في قواعد المستخدمين الحاليين.
         }
         await _addColumnIfMissing('khatmahs', 'color', 'INTEGER NULL');
-        await _addColumnIfMissing('khatmah_days', 'startPage', 'INTEGER NULL');
-        await _addColumnIfMissing('khatmah_days', 'endPage', 'INTEGER NULL');
-        await _addColumnIfMissing('khatmahs', 'syncUuid', 'TEXT');
+        await _addColumnIfMissing('khatmah_days', 'start_page', 'INTEGER NULL');
+        await _addColumnIfMissing('khatmah_days', 'end_page', 'INTEGER NULL');
+        await _addColumnIfMissing('khatmahs', 'sync_uuid', 'TEXT');
         await _addColumnIfMissing(
           'khatmahs',
           'updatedAt',
@@ -82,7 +82,7 @@ class KhatmahDatabase extends _$KhatmahDatabase {
           'deleted',
           'INTEGER NOT NULL DEFAULT 0',
         );
-        await _addColumnIfMissing('khatmah_days', 'syncUuid', 'TEXT');
+        await _addColumnIfMissing('khatmah_days', 'sync_uuid', 'TEXT');
         await _addColumnIfMissing(
           'khatmah_days',
           'updatedAt',

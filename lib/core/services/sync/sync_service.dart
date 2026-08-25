@@ -179,7 +179,7 @@ class SyncService {
     await _backfillTable(
       'bookmarks',
       (id, uuid, ts) => _bookmarksDb.customStatement(
-        'UPDATE bookmarks SET "syncUuid" = ?, "updatedAt" = ? WHERE "id" = ?',
+        'UPDATE bookmarks SET "sync_uuid" = ?, "updated_at" = ? WHERE "id" = ?',
         [uuid, ts, id],
       ),
       now,
@@ -187,7 +187,7 @@ class SyncService {
     await _backfillTable(
       'bookmarks_ayahs',
       (id, uuid, ts) => _bookmarksDb.customStatement(
-        'UPDATE bookmarks_ayahs SET "syncUuid" = ?, "updatedAt" = ? WHERE "id" = ?',
+        'UPDATE bookmarks_ayahs SET "sync_uuid" = ?, "updated_at" = ? WHERE "id" = ?',
         [uuid, ts, id],
       ),
       now,
@@ -195,7 +195,7 @@ class SyncService {
     await _backfillTable(
       'adhkar',
       (id, uuid, ts) => _bookmarksDb.customStatement(
-        'UPDATE adhkar SET "syncUuid" = ?, "updatedAt" = ? WHERE "id" = ?',
+        'UPDATE adhkar SET "sync_uuid" = ?, "updated_at" = ? WHERE "id" = ?',
         [uuid, ts, id],
       ),
       now,
@@ -203,7 +203,7 @@ class SyncService {
     await _backfillTable(
       'khatmahs',
       (id, uuid, ts) => _khatmahDb.customStatement(
-        'UPDATE khatmahs SET "syncUuid" = ?, "updatedAt" = ? WHERE "id" = ?',
+        'UPDATE khatmahs SET "sync_uuid" = ?, "updated_at" = ? WHERE "id" = ?',
         [uuid, ts, id],
       ),
       now,
@@ -211,7 +211,7 @@ class SyncService {
     await _backfillTable(
       'khatmah_days',
       (id, uuid, ts) => _khatmahDb.customStatement(
-        'UPDATE khatmah_days SET "syncUuid" = ?, "updatedAt" = ? WHERE "id" = ?',
+        'UPDATE khatmah_days SET "sync_uuid" = ?, "updated_at" = ? WHERE "id" = ?',
         [uuid, ts, id],
       ),
       now,
@@ -219,7 +219,7 @@ class SyncService {
     await _backfillTable(
       'books_bookmark',
       (id, uuid, ts) => _booksDb.customStatement(
-        'UPDATE books_bookmark SET "syncUuid" = ?, "updatedAt" = ? WHERE "id" = ?',
+        'UPDATE books_bookmark SET "sync_uuid" = ?, "updated_at" = ? WHERE "id" = ?',
         [uuid, ts, id],
       ),
       now,
@@ -238,7 +238,7 @@ class SyncService {
         : _bookmarksDb;
     final rows = await db
         .customSelect(
-          'SELECT "id" FROM $table WHERE "syncUuid" IS NULL AND "deleted" = 0',
+          'SELECT "id" FROM $table WHERE "sync_uuid" IS NULL AND "deleted" = 0',
         )
         .get();
     for (final row in rows) {
@@ -349,10 +349,10 @@ class SyncService {
       // نحتاج uuid آباء كل الأيام — نجلبها كاملة إن ناقصت الخريطة.
     }
     final allKhatmahs = await _khatmahDb
-        .customSelect('SELECT "id", "syncUuid" FROM khatmahs')
+        .customSelect('SELECT "id", "sync_uuid" FROM khatmahs')
         .get();
     for (final row in allKhatmahs) {
-      final uuid = row.read<String?>('syncUuid');
+      final uuid = row.read<String?>('sync_uuid');
       if (uuid != null) khatmahIdToUuid[row.read<int>('id')] = uuid;
     }
 
@@ -803,7 +803,7 @@ class SyncService {
         .millisecondsSinceEpoch;
     final staleParents = await _khatmahDb
         .customSelect(
-          'SELECT "id" FROM khatmahs WHERE "deleted" = 1 AND "updatedAt" < ?',
+          'SELECT "id" FROM khatmahs WHERE "deleted" = 1 AND "updated_at" < ?',
           variables: [drift.Variable.withInt(cutoff)],
         )
         .get();
@@ -811,7 +811,7 @@ class SyncService {
       final ids = staleParents.map((row) => row.read<int>('id')).toList();
       final placeholders = List.filled(ids.length, '?').join(',');
       await _khatmahDb.customStatement(
-        'DELETE FROM khatmah_days WHERE "khatmahId" IN ($placeholders)',
+        'DELETE FROM khatmah_days WHERE "khatmah_id" IN ($placeholders)',
         ids,
       );
       await _khatmahDb.customStatement(
@@ -820,23 +820,23 @@ class SyncService {
       );
     }
     await _khatmahDb.customStatement(
-      'DELETE FROM khatmah_days WHERE "deleted" = 1 AND "updatedAt" < ?',
+      'DELETE FROM khatmah_days WHERE "deleted" = 1 AND "updated_at" < ?',
       [cutoff],
     );
     await _bookmarksDb.customStatement(
-      'DELETE FROM bookmarks WHERE "deleted" = 1 AND "updatedAt" < ?',
+      'DELETE FROM bookmarks WHERE "deleted" = 1 AND "updated_at" < ?',
       [cutoff],
     );
     await _bookmarksDb.customStatement(
-      'DELETE FROM bookmarks_ayahs WHERE "deleted" = 1 AND "updatedAt" < ?',
+      'DELETE FROM bookmarks_ayahs WHERE "deleted" = 1 AND "updated_at" < ?',
       [cutoff],
     );
     await _bookmarksDb.customStatement(
-      'DELETE FROM adhkar WHERE "deleted" = 1 AND "updatedAt" < ?',
+      'DELETE FROM adhkar WHERE "deleted" = 1 AND "updated_at" < ?',
       [cutoff],
     );
     await _booksDb.customStatement(
-      'DELETE FROM books_bookmark WHERE "deleted" = 1 AND "updatedAt" < ?',
+      'DELETE FROM books_bookmark WHERE "deleted" = 1 AND "updated_at" < ?',
       [cutoff],
     );
   }
