@@ -127,6 +127,7 @@ class _NotificationsSettingsState extends State<NotificationsSettings> {
                 height: 32,
                 verticalPadding: 4.0,
                 horizontalPadding: 8.0,
+                titleStyle: AppTextStyles.titleMedium().copyWith(fontSize: 14),
                 onPressed: () async {
                   await manager.setManualTime(null);
                   setState(() {});
@@ -174,32 +175,44 @@ class _NotificationsSettingsState extends State<NotificationsSettings> {
             child: Row(
               children: [
                 Expanded(
-                  child: Text(
-                    'from'.tr,
-                    style: AppTextStyles.titleMedium().copyWith(height: 2),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'from'.tr,
+                        style: AppTextStyles.titleMedium().copyWith(height: 2),
+                      ),
+                      const Gap(8),
+                      ContainerButton(
+                        title: _formatTime(manager.quietStartHour),
+                        height: 32,
+                        verticalPadding: 4.0,
+                        horizontalPadding: 8.0,
+                        onPressed: _pickQuietStart,
+                      ),
+                    ],
                   ),
-                ),
-                ContainerButton(
-                  title: _formatTime(manager.quietStartHour),
-                  height: 32,
-                  verticalPadding: 4.0,
-                  horizontalPadding: 8.0,
-                  onPressed: _pickQuietStart,
                 ),
                 const Gap(16),
                 Expanded(
-                  child: Text(
-                    'to'.tr,
-                    style: AppTextStyles.titleMedium().copyWith(height: 2),
-                    textAlign: TextAlign.end,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'to'.tr,
+                        style: AppTextStyles.titleMedium().copyWith(height: 2),
+                        textAlign: TextAlign.end,
+                      ),
+                      const Gap(8),
+                      ContainerButton(
+                        title: _formatTime(manager.quietEndHour),
+                        height: 32,
+                        verticalPadding: 4.0,
+                        horizontalPadding: 8.0,
+                        onPressed: _pickQuietEnd,
+                      ),
+                    ],
                   ),
-                ),
-                ContainerButton(
-                  title: _formatTime(manager.quietEndHour),
-                  height: 32,
-                  verticalPadding: 4.0,
-                  horizontalPadding: 8.0,
-                  onPressed: _pickQuietEnd,
                 ),
               ],
             ),

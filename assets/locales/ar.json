@@ -1559,6 +1559,7 @@
   "feedback_contact_optional": "بريدك للتواصل (اختياري)",
   "feedback_sent_success": "تم إرسال ملاحظتك بنجاح!",
   "feedback_sent_error": "تعذّر إرسال الملاحظة. حاول مرة أخرى.",
+  "feedback_queued": "ستُرسل ملاحظتك تلقائيًا عند عودة الاتصال بالإنترنت",
   "my_feedback": "ملاحظاتي",
   "no_feedback_yet": "لم ترسل أي ملاحظة بعد",
   "feedback_reply_hint": "اكتب متابعة...",

@@ -54,18 +54,20 @@ class _FeedbackSendSheetState extends State<FeedbackSendSheet> {
     if (!mounted) return;
     result.fold(
       (failure) => context.showCustomErrorSnackBar('feedback_sent_error'.tr),
-      (_) {
+      (model) {
+        // token فارغ = أُدخلت الطابور وستُرسل عند عودة الاتصال.
+        final queued = model.token.isEmpty;
         _messageCtrl.clear();
         _emailCtrl.clear();
         context.showCustomErrorSnackBar(
-          'feedback_sent_success'.tr,
+          queued ? 'feedback_queued'.tr : 'feedback_sent_success'.tr,
           isDone: true,
         );
-        // أغلق الـ sheet ثم أعد تحميل القائمة.
+        // أغلق الـ sheet ثم أعد تحميل القائمة (لا جديد قبل الإرسال الفعلي).
         if (Get.isBottomSheetOpen ?? false) {
           Get.back();
         }
-        _c.loadAllThreads();
+        if (!queued) _c.loadAllThreads();
       },
     );
   }

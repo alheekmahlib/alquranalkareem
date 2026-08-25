@@ -1550,6 +1550,7 @@
   "feedback_contact_optional": "رابطہ ای میل (اختیاری)",
   "feedback_sent_success": "آپ کی رائے کامیابی سے بھیج دی گئی!",
   "feedback_sent_error": "رائے نہیں بھیجی جا سکی۔ دوبارہ کوشش کریں۔",
+  "feedback_queued": "Your feedback will be sent automatically once the connection is back",
   "my_feedback": "میری رائے",
   "no_feedback_yet": "آپ نے ابھی تک کوئی رائے نہیں بھیجی",
   "feedback_reply_hint": "ایک فالو اپ لکھیں...",

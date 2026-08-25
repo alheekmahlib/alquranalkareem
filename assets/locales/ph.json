@@ -1544,6 +1544,7 @@
   "feedback_contact_optional": "Email ng kontak (opsyonal)",
   "feedback_sent_success": "Matagumpay na naipadala ang iyong puna!",
   "feedback_sent_error": "Hindi mapadala ang puna. Subukang muli.",
+  "feedback_queued": "Your feedback will be sent automatically once the connection is back",
   "my_feedback": "Aking Puna",
   "no_feedback_yet": "Wala ka pang naisabing puna",
   "feedback_reply_hint": "Magsulat ng follow-up...",

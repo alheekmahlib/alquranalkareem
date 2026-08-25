@@ -1550,6 +1550,7 @@
   "feedback_contact_optional": "যোগাযোগের ইমেইল (ঐচ্ছিক)",
   "feedback_sent_success": "আপনার মতামত সফলভাবে পাঠানো হয়েছে!",
   "feedback_sent_error": "মতামত পাঠানো যায়নি। আবার চেষ্টা করুন।",
+  "feedback_queued": "Your feedback will be sent automatically once the connection is back",
   "my_feedback": "আমার মতামত",
   "no_feedback_yet": "আপনি এখনও কোনো মতামত পাঠাননি",
   "feedback_reply_hint": "একটি ফলো-আপ লিখুন...",

@@ -1544,6 +1544,7 @@
   "feedback_contact_optional": "Email kontak (opsional)",
   "feedback_sent_success": "Umpan balik Anda berhasil dikirim!",
   "feedback_sent_error": "Tidak dapat mengirim umpan balik. Coba lagi.",
+  "feedback_queued": "Your feedback will be sent automatically once the connection is back",
   "my_feedback": "Umpan Balik Saya",
   "no_feedback_yet": "Anda belum mengirim umpan balik apa pun",
   "feedback_reply_hint": "Tulis tindak lanjut...",

@@ -49,9 +49,9 @@ class FeedbackMediaGallery extends StatelessWidget {
                 loadingBuilder: (context, child, progress) {
                   if (progress == null) return child;
                   return ColoredBox(
-                    color: Theme.of(context).colorScheme.surface.withValues(
-                      alpha: 0.1,
-                    ),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.surface.withValues(alpha: 0.1),
                     child: Center(
                       child: SizedBox(
                         width: 20.w,
@@ -67,9 +67,9 @@ class FeedbackMediaGallery extends StatelessWidget {
                   );
                 },
                 errorBuilder: (context, error, stack) => ColoredBox(
-                  color: Theme.of(context).colorScheme.surface.withValues(
-                    alpha: 0.1,
-                  ),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.surface.withValues(alpha: 0.1),
                   child: Icon(
                     Icons.broken_image_outlined,
                     color: Theme.of(context).colorScheme.inversePrimary,

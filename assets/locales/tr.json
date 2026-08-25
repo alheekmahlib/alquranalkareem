@@ -1542,6 +1542,7 @@
   "feedback_contact_optional": "İletişim e-postası (isteğe bağlı)",
   "feedback_sent_success": "Geri bildiriminiz başarıyla gönderildi!",
   "feedback_sent_error": "Geri bildirim gönderilemedi. Tekrar deneyin.",
+  "feedback_queued": "Your feedback will be sent automatically once the connection is back",
   "my_feedback": "Geri Bildirimlerim",
   "no_feedback_yet": "Henüz geri bildirim göndermediniz",
   "feedback_reply_hint": "Bir takip yazın...",

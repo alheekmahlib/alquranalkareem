@@ -18,6 +18,7 @@ import 'core/services/notifications_helper.dart';
 import 'core/services/services_locator.dart';
 import 'core/utils/constants/extensions/convert_number_extension.dart';
 import 'core/utils/constants/shared_preferences_constants.dart';
+import 'presentation/screens/feedback/data/feedback_queue.dart';
 import 'myApp.dart';
 import 'presentation/screens/quran_page/quran.dart';
 
@@ -51,6 +52,8 @@ Future<void> initializeApp() async {
 
   Get.put(service, permanent: true);
   Get.put(ConnectionController(), permanent: true);
+  // طابور الـ feedback: إرسال مؤجَّل يستأنف تلقائيًا عند عودة الاتصال.
+  await FeedbackQueue.init(service);
   await GetStorage.init();
   await QuranLibrary.init(
     numberConverter: (text, {languageCode}) =>
