@@ -1,0 +1,11 @@
+name = "alquran-sync"
+main = "src/index.ts"
+compatibility_date = "2025-06-01"
+
+[[d1_databases]]
+binding = "SYNC_DB"
+database_name = "alquran-sync"
+database_id = "PLACEHOLDER_FILL_AFTER_CREATE"
+
+[triggers]
+crons = ["0 3 * * *"]

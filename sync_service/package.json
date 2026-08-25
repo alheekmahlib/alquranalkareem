@@ -1,0 +1,22 @@
+{
+  "name": "alquran-sync",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "deploy": "wrangler deploy",
+    "migrate:remote": "wrangler d1 migrations apply alquran-sync --remote",
+    "migrate:local": "wrangler d1 migrations apply alquran-sync --local"
+  },
+  "dependencies": {
+    "hono": "^4.6.0"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-plugin": "^1.0.0",
+    "@cloudflare/workers-types": "^5.20260820.0",
+    "typescript": "^5.5.0",
+    "vitest": "^4.1.0",
+    "wrangler": "^4.0.0"
+  }
+}
