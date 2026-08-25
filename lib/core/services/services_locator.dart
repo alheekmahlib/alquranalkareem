@@ -22,6 +22,7 @@ import '../../presentation/screens/books/books.dart';
 import '../utils/helpers/ui_helper.dart';
 import '../widgets/local_notification/controller/local_notifications_controller.dart';
 import 'ayah_audio_share_service.dart';
+import 'sync/sync_controller.dart';
 
 final sl = GetIt.instance;
 
@@ -74,6 +75,10 @@ class ServicesLocator {
         AyahAudioShareService(),
         permanent: true,
       ),
+    );
+
+    sl.registerLazySingleton<SyncController>(
+      () => Get.put<SyncController>(SyncController(), permanent: true),
     );
 
     sl.registerLazySingleton<PlayListController>(

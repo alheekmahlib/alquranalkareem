@@ -5,6 +5,7 @@ import 'dart:io' show File, Directory;
 import 'dart:isolate';
 
 import 'package:alquranalkareem/core/services/expansion_tile_manager.dart';
+import 'package:alquranalkareem/core/services/sync/sync_controller.dart';
 import 'package:alquranalkareem/core/services/notifications_manager.dart';
 import 'package:alquranalkareem/core/utils/helpers/app_text_styles.dart';
 import 'package:alquranalkareem/core/widgets/expansion_tile_widget.dart';

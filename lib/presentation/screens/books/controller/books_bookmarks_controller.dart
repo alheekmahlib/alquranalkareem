@@ -5,6 +5,13 @@ class BooksBookmarksController extends GetxController {
       GetInstance().putOrFind(() => BooksBookmarksController());
   final booksCtrl = BooksController.instance;
 
+  /// إشعار محرك المزامنة بعد أي كتابة محلية (يعمل فقط عند الإقران).
+  void _notifySync() {
+    if (Get.isRegistered<SyncController>()) {
+      Get.find<SyncController>().onLocalChange();
+    }
+  }
+
   /// -------[BooksBookmarks]--------
 
   final db = BooksBookmarkDatabase();
@@ -57,6 +64,7 @@ class BooksBookmarksController extends GetxController {
       currentPage: drift.Value(currentPage),
     );
     await db.insertBookmark(bookmark);
+    _notifySync();
     fetchBookmarks();
   }
 
@@ -73,11 +81,13 @@ class BooksBookmarksController extends GetxController {
       currentPage: drift.Value(currentPage),
     );
     await db.updateBookmark(bookmark);
+    _notifySync();
     fetchBookmarks();
   }
 
   Future<void> deleteBookmark(int id, int pageNumber) async {
     await db.deleteBookmarkById(id, pageNumber);
+    _notifySync();
     fetchBookmarks();
   }
 
