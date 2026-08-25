@@ -82,7 +82,11 @@ class NotificationManager {
 
     final histogram = readReadingHistogram();
     histogram[now.hour] = (histogram[now.hour] ?? 0) + 1;
-    _box.write(_kReadingHours, histogram);
+    // json.encode يشترط مفاتيح نصية — GetStorage لا يحوّلها تلقائيًا،
+    // لذا نخزن بمفاتيح String والقارئ يعيدها عبر int.tryParse.
+    final stored = <String, int>{};
+    histogram.forEach((hour, count) => stored['$hour'] = count);
+    _box.write(_kReadingHours, stored);
 
     _processEngagement(interactedAt: now);
   }
@@ -400,7 +404,7 @@ class NotificationManager {
   // ─── مدرج ساعات القراءة ───
 
   /// مفتاح = الساعة (0-23)، قيمة = عدد أحداث القراءة.
-  /// GetStorage يستدير المفاتيح إلى نصوص عند الحفظ فتُقرأ بالمحوّل.
+  /// يُخزَّن بمفاتيح نصية (متطلبات json.encode) ويُقرأ بالمحوّل.
   Map<int, int> readReadingHistogram() {
     final raw = _box.read(_kReadingHours);
     if (raw is! Map) return {};
