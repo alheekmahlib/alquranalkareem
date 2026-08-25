@@ -74,7 +74,7 @@ class SettingsList extends StatelessWidget {
               const Gap(24),
               const SelectScreen(),
               const Gap(24),
-              const NotificationsSettings(),
+              NotificationsSettings(),
               const Gap(24),
               Divider(
                 thickness: 1.0,
