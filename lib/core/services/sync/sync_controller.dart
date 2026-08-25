@@ -13,6 +13,12 @@ import 'sync_service.dart';
 /// إطلاق/عودة للتطبيق، debounce بعد الكتابات المحلية، مؤقت خفيف كل 10 دقائق،
 /// وزر تحديث يدوي.
 class SyncController extends GetxController with WidgetsBindingObserver {
+  /// نمط الوصول الموحد في التطبيق — نسخة دائمة تُنشأ عند أول استخدام.
+  /// (تسجيل GetIt الـ lazy وحده لا يُنشئ النسخة قبل أول sl<>‎ وهذا لا يحدث).
+  static SyncController get instance => Get.isRegistered<SyncController>()
+      ? Get.find<SyncController>()
+      : Get.put(SyncController(), permanent: true);
+
   final SyncService syncService = SyncService();
 
   final roomId = Rxn<String>();
