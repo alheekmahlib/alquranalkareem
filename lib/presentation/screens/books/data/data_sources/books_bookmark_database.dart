@@ -42,7 +42,7 @@ class BooksBookmarkDatabase extends _$BooksBookmarkDatabase {
         await _addColumnIfMissing('books_bookmark', 'sync_uuid', 'TEXT');
         await _addColumnIfMissing(
           'books_bookmark',
-          'updatedAt',
+          'updated_at',
           'INTEGER NOT NULL DEFAULT 0',
         );
         await _addColumnIfMissing(
