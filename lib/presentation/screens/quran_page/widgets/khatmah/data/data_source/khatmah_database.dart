@@ -74,7 +74,7 @@ class KhatmahDatabase extends _$KhatmahDatabase {
         await _addColumnIfMissing('khatmahs', 'sync_uuid', 'TEXT');
         await _addColumnIfMissing(
           'khatmahs',
-          'updatedAt',
+          'updated_at',
           'INTEGER NOT NULL DEFAULT 0',
         );
         await _addColumnIfMissing(
@@ -85,7 +85,7 @@ class KhatmahDatabase extends _$KhatmahDatabase {
         await _addColumnIfMissing('khatmah_days', 'sync_uuid', 'TEXT');
         await _addColumnIfMissing(
           'khatmah_days',
-          'updatedAt',
+          'updated_at',
           'INTEGER NOT NULL DEFAULT 0',
         );
         await _addColumnIfMissing(
