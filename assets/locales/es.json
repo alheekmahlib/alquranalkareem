@@ -1613,5 +1613,135 @@
   "assistantTooLarge": "La pregunta es demasiado larga. Intenta acortarla.",
   "assistantGenericError": "No se pudo obtener una respuesta del modelo. Intentalo de nuevo o elige otro modelo.",
   "assistantNoData": "No hay datos disponibles para esta consulta en este momento.",
-  "midad": "Midad"
+  "midad": "Midad",
+  "deviceSync": "Sincronización de dispositivos",
+  "@deviceSync": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceSyncDesc": "Sincroniza tus marcadores, adhkar, planes y ajustes entre tus dispositivos con un código QR — sin cuenta",
+  "@deviceSyncDesc": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "createSyncGroup": "Crear grupo de sincronización",
+  "@createSyncGroup": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "joinSyncGroup": "Unirse escaneando un código QR",
+  "@joinSyncGroup": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "enterSyncCodeManually": "O introduce el código de sincronización manualmente",
+  "@enterSyncCodeManually": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncCodeHint": "Código de sincronización",
+  "@syncCodeHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "joinWithCode": "Unirse con el código",
+  "@joinWithCode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanQrTitle": "Escanear código QR",
+  "@scanQrTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanQrInstruction": "Apunta la cámara al código mostrado en tu otro dispositivo",
+  "@scanQrInstruction": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "cameraPermissionDenied": "El escaneo necesita permiso de cámara — introduce el código manualmente",
+  "@cameraPermissionDenied": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pairingQrTitle": "Código de emparejamiento de este dispositivo",
+  "@pairingQrTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pairingQrHint": "Escanea este código desde tu otro dispositivo para unirte al grupo",
+  "@pairingQrHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "devicesConnected": "Dispositivos conectados",
+  "@devicesConnected": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lastSync": "Última sincronización",
+  "@lastSync": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncNow": "Sincronizar ahora",
+  "@syncNow": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncing": "Sincronizando…",
+  "@syncing": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "resetSync": "Desvincular este dispositivo",
+  "@resetSync": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "resetSyncConfirm": "Este dispositivo saldrá del grupo de sincronización. Tus datos locales permanecen igual. ¿Continuar?",
+  "@resetSyncConfirm": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "copySyncCode": "Copiar código de sincronización",
+  "@copySyncCode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncCreateError": "No se pudo crear el grupo — revisa tu conexión",
+  "@syncCreateError": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncJoinFailed": "No se pudo unir — revisa el código y tu conexión",
+  "@syncJoinFailed": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncRoomFull": "El grupo está lleno (máx. 5 dispositivos)",
+  "@syncRoomFull": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncRoomNotFound": "Código no válido o caducado",
+  "@syncRoomNotFound": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "invalidSyncCode": "Código no válido",
+  "@invalidSyncCode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "neverSynced": "Nunca sincronizado",
+  "@neverSynced": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "confirm": "Confirmar",
+  "@confirm": {
+    "type": "text",
+    "placeholders": {}
+  }
 }

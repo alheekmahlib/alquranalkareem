@@ -1613,5 +1613,135 @@
   "assistantTooLarge": "سوال بہت لمبا ہے۔ اسے مختصر کرنے کی کوشش کریں۔",
   "assistantGenericError": "ماڈل سے جواب نہیں مل سکا۔ دوبارہ کوشش کریں یا کوئی اور ماڈل منتخب کریں۔",
   "assistantNoData": "اس وقت اس استفسار کے لیے کوئی ڈیٹا دستیاب نہیں ہے۔",
-  "midad": "مداد"
+  "midad": "مداد",
+  "deviceSync": "ڈیوائسز کی مطابقت",
+  "@deviceSync": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceSyncDesc": "اپنی نشانیاں، اذکاری، منصوبے اور ترتیبات QR کوڈ کے ذریعے اپنی ڈیوائسز کے درمیان ہم آہنگ کریں — بغیر اکاؤنٹ",
+  "@deviceSyncDesc": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "createSyncGroup": "مطابقت گروپ بنائیں",
+  "@createSyncGroup": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "joinSyncGroup": "QR کوڈ اسکین کر کے شامل ہوں",
+  "@joinSyncGroup": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "enterSyncCodeManually": "یا مطابقت کوڈ دستی طور پر درج کریں",
+  "@enterSyncCodeManually": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncCodeHint": "مطابقت کوڈ",
+  "@syncCodeHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "joinWithCode": "کوڈ سے شامل ہوں",
+  "@joinWithCode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanQrTitle": "QR کوڈ اسکین کریں",
+  "@scanQrTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanQrInstruction": "کیمرے کو اپنی دوسری ڈیوائس پر دکھے گئے کوڈ کی طرف رکھیں",
+  "@scanQrInstruction": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "cameraPermissionDenied": "اسکین کے لیے کیمرے کی اجازت درکار ہے — کوڈ دستی درج کریں",
+  "@cameraPermissionDenied": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pairingQrTitle": "اس ڈیوائس کا جوڑکوڈ",
+  "@pairingQrTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pairingQrHint": "گروپ میں شامل ہونے کے لیے یہ کوڈ اپنی دوسری ڈیوائس سے اسکین کریں",
+  "@pairingQrHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "devicesConnected": "منسلک ڈیوائسز",
+  "@devicesConnected": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lastSync": "آخری مطابقت",
+  "@lastSync": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncNow": "ابھی مطابقت کریں",
+  "@syncNow": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncing": "مطابقت جاری ہے…",
+  "@syncing": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "resetSync": "اس ڈیوائس کی مطابقت ختم کریں",
+  "@resetSync": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "resetSyncConfirm": "یہ ڈیوائس مطابقت گروپ سے الگ ہو جائے گی۔ آپ کا مقامی ڈیٹا برقرار رہے گا۔ جاری رکھیں؟",
+  "@resetSyncConfirm": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "copySyncCode": "مطابقت کوڈ کاپی کریں",
+  "@copySyncCode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncCreateError": "گروپ نہیں بن سکا — اپنا کنکشن چیک کریں",
+  "@syncCreateError": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncJoinFailed": "شامل نہیں ہو سکے — کوڈ اور کنکشن چیک کریں",
+  "@syncJoinFailed": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncRoomFull": "گروپ مکمل ہے (زیادہ سے زیادہ 5 ڈیوائسز)",
+  "@syncRoomFull": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncRoomNotFound": "کوڈ غلط یا میعاد ختم",
+  "@syncRoomNotFound": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "invalidSyncCode": "غلط کوڈ",
+  "@invalidSyncCode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "neverSynced": "ابھی تک مطابقت نہیں ہوئی",
+  "@neverSynced": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "confirm": "تصدیق کریں",
+  "@confirm": {
+    "type": "text",
+    "placeholders": {}
+  }
 }

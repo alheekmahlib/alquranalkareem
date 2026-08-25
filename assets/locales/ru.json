@@ -1577,5 +1577,135 @@
   "assistantTooLarge": "Вопрос слишком длинный. Попробуйте сократить его.",
   "assistantGenericError": "Не удалось получить ответ от модели. Попробуйте снова или выберите другую модель.",
   "assistantNoData": "В данный момент нет данных для этого запроса.",
-  "midad": "Мидад"
+  "midad": "Мидад",
+  "deviceSync": "Синхронизация устройств",
+  "@deviceSync": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceSyncDesc": "Синхронизируйте закладки, зикры, планы и настройки между устройствами по QR-коду — без аккаунта",
+  "@deviceSyncDesc": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "createSyncGroup": "Создать группу синхронизации",
+  "@createSyncGroup": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "joinSyncGroup": "Присоединиться по QR-коду",
+  "@joinSyncGroup": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "enterSyncCodeManually": "Или введите код синхронизации вручную",
+  "@enterSyncCodeManually": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncCodeHint": "Код синхронизации",
+  "@syncCodeHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "joinWithCode": "Присоединиться по коду",
+  "@joinWithCode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanQrTitle": "Сканировать QR-код",
+  "@scanQrTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanQrInstruction": "Наведите камеру на код на другом устройстве",
+  "@scanQrInstruction": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "cameraPermissionDenied": "Для сканирования нужен доступ к камере — введите код вручную",
+  "@cameraPermissionDenied": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pairingQrTitle": "Код сопряжения этого устройства",
+  "@pairingQrTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pairingQrHint": "Отсканируйте этот код на другом устройстве, чтобы присоединиться",
+  "@pairingQrHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "devicesConnected": "Подключённые устройства",
+  "@devicesConnected": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lastSync": "Последняя синхронизация",
+  "@lastSync": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncNow": "Синхронизировать сейчас",
+  "@syncNow": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncing": "Синхронизация…",
+  "@syncing": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "resetSync": "Отключить синхронизацию устройства",
+  "@resetSync": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "resetSyncConfirm": "Устройство покинет группу синхронизации. Локальные данные останутся. Продолжить?",
+  "@resetSyncConfirm": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "copySyncCode": "Скопировать код синхронизации",
+  "@copySyncCode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncCreateError": "Не удалось создать группу — проверьте соединение",
+  "@syncCreateError": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncJoinFailed": "Не удалось присоединиться — проверьте код и соединение",
+  "@syncJoinFailed": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncRoomFull": "Группа заполнена (макс. 5 устройств)",
+  "@syncRoomFull": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncRoomNotFound": "Неверный или истёкший код",
+  "@syncRoomNotFound": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "invalidSyncCode": "Неверный код",
+  "@invalidSyncCode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "neverSynced": "Ещё не синхронизировалось",
+  "@neverSynced": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "confirm": "Подтвердить",
+  "@confirm": {
+    "type": "text",
+    "placeholders": {}
+  }
 }

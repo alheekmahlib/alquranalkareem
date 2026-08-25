@@ -1607,5 +1607,135 @@
   "assistantTooLarge": "Pertanyaan terlalu panjang. Coba persingkat.",
   "assistantGenericError": "Tidak bisa mendapatkan jawaban dari model. Coba lagi atau pilih model lain.",
   "assistantNoData": "Tidak ada data yang tersedia untuk kueri ini saat ini.",
-  "midad": "Midad"
+  "midad": "Midad",
+  "deviceSync": "Sinkronisasi perangkat",
+  "@deviceSync": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceSyncDesc": "Sinkronkan penanda, dzikir, rencana, dan pengaturan Anda antar perangkat dengan kode QR — tanpa akun",
+  "@deviceSyncDesc": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "createSyncGroup": "Buat grup sinkronisasi",
+  "@createSyncGroup": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "joinSyncGroup": "Gabung dengan memindai kode QR",
+  "@joinSyncGroup": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "enterSyncCodeManually": "Atau masukkan kode sinkronisasi secara manual",
+  "@enterSyncCodeManually": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncCodeHint": "Kode sinkronisasi",
+  "@syncCodeHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "joinWithCode": "Gabung dengan kode",
+  "@joinWithCode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanQrTitle": "Pindai kode QR",
+  "@scanQrTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanQrInstruction": "Arahkan kamera ke kode yang ditampilkan di perangkat lain Anda",
+  "@scanQrInstruction": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "cameraPermissionDenied": "Pemindaian memerlukan izin kamera — masukkan kode secara manual",
+  "@cameraPermissionDenied": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pairingQrTitle": "Kode pemasangan perangkat ini",
+  "@pairingQrTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pairingQrHint": "Pindai kode ini dari perangkat lain Anda untuk bergabung ke grup",
+  "@pairingQrHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "devicesConnected": "Perangkat terhubung",
+  "@devicesConnected": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lastSync": "Sinkronisasi terakhir",
+  "@lastSync": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncNow": "Sinkronkan sekarang",
+  "@syncNow": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncing": "Menyinkronkan…",
+  "@syncing": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "resetSync": "Lepaskan sinkronisasi perangkat ini",
+  "@resetSync": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "resetSyncConfirm": "Perangkat ini akan keluar dari grup sinkronisasi. Data lokal Anda tetap sama. Lanjutkan?",
+  "@resetSyncConfirm": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "copySyncCode": "Salin kode sinkronisasi",
+  "@copySyncCode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncCreateError": "Gagal membuat grup — periksa koneksi Anda",
+  "@syncCreateError": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncJoinFailed": "Gagal bergabung — periksa kode dan koneksi Anda",
+  "@syncJoinFailed": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncRoomFull": "Grup penuh (maks. 5 perangkat)",
+  "@syncRoomFull": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncRoomNotFound": "Kode tidak valid atau kedaluwarsa",
+  "@syncRoomNotFound": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "invalidSyncCode": "Kode tidak valid",
+  "@invalidSyncCode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "neverSynced": "Belum pernah tersinkron",
+  "@neverSynced": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "confirm": "Konfirmasi",
+  "@confirm": {
+    "type": "text",
+    "placeholders": {}
+  }
 }

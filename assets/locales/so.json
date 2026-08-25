@@ -1585,5 +1585,135 @@
   "assistantTooLarge": "Su aashu waa dheer tahay. Isku day inaad gaabisato.",
   "assistantGenericError": "Lama heli karin jawaab moodelka. Isku day mar kale ama dooro moodel kale.",
   "assistantNoData": "Ma jiro xog la heli karo weydintan hadda.",
-  "midad": "Midad"
+  "midad": "Midad",
+  "deviceSync": "Isku-dhubka qalabka",
+  "@deviceSync": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "deviceSyncDesc": "Calaamadahaaga, dhikrarkaaga, qorshooyinkaaga iyo dejimahaaga u dhexeeya qalabkaaga QR code ahaan — xisaab la'aan",
+  "@deviceSyncDesc": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "createSyncGroup": "Abur koox isku-dhub",
+  "@createSyncGroup": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "joinSyncGroup": "Ku biir QR code scan",
+  "@joinSyncGroup": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "enterSyncCodeManually": "Ama geli koodhka isku-dhubka gacanta",
+  "@enterSyncCodeManually": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncCodeHint": "Koodhka isku-dhubka",
+  "@syncCodeHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "joinWithCode": "Ku biir koodhka",
+  "@joinWithCode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanQrTitle": "Scan QR code",
+  "@scanQrTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "scanQrInstruction": "Kaameradda jiheysii koodhka ka muuqda qalabkaaga kale",
+  "@scanQrInstruction": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "cameraPermissionDenied": "Scan-ku wuxuu u baahan yahay ogolaansho kaamerad — koodhka gacanta geli",
+  "@cameraPermissionDenied": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pairingQrTitle": "Koodhka isku-xidhka qalabkan",
+  "@pairingQrTitle": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "pairingQrHint": "Koodhkan ka scan qalabkaaga kale si aad kooxda ku biirtid",
+  "@pairingQrHint": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "devicesConnected": "Qalabka la isku-xidhay",
+  "@devicesConnected": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "lastSync": "Isku-dhubkii ugu dambeeyay",
+  "@lastSync": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncNow": "Hadda isku-dhub",
+  "@syncNow": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncing": "Waa la isku-dhubeynaa…",
+  "@syncing": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "resetSync": "Jooji isku-dhubka qalabkan",
+  "@resetSync": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "resetSyncConfirm": "Qalabkan wuu ka baxayaa kooxda isku-dhubka. Xogtaada hoose wuu sii jiri doonaa. Sii wad?",
+  "@resetSyncConfirm": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "copySyncCode": "Koobiyi koodhka isku-dhubka",
+  "@copySyncCode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncCreateError": "Lama abuurin kooxda — xiriirka hubi",
+  "@syncCreateError": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncJoinFailed": "Lama gaarin — koodhka iyo xiriirka hubi",
+  "@syncJoinFailed": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncRoomFull": "Kooxdu way buuxsantahay (ugu badnaan 5 qalab)",
+  "@syncRoomFull": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncRoomNotFound": "Koodh khaldan ama dhacay",
+  "@syncRoomNotFound": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "invalidSyncCode": "Koodh khaldan",
+  "@invalidSyncCode": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "neverSynced": "Weli lama isku-dhubin",
+  "@neverSynced": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "confirm": "Xaqiiji",
+  "@confirm": {
+    "type": "text",
+    "placeholders": {}
+  }
 }
