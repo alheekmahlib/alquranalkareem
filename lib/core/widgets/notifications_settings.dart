@@ -2,55 +2,60 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-import '../services/notifications_manager.dart';
+import '../../presentation/controllers/notifications_settings_controller.dart';
 import '../utils/helpers/app_text_styles.dart';
 import 'container_button.dart';
 import 'custom_switch_widget.dart';
 
 /// قسم إعدادات التذكيرات الذكية — يُضاف داخل [SettingsList].
 ///
-/// كل تغيير هنا يعيد جدولة هضم اليوم فورًا عبر [NotificationManager].
-class NotificationsSettings extends StatefulWidget {
-  const NotificationsSettings({super.key});
+/// الحالة في [NotificationsSettingsController] (GetX) وكل تغيير يعيد
+/// جدولة هضم اليوم فورًا عبر NotificationManager.
+class NotificationsSettings extends StatelessWidget {
+  NotificationsSettings({super.key});
 
-  @override
-  State<NotificationsSettings> createState() => _NotificationsSettingsState();
-}
+  final notificationsSettingsCtrl = NotificationsSettingsController.instance;
 
-class _NotificationsSettingsState extends State<NotificationsSettings> {
-  NotificationManager get manager => NotificationManager.instance;
-
-  Future<void> _pickReminderTime() async {
+  Future<void> _pickReminderTime(BuildContext context) async {
     final picked = await showTimePicker(
       context: context,
       initialTime: TimeOfDay(
-        hour: manager.manualHour ?? 20,
-        minute: manager.manualMinute ?? 0,
+        hour: notificationsSettingsCtrl.manualHour ?? 20,
+        minute: notificationsSettingsCtrl.manualMinute ?? 0,
       ),
     );
     if (picked == null) return;
-    await manager.setManualTime(picked.hour, picked.minute);
-    setState(() {});
+    await notificationsSettingsCtrl.setManualTime(picked.hour, picked.minute);
   }
 
-  Future<void> _pickQuietStart() async {
+  Future<void> _pickQuietStart(BuildContext context) async {
     final picked = await showTimePicker(
       context: context,
-      initialTime: TimeOfDay(hour: manager.quietStartHour, minute: 0),
+      initialTime: TimeOfDay(
+        hour: notificationsSettingsCtrl.quietStartHour,
+        minute: 0,
+      ),
     );
     if (picked == null) return;
-    await manager.setQuietHours(picked.hour, manager.quietEndHour);
-    setState(() {});
+    await notificationsSettingsCtrl.setQuietHours(
+      picked.hour,
+      notificationsSettingsCtrl.quietEndHour,
+    );
   }
 
-  Future<void> _pickQuietEnd() async {
+  Future<void> _pickQuietEnd(BuildContext context) async {
     final picked = await showTimePicker(
       context: context,
-      initialTime: TimeOfDay(hour: manager.quietEndHour, minute: 0),
+      initialTime: TimeOfDay(
+        hour: notificationsSettingsCtrl.quietEndHour,
+        minute: 0,
+      ),
     );
     if (picked == null) return;
-    await manager.setQuietHours(manager.quietStartHour, picked.hour);
-    setState(() {});
+    await notificationsSettingsCtrl.setQuietHours(
+      notificationsSettingsCtrl.quietStartHour,
+      picked.hour,
+    );
   }
 
   String _formatTime(int hour, [int minute = 0]) =>
@@ -68,151 +73,130 @@ class _NotificationsSettingsState extends State<NotificationsSettings> {
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Column(
-        children: [
-          Text('smartReminders'.tr, style: AppTextStyles.titleMedium()),
-          const Gap(4),
-          divider,
-          const Gap(8),
-          CustomSwitchListTile(
-            title: 'smartReminders'.tr,
-            subtitle: 'smartRemindersDesc'.tr,
-            value: manager.isEnabled,
-            onChanged: (value) async {
-              await manager.setEnabled(value);
-              setState(() {});
-            },
-          ),
-          if (manager.isEnabled) ...[
-            const Gap(8),
+      child: GetBuilder<NotificationsSettingsController>(
+        builder: (ctrl) => Column(
+          children: [
+            Text('smartReminders'.tr, style: AppTextStyles.titleMedium()),
+            const Gap(4),
             divider,
             const Gap(8),
-            _reminderTimeTile(context),
-            const Gap(8),
-            divider,
-            const Gap(8),
-            _quietHoursSection(context, divider),
-            const Gap(8),
-            divider,
-            const Gap(8),
-            _contentSection(context),
+            CustomSwitchListTile(
+              title: 'smartReminders'.tr,
+              subtitle: 'smartRemindersDesc'.tr,
+              value: ctrl.isEnabled,
+              onChanged: ctrl.setEnabled,
+            ),
+            if (ctrl.isEnabled) ...[
+              const Gap(8),
+              divider,
+              const Gap(8),
+              _reminderTimeTile(context, ctrl),
+              const Gap(8),
+              divider,
+              const Gap(8),
+              _quietHoursSection(context, ctrl),
+              const Gap(8),
+              divider,
+              const Gap(8),
+              _contentSection(context, ctrl),
+            ],
           ],
-        ],
+        ),
       ),
     );
   }
 
-  Widget _reminderTimeTile(BuildContext context) {
-    final isAuto = manager.manualHour == null;
+  Widget _reminderTimeTile(
+    BuildContext context,
+    NotificationsSettingsController ctrl,
+  ) {
+    final isAuto = ctrl.manualHour == null;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColorLight.withValues(alpha: .15),
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
-      child: Column(
+      child: Row(
         children: [
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  'reminderTime'.tr,
-                  style: AppTextStyles.titleMedium().copyWith(height: 2),
-                ),
-              ),
-              ContainerButton(
-                title: 'autoTime'.tr,
-                titleColor: context.theme.colorScheme.inversePrimary,
-                value: isAuto.obs,
-                height: 32,
-                verticalPadding: 4.0,
-                horizontalPadding: 8.0,
-                titleStyle: AppTextStyles.titleMedium().copyWith(fontSize: 14),
-                onPressed: () async {
-                  await manager.setManualTime(null);
-                  setState(() {});
-                },
-              ),
-              const Gap(4),
-              ContainerButton(
-                title: isAuto
-                    ? '--:--'
-                    : _formatTime(
-                        manager.manualHour!,
-                        manager.manualMinute ?? 0,
-                      ),
-                titleColor: context.theme.colorScheme.inversePrimary,
-                value: (!isAuto).obs,
-                height: 32,
-                verticalPadding: 4.0,
-                horizontalPadding: 8.0,
-                onPressed: _pickReminderTime,
-              ),
-            ],
+          Expanded(
+            child: Text(
+              'reminderTime'.tr,
+              style: AppTextStyles.titleMedium().copyWith(height: 2),
+            ),
+          ),
+          ContainerButton(
+            title: 'autoTime'.tr,
+            titleColor: context.theme.colorScheme.inversePrimary,
+            value: isAuto.obs,
+            height: 32,
+            verticalPadding: 4.0,
+            horizontalPadding: 8.0,
+            onPressed: () => ctrl.setManualTime(null),
+          ),
+          const Gap(4),
+          ContainerButton(
+            title: isAuto
+                ? '--:--'
+                : _formatTime(ctrl.manualHour!, ctrl.manualMinute ?? 0),
+            titleColor: context.theme.colorScheme.inversePrimary,
+            value: (!isAuto).obs,
+            height: 32,
+            verticalPadding: 4.0,
+            horizontalPadding: 8.0,
+            onPressed: () => _pickReminderTime(context),
           ),
         ],
       ),
     );
   }
 
-  Widget _quietHoursSection(BuildContext context, Widget divider) {
+  Widget _quietHoursSection(
+    BuildContext context,
+    NotificationsSettingsController ctrl,
+  ) {
     return Column(
       children: [
         CustomSwitchListTile(
           title: 'quietHours'.tr,
           subtitle:
-              '${'from'.tr} ${_formatTime(manager.quietStartHour)} '
-              '${'to'.tr} ${_formatTime(manager.quietEndHour)}',
-          value: manager.isQuietHoursEnabled,
-          onChanged: (value) async {
-            await manager.setQuietHoursEnabled(value);
-            setState(() {});
-          },
+              '${'from'.tr} ${_formatTime(ctrl.quietStartHour)} '
+              '${'to'.tr} ${_formatTime(ctrl.quietEndHour)}',
+          value: ctrl.isQuietHoursEnabled,
+          onChanged: ctrl.setQuietHoursEnabled,
         ),
-        if (manager.isQuietHoursEnabled)
+        if (ctrl.isQuietHoursEnabled)
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Row(
               children: [
                 Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'from'.tr,
-                        style: AppTextStyles.titleMedium().copyWith(height: 2),
-                      ),
-                      const Gap(8),
-                      ContainerButton(
-                        title: _formatTime(manager.quietStartHour),
-                        height: 32,
-                        verticalPadding: 4.0,
-                        horizontalPadding: 8.0,
-                        onPressed: _pickQuietStart,
-                      ),
-                    ],
+                  child: Text(
+                    'from'.tr,
+                    style: AppTextStyles.titleMedium().copyWith(height: 2),
                   ),
+                ),
+                ContainerButton(
+                  title: _formatTime(ctrl.quietStartHour),
+                  height: 32,
+                  verticalPadding: 4.0,
+                  horizontalPadding: 8.0,
+                  onPressed: () => _pickQuietStart(context),
                 ),
                 const Gap(16),
                 Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'to'.tr,
-                        style: AppTextStyles.titleMedium().copyWith(height: 2),
-                        textAlign: TextAlign.end,
-                      ),
-                      const Gap(8),
-                      ContainerButton(
-                        title: _formatTime(manager.quietEndHour),
-                        height: 32,
-                        verticalPadding: 4.0,
-                        horizontalPadding: 8.0,
-                        onPressed: _pickQuietEnd,
-                      ),
-                    ],
+                  child: Text(
+                    'to'.tr,
+                    style: AppTextStyles.titleMedium().copyWith(height: 2),
+                    textAlign: TextAlign.end,
                   ),
+                ),
+                ContainerButton(
+                  title: _formatTime(ctrl.quietEndHour),
+                  height: 32,
+                  verticalPadding: 4.0,
+                  horizontalPadding: 8.0,
+                  onPressed: () => _pickQuietEnd(context),
                 ),
               ],
             ),
@@ -221,7 +205,10 @@ class _NotificationsSettingsState extends State<NotificationsSettings> {
     );
   }
 
-  Widget _contentSection(BuildContext context) {
+  Widget _contentSection(
+    BuildContext context,
+    NotificationsSettingsController ctrl,
+  ) {
     return Column(
       children: [
         Padding(
@@ -241,29 +228,20 @@ class _NotificationsSettingsState extends State<NotificationsSettings> {
         const Gap(6),
         CustomSwitchListTile(
           title: 'quran'.tr,
-          value: manager.isQuranContentEnabled,
-          onChanged: (value) async {
-            await manager.setQuranContentEnabled(value);
-            setState(() {});
-          },
+          value: ctrl.isQuranContentEnabled,
+          onChanged: ctrl.setQuranContentEnabled,
         ),
         const Gap(4),
         CustomSwitchListTile(
           title: 'islamicLibrary'.tr,
-          value: manager.isBooksContentEnabled,
-          onChanged: (value) async {
-            await manager.setBooksContentEnabled(value);
-            setState(() {});
-          },
+          value: ctrl.isBooksContentEnabled,
+          onChanged: ctrl.setBooksContentEnabled,
         ),
         const Gap(4),
         CustomSwitchListTile(
           title: 'khatmah'.tr,
-          value: manager.isKhatmahContentEnabled,
-          onChanged: (value) async {
-            await manager.setKhatmahContentEnabled(value);
-            setState(() {});
-          },
+          value: ctrl.isKhatmahContentEnabled,
+          onChanged: ctrl.setKhatmahContentEnabled,
         ),
       ],
     );
