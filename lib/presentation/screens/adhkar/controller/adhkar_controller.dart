@@ -46,7 +46,17 @@ class AzkarController extends GetxController {
     final Map<String, dynamic> map = json.decode(jsonData);
     final list = map['data'] as List<dynamic>;
 
-    return list.map((e) => AdhkarData.fromJson(e)).toList();
+    return list
+        .map(
+          (e) => AdhkarData.fromJson({
+            ...e as Map<String, dynamic>,
+            // أعمدة المزامنة غير موجودة في azkar.json الأصلي —
+            // fromJson المولد يطلبها كقيم غير فارغة.
+            'updatedAt': 0,
+            'deleted': false,
+          }),
+        )
+        .toList();
   }
 
   Future<void> fetchDhekr() async {
@@ -273,8 +283,7 @@ class AzkarController extends GetxController {
   }
 
   /// تطبيع النص: إزالة التشكيل وتسوية همزات الألف.
-  String _normalize(String input) =>
-      input.removeDiacriticsQuran(input).trim();
+  String _normalize(String input) => input.removeDiacriticsQuran(input).trim();
 
   /// مسح حقل البحث والنتائج.
   void clearSearch() {
