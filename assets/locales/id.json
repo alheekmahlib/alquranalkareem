@@ -1287,6 +1287,49 @@
       "bookName": {}
     }
   },
+  "smartReminders": "Pengingat cerdas",
+  "@smartReminders": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "smartRemindersDesc": "Satu pengingat harian yang lembut dan menyesuaikan kebiasaan membaca Anda",
+  "@smartRemindersDesc": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reminderTime": "Waktu pengingat",
+  "@reminderTime": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "autoTime": "Otomatis (cerdas)",
+  "@autoTime": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "quietHours": "Jam tenang",
+  "@quietHours": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "digestContent": "Konten pengingat",
+  "@digestContent": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "continueReading": "Lanjutkan membaca",
+  "@continueReading": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "khatmaRemainingDays": "Khatamah Anda: @done dari @total hari selesai",
+  "@khatmaRemainingDays": {
+    "type": "text",
+    "placeholders": {
+      "done": {},
+      "total": {}
+    }
+  },
   "lastSearch": "Pencarian Terakhir",
   "@lastSearch": {
     "type": "text",

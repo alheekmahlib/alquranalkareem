@@ -1285,6 +1285,49 @@
     "type": "text",
     "placeholders": {}
   },
+  "smartReminders": "Akıllı hatırlatıcılar",
+  "@smartReminders": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "smartRemindersDesc": "Okuma alışkanlıklarınıza uyum sağlayan günde bir nazik hatırlatma",
+  "@smartRemindersDesc": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reminderTime": "Hatırlatma zamanı",
+  "@reminderTime": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "autoTime": "Otomatik (akıllı)",
+  "@autoTime": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "quietHours": "Sessiz saatler",
+  "@quietHours": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "digestContent": "Hatırlatma içeriği",
+  "@digestContent": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "continueReading": "Okumaya devam et",
+  "@continueReading": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "khatmaRemainingDays": "Hatmin: @total günden @done tamamlandı",
+  "@khatmaRemainingDays": {
+    "type": "text",
+    "placeholders": {
+      "done": {},
+      "total": {}
+    }
+  },
   "lastSearch": "آخر بحث",
   "@lastSearch": {
     "type": "text",

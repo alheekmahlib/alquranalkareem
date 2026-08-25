@@ -1285,6 +1285,49 @@
     "type": "text",
     "placeholders": {}
   },
+  "smartReminders": "یادخستنە زیرەکەکان",
+  "@smartReminders": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "smartRemindersDesc": "یادخستنێکی ڕۆژانەی نەرم کە لەگەڵ خوێندنەوەکەت دەگونجێت",
+  "@smartRemindersDesc": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reminderTime": "کاتی یادخستن",
+  "@reminderTime": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "autoTime": "خۆکار (زیرەک)",
+  "@autoTime": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "quietHours": "کاتژمێرە بێدەنگەکان",
+  "@quietHours": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "digestContent": "ناوەڕۆکی یادخستن",
+  "@digestContent": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "continueReading": "بەردەوامبە لە خوێندنەوە",
+  "@continueReading": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "khatmaRemainingDays": "خەتمەکەت: @done لە @total ڕۆژ تەواوکراوە",
+  "@khatmaRemainingDays": {
+    "type": "text",
+    "placeholders": {
+      "done": {},
+      "total": {}
+    }
+  },
   "lastSearch": "دوایین گەڕان",
   "@lastSearch": {
     "type": "text",

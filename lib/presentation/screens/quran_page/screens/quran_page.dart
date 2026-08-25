@@ -7,14 +7,6 @@ class QuranPages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    NotificationManager().updateBookProgress(
-      'quran'.tr,
-      'notifyQuranBody'.trParams({
-        'currentPageNumber':
-            '${QuranCtrl.instance.state.currentPageNumber.value}',
-      }),
-      QuranCtrl.instance.state.currentPageNumber.value,
-    );
     return Center(
       child: GetBuilder<QuranController>(
         id: 'backgroundColor',

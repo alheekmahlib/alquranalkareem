@@ -31,11 +31,7 @@ class OnlinePlayButton extends StatelessWidget {
               backgroundColor: iconColor ?? context.theme.colorScheme.primary,
               svgColor: context.theme.colorScheme.surface,
               onPressed: () async {
-                NotificationManager().updateBookProgress(
-                  'quranAudio'.tr,
-                  'notifyListenBody'.tr,
-                  surahAudioCtrl.state.currentAudioListSurahNum.value,
-                );
+                NotificationManager.instance.trackAudioListening();
                 await surahAudioCtrl.playSurah(
                   context: context,
                   surahNumber:

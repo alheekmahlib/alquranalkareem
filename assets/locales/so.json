@@ -1293,6 +1293,49 @@
       "bookName": {}
     }
   },
+  "smartReminders": "Xasuusin xariif ah",
+  "@smartReminders": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "smartRemindersDesc": "Xasuusin maalinle ah oo jilicsan oo ku habboon caadada akhriskaaga",
+  "@smartRemindersDesc": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reminderTime": "Waqtiga xasuusinta",
+  "@reminderTime": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "autoTime": "Otomaatig (xariif)",
+  "@autoTime": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "quietHours": "Saacadaha aamusnaanta",
+  "@quietHours": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "digestContent": "Waxa xasuusin ka kooban",
+  "@digestContent": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "continueReading": "Sii wad akhriska",
+  "@continueReading": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "khatmaRemainingDays": "Khatmaada: @done maalmood oo @total ah ayaa la dhammeeyay",
+  "@khatmaRemainingDays": {
+    "type": "text",
+    "placeholders": {
+      "done": {},
+      "total": {}
+    }
+  },
   "lastSearch": "Raadintii Ugu Dambaysay",
   "@lastSearch": {
     "type": "text",

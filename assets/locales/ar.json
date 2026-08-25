@@ -1285,6 +1285,49 @@
     "type": "text",
     "placeholders": {}
   },
+  "smartReminders": "التذكيرات الذكية",
+  "@smartReminders": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "smartRemindersDesc": "تذكير يومي واحد لطيف يتكيف مع عادات قراءتك",
+  "@smartRemindersDesc": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reminderTime": "وقت التذكير",
+  "@reminderTime": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "autoTime": "تلقائي (ذكي)",
+  "@autoTime": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "quietHours": "ساعات الهدوء",
+  "@quietHours": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "digestContent": "محتوى التذكير",
+  "@digestContent": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "continueReading": "متابعة القراءة",
+  "@continueReading": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "khatmaRemainingDays": "ختمتك: أنجزت @done من @total يومًا",
+  "@khatmaRemainingDays": {
+    "type": "text",
+    "placeholders": {
+      "done": {},
+      "total": {}
+    }
+  },
   "lastSearch": "آخر بحث",
   "@lastSearch": {
     "type": "text",

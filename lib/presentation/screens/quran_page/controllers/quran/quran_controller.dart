@@ -15,8 +15,12 @@ class QuranController extends GetxController {
 
     debounce(
       QuranCtrl.instance.state.currentPageNumber,
-      (pageNumber) async =>
-          await HomeWidgetService.instance.updateReadingProgress(),
+      (pageNumber) async {
+        await HomeWidgetService.instance.updateReadingProgress();
+        // تتبّع خفيف للإشعارات الذكية: كتابة GetStorage فقط — يُستدعى بعد
+        // استقرار الصفحة (700ms) لا أثناء قلبها، وأي جدولة تتم خارج الشاشة.
+        NotificationManager.instance.trackQuranReading();
+      },
       time: const Duration(milliseconds: 700),
     );
   }

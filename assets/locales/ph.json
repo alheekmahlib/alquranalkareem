@@ -1287,6 +1287,49 @@
       "bookName": {}
     }
   },
+  "smartReminders": "Matalinong mga paalala",
+  "@smartReminders": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "smartRemindersDesc": "Isang banayad na pang-araw-araw na paalala na umaangkop sa iyong gawi sa pagbasa",
+  "@smartRemindersDesc": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reminderTime": "Oras ng paalala",
+  "@reminderTime": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "autoTime": "Awtomatiko (matalino)",
+  "@autoTime": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "quietHours": "Oras ng katahimikan",
+  "@quietHours": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "digestContent": "Nilalaman ng paalala",
+  "@digestContent": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "continueReading": "Ipagpatuloy ang pagbasa",
+  "@continueReading": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "khatmaRemainingDays": "Ang iyong khatma: @done sa @total na araw na natapos",
+  "@khatmaRemainingDays": {
+    "type": "text",
+    "placeholders": {
+      "done": {},
+      "total": {}
+    }
+  },
   "lastSearch": "Huling Paghahanap",
   "@lastSearch": {
     "type": "text",

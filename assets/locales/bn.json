@@ -1293,6 +1293,49 @@
       "bookName": {}
     }
   },
+  "smartReminders": "স্মার্ট রিমাইন্ডার",
+  "@smartReminders": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "smartRemindersDesc": "আপনার পড়ার অভ্যাসের সাথে মানিয়ে চলে এমন একটি কোমল দৈনিক রিমাইন্ডার",
+  "@smartRemindersDesc": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reminderTime": "রিমাইন্ডারের সময়",
+  "@reminderTime": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "autoTime": "স্বয়ংক্রিয় (স্মার্ট)",
+  "@autoTime": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "quietHours": "নীরব সময়",
+  "@quietHours": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "digestContent": "রিমাইন্ডারের বিষয়বস্তু",
+  "@digestContent": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "continueReading": "পড়া চালিয়ে যান",
+  "@continueReading": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "khatmaRemainingDays": "আপনার খাতমা: @total দিনের মধ্যে @done সম্পন্ন",
+  "@khatmaRemainingDays": {
+    "type": "text",
+    "placeholders": {
+      "done": {},
+      "total": {}
+    }
+  },
   "lastSearch": "শেষ অনুসন্ধান",
   "@lastSearch": {
     "type": "text",

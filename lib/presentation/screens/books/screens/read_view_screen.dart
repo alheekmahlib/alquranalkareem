@@ -228,11 +228,16 @@ class ReadViewScreen extends StatelessWidget {
   void _saveLastRead(PageContent page, int totalPages) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final book = _findCurrentBook();
-      booksCtrl.saveLastRead(
-        page.pageNumber,
-        book.bookName.isNotEmpty ? book.bookName : 'Unknown Book',
-        bookNumber,
-        totalPages,
+      final bookName = book.bookName.isNotEmpty
+          ? book.bookName
+          : 'Unknown Book';
+      booksCtrl.saveLastRead(page.pageNumber, bookName, bookNumber, totalPages);
+      // تتبّع خفيف للإشعارات الذكية (كتابة GetStorage فقط دون جدولة).
+      NotificationManager.instance.trackBookReading(
+        bookName: bookName,
+        bookNumber: bookNumber,
+        page: page.pageNumber,
+        totalPages: totalPages,
       );
     });
   }
@@ -305,11 +310,11 @@ class ReadViewScreen extends StatelessWidget {
               onPressed: () async {
                 // ignore: deprecated_member_use
                 selectableRegionState.copySelection(
-                    SelectionChangedCause.toolbar);
+                  SelectionChangedCause.toolbar,
+                );
                 selectableRegionState.hideToolbar();
                 await Future.delayed(const Duration(milliseconds: 300));
-                final data =
-                    await Clipboard.getData(Clipboard.kTextPlain);
+                final data = await Clipboard.getData(Clipboard.kTextPlain);
                 final selectedText = data?.text ?? '';
                 if (selectedText.isNotEmpty) {
                   _lookupNarrator(selectedText);

@@ -45,6 +45,7 @@ assets/QuranData.sqlite
 .packages
 .pub-cache/
 .pub/
+.docs/
 /build/
 
 # Symbolication related
