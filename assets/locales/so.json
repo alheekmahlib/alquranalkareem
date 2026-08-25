@@ -1522,6 +1522,7 @@
   "feedback_contact_optional": "Iimaylka xiriirka (ikhtiyaari)",
   "feedback_sent_success": "Rajadaada si guul leh ayaa loo diray!",
   "feedback_sent_error": "Rajinta lama diri karin. Isku day mar kale.",
+  "feedback_queued": "Your feedback will be sent automatically once the connection is back",
   "my_feedback": "Rajadayda",
   "no_feedback_yet": "Weli rajad ma soo dirtid",
   "feedback_reply_hint": "Raac-dheeri qor...",

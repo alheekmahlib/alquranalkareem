@@ -285,11 +285,11 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "v0.1.1"
-      resolved-ref: ca38f785dfa3f4722a99f2219dc47da21f6a7144
+      ref: "v0.2.0"
+      resolved-ref: a59b7d85e366c8feb9f8fee7fc17925587ba89e3
       url: "https://github.com/alheekmahlib/connectivity_kit.git"
     source: git
-    version: "0.1.1"
+    version: "0.2.0"
   connectivity_plus:
     dependency: "direct main"
     description:

@@ -1542,6 +1542,7 @@
   "feedback_contact_optional": "ئیمەیلی پەیوەندی (ئیختیاری)",
   "feedback_sent_success": "ڕەخنە و پێشنیارەکەت بە سەرکەوتوویی نێردرا!",
   "feedback_sent_error": "نەتوانرا ڕەخنە و پێشنیار بنێردرێت. دووبارە هەوڵ بدەوە.",
+  "feedback_queued": "Your feedback will be sent automatically once the connection is back",
   "my_feedback": "ڕەخنە و پێشنیارەکانم",
   "no_feedback_yet": "هێشتا هیچ ڕەخنە و پێشنیارێکت نەناردووە",
   "feedback_reply_hint": "بەدواداچوونێک بنووسە...",

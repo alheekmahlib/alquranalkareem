@@ -207,16 +207,19 @@ class FeedbackConversationScreen extends StatelessWidget {
     if (!context.mounted) return;
     result.fold(
       (failure) => context.showCustomErrorSnackBar('feedback_sent_error'.tr),
-      (_) => ctrl.clear(),
+      (reply) {
+        ctrl.clear();
+        // id فارغ = الرد في الطابور وسيُرسل عند عودة الاتصال.
+        if (reply.id.isEmpty) {
+          context.showCustomErrorSnackBar('feedback_queued'.tr, isDone: true);
+        }
+      },
     );
   }
 
   Widget _errorState(BuildContext context) {
     return Center(
-      child: TextButton(
-        onPressed: _c.loadAllThreads,
-        child: Text('retry'.tr),
-      ),
+      child: TextButton(onPressed: _c.loadAllThreads, child: Text('retry'.tr)),
     );
   }
 }

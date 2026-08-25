@@ -1550,6 +1550,7 @@
   "feedback_contact_optional": "Correo de contacto (opcional)",
   "feedback_sent_success": "¡Tu comentario se envió con éxito!",
   "feedback_sent_error": "No se pudo enviar el comentario. Inténtalo de nuevo.",
+  "feedback_queued": "Your feedback will be sent automatically once the connection is back",
   "my_feedback": "Mis comentarios",
   "no_feedback_yet": "Aún no has enviado ningún comentario",
   "feedback_reply_hint": "Escribe un seguimiento...",
