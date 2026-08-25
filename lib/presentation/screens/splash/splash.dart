@@ -7,6 +7,7 @@ import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/core/widgets/container_button.dart';
 import '/core/widgets/settings_list.dart';
+import '/core/services/notifications_manager.dart';
 import '/presentation/controllers/general/extensions/general_getters.dart';
 import '../../../../core/utils/constants/lottie.dart';
 import '../../../core/utils/constants/lottie_constants.dart';

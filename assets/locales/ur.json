@@ -1293,6 +1293,49 @@
       "bookName": {}
     }
   },
+  "smartReminders": "سمارٹ یاد دہانیاں",
+  "@smartReminders": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "smartRemindersDesc": "آپ کی مطالعہ کی عادات کے مطابق ایک نرم روزانہ یاد دہانی",
+  "@smartRemindersDesc": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "reminderTime": "یاد دہانی کا وقت",
+  "@reminderTime": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "autoTime": "خودکار (سمارٹ)",
+  "@autoTime": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "quietHours": "خاموش گھنٹے",
+  "@quietHours": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "digestContent": "یاد دہانی کا مواد",
+  "@digestContent": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "continueReading": "مطالعہ جاری رکھیں",
+  "@continueReading": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "khatmaRemainingDays": "آپ کی ختمہ: @total دنوں میں سے @done مکمل",
+  "@khatmaRemainingDays": {
+    "type": "text",
+    "placeholders": {
+      "done": {},
+      "total": {}
+    }
+  },
   "lastSearch": "آخری تلاش",
   "@lastSearch": {
     "type": "text",

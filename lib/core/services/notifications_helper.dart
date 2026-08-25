@@ -3,8 +3,11 @@ import 'dart:developer' show log;
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart' show Colors;
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../presentation/screens/adhkar/controller/adhkar_controller.dart';
+import '../../presentation/screens/books/books.dart';
+import '../../presentation/screens/quran_page/quran.dart';
 import '../widgets/local_notification/controller/local_notifications_controller.dart';
 
 class NotifyHelper {
@@ -17,8 +20,8 @@ class NotifyHelper {
     DateTime? time,
     Map<String, String?>? payload,
   }) async {
-    String localTimeZone =
-        await AwesomeNotifications().getLocalTimeZoneIdentifier();
+    String localTimeZone = await AwesomeNotifications()
+        .getLocalTimeZoneIdentifier();
 
     log('reminderId: $reminderId');
     AwesomeNotifications().createNotification(
@@ -192,10 +195,44 @@ class NotifyHelper {
       'Received Action: ${receivedAction.body} Received Action ID: ${receivedAction.id}',
       name: 'NotifyHelper',
     );
+    // هضم القراءة الذكية — التوجيه بالحمولة قبل مسار الأذكار القائم
+    // على مطابقة العنوان (تذكيرات الأذكار بلا حمولة فلا تتأثر).
+    if (receivedAction.payload?['type'] == 'reading_digest') {
+      await _openReadingDigestTarget(receivedAction);
+      return;
+    }
     if ('reminders'.tr == receivedAction.title!) {
       AzkarController.instance.onAdhkarNotificationsReceived(
         receivedAction.body!,
       );
+    }
+  }
+
+  /// يفتح وجهة هضم القراءة: المصحف عند آخر صفحة (القرآن/الختمة)
+  /// أو الكتاب المحفوظ في الحمولة.
+  static Future<void> _openReadingDigestTarget(
+    ReceivedAction receivedAction,
+  ) async {
+    try {
+      final payload = receivedAction.payload;
+      if (payload?['target'] == 'book') {
+        final bookNumber = int.tryParse(payload?['bookNumber'] ?? '');
+        final page = int.tryParse(payload?['page'] ?? '');
+        if (bookNumber != null) {
+          await BooksController.instance.moveToBookPageByNumber(
+            (page ?? 1) - 1,
+            bookNumber,
+          );
+          return;
+        }
+      }
+      final lastReadPage = GetStorage().read('last_page') ?? 1;
+      Get.to(() => QuranHome(), transition: Transition.downToUp);
+      Future.delayed(const Duration(milliseconds: 300), () {
+        QuranController.instance.changeSurahListOnTap(lastReadPage);
+      });
+    } catch (e) {
+      log('reading digest navigation failed: $e', name: 'NotifyHelper');
     }
   }
 }

@@ -10,6 +10,9 @@ class SplashScreenController extends GetxController {
   Future<void> onInit() async {
     super.onInit();
     _loadInitialData();
+    // الإشعارات الذكية: تسجيل الفتح في حلقة التغذية الراجعة وإعادة جدولة
+    // هضم اليوم — دون انتظار (لا يحجب شاشة البداية).
+    NotificationManager.instance.onAppOpened();
     halfOpenSlider(duration: 1, height: 120);
     Future.delayed(
       const Duration(milliseconds: 4300),

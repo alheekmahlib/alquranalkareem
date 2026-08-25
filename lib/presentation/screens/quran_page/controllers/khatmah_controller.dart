@@ -156,6 +156,10 @@ class KhatmahController extends GetxController {
             isCompleted: drift.Value(isCompleted),
           ),
         );
+        // إكمال يوم ختمة يُحسب حدث قراءة في الإشعارات الذكية.
+        if (isCompleted) {
+          NotificationManager.instance.trackKhatmahUpdate();
+        }
         // تحميل البيانات المحدثة
         loadKhatmas();
       } else {
