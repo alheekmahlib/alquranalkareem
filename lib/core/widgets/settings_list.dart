@@ -12,7 +12,7 @@ import '../../presentation/screens/about_app/about_app.dart';
 import '../../presentation/screens/calendar/widgets/calender_settings.dart';
 import '../../presentation/screens/ourApp/screen/our_apps_screen.dart';
 import '../../presentation/screens/quran_page/quran.dart';
-import '../../presentation/screens/sync/sync_screen.dart';
+import '../../presentation/screens/sync/sync.dart';
 import '../utils/constants/extensions/svg_extensions.dart';
 import '../utils/helpers/app_text_styles.dart';
 import 'font_family_picker.dart';
