@@ -1,9 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
-
-import '../../../core/utils/constants/sync_constants.dart';
-import '../../../core/utils/helpers/app_text_styles.dart';
+part of 'sync.dart';
 
 /// شاشة مسح رمز QR للانضمام لمجموعة مزامنة.
 /// تعيد رمز الغرفة عبر Navigator.pop أو null عند الإلغاء.
