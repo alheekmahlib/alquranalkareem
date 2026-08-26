@@ -1,6 +1,7 @@
 part of 'sync.dart';
 
-/// شاشة مسح رمز QR للانضمام لمجموعة مزامنة.
+/// شاشة مسح رمز QR للانضمام لمجموعة مزامنة — بأسلوب iOS:
+/// إطار عرض مستدير وخط مسح يتزحلق بهدوء ونبضة عند الالتقاط.
 /// تعيد رمز الغرفة عبر Navigator.pop أو null عند الإلغاء.
 class SyncScannerScreen extends StatefulWidget {
   const SyncScannerScreen({super.key});
@@ -9,12 +10,27 @@ class SyncScannerScreen extends StatefulWidget {
   State<SyncScannerScreen> createState() => _SyncScannerScreenState();
 }
 
-class _SyncScannerScreenState extends State<SyncScannerScreen> {
+class _SyncScannerScreenState extends State<SyncScannerScreen>
+    with TickerProviderStateMixin {
   final MobileScannerController _controller = MobileScannerController();
+  late final AnimationController _scanLine;
   bool _handled = false;
+  bool _captured = false;
+
+  static const double _frameSize = 280;
+
+  @override
+  void initState() {
+    super.initState();
+    _scanLine = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 2400),
+    )..repeat();
+  }
 
   @override
   void dispose() {
+    _scanLine.dispose();
     _controller.dispose();
     super.dispose();
   }
@@ -26,7 +42,16 @@ class _SyncScannerScreenState extends State<SyncScannerScreen> {
       if (raw == null || raw.isEmpty) continue;
       if (raw.startsWith(SyncConstants.qrPrefix) || raw.length >= 10) {
         _handled = true;
-        Navigator.of(context).pop(raw);
+        if (!mounted) return;
+        if (MediaQuery.disableAnimationsOf(context)) {
+          Navigator.of(context).pop(raw);
+          return;
+        }
+        // نبضة التقاط قصيرة قبل العودة — إشارة بصرية أن الرمز قُرئ.
+        setState(() => _captured = true);
+        Future.delayed(const Duration(milliseconds: 320), () {
+          if (mounted) Navigator.of(context).pop(raw);
+        });
         return;
       }
     }
@@ -34,6 +59,9 @@ class _SyncScannerScreenState extends State<SyncScannerScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final reduceMotion = MediaQuery.disableAnimationsOf(context);
+    final accent = Theme.of(context).primaryColorLight;
+
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -61,6 +89,62 @@ class _SyncScannerScreenState extends State<SyncScannerScreen> {
                 ),
               );
             },
+          ),
+          Center(
+            child: AnimatedScale(
+              scale: _captured ? 1.06 : 1.0,
+              duration: const Duration(milliseconds: 250),
+              curve: Curves.easeOut,
+              child: Container(
+                width: _frameSize,
+                height: _frameSize,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(24),
+                  border: Border.all(
+                    color: _captured ? Colors.green : Colors.white70,
+                    width: 3,
+                  ),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(21),
+                  child: Stack(
+                    children: [
+                      if (!reduceMotion)
+                        AnimatedBuilder(
+                          animation: _scanLine,
+                          builder: (context, _) {
+                            final top = _scanLine.value * (_frameSize - 4) - 2;
+                            return Positioned(
+                              top: top,
+                              left: 18,
+                              right: 18,
+                              child: Container(
+                                height: 2.5,
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      accent.withValues(alpha: 0),
+                                      accent,
+                                      accent.withValues(alpha: 0),
+                                    ],
+                                  ),
+                                  borderRadius: BorderRadius.circular(2),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: accent.withValues(alpha: 0.6),
+                                      blurRadius: 8,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ),
           Align(
             alignment: Alignment.bottomCenter,

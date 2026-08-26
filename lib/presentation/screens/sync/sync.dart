@@ -1,4 +1,8 @@
 import 'package:alquranalkareem/core/widgets/title_widget.dart';
+import 'package:particles_flutter/engine.dart';
+import 'package:pretty_qr_code/pretty_qr_code.dart';
+import 'dart:math';
+import 'dart:ui' show ImageFilter, lerpDouble;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
@@ -22,5 +26,6 @@ import '../../../core/widgets/container_button.dart';
 part 'sync_scanner_screen.dart';
 part 'sync_screen.dart';
 part 'widgets/info_card.dart';
+part 'widgets/ios_qr_card.dart';
 part 'widgets/paired_view.dart';
 part 'widgets/unpaired_view.dart';
