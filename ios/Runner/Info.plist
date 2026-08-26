@@ -42,8 +42,6 @@
 		</array>
 	<key>NSCameraUsageDescription</key>
 	<string>The camera is used to scan the QR code for pairing your devices and syncing your data.</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Our app uses the microphone to allow voice chatting during gameplay.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>App requires access to the photo library to save images</string>
 	<key>NSPhotoLibraryUsageDescription</key>
