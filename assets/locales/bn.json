@@ -1230,6 +1230,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "What'sNewDetails11": "۞ QR কোডের মাধ্যমে আপনার বুকমার্ক, আজকার, পরিকল্পনা এবং সেটিংস আপনার ডিভাইসগুলোর মধ্যে সিঙ্ক করার বিকল্প যোগ করা হয়েছে — কোনো অ্যাকাউন্ট ছাড়াই",
+  "@What'sNewDetails11": {
+    "type": "text",
+    "placeholders": {}
+  },
   "chooseDhekr": "যিকির নির্বাচন করুন।",
   "@chooseDhekr": {
     "type": "text",

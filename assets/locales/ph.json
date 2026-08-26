@@ -1224,6 +1224,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "What'sNewDetails11": "۞ Idinagdag ang opsyon na i-sync ang iyong mga bookmark, adhkar, plano, at setting sa iyong mga device sa pamamagitan ng QR code — nang walang account",
+  "@What'sNewDetails11": {
+    "type": "text",
+    "placeholders": {}
+  },
   "chooseDhekr": "Piliin ang Dzikr",
   "@chooseDhekr": {
     "type": "text",

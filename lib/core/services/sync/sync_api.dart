@@ -139,6 +139,15 @@ class SyncApi {
     );
   }
 
+  /// مغادرة الغرفة عند إلغاء الإقران — best-effort: نتجاهل النتيجة لأن
+  /// فشل الشبكة لا يجب أن يمنع المسح المحلي، والتنظيف المجدول يغطي الباقي.
+  Future<void> leaveRoom(String roomId, String deviceId) async {
+    await _client.request(
+      endpoint: _roomPath(roomId, '/devices/$deviceId'),
+      method: HttpMethod.delete,
+    );
+  }
+
   Future<Either<Failure, SyncRoomInfo>> roomInfo(String roomId) async {
     final result = await _client.request(
       endpoint: _roomPath(roomId),

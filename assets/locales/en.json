@@ -1230,6 +1230,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "What'sNewDetails11": "۞ Added an option to sync your bookmarks, adhkar, plans, and settings across your devices via QR code — no account needed",
+  "@What'sNewDetails11": {
+    "type": "text",
+    "placeholders": {}
+  },
   "chooseDhekr": "Set a time for reflection.",
   "@chooseDhekr": {
     "type": "text",
