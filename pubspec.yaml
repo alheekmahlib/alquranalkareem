@@ -91,7 +91,6 @@ dependencies:
   flutter_onnxruntime: ^1.8.3
   archive: ^4.2.0
   flutter_streaming_text_markdown: ^1.9.1
-  image_picker: ^1.2.3
   flutter_dotenv: ^6.0.1
   connectivity_kit:
     git:
@@ -102,6 +101,7 @@ dependencies:
   uuid: ^4.6.0
   pretty_qr_code: ^3.6.0
   particles_flutter: ^3.2.0
+  file_picker: ^8.0.0
 
 dev_dependencies:
   app_name_localizer: ^1.0.5

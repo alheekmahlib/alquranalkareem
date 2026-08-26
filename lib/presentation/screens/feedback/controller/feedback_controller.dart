@@ -6,11 +6,11 @@ import 'dart:io' show File, Platform;
 import 'package:connectivity_kit/connectivity_kit.dart';
 import 'package:dio/dio.dart' as dio show FormData, MultipartFile;
 import 'package:either_dart/either.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_info/flutter_app_info.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:image_picker/image_picker.dart';
 
 import '../../../../core/services/api_client.dart';
 import '../../../../core/services/error_handling_system.dart';
@@ -509,32 +509,34 @@ class FeedbackController extends GetxController {
 
   // ---------- اختيار ورفع الوسائط ----------
 
-  /// يفتح المعرض لاختيار صور متعددة. يتحقق من النوع والحجم والحد الأقصى.
+  /// يفتح حوار اختيار الصور (متعددة). يعمل على كل المنصات بما فيها macOS.
+  ///
+  /// يستخدم `file_picker` لأن `image_picker` لا تدعم سطح المكتب.
+  /// يتحقق من النوع والحجم والحد الأقصى.
   Future<String?> pickImages() async {
-    final remaining = maxFiles - selectedFiles.length;
-    if (remaining <= 0) return 'feedback_max_files';
+    if (selectedFiles.length >= maxFiles) return 'feedback_max_files';
 
-    final picker = ImagePicker();
     try {
-      final results = await picker.pickMultiImage(
-        limit: remaining,
-        imageQuality: 85,
+      final result = await FilePicker.platform.pickFiles(
+        type: FileType.image,
+        allowMultiple: true,
+        withData: false,
       );
-      if (results.isEmpty) return null; // ألغى المستخدم
+      if (result == null || result.files.isEmpty) return null; // ألغى المستخدم
 
-      for (final x in results) {
+      for (final pf in result.files) {
         if (selectedFiles.length >= maxFiles) break;
-        final file = File(x.path);
-        final ext = _extension(x.path);
-        final size = await file.length();
+        final path = pf.path;
+        if (path == null || path.isEmpty) continue;
+        final ext = _extension(path);
 
         if (!_allowedImageExts.contains(ext)) {
           return 'feedback_invalid_type';
         }
-        if (size > _maxImageBytes) {
+        if (pf.size > _maxImageBytes) {
           return 'feedback_file_too_large';
         }
-        selectedFiles.add(file);
+        selectedFiles.add(File(path));
       }
       return null; // نجاح
     } catch (e) {
@@ -543,26 +545,30 @@ class FeedbackController extends GetxController {
     }
   }
 
-  /// يفتح المعرض لاختيار فيديو واحد. يتحقق من النوع والحجم.
+  /// يفتح حوار اختيار فيديو واحد. يعمل على كل المنصات بما فيها macOS.
   Future<String?> pickVideo() async {
     if (selectedFiles.length >= maxFiles) return 'feedback_max_files';
 
-    final picker = ImagePicker();
     try {
-      final x = await picker.pickVideo(source: ImageSource.gallery);
-      if (x == null) return null; // ألغى المستخدم
+      final result = await FilePicker.platform.pickFiles(
+        type: FileType.video,
+        allowMultiple: false,
+        withData: false,
+      );
+      if (result == null || result.files.isEmpty) return null; // ألغى المستخدم
 
-      final file = File(x.path);
-      final ext = _extension(x.path);
-      final size = await file.length();
+      final pf = result.files.first;
+      final path = pf.path;
+      if (path == null || path.isEmpty) return null;
+      final ext = _extension(path);
 
       if (!_allowedVideoExts.contains(ext)) {
         return 'feedback_invalid_type';
       }
-      if (size > _maxVideoBytes) {
+      if (pf.size > _maxVideoBytes) {
         return 'feedback_file_too_large';
       }
-      selectedFiles.add(file);
+      selectedFiles.add(File(path));
       return null; // نجاح
     } catch (e) {
       log('pickVideo error: $e', name: 'FeedbackController');
