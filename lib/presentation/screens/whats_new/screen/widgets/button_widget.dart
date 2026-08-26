@@ -49,7 +49,7 @@ class ButtonWidget extends StatelessWidget {
                 whatsNewCtrl.state.currentPageIndex.value ==
                     newFeatures.length - 1
                 ? 'start'.tr
-                : null,
+                : 'next'.tr,
           ),
         ),
       ),
