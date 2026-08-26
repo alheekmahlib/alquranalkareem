@@ -1737,5 +1737,15 @@
   "@confirm": {
     "type": "text",
     "placeholders": {}
+  },
+  "syncCompleted": "Sinkronisasi selesai",
+  "@syncCompleted": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncFailed": "Sinkronisasi gagal — periksa koneksi Anda",
+  "@syncFailed": {
+    "type": "text",
+    "placeholders": {}
   }
 }

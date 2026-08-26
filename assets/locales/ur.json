@@ -1743,5 +1743,15 @@
   "@confirm": {
     "type": "text",
     "placeholders": {}
+  },
+  "syncCompleted": "مطابقت مکمل ہو گئی",
+  "@syncCompleted": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncFailed": "مطابقت ناکام — اپنا کنکشن چیک کریں",
+  "@syncFailed": {
+    "type": "text",
+    "placeholders": {}
   }
 }

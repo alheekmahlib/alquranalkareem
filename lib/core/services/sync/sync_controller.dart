@@ -24,6 +24,9 @@ class SyncController extends GetxController with WidgetsBindingObserver {
   final roomId = Rxn<String>();
   final deviceCount = 0.obs;
   final isSyncing = false.obs;
+
+  /// أثناء إنشاء/انضمام مجموعة (غير المزامنة الدورية) — لأزرار التحميل.
+  final isPairing = false.obs;
   final lastSyncAt = Rxn<int>();
   final lastError = Rxn<String>();
 
@@ -82,16 +85,18 @@ class SyncController extends GetxController with WidgetsBindingObserver {
     if (await syncService.hasLocalChanges()) _runSync();
   }
 
-  Future<void> _runSync() async {
-    if (!syncService.isPaired || isSyncing.value) return;
+  Future<bool> _runSync() async {
+    if (!syncService.isPaired || isSyncing.value) return false;
     isSyncing.value = true;
     try {
       await syncService.syncNow();
       lastError.value = null;
+      return true;
     } catch (e) {
       // لا تبتلع الأخطاء بصمت — ظهورها في الكونسول أساسي للتشخيص.
       print('SyncController: sync failed: $e');
       lastError.value = '$e';
+      return false;
     } finally {
       isSyncing.value = false;
       lastSyncAt.value = syncService.lastSyncAt;
@@ -105,10 +110,19 @@ class SyncController extends GetxController with WidgetsBindingObserver {
     _debounceTimer = Timer(SyncConstants.pushDebounce, () => _runSync());
   }
 
-  /// مزامنة يدوية من شاشة الإعدادات.
-  Future<void> syncNow() => _runSync();
+  /// مزامنة يدوية من شاشة الإعدادات — تعيد نجاح العملية للواجهة.
+  Future<bool> syncNow() => _runSync();
 
   Future<bool> createGroup() async {
+    isPairing.value = true;
+    try {
+      return await _createGroup();
+    } finally {
+      isPairing.value = false;
+    }
+  }
+
+  Future<bool> _createGroup() async {
     final result = await syncService.createGroup();
     if (result.ok) {
       roomId.value = result.value;
@@ -122,6 +136,15 @@ class SyncController extends GetxController with WidgetsBindingObserver {
   }
 
   Future<bool> joinGroup(String code) async {
+    isPairing.value = true;
+    try {
+      return await _joinGroup(code);
+    } finally {
+      isPairing.value = false;
+    }
+  }
+
+  Future<bool> _joinGroup(String code) async {
     final result = await syncService.joinGroup(code);
     if (result.ok) {
       roomId.value = result.value;

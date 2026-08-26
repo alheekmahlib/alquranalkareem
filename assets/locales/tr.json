@@ -1735,5 +1735,15 @@
   "@confirm": {
     "type": "text",
     "placeholders": {}
+  },
+  "syncCompleted": "Senkronizasyon tamamlandı",
+  "@syncCompleted": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncFailed": "Senkronizasyon başarısız — bağlantınızı kontrol edin",
+  "@syncFailed": {
+    "type": "text",
+    "placeholders": {}
   }
 }

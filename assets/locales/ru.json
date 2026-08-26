@@ -1707,5 +1707,15 @@
   "@confirm": {
     "type": "text",
     "placeholders": {}
+  },
+  "syncCompleted": "Синхронизация завершена",
+  "@syncCompleted": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncFailed": "Не удалось синхронизировать — проверьте соединение",
+  "@syncFailed": {
+    "type": "text",
+    "placeholders": {}
   }
 }
