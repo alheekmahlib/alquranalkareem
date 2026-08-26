@@ -1,3 +1,5 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/convert_number_extension.dart';
+import 'package:alquranalkareem/core/utils/constants/extensions/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
@@ -6,12 +8,12 @@ import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../../core/services/sync/sync_controller.dart';
-import '../../../core/utils/constants/sync_constants.dart';
+import '../../../core/utils/constants/extensions/svg_extensions.dart';
 import '../../../core/utils/constants/svg_constants.dart';
+import '../../../core/utils/constants/sync_constants.dart';
 import '../../../core/utils/helpers/app_text_styles.dart';
 import '../../../core/widgets/app_bar_widget.dart';
 import '../../../core/widgets/container_button.dart';
-import '../../../core/utils/constants/extensions/svg_extensions.dart';
 import 'sync_scanner_screen.dart';
 
 /// شاشة مزامنة الأجهزة عبر QR — حالة "بلا غرفة" (إنشاء/انضمام)
@@ -166,7 +168,9 @@ class _PairedView extends StatelessWidget {
   String _formatLastSync(int? millis) {
     if (millis == null) return 'neverSynced'.tr;
     final date = DateTime.fromMillisecondsSinceEpoch(millis);
-    return DateFormat('yMd HH:mm').format(date);
+    return DateFormat.yMd(
+      Get.locale!.languageCode,
+    ).add_jm().format(date).convertNumbersToCurrentLang();
   }
 
   @override
@@ -192,54 +196,75 @@ class _PairedView extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(12.0),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: context.theme.colorScheme.surface,
               borderRadius: BorderRadius.circular(8),
             ),
             child: QrImageView(
               data: SyncConstants.qrPrefix + (syncCtrl.roomId.value ?? ''),
               size: 200,
               gapless: false,
+              embeddedImage: const AssetImage('assets/quran_logo_mac.png'),
+              embeddedImageStyle: const QrEmbeddedImageStyle(
+                size: Size(70, 70),
+              ),
             ),
           ),
         ),
-        const Gap(16),
-        ContainerButton(
-          onPressed: () {
-            Clipboard.setData(
-              ClipboardData(
-                text: SyncConstants.qrPrefix + (syncCtrl.roomId.value ?? ''),
-              ),
-            );
-            Get.snackbar('deviceSync'.tr, 'copy'.tr);
-          },
-          width: double.infinity,
-          title: 'copySyncCode',
-          horizontalPadding: 8.0,
-          verticalPadding: 12.0,
-          horizontalMargin: 8.0,
-        ),
-        const Gap(16),
-        _InfoCard(
-          label: 'devicesConnected'.tr,
-          value: '${syncCtrl.deviceCount.value}',
-        ),
         const Gap(8),
-        _InfoCard(
-          label: 'lastSync'.tr,
-          value: _formatLastSync(syncCtrl.lastSyncAt.value),
+        Row(
+          children: [
+            _InfoCard(
+              label: 'devicesConnected'.tr,
+              value: '${syncCtrl.deviceCount.value}'
+                  .convertNumbersToCurrentLang(),
+            ),
+            context.vDivider(),
+            _InfoCard(
+              label: 'lastSync'.tr,
+              value: _formatLastSync(syncCtrl.lastSyncAt.value),
+            ),
+          ],
         ),
         const Gap(16),
-        Obx(
-          () => ContainerButton(
-            onPressed: syncCtrl.isSyncing.value
-                ? null
-                : () => syncCtrl.syncNow(),
-            width: double.infinity,
-            title: syncCtrl.isSyncing.value ? 'syncing' : 'syncNow',
-            horizontalPadding: 8.0,
-            verticalPadding: 12.0,
-            horizontalMargin: 8.0,
-          ),
+        Row(
+          children: [
+            Expanded(
+              child: ContainerButton(
+                onPressed: () {
+                  Clipboard.setData(
+                    ClipboardData(
+                      text:
+                          SyncConstants.qrPrefix +
+                          (syncCtrl.roomId.value ?? ''),
+                    ),
+                  );
+                  Get.snackbar('deviceSync'.tr, 'copy'.tr);
+                },
+                isTitleCentered: true,
+                width: double.infinity,
+                title: 'copySyncCode',
+                horizontalPadding: 8.0,
+                verticalPadding: 12.0,
+                horizontalMargin: 8.0,
+              ),
+            ),
+            const Gap(8),
+            Expanded(
+              child: Obx(
+                () => ContainerButton(
+                  onPressed: syncCtrl.isSyncing.value
+                      ? null
+                      : () => syncCtrl.syncNow(),
+                  isTitleCentered: true,
+                  width: double.infinity,
+                  title: syncCtrl.isSyncing.value ? 'syncing' : 'syncNow',
+                  horizontalPadding: 8.0,
+                  verticalPadding: 12.0,
+                  horizontalMargin: 8.0,
+                ),
+              ),
+            ),
+          ],
         ),
         const Gap(8),
         ContainerButton(
@@ -256,9 +281,11 @@ class _PairedView extends StatelessWidget {
               await syncCtrl.resetSync();
             }
           },
+          isTitleCentered: true,
           width: double.infinity,
           title: 'resetSync',
-          titleColor: Theme.of(context).colorScheme.error,
+          titleColor: Theme.of(context).canvasColor,
+          backgroundColor: context.theme.primaryColorDark,
           horizontalPadding: 8.0,
           verticalPadding: 12.0,
           horizontalMargin: 8.0,
@@ -277,18 +304,22 @@ class _InfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8.0),
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Row(
+    return Expanded(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: AppTextStyles.bodyMedium()),
-          Text(value, style: AppTextStyles.bodyMedium()),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(label, style: AppTextStyles.bodyMedium()),
+          ),
+          const Gap(8),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              value,
+              style: AppTextStyles.bodyMedium().copyWith(fontSize: 14),
+            ),
+          ),
         ],
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:alquranalkareem/core/utils/constants/extensions/convert_number_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -59,7 +60,8 @@ class NotificationsSettings extends StatelessWidget {
   }
 
   String _formatTime(int hour, [int minute = 0]) =>
-      '${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}';
+      '${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}'
+          .convertNumbersToCurrentLang();
 
   @override
   Widget build(BuildContext context) {
@@ -132,6 +134,7 @@ class NotificationsSettings extends StatelessWidget {
             height: 32,
             verticalPadding: 4.0,
             horizontalPadding: 8.0,
+            titleStyle: AppTextStyles.bodySmall(),
             onPressed: () => ctrl.setManualTime(null),
           ),
           const Gap(4),
@@ -171,32 +174,44 @@ class NotificationsSettings extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
-                  child: Text(
-                    'from'.tr,
-                    style: AppTextStyles.titleMedium().copyWith(height: 2),
+                  child: Row(
+                    mainAxisAlignment: .center,
+                    children: [
+                      Text(
+                        'from'.tr,
+                        style: AppTextStyles.titleMedium().copyWith(height: 2),
+                      ),
+                      const Gap(6),
+                      ContainerButton(
+                        title: _formatTime(ctrl.quietStartHour),
+                        height: 32,
+                        verticalPadding: 4.0,
+                        horizontalPadding: 8.0,
+                        onPressed: () => _pickQuietStart(context),
+                      ),
+                    ],
                   ),
-                ),
-                ContainerButton(
-                  title: _formatTime(ctrl.quietStartHour),
-                  height: 32,
-                  verticalPadding: 4.0,
-                  horizontalPadding: 8.0,
-                  onPressed: () => _pickQuietStart(context),
                 ),
                 const Gap(16),
                 Expanded(
-                  child: Text(
-                    'to'.tr,
-                    style: AppTextStyles.titleMedium().copyWith(height: 2),
-                    textAlign: TextAlign.end,
+                  child: Row(
+                    mainAxisAlignment: .center,
+                    children: [
+                      Text(
+                        'to'.tr,
+                        style: AppTextStyles.titleMedium().copyWith(height: 2),
+                        textAlign: TextAlign.end,
+                      ),
+                      const Gap(6),
+                      ContainerButton(
+                        title: _formatTime(ctrl.quietEndHour),
+                        height: 32,
+                        verticalPadding: 4.0,
+                        horizontalPadding: 8.0,
+                        onPressed: () => _pickQuietEnd(context),
+                      ),
+                    ],
                   ),
-                ),
-                ContainerButton(
-                  title: _formatTime(ctrl.quietEndHour),
-                  height: 32,
-                  verticalPadding: 4.0,
-                  horizontalPadding: 8.0,
-                  onPressed: () => _pickQuietEnd(context),
                 ),
               ],
             ),
