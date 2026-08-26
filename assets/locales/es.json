@@ -1743,5 +1743,15 @@
   "@confirm": {
     "type": "text",
     "placeholders": {}
+  },
+  "syncCompleted": "Sincronización completada",
+  "@syncCompleted": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncFailed": "Error de sincronización — revisa tu conexión",
+  "@syncFailed": {
+    "type": "text",
+    "placeholders": {}
   }
 }

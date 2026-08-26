@@ -76,7 +76,7 @@ class _PairedView extends StatelessWidget {
                           (syncCtrl.roomId.value ?? ''),
                     ),
                   );
-                  Get.snackbar('deviceSync'.tr, 'copy'.tr);
+                  context.showCustomErrorSnackBar('copy'.tr, isDone: true);
                 },
                 isTitleCentered: true,
                 width: double.infinity,
@@ -92,7 +92,21 @@ class _PairedView extends StatelessWidget {
                 () => ContainerButton(
                   onPressed: syncCtrl.isSyncing.value
                       ? null
-                      : () => syncCtrl.syncNow(),
+                      : () async {
+                          final ok = await syncCtrl.syncNow();
+                          if (!context.mounted) return;
+                          if (ok) {
+                            // إعادة بناء الواجهات كي تظهر البيانات الواصلة.
+                            Get.forceAppUpdate();
+                            context.showCustomErrorSnackBar(
+                              'syncCompleted'.tr,
+                              isDone: true,
+                            );
+                          } else {
+                            context.showCustomErrorSnackBar('syncFailed'.tr);
+                          }
+                        },
+                  isPreparingDownload: syncCtrl.isSyncing.value,
                   isTitleCentered: true,
                   width: double.infinity,
                   title: syncCtrl.isSyncing.value ? 'syncing' : 'syncNow',

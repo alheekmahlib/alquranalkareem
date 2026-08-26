@@ -1737,5 +1737,15 @@
   "@confirm": {
     "type": "text",
     "placeholders": {}
+  },
+  "syncCompleted": "Natapos ang pag-sync",
+  "@syncCompleted": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncFailed": "Nabigo ang pag-sync — tingnan ang koneksyon",
+  "@syncFailed": {
+    "type": "text",
+    "placeholders": {}
   }
 }

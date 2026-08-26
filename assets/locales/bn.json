@@ -1743,5 +1743,15 @@
   "@confirm": {
     "type": "text",
     "placeholders": {}
+  },
+  "syncCompleted": "সিঙ্ক সম্পন্ন হয়েছে",
+  "@syncCompleted": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncFailed": "সিঙ্ক ব্যর্থ — সংযোগ পরীক্ষা করুন",
+  "@syncFailed": {
+    "type": "text",
+    "placeholders": {}
   }
 }

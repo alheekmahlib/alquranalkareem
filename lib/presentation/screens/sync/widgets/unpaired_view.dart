@@ -9,7 +9,12 @@ class _UnpairedView extends StatelessWidget {
     String code,
   ) async {
     final ok = await syncCtrl.joinGroup(code);
-    if (!ok && context.mounted) {
+    if (!context.mounted) return;
+    if (ok) {
+      // تطبيق بيانات الجهاز الآخر فورًا على الواجهات.
+      Get.forceAppUpdate();
+      context.showCustomErrorSnackBar('syncCompleted'.tr, isDone: true);
+    } else {
       final error = syncCtrl.lastError.value ?? '';
       String message = 'syncJoinFailed'.tr;
       if (error == 'invalidSyncCode') {
@@ -19,7 +24,7 @@ class _UnpairedView extends StatelessWidget {
       } else if (error == '404') {
         message = 'syncRoomNotFound'.tr;
       }
-      Get.snackbar('deviceSync'.tr, message);
+      context.showCustomErrorSnackBar(message);
     }
   }
 
@@ -43,37 +48,53 @@ class _UnpairedView extends StatelessWidget {
           style: AppTextStyles.bodyMedium(),
         ),
         const Gap(24),
-        ContainerButton(
-          onPressed: () async {
-            final ok = await syncCtrl.createGroup();
-            if (!ok) {
-              Get.snackbar('deviceSync'.tr, 'syncCreateError'.tr);
-            }
-          },
-          withArrow: true,
-          width: double.infinity,
-          title: 'createSyncGroup',
-          horizontalPadding: 8.0,
-          verticalPadding: 12.0,
-          horizontalMargin: 8.0,
+        Obx(
+          () => ContainerButton(
+            onPressed: syncCtrl.isPairing.value
+                ? null
+                : () async {
+                    final ok = await syncCtrl.createGroup();
+                    if (!context.mounted) return;
+                    if (ok) {
+                      context.showCustomErrorSnackBar(
+                        'syncCompleted'.tr,
+                        isDone: true,
+                      );
+                    } else {
+                      context.showCustomErrorSnackBar('syncCreateError'.tr);
+                    }
+                  },
+            isPreparingDownload: syncCtrl.isPairing.value,
+            withArrow: true,
+            width: double.infinity,
+            title: 'createSyncGroup',
+            horizontalPadding: 8.0,
+            verticalPadding: 12.0,
+            horizontalMargin: 8.0,
+          ),
         ),
         const Gap(8),
-        ContainerButton(
-          onPressed: () async {
-            final scanned = await Get.to<String?>(
-              () => const SyncScannerScreen(),
-              transition: Transition.downToUp,
-            );
-            if (scanned != null && scanned.isNotEmpty) {
-              await _join(context, syncCtrl, scanned);
-            }
-          },
-          withArrow: true,
-          width: double.infinity,
-          title: 'joinSyncGroup',
-          horizontalPadding: 8.0,
-          verticalPadding: 12.0,
-          horizontalMargin: 8.0,
+        Obx(
+          () => ContainerButton(
+            onPressed: syncCtrl.isPairing.value
+                ? null
+                : () async {
+                    final scanned = await Get.to<String?>(
+                      () => const SyncScannerScreen(),
+                      transition: Transition.downToUp,
+                    );
+                    if (scanned != null && scanned.isNotEmpty) {
+                      await _join(context, syncCtrl, scanned);
+                    }
+                  },
+            isPreparingDownload: syncCtrl.isPairing.value,
+            withArrow: true,
+            width: double.infinity,
+            title: 'joinSyncGroup',
+            horizontalPadding: 8.0,
+            verticalPadding: 12.0,
+            horizontalMargin: 8.0,
+          ),
         ),
         const Gap(24),
         Text(
@@ -96,16 +117,21 @@ class _UnpairedView extends StatelessWidget {
               ),
             ),
             const Gap(8),
-            ContainerButton(
-              onPressed: () {
-                final code = codeController.text.trim();
-                if (code.isNotEmpty) {
-                  _join(context, syncCtrl, code);
-                }
-              },
-              title: 'joinWithCode',
-              horizontalPadding: 16.0,
-              verticalPadding: 12.0,
+            Obx(
+              () => ContainerButton(
+                onPressed: syncCtrl.isPairing.value
+                    ? null
+                    : () {
+                        final code = codeController.text.trim();
+                        if (code.isNotEmpty) {
+                          _join(context, syncCtrl, code);
+                        }
+                      },
+                isPreparingDownload: syncCtrl.isPairing.value,
+                title: 'joinWithCode',
+                horizontalPadding: 16.0,
+                verticalPadding: 12.0,
+              ),
             ),
           ],
         ),

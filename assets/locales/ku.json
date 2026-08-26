@@ -1735,5 +1735,15 @@
   "@confirm": {
     "type": "text",
     "placeholders": {}
+  },
+  "syncCompleted": "هاوکات‌کردن سەرکەوتوو بوو",
+  "@syncCompleted": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncFailed": "هاوکات‌کردن سەرکەوتوو نەبوو — پەیوەندییەکەت بپشکنە",
+  "@syncFailed": {
+    "type": "text",
+    "placeholders": {}
   }
 }

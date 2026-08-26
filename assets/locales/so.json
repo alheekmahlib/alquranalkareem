@@ -1715,5 +1715,15 @@
   "@confirm": {
     "type": "text",
     "placeholders": {}
+  },
+  "syncCompleted": "Isku-dhubka wuu dhammaaday",
+  "@syncCompleted": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "syncFailed": "Isku-dhubku wuu fashilmay — xiriirka hubi",
+  "@syncFailed": {
+    "type": "text",
+    "placeholders": {}
   }
 }
