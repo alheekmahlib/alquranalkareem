@@ -42,8 +42,6 @@
 	<string>This app needs access to location.</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>We need access to the microphone for recording audio.</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>com.apple.security.personal-information.location</key>
