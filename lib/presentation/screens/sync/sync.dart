@@ -1,21 +1,21 @@
-import 'package:alquranalkareem/core/widgets/title_widget.dart';
-import 'package:particles_flutter/engine.dart';
-import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'dart:math';
 import 'dart:ui' show ImageFilter, lerpDouble;
+
+import 'package:alquranalkareem/core/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:qr_flutter/qr_flutter.dart';
+import 'package:particles_flutter/engine.dart';
+import 'package:pretty_qr_code/pretty_qr_code.dart';
 
-import '../../../core/utils/constants/extensions/bottom_sheet_extension.dart';
-import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 import '/core/utils/constants/extensions/convert_number_extension.dart';
+import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 import '/core/utils/constants/extensions/extensions.dart';
 import '../../../core/services/sync/sync_controller.dart';
+import '../../../core/utils/constants/extensions/bottom_sheet_extension.dart';
 import '../../../core/utils/constants/extensions/svg_extensions.dart';
 import '../../../core/utils/constants/svg_constants.dart';
 import '../../../core/utils/constants/sync_constants.dart';

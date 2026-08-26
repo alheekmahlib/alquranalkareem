@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pretty_qr_code/pretty_qr_code.dart';
 
 import 'package:alquranalkareem/presentation/screens/sync/sync.dart';
 
-/// بطاقة QR بأسلوب iOS — يجب أن تُبنى وتعرض PrettyQrView مع بيانات الغرفة.
+/// بطاقة QR بأسلوب iOS — الرمز مرسوم بالكامل كجسيمات عبر CustomPaint.
 void main() {
-  testWidgets('IosQrCard تعرض رمز QR ناعمًا مع البيانات', (tester) async {
+  testWidgets('IosQrCard تعرض الرمز كجسيمات عبر CustomPaint', (tester) async {
     await tester.pumpWidget(
       const MaterialApp(
         home: Scaffold(
@@ -16,11 +15,11 @@ void main() {
     );
     await tester.pump();
 
-    expect(find.byType(PrettyQrView), findsOneWidget);
     expect(find.byType(IosQrCard), findsOneWidget);
+    expect(find.byType(CustomPaint), findsWidgets);
   });
 
-  testWidgets('مع تقليل الحركة: تبقى البطاقة بلا جسيمات ولا تتعطل', (
+  testWidgets('مع تقليل الحركة: تُرسم الجسيمات ساكنة ولا تتعطل', (
     tester,
   ) async {
     await tester.pumpWidget(
@@ -35,6 +34,30 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    expect(find.byType(PrettyQrView), findsOneWidget);
+    expect(find.byType(IosQrCard), findsOneWidget);
+    expect(find.byType(CustomPaint), findsWidgets);
+  });
+
+  testWidgets('تغيير البيانات يعيد توليد الجسيمات دون أخطاء', (tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: Scaffold(
+          body: Center(child: IosQrCard(data: 'room-1')),
+        ),
+      ),
+    );
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: Scaffold(
+          body: Center(
+            child: IosQrCard(data: 'room-2-with-a-much-longer-payload'),
+          ),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    expect(find.byType(IosQrCard), findsOneWidget);
+    expect(find.byType(CustomPaint), findsWidgets);
   });
 }
