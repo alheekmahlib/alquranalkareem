@@ -37,10 +37,16 @@ class WhatsNewController extends GetxController {
 
   List<Map<String, dynamic>> whatsNewList = [
     {
-      'index': 11,
+      'index': 12,
       'title': '',
       'details': "What'sNewDetails10",
       'imagePath': SvgPath.svgHomeMidadIcon,
+    },
+    {
+      'index': 13,
+      'title': '',
+      'details': "What'sNewDetails11",
+      'imagePath': '',
     },
   ];
 }
