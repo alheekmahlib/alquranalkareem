@@ -5,7 +5,7 @@ ext {
 }
 
 buildscript {
-    ext.kotlin_version = '2.2.0'
+    ext.kotlin_version = '2.2.20'
     repositories {
         google()
         mavenCentral()
