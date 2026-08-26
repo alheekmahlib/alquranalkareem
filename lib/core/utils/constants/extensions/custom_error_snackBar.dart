@@ -1,9 +1,10 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/svg_extensions.dart';
 import 'package:alquranalkareem/core/utils/constants/svg_constants.dart';
 import 'package:alquranalkareem/core/utils/helpers/app_text_styles.dart';
 import 'package:delightful_toast/delight_toast.dart';
 import 'package:delightful_toast/toast/components/toast_card.dart';
 import 'package:flutter/material.dart';
+
+import '/core/utils/constants/extensions/svg_extensions.dart';
 
 extension CustomErrorSnackBarExtension on BuildContext {
   void showCustomErrorSnackBar(
