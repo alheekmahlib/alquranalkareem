@@ -42,12 +42,10 @@
 		</array>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Our app uses the microphone to allow voice chatting during gameplay.</string>
-	<key>NSCameraUsageDescription</key>
-	<string>App requires access to the camera to capture photos and videos for feedback</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>App requires access to the photo library to save images and attach media to feedback</string>
+	<string>App requires access to the photo library to save images</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>App requires access to the photo library to attach photos and videos to feedback</string>
+	<string>App requires access to the photo library to attach media to feedback</string>
 		<key>NSUserActivityTypes</key>
 		<array>
 			<string>ConfigurationIntent</string>
