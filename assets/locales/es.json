@@ -1230,6 +1230,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "What'sNewDetails11": "۞ Se añadió una opción para sincronizar sus marcadores, adhkar, planes y configuraciones entre sus dispositivos mediante código QR — sin necesidad de cuenta",
+  "@What'sNewDetails11": {
+    "type": "text",
+    "placeholders": {}
+  },
   "chooseDhekr": "Elige el recuerdo.",
   "@chooseDhekr": {
     "type": "text",

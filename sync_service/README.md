@@ -32,6 +32,7 @@ CLOUDFLARE_API_TOKEN=... npx wrangler deploy
 | POST | `/v1/rooms/:id/changes` | دفع دفعة تغييرات (≤500) |
 | GET | `/v1/rooms/:id/changes?since=seq` | سحب تغييرات بعد مؤشر |
 | GET | `/v1/rooms/:id` | حالة الغرفة (عدد الأجهزة، آخر نشاط) |
+| DELETE | `/v1/rooms/:id/devices/:deviceId` | مغادرة الجهاز (آخر مغادر يحذف الغرفة) |
 
 الحدود: 5 أجهزة/غرفة، 10 غرف/IP/يوم، 500 عنصر/دفعة، 4KB/عنصر.
 تنظيف مجدول يوميًا للغرف الخاملة أكثر من 6 أشهر.

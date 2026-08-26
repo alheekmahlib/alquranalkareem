@@ -1230,6 +1230,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "What'sNewDetails11": "۞ آپ کی نشانیوں، اذکار، منصوبوں اور ترتیبات کو QR کوڈ کے ذریعے اپنے آلات کے درمیان ہم وقت کرنے کا آپشن شامل کیا گیا ہے — بغیر اکاؤنٹ کے",
+  "@What'sNewDetails11": {
+    "type": "text",
+    "placeholders": {}
+  },
   "chooseDhekr": "ذکر منتخب کریں۔",
   "@chooseDhekr": {
     "type": "text",

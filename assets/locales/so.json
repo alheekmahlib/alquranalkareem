@@ -1230,6 +1230,11 @@
     "type": "text",
     "placeholders": {}
   },
+  "What'sNewDetails11": "۞ Waxaa lagu daray ikhtiyaarka is-waafajinta calaamadahaaga, adhkar-kaaga, qorshooyinkaaga iyo dejisyadaaga ee u dhexeeya aaladahaaga adigoo isticmaalaya koodhka QR — adigoo aan akoon lahayn",
+  "@What'sNewDetails11": {
+    "type": "text",
+    "placeholders": {}
+  },
   "chooseDhekr": "Dooro xuska.",
   "@chooseDhekr": {
     "type": "text",

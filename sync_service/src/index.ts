@@ -309,6 +309,46 @@ app.get("/v1/rooms/:id", async (c) => {
   });
 });
 
+/** DELETE /v1/rooms/:id/devices/:deviceId — مغادرة الغرفة (إلغاء الإقران).
+ *  إذا غادر آخر جهاز تُحذف الغرفة كاملة ببياناتها. */
+app.delete("/v1/rooms/:id/devices/:deviceId", async (c) => {
+  const db = c.env.SYNC_DB;
+  const roomId = c.req.param("id");
+  const deviceId = c.req.param("deviceId");
+  if (deviceId.length === 0 || deviceId.length > MAX_DEVICE_ID_CHARS) {
+    return errorResponse(400, "BAD_REQUEST", "invalid device_id");
+  }
+
+  const room = await db
+    .prepare("SELECT id FROM rooms WHERE id = ?1")
+    .bind(roomId)
+    .first<{ id: string }>();
+  if (!room) {
+    return errorResponse(404, "ROOM_NOT_FOUND", "Sync room does not exist or has expired");
+  }
+
+  await db
+    .prepare("DELETE FROM devices WHERE room_id = ?1 AND device_id = ?2")
+    .bind(roomId, deviceId)
+    .run();
+
+  const remaining = await db
+    .prepare("SELECT COUNT(*) AS n FROM devices WHERE room_id = ?1")
+    .bind(roomId)
+    .first<{ n: number }>();
+
+  if ((remaining?.n ?? 0) === 0) {
+    // آخر جهاز غادر — لا معنى لبقاء الغرفة وبياناتها على الخادم.
+    await db.batch([
+      db.prepare("DELETE FROM changes WHERE room_id = ?1").bind(roomId),
+      db.prepare("DELETE FROM rooms WHERE id = ?1").bind(roomId),
+    ]);
+    return Response.json({ device_count: 0, room_deleted: true });
+  }
+
+  return Response.json({ device_count: remaining!.n, room_deleted: false });
+});
+
 app.notFound(() => errorResponse(404, "NOT_FOUND", "Unknown endpoint"));
 
 export default {
@@ -317,6 +357,8 @@ export default {
     const db = env.SYNC_DB;
     const cutoff = Date.now() - ROOM_TTL_MS;
     const today = new Date().toISOString().slice(0, 10);
+    // أجهزة خاملة أكثر من 30 يومًا تُشطب حتى لا تأكل حد الخمسة أشباحًا.
+    const staleDeviceCutoff = Date.now() - 30 * 24 * 60 * 60 * 1000;
 
     const stale = await db
       .prepare("SELECT id FROM rooms WHERE last_active_at < ?1")
@@ -333,6 +375,9 @@ export default {
       statements.push(db.prepare("DELETE FROM rooms WHERE id = ?1").bind(room.id));
     }
     statements.push(db.prepare("DELETE FROM room_creates WHERE day < ?1").bind(today));
+    statements.push(
+      db.prepare("DELETE FROM devices WHERE last_seen < ?1").bind(staleDeviceCutoff),
+    );
 
     await db.batch(statements);
   },

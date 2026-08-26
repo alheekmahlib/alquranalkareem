@@ -152,6 +152,57 @@ describe("GET /v1/rooms/:id/changes", () => {
   });
 });
 
+describe("DELETE /v1/rooms/:id/devices/:deviceId", () => {
+  it("removes the device and decrements the count", async () => {
+    const roomId = await createRoom();
+    await joinRoom(roomId, "device-1");
+    await joinRoom(roomId, "device-2");
+
+    const info = await worker.fetch(`${BASE}/v1/rooms/${roomId}`);
+    expect(((await info.json()) as { device_count: number }).device_count).toBe(2);
+
+    const leave = await worker.fetch(`${BASE}/v1/rooms/${roomId}/devices/device-1`, {
+      method: "DELETE",
+    });
+    expect(leave.status).toBe(200);
+    expect(((await leave.json()) as { device_count: number }).device_count).toBe(1);
+
+    const after = await worker.fetch(`${BASE}/v1/rooms/${roomId}`);
+    expect(((await after.json()) as { device_count: number }).device_count).toBe(1);
+  });
+
+  it("deletes the whole room when the last device leaves", async () => {
+    const roomId = await createRoom();
+    await joinRoom(roomId, "device-1");
+
+    const leave = await worker.fetch(`${BASE}/v1/rooms/${roomId}/devices/device-1`, {
+      method: "DELETE",
+    });
+    expect(leave.status).toBe(200);
+    expect(((await leave.json()) as { room_deleted: boolean }).room_deleted).toBe(true);
+
+    const after = await worker.fetch(`${BASE}/v1/rooms/${roomId}`);
+    expect(after.status).toBe(404);
+  });
+
+  it("rejoining with the same device_id does not inflate the count", async () => {
+    const roomId = await createRoom();
+    await joinRoom(roomId, "device-1");
+    await joinRoom(roomId, "device-1");
+    await joinRoom(roomId, "device-1");
+
+    const info = await worker.fetch(`${BASE}/v1/rooms/${roomId}`);
+    expect(((await info.json()) as { device_count: number }).device_count).toBe(1);
+  });
+
+  it("returns 404 for an unknown room", async () => {
+    const res = await worker.fetch(`${BASE}/v1/rooms/nope/devices/device-1`, {
+      method: "DELETE",
+    });
+    expect(res.status).toBe(404);
+  });
+});
+
 describe("snapshot correctness", () => {
   it("join returns the latest state per key, tombstones included", async () => {
     const roomId = await createRoom();

@@ -134,10 +134,20 @@ class SyncService {
     });
   }
 
-  /// مغادرة الغرفة محليًا — البيانات تبقى، ويمكن إعادة الإقران لاحقًا.
+  /// إلغاء الإقران: مغادرة الغرفة على الخادم (يشطب الجهاز من العدد،
+  /// وإن كان الأخير تُحذف الغرفة كاملة) ثم مسح الحالة المحلية.
+  /// هوية الجهاز تبقى للإقرانات القادمة.
   Future<void> resetSync() async {
+    final room = roomId;
+    final device = deviceId;
+    if (room != null && device != null) {
+      try {
+        await _api.leaveRoom(room, device);
+      } catch (_) {
+        // best-effort: التنظيف المجدول على الخادم يغطي الفشل الشبكي.
+      }
+    }
     await _box.remove(SyncConstants.roomId);
-    await _box.remove(SyncConstants.deviceId);
     await _box.remove(SyncConstants.cursor);
     await _box.remove(SyncConstants.lastPushedAt);
     await _box.remove(SyncConstants.lastSyncAt);
