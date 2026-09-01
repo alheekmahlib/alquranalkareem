@@ -66,8 +66,6 @@ class PlayListController extends GetxController {
   RxBool autoPlayNext = true.obs;
   StreamSubscription<PlayerState>? _autoNextSubscription;
 
-  final box = GetStorage();
-
   // ━━━━━━━━━━━━━━ Streams ━━━━━━━━━━━━━━
   Stream<PositionData> get positionDataStream =>
       R.Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
@@ -517,17 +515,29 @@ class PlayListController extends GetxController {
 
 class PlayListStorage {
   static const String _storageKey = 'playList';
+  static final GetStorage _box = GetStorage();
+
+  /// ترحيل لمرة واحدة: نقل القوائم من SharedPreferences (التخزين القديم)
+  /// إلى GetStorage ثم حذف المفتاح القديم لمنع تكرار العملية.
+  static Future<void> _migrateFromSharedPreferences() async {
+    if (_box.hasData(_storageKey)) return;
+    final prefs = await SharedPreferences.getInstance();
+    final legacyPlayLists = prefs.getStringList(_storageKey);
+    if (legacyPlayLists == null) return;
+    if (legacyPlayLists.isNotEmpty) {
+      await _box.write(_storageKey, legacyPlayLists);
+    }
+    await prefs.remove(_storageKey);
+  }
 
   static Future<void> savePlayList(List<PlayListModel> playLists) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
     final playListJson = playLists.map((r) => jsonEncode(r.toJson())).toList();
-    await prefs.setStringList(_storageKey, playListJson);
+    await _box.write(_storageKey, playListJson);
   }
 
   static Future<List<PlayListModel>> loadPlayList() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final playListsJson =
-        prefs.getStringList(_storageKey)?.cast<String>() ?? [];
+    await _migrateFromSharedPreferences();
+    final playListsJson = _box.read<List>(_storageKey)?.cast<String>() ?? [];
     return playListsJson
         .map((r) => PlayListModel.fromJson(jsonDecode(r)))
         .toList();

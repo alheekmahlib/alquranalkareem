@@ -645,14 +645,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.35"
-  flutter_rating_bar:
-    dependency: transitive
-    description:
-      name: flutter_rating_bar
-      sha256: d2af03469eac832c591a1eba47c91ecc871fe5708e69967073c043b2d775ed93
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.0.1"
   flutter_rounded_progress_bar:
     dependency: "direct main"
     description:
@@ -1079,6 +1071,24 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.4.0"
+  multi_store_review:
+    dependency: "direct main"
+    description:
+      path: multi_store_review
+      ref: "multi_store_review-v2.2.0"
+      resolved-ref: c2067d79d0741690f1bf3c45ad3d3eaf454a682b
+      url: "https://github.com/alheekmahlib/multi_store_review.git"
+    source: git
+    version: "2.2.0"
+  multi_store_review_platform_interface:
+    dependency: "direct overridden"
+    description:
+      path: multi_store_review_platform_interface
+      ref: "multi_store_review_platform_interface-v2.2.0"
+      resolved-ref: c2067d79d0741690f1bf3c45ad3d3eaf454a682b
+      url: "https://github.com/alheekmahlib/multi_store_review.git"
+    source: git
+    version: "2.2.0"
   native_toolchain_c:
     dependency: transitive
     description:
@@ -1327,14 +1337,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.3.0"
-  rate_my_app:
-    dependency: "direct main"
-    description:
-      name: rate_my_app
-      sha256: "95e0ee43088c8417f73815a48616857adabd9740e78c9692b3c8ce3ab28c3ca6"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.4.1"
   read_more_less:
     dependency: "direct main"
     description:
@@ -1408,7 +1410,7 @@ packages:
     source: hosted
     version: "6.1.0"
   shared_preferences:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: shared_preferences
       sha256: c3025c5534b01739267eb7d76959bbc25a6d10f6988e1c2a3036940133dd10bf
