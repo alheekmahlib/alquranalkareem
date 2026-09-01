@@ -7,6 +7,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   connectivity_plus
   flutter_onnxruntime
   flutter_timezone
+  multi_store_review
   share_plus
   url_launcher_windows
 )

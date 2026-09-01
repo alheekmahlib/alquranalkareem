@@ -1,5 +1,3 @@
-import 'dart:io' show Platform;
-
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
@@ -8,10 +6,10 @@ import 'package:timezone/timezone.dart' as tz;
 
 import '/presentation/controllers/daily_ayah_controller.dart';
 import '/presentation/controllers/general/general_controller.dart';
-import '/presentation/screens/books/data/services/narrators_service.dart';
 import '/presentation/controllers/settings_controller.dart';
 import '/presentation/controllers/theme_controller.dart';
 import '/presentation/screens/adhkar/controller/adhkar_controller.dart';
+import '/presentation/screens/books/data/services/narrators_service.dart';
 import '/presentation/screens/feedback/controller/feedback_controller.dart';
 import '/presentation/screens/ourApp/controller/ourApps_controller.dart';
 import '/presentation/screens/quran_page/quran.dart';
@@ -133,37 +131,8 @@ class ServicesLocator {
       () => Get.put<FeedbackController>(FeedbackController(), permanent: true),
     );
 
-    // sl.registerLazySingleton<TafsirCtrl>(
-    //     () => Get.put<TafsirCtrl>(TafsirCtrl(), permanent: true));
-    // NotifyHelper().initializeNotification();
-    // sl<NotificationsController>().initializeLocalNotifications();
-
-    if (Platform.isIOS || Platform.isAndroid || Platform.isFuchsia) {
-      UiHelper.rateMyApp.init();
-      // Future.delayed(const Duration(seconds: 7)).then((_) => {
-      //       AudioService.init(
-      //         builder: () => AudioPlayerHandler(),
-      //         config: const AudioServiceConfig(
-      //           androidNotificationChannelId:
-      //               'com.alheekmah.alquranalkareem.alquranalkareem',
-      //           androidNotificationChannelName: 'Audio playback',
-      //           androidNotificationOngoing: true,
-      //         ),
-      //       )
-      //     });
-    }
-
-    // if (Platform.isIOS) {
-    // await AudioService.init(
-    //   androidNotificationChannelId:
-    //       'com.alheekmah.alquranalkareem.alquranalkareem',
-    //   androidNotificationChannelName: 'Audio playback',
-    //   androidNotificationOngoing: true,
-    // );
-    // }
-
-    // Workmanager().initialize(sl<NotificationController>().callbackDispatcher);
-    // sl<NotificationController>().registerBackgroundTask();
+    // بوابة التقييم التلقائية: تعدّ الإطلاق وتخزّن الحالة داخل المنصة.
+    UiHelper.initReviewGate();
 
     try {
       final TimezoneInfo timezone = await FlutterTimezone.getLocalTimezone();

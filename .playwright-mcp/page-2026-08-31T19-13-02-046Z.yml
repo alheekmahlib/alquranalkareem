@@ -1,0 +1,1962 @@
+- generic [ref=e3]:
+  - generic [ref=e5]:
+    - img "Quran Apps Directory" [ref=e8] [cursor=pointer]
+    - navigation [ref=e9]:
+      - link "الرئيسة" [ref=e10] [cursor=pointer]:
+        - /url: /ar
+      - link "عن المشروع" [ref=e12] [cursor=pointer]:
+        - /url: /ar/about-us
+      - link "تواصل معنا" [ref=e14] [cursor=pointer]:
+        - /url: /ar/contact-us
+      - link "أضف تطبيقك" [ref=e16] [cursor=pointer]:
+        - /url: /ar/submit-app
+    - generic [ref=e18]:
+      - link "مجتمع إتقان" [ref=e19] [cursor=pointer]:
+        - /url: https://community.itqan.dev/
+      - button "EN" [ref=e24] [cursor=pointer]
+  - generic [ref=e28]:
+    - generic [ref=e31]:
+      - img "سورة" [ref=e32]
+      - generic [ref=e33]:
+        - heading "سورة" [level=1] [ref=e34]
+        - paragraph [ref=e35]: قراءة وتفسير وحفظ القرآن
+        - generic [ref=e36]:
+          - generic [ref=e37]:
+            - button "تنزيل التطبيق" [ref=e38] [cursor=pointer]
+            - button "مشاركة" [ref=e39] [cursor=pointer]
+          - generic [ref=e43]:
+            - generic [ref=e44]:
+              - generic [ref=e45]:
+                - generic [ref=e46]: ★
+                - text: "4.8"
+              - generic [ref=e47]: التقييمات
+            - generic [ref=e48]:
+              - generic [ref=e49]: "2"
+              - generic [ref=e50]: متاجر
+            - generic [ref=e51]:
+              - generic [ref=e52]: الجميع
+              - generic [ref=e53]: المنصة
+    - generic [ref=e55]:
+      - generic [ref=e56]:
+        - generic [ref=e57]:
+          - heading "الوصف" [level=2] [ref=e58]
+          - generic [ref=e59]:
+            - paragraph [ref=e60]: تطبيق سورة هو نسخة رقمية من المصحف الشريف، لتيسير القراءة والاستماع والحفظ وفهم معاني الكلمات، عبر واجهة بسيطة وواضحة تناسب الاستخدام اليومي.يتيح التطبيق لمستخدميه عدة ميزات منها:- قراءة القرآن الكريم كاملًا والتنقل بين السور والأجزاء والآيات بسهولة.- البحث الذكي داخل التطبيق عن الكلمات ومتشابهات القرآن الكريم، موضحًا اسم السورة ورقم الآية والصفحة، والانتقال إليها.- التفسير الميسر ومعاني الكلمات بمجرد الضغط عليها في أثناء القراءة، وترجمتها باللغة الإنجليزية.- إعراب كلمات القرآن، وتصريفها، واختلاف القراءات لنفس الكلمة إن وُجدت، تظهر عند الضغط على الكلمة في أثناء القراءة.- الاستماع للقرآن الكريم مرتلًا أو مجودًا بواسطة أكثر من 60 من القراء المعروفين.- إمكانية إعادة الاستماع للآيات أكثر من مرة لتيسير الحفظ والتلقين.- كتابة تعليقات ووضع فواصل في أثناء القراءة للرجوع إليها لاحقًا.بالإضافة لذلك يقدم تطبيق سورة أدوات للحفظ والاختبار الذاتي، مثل إنشاء خطط شخصية للحفظ، مع تذكيرات ذكية، وخاصية للاختبار الذاتي لتتبع التقدم والمراجعة اليومية.
+            - button "اقرأ المزيد" [ref=e61] [cursor=pointer]
+        - complementary [ref=e62]:
+          - button "View all apps by جمعية البرهان لخدمة السنة والقرآن" [ref=e64] [cursor=pointer]:
+            - generic [ref=e65]:
+              - heading "المطور" [level=2] [ref=e66]
+              - paragraph [ref=e67]: جمعية البرهان لخدمة السنة والقرآن
+          - generic [ref=e68]:
+            - heading "روابط التحميل" [level=3] [ref=e69]
+            - generic [ref=e70]:
+              - link "Download from App Store" [ref=e71] [cursor=pointer]:
+                - /url: https://apps.apple.com/us/app/surah-al-quran/id1615829761
+              - link "Download from Google Play" [ref=e99] [cursor=pointer]:
+                - /url: https://play.google.com/store/apps/details?id=com.surahapp
+      - generic [ref=e121]:
+        - generic [ref=e122]:
+          - heading "صور من التطبيق" [level=2] [ref=e123]
+          - generic [ref=e124]:
+            - button "Previous" [ref=e125] [cursor=pointer]
+            - button "Next" [ref=e128] [cursor=pointer]
+        - generic [ref=e132]:
+          - generic [ref=e133]:
+            - generic:
+              - group "1 / 5" [ref=e134]:
+                - img "Surah screenshot 1" [ref=e135] [cursor=pointer]
+              - group "2 / 5" [ref=e136]:
+                - img "Surah screenshot 2" [ref=e137] [cursor=pointer]
+              - group "3 / 5" [ref=e138]:
+                - img "Surah screenshot 3" [ref=e139] [cursor=pointer]
+              - group "4 / 5" [ref=e140]:
+                - img "Surah screenshot 4" [ref=e141] [cursor=pointer]
+              - group "5 / 5" [ref=e142]:
+                - img "Surah screenshot 5" [ref=e143] [cursor=pointer]
+          - generic [ref=e144]:
+            - button "Go to slide 1" [ref=e145] [cursor=pointer]
+            - button "Go to slide 2" [ref=e146] [cursor=pointer]
+            - button "Go to slide 3" [ref=e147] [cursor=pointer]
+            - button "Go to slide 4" [ref=e148] [cursor=pointer]
+      - generic [ref=e150]:
+        - heading "التصنيفات" [level=2] [ref=e151]
+        - generic [ref=e152]:
+          - button "Filter by mushaf" [ref=e153] [cursor=pointer]:
+            - generic [ref=e157]: مصحف
+          - button "Filter by tafsir" [ref=e158] [cursor=pointer]:
+            - generic [ref=e162]: تفسير
+          - button "Filter by audio" [ref=e163] [cursor=pointer]:
+            - generic [ref=e167]: صوتيات
+          - button "Filter by memorize" [ref=e168] [cursor=pointer]:
+            - generic [ref=e172]: تحفيظ
+      - generic [ref=e174]:
+        - heading "تطبيقات مشابهة" [level=2] [ref=e175]
+        - generic [ref=e176]:
+          - button "التالي" [ref=e177] [cursor=pointer]
+          - button "السابق" [ref=e180] [cursor=pointer]
+      - generic [ref=e183]:
+        - article "View details for Wahy" [ref=e184] [cursor=pointer]:
+          - img "Wahy screenshot" [ref=e187]
+          - generic [ref=e188]:
+            - generic [ref=e189]:
+              - img "Wahy icon" [ref=e192]
+              - generic [ref=e193]:
+                - heading "وَحي" [level=3] [ref=e194]
+                - paragraph [ref=e195]: تطبيق شامل لتدبر القرآن
+            - generic [ref=e196]:
+              - generic [ref=e197]: مصحف
+              - generic [ref=e198]: ترجمات
+              - generic [ref=e199]: تفسير
+              - generic [ref=e200]: "+2"
+            - generic [ref=e201]:
+              - generic [ref=e202]:
+                - generic [ref=e203]: "4.9"
+                - generic [ref=e205]: التقييمات
+              - generic [ref=e206]:
+                - generic [ref=e207]: "0"
+                - generic [ref=e208]: متاجر
+              - generic [ref=e209]:
+                - generic [ref=e210]: الجميع
+                - generic [ref=e211]: المنصة
+            - generic [ref=e212]:
+              - button "تنزيل التطبيق" [ref=e213]
+              - button "مشاركة" [ref=e214]
+        - article "View details for Ayah" [ref=e218] [cursor=pointer]:
+          - img "Ayah screenshot" [ref=e221]
+          - generic [ref=e222]:
+            - generic [ref=e223]:
+              - img "Ayah icon" [ref=e226]
+              - generic [ref=e227]:
+                - heading "آية" [level=3] [ref=e228]
+                - paragraph [ref=e229]: تلاوة وتدبر القرآن الكريم
+            - generic [ref=e230]:
+              - generic [ref=e231]: مصحف
+              - generic [ref=e232]: ترجمات
+              - generic [ref=e233]: تفسير
+            - generic [ref=e234]:
+              - generic [ref=e235]:
+                - generic [ref=e236]: "4.3"
+                - generic [ref=e238]: التقييمات
+              - generic [ref=e239]:
+                - generic [ref=e240]: "0"
+                - generic [ref=e241]: متاجر
+              - generic [ref=e242]:
+                - generic [ref=e243]: الجميع
+                - generic [ref=e244]: المنصة
+            - generic [ref=e245]:
+              - button "تنزيل التطبيق" [ref=e246]
+              - button "مشاركة" [ref=e247]
+        - article "View details for Quran" [ref=e251] [cursor=pointer]:
+          - img "Quran screenshot" [ref=e254]
+          - generic [ref=e255]:
+            - generic [ref=e256]:
+              - img "Quran icon" [ref=e259]
+              - generic [ref=e260]:
+                - heading "قرآن" [level=3] [ref=e261]
+                - paragraph [ref=e262]: تلاوة القرآن مع أدوات Quran.com
+            - generic [ref=e263]: مصحف
+            - generic [ref=e265]:
+              - generic [ref=e266]:
+                - generic [ref=e267]: "4.7"
+                - generic [ref=e269]: التقييمات
+              - generic [ref=e270]:
+                - generic [ref=e271]: "0"
+                - generic [ref=e272]: متاجر
+              - generic [ref=e273]:
+                - generic [ref=e274]: الجميع
+                - generic [ref=e275]: المنصة
+            - generic [ref=e276]:
+              - button "تنزيل التطبيق" [ref=e277]
+              - button "مشاركة" [ref=e278]
+        - article "View details for Mushaf Altdabbor" [ref=e282] [cursor=pointer]:
+          - img "Mushaf Altdabbor screenshot" [ref=e285]
+          - generic [ref=e286]:
+            - generic [ref=e287]:
+              - img "Mushaf Altdabbor icon" [ref=e290]
+              - generic [ref=e291]:
+                - heading "مصحف التدبر" [level=3] [ref=e292]
+                - paragraph [ref=e293]: تطبيق لقراءة وفهم معاني القرآن الكريم
+            - generic [ref=e294]:
+              - generic [ref=e295]: مصحف
+              - generic [ref=e296]: تفسير
+            - generic [ref=e297]:
+              - generic [ref=e298]:
+                - generic [ref=e299]: "4.8"
+                - generic [ref=e301]: التقييمات
+              - generic [ref=e302]:
+                - generic [ref=e303]: "0"
+                - generic [ref=e304]: متاجر
+              - generic [ref=e305]:
+                - generic [ref=e306]: الجميع
+                - generic [ref=e307]: المنصة
+            - generic [ref=e308]:
+              - button "تنزيل التطبيق" [ref=e309]
+              - button "مشاركة" [ref=e310]
+        - article "View details for Mushaf Mecca" [ref=e314] [cursor=pointer]:
+          - img "Mushaf Mecca screenshot" [ref=e317]
+          - generic [ref=e318]:
+            - generic [ref=e319]:
+              - img "Mushaf Mecca icon" [ref=e322]
+              - generic [ref=e323]:
+                - heading "مصحف مكة" [level=3] [ref=e324]
+                - paragraph [ref=e325]: مصحف متكامل للقراءة والتدبر
+            - generic [ref=e326]:
+              - generic [ref=e327]: مصحف
+              - generic [ref=e328]: ترجمات
+              - generic [ref=e329]: تفسير
+              - generic [ref=e330]: "+2"
+            - generic [ref=e331]:
+              - generic [ref=e332]:
+                - generic [ref=e333]: "4.6"
+                - generic [ref=e335]: التقييمات
+              - generic [ref=e336]:
+                - generic [ref=e337]: "0"
+                - generic [ref=e338]: متاجر
+              - generic [ref=e339]:
+                - generic [ref=e340]: الجميع
+                - generic [ref=e341]: المنصة
+            - generic [ref=e342]:
+              - button "تنزيل التطبيق" [ref=e343]
+              - button "مشاركة" [ref=e344]
+        - article "View details for Maher" [ref=e348] [cursor=pointer]:
+          - img "Maher screenshot" [ref=e351]
+          - generic [ref=e352]:
+            - generic [ref=e353]:
+              - img "Maher icon" [ref=e356]
+              - generic [ref=e357]:
+                - heading "ماهر" [level=3] [ref=e358]
+                - paragraph [ref=e359]: تلاوتك وتسميعك تحت المتابعة الذكية
+            - generic [ref=e360]:
+              - generic [ref=e361]: مصحف
+              - generic [ref=e362]: تسميع
+              - generic [ref=e363]: تفسير
+            - generic [ref=e364]:
+              - generic [ref=e365]:
+                - generic [ref=e366]: "3.8"
+                - generic [ref=e368]: التقييمات
+              - generic [ref=e369]:
+                - generic [ref=e370]: "0"
+                - generic [ref=e371]: متاجر
+              - generic [ref=e372]:
+                - generic [ref=e373]: الجميع
+                - generic [ref=e374]: المنصة
+            - generic [ref=e375]:
+              - button "تنزيل التطبيق" [ref=e376]
+              - button "مشاركة" [ref=e377]
+        - article "View details for Elmohafez" [ref=e381] [cursor=pointer]:
+          - img "Elmohafez screenshot" [ref=e384]
+          - generic [ref=e385]:
+            - generic [ref=e386]:
+              - img "Elmohafez icon" [ref=e389]
+              - generic [ref=e390]:
+                - heading "محفظ الوحيين" [level=3] [ref=e391]
+                - paragraph [ref=e392]: دعم حفظ القرآن والأحاديث والمتون العلمية
+            - generic [ref=e393]:
+              - generic [ref=e394]: مصحف
+              - generic [ref=e395]: ترجمات
+              - generic [ref=e396]: تفسير
+              - generic [ref=e397]: "+3"
+            - generic [ref=e398]:
+              - generic [ref=e399]:
+                - generic [ref=e400]: "4.7"
+                - generic [ref=e402]: التقييمات
+              - generic [ref=e403]:
+                - generic [ref=e404]: "0"
+                - generic [ref=e405]: متاجر
+              - generic [ref=e406]:
+                - generic [ref=e407]: الجميع
+                - generic [ref=e408]: المنصة
+            - generic [ref=e409]:
+              - button "تنزيل التطبيق" [ref=e410]
+              - button "مشاركة" [ref=e411]
+        - article "View details for MA'ANONI DA SHIRIYAR ALQUR'ANI" [ref=e415] [cursor=pointer]:
+          - img "MA'ANONI DA SHIRIYAR ALQUR'ANI screenshot" [ref=e418]
+          - generic [ref=e419]:
+            - generic [ref=e420]:
+              - img "MA'ANONI DA SHIRIYAR ALQUR'ANI icon" [ref=e423]
+              - generic [ref=e424]:
+                - heading "تفسير الهوسا" [level=3] [ref=e425]
+                - paragraph [ref=e426]: تفسير القرآن بلغة الهوسا
+            - generic [ref=e427]:
+              - generic [ref=e428]: مصحف
+              - generic [ref=e429]: ترجمات
+              - generic [ref=e430]: تفسير
+            - generic [ref=e431]:
+              - generic [ref=e432]:
+                - generic [ref=e433]: "4.9"
+                - generic [ref=e435]: التقييمات
+              - generic [ref=e436]:
+                - generic [ref=e437]: "0"
+                - generic [ref=e438]: متاجر
+              - generic [ref=e439]:
+                - generic [ref=e440]: الجميع
+                - generic [ref=e441]: المنصة
+            - generic [ref=e442]:
+              - button "تنزيل التطبيق" [ref=e443]
+              - button "مشاركة" [ref=e444]
+        - article "View details for Zuolfa" [ref=e448] [cursor=pointer]:
+          - img "Zuolfa screenshot" [ref=e451]
+          - generic [ref=e452]:
+            - generic [ref=e453]:
+              - img "Zuolfa icon" [ref=e456]
+              - generic [ref=e457]:
+                - heading "زلفى" [level=3] [ref=e458]
+                - paragraph [ref=e459]: تعليم تلاوة القرآن واللغة العربية
+            - generic [ref=e460]:
+              - generic [ref=e461]: مصحف
+              - generic [ref=e462]: تسميع
+              - generic [ref=e463]: أطفال
+              - generic [ref=e464]: "+3"
+            - generic [ref=e465]:
+              - generic [ref=e466]:
+                - generic [ref=e467]: "4.7"
+                - generic [ref=e469]: التقييمات
+              - generic [ref=e470]:
+                - generic [ref=e471]: "0"
+                - generic [ref=e472]: متاجر
+              - generic [ref=e473]:
+                - generic [ref=e474]: الجميع
+                - generic [ref=e475]: المنصة
+            - generic [ref=e476]:
+              - button "تنزيل التطبيق" [ref=e477]
+              - button "مشاركة" [ref=e478]
+        - article "View details for Satr" [ref=e482] [cursor=pointer]:
+          - img "Satr screenshot" [ref=e485]
+          - generic [ref=e486]:
+            - generic [ref=e487]:
+              - img "Satr icon" [ref=e490]
+              - generic [ref=e491]:
+                - heading "سطر" [level=3] [ref=e492]
+                - paragraph [ref=e493]: تطبيق لقراءة القرآن في سطر
+            - generic [ref=e494]:
+              - generic [ref=e495]: مصحف
+              - generic [ref=e496]: أخرى
+            - generic [ref=e497]:
+              - generic [ref=e498]:
+                - generic [ref=e499]: "4.0"
+                - generic [ref=e501]: التقييمات
+              - generic [ref=e502]:
+                - generic [ref=e503]: "0"
+                - generic [ref=e504]: متاجر
+              - generic [ref=e505]:
+                - generic [ref=e506]: الجميع
+                - generic [ref=e507]: المنصة
+            - generic [ref=e508]:
+              - button "تنزيل التطبيق" [ref=e509]
+              - button "مشاركة" [ref=e510]
+        - article "View details for Moeen" [ref=e514] [cursor=pointer]:
+          - img "Moeen screenshot" [ref=e517]
+          - generic [ref=e518]:
+            - generic [ref=e519]:
+              - img "Moeen icon" [ref=e522]
+              - generic [ref=e523]:
+                - heading "معين" [level=3] [ref=e524]
+                - paragraph [ref=e525]: مراجعة حفظ القرآن وتدقيق إتقانه
+            - generic [ref=e526]:
+              - generic [ref=e527]: مصحف
+              - generic [ref=e528]: تحفيظ
+            - generic [ref=e529]:
+              - generic [ref=e530]:
+                - generic [ref=e531]: "5.0"
+                - generic [ref=e533]: التقييمات
+              - generic [ref=e534]:
+                - generic [ref=e535]: "0"
+                - generic [ref=e536]: متاجر
+              - generic [ref=e537]:
+                - generic [ref=e538]: آي أو إس
+                - generic [ref=e539]: المنصة
+            - generic [ref=e540]:
+              - button "تنزيل التطبيق" [ref=e541]
+              - button "مشاركة" [ref=e542]
+        - 'article "View details for Quran: Reflect & Action" [ref=e546] [cursor=pointer]':
+          - 'img "Quran: Reflect & Action screenshot" [ref=e549]'
+          - generic [ref=e550]:
+            - generic [ref=e551]:
+              - 'img "Quran: Reflect & Action icon" [ref=e554]'
+              - generic [ref=e555]:
+                - heading "القرآن الكريم تدبر وعمل" [level=3] [ref=e556]
+                - paragraph [ref=e557]: منهج عملي لتدبر القرآن
+            - generic [ref=e558]:
+              - generic [ref=e559]: مصحف
+              - generic [ref=e560]: تفسير
+            - generic [ref=e561]:
+              - generic [ref=e562]:
+                - generic [ref=e563]: "4.8"
+                - generic [ref=e565]: التقييمات
+              - generic [ref=e566]:
+                - generic [ref=e567]: "0"
+                - generic [ref=e568]: متاجر
+              - generic [ref=e569]:
+                - generic [ref=e570]: الجميع
+                - generic [ref=e571]: المنصة
+            - generic [ref=e572]:
+              - button "تنزيل التطبيق" [ref=e573]
+              - button "مشاركة" [ref=e574]
+        - article "View details for Ana Atlou" [ref=e578] [cursor=pointer]:
+          - img "Ana Atlou screenshot" [ref=e581]
+          - generic [ref=e582]:
+            - generic [ref=e583]:
+              - img "Ana Atlou icon" [ref=e586]
+              - generic [ref=e587]:
+                - heading "أنا أتلو" [level=3] [ref=e588]
+                - paragraph [ref=e589]: تطبيق قرآن صوتي للمكفوفين
+            - generic [ref=e590]:
+              - generic [ref=e591]: مصحف
+              - generic [ref=e592]: ترجمات
+              - generic [ref=e593]: تفسير
+              - generic [ref=e594]: "+1"
+            - generic [ref=e595]:
+              - generic [ref=e596]:
+                - generic [ref=e597]: "5.0"
+                - generic [ref=e599]: التقييمات
+              - generic [ref=e600]:
+                - generic [ref=e601]: "0"
+                - generic [ref=e602]: متاجر
+              - generic [ref=e603]:
+                - generic [ref=e604]: الجميع
+                - generic [ref=e605]: المنصة
+            - generic [ref=e606]:
+              - button "تنزيل التطبيق" [ref=e607]
+              - button "مشاركة" [ref=e608]
+        - article "View details for Noor International Quran" [ref=e612] [cursor=pointer]:
+          - img "Noor International Quran screenshot" [ref=e615]
+          - generic [ref=e616]:
+            - generic [ref=e617]:
+              - img "Noor International Quran icon" [ref=e620]
+              - generic [ref=e621]:
+                - heading "مصحف نور إنترناشيونال" [level=3] [ref=e622]
+                - paragraph [ref=e623]: ترجمات صوتية ونصية لمعاني القرآن
+            - generic [ref=e624]:
+              - generic [ref=e625]: مصحف
+              - generic [ref=e626]: ترجمات
+              - generic [ref=e627]: صوتيات
+            - generic [ref=e628]:
+              - generic [ref=e629]:
+                - generic [ref=e630]: "4.2"
+                - generic [ref=e632]: التقييمات
+              - generic [ref=e633]:
+                - generic [ref=e634]: "0"
+                - generic [ref=e635]: متاجر
+              - generic [ref=e636]:
+                - generic [ref=e637]: الجميع
+                - generic [ref=e638]: المنصة
+            - generic [ref=e639]:
+              - button "تنزيل التطبيق" [ref=e640]
+              - button "مشاركة" [ref=e641]
+        - article "View details for School Mushaf" [ref=e645] [cursor=pointer]:
+          - img "School Mushaf screenshot" [ref=e648]
+          - generic [ref=e649]:
+            - generic [ref=e650]:
+              - img "School Mushaf icon" [ref=e653]
+              - generic [ref=e654]:
+                - heading "المصحف المدرسي" [level=3] [ref=e655]
+                - paragraph [ref=e656]: مصحف مدرسي وفق المناهج
+            - generic [ref=e657]:
+              - generic [ref=e658]: مصحف
+              - generic [ref=e659]: أطفال
+              - generic [ref=e660]: تحفيظ
+            - generic [ref=e661]:
+              - generic [ref=e662]:
+                - generic [ref=e663]: "4.6"
+                - generic [ref=e665]: التقييمات
+              - generic [ref=e666]:
+                - generic [ref=e667]: "0"
+                - generic [ref=e668]: متاجر
+              - generic [ref=e669]:
+                - generic [ref=e670]: الجميع
+                - generic [ref=e671]: المنصة
+            - generic [ref=e672]:
+              - button "تنزيل التطبيق" [ref=e673]
+              - button "مشاركة" [ref=e674]
+        - article "View details for School Mushaf - Sign Language" [ref=e678] [cursor=pointer]:
+          - img "School Mushaf - Sign Language screenshot" [ref=e681]
+          - generic [ref=e682]:
+            - generic [ref=e683]:
+              - img "School Mushaf - Sign Language icon" [ref=e686]
+              - generic [ref=e687]:
+                - heading "المصحف المدرسي الإشاري" [level=3] [ref=e688]
+                - paragraph [ref=e689]: مصحف تعليمي بلغة الإشارة
+            - generic [ref=e690]:
+              - generic [ref=e691]: مصحف
+              - generic [ref=e692]: أطفال
+              - generic [ref=e693]: تحفيظ
+              - generic [ref=e694]: "+1"
+            - generic [ref=e695]:
+              - generic [ref=e696]:
+                - generic [ref=e697]: "4.2"
+                - generic [ref=e699]: التقييمات
+              - generic [ref=e700]:
+                - generic [ref=e701]: "0"
+                - generic [ref=e702]: متاجر
+              - generic [ref=e703]:
+                - generic [ref=e704]: الجميع
+                - generic [ref=e705]: المنصة
+            - generic [ref=e706]:
+              - button "تنزيل التطبيق" [ref=e707]
+              - button "مشاركة" [ref=e708]
+        - article "View details for Quran Hafs" [ref=e712] [cursor=pointer]:
+          - img "Quran Hafs screenshot" [ref=e715]
+          - generic [ref=e716]:
+            - generic [ref=e717]:
+              - img "Quran Hafs icon" [ref=e720]
+              - generic [ref=e721]:
+                - heading "مصحف حفص" [level=3] [ref=e722]
+                - paragraph [ref=e723]: مصحف المدينة المنورة برواية حفص
+            - generic [ref=e724]:
+              - generic [ref=e725]: مصحف
+              - generic [ref=e726]: تفسير
+            - generic [ref=e727]:
+              - generic [ref=e728]:
+                - generic [ref=e729]: "4.8"
+                - generic [ref=e731]: التقييمات
+              - generic [ref=e732]:
+                - generic [ref=e733]: "0"
+                - generic [ref=e734]: متاجر
+              - generic [ref=e735]:
+                - generic [ref=e736]: الجميع
+                - generic [ref=e737]: المنصة
+            - generic [ref=e738]:
+              - button "تنزيل التطبيق" [ref=e739]
+              - button "مشاركة" [ref=e740]
+        - article "View details for Tebyan Quran" [ref=e744] [cursor=pointer]:
+          - img "Tebyan Quran screenshot" [ref=e747]
+          - generic [ref=e748]:
+            - generic [ref=e749]:
+              - img "Tebyan Quran icon" [ref=e752]
+              - generic [ref=e753]:
+                - heading "مصحف تبيان للصم" [level=3] [ref=e754]
+                - paragraph [ref=e755]: مصحف بلغة الإشارة للصم وضعاف السمع
+            - generic [ref=e756]:
+              - generic [ref=e757]: مصحف
+              - generic [ref=e758]: تفسير
+              - generic [ref=e759]: ذوي الإعاقة
+            - generic [ref=e760]:
+              - generic [ref=e761]:
+                - generic [ref=e762]: "4.7"
+                - generic [ref=e764]: التقييمات
+              - generic [ref=e765]:
+                - generic [ref=e766]: "0"
+                - generic [ref=e767]: متاجر
+              - generic [ref=e768]:
+                - generic [ref=e769]: الجميع
+                - generic [ref=e770]: المنصة
+            - generic [ref=e771]:
+              - button "تنزيل التطبيق" [ref=e772]
+              - button "مشاركة" [ref=e773]
+        - article "View details for Quran Warsh" [ref=e777] [cursor=pointer]:
+          - img "Quran Warsh screenshot" [ref=e780]
+          - generic [ref=e781]:
+            - generic [ref=e782]:
+              - img "Quran Warsh icon" [ref=e785]
+              - generic [ref=e786]:
+                - heading "مصحف ورش" [level=3] [ref=e787]
+                - paragraph [ref=e788]: مصحف المدينة المنورة برواية ورش
+            - generic [ref=e789]:
+              - generic [ref=e790]: مصحف
+              - generic [ref=e791]: تفسير
+              - generic [ref=e792]: روايات
+            - generic [ref=e793]:
+              - generic [ref=e794]:
+                - generic [ref=e795]: "4.6"
+                - generic [ref=e797]: التقييمات
+              - generic [ref=e798]:
+                - generic [ref=e799]: "0"
+                - generic [ref=e800]: متاجر
+              - generic [ref=e801]:
+                - generic [ref=e802]: الجميع
+                - generic [ref=e803]: المنصة
+            - generic [ref=e804]:
+              - button "تنزيل التطبيق" [ref=e805]
+              - button "مشاركة" [ref=e806]
+        - article "View details for Amazighi Quran" [ref=e810] [cursor=pointer]:
+          - img "Amazighi Quran screenshot" [ref=e813]
+          - generic [ref=e814]:
+            - generic [ref=e815]:
+              - img "Amazighi Quran icon" [ref=e818]
+              - generic [ref=e819]:
+                - heading "المصحف الأمازيغي" [level=3] [ref=e820]
+                - paragraph [ref=e821]: المصحف الشريف المحمدي برواية ورش
+            - generic [ref=e822]:
+              - generic [ref=e823]: مصحف
+              - generic [ref=e824]: ترجمات
+              - generic [ref=e825]: تفسير
+              - generic [ref=e826]: "+2"
+            - generic [ref=e827]:
+              - generic [ref=e828]:
+                - generic [ref=e829]: "5.0"
+                - generic [ref=e831]: التقييمات
+              - generic [ref=e832]:
+                - generic [ref=e833]: "0"
+                - generic [ref=e834]: متاجر
+              - generic [ref=e835]:
+                - generic [ref=e836]: الجميع
+                - generic [ref=e837]: المنصة
+            - generic [ref=e838]:
+              - button "تنزيل التطبيق" [ref=e839]
+              - button "مشاركة" [ref=e840]
+        - article "View details for Quran Indonesia Kemenag koran" [ref=e844] [cursor=pointer]:
+          - img "Quran Indonesia Kemenag koran screenshot" [ref=e847]
+          - generic [ref=e848]:
+            - generic [ref=e849]:
+              - img "Quran Indonesia Kemenag koran icon" [ref=e852]
+              - generic [ref=e853]:
+                - heading "المصحف الإندونيسي" [level=3] [ref=e854]
+                - paragraph [ref=e855]: ترجمة القرآن الكريم للناطقين باللغة الإندونيسية
+            - generic [ref=e856]:
+              - generic [ref=e857]: مصحف
+              - generic [ref=e858]: ترجمات
+              - generic [ref=e859]: تفسير
+            - generic [ref=e860]:
+              - generic [ref=e861]:
+                - generic [ref=e862]: "4.2"
+                - generic [ref=e864]: التقييمات
+              - generic [ref=e865]:
+                - generic [ref=e866]: "0"
+                - generic [ref=e867]: متاجر
+              - generic [ref=e868]:
+                - generic [ref=e869]: الجميع
+                - generic [ref=e870]: المنصة
+            - generic [ref=e871]:
+              - button "تنزيل التطبيق" [ref=e872]
+              - button "مشاركة" [ref=e873]
+        - article "View details for Telawa Warsh" [ref=e877] [cursor=pointer]:
+          - img "Telawa Warsh screenshot" [ref=e880]
+          - generic [ref=e881]:
+            - generic [ref=e882]:
+              - img "Telawa Warsh icon" [ref=e885]
+              - generic [ref=e886]:
+                - heading "مصحف التلاوة ورش" [level=3] [ref=e887]
+                - paragraph [ref=e888]: تلاوة القرآن الكريم من مصحف ورش
+            - generic [ref=e889]:
+              - generic [ref=e890]: مصحف
+              - generic [ref=e891]: ترجمات
+              - generic [ref=e892]: تفسير
+              - generic [ref=e893]: "+1"
+            - generic [ref=e894]:
+              - generic [ref=e895]:
+                - generic [ref=e896]: "4.8"
+                - generic [ref=e898]: التقييمات
+              - generic [ref=e899]:
+                - generic [ref=e900]: "0"
+                - generic [ref=e901]: متاجر
+              - generic [ref=e902]:
+                - generic [ref=e903]: الجميع
+                - generic [ref=e904]: المنصة
+            - generic [ref=e905]:
+              - button "تنزيل التطبيق" [ref=e906]
+              - button "مشاركة" [ref=e907]
+        - article "View details for Wiqaya" [ref=e911] [cursor=pointer]:
+          - img "Wiqaya screenshot" [ref=e914]
+          - generic [ref=e915]:
+            - generic [ref=e916]:
+              - img "Wiqaya icon" [ref=e919]
+              - generic [ref=e920]:
+                - heading "وقاية اللسان" [level=3] [ref=e921]
+                - paragraph [ref=e922]: تدريب متدرج لتصحيح التلاوة
+            - generic [ref=e923]:
+              - generic [ref=e924]: مصحف
+              - generic [ref=e925]: تجويد
+            - generic [ref=e926]:
+              - generic [ref=e927]:
+                - generic [ref=e928]: "4.6"
+                - generic [ref=e930]: التقييمات
+              - generic [ref=e931]:
+                - generic [ref=e932]: "0"
+                - generic [ref=e933]: متاجر
+              - generic [ref=e934]:
+                - generic [ref=e935]: آي أو إس
+                - generic [ref=e936]: المنصة
+            - generic [ref=e937]:
+              - button "تنزيل التطبيق" [ref=e938]
+              - button "مشاركة" [ref=e939]
+        - article "View details for Study Quran" [ref=e943] [cursor=pointer]:
+          - img "Study Quran screenshot" [ref=e946]
+          - generic [ref=e947]:
+            - generic [ref=e948]:
+              - img "Study Quran icon" [ref=e951]
+              - generic [ref=e952]:
+                - heading "تدارس القرآن" [level=3] [ref=e953]
+                - paragraph [ref=e954]: منصة شاملة لدراسة القرآن وعلومه
+            - generic [ref=e955]:
+              - generic [ref=e956]: مصحف
+              - generic [ref=e957]: تفسير
+            - generic [ref=e958]:
+              - generic [ref=e959]:
+                - generic [ref=e960]: "4.8"
+                - generic [ref=e962]: التقييمات
+              - generic [ref=e963]:
+                - generic [ref=e964]: "0"
+                - generic [ref=e965]: متاجر
+              - generic [ref=e966]:
+                - generic [ref=e967]: الجميع
+                - generic [ref=e968]: المنصة
+            - generic [ref=e969]:
+              - button "تنزيل التطبيق" [ref=e970]
+              - button "مشاركة" [ref=e971]
+        - article "View details for The Holy Quran" [ref=e975] [cursor=pointer]:
+          - img "The Holy Quran screenshot" [ref=e978]
+          - generic [ref=e979]:
+            - generic [ref=e980]:
+              - img "The Holy Quran icon" [ref=e983]
+              - generic [ref=e984]:
+                - heading "القرآن الكريم" [level=3] [ref=e985]
+                - paragraph [ref=e986]: القرآن بتجربة الواقع الافتراضي
+            - generic [ref=e987]:
+              - generic [ref=e988]: مصحف
+              - generic [ref=e989]: أخرى
+            - generic [ref=e990]:
+              - generic [ref=e991]:
+                - generic [ref=e992]: "3.7"
+                - generic [ref=e994]: التقييمات
+              - generic [ref=e995]:
+                - generic [ref=e996]: "0"
+                - generic [ref=e997]: متاجر
+              - generic [ref=e998]:
+                - generic [ref=e999]: آي أو إس
+                - generic [ref=e1000]: المنصة
+            - generic [ref=e1001]:
+              - button "تنزيل التطبيق" [ref=e1002]
+              - button "مشاركة" [ref=e1003]
+        - article "View details for Al-Furqan Mushaf" [ref=e1007] [cursor=pointer]:
+          - img "Al-Furqan Mushaf screenshot" [ref=e1010]
+          - generic [ref=e1011]:
+            - generic [ref=e1012]:
+              - img "Al-Furqan Mushaf icon" [ref=e1015]
+              - generic [ref=e1016]:
+                - heading "مصحف الفرقان" [level=3] [ref=e1017]
+                - paragraph [ref=e1018]: المصحف بالأحكام التجويدية الملونة
+            - generic [ref=e1019]:
+              - generic [ref=e1020]: مصحف
+              - generic [ref=e1021]: ترجمات
+              - generic [ref=e1022]: تسميع
+              - generic [ref=e1023]: "+2"
+            - generic [ref=e1024]:
+              - generic [ref=e1025]:
+                - generic [ref=e1026]: "4.7"
+                - generic [ref=e1028]: التقييمات
+              - generic [ref=e1029]:
+                - generic [ref=e1030]: "0"
+                - generic [ref=e1031]: متاجر
+              - generic [ref=e1032]:
+                - generic [ref=e1033]: الجميع
+                - generic [ref=e1034]: المنصة
+            - generic [ref=e1035]:
+              - button "تنزيل التطبيق" [ref=e1036]
+              - button "مشاركة" [ref=e1037]
+        - article "View details for Alqarie" [ref=e1041] [cursor=pointer]:
+          - img "Alqarie screenshot" [ref=e1044]
+          - generic [ref=e1045]:
+            - generic [ref=e1046]:
+              - img "Alqarie icon" [ref=e1049]
+              - generic [ref=e1050]:
+                - heading "القارئ" [level=3] [ref=e1051]
+                - paragraph [ref=e1052]: مصحف رقمي مسموع للمكفوفين وضعاف البصر
+            - generic [ref=e1053]:
+              - generic [ref=e1054]: مصحف
+              - generic [ref=e1055]: ذوي الإعاقة
+            - generic [ref=e1056]:
+              - generic [ref=e1057]:
+                - generic [ref=e1058]: "5.0"
+                - generic [ref=e1060]: التقييمات
+              - generic [ref=e1061]:
+                - generic [ref=e1062]: "0"
+                - generic [ref=e1063]: متاجر
+              - generic [ref=e1064]:
+                - generic [ref=e1065]: الجميع
+                - generic [ref=e1066]: المنصة
+            - generic [ref=e1067]:
+              - button "تنزيل التطبيق" [ref=e1068]
+              - button "مشاركة" [ref=e1069]
+        - article "View details for Ameen" [ref=e1073] [cursor=pointer]:
+          - img "Ameen screenshot" [ref=e1076]
+          - generic [ref=e1077]:
+            - generic [ref=e1078]:
+              - img "Ameen icon" [ref=e1081]
+              - generic [ref=e1082]:
+                - heading "آمين" [level=3] [ref=e1083]
+                - paragraph [ref=e1084]: المصحف والعبادات اليومية في مكان واحد
+            - generic [ref=e1085]:
+              - generic [ref=e1086]: مصحف
+              - generic [ref=e1087]: تسميع
+              - generic [ref=e1088]: أخرى
+            - generic [ref=e1089]:
+              - generic [ref=e1090]:
+                - generic [ref=e1091]: "4.9"
+                - generic [ref=e1093]: التقييمات
+              - generic [ref=e1094]:
+                - generic [ref=e1095]: "0"
+                - generic [ref=e1096]: متاجر
+              - generic [ref=e1097]:
+                - generic [ref=e1098]: الجميع
+                - generic [ref=e1099]: المنصة
+            - generic [ref=e1100]:
+              - button "تنزيل التطبيق" [ref=e1101]
+              - button "مشاركة" [ref=e1102]
+        - 'article "View details for Ayat: Al Quran" [ref=e1106] [cursor=pointer]':
+          - 'img "Ayat: Al Quran screenshot" [ref=e1109]'
+          - generic [ref=e1110]:
+            - generic [ref=e1111]:
+              - 'img "Ayat: Al Quran icon" [ref=e1114]'
+              - generic [ref=e1115]:
+                - heading "القرآن الكريم - آيات" [level=3] [ref=e1116]
+                - paragraph [ref=e1117]: نسخة مكتبية من موقع القرآن بجامعة الملك سعود
+            - generic [ref=e1118]:
+              - generic [ref=e1119]: مصحف
+              - generic [ref=e1120]: ترجمات
+              - generic [ref=e1121]: تسميع
+              - generic [ref=e1122]: "+3"
+            - generic [ref=e1123]:
+              - generic [ref=e1124]:
+                - generic [ref=e1125]: "4.2"
+                - generic [ref=e1127]: التقييمات
+              - generic [ref=e1128]:
+                - generic [ref=e1129]: "0"
+                - generic [ref=e1130]: متاجر
+              - generic [ref=e1131]:
+                - generic [ref=e1132]: الجميع
+                - generic [ref=e1133]: المنصة
+            - generic [ref=e1134]:
+              - button "تنزيل التطبيق" [ref=e1135]
+              - button "مشاركة" [ref=e1136]
+        - article "View details for E AlQuran" [ref=e1140] [cursor=pointer]:
+          - img "E AlQuran screenshot" [ref=e1143]
+          - generic [ref=e1144]:
+            - generic [ref=e1145]:
+              - img "E AlQuran icon" [ref=e1148]
+              - generic [ref=e1149]:
+                - heading "القرآن الإلكتروني" [level=3] [ref=e1150]
+                - paragraph [ref=e1151]: عرض كل سورة في صفحة مستقلة
+            - generic [ref=e1152]:
+              - generic [ref=e1153]: مصحف
+              - generic [ref=e1154]: تسميع
+              - generic [ref=e1155]: روايات
+            - generic [ref=e1156]:
+              - generic [ref=e1157]:
+                - generic [ref=e1158]: "4.7"
+                - generic [ref=e1160]: التقييمات
+              - generic [ref=e1161]:
+                - generic [ref=e1162]: "0"
+                - generic [ref=e1163]: متاجر
+              - generic [ref=e1164]:
+                - generic [ref=e1165]: الجميع
+                - generic [ref=e1166]: المنصة
+            - generic [ref=e1167]:
+              - button "تنزيل التطبيق" [ref=e1168]
+              - button "مشاركة" [ref=e1169]
+        - 'article "View details for Hamel Al-Quran: Tajweed Mushaf" [ref=e1173] [cursor=pointer]':
+          - 'img "Hamel Al-Quran: Tajweed Mushaf screenshot" [ref=e1176]'
+          - generic [ref=e1177]:
+            - generic [ref=e1178]:
+              - 'img "Hamel Al-Quran: Tajweed Mushaf icon" [ref=e1181]'
+              - generic [ref=e1182]:
+                - 'heading "حامل القرآن: مصحف التجويد" [level=3] [ref=e1183]'
+                - paragraph [ref=e1184]: مصحف تجويد ملون مع تفاسير متعددة
+            - generic [ref=e1185]:
+              - generic [ref=e1186]: مصحف
+              - generic [ref=e1187]: تفسير
+              - generic [ref=e1188]: تجويد
+            - generic [ref=e1189]:
+              - generic [ref=e1190]:
+                - generic [ref=e1191]: "4.8"
+                - generic [ref=e1193]: التقييمات
+              - generic [ref=e1194]:
+                - generic [ref=e1195]: "0"
+                - generic [ref=e1196]: متاجر
+              - generic [ref=e1197]:
+                - generic [ref=e1198]: الجميع
+                - generic [ref=e1199]: المنصة
+            - generic [ref=e1200]:
+              - button "تنزيل التطبيق" [ref=e1201]
+              - button "مشاركة" [ref=e1202]
+        - article "View details for Libyan Awqaf Quran" [ref=e1206] [cursor=pointer]:
+          - img "Libyan Awqaf Quran screenshot" [ref=e1209]
+          - generic [ref=e1210]:
+            - generic [ref=e1211]:
+              - img "Libyan Awqaf Quran icon" [ref=e1214]
+              - generic [ref=e1215]:
+                - heading "مصحف الأوقاف الليبية" [level=3] [ref=e1216]
+                - paragraph [ref=e1217]: مصحف الأوقاف الليبية برواية قالون
+            - generic [ref=e1218]:
+              - generic [ref=e1219]: مصحف
+              - generic [ref=e1220]: ترجمات
+              - generic [ref=e1221]: تسميع
+              - generic [ref=e1222]: "+1"
+            - generic [ref=e1223]:
+              - generic [ref=e1224]:
+                - generic [ref=e1225]: "4.7"
+                - generic [ref=e1227]: التقييمات
+              - generic [ref=e1228]:
+                - generic [ref=e1229]: "0"
+                - generic [ref=e1230]: متاجر
+              - generic [ref=e1231]:
+                - generic [ref=e1232]: الجميع
+                - generic [ref=e1233]: المنصة
+            - generic [ref=e1234]:
+              - button "تنزيل التطبيق" [ref=e1235]
+              - button "مشاركة" [ref=e1236]
+        - article "View details for Mushaf Al-Muhafiz" [ref=e1240] [cursor=pointer]:
+          - img "Mushaf Al-Muhafiz screenshot" [ref=e1243]
+          - generic [ref=e1244]:
+            - generic [ref=e1245]:
+              - img "Mushaf Al-Muhafiz icon" [ref=e1248]
+              - generic [ref=e1249]:
+                - heading "المصحف المحفظ" [level=3] [ref=e1250]
+                - paragraph [ref=e1251]: مراجعة واختبار حفظ القرآن
+            - generic [ref=e1252]:
+              - generic [ref=e1253]: مصحف
+              - generic [ref=e1254]: تحفيظ
+            - generic [ref=e1255]:
+              - generic [ref=e1256]:
+                - generic [ref=e1257]: "4.7"
+                - generic [ref=e1259]: التقييمات
+              - generic [ref=e1260]:
+                - generic [ref=e1261]: "0"
+                - generic [ref=e1262]: متاجر
+              - generic [ref=e1263]:
+                - generic [ref=e1264]: الجميع
+                - generic [ref=e1265]: المنصة
+            - generic [ref=e1266]:
+              - button "تنزيل التطبيق" [ref=e1267]
+              - button "مشاركة" [ref=e1268]
+        - article "View details for Mushaf Al-Qira’at" [ref=e1272] [cursor=pointer]:
+          - img "Mushaf Al-Qira’at screenshot" [ref=e1275]
+          - generic [ref=e1276]:
+            - generic [ref=e1277]:
+              - img "Mushaf Al-Qira’at icon" [ref=e1280]
+              - generic [ref=e1281]:
+                - heading "مصحف القراءات" [level=3] [ref=e1282]
+                - paragraph [ref=e1283]: تعلم القراءات العشر والاختلاف بينها
+            - generic [ref=e1284]:
+              - generic [ref=e1285]: مصحف
+              - generic [ref=e1286]: تسميع
+              - generic [ref=e1287]: روايات
+              - generic [ref=e1288]: "+1"
+            - generic [ref=e1289]:
+              - generic [ref=e1290]:
+                - generic [ref=e1291]: "4.6"
+                - generic [ref=e1293]: التقييمات
+              - generic [ref=e1294]:
+                - generic [ref=e1295]: "0"
+                - generic [ref=e1296]: متاجر
+              - generic [ref=e1297]:
+                - generic [ref=e1298]: الجميع
+                - generic [ref=e1299]: المنصة
+            - generic [ref=e1300]:
+              - button "تنزيل التطبيق" [ref=e1301]
+              - button "مشاركة" [ref=e1302]
+        - article "View details for Mushaf Masr" [ref=e1306] [cursor=pointer]:
+          - img "Mushaf Masr screenshot" [ref=e1309]
+          - generic [ref=e1310]:
+            - generic [ref=e1311]:
+              - img "Mushaf Masr icon" [ref=e1314]
+              - generic [ref=e1315]:
+                - heading "مصحف مصر" [level=3] [ref=e1316]
+                - paragraph [ref=e1317]: المصحف برواية حفص وطبعة الشمارلي
+            - generic [ref=e1318]:
+              - generic [ref=e1319]: مصحف
+              - generic [ref=e1320]: ترجمات
+              - generic [ref=e1321]: تسميع
+              - generic [ref=e1322]: "+2"
+            - generic [ref=e1323]:
+              - generic [ref=e1324]:
+                - generic [ref=e1325]: "4.5"
+                - generic [ref=e1327]: التقييمات
+              - generic [ref=e1328]:
+                - generic [ref=e1329]: "0"
+                - generic [ref=e1330]: متاجر
+              - generic [ref=e1331]:
+                - generic [ref=e1332]: الجميع
+                - generic [ref=e1333]: المنصة
+            - generic [ref=e1334]:
+              - button "تنزيل التطبيق" [ref=e1335]
+              - button "مشاركة" [ref=e1336]
+        - article "View details for Mushaf Menshawi" [ref=e1340] [cursor=pointer]:
+          - img "Mushaf Menshawi screenshot" [ref=e1343]
+          - generic [ref=e1344]:
+            - generic [ref=e1345]:
+              - img "Mushaf Menshawi icon" [ref=e1348]
+              - generic [ref=e1349]:
+                - heading "مصحف المنشاوي" [level=3] [ref=e1350]
+                - paragraph [ref=e1351]: مصحف صوتي بتلاوات المنشاوي
+            - generic [ref=e1352]:
+              - generic [ref=e1353]: مصحف
+              - generic [ref=e1354]: تسميع
+              - generic [ref=e1355]: صوتيات
+              - generic [ref=e1356]: "+1"
+            - generic [ref=e1357]:
+              - generic [ref=e1358]:
+                - generic [ref=e1359]: "4.8"
+                - generic [ref=e1361]: التقييمات
+              - generic [ref=e1362]:
+                - generic [ref=e1363]: "0"
+                - generic [ref=e1364]: متاجر
+              - generic [ref=e1365]:
+                - generic [ref=e1366]: الجميع
+                - generic [ref=e1367]: المنصة
+            - generic [ref=e1368]:
+              - button "تنزيل التطبيق" [ref=e1369]
+              - button "مشاركة" [ref=e1370]
+        - article "View details for Mus'hafy" [ref=e1374] [cursor=pointer]:
+          - img "Mus'hafy screenshot" [ref=e1377]
+          - generic [ref=e1378]:
+            - generic [ref=e1379]:
+              - img "Mus'hafy icon" [ref=e1382]
+              - generic [ref=e1383]:
+                - heading "مصحفي" [level=3] [ref=e1384]
+                - paragraph [ref=e1385]: قراءة ومراجعة القرآن الكريم
+            - generic [ref=e1386]:
+              - generic [ref=e1387]: مصحف
+              - generic [ref=e1388]: ترجمات
+              - generic [ref=e1389]: تسميع
+              - generic [ref=e1390]: "+2"
+            - generic [ref=e1391]:
+              - generic [ref=e1392]:
+                - generic [ref=e1393]: "4.2"
+                - generic [ref=e1395]: التقييمات
+              - generic [ref=e1396]:
+                - generic [ref=e1397]: "0"
+                - generic [ref=e1398]: متاجر
+              - generic [ref=e1399]:
+                - generic [ref=e1400]: الجميع
+                - generic [ref=e1401]: المنصة
+            - generic [ref=e1402]:
+              - button "تنزيل التطبيق" [ref=e1403]
+              - button "مشاركة" [ref=e1404]
+        - article "View details for Nafhat Makkiyah" [ref=e1408] [cursor=pointer]:
+          - img "Nafhat Makkiyah screenshot" [ref=e1411]
+          - generic [ref=e1412]:
+            - generic [ref=e1413]:
+              - img "Nafhat Makkiyah icon" [ref=e1416]
+              - generic [ref=e1417]:
+                - heading "نفحات مكية" [level=3] [ref=e1418]
+                - paragraph [ref=e1419]: قراءة وتفسير القرآن الكريم
+            - generic [ref=e1420]:
+              - generic [ref=e1421]: مصحف
+              - generic [ref=e1422]: تسميع
+              - generic [ref=e1423]: تفسير
+            - generic [ref=e1424]:
+              - generic [ref=e1425]:
+                - generic [ref=e1426]: "4.2"
+                - generic [ref=e1428]: التقييمات
+              - generic [ref=e1429]:
+                - generic [ref=e1430]: "0"
+                - generic [ref=e1431]: متاجر
+              - generic [ref=e1432]:
+                - generic [ref=e1433]: الجميع
+                - generic [ref=e1434]: المنصة
+            - generic [ref=e1435]:
+              - button "تنزيل التطبيق" [ref=e1436]
+              - button "مشاركة" [ref=e1437]
+        - article "View details for Othkoroni" [ref=e1441] [cursor=pointer]:
+          - img "Othkoroni screenshot" [ref=e1444]
+          - generic [ref=e1445]:
+            - generic [ref=e1446]:
+              - img "Othkoroni icon" [ref=e1449]
+              - generic [ref=e1450]:
+                - heading "فاذكروني" [level=3] [ref=e1451]
+                - paragraph [ref=e1452]: رفيقك اليومي للقرآن والعبادات
+            - generic [ref=e1453]:
+              - generic [ref=e1454]: مصحف
+              - generic [ref=e1455]: تسميع
+              - generic [ref=e1456]: تفسير
+              - generic [ref=e1457]: "+1"
+            - generic [ref=e1458]:
+              - generic [ref=e1459]:
+                - generic [ref=e1460]: "4.2"
+                - generic [ref=e1462]: التقييمات
+              - generic [ref=e1463]:
+                - generic [ref=e1464]: "0"
+                - generic [ref=e1465]: متاجر
+              - generic [ref=e1466]:
+                - generic [ref=e1467]: الجميع
+                - generic [ref=e1468]: المنصة
+            - generic [ref=e1469]:
+              - button "تنزيل التطبيق" [ref=e1470]
+              - button "مشاركة" [ref=e1471]
+        - article "View details for Quran Flash" [ref=e1475] [cursor=pointer]:
+          - img "Quran Flash screenshot" [ref=e1478]
+          - generic [ref=e1479]:
+            - generic [ref=e1480]:
+              - img "Quran Flash icon" [ref=e1483]
+              - generic [ref=e1484]:
+                - heading "قرآن فلاش" [level=3] [ref=e1485]
+                - paragraph [ref=e1486]: 17 مصحف مختلف لقراءة القرآن
+            - generic [ref=e1487]:
+              - generic [ref=e1488]: مصحف
+              - generic [ref=e1489]: ترجمات
+              - generic [ref=e1490]: تسميع
+              - generic [ref=e1491]: "+2"
+            - generic [ref=e1492]:
+              - generic [ref=e1493]:
+                - generic [ref=e1494]: "4.5"
+                - generic [ref=e1496]: التقييمات
+              - generic [ref=e1497]:
+                - generic [ref=e1498]: "0"
+                - generic [ref=e1499]: متاجر
+              - generic [ref=e1500]:
+                - generic [ref=e1501]: الجميع
+                - generic [ref=e1502]: المنصة
+            - generic [ref=e1503]:
+              - button "تنزيل التطبيق" [ref=e1504]
+              - button "مشاركة" [ref=e1505]
+        - article "View details for Quran Hidayat" [ref=e1509] [cursor=pointer]:
+          - img "Quran Hidayat screenshot" [ref=e1512]
+          - generic [ref=e1513]:
+            - generic [ref=e1514]:
+              - img "Quran Hidayat icon" [ref=e1517]
+              - generic [ref=e1518]:
+                - heading "هدايات القرآن" [level=3] [ref=e1519]
+                - paragraph [ref=e1520]: تفسير وهدايات آيات القرآن
+            - generic [ref=e1521]:
+              - generic [ref=e1522]: مصحف
+              - generic [ref=e1523]: ترجمات
+              - generic [ref=e1524]: تفسير
+              - generic [ref=e1525]: "+1"
+            - generic [ref=e1526]:
+              - generic [ref=e1527]:
+                - generic [ref=e1528]: "4.2"
+                - generic [ref=e1530]: التقييمات
+              - generic [ref=e1531]:
+                - generic [ref=e1532]: "0"
+                - generic [ref=e1533]: متاجر
+              - generic [ref=e1534]:
+                - generic [ref=e1535]: الجميع
+                - generic [ref=e1536]: المنصة
+            - generic [ref=e1537]:
+              - button "تنزيل التطبيق" [ref=e1538]
+              - button "مشاركة" [ref=e1539]
+        - article "View details for QuranPedia" [ref=e1543] [cursor=pointer]:
+          - img "QuranPedia screenshot" [ref=e1546]
+          - generic [ref=e1547]:
+            - generic [ref=e1548]:
+              - img "QuranPedia icon" [ref=e1551]
+              - generic [ref=e1552]:
+                - heading "الموسوعة القرآنية" [level=3] [ref=e1553]
+                - paragraph [ref=e1554]: موسوعة العلوم القرآنية للطلاب والمعلمين
+            - generic [ref=e1555]:
+              - generic [ref=e1556]: مصحف
+              - generic [ref=e1557]: ترجمات
+              - generic [ref=e1558]: تسميع
+              - generic [ref=e1559]: "+1"
+            - generic [ref=e1560]:
+              - generic [ref=e1561]:
+                - generic [ref=e1562]: "4.4"
+                - generic [ref=e1564]: التقييمات
+              - generic [ref=e1565]:
+                - generic [ref=e1566]: "0"
+                - generic [ref=e1567]: متاجر
+              - generic [ref=e1568]:
+                - generic [ref=e1569]: الجميع
+                - generic [ref=e1570]: المنصة
+            - generic [ref=e1571]:
+              - button "تنزيل التطبيق" [ref=e1572]
+              - button "مشاركة" [ref=e1573]
+        - article "View details for Quran with Bengali translation" [ref=e1577] [cursor=pointer]:
+          - img "Quran with Bengali translation screenshot" [ref=e1580]
+          - generic [ref=e1581]:
+            - generic [ref=e1582]:
+              - img "Quran with Bengali translation icon" [ref=e1585]
+              - generic [ref=e1586]:
+                - heading "القرآن مع الترجمة البنغالية" [level=3] [ref=e1587]
+                - paragraph [ref=e1588]: المصحف بخط نستعليق مترجم للبنغالية
+            - generic [ref=e1589]:
+              - generic [ref=e1590]: مصحف
+              - generic [ref=e1591]: ترجمات
+              - generic [ref=e1592]: تسميع
+              - generic [ref=e1593]: "+1"
+            - generic [ref=e1594]:
+              - generic [ref=e1595]:
+                - generic [ref=e1596]: "4.3"
+                - generic [ref=e1598]: التقييمات
+              - generic [ref=e1599]:
+                - generic [ref=e1600]: "0"
+                - generic [ref=e1601]: متاجر
+              - generic [ref=e1602]:
+                - generic [ref=e1603]: الجميع
+                - generic [ref=e1604]: المنصة
+            - generic [ref=e1605]:
+              - button "تنزيل التطبيق" [ref=e1606]
+              - button "مشاركة" [ref=e1607]
+        - article "View details for Tahajjad" [ref=e1611] [cursor=pointer]:
+          - img "Tahajjad screenshot" [ref=e1614]
+          - generic [ref=e1615]:
+            - generic [ref=e1616]:
+              - img "Tahajjad icon" [ref=e1619]
+              - generic [ref=e1620]:
+                - heading "تهجد" [level=3] [ref=e1621]
+                - paragraph [ref=e1622]: مصحف مبسط للتلاوة في صلاة التهجد
+            - generic [ref=e1623]:
+              - generic [ref=e1624]: مصحف
+              - generic [ref=e1625]: تسميع
+            - generic [ref=e1626]:
+              - generic [ref=e1627]:
+                - generic [ref=e1628]: "4.0"
+                - generic [ref=e1630]: التقييمات
+              - generic [ref=e1631]:
+                - generic [ref=e1632]: "0"
+                - generic [ref=e1633]: متاجر
+              - generic [ref=e1634]:
+                - generic [ref=e1635]: الجميع
+                - generic [ref=e1636]: المنصة
+            - generic [ref=e1637]:
+              - button "تنزيل التطبيق" [ref=e1638]
+              - button "مشاركة" [ref=e1639]
+        - article "View details for AlKitab" [ref=e1643] [cursor=pointer]:
+          - img "AlKitab screenshot" [ref=e1646]
+          - generic [ref=e1647]:
+            - generic [ref=e1648]:
+              - img "AlKitab icon" [ref=e1651]
+              - generic [ref=e1652]:
+                - heading "الكتاب" [level=3] [ref=e1653]
+                - paragraph [ref=e1654]: مصحف ذكي ببحث متقدم
+            - generic [ref=e1655]:
+              - generic [ref=e1656]: مصحف
+              - generic [ref=e1657]: تسميع
+              - generic [ref=e1658]: تفسير
+              - generic [ref=e1659]: "+2"
+            - generic [ref=e1660]:
+              - generic [ref=e1661]:
+                - generic [ref=e1662]: "4.7"
+                - generic [ref=e1664]: التقييمات
+              - generic [ref=e1665]:
+                - generic [ref=e1666]: "0"
+                - generic [ref=e1667]: متاجر
+              - generic [ref=e1668]:
+                - generic [ref=e1669]: آي أو إس
+                - generic [ref=e1670]: المنصة
+            - generic [ref=e1671]:
+              - button "تنزيل التطبيق" [ref=e1672]
+              - button "مشاركة" [ref=e1673]
+        - article "View details for Fazakir" [ref=e1677] [cursor=pointer]:
+          - img "Fazakir screenshot" [ref=e1680]
+          - generic [ref=e1681]:
+            - generic [ref=e1682]:
+              - img "Fazakir icon" [ref=e1685]
+              - generic [ref=e1686]:
+                - heading "فذكّر" [level=3] [ref=e1687]
+                - paragraph [ref=e1688]: مصحف ومكتبة إسلامية متكاملة
+            - generic [ref=e1689]:
+              - generic [ref=e1690]: مصحف
+              - generic [ref=e1691]: تفسير
+              - generic [ref=e1692]: أخرى
+            - generic [ref=e1693]:
+              - generic [ref=e1694]:
+                - generic [ref=e1695]: "4.9"
+                - generic [ref=e1697]: التقييمات
+              - generic [ref=e1698]:
+                - generic [ref=e1699]: "0"
+                - generic [ref=e1700]: متاجر
+              - generic [ref=e1701]:
+                - generic [ref=e1702]: الجميع
+                - generic [ref=e1703]: المنصة
+            - generic [ref=e1704]:
+              - button "تنزيل التطبيق" [ref=e1705]
+              - button "مشاركة" [ref=e1706]
+        - article "View details for Muslim Pedia‏" [ref=e1710] [cursor=pointer]:
+          - img "Muslim Pedia‏ screenshot" [ref=e1713]
+          - generic [ref=e1714]:
+            - generic [ref=e1715]:
+              - img "Muslim Pedia‏ icon" [ref=e1718]
+              - generic [ref=e1719]:
+                - heading "مسلم بيديا" [level=3] [ref=e1720]
+                - paragraph [ref=e1721]: محرك بحث قرآني بالذكاء الاصطناعي
+            - generic [ref=e1722]:
+              - generic [ref=e1723]: مصحف
+              - generic [ref=e1724]: ترجمات
+              - generic [ref=e1725]: تسميع
+              - generic [ref=e1726]: "+2"
+            - generic [ref=e1727]:
+              - generic [ref=e1728]:
+                - generic [ref=e1729]: "4.6"
+                - generic [ref=e1731]: التقييمات
+              - generic [ref=e1732]:
+                - generic [ref=e1733]: "0"
+                - generic [ref=e1734]: متاجر
+              - generic [ref=e1735]:
+                - generic [ref=e1736]: الجميع
+                - generic [ref=e1737]: المنصة
+            - generic [ref=e1738]:
+              - button "تنزيل التطبيق" [ref=e1739]
+              - button "مشاركة" [ref=e1740]
+        - article "View details for Al-Tafsir Al-Muḥarrar" [ref=e1744] [cursor=pointer]:
+          - img "Al-Tafsir Al-Muḥarrar screenshot" [ref=e1747]
+          - generic [ref=e1748]:
+            - generic [ref=e1749]:
+              - img "Al-Tafsir Al-Muḥarrar icon" [ref=e1752]
+              - generic [ref=e1753]:
+                - heading "التفسير المحرر" [level=3] [ref=e1754]
+                - paragraph [ref=e1755]: تطبيق موسوعة التفسير المحرر
+            - generic [ref=e1756]:
+              - generic [ref=e1757]: مصحف
+              - generic [ref=e1758]: تفسير
+            - generic [ref=e1759]:
+              - generic [ref=e1760]:
+                - generic [ref=e1761]: "4.7"
+                - generic [ref=e1763]: التقييمات
+              - generic [ref=e1764]:
+                - generic [ref=e1765]: "0"
+                - generic [ref=e1766]: متاجر
+              - generic [ref=e1767]:
+                - generic [ref=e1768]: الجميع
+                - generic [ref=e1769]: المنصة
+            - generic [ref=e1770]:
+              - button "تنزيل التطبيق" [ref=e1771]
+              - button "مشاركة" [ref=e1772]
+        - article "View details for Al-Quran Al-‘Azim" [ref=e1776] [cursor=pointer]:
+          - img "Al-Quran Al-‘Azim screenshot" [ref=e1779]
+          - generic [ref=e1780]:
+            - generic [ref=e1781]:
+              - img "Al-Quran Al-‘Azim icon" [ref=e1784]
+              - generic [ref=e1785]:
+                - heading "القرآن العظيم" [level=3] [ref=e1786]
+                - paragraph [ref=e1787]: المصحف مع مكتبة ضخمة للعلوم الدينية
+            - generic [ref=e1788]:
+              - generic [ref=e1789]: مصحف
+              - generic [ref=e1790]: تسميع
+              - generic [ref=e1791]: تفسير
+              - generic [ref=e1792]: "+1"
+            - generic [ref=e1793]:
+              - generic [ref=e1794]:
+                - generic [ref=e1795]: "4.6"
+                - generic [ref=e1797]: التقييمات
+              - generic [ref=e1798]:
+                - generic [ref=e1799]: "0"
+                - generic [ref=e1800]: متاجر
+              - generic [ref=e1801]:
+                - generic [ref=e1802]: الجميع
+                - generic [ref=e1803]: المنصة
+            - generic [ref=e1804]:
+              - button "تنزيل التطبيق" [ref=e1805]
+              - button "مشاركة" [ref=e1806]
+        - article "View details for Mushaf Ayat" [ref=e1810] [cursor=pointer]:
+          - img "Mushaf Ayat screenshot" [ref=e1813]
+          - generic [ref=e1814]:
+            - generic [ref=e1815]:
+              - img "Mushaf Ayat icon" [ref=e1818]
+              - generic [ref=e1819]:
+                - heading "مصحف آيات" [level=3] [ref=e1820]
+                - paragraph [ref=e1821]: قراءة القرآن والاستماع للتلاوة والتفسير التفاعلي
+            - generic [ref=e1822]:
+              - generic [ref=e1823]: مصحف
+              - generic [ref=e1824]: تسميع
+              - generic [ref=e1825]: تفسير
+              - generic [ref=e1826]: "+1"
+            - generic [ref=e1827]:
+              - generic [ref=e1828]:
+                - generic [ref=e1829]: "4.4"
+                - generic [ref=e1831]: التقييمات
+              - generic [ref=e1832]:
+                - generic [ref=e1833]: "0"
+                - generic [ref=e1834]: متاجر
+              - generic [ref=e1835]:
+                - generic [ref=e1836]: الجميع
+                - generic [ref=e1837]: المنصة
+            - generic [ref=e1838]:
+              - button "تنزيل التطبيق" [ref=e1839]
+              - button "مشاركة" [ref=e1840]
+        - article "View details for AlQuran Alkareem - Al-heekmah Library" [ref=e1844] [cursor=pointer]:
+          - img "AlQuran Alkareem - Al-heekmah Library screenshot" [ref=e1847]
+          - generic [ref=e1848]:
+            - generic [ref=e1849]:
+              - img "AlQuran Alkareem - Al-heekmah Library icon" [ref=e1852]
+              - generic [ref=e1853]:
+                - heading "القرآن الكريم - مكتبة الحكمة" [level=3] [ref=e1854]
+                - paragraph [ref=e1855]: المصحف الإلكتروني مع التفسير والأذكار
+            - generic [ref=e1856]:
+              - generic [ref=e1857]: مصحف
+              - generic [ref=e1858]: تسميع
+              - generic [ref=e1859]: تفسير
+              - generic [ref=e1860]: "+1"
+            - generic [ref=e1861]:
+              - generic [ref=e1862]:
+                - generic [ref=e1863]: "4.7"
+                - generic [ref=e1865]: التقييمات
+              - generic [ref=e1866]:
+                - generic [ref=e1867]: "0"
+                - generic [ref=e1868]: متاجر
+              - generic [ref=e1869]:
+                - generic [ref=e1870]: الجميع
+                - generic [ref=e1871]: المنصة
+            - generic [ref=e1872]:
+              - button "تنزيل التطبيق" [ref=e1873]
+              - button "مشاركة" [ref=e1874]
+        - article "View details for Huffaz Al-Quran" [ref=e1878] [cursor=pointer]:
+          - img "Huffaz Al-Quran screenshot" [ref=e1881]
+          - generic [ref=e1882]:
+            - generic [ref=e1883]:
+              - img "Huffaz Al-Quran icon" [ref=e1886]
+              - generic [ref=e1887]:
+                - heading "حفاظ القرآن" [level=3] [ref=e1888]
+                - paragraph [ref=e1889]: خطط لمتابعة الورد اليومي والحفظ
+            - generic [ref=e1890]:
+              - generic [ref=e1891]: مصحف
+              - generic [ref=e1892]: تسميع
+              - generic [ref=e1893]: تفسير
+              - generic [ref=e1894]: "+1"
+            - generic [ref=e1895]:
+              - generic [ref=e1896]:
+                - generic [ref=e1897]: "4.7"
+                - generic [ref=e1899]: التقييمات
+              - generic [ref=e1900]:
+                - generic [ref=e1901]: "0"
+                - generic [ref=e1902]: متاجر
+              - generic [ref=e1903]:
+                - generic [ref=e1904]: الجميع
+                - generic [ref=e1905]: المنصة
+            - generic [ref=e1906]:
+              - button "تنزيل التطبيق" [ref=e1907]
+              - button "مشاركة" [ref=e1908]
+        - article "View details for Ana Muslim" [ref=e1912] [cursor=pointer]:
+          - img "Ana Muslim screenshot" [ref=e1915]
+          - generic [ref=e1916]:
+            - generic [ref=e1917]:
+              - img "Ana Muslim icon" [ref=e1920]
+              - generic [ref=e1921]:
+                - heading "أنا مسلم" [level=3] [ref=e1922]
+                - paragraph [ref=e1923]: دليل المسلم الشامل للعبادات
+            - generic [ref=e1924]:
+              - generic [ref=e1925]: مصحف
+              - generic [ref=e1926]: ترجمات
+              - generic [ref=e1927]: صوتيات
+              - generic [ref=e1928]: "+1"
+            - generic [ref=e1929]:
+              - generic [ref=e1930]:
+                - generic [ref=e1931]: "4.9"
+                - generic [ref=e1933]: التقييمات
+              - generic [ref=e1934]:
+                - generic [ref=e1935]: "0"
+                - generic [ref=e1936]: متاجر
+              - generic [ref=e1937]:
+                - generic [ref=e1938]: الجميع
+                - generic [ref=e1939]: المنصة
+            - generic [ref=e1940]:
+              - button "تنزيل التطبيق" [ref=e1941]
+              - button "مشاركة" [ref=e1942]
+        - article "View details for Tahbeer Al-Qira’at Al-‘Ashr" [ref=e1946] [cursor=pointer]:
+          - img "Tahbeer Al-Qira’at Al-‘Ashr screenshot" [ref=e1949]
+          - generic [ref=e1950]:
+            - generic [ref=e1951]:
+              - img "Tahbeer Al-Qira’at Al-‘Ashr icon" [ref=e1954]
+              - generic [ref=e1955]:
+                - heading "تحبير القراءات العشر" [level=3] [ref=e1956]
+                - paragraph [ref=e1957]: القراءات بصوت القارئ صابر بن عبد الحكم
+            - generic [ref=e1958]:
+              - generic [ref=e1959]: مصحف
+              - generic [ref=e1960]: تسميع
+              - generic [ref=e1961]: روايات
+              - generic [ref=e1962]: "+1"
+            - generic [ref=e1963]:
+              - generic [ref=e1964]:
+                - generic [ref=e1965]: "4.6"
+                - generic [ref=e1967]: التقييمات
+              - generic [ref=e1968]:
+                - generic [ref=e1969]: "0"
+                - generic [ref=e1970]: متاجر
+              - generic [ref=e1971]:
+                - generic [ref=e1972]: الجميع
+                - generic [ref=e1973]: المنصة
+            - generic [ref=e1974]:
+              - button "تنزيل التطبيق" [ref=e1975]
+              - button "مشاركة" [ref=e1976]
+        - article "View details for Al-Quran Al-Kareem – Madina Mushaf" [ref=e1980] [cursor=pointer]:
+          - img "Al-Quran Al-Kareem – Madina Mushaf screenshot" [ref=e1983]
+          - generic [ref=e1984]:
+            - generic [ref=e1985]:
+              - img "Al-Quran Al-Kareem – Madina Mushaf icon" [ref=e1988]
+              - generic [ref=e1989]:
+                - heading "القرآن الكريم - مصحف المدينة" [level=3] [ref=e1990]
+                - paragraph [ref=e1991]: مصحف المدينة مع تلاوة وتفسير
+            - generic [ref=e1992]:
+              - generic [ref=e1993]: مصحف
+              - generic [ref=e1994]: ترجمات
+              - generic [ref=e1995]: تسميع
+              - generic [ref=e1996]: "+2"
+            - generic [ref=e1997]:
+              - generic [ref=e1998]:
+                - generic [ref=e1999]: "4.8"
+                - generic [ref=e2001]: التقييمات
+              - generic [ref=e2002]:
+                - generic [ref=e2003]: "0"
+                - generic [ref=e2004]: متاجر
+              - generic [ref=e2005]:
+                - generic [ref=e2006]: الجميع
+                - generic [ref=e2007]: المنصة
+            - generic [ref=e2008]:
+              - button "تنزيل التطبيق" [ref=e2009]
+              - button "مشاركة" [ref=e2010]
+        - 'article "View details for Hamel Al-Quran: Shmrly Mushaf" [ref=e2014] [cursor=pointer]':
+          - 'img "Hamel Al-Quran: Shmrly Mushaf screenshot" [ref=e2017]'
+          - generic [ref=e2018]:
+            - generic [ref=e2019]:
+              - 'img "Hamel Al-Quran: Shmrly Mushaf icon" [ref=e2022]'
+              - generic [ref=e2023]:
+                - 'heading "حامل القرآن: مصحف الشمرلي" [level=3] [ref=e2024]'
+                - paragraph [ref=e2025]: مصحف الشمرلي مع التفسير
+            - generic [ref=e2026]:
+              - generic [ref=e2027]: مصحف
+              - generic [ref=e2028]: تفسير
+            - generic [ref=e2029]:
+              - generic [ref=e2030]:
+                - generic [ref=e2031]: "4.8"
+                - generic [ref=e2033]: التقييمات
+              - generic [ref=e2034]:
+                - generic [ref=e2035]: "0"
+                - generic [ref=e2036]: متاجر
+              - generic [ref=e2037]:
+                - generic [ref=e2038]: الجميع
+                - generic [ref=e2039]: المنصة
+            - generic [ref=e2040]:
+              - button "تنزيل التطبيق" [ref=e2041]
+              - button "مشاركة" [ref=e2042]
+        - 'article "View details for Hamel Al-Quran: Madina Mushaf" [ref=e2046] [cursor=pointer]':
+          - 'img "Hamel Al-Quran: Madina Mushaf screenshot" [ref=e2049]'
+          - generic [ref=e2050]:
+            - generic [ref=e2051]:
+              - 'img "Hamel Al-Quran: Madina Mushaf icon" [ref=e2054]'
+              - generic [ref=e2055]:
+                - 'heading "حامل القرآن: مصحف المدينة" [level=3] [ref=e2056]'
+                - paragraph [ref=e2057]: مصحف المدينة مع التفسير
+            - generic [ref=e2058]:
+              - generic [ref=e2059]: مصحف
+              - generic [ref=e2060]: تفسير
+            - generic [ref=e2061]:
+              - generic [ref=e2062]:
+                - generic [ref=e2063]: "4.8"
+                - generic [ref=e2065]: التقييمات
+              - generic [ref=e2066]:
+                - generic [ref=e2067]: "0"
+                - generic [ref=e2068]: متاجر
+              - generic [ref=e2069]:
+                - generic [ref=e2070]: الجميع
+                - generic [ref=e2071]: المنصة
+            - generic [ref=e2072]:
+              - button "تنزيل التطبيق" [ref=e2073]
+              - button "مشاركة" [ref=e2074]
+        - article "View details for Rateel" [ref=e2078] [cursor=pointer]:
+          - img "Rateel screenshot" [ref=e2081]
+          - generic [ref=e2082]:
+            - generic [ref=e2083]:
+              - img "Rateel icon" [ref=e2086]
+              - generic [ref=e2087]:
+                - heading "رتيل" [level=3] [ref=e2088]
+                - paragraph [ref=e2089]: القرآن والأذكار ومواقيت الصلاة
+            - generic [ref=e2090]:
+              - generic [ref=e2091]: مصحف
+              - generic [ref=e2092]: تسميع
+              - generic [ref=e2093]: تفسير
+              - generic [ref=e2094]: "+1"
+            - generic [ref=e2095]:
+              - generic [ref=e2096]:
+                - generic [ref=e2097]: "3.6"
+                - generic [ref=e2099]: التقييمات
+              - generic [ref=e2100]:
+                - generic [ref=e2101]: "0"
+                - generic [ref=e2102]: متاجر
+              - generic [ref=e2103]:
+                - generic [ref=e2104]: الجميع
+                - generic [ref=e2105]: المنصة
+            - generic [ref=e2106]:
+              - button "تنزيل التطبيق" [ref=e2107]
+              - button "مشاركة" [ref=e2108]
+        - article "View details for Open Mushaf" [ref=e2112] [cursor=pointer]:
+          - img "Open Mushaf screenshot" [ref=e2115]
+          - generic [ref=e2116]:
+            - generic [ref=e2117]:
+              - img "Open Mushaf icon" [ref=e2120]
+              - generic [ref=e2121]:
+                - heading "المصحف المفتوح" [level=3] [ref=e2122]
+                - paragraph [ref=e2123]: مصحف بروايتي حفص وورش
+            - generic [ref=e2124]:
+              - generic [ref=e2125]: مصحف
+              - generic [ref=e2126]: تفسير
+            - generic [ref=e2127]:
+              - generic [ref=e2128]:
+                - generic [ref=e2129]: "4.0"
+                - generic [ref=e2131]: التقييمات
+              - generic [ref=e2132]:
+                - generic [ref=e2133]: "0"
+                - generic [ref=e2134]: متاجر
+              - generic [ref=e2135]:
+                - generic [ref=e2136]: أندرويد
+                - generic [ref=e2137]: المنصة
+            - generic [ref=e2138]:
+              - button "تنزيل التطبيق" [ref=e2139]
+              - button "مشاركة" [ref=e2140]
+        - 'article "View details for Al Quran: Tafsir& by Word" [ref=e2144] [cursor=pointer]':
+          - 'img "Al Quran: Tafsir& by Word screenshot" [ref=e2147]'
+          - generic [ref=e2148]:
+            - generic [ref=e2149]:
+              - 'img "Al Quran: Tafsir& by Word icon" [ref=e2152]'
+              - generic [ref=e2153]:
+                - heading "القرآن (تفسير وكلمة بكلمة)" [level=3] [ref=e2154]
+                - paragraph [ref=e2155]: مصحف مع تفسير ومعاني كلمة بكلمة
+            - generic [ref=e2156]:
+              - generic [ref=e2157]: مصحف
+              - generic [ref=e2158]: ترجمات
+              - generic [ref=e2159]: تسميع
+              - generic [ref=e2160]: "+1"
+            - generic [ref=e2161]:
+              - generic [ref=e2162]:
+                - generic [ref=e2163]: "4.9"
+                - generic [ref=e2165]: التقييمات
+              - generic [ref=e2166]:
+                - generic [ref=e2167]: "0"
+                - generic [ref=e2168]: متاجر
+              - generic [ref=e2169]:
+                - generic [ref=e2170]: الجميع
+                - generic [ref=e2171]: المنصة
+            - generic [ref=e2172]:
+              - button "تنزيل التطبيق" [ref=e2173]
+              - button "مشاركة" [ref=e2174]
+        - article "View details for Quran Mohammadi" [ref=e2178] [cursor=pointer]:
+          - img "Quran Mohammadi screenshot" [ref=e2181]
+          - generic [ref=e2182]:
+            - generic [ref=e2183]:
+              - img "Quran Mohammadi icon" [ref=e2186]
+              - generic [ref=e2187]:
+                - heading "المصحف المحمدي" [level=3] [ref=e2188]
+                - paragraph [ref=e2189]: المصحف وفق الرواية المغربية (ورش)
+            - generic [ref=e2190]:
+              - generic [ref=e2191]: مصحف
+              - generic [ref=e2192]: ترجمات
+              - generic [ref=e2193]: تفسير
+            - generic [ref=e2194]:
+              - generic [ref=e2195]:
+                - generic [ref=e2196]: "5.0"
+                - generic [ref=e2198]: التقييمات
+              - generic [ref=e2199]:
+                - generic [ref=e2200]: "0"
+                - generic [ref=e2201]: متاجر
+              - generic [ref=e2202]:
+                - generic [ref=e2203]: الجميع
+                - generic [ref=e2204]: المنصة
+            - generic [ref=e2205]:
+              - button "تنزيل التطبيق" [ref=e2206]
+              - button "مشاركة" [ref=e2207]
+        - article "View details for Barakah" [ref=e2211] [cursor=pointer]:
+          - img "Barakah screenshot" [ref=e2214]
+          - generic [ref=e2215]:
+            - generic [ref=e2216]:
+              - img "Barakah icon" [ref=e2219]
+              - generic [ref=e2220]:
+                - heading "بركة" [level=3] [ref=e2221]
+                - paragraph [ref=e2222]: سورة البقرة للاستماع والقراءة والتدبر
+            - generic [ref=e2223]:
+              - generic [ref=e2224]: مصحف
+              - generic [ref=e2225]: تسميع
+              - generic [ref=e2226]: تفسير
+            - generic [ref=e2227]:
+              - generic [ref=e2228]:
+                - generic [ref=e2229]: "4.7"
+                - generic [ref=e2231]: التقييمات
+              - generic [ref=e2232]:
+                - generic [ref=e2233]: "0"
+                - generic [ref=e2234]: متاجر
+              - generic [ref=e2235]:
+                - generic [ref=e2236]: الجميع
+                - generic [ref=e2237]: المنصة
+            - generic [ref=e2238]:
+              - button "تنزيل التطبيق" [ref=e2239]
+              - button "مشاركة" [ref=e2240]
+        - article "View details for Kalimat" [ref=e2244] [cursor=pointer]:
+          - img "Kalimat screenshot" [ref=e2247]
+          - generic [ref=e2248]:
+            - generic [ref=e2249]:
+              - img "Kalimat icon" [ref=e2252]
+              - generic [ref=e2253]:
+                - heading "كلمات" [level=3] [ref=e2254]
+                - paragraph [ref=e2255]: تطبيق لختم القرآن في ساعات
+            - generic [ref=e2256]:
+              - generic [ref=e2257]: مصحف
+              - generic [ref=e2258]: أخرى
+            - generic [ref=e2259]:
+              - generic [ref=e2260]:
+                - generic [ref=e2261]: "5.0"
+                - generic [ref=e2263]: التقييمات
+              - generic [ref=e2264]:
+                - generic [ref=e2265]: "0"
+                - generic [ref=e2266]: متاجر
+              - generic [ref=e2267]:
+                - generic [ref=e2268]: الجميع
+                - generic [ref=e2269]: المنصة
+            - generic [ref=e2270]:
+              - button "تنزيل التطبيق" [ref=e2271]
+              - button "مشاركة" [ref=e2272]
+        - article "View details for Elmohafez Quran" [ref=e2276] [cursor=pointer]:
+          - img "Elmohafez Quran screenshot" [ref=e2279]
+          - generic [ref=e2280]:
+            - generic [ref=e2281]:
+              - img "Elmohafez Quran icon" [ref=e2284]
+              - generic [ref=e2285]:
+                - heading "محفظ الوحيين" [level=3] [ref=e2286]
+                - paragraph [ref=e2287]: تحفيظ القرآن الكريم والأحاديث والمتون
+            - generic [ref=e2288]:
+              - generic [ref=e2289]: مصحف
+              - generic [ref=e2290]: ترجمات
+              - generic [ref=e2291]: تسميع
+              - generic [ref=e2292]: "+4"
+            - generic [ref=e2293]:
+              - generic [ref=e2294]:
+                - generic [ref=e2295]: "4.6"
+                - generic [ref=e2297]: التقييمات
+              - generic [ref=e2298]:
+                - generic [ref=e2299]: "0"
+                - generic [ref=e2300]: متاجر
+              - generic [ref=e2301]:
+                - generic [ref=e2302]: الجميع
+                - generic [ref=e2303]: المنصة
+            - generic [ref=e2304]:
+              - button "تنزيل التطبيق" [ref=e2305]
+              - button "مشاركة" [ref=e2306]
+        - article "View details for Al Moeen" [ref=e2310] [cursor=pointer]:
+          - img "Al Moeen screenshot" [ref=e2313]
+          - generic [ref=e2314]:
+            - generic [ref=e2315]:
+              - img "Al Moeen icon" [ref=e2318]
+              - generic [ref=e2319]:
+                - heading "المعين" [level=3] [ref=e2320]
+                - paragraph [ref=e2321]: تعلم القرآن نصًا وتلاوةً
+            - generic [ref=e2322]:
+              - generic [ref=e2323]: مصحف
+              - generic [ref=e2324]: تسميع
+              - generic [ref=e2325]: تفسير
+              - generic [ref=e2326]: "+3"
+            - generic [ref=e2327]:
+              - generic [ref=e2328]:
+                - generic [ref=e2329]: "5.0"
+                - generic [ref=e2331]: التقييمات
+              - generic [ref=e2332]:
+                - generic [ref=e2333]: "0"
+                - generic [ref=e2334]: متاجر
+              - generic [ref=e2335]:
+                - generic [ref=e2336]: الجميع
+                - generic [ref=e2337]: المنصة
+            - generic [ref=e2338]:
+              - button "تنزيل التطبيق" [ref=e2339]
+              - button "مشاركة" [ref=e2340]
+        - article "View details for Ana Almuslim" [ref=e2344] [cursor=pointer]:
+          - img "Ana Almuslim screenshot" [ref=e2347]
+          - generic [ref=e2348]:
+            - generic [ref=e2349]:
+              - img "Ana Almuslim icon" [ref=e2352]
+              - generic [ref=e2353]:
+                - heading "أنا المسلم" [level=3] [ref=e2354]
+                - paragraph [ref=e2355]: عدة إسلامية متكاملة
+            - generic [ref=e2356]:
+              - generic [ref=e2357]: مصحف
+              - generic [ref=e2358]: تسميع
+              - generic [ref=e2359]: تفسير
+              - generic [ref=e2360]: "+3"
+            - generic [ref=e2361]:
+              - generic [ref=e2362]:
+                - generic [ref=e2363]: "5.0"
+                - generic [ref=e2365]: التقييمات
+              - generic [ref=e2366]:
+                - generic [ref=e2367]: "0"
+                - generic [ref=e2368]: متاجر
+              - generic [ref=e2369]:
+                - generic [ref=e2370]: الجميع
+                - generic [ref=e2371]: المنصة
+            - generic [ref=e2372]:
+              - button "تنزيل التطبيق" [ref=e2373]
+              - button "مشاركة" [ref=e2374]
+        - article "View details for Quran TV" [ref=e2378] [cursor=pointer]:
+          - img "Quran TV screenshot" [ref=e2381]
+          - generic [ref=e2382]:
+            - generic [ref=e2383]:
+              - img "Quran TV icon" [ref=e2386]
+              - generic [ref=e2387]:
+                - heading "قرآن تي في" [level=3] [ref=e2388]
+                - paragraph [ref=e2389]: رفيق يومي للقرآن والأذكار وتحديد المساجد القريبة
+            - generic [ref=e2390]:
+              - generic [ref=e2391]: مصحف
+              - generic [ref=e2392]: صوتيات
+              - generic [ref=e2393]: تحفيظ
+              - generic [ref=e2394]: "+1"
+            - generic [ref=e2395]:
+              - generic [ref=e2396]:
+                - generic [ref=e2397]: "5.0"
+                - generic [ref=e2399]: التقييمات
+              - generic [ref=e2400]:
+                - generic [ref=e2401]: "0"
+                - generic [ref=e2402]: متاجر
+              - generic [ref=e2403]:
+                - generic [ref=e2404]: الجميع
+                - generic [ref=e2405]: المنصة
+            - generic [ref=e2406]:
+              - button "تنزيل التطبيق" [ref=e2407]
+              - button "مشاركة" [ref=e2408]
+        - article "View details for Elderly Quran" [ref=e2412] [cursor=pointer]:
+          - img "Elderly Quran screenshot" [ref=e2415]
+          - generic [ref=e2416]:
+            - generic [ref=e2417]:
+              - img "Elderly Quran icon" [ref=e2420]
+              - generic [ref=e2421]:
+                - heading "مصحف كبار السن" [level=3] [ref=e2422]
+                - paragraph [ref=e2423]: مصحف كبار السن بخط اليد الكبير
+            - generic [ref=e2424]:
+              - generic [ref=e2425]: مصحف
+              - generic [ref=e2426]: تحفيظ
+              - generic [ref=e2427]: ذوي الإعاقة
+            - generic [ref=e2428]:
+              - generic [ref=e2429]:
+                - generic [ref=e2430]: "5.0"
+                - generic [ref=e2432]: التقييمات
+              - generic [ref=e2433]:
+                - generic [ref=e2434]: "0"
+                - generic [ref=e2435]: متاجر
+              - generic [ref=e2436]:
+                - generic [ref=e2437]: الجميع
+                - generic [ref=e2438]: المنصة
+            - generic [ref=e2439]:
+              - button "تنزيل التطبيق" [ref=e2440]
+              - button "مشاركة" [ref=e2441]
+        - article "View details for Mushaf TV" [ref=e2445] [cursor=pointer]:
+          - img "Mushaf TV screenshot" [ref=e2448]
+          - generic [ref=e2449]:
+            - generic [ref=e2450]:
+              - img "Mushaf TV icon" [ref=e2453]
+              - generic [ref=e2454]:
+                - heading "مصحف التلفاز" [level=3] [ref=e2455]
+                - paragraph [ref=e2456]: تلاوات قرآنية عبر التلفاز بدون إعلانات
+            - generic [ref=e2457]:
+              - generic [ref=e2458]: مصحف
+              - generic [ref=e2459]: صوتيات
+              - generic [ref=e2460]: تحفيظ
+              - generic [ref=e2461]: "+1"
+            - generic [ref=e2462]:
+              - generic [ref=e2463]:
+                - generic [ref=e2464]: "5.0"
+                - generic [ref=e2466]: التقييمات
+              - generic [ref=e2467]:
+                - generic [ref=e2468]: "0"
+                - generic [ref=e2469]: متاجر
+              - generic [ref=e2470]:
+                - generic [ref=e2471]: أندرويد
+                - generic [ref=e2472]: المنصة
+            - generic [ref=e2473]:
+              - button "تنزيل التطبيق" [ref=e2474]
+              - button "مشاركة" [ref=e2475]
+        - article "View details for Al-Misk" [ref=e2479] [cursor=pointer]:
+          - img "Al-Misk screenshot" [ref=e2482]
+          - generic [ref=e2483]:
+            - generic [ref=e2484]:
+              - img "Al-Misk icon" [ref=e2487]
+              - generic [ref=e2488]:
+                - heading "المسك" [level=3] [ref=e2489]
+                - paragraph [ref=e2490]: مجموعة أدوات متكاملة مع مصحف إلكتروني ومكتبة إسلامية
+            - generic [ref=e2491]:
+              - generic [ref=e2492]: مصحف
+              - generic [ref=e2493]: تسميع
+              - generic [ref=e2494]: تفسير
+              - generic [ref=e2495]: "+2"
+            - generic [ref=e2496]:
+              - generic [ref=e2497]:
+                - generic [ref=e2498]: "5.0"
+                - generic [ref=e2500]: التقييمات
+              - generic [ref=e2501]:
+                - generic [ref=e2502]: "0"
+                - generic [ref=e2503]: متاجر
+              - generic [ref=e2504]:
+                - generic [ref=e2505]: أندرويد
+                - generic [ref=e2506]: المنصة
+            - generic [ref=e2507]:
+              - button "تنزيل التطبيق" [ref=e2508]
+              - button "مشاركة" [ref=e2509]
+        - article "View details for Quranak" [ref=e2513] [cursor=pointer]:
+          - img "Quranak screenshot" [ref=e2516]
+          - generic [ref=e2517]:
+            - generic [ref=e2518]:
+              - img "Quranak icon" [ref=e2521]
+              - generic [ref=e2522]:
+                - heading "قرآنك" [level=3] [ref=e2523]
+                - paragraph [ref=e2524]: مصحف رقمي للقراءة والتلاوة والتفسير
+            - generic [ref=e2525]:
+              - generic [ref=e2526]: مصحف
+              - generic [ref=e2527]: تسميع
+              - generic [ref=e2528]: تفسير
+              - generic [ref=e2529]: "+2"
+            - generic [ref=e2530]:
+              - generic [ref=e2531]:
+                - generic [ref=e2532]: "5.0"
+                - generic [ref=e2534]: التقييمات
+              - generic [ref=e2535]:
+                - generic [ref=e2536]: "0"
+                - generic [ref=e2537]: متاجر
+              - generic [ref=e2538]:
+                - generic [ref=e2539]: الجميع
+                - generic [ref=e2540]: المنصة
+            - generic [ref=e2541]:
+              - button "تنزيل التطبيق" [ref=e2542]
+              - button "مشاركة" [ref=e2543]
+        - article "View details for Mehrab Al-Quran" [ref=e2547] [cursor=pointer]:
+          - img "Mehrab Al-Quran screenshot" [ref=e2550]
+          - generic [ref=e2551]:
+            - generic [ref=e2552]:
+              - img "Mehrab Al-Quran icon" [ref=e2555]
+              - generic [ref=e2556]:
+                - heading "محراب القرآن" [level=3] [ref=e2557]
+                - paragraph [ref=e2558]: منصة لتعليم القرآن الكريم بإشراف معلمين مجازين
+            - generic [ref=e2559]:
+              - generic [ref=e2560]: مصحف
+              - generic [ref=e2561]: تسميع
+              - generic [ref=e2562]: روايات
+              - generic [ref=e2563]: "+2"
+            - generic [ref=e2564]:
+              - generic [ref=e2565]:
+                - generic [ref=e2566]: "4.7"
+                - generic [ref=e2568]: التقييمات
+              - generic [ref=e2569]:
+                - generic [ref=e2570]: "0"
+                - generic [ref=e2571]: متاجر
+              - generic [ref=e2572]:
+                - generic [ref=e2573]: الجميع
+                - generic [ref=e2574]: المنصة
+            - generic [ref=e2575]:
+              - button "تنزيل التطبيق" [ref=e2576]
+              - button "مشاركة" [ref=e2577]
+        - article "View details for Mushaf Al-Qira'at" [ref=e2581] [cursor=pointer]:
+          - img "Mushaf Al-Qira'at screenshot" [ref=e2584]
+          - generic [ref=e2585]:
+            - generic [ref=e2586]:
+              - img "Mushaf Al-Qira'at icon" [ref=e2589]
+              - generic [ref=e2590]:
+                - heading "مصحف القراءات" [level=3] [ref=e2591]
+                - paragraph [ref=e2592]: التلاوة والاستماع للقرآن الكريم بالقراءات العشر المتواترة
+            - generic [ref=e2593]:
+              - generic [ref=e2594]: مصحف
+              - generic [ref=e2595]: ترجمات
+              - generic [ref=e2596]: تسميع
+              - generic [ref=e2597]: "+3"
+            - generic [ref=e2598]:
+              - generic [ref=e2599]:
+                - generic [ref=e2600]: "4.5"
+                - generic [ref=e2602]: التقييمات
+              - generic [ref=e2603]:
+                - generic [ref=e2604]: "0"
+                - generic [ref=e2605]: متاجر
+              - generic [ref=e2606]:
+                - generic [ref=e2607]: الجميع
+                - generic [ref=e2608]: المنصة
+            - generic [ref=e2609]:
+              - button "تنزيل التطبيق" [ref=e2610]
+              - button "مشاركة" [ref=e2611]
+  - generic [ref=e2616]:
+    - generic [ref=e2617]:
+      - paragraph [ref=e2618]: مشروع مفتوح المصدر، أحد مشاريع مجتمع إتقان لتقنيات القرآن، ١٤٤٧ هـ
+      - generic [ref=e2619]: المنصة برعاية
+    - generic [ref=e2621]:
+      - heading "مشاريع إتقان الأخرى" [level=4] [ref=e2622]
+      - list [ref=e2623]:
+        - listitem [ref=e2624]:
+          - link "الموقع الرئيسي لمجتمع إتقان" [ref=e2625] [cursor=pointer]:
+            - /url: https://itqan.dev/ar
+        - listitem [ref=e2626]:
+          - link "نظام إدارة المحتوى القرآني" [ref=e2627] [cursor=pointer]:
+            - /url: https://itqan.dev/projects
+        - listitem [ref=e2628]:
+          - link "موارد المطورين" [ref=e2629] [cursor=pointer]:
+            - /url: https://itqan.dev/resources
+  - button "Help and Support" [ref=e2631] [cursor=pointer]:
+    - generic [ref=e2632]: تحتاج مساعدة
