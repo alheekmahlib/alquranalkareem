@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '/core/utils/constants/svg_constants.dart';
 import '../utils/constants/extensions/alignment_rotated_extension.dart';
+import '../utils/constants/extensions/convert_number_extension.dart';
 import '../utils/constants/extensions/svg_extensions.dart';
 import '../utils/helpers/app_text_styles.dart';
 
@@ -239,7 +240,8 @@ class ContainerButton extends StatelessWidget {
                         if (isDownloading ?? false) ...[
                           const Gap(12),
                           Text(
-                            '${downloadProgress ?? '0'}%',
+                            '${downloadProgress ?? '0'}%'
+                                .convertNumbersToCurrentLang(),
                             style: AppTextStyles.titleMedium(
                               color:
                                   titleColor ??

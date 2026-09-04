@@ -1,6 +1,7 @@
 import 'package:flexible_sheet/flexible_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:quran_library/quran_library.dart';
 
 import '/core/utils/constants/extensions/bottom_sheet_extension.dart';
 import '/core/utils/constants/svg_constants.dart';
@@ -160,6 +161,7 @@ class TopBarWidget extends StatelessWidget {
                                         }
                                         quranCtrl.setTopBarType =
                                             TopBarType.none;
+                                        TasmeeCtrl.instance.exitTasmeeMode();
                                         Get.offAll(
                                           () => const HomeScreen(),
                                           transition: Transition.upToDown,

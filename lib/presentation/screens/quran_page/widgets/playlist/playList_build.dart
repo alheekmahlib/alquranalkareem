@@ -9,7 +9,6 @@ class PlayListBuild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTileWidget(
-      key: playList.saveCard,
       title: 'playList'.tr,
       getxCtrl: playList,
       manager: GeneralController.instance.state.expansionManager,
@@ -22,8 +21,6 @@ class PlayListBuild extends StatelessWidget {
               int index,
             ) {
               final play = playList.playLists[index];
-              GlobalKey textFieldKey = GlobalKey();
-              playListTextFieldKeys.add(textFieldKey);
               return Stack(
                 alignment: AlignmentDirectional.centerEnd,
                 children: [

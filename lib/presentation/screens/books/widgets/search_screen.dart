@@ -16,7 +16,7 @@ class SearchScreen extends StatelessWidget {
         Flexible(
           child: TextFieldBarWidget(
             controller: booksCtrl.state.searchController,
-            hintText: 'searchInBooks'.tr,
+            hintText: isInBook == true ? 'searchInBook'.tr : 'searchInBooks'.tr,
             horizontalPadding: 32.0,
             onPressed: () {
               booksCtrl.state.searchController.clear();

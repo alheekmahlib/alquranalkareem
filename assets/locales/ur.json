@@ -1758,5 +1758,32 @@
   "@syncFailed": {
     "type": "text",
     "placeholders": {}
-  }
+  },
+  "tasmeaa": "تسميع",
+  "tasmeeStartRecording": "تسميع شروع کریں",
+  "tasmeeStopRecording": "ریکارڈنگ روکیں",
+  "tasmeeRecording": "تسميع جاری ہے",
+  "tasmeeProcessing": "تلاوت کا تجزیہ جاری ہے",
+  "tasmeeConnecting": "رابطہ ہو رہا ہے",
+  "tasmeePreparingEngine": "انجن تیار ہو رہا ہے",
+  "tasmeeDownloadingModel": "ماڈل ڈاؤن لوڈ ہو رہا ہے",
+  "tasmeeShowWords": "الفاظ دکھائیں",
+  "tasmeeHideWords": "الفاظ چھپائیں",
+  "tasmeeRetry": "دوبارہ تسميع کریں",
+  "tasmeeSettings": "تسميع کی ترتیبات",
+  "tasmeeResultTitle": "تسميع کا نتیجہ",
+  "tasmeeNoErrors": "شاباس! کوئی غلطی نہیں",
+  "tasmeeTotal": "کل",
+  "tasmeeTajweed": "تجوید",
+  "tasmeePronunciation": "تلفظ",
+  "tasmeeTashkeel": "اعراب",
+  "tasmeeExpected": "متوقع",
+  "tasmeeActual": "پڑھا گیا",
+  "tasmeeInsert": "اضافہ",
+  "tasmeeDelete": "کمی",
+  "tasmeeReplace": "تبدیلی",
+  "tasmeeNoMatch": "تلاوت کی شناخت نہیں ہو سکی، واضح تلفظ کے ساتھ دوبارہ کوشش کریں",
+  "tasmeeExit": "خارج ہوں",
+  "tasmeeLocalModel": "مقامی تصحیح ماڈل",
+  "tasmeeModelReady": "تیار"
 }

@@ -1722,5 +1722,32 @@
   "@syncFailed": {
     "type": "text",
     "placeholders": {}
-  }
+  },
+  "tasmeaa": "Проверка наизусть",
+  "tasmeeStartRecording": "Начать чтение",
+  "tasmeeStopRecording": "Остановить запись",
+  "tasmeeRecording": "Идёт чтение",
+  "tasmeeProcessing": "Анализ чтения",
+  "tasmeeConnecting": "Подключение",
+  "tasmeePreparingEngine": "Подготовка движка",
+  "tasmeeDownloadingModel": "Загрузка модели",
+  "tasmeeShowWords": "Показать слова",
+  "tasmeeHideWords": "Скрыть слова",
+  "tasmeeRetry": "Повторить чтение",
+  "tasmeeSettings": "Настройки чтения",
+  "tasmeeResultTitle": "Результат чтения",
+  "tasmeeNoErrors": "Отлично! Ошибок нет",
+  "tasmeeTotal": "Всего",
+  "tasmeeTajweed": "Таджвид",
+  "tasmeePronunciation": "Произношение",
+  "tasmeeTashkeel": "Огласовки",
+  "tasmeeExpected": "Ожидается",
+  "tasmeeActual": "Прочитано",
+  "tasmeeInsert": "Лишнее",
+  "tasmeeDelete": "Пропущено",
+  "tasmeeReplace": "Заменено",
+  "tasmeeNoMatch": "Не удалось распознать чтение, попробуйте ещё раз с более чётким произношением",
+  "tasmeeExit": "Выход",
+  "tasmeeLocalModel": "Локальная модель коррекции",
+  "tasmeeModelReady": "Готово"
 }

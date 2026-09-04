@@ -18,7 +18,6 @@ class PlayListController extends GetxController {
 
   // ━━━━━━━━━━━━━━ القوائم المحفوظة ━━━━━━━━━━━━━━
   RxList<PlayListModel> playLists = RxList<PlayListModel>();
-  final GlobalKey<ExpansionTileCardState> saveCard = GlobalKey();
 
   // ━━━━━━━━━━━━━━ اختيار السورة والآيات ━━━━━━━━━━━━━━
   RxInt fromSurahIndex = 0.obs;
@@ -290,7 +289,9 @@ class PlayListController extends GetxController {
       ),
     );
     PlayListStorage.savePlayList(playLists);
-    saveCard.currentState?.expand();
+    // توسيع بطاقة القوائم المحفوظة عبر المدير العام بدل GlobalKey،
+    // لأن family_bottom_sheet يركّب محتوى الورقة مرتين فلا يصح GlobalKey داخله.
+    generalCtrl.state.expansionManager.expand('playList_tile');
   }
 
   void loadSavedPlayList() async {

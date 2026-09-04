@@ -1758,5 +1758,32 @@
   "@syncFailed": {
     "type": "text",
     "placeholders": {}
-  }
+  },
+  "tasmeaa": "তিলাওয়াত পরীক্ষা",
+  "tasmeeStartRecording": "তিলাওয়াত শুরু করুন",
+  "tasmeeStopRecording": "রেকর্ডিং বন্ধ করুন",
+  "tasmeeRecording": "তিলাওয়াত চলছে",
+  "tasmeeProcessing": "তিলাওয়াত বিশ্লেষণ হচ্ছে",
+  "tasmeeConnecting": "সংযোগ হচ্ছে",
+  "tasmeePreparingEngine": "ইঞ্জিন প্রস্তুত হচ্ছে",
+  "tasmeeDownloadingModel": "মডেল ডাউনলোড হচ্ছে",
+  "tasmeeShowWords": "শব্দ দেখান",
+  "tasmeeHideWords": "শব্দ লুকান",
+  "tasmeeRetry": "আবার তিলাওয়াত করুন",
+  "tasmeeSettings": "তিলাওয়াত সেটিংস",
+  "tasmeeResultTitle": "তিলাওয়াতের ফলাফল",
+  "tasmeeNoErrors": "সাবাশ! কোনো ভুল নেই",
+  "tasmeeTotal": "মোট",
+  "tasmeeTajweed": "তাজবিদ",
+  "tasmeePronunciation": "উচ্চারণ",
+  "tasmeeTashkeel": "তাশকীল",
+  "tasmeeExpected": "প্রত্যাশিত",
+  "tasmeeActual": "পঠিত",
+  "tasmeeInsert": "অতিরিক্ত",
+  "tasmeeDelete": "বাদ পড়েছে",
+  "tasmeeReplace": "পরিবর্তিত",
+  "tasmeeNoMatch": "তিলাওয়াত শনাক্ত করা যায়নি, স্পষ্ট উচ্চারণে আবার চেষ্টা করুন",
+  "tasmeeExit": "বের হন",
+  "tasmeeLocalModel": "স্থানীয় সংশোধন মডেল",
+  "tasmeeModelReady": "প্রস্তুত"
 }

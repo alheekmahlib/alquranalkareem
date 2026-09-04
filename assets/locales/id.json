@@ -1752,5 +1752,32 @@
   "@syncFailed": {
     "type": "text",
     "placeholders": {}
-  }
+  },
+  "tasmeaa": "Tasmi'",
+  "tasmeeStartRecording": "Mulai menasmi'",
+  "tasmeeStopRecording": "Hentikan rekaman",
+  "tasmeeRecording": "Sedang menasmi'",
+  "tasmeeProcessing": "Menganalisis bacaan",
+  "tasmeeConnecting": "Menyambungkan",
+  "tasmeePreparingEngine": "Menyiapkan mesin",
+  "tasmeeDownloadingModel": "Mengunduh model",
+  "tasmeeShowWords": "Tampilkan kata",
+  "tasmeeHideWords": "Sembunyikan kata",
+  "tasmeeRetry": "Ulangi tasmi'",
+  "tasmeeSettings": "Pengaturan tasmi'",
+  "tasmeeResultTitle": "Hasil tasmi'",
+  "tasmeeNoErrors": "Bagus! Tidak ada kesalahan",
+  "tasmeeTotal": "Total",
+  "tasmeeTajweed": "Tajwid",
+  "tasmeePronunciation": "Pelafalan",
+  "tasmeeTashkeel": "Harakat",
+  "tasmeeExpected": "Diharapkan",
+  "tasmeeActual": "Yang dibaca",
+  "tasmeeInsert": "Berlebihan",
+  "tasmeeDelete": "Kurang",
+  "tasmeeReplace": "Tertukar",
+  "tasmeeNoMatch": "Bacaan tidak dikenali, coba lagi dengan pelafalan lebih jelas",
+  "tasmeeExit": "Keluar",
+  "tasmeeLocalModel": "Model koreksi lokal",
+  "tasmeeModelReady": "Siap"
 }

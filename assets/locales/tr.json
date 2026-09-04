@@ -1750,5 +1750,32 @@
   "@syncFailed": {
     "type": "text",
     "placeholders": {}
-  }
+  },
+  "tasmeaa": "Ezber Testi",
+  "tasmeeStartRecording": "Okumaya başla",
+  "tasmeeStopRecording": "Kaydı durdur",
+  "tasmeeRecording": "Okuyor",
+  "tasmeeProcessing": "Okuma analiz ediliyor",
+  "tasmeeConnecting": "Bağlanıyor",
+  "tasmeePreparingEngine": "Motor hazırlanıyor",
+  "tasmeeDownloadingModel": "Model indiriliyor",
+  "tasmeeShowWords": "Kelimeleri göster",
+  "tasmeeHideWords": "Kelimeleri gizle",
+  "tasmeeRetry": "Tekrar oku",
+  "tasmeeSettings": "Okuma ayarları",
+  "tasmeeResultTitle": "Okuma sonucu",
+  "tasmeeNoErrors": "Harika! Hata yok",
+  "tasmeeTotal": "Toplam",
+  "tasmeeTajweed": "Tecvid",
+  "tasmeePronunciation": "Telaffuz",
+  "tasmeeTashkeel": "Harakeler",
+  "tasmeeExpected": "Beklenen",
+  "tasmeeActual": "Okunan",
+  "tasmeeInsert": "Fazla",
+  "tasmeeDelete": "Eksik",
+  "tasmeeReplace": "Değişim",
+  "tasmeeNoMatch": "Okuma tanınamadı, daha net telaffuzla tekrar deneyin",
+  "tasmeeExit": "Çıkış",
+  "tasmeeLocalModel": "Yerel düzeltme modeli",
+  "tasmeeModelReady": "Hazır"
 }

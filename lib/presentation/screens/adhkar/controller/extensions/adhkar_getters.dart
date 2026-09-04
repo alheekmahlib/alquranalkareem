@@ -19,23 +19,30 @@ extension AdhkarGetters on AzkarController {
   Future<AdhkarData> getDailyDhekr() async {
     print('missing daily Dhekr');
     if (state.dhekrOfTheDay != null) return state.dhekrOfTheDay!;
-    final String? zekerOfTheDayIdAndId =
-        state.box.read(ZEKER_OF_THE_DAY_AND_ID);
+    final String? zekerOfTheDayIdAndId = state.box.read(
+      ZEKER_OF_THE_DAY_AND_ID,
+    );
     state.dhekrOfTheDay = await _getZekerForThisDay(
-        hasZekerSettedForThisDay ? zekerOfTheDayIdAndId : null);
+      hasZekerSettedForThisDay ? zekerOfTheDayIdAndId : null,
+    );
 
     return state.dhekrOfTheDay!;
   }
 
-  Future<AdhkarData> _getZekerForThisDay(
-      [String? zekerOfTheDayIdAndZekerId]) async {
-    log("zekerOfTheDayIdAndZekerId: ${zekerOfTheDayIdAndZekerId == null ? "null" : "NOT NULL"}");
+  Future<AdhkarData> _getZekerForThisDay([
+    String? zekerOfTheDayIdAndZekerId,
+  ]) async {
+    log(
+      "zekerOfTheDayIdAndZekerId: ${zekerOfTheDayIdAndZekerId == null ? "null" : "NOT NULL"}",
+    );
     if (zekerOfTheDayIdAndZekerId != null) {
       log("before trying to get ziker", name: 'BEFORE');
       final cachedZeker =
           state.allAdhkar[int.parse(zekerOfTheDayIdAndZekerId) - 1];
-      log("date: ${EventController.instance.hijriNow.fullDate()}",
-          name: 'CAHECH HADITH');
+      log(
+        "date: ${EventController.instance.hijriNow.fullDate()}",
+        name: 'CAHECH HADITH',
+      );
       return cachedZeker;
     }
     final random = math.Random().nextInt(state.allAdhkar.length);
@@ -51,7 +58,9 @@ extension AdhkarGetters on AzkarController {
     state.box
       ..write(ZEKER_OF_THE_DAY_AND_ID, '${zeker.id}')
       ..write(
-          SETTED_DATE_FOR_ZEKER, EventController.instance.hijriNow.fullDate());
+        SETTED_DATE_FOR_ZEKER,
+        EventController.instance.hijriNow.fullDate(),
+      );
     return zeker;
   }
 }

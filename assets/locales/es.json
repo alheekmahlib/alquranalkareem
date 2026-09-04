@@ -1758,5 +1758,32 @@
   "@syncFailed": {
     "type": "text",
     "placeholders": {}
-  }
+  },
+  "tasmeaa": "Recitación",
+  "tasmeeStartRecording": "Comenzar a recitar",
+  "tasmeeStopRecording": "Detener grabación",
+  "tasmeeRecording": "Recitando",
+  "tasmeeProcessing": "Analizando recitación",
+  "tasmeeConnecting": "Conectando",
+  "tasmeePreparingEngine": "Preparando motor",
+  "tasmeeDownloadingModel": "Descargando modelo",
+  "tasmeeShowWords": "Mostrar palabras",
+  "tasmeeHideWords": "Ocultar palabras",
+  "tasmeeRetry": "Repetir recitación",
+  "tasmeeSettings": "Ajustes de recitación",
+  "tasmeeResultTitle": "Resultado de recitación",
+  "tasmeeNoErrors": "¡Bien hecho! Sin errores",
+  "tasmeeTotal": "Total",
+  "tasmeeTajweed": "Tajwid",
+  "tasmeePronunciation": "Pronunciación",
+  "tasmeeTashkeel": "Diacríticos",
+  "tasmeeExpected": "Esperado",
+  "tasmeeActual": "Recitado",
+  "tasmeeInsert": "Adición",
+  "tasmeeDelete": "Omisión",
+  "tasmeeReplace": "Sustitución",
+  "tasmeeNoMatch": "No se pudo reconocer la recitación, intenta de nuevo con mayor claridad",
+  "tasmeeExit": "Salir",
+  "tasmeeLocalModel": "Modelo de corrección local",
+  "tasmeeModelReady": "Listo"
 }
