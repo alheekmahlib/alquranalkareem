@@ -1,7 +1,5 @@
 part of '../../quran.dart';
 
-List<GlobalKey> playListTextFieldKeys = [];
-
 class AyahsPlayListWidget extends StatelessWidget {
   AyahsPlayListWidget({super.key});
   final playList = PlayListController.instance;
@@ -12,7 +10,7 @@ class AyahsPlayListWidget extends StatelessWidget {
     final size = MediaQuery.sizeOf(context);
     return SingleChildScrollView(
       child: Container(
-        height: size.height * .85,
+        height: size.height * .8,
         width: context.customOrientation(size.width, size.width * .7),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.primaryContainer,

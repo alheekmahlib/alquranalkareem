@@ -237,11 +237,15 @@ class AzkarController extends GetxController {
     await SharePlus.instance.share(params);
   }
 
-  Future<void> createAndShowZekrImage() async {
+  /// يلتقط صورة الذكر من الويدجت مباشرة (بدون Screenshot مركّب داخل
+  /// الورقة، إذ يركّبها family_bottom_sheet مرتين فلا يصح GlobalKey داخلها).
+  Future<void> createAndShowZekrImage({
+    required BuildContext context,
+    required Widget imageWidget,
+  }) async {
     try {
-      final Uint8List? imageBytes = await state.dhekrScreenController.capture(
-        pixelRatio: 7,
-      );
+      final Uint8List imageBytes = await state.dhekrScreenController
+          .captureFromWidget(imageWidget, context: context, pixelRatio: 7);
       state.dhekrToImageBytes = imageBytes;
       update();
     } catch (e) {

@@ -1,5 +1,3 @@
-import 'package:alquranalkareem/core/utils/helpers/app_text_styles.dart';
-import 'package:alquranalkareem/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
@@ -8,6 +6,8 @@ import 'package:hijri_date/convert_number_extension.dart';
 
 import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
+import '/core/utils/helpers/app_text_styles.dart';
+import '/core/widgets/custom_button.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
 import '../../../../database/bookmark_db/bookmark_database.dart';
 import '../controller/adhkar_controller.dart';

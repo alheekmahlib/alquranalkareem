@@ -1750,5 +1750,32 @@
   "@syncFailed": {
     "type": "text",
     "placeholders": {}
-  }
+  },
+  "tasmeaa": "تەسمیع",
+  "tasmeeStartRecording": "دەستپێکردنی تەسمیع",
+  "tasmeeStopRecording": "وەستاندنی تۆمارکردن",
+  "tasmeeRecording": "تەسمیع دەکرێت",
+  "tasmeeProcessing": "شیکردنەوەی خوێندنەوە",
+  "tasmeeConnecting": "پەیوەندی دەکرێت",
+  "tasmeePreparingEngine": "ئامادەکردنی بزوێنەر",
+  "tasmeeDownloadingModel": "داگرتنی مۆدێل",
+  "tasmeeShowWords": "پیشاندانی وشەکان",
+  "tasmeeHideWords": "شاردنەوەی وشەکان",
+  "tasmeeRetry": "دووبارە تەسمیع",
+  "tasmeeSettings": "ڕێکخستنەکانی تەسمیع",
+  "tasmeeResultTitle": "ئەنجامی تەسمیع",
+  "tasmeeNoErrors": "زۆر باش! هەڵە نییە",
+  "tasmeeTotal": "گشتی",
+  "tasmeeTajweed": "تەجوید",
+  "tasmeePronunciation": "دەربڕین",
+  "tasmeeTashkeel": "تەشکیل",
+  "tasmeeExpected": "چاوەڕوانکراو",
+  "tasmeeActual": "خوێنراو",
+  "tasmeeInsert": "زیادە",
+  "tasmeeDelete": "کەمی",
+  "tasmeeReplace": "گۆڕان",
+  "tasmeeNoMatch": "نەتوانرا خوێندنەوەکە بناسرێتەوە، دووبارە هەوڵ بدە بە دەربڕینێکی ڕوونتر",
+  "tasmeeExit": "چوونە دەرەوە",
+  "tasmeeLocalModel": "مۆدێلی ڕاستکردنەوەی ناوخۆیی",
+  "tasmeeModelReady": "ئامادەیە"
 }

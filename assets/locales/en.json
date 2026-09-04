@@ -1788,5 +1788,32 @@
   "@syncFailed": {
     "type": "text",
     "placeholders": {}
-  }
+  },
+  "tasmeaa": "Recitation",
+  "tasmeeStartRecording": "Start reciting",
+  "tasmeeStopRecording": "Stop recording",
+  "tasmeeRecording": "Reciting",
+  "tasmeeProcessing": "Analyzing recitation",
+  "tasmeeConnecting": "Connecting",
+  "tasmeePreparingEngine": "Preparing engine",
+  "tasmeeDownloadingModel": "Downloading model",
+  "tasmeeShowWords": "Show words",
+  "tasmeeHideWords": "Hide words",
+  "tasmeeRetry": "Recite again",
+  "tasmeeSettings": "Tasmee settings",
+  "tasmeeResultTitle": "Recitation result",
+  "tasmeeNoErrors": "Well done! No errors",
+  "tasmeeTotal": "Total",
+  "tasmeeTajweed": "Tajweed",
+  "tasmeePronunciation": "Pronunciation",
+  "tasmeeTashkeel": "Diacritics",
+  "tasmeeExpected": "Expected",
+  "tasmeeActual": "Recited",
+  "tasmeeInsert": "Extra",
+  "tasmeeDelete": "Missing",
+  "tasmeeReplace": "Replaced",
+  "tasmeeNoMatch": "Could not recognize the recitation, try again with clearer pronunciation",
+  "tasmeeExit": "Exit",
+  "tasmeeLocalModel": "Local correction model",
+  "tasmeeModelReady": "Ready"
 }

@@ -16,6 +16,7 @@ class NavBarWidget extends StatelessWidget {
   });
   final generalCtrl = GeneralController.instance;
   final quranCtrl = QuranController.instance;
+  final tasmee = TasmeeCtrl.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +26,8 @@ class NavBarWidget extends StatelessWidget {
           quranCtrl.state.isPlayExpanded.value = false;
           return;
         }
+        // في وضع التسميع لا يوجد شريط صوت قابل للتوسيع.
+        if (tasmee.state.isTasmeeMode.value) return;
         if (details.primaryDelta != null && handleChild == null) {
           if (details.primaryDelta! < -8 &&
               quranCtrl.getNavBarType(NavBarType.none).value) {
@@ -55,7 +58,8 @@ class NavBarWidget extends StatelessWidget {
             snapBehavior: SheetSnapBehavior.snapToEdge,
             controller: navBarController,
             onStateChanged: (state) {
-              if (quranCtrl.state.navBarType.value == NavBarType.none) {
+              if (quranCtrl.state.navBarType.value == NavBarType.none &&
+                  !tasmee.state.isTasmeeMode.value) {
                 quranCtrl.state.isPlayExpanded.value = state;
                 log('isOpen: $state');
               }
@@ -183,44 +187,58 @@ class NavBarWidget extends StatelessWidget {
                                                       .state
                                                       .showAudioWidgetTemporarily
                                                       .value
-                                              ? AudioWidget()
+                                              ? tasmee.state.isTasmeeMode.value
+                                                    ? TasmeeBarWidget()
+                                                    : AudioWidget()
                                               : const SizedBox.shrink(),
                                         ),
                                       ),
-                                      Expanded(
-                                        flex: 2,
-                                        child: ContainerButton(
-                                          onPressed: () {
-                                            isExpanded
-                                                ? quranCtrl.setNavBarType =
-                                                      NavBarType.none
-                                                : quranCtrl.setNavBarType =
-                                                      NavBarType.bookmarkList;
-                                            navBarController.toggle();
-                                            quranCtrl
-                                                    .state
-                                                    .isPlayExpanded
-                                                    .value =
-                                                false;
-                                          },
-                                          svgHeight: 35,
-                                          svgWidth: 35,
-                                          horizontalMargin: 4.0,
-                                          verticalMargin: 5.0,
-                                          backgroundColor: Colors.transparent,
-                                          svgColor:
-                                              context.theme.colorScheme.primary,
-                                          svgWithColorPath:
-                                              isExpanded &&
+                                      // في وضع التسميع يُخفى زر الفواصل
+                                      // ويبقى مكان نفسه للحفاظ على التوازن.
+                                      tasmee.state.isTasmeeMode.value
+                                          ? const SizedBox.shrink()
+                                          : Expanded(
+                                              flex: 2,
+                                              child: ContainerButton(
+                                                onPressed: () {
+                                                  isExpanded
+                                                      ? quranCtrl
+                                                                .setNavBarType =
+                                                            NavBarType.none
+                                                      : quranCtrl
+                                                                .setNavBarType =
+                                                            NavBarType
+                                                                .bookmarkList;
+                                                  navBarController.toggle();
                                                   quranCtrl
-                                                      .getNavBarType(
-                                                        NavBarType.bookmarkList,
-                                                      )
-                                                      .value
-                                              ? SvgPath.svgHomeClose
-                                              : SvgPath.svgHomeBookmarkList,
-                                        ),
-                                      ),
+                                                          .state
+                                                          .isPlayExpanded
+                                                          .value =
+                                                      false;
+                                                },
+                                                svgHeight: 35,
+                                                svgWidth: 35,
+                                                horizontalMargin: 4.0,
+                                                verticalMargin: 5.0,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                svgColor: context
+                                                    .theme
+                                                    .colorScheme
+                                                    .primary,
+                                                svgWithColorPath:
+                                                    isExpanded &&
+                                                        quranCtrl
+                                                            .getNavBarType(
+                                                              NavBarType
+                                                                  .bookmarkList,
+                                                            )
+                                                            .value
+                                                    ? SvgPath.svgHomeClose
+                                                    : SvgPath
+                                                          .svgHomeBookmarkList,
+                                              ),
+                                            ),
                                     ],
                                   ),
                             ),

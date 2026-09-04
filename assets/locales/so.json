@@ -1730,5 +1730,32 @@
   "@syncFailed": {
     "type": "text",
     "placeholders": {}
-  }
+  },
+  "tasmeaa": "Tasmii'",
+  "tasmeeStartRecording": "Bilow tasmii'a",
+  "tasmeeStopRecording": "Jooji duubista",
+  "tasmeeRecording": "Tasmii'a socota",
+  "tasmeeProcessing": "Falanqaynta akhriska",
+  "tasmeeConnecting": "Xiriirinta",
+  "tasmeePreparingEngine": "Diyaarinta mashiinka",
+  "tasmeeDownloadingModel": "Soo dejinta moodelka",
+  "tasmeeShowWords": "Muuji ereyada",
+  "tasmeeHideWords": "Qari ereyada",
+  "tasmeeRetry": "Dib u akhri",
+  "tasmeeSettings": "Setupka tasmii'a",
+  "tasmeeResultTitle": "Natiijada tasmii'a",
+  "tasmeeNoErrors": "Waad fiican tahay! Cilad ma jirto",
+  "tasmeeTotal": "Guud",
+  "tasmeeTajweed": "Tajwiid",
+  "tasmeePronunciation": "Talaaffur",
+  "tasmeeTashkeel": "Tashkiil",
+  "tasmeeExpected": "La filayo",
+  "tasmeeActual": "La akhriyay",
+  "tasmeeInsert": "Dheeraad ah",
+  "tasmeeDelete": "Maqan",
+  "tasmeeReplace": "Beddel",
+  "tasmeeNoMatch": "Akriskii lama aqbalin, ku celi mid ka bataalan",
+  "tasmeeExit": "Ka bax",
+  "tasmeeLocalModel": "Moodelka dexsaadka ee maxalliga ah",
+  "tasmeeModelReady": "Diyaar ah"
 }

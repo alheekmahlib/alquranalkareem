@@ -61,6 +61,7 @@ app.*.map.json
 /assets/QuranData.sqlite
 *.db
 /assets/pages/
+/docs/
 
 # Environment variables (secrets — never commit)
 /assets/.env

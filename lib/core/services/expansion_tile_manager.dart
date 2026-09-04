@@ -31,6 +31,12 @@ class ExpansionTileManager {
     }
   }
 
+  /// توسيع عنصر بالاسم وتحديث حالته
+  void expand(String name) {
+    getExpandedState(name).value = true;
+    getController(name).expand();
+  }
+
   /// إغلاق الكل ما عدا واحد (اختياري)
   void collapseAllExcept(String name) {
     for (final entry in _expandedStates.entries) {

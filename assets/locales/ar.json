@@ -1782,5 +1782,32 @@
   "@syncFailed": {
     "type": "text",
     "placeholders": {}
-  }
+  },
+  "tasmeaa": "تسميع",
+  "tasmeeStartRecording": "ابدأ التسميع",
+  "tasmeeStopRecording": "إيقاف التسجيل",
+  "tasmeeRecording": "جارٍ التسميع",
+  "tasmeeProcessing": "جارٍ تحليل التلاوة",
+  "tasmeeConnecting": "جارٍ الاتصال",
+  "tasmeePreparingEngine": "جارٍ تجهيز المحرك",
+  "tasmeeDownloadingModel": "تنزيل النموذج",
+  "tasmeeShowWords": "إظهار الكلمات",
+  "tasmeeHideWords": "إخفاء الكلمات",
+  "tasmeeRetry": "إعادة التسميع",
+  "tasmeeSettings": "إعدادات التسميع",
+  "tasmeeResultTitle": "نتيجة التسميع",
+  "tasmeeNoErrors": "أحسنت! لا أخطاء",
+  "tasmeeTotal": "الإجمالي",
+  "tasmeeTajweed": "تجويد",
+  "tasmeePronunciation": "نطق",
+  "tasmeeTashkeel": "تشكيل",
+  "tasmeeExpected": "المتوقع",
+  "tasmeeActual": "المنطوق",
+  "tasmeeInsert": "زيادة",
+  "tasmeeDelete": "نقصان",
+  "tasmeeReplace": "استبدال",
+  "tasmeeNoMatch": "لم يتم التعرف على التلاوة، حاول مجددًا بنطق أوضح",
+  "tasmeeExit": "خروج",
+  "tasmeeLocalModel": "نموذج التصحيح المحلي",
+  "tasmeeModelReady": "جاهز"
 }

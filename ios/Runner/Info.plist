@@ -40,9 +40,11 @@
 		<array>
 			<string>_dartobservatory._tcp</string>
 		</array>
-	<key>NSCameraUsageDescription</key>
-	<string>The camera is used to scan the QR code for pairing your devices and syncing your data.</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
+		<key>NSCameraUsageDescription</key>
+		<string>The camera is used to scan the QR code for pairing your devices and syncing your data.</string>
+		<key>NSMicrophoneUsageDescription</key>
+		<string>The microphone is used to record your recitation so the tasmee feature can check it and show corrections.</string>
+		<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>App requires access to the photo library to save images</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>App requires access to the photo library to attach media to feedback</string>

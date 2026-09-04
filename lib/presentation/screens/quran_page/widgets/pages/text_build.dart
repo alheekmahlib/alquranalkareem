@@ -30,6 +30,7 @@ class TextBuild extends StatelessWidget {
           useDefaultAppBar: false,
           isShowAudioSlider: false,
           isShowDisplayModeBar: false,
+          isShowTasmeeControl: false,
           enableWordSelection: false,
           showAyahBookmarkedIcon: true,
           isDark: themeCtrl.isDarkMode,

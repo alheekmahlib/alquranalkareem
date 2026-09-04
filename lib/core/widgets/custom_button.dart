@@ -24,6 +24,7 @@ class CustomButton extends StatelessWidget {
   final double? horizontalPadding;
   final double? verticalPadding;
   final TextStyle? textStyle;
+  final String? tooltip;
   const CustomButton({
     super.key,
     this.svgPath,
@@ -43,121 +44,125 @@ class CustomButton extends StatelessWidget {
     this.horizontalPadding,
     this.verticalPadding,
     this.textStyle,
+    this.tooltip = '',
   });
 
   @override
   Widget build(BuildContext context) {
     final effectiveIconSize = iconSize ?? 25;
     final defaultSize = effectiveIconSize + (horizontalPadding ?? 4.0) * 2;
-    return SizedBox(
-      height: height ?? defaultSize,
-      width: width ?? defaultSize,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: backgroundColor ?? Colors.transparent,
-          shadowColor: shadowColor ?? Colors.transparent,
-          padding: EdgeInsets.symmetric(
-            horizontal: horizontalPadding ?? 4.0,
-            vertical: verticalPadding ?? 4.0,
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            side: BorderSide(
-              color: borderColor ?? Colors.transparent,
-              width: 1,
+    return Tooltip(
+      message: tooltip,
+      child: SizedBox(
+        height: height ?? defaultSize,
+        width: width ?? defaultSize,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: backgroundColor ?? Colors.transparent,
+            shadowColor: shadowColor ?? Colors.transparent,
+            padding: EdgeInsets.symmetric(
+              horizontal: horizontalPadding ?? 4.0,
+              vertical: verticalPadding ?? 4.0,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              side: BorderSide(
+                color: borderColor ?? Colors.transparent,
+                width: 1,
+              ),
             ),
           ),
-        ),
-        onPressed: onPressed,
-        child: title != null
-            ? Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  title != null
-                      ? Text(
-                          title!.tr,
-                          style:
-                              textStyle ??
-                              AppTextStyles.titleMedium(
-                                color:
-                                    titleColor ??
-                                    context
-                                        .theme
-                                        .colorScheme
-                                        .secondaryContainer,
-                                height: 1.4,
-                              ),
-                          textAlign: TextAlign.center,
-                        )
-                      : const SizedBox.shrink(),
-                  title != null ? const Gap(16) : const SizedBox.shrink(),
-                  svgPath != null
-                      ? isCustomSvgColor!
-                            ? SizedBox(
-                                height: iconSize ?? 25,
-                                width: iconSize ?? 25,
-                                child: customSvgWithColor(
-                                  svgPath ?? SvgPath.svgAlert,
-                                  height: iconSize ?? 25,
-                                  width: iconSize ?? 25,
+          onPressed: onPressed,
+          child: title != null
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    title != null
+                        ? Text(
+                            title!.tr,
+                            style:
+                                textStyle ??
+                                AppTextStyles.titleMedium(
                                   color:
-                                      svgColor ??
+                                      titleColor ??
                                       context
                                           .theme
                                           .colorScheme
                                           .secondaryContainer,
+                                  height: 1.4,
                                 ),
-                              )
-                            : SizedBox(
-                                height: iconSize ?? 25,
-                                width: iconSize ?? 25,
-                                child: customSvgWithCustomColor(
-                                  svgPath ?? SvgPath.svgAlert,
+                            textAlign: TextAlign.center,
+                          )
+                        : const SizedBox.shrink(),
+                    title != null ? const Gap(16) : const SizedBox.shrink(),
+                    svgPath != null
+                        ? isCustomSvgColor!
+                              ? SizedBox(
                                   height: iconSize ?? 25,
                                   width: iconSize ?? 25,
-                                  color:
-                                      svgColor ??
-                                      context.theme.primaryColorLight,
-                                ),
-                              )
-                      : Icon(
-                          icon ?? Icons.cloud_download_outlined,
-                          size: iconSize ?? 25,
+                                  child: customSvgWithColor(
+                                    svgPath ?? SvgPath.svgAlert,
+                                    height: iconSize ?? 25,
+                                    width: iconSize ?? 25,
+                                    color:
+                                        svgColor ??
+                                        context
+                                            .theme
+                                            .colorScheme
+                                            .secondaryContainer,
+                                  ),
+                                )
+                              : SizedBox(
+                                  height: iconSize ?? 25,
+                                  width: iconSize ?? 25,
+                                  child: customSvgWithCustomColor(
+                                    svgPath ?? SvgPath.svgAlert,
+                                    height: iconSize ?? 25,
+                                    width: iconSize ?? 25,
+                                    color:
+                                        svgColor ??
+                                        context.theme.primaryColorLight,
+                                  ),
+                                )
+                        : Icon(
+                            icon ?? Icons.cloud_download_outlined,
+                            size: iconSize ?? 25,
+                            color: svgColor ?? context.theme.primaryColorLight,
+                          ),
+                  ],
+                )
+              : svgPath != null
+              ? isCustomSvgColor!
+                    ? SizedBox(
+                        height: iconSize ?? 25,
+                        width: iconSize ?? 25,
+                        child: customSvgWithColor(
+                          svgPath ?? SvgPath.svgAlert,
+                          width: iconSize ?? 25,
+                          height: iconSize ?? 25,
+                          color:
+                              svgColor ??
+                              context.theme.colorScheme.secondaryContainer,
+                        ),
+                      )
+                    : SizedBox(
+                        height: iconSize ?? 25,
+                        width: iconSize ?? 25,
+                        child: customSvgWithCustomColor(
+                          svgPath ?? SvgPath.svgAlert,
+                          width: iconSize ?? 25,
+                          height: iconSize ?? 25,
                           color: svgColor ?? context.theme.primaryColorLight,
                         ),
-                ],
-              )
-            : svgPath != null
-            ? isCustomSvgColor!
-                  ? SizedBox(
-                      height: iconSize ?? 25,
-                      width: iconSize ?? 25,
-                      child: customSvgWithColor(
-                        svgPath ?? SvgPath.svgAlert,
-                        width: iconSize ?? 25,
-                        height: iconSize ?? 25,
-                        color:
-                            svgColor ??
-                            context.theme.colorScheme.secondaryContainer,
-                      ),
-                    )
-                  : SizedBox(
-                      height: iconSize ?? 25,
-                      width: iconSize ?? 25,
-                      child: customSvgWithCustomColor(
-                        svgPath ?? SvgPath.svgAlert,
-                        width: iconSize ?? 25,
-                        height: iconSize ?? 25,
-                        color: svgColor ?? context.theme.primaryColorLight,
-                      ),
-                    )
-            : iconWidget ??
-                  Icon(
-                    icon ?? Icons.cloud_download_outlined,
-                    size: iconSize ?? 25,
-                    color: svgColor ?? context.theme.primaryColorLight,
-                  ),
+                      )
+              : iconWidget ??
+                    Icon(
+                      icon ?? Icons.cloud_download_outlined,
+                      size: iconSize ?? 25,
+                      color: svgColor ?? context.theme.primaryColorLight,
+                    ),
+        ),
       ),
     );
   }

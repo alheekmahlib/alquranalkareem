@@ -1,7 +1,8 @@
 part of '../quran.dart';
 
 class QuranHome extends StatelessWidget {
-  QuranHome({Key? key}) : super(key: key);
+  final bool? isTasmeeMode;
+  QuranHome({Key? key, this.isTasmeeMode = false}) : super(key: key);
 
   final audioCtrl = AudioCtrl.instance;
   final generalCtrl = GeneralController.instance;
@@ -23,6 +24,10 @@ class QuranHome extends StatelessWidget {
     return PopScope(
       canPop: true,
       onPopInvokedWithResult: (bool didPop, _) async {
+        // أنهِ وضع التسميع عند مغادرة الشاشة بأي طريقة (سحب للخلف أو زر).
+        if (TasmeeCtrl.instance.state.isTasmeeMode.value) {
+          TasmeeCtrl.instance.exitTasmeeMode();
+        }
         if (didPop) {
           return;
         }
@@ -51,16 +56,18 @@ class QuranHome extends StatelessWidget {
                       generalCtrl.state.isShowControl.value
                       ? Stack(
                           children: [
-                            DisplayModeBar(
-                              isDark: themeCtrl.isDarkMode,
-                              languageCode: Get.locale!.languageCode,
-                              style: quranCtrl.displayModeBarStyle,
-                            ),
-                            const QuranTopBar(),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: TajweedMenuWidget(),
-                            ),
+                            if (!isTasmeeMode!)
+                              DisplayModeBar(
+                                isDark: themeCtrl.isDarkMode,
+                                languageCode: Get.locale!.languageCode,
+                                style: quranCtrl.displayModeBarStyle,
+                              ),
+                            if (!isTasmeeMode!) const QuranTopBar(),
+                            if (!isTasmeeMode!)
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: TajweedMenuWidget(),
+                              ),
                             TopBarWidget(
                               isHomeChild: true,
                               isQuranSetting: true,
@@ -74,58 +81,65 @@ class QuranHome extends StatelessWidget {
                                 }
                                 return QuranSearch();
                               }),
-                              centerChild: TextFieldBarWidget(
-                                controller: searchCtrl.state.searchTextEditing,
-                                horizontalPadding: 0.0,
-                                onPressed: () {
-                                  quranCtrl.setTopBarType = TopBarType.search;
-                                  quranCtrl.state.tabBarController.open();
-                                },
-                                onButtonPressed: () {
-                                  searchCtrl.state.searchTextEditing.clear();
-                                  searchCtrl.state.ayahList.clear();
-                                  searchCtrl.state.surahList.clear();
-                                  // امسح محادثة المساعد أيضاً إن كانت نشطة.
-                                  if (searchCtrl.state.isAiMode.value) {
-                                    AiSearchController.instance
-                                        .clearConversation();
-                                  }
-                                },
-                                onChanged: (query) {
-                                  // في وضع AI: لا بحث مباشر (الإرسال عند Enter فقط).
-                                  if (searchCtrl.state.isAiMode.value) return;
-                                  if (searchCtrl
-                                          .state
-                                          .searchTextEditing
-                                          .text
-                                          .isNotEmpty ||
-                                      query.trim().isNotEmpty) {
-                                    searchCtrl.surahSearchMethod(query);
-                                    searchCtrl.search(query);
-                                  } else {
-                                    searchCtrl.state.searchTextEditing.clear();
-                                    searchCtrl.state.ayahList.clear();
-                                    searchCtrl.state.surahList.clear();
-                                  }
-                                },
-                                onSubmitted: (query) {
-                                  // في وضع AI: أرسل للمساعد الذكي.
-                                  if (searchCtrl.state.isAiMode.value) {
-                                    if (query.trim().isNotEmpty) {
-                                      AiSearchController.instance.sendMessage(
-                                        query,
-                                      );
-                                      searchCtrl.state.searchTextEditing
-                                          .clear();
-                                    }
-                                    return;
-                                  }
-                                  if (query.length <= 0 ||
-                                      query.trim().isNotEmpty) {
-                                    searchCtrl.addSearchItem(query);
-                                  }
-                                },
-                              ),
+                              // في وضع التسميع يُخفى حقل البحث.
+                              centerChild: isTasmeeMode!
+                                  ? null
+                                  : TextFieldBarWidget(
+                                      controller:
+                                          searchCtrl.state.searchTextEditing,
+                                      horizontalPadding: 0.0,
+                                      onPressed: () {
+                                        quranCtrl.setTopBarType =
+                                            TopBarType.search;
+                                        quranCtrl.state.tabBarController.open();
+                                      },
+                                      onButtonPressed: () {
+                                        searchCtrl.state.searchTextEditing
+                                            .clear();
+                                        searchCtrl.state.ayahList.clear();
+                                        searchCtrl.state.surahList.clear();
+                                        // امسح محادثة المساعد أيضاً إن كانت نشطة.
+                                        if (searchCtrl.state.isAiMode.value) {
+                                          AiSearchController.instance
+                                              .clearConversation();
+                                        }
+                                      },
+                                      onChanged: (query) {
+                                        // في وضع AI: لا بحث مباشر (الإرسال عند Enter فقط).
+                                        if (searchCtrl.state.isAiMode.value)
+                                          return;
+                                        if (searchCtrl
+                                                .state
+                                                .searchTextEditing
+                                                .text
+                                                .isNotEmpty ||
+                                            query.trim().isNotEmpty) {
+                                          searchCtrl.surahSearchMethod(query);
+                                          searchCtrl.search(query);
+                                        } else {
+                                          searchCtrl.state.searchTextEditing
+                                              .clear();
+                                          searchCtrl.state.ayahList.clear();
+                                          searchCtrl.state.surahList.clear();
+                                        }
+                                      },
+                                      onSubmitted: (query) {
+                                        // في وضع AI: أرسل للمساعد الذكي.
+                                        if (searchCtrl.state.isAiMode.value) {
+                                          if (query.trim().isNotEmpty) {
+                                            AiSearchController.instance
+                                                .sendMessage(query);
+                                            searchCtrl.state.searchTextEditing
+                                                .clear();
+                                          }
+                                          return;
+                                        }
+                                        if (query.length <= 0 ||
+                                            query.trim().isNotEmpty) {
+                                          searchCtrl.addSearchItem(query);
+                                        }
+                                      },
+                                    ),
                             ),
                             Align(
                               alignment: Alignment.bottomCenter,

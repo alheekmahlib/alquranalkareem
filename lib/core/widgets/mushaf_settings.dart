@@ -69,6 +69,7 @@ class MushafSettings extends StatelessWidget {
                 const Gap(8),
                 _changeBackgroundColor(context),
                 const Gap(8),
+                TasmeeModelSettings(),
                 const AutoScrollSettings(),
               ],
             ),

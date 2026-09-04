@@ -6,6 +6,8 @@
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>NSCameraUsageDescription</key>
 	<string>يُستخدم الوصول إلى الكاميرا لمسح رمز QR الخاص بإقران أجهزتك ومزامنة بياناتك.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>يُستخدم الميكروفون لتسجيل تلاوتك ليتمكن التسميع من تصحيحها وعرض الأخطاء.</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIconFile</key>

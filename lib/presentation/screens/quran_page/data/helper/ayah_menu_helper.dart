@@ -18,8 +18,8 @@ import '../../../../../core/widgets/custom_button.dart';
 import '../../../../../core/widgets/tab_bar_widget.dart';
 import '../../controllers/mutashabihat_controller.dart';
 import '../../quran.dart';
+import '../../widgets/mutashabihat/mutashabihat_bottom_sheet.dart';
 import '../../widgets/mutashabihat/mutashabihat_browse_sheet.dart';
-import '../../widgets/mutashabihat/mutashabihat_dialog.dart';
 import '../../widgets/search/controller/quran_search_controller.dart';
 
 class AyahMenuHelper {
@@ -364,7 +364,12 @@ class AyahMenuHelper {
             const Gap(12),
             CopyButton(ayah: ayah, surah: surah),
             const Gap(15),
-            ShareAyahOptions(ayah: ayah, surah: surah, pageNumber: pageIndex),
+            ShareAyahOptions(
+              ayah: ayah,
+              surah: surah,
+              pageNumber: pageIndex,
+              singleAyahMode: false,
+            ),
             const Gap(15),
             // Mutashabihat button - shows similar verses
             Builder(
@@ -385,9 +390,9 @@ class AyahMenuHelper {
                       svgPath: SvgPath.svgQuranMutashabihat,
                       svgColor: Get.theme.canvasColor,
                       onPressed: () {
-                        if (Get.context != null && count > 0) {
+                        if (count > 0) {
                           MutashabihatBottomSheet.show(
-                            context: Get.context!,
+                            context: context,
                             surahNumber: surah.surahNumber,
                             ayahNumber: ayah.ayahNumber,
                           );

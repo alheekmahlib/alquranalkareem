@@ -77,7 +77,8 @@ class ReminderController extends GetxController {
     Map<String, String> customAdhkarMap =
         box.read<Map>('customAdhkar')?.cast<String, String>() ?? {};
     Map<String, bool> customAdhkarEnabledMap = Map<String, bool>.from(
-        box.read<Map>('customAdhkarEnabled')?.cast<String, bool>() ?? {});
+      box.read<Map>('customAdhkarEnabled')?.cast<String, bool>() ?? {},
+    );
 
     state.customAdhkar.assignAll(customAdhkarMap);
     state.customAdhkarEnabled.assignAll(customAdhkarEnabledMap);

@@ -3,13 +3,13 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:quran_library/quran.dart';
 
-import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/svg_constants.dart';
 import '/core/utils/helpers/app_text_styles.dart';
 import '/core/widgets/title_widget.dart';
 import '/presentation/controllers/general/general_controller.dart';
 import '/presentation/controllers/theme_controller.dart';
 import '../../../../../core/utils/constants/extensions/alignment_rotated_extension.dart';
+import '../../../../../core/utils/constants/extensions/bottom_sheet_extension.dart';
 import '../../../../../core/utils/constants/extensions/convert_number_extension.dart';
 import '../../../../../core/utils/constants/extensions/custom_error_snackBar.dart';
 import '../../../../../core/utils/constants/extensions/svg_extensions.dart';
@@ -38,20 +38,9 @@ class MutashabihatBottomSheet extends StatelessWidget {
   }) {
     final controller = MutashabihatController.instance;
     controller.loadMutashabihat(surahNumber, ayahNumber);
-    showModalBottomSheet(
-      context: context,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      backgroundColor: Colors.transparent,
-      isScrollControlled: true,
-      useSafeArea: true,
-      constraints: BoxConstraints(
-        // maxHeight: Get.height * 0.85,
-        maxWidth: context.customOrientation(Get.width, Get.width * .5),
-      ),
-      builder: (context) => MutashabihatBottomSheet(
-        surahNumber: surahNumber,
-        ayahNumber: ayahNumber,
-      ),
+    BottomSheetExtension(null).customPushToPage(
+      context,
+      MutashabihatBottomSheet(surahNumber: surahNumber, ayahNumber: ayahNumber),
     );
   }
 
@@ -64,16 +53,6 @@ class MutashabihatBottomSheet extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
-            height: 8,
-            width: 350,
-            margin: const EdgeInsets.symmetric(horizontal: 62.0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              color: Theme.of(context).primaryColorLight,
-            ),
-          ),
-          const Gap(8.0),
           Flexible(
             child: Container(
               width: Get.width,
@@ -85,9 +64,6 @@ class MutashabihatBottomSheet extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Gap(8.0),
-                  context.customArrowDown(),
-                  const Gap(16.0),
                   Align(
                     alignment: AlignmentDirectional.centerStart,
                     child: TitleWidget(

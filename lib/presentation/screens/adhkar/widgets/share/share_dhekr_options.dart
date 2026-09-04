@@ -112,10 +112,18 @@ class ShareDhekrOptions extends StatelessWidget {
                       ),
                     ),
                     onTap: () async {
-                      await sl<AzkarController>().createAndShowZekrImage();
+                      await sl<AzkarController>().createAndShowZekrImage(
+                        context: context,
+                        imageWidget: buildZekrShareImage(
+                          context: context,
+                          zekrText: zekrText,
+                          category: category,
+                          reference: reference,
+                          description: description,
+                          count: count,
+                        ),
+                      );
                       shareToImage.shareZekr();
-                      // shareVerse(
-                      //     context, verseNumber, surahNumber, verseText);
                       Get.back();
                     },
                   ),

@@ -366,13 +366,29 @@ class SvgPath {
   static const String svgQuranBookmarkIcon =
       "assets/svg/quran/bookmark_icon.svg";
 
+  /// Assets for svgQuranCheckList
+  /// assets/svg/quran/check_list.svg
+  static const String svgQuranCheckList = "assets/svg/quran/check_list.svg";
+
   /// Assets for svgQuranCopy
   /// assets/svg/quran/copy.svg
   static const String svgQuranCopy = "assets/svg/quran/copy.svg";
 
+  /// Assets for svgQuranEye
+  /// assets/svg/quran/eye.svg
+  static const String svgQuranEye = "assets/svg/quran/eye.svg";
+
+  /// Assets for svgQuranEyeCrossed
+  /// assets/svg/quran/eye-crossed.svg
+  static const String svgQuranEyeCrossed = "assets/svg/quran/eye-crossed.svg";
+
   /// Assets for svgQuranKhatmah
   /// assets/svg/quran/khatmah.svg
   static const String svgQuranKhatmah = "assets/svg/quran/khatmah.svg";
+
+  /// Assets for svgQuranMicrophone
+  /// assets/svg/quran/microphone.svg
+  static const String svgQuranMicrophone = "assets/svg/quran/microphone.svg";
 
   /// Assets for svgQuranMutashabihat
   /// assets/svg/quran/mutashabihat.svg
@@ -386,6 +402,10 @@ class SvgPath {
   /// Assets for svgQuranPlayAll
   /// assets/svg/quran/play_all.svg
   static const String svgQuranPlayAll = "assets/svg/quran/play_all.svg";
+
+  /// Assets for svgQuranStop
+  /// assets/svg/quran/stop.svg
+  static const String svgQuranStop = "assets/svg/quran/stop.svg";
 
   /// Assets for svgQuranSurahBanner
   /// assets/svg/quran/surah_banner.svg

@@ -27,8 +27,11 @@ class ChaptersPage extends StatelessWidget {
         searchButton: CustomButton(
           onPressed: () => customBottomSheet(
             SearchScreen(
-              onSubmitted: (_) =>
-                  booksCtrl.searchBooks(booksCtrl.state.searchController.text),
+              onSubmitted: (_) => booksCtrl.searchBooks(
+                booksCtrl.state.searchController.text,
+                bookNumber: book.bookNumber,
+              ),
+              isInBook: true,
             ),
           ),
           width: 50,

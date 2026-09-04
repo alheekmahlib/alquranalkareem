@@ -29,7 +29,7 @@ class ShareAyahOptions extends StatelessWidget {
   final SurahModel surah;
   final int pageNumber;
   final Color? iconColor;
-  final bool? withBack;
+  final bool? singleAyahMode;
 
   ShareAyahOptions({
     super.key,
@@ -37,7 +37,7 @@ class ShareAyahOptions extends StatelessWidget {
     required this.surah,
     required this.pageNumber,
     this.iconColor,
-    this.withBack = true,
+    this.singleAyahMode = false,
   });
 
   final shareToImage = ShareController.instance;
@@ -70,40 +70,50 @@ class ShareAyahOptions extends StatelessWidget {
       svgPath: SvgPath.svgHomeShare,
       svgColor: iconColor ?? context.theme.canvasColor,
       onPressed: () async {
-        if (withBack == true) Get.back();
+        // if (withBack == true) Get.back();
         // تهيئة القيم بالآية الحالية
         _fromAyah.value = ayah.ayahNumber;
         _toAyah.value = ayah.ayahNumber;
-        customBottomSheet(
-          backgroundColor: Get.theme.colorScheme.primaryContainer,
-          SafeArea(
-            child: SizedBox(
-              height: Get.height * .8,
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    _rangeSelector(),
-                    const Gap(4),
-                    context.hDivider(color: Get.theme.colorScheme.primary),
-                    const Gap(4),
-                    _ayahText(context),
-                    const Gap(4),
-                    context.hDivider(color: Get.theme.colorScheme.primary),
-                    const Gap(4),
-                    _ayahAudio(context),
-                    const Gap(4),
-                    context.hDivider(color: Get.theme.colorScheme.primary),
-                    const Gap(4),
-                    _ayahToImage(context),
-                    const Gap(8),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        );
+        singleAyahMode == true
+            ? customBottomSheet(
+                backgroundColor: Get.theme.colorScheme.primaryContainer,
+                _shareAyahBuild(context),
+              )
+            : customPushToPage(
+                context,
+                backgroundColor: Get.theme.colorScheme.primaryContainer,
+                _shareAyahBuild(context),
+              );
       },
+    );
+  }
+
+  SafeArea _shareAyahBuild(BuildContext context) {
+    return SafeArea(
+      child: SizedBox(
+        height: Get.height * .8,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _rangeSelector(),
+              const Gap(4),
+              context.hDivider(color: Get.theme.colorScheme.primary),
+              const Gap(4),
+              _ayahText(context),
+              const Gap(4),
+              context.hDivider(color: Get.theme.colorScheme.primary),
+              const Gap(4),
+              _ayahAudio(context),
+              const Gap(4),
+              context.hDivider(color: Get.theme.colorScheme.primary),
+              const Gap(4),
+              _ayahToImage(context),
+              const Gap(8),
+            ],
+          ),
+        ),
+      ),
     );
   }
 

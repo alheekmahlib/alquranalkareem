@@ -1752,5 +1752,32 @@
   "@syncFailed": {
     "type": "text",
     "placeholders": {}
-  }
+  },
+  "tasmeaa": "Pagsaulo",
+  "tasmeeStartRecording": "Simulan ang pagsaulo",
+  "tasmeeStopRecording": "Itigil ang pagtatala",
+  "tasmeeRecording": "Nagpapasaulo",
+  "tasmeeProcessing": "Sinusuri ang pagbasa",
+  "tasmeeConnecting": "Kumukonekta",
+  "tasmeePreparingEngine": "Inihahanda ang engine",
+  "tasmeeDownloadingModel": "Nagda-download ng modelo",
+  "tasmeeShowWords": "Ipakita ang mga salita",
+  "tasmeeHideWords": "Itago ang mga salita",
+  "tasmeeRetry": "Ulitin ang pagsaulo",
+  "tasmeeSettings": "Mga setting ng pagsaulo",
+  "tasmeeResultTitle": "Resulta ng pagsaulo",
+  "tasmeeNoErrors": "Magaling! Walang mali",
+  "tasmeeTotal": "Kabuuan",
+  "tasmeeTajweed": "Tajweed",
+  "tasmeePronunciation": "Pagbigkas",
+  "tasmeeTashkeel": "Tashkeel",
+  "tasmeeExpected": "Inaasahan",
+  "tasmeeActual": "Nabasa",
+  "tasmeeInsert": "Karagdagan",
+  "tasmeeDelete": "Kulang",
+  "tasmeeReplace": "Pinalit",
+  "tasmeeNoMatch": "Hindi nakilala ang pagbasa, subukan muli na mas malinaw",
+  "tasmeeExit": "Lumabas",
+  "tasmeeLocalModel": "Lokal na modelo ng pagwawasto",
+  "tasmeeModelReady": "Handa na"
 }
