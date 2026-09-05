@@ -113,7 +113,7 @@ part 'widgets/khatmah/widgets/khatmah_build_widget.dart';
 part 'widgets/khatmah/widgets/khatmah_days_page.dart';
 part 'widgets/khatmah/widgets/khatmah_name_widget.dart';
 part 'widgets/pages/left_page.dart';
-part 'widgets/pages/nav_bar_widget.dart';
+part 'widgets/pages/quran_dock_bar.dart';
 part 'widgets/pages/quran_or_ten_recitations_tab_bar.dart';
 part 'widgets/pages/quran_top_bar.dart';
 part 'widgets/pages/right_page.dart';
