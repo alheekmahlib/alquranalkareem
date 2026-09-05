@@ -67,8 +67,7 @@ class TasmeeSessionController extends GetxController {
       await _repository.saveLatest(
         TasmeePageResult(
           pageNumber: page,
-          // يُستبدل باسم النمط الفعلي عند إتمام المرحلة الثانية.
-          mode: 'tasmee',
+          mode: state.mode.value.name,
           completedAt: DateTime.now(),
           startSura: start?.suraIdx ?? 1,
           startAya: start?.ayaIdx ?? 1,

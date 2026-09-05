@@ -138,6 +138,7 @@ part 'widgets/tajweed_menu_widget.dart';
 part 'widgets/tasmee/tasmee_bar_widget.dart';
 part 'widgets/tasmee/tasmee_error_card.dart';
 part 'widgets/tasmee/tasmee_model_settings.dart';
+part 'widgets/tasmee/tasmee_mode_sheet.dart';
 part 'widgets/tasmee/tasmee_pages_list_widget.dart';
 part 'widgets/tasmee/tasmee_phoneme_chip.dart';
 part 'widgets/tasmee/tasmee_result_widget.dart';

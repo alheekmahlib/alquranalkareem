@@ -1781,6 +1781,13 @@
   "tasmeePage": "Sayfa",
   "tasmeeErrorsCount": "hata",
   "tasmeeResultDeleted": "Sonuç silindi",
+  "tasmeeModeTitle": "Tasmee modu",
+  "tasmeeModeTasmee": "Tasmee",
+  "tasmeeModeTasmeeDesc": "Kelimeler gizlidir, okudukça açılır",
+  "tasmeeModeCorrector": "Tilavet düzeltici",
+  "tasmeeModeCorrectorDesc": "Ayetler görünür, her yanlış kelime doğru okunana kadar anında düzeltilir",
+  "tasmeeModeTeacher": "Kur'an öğretmeni",
+  "tasmeeModeTeacherDesc": "Hoca ayeti okur, sen ise öğrenene kadar tekrar edersin",
   "tasmeeLocalModel": "Yerel düzeltme modeli",
   "tasmeeModelReady": "Hazır"
 }

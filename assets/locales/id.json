@@ -1783,6 +1783,13 @@
   "tasmeePage": "Halaman",
   "tasmeeErrorsCount": "kesalahan",
   "tasmeeResultDeleted": "Hasil dihapus",
+  "tasmeeModeTitle": "Mode tasmi'",
+  "tasmeeModeTasmee": "Tasmi'",
+  "tasmeeModeTasmeeDesc": "Kata tersembunyi dan muncul saat kamu melafalkan",
+  "tasmeeModeCorrector": "Korektor tilawah",
+  "tasmeeModeCorrectorDesc": "Ayat terlihat dengan koreksi langsung tiap kata yang salah hingga benar",
+  "tasmeeModeTeacher": "Guru Al-Qur'an",
+  "tasmeeModeTeacherDesc": "Qari melafalkan ayat lalu kamu mengulanginya hingga mahir",
   "tasmeeLocalModel": "Model koreksi lokal",
   "tasmeeModelReady": "Siap"
 }

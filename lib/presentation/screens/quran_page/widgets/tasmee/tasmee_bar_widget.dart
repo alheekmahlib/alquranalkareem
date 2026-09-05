@@ -29,24 +29,41 @@ class TasmeeBarWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Obx(() {
             final sessionState = tasmee.state.sessionState.value;
+            final mode = tasmee.state.mode.value;
             return Row(
               children: [
+                CustomButton(
+                  isCustomSvgColor: true,
+                  tooltip: 'tasmeeModeTitle'.tr,
+                  svgPath: switch (mode) {
+                    TasmeeMode.corrector => SvgPath.svgAudioPlayWord,
+                    TasmeeMode.teacher => SvgPath.svgAudioAudioQuran,
+                    _ => SvgPath.svgQuranMicrophone,
+                  },
+                  svgColor: Get.theme.primaryColorLight,
+                  onPressed: () =>
+                      customBottomSheet(const TasmeeModeSheetWidget()),
+                ),
+                const Gap(8),
                 _buildAction(sessionState),
                 const Gap(8),
                 Expanded(child: _buildStatus()),
-                CustomButton(
-                  isCustomSvgColor: true,
-                  tooltip: tasmee.state.showAllWords.value
-                      ? 'tasmeeHideWords'.tr
-                      : 'tasmeeShowWords'.tr,
-                  svgPath: tasmee.state.showAllWords.value
-                      ? SvgPath.svgQuranEyeCrossed
-                      : SvgPath.svgQuranEye,
-                  svgColor: tasmee.state.showAllWords.value
-                      ? Get.theme.colorScheme.surface
-                      : Get.theme.primaryColorLight,
-                  onPressed: () => _busy ? null : tasmee.toggleShowAllWords(),
-                ),
+                // زر العين يخص نمط التسميع فقط — الكلمات ظاهرة أصلًا في
+                // المصحح والمعلم.
+                if (mode == TasmeeMode.tasmee)
+                  CustomButton(
+                    isCustomSvgColor: true,
+                    tooltip: tasmee.state.showAllWords.value
+                        ? 'tasmeeHideWords'.tr
+                        : 'tasmeeShowWords'.tr,
+                    svgPath: tasmee.state.showAllWords.value
+                        ? SvgPath.svgQuranEyeCrossed
+                        : SvgPath.svgQuranEye,
+                    svgColor: tasmee.state.showAllWords.value
+                        ? Get.theme.colorScheme.surface
+                        : Get.theme.primaryColorLight,
+                    onPressed: () => _busy ? null : tasmee.toggleShowAllWords(),
+                  ),
                 CustomButton(
                   isCustomSvgColor: true,
                   tooltip: 'tasmeeRetry'.tr,

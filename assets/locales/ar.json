@@ -1813,6 +1813,13 @@
   "tasmeePage": "صفحة",
   "tasmeeErrorsCount": "أخطاء",
   "tasmeeResultDeleted": "تم حذف النتيجة",
+  "tasmeeModeTitle": "نمط التسميع",
+  "tasmeeModeTasmee": "تسميع",
+  "tasmeeModeTasmeeDesc": "الكلمات مخفية وتظهر أثناء تلاوتك",
+  "tasmeeModeCorrector": "مصحح التلاوة",
+  "tasmeeModeCorrectorDesc": "الآيات ظاهرة مع تصحيح فوري لكل كلمة خاطئة حتى تُتلى صحيحة",
+  "tasmeeModeTeacher": "معلم القرآن",
+  "tasmeeModeTeacherDesc": "القارئ يتلو الآية ثم تلوتها أنت وتتكرر حتى تتقنها",
   "tasmeeLocalModel": "نموذج التصحيح المحلي",
   "tasmeeModelReady": "جاهز"
 }

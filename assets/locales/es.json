@@ -1789,6 +1789,13 @@
   "tasmeePage": "Página",
   "tasmeeErrorsCount": "errores",
   "tasmeeResultDeleted": "Resultado eliminado",
+  "tasmeeModeTitle": "Modo de memorización",
+  "tasmeeModeTasmee": "Recitar",
+  "tasmeeModeTasmeeDesc": "Las palabras están ocultas y aparecen al recitar",
+  "tasmeeModeCorrector": "Corrector de recitación",
+  "tasmeeModeCorrectorDesc": "Ayas visibles con corrección inmediata de cada palabra incorrecta hasta recitarla bien",
+  "tasmeeModeTeacher": "Maestro del Corán",
+  "tasmeeModeTeacherDesc": "El recitador recita la aya y tú la repites hasta dominarla",
   "tasmeeLocalModel": "Modelo de corrección local",
   "tasmeeModelReady": "Listo"
 }
