@@ -1790,6 +1790,14 @@
   "tasmeeModeCorrectorDesc": "Ayat terlihat dengan koreksi langsung tiap kata yang salah hingga benar",
   "tasmeeModeTeacher": "Guru Al-Qur'an",
   "tasmeeModeTeacherDesc": "Qari melafalkan ayat lalu kamu mengulanginya hingga mahir",
+  "tasmeeCorrectWord": "Perbaiki kata",
+  "tasmeePlayWord": "Putar kata",
+  "tasmeeRepeatWord": "Ulangi kata",
+  "tasmeeRepeatHint": "Dengarkan pelafalan lalu tekan mikrofon dan ulangi",
+  "tasmeeListeningWord": "Mendengarkan… ucapkan katanya",
+  "tasmeeTryAgain": "Belum tepat — dengarkan dan coba lagi",
+  "tasmeeSkipWord": "Lewati kata",
+  "tasmeeWordCorrect": "Bagus! Dilafalkan dengan benar",
   "tasmeeLocalModel": "Model koreksi lokal",
   "tasmeeModelReady": "Siap"
 }

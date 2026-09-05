@@ -1796,6 +1796,14 @@
   "tasmeeModeCorrectorDesc": "আয়াত দৃশ্যমান এবং প্রতিটি ভুল শব্দ সঠিকভাবে পড়া না হওয়া পর্যন্ত তাৎক্ষণিক সংশোধন হয়",
   "tasmeeModeTeacher": "কুরআন শিক্ষক",
   "tasmeeModeTeacherDesc": "কারী আয়াত পড়েন, তারপর আপনি আয়ত্ত না করা পর্যন্ত পুনরাবৃত্তি করেন",
+  "tasmeeCorrectWord": "শব্দটি সংশোধন করুন",
+  "tasmeePlayWord": "শব্দ শুনুন",
+  "tasmeeRepeatWord": "শব্দটি পুনরাবৃত্তি করুন",
+  "tasmeeRepeatHint": "উচ্চারণ শুনুন তারপর মাইক চেপে পুনরাবৃত্তি করুন",
+  "tasmeeListeningWord": "শুনছি… শব্দটি বলুন",
+  "tasmeeTryAgain": "এখনও সঠিক নয় — শুনুন এবং আবার চেষ্টা করুন",
+  "tasmeeSkipWord": "শব্দ এড়িয়ে যান",
+  "tasmeeWordCorrect": "দারুণ! সঠিকভাবে উচ্চারিত",
   "tasmeeLocalModel": "স্থানীয় সংশোধন মডেল",
   "tasmeeModelReady": "প্রস্তুত"
 }

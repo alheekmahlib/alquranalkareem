@@ -1820,6 +1820,14 @@
   "tasmeeModeCorrectorDesc": "الآيات ظاهرة مع تصحيح فوري لكل كلمة خاطئة حتى تُتلى صحيحة",
   "tasmeeModeTeacher": "معلم القرآن",
   "tasmeeModeTeacherDesc": "القارئ يتلو الآية ثم تلوتها أنت وتتكرر حتى تتقنها",
+  "tasmeeCorrectWord": "صحّح الكلمة",
+  "tasmeePlayWord": "نطق الكلمة",
+  "tasmeeRepeatWord": "أعد نطق الكلمة",
+  "tasmeeRepeatHint": "استمع للنطق ثم اضغط الميكروفون وأعد الكلمة",
+  "tasmeeListeningWord": "استمع الآن… قل الكلمة",
+  "tasmeeTryAgain": "لم تُنطق صحيحة بعد — استمع وحاول مجددًا",
+  "tasmeeSkipWord": "تخطي الكلمة",
+  "tasmeeWordCorrect": "أحسنت! نُطقت صحيحة",
   "tasmeeLocalModel": "نموذج التصحيح المحلي",
   "tasmeeModelReady": "جاهز"
 }

@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:quran_library/quran_library.dart';
 
+import '../../core/utils/constants/extensions/bottom_sheet_extension.dart';
+import '../screens/quran_page/quran.dart';
 import '../screens/quran_page/widgets/tasmee/data/models/tasmee_page_result.dart';
 import '../screens/quran_page/widgets/tasmee/data/repositories/tasmee_results_repository.dart';
 
@@ -36,6 +38,8 @@ class TasmeeSessionController extends GetxController {
   void onInit() {
     super.onInit();
     _listenForSessionFinished();
+    _listenForWordCorrection();
+    _listenForWordRetryOutcome();
     loadResults();
   }
 
@@ -101,5 +105,71 @@ class TasmeeSessionController extends GetxController {
   Future<void> deleteResult(int pageNumber) async {
     await _repository.deleteByPage(pageNumber);
     await loadResults();
+  }
+
+  // ── تصحيح الكلمة (نمط المصحح) ─────────────────────────────────
+
+  bool _correctionSheetOpen = false;
+
+  /// عند ضبط كلمة خاطئة (وتجميد الجلسة) يُفتح شيت التصحيح ويُشغَّل نطق
+  /// الكلمة تلقائيًا.
+  void _listenForWordCorrection() {
+    ever<TasmeeWordCorrection?>(
+      TasmeeCtrl.instance.state.activeWordCorrection,
+      (correction) {
+        if (correction != null) _openCorrectionSheet(correction);
+      },
+    );
+  }
+
+  /// عند نجاح إعادة النطق تُحلّ الكلمة (تُعلَّم خضراء وتُستأنف الجلسة)
+  /// ويُغلق الشيت تلقائيًا.
+  void _listenForWordRetryOutcome() {
+    ever<TasmeeWordRetryOutcome?>(TasmeeCtrl.instance.state.wordRetryOutcome, (
+      outcome,
+    ) {
+      if (outcome == TasmeeWordRetryOutcome.correct && _correctionSheetOpen) {
+        TasmeeCtrl.instance.resolveWordCorrection(accepted: true);
+        Get.back();
+      }
+    });
+  }
+
+  Future<void> _openCorrectionSheet(TasmeeWordCorrection correction) async {
+    if (_correctionSheetOpen) return;
+    _correctionSheetOpen = true;
+    // شغّل نطق الكلمة فور فتح الشيت ليستمع المستخدم ثم يعيدها.
+    await playCorrectionWordAudio();
+    await customBottomSheet(const TasmeeWordCorrectionSheet());
+    // أُغلق الشيت دون قبول (سحب/Back) → تخطٍّ حتى لا تتعلق الجلسة
+    // متوقفة بانتظار تصحيح لن يصل.
+    if (TasmeeCtrl.instance.state.activeWordCorrection.value != null) {
+      await TasmeeCtrl.instance.resolveWordCorrection(accepted: false);
+    }
+    _correctionSheetOpen = false;
+  }
+
+  /// يشغّل نطق الكلمة المنتظرة تصحيحًا (زر السماعة في الشيت).
+  Future<void> playCorrectionWordAudio() async {
+    final correction = TasmeeCtrl.instance.state.activeWordCorrection.value;
+    if (correction == null) return;
+    try {
+      await WordInfoCtrl.instance.playWordAudio(
+        WordRef(
+          surahNumber: correction.suraIdx,
+          ayahNumber: correction.ayaIdx,
+          wordNumber: correction.wordNumber,
+        ),
+      );
+    } catch (e) {
+      debugPrint('TasmeeSessionController: word audio failed: $e');
+    }
+  }
+
+  /// يتخطى الكلمة المنتظرة (تبقى معلَّمة خاطئة) ويغلق شيت التصحيح
+  /// وتُستأنف الجلسة.
+  Future<void> skipWordCorrection() async {
+    await TasmeeCtrl.instance.resolveWordCorrection(accepted: false);
+    Get.back();
   }
 }

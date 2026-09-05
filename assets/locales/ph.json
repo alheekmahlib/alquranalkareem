@@ -1790,6 +1790,14 @@
   "tasmeeModeCorrectorDesc": "Nakikita ang mga ayah na may agarang pagtama sa maling salita hanggang maging tama",
   "tasmeeModeTeacher": "Guro ng Quran",
   "tasmeeModeTeacherDesc": "Binibigkas ng qari ang ayah, pagkatapos ay ulitin mo hanggang sa ma-master",
+  "tasmeeCorrectWord": "Itama ang salita",
+  "tasmeePlayWord": "I-play ang salita",
+  "tasmeeRepeatWord": "Ulitin ang salita",
+  "tasmeeRepeatHint": "Makinig sa pagbigkas pagkatapos pindutin ang mic at ulitin",
+  "tasmeeListeningWord": "Nakikinig… sabihin ang salita",
+  "tasmeeTryAgain": "Hindi pa tama — makinig at subukang muli",
+  "tasmeeSkipWord": "Laktawan ang salita",
+  "tasmeeWordCorrect": "Magaling! Tamang binigkas",
   "tasmeeLocalModel": "Lokal na modelo ng pagwawasto",
   "tasmeeModelReady": "Handa na"
 }
