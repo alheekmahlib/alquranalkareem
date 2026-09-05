@@ -1788,6 +1788,14 @@
   "tasmeeModeCorrectorDesc": "ئایەتەکان دیارە و هەر وشەیەکی هەڵە ڕاست دەکرێتەوە تا دروست بخوێنرێت",
   "tasmeeModeTeacher": "مامۆستای قورئان",
   "tasmeeModeTeacherDesc": "قورئانخوێن ئایەتەکە دەخوێنێت ئینجا تۆ دووبارەی دەکەیتەوە تا فێری ببیت",
+  "tasmeeCorrectWord": "وشەکە ڕاست بکەرەوە",
+  "tasmeePlayWord": "لێدانی وشە",
+  "tasmeeRepeatWord": "دووبارەی وشە بکەرەوە",
+  "tasmeeRepeatHint": "گوێ بگرە بۆ لێدان پاشان مایکرۆفۆن دابگرە و دووبارەی بکەرەوە",
+  "tasmeeListeningWord": "گوێ دەگرێت… وشەکە بڵێ",
+  "tasmeeTryAgain": "هێشتا دروست نییە — گوێ بگرە و دووبارە هەوڵ بدە",
+  "tasmeeSkipWord": "وشەکە بپەڕێنە",
+  "tasmeeWordCorrect": "زۆر باش! بەدروستی وت",
   "tasmeeLocalModel": "مۆدێلی ڕاستکردنەوەی ناوخۆیی",
   "tasmeeModelReady": "ئامادەیە"
 }

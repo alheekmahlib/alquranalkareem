@@ -1768,6 +1768,14 @@
   "tasmeeModeCorrectorDesc": "Aayadaha waa muuqdaan, cilad celin degdeg ayaa laga sameeyaa eray kasta oo qaldan ilaa la akhriyo sax",
   "tasmeeModeTeacher": "Macallinka Quranka",
   "tasmeeModeTeacherDesc": "Qaari aayadda wuu akhriyaa, adigana waxaad ku celiyaysaa ilaa aad qabto",
+  "tasmeeCorrectWord": "Hagaaj erayga",
+  "tasmeePlayWord": "Dur erayga",
+  "tasmeeRepeatWord": "Eri erayga",
+  "tasmeeRepeatHint": "Dhageyso duridda kadib taabo mayrkaroofka oo eri",
+  "tasmeeListeningWord": "Waa dhegeysanayaa… odhi erayga",
+  "tasmeeTryAgain": "Wali sax ma aha — dhageyso oo isku day mar kale",
+  "tasmeeSkipWord": "Daad erayga",
+  "tasmeeWordCorrect": "Wanaagsan! Sax ayaa loo akhriyay",
   "tasmeeLocalModel": "Moodelka dexsaadka ee maxalliga ah",
   "tasmeeModelReady": "Diyaar ah"
 }

@@ -143,3 +143,4 @@ part 'widgets/tasmee/tasmee_pages_list_widget.dart';
 part 'widgets/tasmee/tasmee_phoneme_chip.dart';
 part 'widgets/tasmee/tasmee_result_widget.dart';
 part 'widgets/tasmee/tasmee_summary_chip.dart';
+part 'widgets/tasmee/tasmee_word_correction_sheet.dart';

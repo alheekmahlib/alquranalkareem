@@ -1788,6 +1788,14 @@
   "tasmeeModeCorrectorDesc": "Ayetler görünür, her yanlış kelime doğru okunana kadar anında düzeltilir",
   "tasmeeModeTeacher": "Kur'an öğretmeni",
   "tasmeeModeTeacherDesc": "Hoca ayeti okur, sen ise öğrenene kadar tekrar edersin",
+  "tasmeeCorrectWord": "Kelimeyi düzelt",
+  "tasmeePlayWord": "Kelimeyi dinle",
+  "tasmeeRepeatWord": "Kelimeyi tekrar et",
+  "tasmeeRepeatHint": "Telaffuzu dinle, sonra mikrofona bas ve tekrar et",
+  "tasmeeListeningWord": "Dinliyorum… kelimeyi söyle",
+  "tasmeeTryAgain": "Henüz doğru değil — dinle ve tekrar dene",
+  "tasmeeSkipWord": "Kelimeyi atla",
+  "tasmeeWordCorrect": "Aferin! Doğru söylendi",
   "tasmeeLocalModel": "Yerel düzeltme modeli",
   "tasmeeModelReady": "Hazır"
 }

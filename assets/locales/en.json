@@ -1826,6 +1826,14 @@
   "tasmeeModeCorrectorDesc": "Ayahs visible with instant correction of each wrong word until recited right",
   "tasmeeModeTeacher": "Quran teacher",
   "tasmeeModeTeacherDesc": "The reciter recites the ayah, then you repeat it until mastered",
+  "tasmeeCorrectWord": "Correct the word",
+  "tasmeePlayWord": "Play word",
+  "tasmeeRepeatWord": "Repeat the word",
+  "tasmeeRepeatHint": "Listen to the pronunciation then tap the mic and repeat",
+  "tasmeeListeningWord": "Listening… say the word",
+  "tasmeeTryAgain": "Not correct yet — listen and try again",
+  "tasmeeSkipWord": "Skip word",
+  "tasmeeWordCorrect": "Well done! Recited correctly",
   "tasmeeLocalModel": "Local correction model",
   "tasmeeModelReady": "Ready"
 }

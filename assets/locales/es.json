@@ -1796,6 +1796,14 @@
   "tasmeeModeCorrectorDesc": "Ayas visibles con corrección inmediata de cada palabra incorrecta hasta recitarla bien",
   "tasmeeModeTeacher": "Maestro del Corán",
   "tasmeeModeTeacherDesc": "El recitador recita la aya y tú la repites hasta dominarla",
+  "tasmeeCorrectWord": "Corrige la palabra",
+  "tasmeePlayWord": "Escuchar palabra",
+  "tasmeeRepeatWord": "Repite la palabra",
+  "tasmeeRepeatHint": "Escucha la pronunciación y luego toca el micrófono y repite",
+  "tasmeeListeningWord": "Escuchando… di la palabra",
+  "tasmeeTryAgain": "Aún no es correcta — escucha e inténtalo de nuevo",
+  "tasmeeSkipWord": "Saltar palabra",
+  "tasmeeWordCorrect": "¡Bien hecho! Pronunciada correctamente",
   "tasmeeLocalModel": "Modelo de corrección local",
   "tasmeeModelReady": "Listo"
 }

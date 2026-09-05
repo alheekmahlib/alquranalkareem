@@ -1760,6 +1760,14 @@
   "tasmeeModeCorrectorDesc": "Аяты видны, каждое ошибочное слово исправляется сразу, пока не будет прочитано верно",
   "tasmeeModeTeacher": "Учитель Корана",
   "tasmeeModeTeacherDesc": "Чтец читает аят, затем вы повторяете его, пока не освоите",
+  "tasmeeCorrectWord": "Исправьте слово",
+  "tasmeePlayWord": "Прослушать слово",
+  "tasmeeRepeatWord": "Повторите слово",
+  "tasmeeRepeatHint": "Послушайте произношение, затем нажмите микрофон и повторите",
+  "tasmeeListeningWord": "Слушаю… произнесите слово",
+  "tasmeeTryAgain": "Пока неверно — послушайте и попробуйте снова",
+  "tasmeeSkipWord": "Пропустить слово",
+  "tasmeeWordCorrect": "Отлично! Произнесено верно",
   "tasmeeLocalModel": "Локальная модель коррекции",
   "tasmeeModelReady": "Готово"
 }
