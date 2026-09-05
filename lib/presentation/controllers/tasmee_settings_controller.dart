@@ -58,6 +58,11 @@ class TasmeeSettingsController extends GetxController {
         return;
       }
       if (s == RecitationState.finished && !_sheetOpen) {
+        // نمط المعلم يدير شيتات نتائجه بنفسه في TasmeeSessionController
+        // (نتيجة لكل محاولة آية، وبلا شيت عند الإتقان).
+        if (TasmeeCtrl.instance.state.mode.value == TasmeeMode.teacher) {
+          return;
+        }
         _sheetOpen = true;
         customBottomSheet(
           TasmeeResultWidget(),

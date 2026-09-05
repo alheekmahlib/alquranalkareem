@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:quran_library/quran_library.dart';
@@ -8,8 +10,9 @@ import '../screens/quran_page/widgets/tasmee/data/models/tasmee_page_result.dart
 import '../screens/quran_page/widgets/tasmee/data/repositories/tasmee_results_repository.dart';
 
 /// منسّق جلسات التسميع — يمتلك كل منطق دورة الحياة خارج المكتبة:
-/// حفظ نتائج الصفحات عند اكتمالها، و(لاحقًا) حلقتا مصحح التلاوة
-/// ومعلم القرآن. الواجهات تبقى Stateless وتقرأ حقول Rx فقط.
+/// حفظ نتائج الصفحات عند اكتمالها، شيت تصحيح الكلمة (المصحح)، وحلقة
+/// معلم القرآن (قارئ ← تسميع ← تقييم ← إعادة). الواجهات تبقى Stateless
+/// وتقرأ حقول Rx فقط.
 ///
 /// إعدادات النموذج وفتح ورقة النتائج التلقائي يبقيان في
 /// [TasmeeSettingsController] — مسؤولية واحدة لكل كونترولر.
@@ -40,15 +43,19 @@ class TasmeeSessionController extends GetxController {
     _listenForSessionFinished();
     _listenForWordCorrection();
     _listenForWordRetryOutcome();
+    _listenForTeacherEvaluation();
+    _listenForTeacherAbort();
     loadResults();
   }
 
   /// عند اكتمال تقييم جلسة مطابِقة تُحفظ نتيجة صفحتها — يستبدل أي
-  /// نتيجة سابقة لنفس الصفحة (الأحدث فقط).
+  /// نتيجة سابقة لنفس الصفحة (الأحدث فقط). نمط المعلم يحفظ عند اكتمال
+  /// الصفحة كاملة داخل حلقة المعلم أدناه.
   void _listenForSessionFinished() {
     // الكونترولر دائم — المستمع يعيش مدى التطبيق كنمط إعدادات التسميع.
     ever<RecitationState>(TasmeeCtrl.instance.state.sessionState, (s) async {
-      if (s == RecitationState.finished) {
+      if (s == RecitationState.finished &&
+          TasmeeCtrl.instance.state.mode.value != TasmeeMode.teacher) {
         await _saveCurrentPageResult();
       }
     });
@@ -171,5 +178,157 @@ class TasmeeSessionController extends GetxController {
   Future<void> skipWordCorrection() async {
     await TasmeeCtrl.instance.resolveWordCorrection(accepted: false);
     Get.back();
+  }
+
+  // ── معلم القرآن (آية بآية) ────────────────────────────────────
+
+  bool _teacherRunning = false;
+  int _teacherAyahIdx = -1;
+
+  /// يبدأ حلقة المعلم لآيات الصفحة الحالية: القارئ يتلو الآية ← يسجّل
+  /// المستخدم ← تقييم ← أخطاء: نتيجة الآية ثم إعادة تلقائية للتلاوة،
+  /// إتقان: الآية التالية — حتى تُتقن الصفحة فتُحفظ نتيجتها.
+  Future<void> startTeacherSession() async {
+    final tasmee = TasmeeCtrl.instance;
+    final state = tasmee.state;
+    if (state.mode.value != TasmeeMode.teacher ||
+        !state.isTasmeeMode.value ||
+        _teacherRunning) {
+      return;
+    }
+    final total = tasmee.rangeAyahCount;
+    if (total == 0) return;
+    _teacherRunning = true;
+    _teacherAyahIdx = 0;
+    state.teacherAyahTotal.value = total;
+    await _playTeacherAyah();
+  }
+
+  /// يوقف حلقة المعلم (زر الإيقاف/تبديل النمط/الخروج من الوضع).
+  Future<void> stopTeacherSession() async {
+    _teacherRunning = false;
+    final tasmee = TasmeeCtrl.instance;
+    tasmee.state.teacherPhase.value = TasmeeTeacherPhase.idle;
+    try {
+      await AudioCtrl.instance.state.stopAllAudio();
+    } catch (_) {}
+    if (tasmee.isRecording || tasmee.isProcessing) {
+      await tasmee.stopRecording();
+    }
+  }
+
+  /// يعيد جلسة المعلم من الآية الأولى (زر الإعادة في الشريط).
+  Future<void> restartTeacherSession() async {
+    await stopTeacherSession();
+    await TasmeeCtrl.instance.retryTasmee();
+    await startTeacherSession();
+  }
+
+  /// طور الآية الحالية: تلاوة القارئ ثم تسجيل المستخدم تلقائيًا.
+  Future<void> _playTeacherAyah() async {
+    final tasmee = TasmeeCtrl.instance;
+    final state = tasmee.state;
+    if (!_teacherRunning) return;
+    state.teacherAyahIndex.value = _teacherAyahIdx;
+    state.teacherPhase.value = TasmeeTeacherPhase.qariPlaying;
+    final ayahUq = tasmee.rangeAyahUQ(_teacherAyahIdx);
+    final played = ayahUq > 0 ? await _playQariAyah(ayahUq) : false;
+    if (!_teacherRunning) return;
+    if (!played) {
+      // تعذّر تشغيل التلاوة (اتصال/تنزيل) — أوقف الحلقة برسالة واضحة.
+      state.lastError.value = 'tasmeeTeacherPlayFailed'.tr;
+      await stopTeacherSession();
+      return;
+    }
+    state.teacherPhase.value = TasmeeTeacherPhase.userRecording;
+    await tasmee.startAyahRecording(_teacherAyahIdx);
+  }
+
+  /// يشغّل تلاوة القارئ للآية (بالقارئ المختار للتلاوة) وينتظر اكتمالها
+  /// — اكتمال التشغيل يُرصد عبر `isPlaying` (لا حاجة للاعتماد على
+  /// أنواع just_audio هنا).
+  Future<bool> _playQariAyah(int ayahUq) async {
+    final audio = AudioCtrl.instance;
+    final started = Completer<void>();
+    final done = Completer<bool>();
+    final worker = ever<bool>(audio.state.isPlaying, (playing) {
+      if (playing) {
+        if (!started.isCompleted) started.complete();
+      } else if (started.isCompleted && !done.isCompleted) {
+        done.complete(true);
+      }
+    });
+    try {
+      await audio.playAyah(
+        Get.context!,
+        ayahUq,
+        playSingleAyah: true,
+        isDarkMode: Get.isDarkMode,
+      );
+    } catch (e) {
+      debugPrint('TasmeeSessionController: playAyah failed: $e');
+    }
+    bool ok = false;
+    try {
+      // انتظر بدء التشغيل (يشمل وقت تنزيل الآية عند اللزوم) ثم اكتماله.
+      await started.future.timeout(const Duration(seconds: 90));
+      await done.future.timeout(const Duration(minutes: 5));
+      ok = true;
+    } on TimeoutException {
+      ok = false;
+    } catch (_) {
+      ok = false;
+    }
+    worker.dispose();
+    if (!ok) {
+      try {
+        await audio.state.stopAllAudio();
+      } catch (_) {}
+    }
+    return ok;
+  }
+
+  /// بعد تقييم كل محاولة آية: إتقان → التالية (أو حفظ الصفحة عند
+  /// الأخيرة)، أخطاء → شيت نتيجة الآية ثم إعادة تلقائية للتلاوة.
+  void _listenForTeacherEvaluation() {
+    ever<RecitationState>(TasmeeCtrl.instance.state.sessionState, (s) async {
+      final tasmee = TasmeeCtrl.instance;
+      final state = tasmee.state;
+      if (s != RecitationState.finished ||
+          !_teacherRunning ||
+          state.mode.value != TasmeeMode.teacher ||
+          state.teacherPhase.value == TasmeeTeacherPhase.pageDone) {
+        return;
+      }
+      state.teacherPhase.value = TasmeeTeacherPhase.evaluating;
+      final result = state.lastResult.value;
+      final passed = result != null && result.hasMatch && result.isFullyCorrect;
+      if (passed) {
+        if (_teacherAyahIdx >= state.teacherAyahTotal.value - 1) {
+          // أُتقنت آخر آية — اكتمال الصفحة: احفظ واعرض النتيجة.
+          state.teacherPhase.value = TasmeeTeacherPhase.pageDone;
+          _teacherRunning = false;
+          await _saveCurrentPageResult();
+          await customBottomSheet(TasmeeResultWidget());
+        } else {
+          _teacherAyahIdx++;
+          await _playTeacherAyah();
+        }
+      } else {
+        // أخطاء: اعرض نتيجة الآية، وعند إغلاقها يُعاد تلاوة القارئ
+        // تلقائيًا لنفس الآية.
+        await customBottomSheet(TasmeeResultWidget());
+        if (_teacherRunning) await _playTeacherAyah();
+      }
+    });
+  }
+
+  /// تبديل النمط أو الخروج من وضع التسميع يوقفان حلقة المعلم فورًا.
+  void _listenForTeacherAbort() {
+    final tasmee = TasmeeCtrl.instance;
+    ever<TasmeeMode>(tasmee.state.mode, (_) => stopTeacherSession());
+    ever<bool>(tasmee.state.isTasmeeMode, (active) {
+      if (!active) stopTeacherSession();
+    });
   }
 }

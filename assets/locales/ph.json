@@ -1798,6 +1798,10 @@
   "tasmeeTryAgain": "Hindi pa tama — makinig at subukang muli",
   "tasmeeSkipWord": "Laktawan ang salita",
   "tasmeeWordCorrect": "Magaling! Tamang binigkas",
+  "tasmeeTeacherQariPlaying": "Nagbibigkas ang qari…",
+  "tasmeeTeacherYourTurn": "Ikaw naman — bigkasin ang ayah",
+  "tasmeeTeacherPageDone": "Na-master ang pahina, galing!",
+  "tasmeeTeacherPlayFailed": "Hindi mapatugtog ang qari — tingnan ang koneksyon at subukang muli",
   "tasmeeLocalModel": "Lokal na modelo ng pagwawasto",
   "tasmeeModelReady": "Handa na"
 }

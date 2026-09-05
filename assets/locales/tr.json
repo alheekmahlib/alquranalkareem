@@ -1796,6 +1796,10 @@
   "tasmeeTryAgain": "Henüz doğru değil — dinle ve tekrar dene",
   "tasmeeSkipWord": "Kelimeyi atla",
   "tasmeeWordCorrect": "Aferin! Doğru söylendi",
+  "tasmeeTeacherQariPlaying": "Hoca ayeti okuyor…",
+  "tasmeeTeacherYourTurn": "Sıra sende — ayeti oku",
+  "tasmeeTeacherPageDone": "Sayfa öğrenildi, aferin!",
+  "tasmeeTeacherPlayFailed": "Hoca çalınamadı — bağlantıyı kontrol edip tekrar dene",
   "tasmeeLocalModel": "Yerel düzeltme modeli",
   "tasmeeModelReady": "Hazır"
 }

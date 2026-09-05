@@ -1804,6 +1804,10 @@
   "tasmeeTryAgain": "ابھی درست نہیں — سنیں اور دوبارہ کوشش کریں",
   "tasmeeSkipWord": "لفظ چھوڑیں",
   "tasmeeWordCorrect": "شاباش! درست پڑھا گیا",
+  "tasmeeTeacherQariPlaying": "قاری آیت پڑھ رہا ہے…",
+  "tasmeeTeacherYourTurn": "آپ کی باری — آیت پڑھیں",
+  "tasmeeTeacherPageDone": "صفحہ مکمل مہارت سے سن لیا، شاباش!",
+  "tasmeeTeacherPlayFailed": "قاری کی تلاوت چلائی نہیں جا سکی — کنکشن چیک کریں اور دوبارہ کوشش کریں",
   "tasmeeLocalModel": "مقامی تصحیح ماڈل",
   "tasmeeModelReady": "تیار"
 }
