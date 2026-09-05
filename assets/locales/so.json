@@ -1756,6 +1756,11 @@
   "tasmeeReplace": "Beddel",
   "tasmeeNoMatch": "Akriskii lama aqbalin, ku celi mid ka bataalan",
   "tasmeeExit": "Ka bax",
+  "tasmeeResultsPages": "Bogag la dhammeeyay",
+  "tasmeeNoResults": "Wali ma jiro natiijo la kaydiyay — dhammee bog si halkan uu kaga muuqdo",
+  "tasmeePage": "Bog",
+  "tasmeeErrorsCount": "qalad",
+  "tasmeeResultDeleted": "Natiijada waa la tirtiray",
   "tasmeeLocalModel": "Moodelka dexsaadka ee maxalliga ah",
   "tasmeeModelReady": "Diyaar ah"
 }

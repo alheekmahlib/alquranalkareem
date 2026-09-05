@@ -1784,6 +1784,11 @@
   "tasmeeReplace": "Sustitución",
   "tasmeeNoMatch": "No se pudo reconocer la recitación, intenta de nuevo con mayor claridad",
   "tasmeeExit": "Salir",
+  "tasmeeResultsPages": "Páginas completadas",
+  "tasmeeNoResults": "Aún no hay resultados guardados; completa una página y aparecerá aquí",
+  "tasmeePage": "Página",
+  "tasmeeErrorsCount": "errores",
+  "tasmeeResultDeleted": "Resultado eliminado",
   "tasmeeLocalModel": "Modelo de corrección local",
   "tasmeeModelReady": "Listo"
 }

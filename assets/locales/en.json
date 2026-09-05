@@ -1814,6 +1814,11 @@
   "tasmeeReplace": "Replaced",
   "tasmeeNoMatch": "Could not recognize the recitation, try again with clearer pronunciation",
   "tasmeeExit": "Exit",
+  "tasmeeResultsPages": "Completed pages",
+  "tasmeeNoResults": "No saved results yet — complete a page and it will appear here",
+  "tasmeePage": "Page",
+  "tasmeeErrorsCount": "errors",
+  "tasmeeResultDeleted": "Result deleted",
   "tasmeeLocalModel": "Local correction model",
   "tasmeeModelReady": "Ready"
 }

@@ -1778,6 +1778,11 @@
   "tasmeeReplace": "Pinalit",
   "tasmeeNoMatch": "Hindi nakilala ang pagbasa, subukan muli na mas malinaw",
   "tasmeeExit": "Lumabas",
+  "tasmeeResultsPages": "Natapos na pahina",
+  "tasmeeNoResults": "Wala pang naka-save na resulta — kumpletuhin ang isang pahina at lalabas dito",
+  "tasmeePage": "Pahina",
+  "tasmeeErrorsCount": "mali",
+  "tasmeeResultDeleted": "Natanggal ang resulta",
   "tasmeeLocalModel": "Lokal na modelo ng pagwawasto",
   "tasmeeModelReady": "Handa na"
 }

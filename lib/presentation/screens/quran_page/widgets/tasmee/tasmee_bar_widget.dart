@@ -59,7 +59,8 @@ class TasmeeBarWidget extends StatelessWidget {
                   tooltip: 'checkList'.tr,
                   svgPath: SvgPath.svgQuranCheckList,
                   svgColor: Get.theme.primaryColorLight,
-                  onPressed: () => customBottomSheet(TasmeeResultWidget()),
+                  onPressed: () =>
+                      customBottomSheet(const TasmeePagesListWidget()),
                 ),
               ],
             );

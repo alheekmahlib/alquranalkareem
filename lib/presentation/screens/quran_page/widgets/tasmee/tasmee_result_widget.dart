@@ -2,10 +2,16 @@ part of '../../quran.dart';
 
 /// محتوى ورقة نتائج التسميع — يُعرض داخل [customBottomSheet]
 /// بنمط التطبيق، ويُبنى من [RecitationResult] العامة للمكتبة.
+///
+/// [result] يُمرَّر عند عرض نتيجة محفوظة (قائمة الصفحات المنجزة)؛
+/// وإن تُرك null تُقرأ نتيجة آخر جلسة من حالة التسميع.
 class TasmeeResultWidget extends StatelessWidget {
-  TasmeeResultWidget({super.key});
+  TasmeeResultWidget({super.key, this.result});
 
   final tasmee = TasmeeCtrl.instance;
+
+  /// نتيجة جاهزة للعرض (محفوظة) — تتجاوز نتيجة آخر جلسة.
+  final RecitationResult? result;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +21,7 @@ class TasmeeResultWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Obx(() {
-          final result = tasmee.state.lastResult.value;
+          final result = this.result ?? tasmee.state.lastResult.value;
           return Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
