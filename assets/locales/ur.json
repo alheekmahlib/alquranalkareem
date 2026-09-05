@@ -1784,6 +1784,11 @@
   "tasmeeReplace": "تبدیلی",
   "tasmeeNoMatch": "تلاوت کی شناخت نہیں ہو سکی، واضح تلفظ کے ساتھ دوبارہ کوشش کریں",
   "tasmeeExit": "خارج ہوں",
+  "tasmeeResultsPages": "مکمل شدہ صفحات",
+  "tasmeeNoResults": "ابھی کوئی محفوظ نتائج نہیں — ایک صفحہ مکمل کریں اور یہاں نظر آئے گا",
+  "tasmeePage": "صفحہ",
+  "tasmeeErrorsCount": "غلطیاں",
+  "tasmeeResultDeleted": "نتیجہ حذف ہو گیا",
   "tasmeeLocalModel": "مقامی تصحیح ماڈل",
   "tasmeeModelReady": "تیار"
 }

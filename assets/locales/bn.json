@@ -1784,6 +1784,11 @@
   "tasmeeReplace": "পরিবর্তিত",
   "tasmeeNoMatch": "তিলাওয়াত শনাক্ত করা যায়নি, স্পষ্ট উচ্চারণে আবার চেষ্টা করুন",
   "tasmeeExit": "বের হন",
+  "tasmeeResultsPages": "সম্পন্ন পৃষ্ঠাসমূহ",
+  "tasmeeNoResults": "এখনও কোনো সংরক্ষিত ফলাফল নেই — একটি পৃষ্ঠা সম্পূর্ণ করুন এবং এখানে দেখা যাবে",
+  "tasmeePage": "পৃষ্ঠা",
+  "tasmeeErrorsCount": "ত্রুটি",
+  "tasmeeResultDeleted": "ফলাফল মুছে ফেলা হয়েছে",
   "tasmeeLocalModel": "স্থানীয় সংশোধন মডেল",
   "tasmeeModelReady": "প্রস্তুত"
 }

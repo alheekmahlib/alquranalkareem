@@ -1808,6 +1808,11 @@
   "tasmeeReplace": "استبدال",
   "tasmeeNoMatch": "لم يتم التعرف على التلاوة، حاول مجددًا بنطق أوضح",
   "tasmeeExit": "خروج",
+  "tasmeeResultsPages": "صفحات منجزة",
+  "tasmeeNoResults": "لا توجد نتائج محفوظة بعد — أكمل تسميع صفحة وستظهر هنا",
+  "tasmeePage": "صفحة",
+  "tasmeeErrorsCount": "أخطاء",
+  "tasmeeResultDeleted": "تم حذف النتيجة",
   "tasmeeLocalModel": "نموذج التصحيح المحلي",
   "tasmeeModelReady": "جاهز"
 }

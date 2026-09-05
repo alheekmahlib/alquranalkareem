@@ -1778,6 +1778,11 @@
   "tasmeeReplace": "Tertukar",
   "tasmeeNoMatch": "Bacaan tidak dikenali, coba lagi dengan pelafalan lebih jelas",
   "tasmeeExit": "Keluar",
+  "tasmeeResultsPages": "Halaman selesai",
+  "tasmeeNoResults": "Belum ada hasil tersimpan — selesaikan satu halaman dan akan muncul di sini",
+  "tasmeePage": "Halaman",
+  "tasmeeErrorsCount": "kesalahan",
+  "tasmeeResultDeleted": "Hasil dihapus",
   "tasmeeLocalModel": "Model koreksi lokal",
   "tasmeeModelReady": "Siap"
 }

@@ -1776,6 +1776,11 @@
   "tasmeeReplace": "Değişim",
   "tasmeeNoMatch": "Okuma tanınamadı, daha net telaffuzla tekrar deneyin",
   "tasmeeExit": "Çıkış",
+  "tasmeeResultsPages": "Tamamlanan sayfalar",
+  "tasmeeNoResults": "Henüz kaydedilmiş sonuç yok — bir sayfayı tamamla ve burada görünecek",
+  "tasmeePage": "Sayfa",
+  "tasmeeErrorsCount": "hata",
+  "tasmeeResultDeleted": "Sonuç silindi",
   "tasmeeLocalModel": "Yerel düzeltme modeli",
   "tasmeeModelReady": "Hazır"
 }

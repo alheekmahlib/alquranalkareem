@@ -1776,6 +1776,11 @@
   "tasmeeReplace": "گۆڕان",
   "tasmeeNoMatch": "نەتوانرا خوێندنەوەکە بناسرێتەوە، دووبارە هەوڵ بدە بە دەربڕینێکی ڕوونتر",
   "tasmeeExit": "چوونە دەرەوە",
+  "tasmeeResultsPages": "پەڕە تەواوکراوەکان",
+  "tasmeeNoResults": "هێشتا ئەنجامی پاشەکەوتکراو نییە — لاپەڕەیەک تەواو بکە و لێرە دەردەکەوێت",
+  "tasmeePage": "لاپەڕە",
+  "tasmeeErrorsCount": "هەڵە",
+  "tasmeeResultDeleted": "ئەنجامەکە سڕایەوە",
   "tasmeeLocalModel": "مۆدێلی ڕاستکردنەوەی ناوخۆیی",
   "tasmeeModelReady": "ئامادەیە"
 }

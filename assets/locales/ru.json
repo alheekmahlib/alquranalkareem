@@ -1748,6 +1748,11 @@
   "tasmeeReplace": "Заменено",
   "tasmeeNoMatch": "Не удалось распознать чтение, попробуйте ещё раз с более чётким произношением",
   "tasmeeExit": "Выход",
+  "tasmeeResultsPages": "Завершённые страницы",
+  "tasmeeNoResults": "Сохранённых результатов пока нет — завершите страницу, и она появится здесь",
+  "tasmeePage": "Страница",
+  "tasmeeErrorsCount": "ошибок",
+  "tasmeeResultDeleted": "Результат удалён",
   "tasmeeLocalModel": "Локальная модель коррекции",
   "tasmeeModelReady": "Готово"
 }
