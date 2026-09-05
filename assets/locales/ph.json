@@ -1783,6 +1783,13 @@
   "tasmeePage": "Pahina",
   "tasmeeErrorsCount": "mali",
   "tasmeeResultDeleted": "Natanggal ang resulta",
+  "tasmeeModeTitle": "Mode ng tasmi",
+  "tasmeeModeTasmee": "Tasmi",
+  "tasmeeModeTasmeeDesc": "Nakatago ang mga salita at lumalabas habang bumibigkas ka",
+  "tasmeeModeCorrector": "Tagapagtama ng pagbigkas",
+  "tasmeeModeCorrectorDesc": "Nakikita ang mga ayah na may agarang pagtama sa maling salita hanggang maging tama",
+  "tasmeeModeTeacher": "Guro ng Quran",
+  "tasmeeModeTeacherDesc": "Binibigkas ng qari ang ayah, pagkatapos ay ulitin mo hanggang sa ma-master",
   "tasmeeLocalModel": "Lokal na modelo ng pagwawasto",
   "tasmeeModelReady": "Handa na"
 }

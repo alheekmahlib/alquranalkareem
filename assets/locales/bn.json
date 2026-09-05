@@ -1789,6 +1789,13 @@
   "tasmeePage": "পৃষ্ঠা",
   "tasmeeErrorsCount": "ত্রুটি",
   "tasmeeResultDeleted": "ফলাফল মুছে ফেলা হয়েছে",
+  "tasmeeModeTitle": "তাসমী মোড",
+  "tasmeeModeTasmee": "তাসমী",
+  "tasmeeModeTasmeeDesc": "শব্দগুলো লুকানো থাকে এবং তিলাওয়াতের সময় প্রকাশ পায়",
+  "tasmeeModeCorrector": "তিলাওয়াত সংশোধক",
+  "tasmeeModeCorrectorDesc": "আয়াত দৃশ্যমান এবং প্রতিটি ভুল শব্দ সঠিকভাবে পড়া না হওয়া পর্যন্ত তাৎক্ষণিক সংশোধন হয়",
+  "tasmeeModeTeacher": "কুরআন শিক্ষক",
+  "tasmeeModeTeacherDesc": "কারী আয়াত পড়েন, তারপর আপনি আয়ত্ত না করা পর্যন্ত পুনরাবৃত্তি করেন",
   "tasmeeLocalModel": "স্থানীয় সংশোধন মডেল",
   "tasmeeModelReady": "প্রস্তুত"
 }

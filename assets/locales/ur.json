@@ -1789,6 +1789,13 @@
   "tasmeePage": "صفحہ",
   "tasmeeErrorsCount": "غلطیاں",
   "tasmeeResultDeleted": "نتیجہ حذف ہو گیا",
+  "tasmeeModeTitle": "تسمیع موڈ",
+  "tasmeeModeTasmee": "تسمیع",
+  "tasmeeModeTasmeeDesc": "الفاظ چھپے ہوتے ہیں اور تلاوت کے دوران ظاہر ہوتے ہیں",
+  "tasmeeModeCorrector": "تلاوت مصحح",
+  "tasmeeModeCorrectorDesc": "آیات نظر آتی ہیں اور ہر غلط لفظ کی فوری اصلاح ہوتی ہے یہاں تک کہ درست پڑھا جائے",
+  "tasmeeModeTeacher": "قرآن ٹیچر",
+  "tasmeeModeTeacherDesc": "قاری آیت پڑھتا ہے پھر آپ اسے دہراتے ہیں یہاں تک کہ مکمل کر لیں",
   "tasmeeLocalModel": "مقامی تصحیح ماڈل",
   "tasmeeModelReady": "تیار"
 }

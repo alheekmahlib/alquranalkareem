@@ -1761,6 +1761,13 @@
   "tasmeePage": "Bog",
   "tasmeeErrorsCount": "qalad",
   "tasmeeResultDeleted": "Natiijada waa la tirtiray",
+  "tasmeeModeTitle": "Habka tasmi",
+  "tasmeeModeTasmee": "Tasmi",
+  "tasmeeModeTasmeeDesc": "Erayada waa la qariyay, waxayna muuqdaan adigoo akhrinayo",
+  "tasmeeModeCorrector": "Hagaajiyaha akhriska",
+  "tasmeeModeCorrectorDesc": "Aayadaha waa muuqdaan, cilad celin degdeg ayaa laga sameeyaa eray kasta oo qaldan ilaa la akhriyo sax",
+  "tasmeeModeTeacher": "Macallinka Quranka",
+  "tasmeeModeTeacherDesc": "Qaari aayadda wuu akhriyaa, adigana waxaad ku celiyaysaa ilaa aad qabto",
   "tasmeeLocalModel": "Moodelka dexsaadka ee maxalliga ah",
   "tasmeeModelReady": "Diyaar ah"
 }

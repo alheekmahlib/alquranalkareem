@@ -1753,6 +1753,13 @@
   "tasmeePage": "Страница",
   "tasmeeErrorsCount": "ошибок",
   "tasmeeResultDeleted": "Результат удалён",
+  "tasmeeModeTitle": "Режим проверки",
+  "tasmeeModeTasmee": "Проверка",
+  "tasmeeModeTasmeeDesc": "Слова скрыты и открываются по мере вашего чтения",
+  "tasmeeModeCorrector": "Корректор чтения",
+  "tasmeeModeCorrectorDesc": "Аяты видны, каждое ошибочное слово исправляется сразу, пока не будет прочитано верно",
+  "tasmeeModeTeacher": "Учитель Корана",
+  "tasmeeModeTeacherDesc": "Чтец читает аят, затем вы повторяете его, пока не освоите",
   "tasmeeLocalModel": "Локальная модель коррекции",
   "tasmeeModelReady": "Готово"
 }

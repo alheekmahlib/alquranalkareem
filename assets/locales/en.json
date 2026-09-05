@@ -1819,6 +1819,13 @@
   "tasmeePage": "Page",
   "tasmeeErrorsCount": "errors",
   "tasmeeResultDeleted": "Result deleted",
+  "tasmeeModeTitle": "Tasmee mode",
+  "tasmeeModeTasmee": "Recite",
+  "tasmeeModeTasmeeDesc": "Words are hidden and revealed as you recite",
+  "tasmeeModeCorrector": "Recitation corrector",
+  "tasmeeModeCorrectorDesc": "Ayahs visible with instant correction of each wrong word until recited right",
+  "tasmeeModeTeacher": "Quran teacher",
+  "tasmeeModeTeacherDesc": "The reciter recites the ayah, then you repeat it until mastered",
   "tasmeeLocalModel": "Local correction model",
   "tasmeeModelReady": "Ready"
 }

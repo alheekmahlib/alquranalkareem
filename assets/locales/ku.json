@@ -1781,6 +1781,13 @@
   "tasmeePage": "لاپەڕە",
   "tasmeeErrorsCount": "هەڵە",
   "tasmeeResultDeleted": "ئەنجامەکە سڕایەوە",
+  "tasmeeModeTitle": "شێوازی تەسمیع",
+  "tasmeeModeTasmee": "تەسمیع",
+  "tasmeeModeTasmeeDesc": "وشەکان شاراوەن و کاتێک دەیخوێنیتەوە دەردەکەون",
+  "tasmeeModeCorrector": "ڕاستکەرەوەی خوێندنەوە",
+  "tasmeeModeCorrectorDesc": "ئایەتەکان دیارە و هەر وشەیەکی هەڵە ڕاست دەکرێتەوە تا دروست بخوێنرێت",
+  "tasmeeModeTeacher": "مامۆستای قورئان",
+  "tasmeeModeTeacherDesc": "قورئانخوێن ئایەتەکە دەخوێنێت ئینجا تۆ دووبارەی دەکەیتەوە تا فێری ببیت",
   "tasmeeLocalModel": "مۆدێلی ڕاستکردنەوەی ناوخۆیی",
   "tasmeeModelReady": "ئامادەیە"
 }
