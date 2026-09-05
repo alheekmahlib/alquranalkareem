@@ -50,12 +50,11 @@ class TasmeeResultsDatabase extends _$TasmeeResultsDatabase {
   /// upsert على pageNumber — أي حفظ جديد لصفحة يستبدل نتيجتها السابقة
   /// (الأحدث فقط). لا يصلح insertOnConflictUpdate هنا لأنه يتعارض على
   /// المفتاح id وليس على عمود التفرد pageNumber.
-  Future<void> saveLatest(TasmeeResultsCompanion entry) => into(
-    tasmeeResults,
-  ).insert(
-    entry,
-    onConflict: DoUpdate((_) => entry, target: [tasmeeResults.pageNumber]),
-  );
+  Future<void> saveLatest(TasmeeResultsCompanion entry) =>
+      into(tasmeeResults).insert(
+        entry,
+        onConflict: DoUpdate((_) => entry, target: [tasmeeResults.pageNumber]),
+      );
 
   Future<TasmeeResult?> getByPage(int pageNumber) => (select(
     tasmeeResults,
