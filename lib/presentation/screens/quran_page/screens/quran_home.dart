@@ -143,7 +143,7 @@ class QuranHome extends StatelessWidget {
                             ),
                             Align(
                               alignment: Alignment.bottomCenter,
-                              child: NavBarWidget(
+                              child: QuranDockBar(
                                 navBarController:
                                     quranCtrl.state.navBarController,
                               ),
