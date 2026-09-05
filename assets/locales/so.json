@@ -1776,6 +1776,10 @@
   "tasmeeTryAgain": "Wali sax ma aha — dhageyso oo isku day mar kale",
   "tasmeeSkipWord": "Daad erayga",
   "tasmeeWordCorrect": "Wanaagsan! Sax ayaa loo akhriyay",
+  "tasmeeTeacherQariPlaying": "Qaari wuu akhrinayaa…",
+  "tasmeeTeacherYourTurn": "Adiga ayaa turn — akhri aayadda",
+  "tasmeeTeacherPageDone": "Bogka waa la bartay, wanaagsan!",
+  "tasmeeTeacherPlayFailed": "Lama dhejin kari qaari — hubi xiriirka oo isku day mar kale",
   "tasmeeLocalModel": "Moodelka dexsaadka ee maxalliga ah",
   "tasmeeModelReady": "Diyaar ah"
 }

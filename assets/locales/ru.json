@@ -1768,6 +1768,10 @@
   "tasmeeTryAgain": "Пока неверно — послушайте и попробуйте снова",
   "tasmeeSkipWord": "Пропустить слово",
   "tasmeeWordCorrect": "Отлично! Произнесено верно",
+  "tasmeeTeacherQariPlaying": "Чтец читает аят…",
+  "tasmeeTeacherYourTurn": "Ваша очередь — прочитайте аят",
+  "tasmeeTeacherPageDone": "Страница освоена, отлично!",
+  "tasmeeTeacherPlayFailed": "Не удалось воспроизвести чтеца — проверьте соединение и попробуйте снова",
   "tasmeeLocalModel": "Локальная модель коррекции",
   "tasmeeModelReady": "Готово"
 }

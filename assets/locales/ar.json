@@ -1828,6 +1828,10 @@
   "tasmeeTryAgain": "لم تُنطق صحيحة بعد — استمع وحاول مجددًا",
   "tasmeeSkipWord": "تخطي الكلمة",
   "tasmeeWordCorrect": "أحسنت! نُطقت صحيحة",
+  "tasmeeTeacherQariPlaying": "القارئ يتلو الآية…",
+  "tasmeeTeacherYourTurn": "دورك — تلُ الآية",
+  "tasmeeTeacherPageDone": "أتممت الصفحة بإتقان، أحسنت!",
+  "tasmeeTeacherPlayFailed": "تعذّر تشغيل تلاوة القارئ — تحقق من الاتصال وحاول مجددًا",
   "tasmeeLocalModel": "نموذج التصحيح المحلي",
   "tasmeeModelReady": "جاهز"
 }

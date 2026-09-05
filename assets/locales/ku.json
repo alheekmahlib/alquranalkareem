@@ -1796,6 +1796,10 @@
   "tasmeeTryAgain": "هێشتا دروست نییە — گوێ بگرە و دووبارە هەوڵ بدە",
   "tasmeeSkipWord": "وشەکە بپەڕێنە",
   "tasmeeWordCorrect": "زۆر باش! بەدروستی وت",
+  "tasmeeTeacherQariPlaying": "قورئانخوێن ئایەتەکە دەخوێنێت…",
+  "tasmeeTeacherYourTurn": "دۆرەکەت تۆیە — ئایەتەکە بخوێنە",
+  "tasmeeTeacherPageDone": "لاپەڕەکەت بەباشی تەواو کرد، زۆر باش!",
+  "tasmeeTeacherPlayFailed": "نەتوانرا لێدانی قورئانخوێن کار بکات — پەیوەندی بپشکنە و دووبارە هەوڵ بدە",
   "tasmeeLocalModel": "مۆدێلی ڕاستکردنەوەی ناوخۆیی",
   "tasmeeModelReady": "ئامادەیە"
 }

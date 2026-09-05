@@ -1804,6 +1804,10 @@
   "tasmeeTryAgain": "Aún no es correcta — escucha e inténtalo de nuevo",
   "tasmeeSkipWord": "Saltar palabra",
   "tasmeeWordCorrect": "¡Bien hecho! Pronunciada correctamente",
+  "tasmeeTeacherQariPlaying": "El recitador está recitando…",
+  "tasmeeTeacherYourTurn": "Tu turno — recita la aya",
+  "tasmeeTeacherPageDone": "¡Página dominada, bien hecho!",
+  "tasmeeTeacherPlayFailed": "No se pudo reproducir al recitador — revisa la conexión e inténtalo de nuevo",
   "tasmeeLocalModel": "Modelo de corrección local",
   "tasmeeModelReady": "Listo"
 }

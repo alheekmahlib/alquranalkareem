@@ -1804,6 +1804,10 @@
   "tasmeeTryAgain": "এখনও সঠিক নয় — শুনুন এবং আবার চেষ্টা করুন",
   "tasmeeSkipWord": "শব্দ এড়িয়ে যান",
   "tasmeeWordCorrect": "দারুণ! সঠিকভাবে উচ্চারিত",
+  "tasmeeTeacherQariPlaying": "কারী আয়াত পড়ছেন…",
+  "tasmeeTeacherYourTurn": "আপনার পালা — আয়াত পড়ুন",
+  "tasmeeTeacherPageDone": "পৃষ্ঠা আয়ত্ত করা হয়েছে, দারুণ!",
+  "tasmeeTeacherPlayFailed": "কারীর তিলাওয়াত চালানো যায়নি — সংযোগ পরীক্ষা করে আবার চেষ্টা করুন",
   "tasmeeLocalModel": "স্থানীয় সংশোধন মডেল",
   "tasmeeModelReady": "প্রস্তুত"
 }

@@ -45,9 +45,19 @@ class TasmeeBarWidget extends StatelessWidget {
                       customBottomSheet(const TasmeeModeSheetWidget()),
                 ),
                 const Gap(8),
-                _buildAction(sessionState),
+                if (mode == TasmeeMode.teacher)
+                  _buildTeacherAction()
+                else
+                  _buildAction(sessionState),
                 const Gap(8),
-                Expanded(child: _buildStatus()),
+                Expanded(
+                  child: mode == TasmeeMode.teacher
+                      ? _buildTeacherStatus()
+                      : _buildStatus(),
+                ),
+                // نمط المعلم: شريحة القارئ الحالي (فتح تغيير القارئ).
+                if (mode == TasmeeMode.teacher)
+                  AyahChangeReader(isDark: Get.isDarkMode),
                 // زر العين يخص نمط التسميع فقط — الكلمات ظاهرة أصلًا في
                 // المصحح والمعلم.
                 if (mode == TasmeeMode.tasmee)
@@ -69,7 +79,11 @@ class TasmeeBarWidget extends StatelessWidget {
                   tooltip: 'tasmeeRetry'.tr,
                   svgPath: SvgPath.svgAudioLoop,
                   svgColor: Get.theme.primaryColorLight,
-                  onPressed: () => _busy ? null : tasmee.retryTasmee(),
+                  onPressed: () => _busy
+                      ? null
+                      : mode == TasmeeMode.teacher
+                      ? TasmeeSessionController.instance.restartTeacherSession()
+                      : tasmee.retryTasmee(),
                 ),
                 CustomButton(
                   isCustomSvgColor: true,
@@ -108,17 +122,7 @@ class TasmeeBarWidget extends StatelessWidget {
           svgColor: Get.theme.colorScheme.surface,
         );
       case RecitationState.processing:
-        return const SizedBox(
-          width: 38,
-          height: 38,
-          child: Center(
-            child: SizedBox(
-              width: 20,
-              height: 20,
-              child: CircularProgressIndicator(strokeWidth: 2),
-            ),
-          ),
-        );
+        return _processingIndicator();
       default:
         return CustomButton(
           svgPath: SvgPath.svgQuranMicrophone,
@@ -128,6 +132,110 @@ class TasmeeBarWidget extends StatelessWidget {
           isCustomSvgColor: true,
         );
     }
+  }
+
+  Widget _processingIndicator() => const SizedBox(
+    width: 38,
+    height: 38,
+    child: Center(
+      child: SizedBox(
+        width: 20,
+        height: 20,
+        child: CircularProgressIndicator(strokeWidth: 2),
+      ),
+    ),
+  );
+
+  /// زر الفعل في نمط المعلم حسب طور الجلسة — بدء الحلقة، إيقافها أثناء
+  /// تلاوة القارئ، إيقاف التسجيل، أو مؤشر انتظار أثناء التقييم.
+  Widget _buildTeacherAction() {
+    final sessionCtrl = TasmeeSessionController.instance;
+    final phase = tasmee.state.teacherPhase.value;
+    switch (phase) {
+      case TasmeeTeacherPhase.qariPlaying:
+        return CustomButton(
+          isCustomSvgColor: true,
+          svgPath: SvgPath.svgAudioPlayArrow,
+          tooltip: 'tasmeeTeacherQariPlaying'.tr,
+          svgColor: Get.theme.primaryColorLight,
+          onPressed: sessionCtrl.stopTeacherSession,
+        );
+      case TasmeeTeacherPhase.evaluating:
+        return _processingIndicator();
+      case TasmeeTeacherPhase.userRecording:
+        final s = tasmee.state.sessionState.value;
+        if (s == RecitationState.processing) return _processingIndicator();
+        return CustomButton(
+          isCustomSvgColor: true,
+          svgPath: SvgPath.svgQuranStop,
+          tooltip: 'tasmeeStopRecording'.tr,
+          onPressed: sessionCtrl.stopTeacherSession,
+          svgColor: Get.theme.colorScheme.surface,
+        );
+      default:
+        return CustomButton(
+          svgPath: SvgPath.svgQuranMicrophone,
+          tooltip: 'tasmeeStartRecording'.tr,
+          onPressed: sessionCtrl.startTeacherSession,
+          svgColor: Get.theme.primaryColorLight,
+          isCustomSvgColor: true,
+        );
+    }
+  }
+
+  /// نص حالة المعلم: الطور الحالي وتقدم الآيات (آية ٣/٧).
+  Widget _buildTeacherStatus() {
+    final state = tasmee.state;
+    final statusStyle = AppTextStyles.titleSmall(
+      fontSize: 12,
+      fontWeight: FontWeight.w600,
+      color: Get.theme.colorScheme.inversePrimary,
+    );
+    if (state.isPreparingEngine.value) {
+      return _statusText('tasmeePreparingEngine'.tr, statusStyle);
+    }
+    final phase = state.teacherPhase.value;
+    if (phase == TasmeeTeacherPhase.pageDone) {
+      return _statusText('tasmeeTeacherPageDone'.tr, statusStyle);
+    }
+    if (phase == TasmeeTeacherPhase.idle) {
+      if (state.lastError.value.isNotEmpty) {
+        return Text(
+          state.lastError.value,
+          style: statusStyle.copyWith(color: Get.theme.colorScheme.surface),
+          overflow: TextOverflow.ellipsis,
+          maxLines: 2,
+        );
+      }
+      return _statusText('tasmeeStartRecording'.tr, statusStyle);
+    }
+    final label = switch (phase) {
+      TasmeeTeacherPhase.qariPlaying => 'tasmeeTeacherQariPlaying'.tr,
+      TasmeeTeacherPhase.userRecording => 'tasmeeTeacherYourTurn'.tr,
+      _ => 'tasmeeProcessing'.tr,
+    };
+    final idx = (state.teacherAyahIndex.value + 1)
+        .toString()
+        .convertNumbersToCurrentLang();
+    final total = state.teacherAyahTotal.value
+        .toString()
+        .convertNumbersToCurrentLang();
+    return Row(
+      children: [
+        if (phase == TasmeeTeacherPhase.userRecording)
+          const _PulsingTasmeeDot()
+        else
+          const Gap(2),
+        const Gap(8),
+        Expanded(
+          child: Text(
+            '$label ($idx/$total)',
+            style: statusStyle,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+      ],
+    );
   }
 
   /// نص الحالة حسب حالة الجلسة والمحرك.

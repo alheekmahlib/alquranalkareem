@@ -1834,6 +1834,10 @@
   "tasmeeTryAgain": "Not correct yet — listen and try again",
   "tasmeeSkipWord": "Skip word",
   "tasmeeWordCorrect": "Well done! Recited correctly",
+  "tasmeeTeacherQariPlaying": "The reciter is reciting…",
+  "tasmeeTeacherYourTurn": "Your turn — recite the ayah",
+  "tasmeeTeacherPageDone": "Page mastered, well done!",
+  "tasmeeTeacherPlayFailed": "Couldn't play the reciter — check connection and try again",
   "tasmeeLocalModel": "Local correction model",
   "tasmeeModelReady": "Ready"
 }
