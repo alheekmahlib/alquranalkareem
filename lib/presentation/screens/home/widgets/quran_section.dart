@@ -27,40 +27,6 @@ class QuranSection extends StatelessWidget {
       child: Column(
         children: [
           GestureDetector(
-            onTap: () async {
-              tasmee.state.showAllWords.value = false;
-              await tasmee.enterTasmeeMode();
-              Get.to(
-                () => QuranHome(isTasmeeMode: true),
-                transition: Transition.downToUp,
-              );
-              Future.delayed(const Duration(milliseconds: 300), () {
-                quranCtrl.changeSurahListOnTap(lastReadPage);
-              });
-            },
-            child: Container(
-              height: 100,
-              width: Get.width,
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
-                borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'tasmeaa'.tr,
-                    style: AppTextStyles.titleMedium().copyWith(
-                      fontSize: 16,
-                      color: Theme.of(context).colorScheme.onPrimaryContainer,
-                    ),
-                  ),
-                  const Gap(8),
-                ],
-              ),
-            ),
-          ),
-          GestureDetector(
             onTap: () {
               // أنهِ وضع التسميع إن كان مفعّلًا قبل فتح القراءة العادية.
               if (tasmee.state.isTasmeeMode.value) {

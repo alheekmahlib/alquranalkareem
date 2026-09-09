@@ -4,10 +4,10 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:quran_library/quran_library.dart';
 
-import '../../core/utils/constants/extensions/bottom_sheet_extension.dart';
-import '../screens/quran_page/quran.dart';
-import '../screens/quran_page/widgets/tasmee/data/models/tasmee_page_result.dart';
-import '../screens/quran_page/widgets/tasmee/data/repositories/tasmee_results_repository.dart';
+import '../../../../core/utils/constants/extensions/bottom_sheet_extension.dart';
+import '../quran.dart';
+import '../widgets/tasmee/data/models/tasmee_page_result.dart';
+import '../widgets/tasmee/data/repositories/tasmee_results_repository.dart';
 
 /// منسّق جلسات التسميع — يمتلك كل منطق دورة الحياة خارج المكتبة:
 /// حفظ نتائج الصفحات عند اكتمالها، شيت تصحيح الكلمة (المصحح)، وحلقة
@@ -130,14 +130,18 @@ class TasmeeSessionController extends GetxController {
   }
 
   /// عند نجاح إعادة النطق تُحلّ الكلمة (تُعلَّم خضراء وتُستأنف الجلسة)
-  /// ويُغلق الشيت تلقائيًا.
+  /// ويُغلق الشيت تلقائيًا؛ وعند فشلها يُعاد نطق الكلمة تلقائيًا لمساعدة
+  /// المحاولة التالية.
   void _listenForWordRetryOutcome() {
     ever<TasmeeWordRetryOutcome?>(TasmeeCtrl.instance.state.wordRetryOutcome, (
       outcome,
-    ) {
-      if (outcome == TasmeeWordRetryOutcome.correct && _correctionSheetOpen) {
+    ) async {
+      if (!_correctionSheetOpen) return;
+      if (outcome == TasmeeWordRetryOutcome.correct) {
         TasmeeCtrl.instance.resolveWordCorrection(accepted: true);
         Get.back();
+      } else if (outcome == TasmeeWordRetryOutcome.incorrect) {
+        await playCorrectionWordAudio();
       }
     });
   }
@@ -145,9 +149,13 @@ class TasmeeSessionController extends GetxController {
   Future<void> _openCorrectionSheet(TasmeeWordCorrection correction) async {
     if (_correctionSheetOpen) return;
     _correctionSheetOpen = true;
-    // شغّل نطق الكلمة فور فتح الشيت ليستمع المستخدم ثم يعيدها.
+    debugPrint('TasmeeSession: opening correction sheet for "${correction.wordText}"');
+    // افتح الشيت فورًا (بلا انتظار جلب ملف النطق) ثم شغّل النطق —
+    // بعد اكتمال إيقاف الميكروفون (يضمنه الترتيب في _beginWordCorrection)
+    // حتى لا يقتل تفكيك جلسة الصوت التشغيل.
+    final closed = customBottomSheet(const TasmeeWordCorrectionSheet());
     await playCorrectionWordAudio();
-    await customBottomSheet(const TasmeeWordCorrectionSheet());
+    await closed;
     // أُغلق الشيت دون قبول (سحب/Back) → تخطٍّ حتى لا تتعلق الجلسة
     // متوقفة بانتظار تصحيح لن يصل.
     if (TasmeeCtrl.instance.state.activeWordCorrection.value != null) {

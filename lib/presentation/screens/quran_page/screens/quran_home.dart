@@ -68,6 +68,7 @@ class QuranHome extends StatelessWidget {
                                 alignment: Alignment.centerLeft,
                                 child: TajweedMenuWidget(),
                               ),
+                            _tasmeeButton(context),
                             TopBarWidget(
                               isHomeChild: true,
                               isQuranSetting: true,
@@ -143,7 +144,7 @@ class QuranHome extends StatelessWidget {
                             ),
                             Align(
                               alignment: Alignment.bottomCenter,
-                              child: QuranDockBar(
+                              child: NavBarWidget(
                                 navBarController:
                                     quranCtrl.state.navBarController,
                               ),
@@ -159,6 +160,97 @@ class QuranHome extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _tasmeeButton(BuildContext context) {
+    return isTasmeeMode!
+        ? Align(
+            alignment: AlignmentDirectional.bottomEnd,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Obx(
+                () => Row(
+                  mainAxisAlignment: .spaceBetween,
+                  mainAxisSize: .max,
+                  children: [
+                    Container(
+                      height: 62,
+                      width: 62,
+                      padding: const EdgeInsets.all(6),
+                      margin: const EdgeInsets.only(bottom: 70),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      child: Container(
+                        height: 58,
+                        width: 58,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+
+                          color: Theme.of(context).colorScheme.primaryContainer,
+                        ),
+                        child: Obx(
+                          () => CustomButton(
+                            height: 70,
+                            width: 70,
+                            tooltip: 'tasmeeModeTitle'.tr,
+                            title: switch (TasmeeCtrl
+                                .instance
+                                .state
+                                .mode
+                                .value) {
+                              TasmeeMode.corrector =>
+                                'tasmeeModeCorrector'.tr.replaceAll(' ', '\n'),
+                              TasmeeMode.teacher =>
+                                'tasmeeModeTeacher'.tr.replaceAll(' ', '\n'),
+                              _ => 'tasmeeModeTasmee'.tr.replaceAll(' ', '\n'),
+                            },
+                            textStyle: AppTextStyles.titleMedium(
+                              color: context.theme.colorScheme.inversePrimary,
+                              fontSize: 14,
+                              height: 1.2,
+                            ),
+                            onPressed: () => customBottomSheet(
+                              const TasmeeModeSheetWidget(),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    if (TasmeeCtrl.instance.state.mode.value ==
+                        TasmeeMode.teacher)
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 6,
+                        ),
+                        margin: const EdgeInsets.only(bottom: 45),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                        child: AyahChangeReader(
+                          downloadManagerStyle:
+                              AudioCtrl.instance.ayahDownloadManagerStyle,
+                          style: AudioCtrl.instance.ayahAudioStyle.copyWith(
+                            currentReaderTextStyle: AppTextStyles.titleMedium(
+                              color: context.theme.canvasColor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          isDark: themeCtrl.isDarkMode,
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ),
+          )
+        : const SizedBox.shrink();
   }
 
   /// يبني جسم وضع AI: شريط اختيار النموذج + واجهة المساعد.

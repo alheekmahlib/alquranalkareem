@@ -38,6 +38,12 @@ class TasmeeWordCorrectionSheet extends StatelessWidget {
               ),
               const Gap(12),
               _wordCard(context, correction.wordText),
+              // تفصيل الخطأ الذي وقع فيه المستخدم في هذه الكلمة.
+              if (correction.expectedSymbol?.isNotEmpty == true ||
+                  correction.predictedSymbol?.isNotEmpty == true) ...[
+                const Gap(8),
+                _mistakeRow(context, correction),
+              ],
               const Gap(12),
               CustomButton(
                 isCustomSvgColor: true,
@@ -109,6 +115,37 @@ class TasmeeWordCorrectionSheet extends StatelessWidget {
           color: context.theme.colorScheme.inversePrimary.withValues(alpha: .8),
         ),
       ),
+    );
+  }
+
+  /// تفصيل الخطأ: نوعه (زيادة/نقصان/استبدال) والمتوقع مقابل المنطوق —
+  /// بشرائح الفونيمات نفسها المستخدمة في بطاقات الأخطاء.
+  Widget _mistakeRow(BuildContext context, TasmeeWordCorrection correction) {
+    final verb = switch (correction.errorType) {
+      'insert' => 'tasmeeInsert'.tr,
+      'delete' => 'tasmeeDelete'.tr,
+      _ => 'tasmeeReplace'.tr,
+    };
+    return Wrap(
+      spacing: 6,
+      runSpacing: 4,
+      alignment: WrapAlignment.center,
+      children: [
+        _TasmeePhonemeChip(
+          label: verb,
+          color: context.theme.colorScheme.surface,
+        ),
+        if (correction.expectedSymbol?.isNotEmpty == true)
+          _TasmeePhonemeChip(
+            label: '${'tasmeeExpected'.tr}: ${correction.expectedSymbol}',
+            color: context.theme.primaryColorLight,
+          ),
+        if (correction.predictedSymbol?.isNotEmpty == true)
+          _TasmeePhonemeChip(
+            label: '${'tasmeeActual'.tr}: ${correction.predictedSymbol}',
+            color: context.theme.colorScheme.surface,
+          ),
+      ],
     );
   }
 

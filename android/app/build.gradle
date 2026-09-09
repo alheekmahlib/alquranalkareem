@@ -56,6 +56,14 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
+    // flutter_onnxruntime pulls libonnxruntime.so twice: via its Maven AAR
+    // (onnxruntime-android) and via sherpa_onnx prebuilt jniLibs. Pick one copy.
+    packaging {
+        jniLibs {
+            pickFirsts += ['lib/**/libonnxruntime.so']
+        }
+    }
+
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.alheekmah.alquranalkareem.alquranalkareem"

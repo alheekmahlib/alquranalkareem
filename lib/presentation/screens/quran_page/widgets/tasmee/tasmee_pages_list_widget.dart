@@ -12,35 +12,32 @@ class TasmeePagesListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     // الوصول للكونترولر يضمن إنشاءه (وتسجيل مستمع الحفظ في onInit).
     final sessionCtrl = TasmeeSessionController.instance;
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            TitleWidget(title: 'tasmeeResultsPages'.tr, horizontalPadding: 0.0),
-            const Gap(12),
-            Obx(() {
-              if (sessionCtrl.isLoadingResults.value) {
-                return const SizedBox(height: 240, child: ShimmerEffectBuild());
-              }
-              final results = sessionCtrl.results;
-              if (results.isEmpty) return _buildEmpty(context);
-              return ConstrainedBox(
-                constraints: BoxConstraints(maxHeight: Get.height * .45),
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: results.length,
-                  itemBuilder: (_, i) =>
-                      _buildRow(context, sessionCtrl, results[i]),
-                ),
-              );
-            }),
-            const Gap(16),
-          ],
-        ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TitleWidget(title: 'tasmeeResultsPages'.tr, horizontalPadding: 0.0),
+          const Gap(12),
+          Obx(() {
+            if (sessionCtrl.isLoadingResults.value) {
+              return const SizedBox(height: 240, child: ShimmerEffectBuild());
+            }
+            final results = sessionCtrl.results;
+            if (results.isEmpty) return _buildEmpty(context);
+            return ConstrainedBox(
+              constraints: BoxConstraints(maxHeight: Get.height * .45),
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: results.length,
+                itemBuilder: (_, i) =>
+                    _buildRow(context, sessionCtrl, results[i]),
+              ),
+            );
+          }),
+          const Gap(16),
+        ],
       ),
     );
   }
@@ -79,7 +76,6 @@ class TasmeePagesListWidget extends StatelessWidget {
   ) {
     return Dismissible(
       key: ValueKey('tasmee_result_${result.pageNumber}'),
-      direction: DismissDirection.endToStart,
       background: const DeleteWidget(),
       onDismissed: (_) async {
         await sessionCtrl.deleteResult(result.pageNumber);

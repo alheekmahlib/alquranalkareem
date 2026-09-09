@@ -18,85 +18,71 @@ class TasmeeBarWidget extends StatelessWidget {
   final TasmeeSettingsController _settingsCtrl =
       TasmeeSettingsController.instance;
 
+  // إنشاء مبكر لمنسّق الجلسات — بدون هذا تبقى مستمعاته (فتح شيت تصحيح
+  // الكلمة، حلقة المعلم، حفظ النتائج) غير مسجَّلة حتى أول لمسٍ لها،
+  // وقد يبدأ المستخدم التسجيل قبل ذلك فلا يظهر شيت التصحيح أصلًا.
+  final TasmeeSessionController _sessionCtrl = TasmeeSessionController.instance;
+
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: SizedBox(
-        height: 50,
-        width: Get.width,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Obx(() {
-            final sessionState = tasmee.state.sessionState.value;
-            final mode = tasmee.state.mode.value;
-            return Row(
-              children: [
+    return SizedBox(
+      height: 70,
+      width: Get.width,
+      child: Padding(
+        padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 8, 0),
+        child: Obx(() {
+          final sessionState = tasmee.state.sessionState.value;
+          final mode = tasmee.state.mode.value;
+          return Row(
+            children: [
+              if (mode == TasmeeMode.teacher)
+                _buildTeacherAction()
+              else
+                _buildAction(sessionState),
+              const Gap(8),
+              Expanded(
+                child: mode == TasmeeMode.teacher
+                    ? _buildTeacherStatus()
+                    : _buildStatus(),
+              ),
+              // زر العين يخص نمط التسميع فقط — الكلمات ظاهرة أصلًا في
+              // المصحح والمعلم.
+              if (mode == TasmeeMode.tasmee)
                 CustomButton(
                   isCustomSvgColor: true,
-                  tooltip: 'tasmeeModeTitle'.tr,
-                  svgPath: switch (mode) {
-                    TasmeeMode.corrector => SvgPath.svgAudioPlayWord,
-                    TasmeeMode.teacher => SvgPath.svgAudioAudioQuran,
-                    _ => SvgPath.svgQuranMicrophone,
-                  },
-                  svgColor: Get.theme.primaryColorLight,
-                  onPressed: () =>
-                      customBottomSheet(const TasmeeModeSheetWidget()),
+                  tooltip: tasmee.state.showAllWords.value
+                      ? 'tasmeeHideWords'.tr
+                      : 'tasmeeShowWords'.tr,
+                  svgPath: tasmee.state.showAllWords.value
+                      ? SvgPath.svgQuranEyeCrossed
+                      : SvgPath.svgQuranEye,
+                  svgColor: tasmee.state.showAllWords.value
+                      ? Get.theme.colorScheme.surface
+                      : Get.theme.primaryColorLight,
+                  onPressed: () => _busy ? null : tasmee.toggleShowAllWords(),
                 ),
-                const Gap(8),
-                if (mode == TasmeeMode.teacher)
-                  _buildTeacherAction()
-                else
-                  _buildAction(sessionState),
-                const Gap(8),
-                Expanded(
-                  child: mode == TasmeeMode.teacher
-                      ? _buildTeacherStatus()
-                      : _buildStatus(),
-                ),
-                // نمط المعلم: شريحة القارئ الحالي (فتح تغيير القارئ).
-                if (mode == TasmeeMode.teacher)
-                  AyahChangeReader(isDark: Get.isDarkMode),
-                // زر العين يخص نمط التسميع فقط — الكلمات ظاهرة أصلًا في
-                // المصحح والمعلم.
-                if (mode == TasmeeMode.tasmee)
-                  CustomButton(
-                    isCustomSvgColor: true,
-                    tooltip: tasmee.state.showAllWords.value
-                        ? 'tasmeeHideWords'.tr
-                        : 'tasmeeShowWords'.tr,
-                    svgPath: tasmee.state.showAllWords.value
-                        ? SvgPath.svgQuranEyeCrossed
-                        : SvgPath.svgQuranEye,
-                    svgColor: tasmee.state.showAllWords.value
-                        ? Get.theme.colorScheme.surface
-                        : Get.theme.primaryColorLight,
-                    onPressed: () => _busy ? null : tasmee.toggleShowAllWords(),
-                  ),
-                CustomButton(
-                  isCustomSvgColor: true,
-                  tooltip: 'tasmeeRetry'.tr,
-                  svgPath: SvgPath.svgAudioLoop,
-                  svgColor: Get.theme.primaryColorLight,
-                  onPressed: () => _busy
-                      ? null
-                      : mode == TasmeeMode.teacher
-                      ? TasmeeSessionController.instance.restartTeacherSession()
-                      : tasmee.retryTasmee(),
-                ),
-                CustomButton(
-                  isCustomSvgColor: true,
-                  tooltip: 'checkList'.tr,
-                  svgPath: SvgPath.svgQuranCheckList,
-                  svgColor: Get.theme.primaryColorLight,
-                  onPressed: () =>
-                      customBottomSheet(const TasmeePagesListWidget()),
-                ),
-              ],
-            );
-          }),
-        ),
+              CustomButton(
+                isCustomSvgColor: true,
+                tooltip: 'tasmeeRetry'.tr,
+                svgPath: SvgPath.svgAudioLoop,
+                svgColor: Get.theme.primaryColorLight,
+                onPressed: () => _busy
+                    ? null
+                    : mode == TasmeeMode.teacher
+                    ? _sessionCtrl.restartTeacherSession()
+                    : tasmee.retryTasmee(),
+              ),
+              CustomButton(
+                isCustomSvgColor: true,
+                tooltip: 'checkList'.tr,
+                svgPath: SvgPath.svgQuranCheckList,
+                svgColor: Get.theme.primaryColorLight,
+                onPressed: () =>
+                    customBottomSheet(const TasmeePagesListWidget()),
+              ),
+            ],
+          );
+        }),
       ),
     );
   }
@@ -149,7 +135,7 @@ class TasmeeBarWidget extends StatelessWidget {
   /// زر الفعل في نمط المعلم حسب طور الجلسة — بدء الحلقة، إيقافها أثناء
   /// تلاوة القارئ، إيقاف التسجيل، أو مؤشر انتظار أثناء التقييم.
   Widget _buildTeacherAction() {
-    final sessionCtrl = TasmeeSessionController.instance;
+    final sessionCtrl = _sessionCtrl;
     final phase = tasmee.state.teacherPhase.value;
     switch (phase) {
       case TasmeeTeacherPhase.qariPlaying:

@@ -1,6 +1,5 @@
 import 'package:alquranalkareem/core/utils/helpers/app_text_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:get/get_utils/get_utils.dart';
 
 import '/core/utils/constants/extensions/svg_extensions.dart';
@@ -74,63 +73,62 @@ class CustomButton extends StatelessWidget {
           ),
           onPressed: onPressed,
           child: title != null
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    title != null
-                        ? Text(
-                            title!.tr,
-                            style:
-                                textStyle ??
-                                AppTextStyles.titleMedium(
-                                  color:
-                                      titleColor ??
-                                      context
-                                          .theme
-                                          .colorScheme
-                                          .secondaryContainer,
-                                  height: 1.4,
-                                ),
-                            textAlign: TextAlign.center,
-                          )
-                        : const SizedBox.shrink(),
-                    title != null ? const Gap(16) : const SizedBox.shrink(),
-                    svgPath != null
-                        ? isCustomSvgColor!
-                              ? SizedBox(
-                                  height: iconSize ?? 25,
-                                  width: iconSize ?? 25,
-                                  child: customSvgWithColor(
-                                    svgPath ?? SvgPath.svgAlert,
-                                    height: iconSize ?? 25,
-                                    width: iconSize ?? 25,
-                                    color:
-                                        svgColor ??
-                                        context
-                                            .theme
-                                            .colorScheme
-                                            .secondaryContainer,
-                                  ),
-                                )
-                              : SizedBox(
-                                  height: iconSize ?? 25,
-                                  width: iconSize ?? 25,
-                                  child: customSvgWithCustomColor(
-                                    svgPath ?? SvgPath.svgAlert,
-                                    height: iconSize ?? 25,
-                                    width: iconSize ?? 25,
-                                    color:
-                                        svgColor ??
-                                        context.theme.primaryColorLight,
-                                  ),
-                                )
-                        : Icon(
-                            icon ?? Icons.cloud_download_outlined,
-                            size: iconSize ?? 25,
+              ? FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (title != null) ...[
+                        Text(
+                          title!.tr,
+                          style:
+                              textStyle ??
+                              AppTextStyles.titleMedium(
+                                color:
+                                    titleColor ??
+                                    context
+                                        .theme
+                                        .colorScheme
+                                        .secondaryContainer,
+                                height: 1.4,
+                              ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                      if (svgPath != null) ...[
+                        SizedBox(
+                          height: iconSize ?? 25,
+                          width: iconSize ?? 25,
+                          child: customSvgWithColor(
+                            svgPath ?? SvgPath.svgAlert,
+                            height: iconSize ?? 25,
+                            width: iconSize ?? 25,
+                            color:
+                                svgColor ??
+                                context.theme.colorScheme.secondaryContainer,
+                          ),
+                        ),
+                      ] else if (isCustomSvgColor! && svgPath != null) ...[
+                        SizedBox(
+                          height: iconSize ?? 25,
+                          width: iconSize ?? 25,
+                          child: customSvgWithCustomColor(
+                            svgPath ?? SvgPath.svgAlert,
+                            height: iconSize ?? 25,
+                            width: iconSize ?? 25,
                             color: svgColor ?? context.theme.primaryColorLight,
                           ),
-                  ],
+                        ),
+                      ],
+                      if (icon != null)
+                        Icon(
+                          icon ?? Icons.cloud_download_outlined,
+                          size: iconSize ?? 25,
+                          color: svgColor ?? context.theme.primaryColorLight,
+                        ),
+                    ],
+                  ),
                 )
               : svgPath != null
               ? isCustomSvgColor!
