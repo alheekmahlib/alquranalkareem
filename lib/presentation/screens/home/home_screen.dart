@@ -34,8 +34,7 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           HijriWidget(),
                           const Gap(16),
-                          const MidadWidget(),
-                          const Gap(16),
+                          MidadWidget(),
                           QuranSection(),
                           const Gap(16),
                           DailyZeker(),
@@ -64,7 +63,7 @@ class HomeScreen extends StatelessWidget {
                                 Expanded(
                                   child: Column(
                                     children: [
-                                      const MidadWidget(),
+                                      MidadWidget(),
                                       const Gap(8),
                                       QuranSection(),
                                     ],

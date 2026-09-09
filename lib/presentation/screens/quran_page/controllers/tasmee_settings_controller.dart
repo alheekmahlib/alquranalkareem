@@ -2,8 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:quran_library/quran_library.dart';
 
-import '../../core/utils/constants/extensions/bottom_sheet_extension.dart';
-import '../screens/quran_page/quran.dart';
+import '../../../../core/utils/constants/extensions/bottom_sheet_extension.dart';
+import '../quran.dart';
 
 /// متحكم إعدادات التسميع — إدارة نموذج التصحيح المحلي (حالة/تنزيل/حذف)
 /// ودورة حياة جلسة التسميع في الواجهة (فتح ورقة النتائج تلقائيًا).

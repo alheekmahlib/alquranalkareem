@@ -103,7 +103,7 @@ class ReadViewScreen extends StatelessWidget {
         ),
         Align(
           alignment: Alignment.bottomCenter,
-          child: QuranDockBar(
+          child: NavBarWidget(
             navBarController: booksCtrl.state.navBarController,
             handleChild: BooksTopTitleWidget(
               bookNumber: bookNumber,

@@ -95,4 +95,50 @@ void main() {
       expect(errors, isNotEmpty, reason: 'الحكم: خاطئة');
     });
   });
+
+  group('RangeLiveTracker — تفصيل خطأ الكلمة للمصحح', () {
+    ({TasmeeErrorKind kind, TasmeeWordMistake? mistake}) runTracker(
+      List<QuranUnit> pred,
+    ) {
+      final range = QuranReferenceRange.fromSingleWord(buildVerse(), 1)!;
+      TasmeeErrorKind firedKind = TasmeeErrorKind.correct;
+      TasmeeWordMistake? firedMistake;
+      final tracker = RangeLiveTracker(
+        range: range,
+        onWordDone: (v, w, kind, mistake) {
+          firedKind = kind;
+          firedMistake = mistake;
+        },
+      );
+      tracker.onUnits(pred);
+      // اجبر اكتمال الكلمة: وحدة بعدها من حرف آخر.
+      tracker.onUnits([unit('لـ', 'ل', id: 9)]);
+      return (kind: firedKind, mistake: firedMistake);
+    }
+
+    test('استبدال: نفس الحرف برمز مختلف — متوقع/منطوق بالرموز', () {
+      // الحاء بحركة مختلفة (نفس الحرف، رمز مختلف) → تشكيل/تجويد.
+      final replaced = [word1[0], unit('حَ', 'ح', id: 10), word1[2]];
+      final r = runTracker(replaced);
+      expect(r.kind, isNot(TasmeeErrorKind.correct));
+      expect(r.mistake, isNotNull);
+      expect(r.mistake!.errorType, 'replace');
+      expect(r.mistake!.expectedSymbol, 'حـ');
+      expect(r.mistake!.predictedSymbol, 'حَ');
+    });
+
+    test('إدراج: نطق زائد — يُبلَّغ بالوحدة الزائدة', () {
+      final inserted = [word1[0], unit('ق', 'ق', id: 11), ...word1.skip(1)];
+      final r = runTracker(inserted);
+      expect(r.kind, isNot(TasmeeErrorKind.correct));
+      expect(r.mistake!.errorType, 'insert');
+      expect(r.mistake!.predictedSymbol, 'ق');
+    });
+
+    test('نطق سليم → kind=correct وبلا تفصيل', () {
+      final r = runTracker(word1);
+      expect(r.kind, TasmeeErrorKind.correct);
+      expect(r.mistake, isNull);
+    });
+  });
 }
