@@ -7,10 +7,10 @@ import '/core/utils/constants/extensions/extensions.dart';
 import '/presentation/controllers/general/general_controller.dart';
 import '../../../core/widgets/tab_bar_widget.dart';
 import '../../controllers/theme_controller.dart';
+import 'widgets/ai_section.dart';
 import 'widgets/books_section.dart';
 import 'widgets/daily_zeker.dart';
 import 'widgets/hijri_widget.dart';
-import 'widgets/midad_widget.dart';
 import 'widgets/quran_section.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           HijriWidget(),
                           const Gap(16),
-                          MidadWidget(),
+                          AiSection(),
                           QuranSection(),
                           const Gap(16),
                           DailyZeker(),
@@ -63,7 +63,7 @@ class HomeScreen extends StatelessWidget {
                                 Expanded(
                                   child: Column(
                                     children: [
-                                      MidadWidget(),
+                                      AiSection(),
                                       const Gap(8),
                                       QuranSection(),
                                     ],

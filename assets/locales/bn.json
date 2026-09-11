@@ -1765,6 +1765,7 @@
   "tasmeeRecording": "তিলাওয়াত চলছে",
   "tasmeeProcessing": "তিলাওয়াত বিশ্লেষণ হচ্ছে",
   "tasmeeConnecting": "সংযোগ হচ্ছে",
+  "tasmeeDescription": "মুখস্থ ও তিলাওয়াতের জন্য আপনার ব্যক্তিগত শিক্ষক",
   "tasmeePreparingEngine": "ইঞ্জিন প্রস্তুত হচ্ছে",
   "tasmeeDownloadingModel": "মডেল ডাউনলোড হচ্ছে",
   "tasmeeShowWords": "শব্দ দেখান",

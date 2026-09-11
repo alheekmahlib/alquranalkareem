@@ -1,4 +1,3 @@
-import 'package:alquranalkareem/core/utils/constants/svg_constants.dart';
 import 'package:alquranalkareem/core/utils/helpers/app_text_styles.dart';
 import 'package:alquranalkareem/core/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
