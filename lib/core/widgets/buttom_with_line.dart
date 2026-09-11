@@ -1,8 +1,8 @@
-import 'package:alquranalkareem/core/utils/helpers/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '/core/utils/helpers/app_text_styles.dart';
 import '../utils/constants/extensions/alignment_rotated_extension.dart';
 import '../utils/constants/extensions/svg_extensions.dart';
 

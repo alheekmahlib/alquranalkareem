@@ -1795,6 +1795,7 @@
   "tasmeeRecording": "Reciting",
   "tasmeeProcessing": "Analyzing recitation",
   "tasmeeConnecting": "Connecting",
+  "tasmeeDescription": "Your personal tutor for memorization and recitation",
   "tasmeePreparingEngine": "Preparing engine",
   "tasmeeDownloadingModel": "Downloading model",
   "tasmeeShowWords": "Show words",

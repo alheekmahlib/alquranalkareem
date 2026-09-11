@@ -1729,6 +1729,7 @@
   "tasmeeRecording": "Идёт чтение",
   "tasmeeProcessing": "Анализ чтения",
   "tasmeeConnecting": "Подключение",
+  "tasmeeDescription": "Ваш личный наставник по заучиванию и чтению",
   "tasmeePreparingEngine": "Подготовка движка",
   "tasmeeDownloadingModel": "Загрузка модели",
   "tasmeeShowWords": "Показать слова",

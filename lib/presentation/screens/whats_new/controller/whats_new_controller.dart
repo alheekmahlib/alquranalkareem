@@ -37,15 +37,10 @@ class WhatsNewController extends GetxController {
 
   List<Map<String, dynamic>> whatsNewList = [
     {
-      'index': 12,
-      'title': '',
-      'details': "What'sNewDetails10",
-      'imagePath': SvgPath.svgHomeMidadIcon,
-    },
-    {
-      'index': 13,
-      'title': '',
-      'details': "What'sNewDetails11",
+      'index': 14,
+      'title': 'tasmeeModeTeacher',
+      'details':
+          "۞ ${'tasmeeModeTasmee'.tr}: ${'tasmeeModeTasmeeDesc'.tr}\n۞ ${'tasmeeModeCorrector'.tr}: ${'tasmeeModeCorrectorDesc'.tr}\n۞ ${'tasmeeModeTeacher'.tr}: ${'tasmeeModeTeacherDesc'.tr}",
       'imagePath': '',
     },
   ];

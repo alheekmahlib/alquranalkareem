@@ -32,22 +32,15 @@ class PageViewBuild extends StatelessWidget {
                   const Gap(16),
                   newFeatures[index]['title'] == ''
                       ? const SizedBox.shrink()
-                      : Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8.0,
-                            vertical: 4.0,
-                          ),
-                          decoration: BoxDecoration(
-                            color: context.theme.colorScheme.surface.withValues(
-                              alpha: .3,
-                            ),
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(4),
-                            ),
-                          ),
+                      : Center(
                           child: Text(
-                            '${newFeatures[index]['title']}'.tr,
+                            '${newFeatures[index]['title']}'.tr.replaceAll(
+                              ' ',
+                              '\n',
+                            ),
                             style: AppTextStyles.titleLarge(
+                              height: 1.2,
+                              fontSize: 40,
                               color: context.theme.canvasColor,
                             ),
                           ),

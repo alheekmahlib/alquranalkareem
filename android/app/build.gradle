@@ -92,6 +92,18 @@ android {
     }
 }
 
+// Both copies of libonnxruntime.so must be the SAME version: sherpa_onnx's
+// prebuilt jniLibs and libonnxruntime4j_jni.so (from the Maven AAR) resolve
+// OrtGetApiBase against strictly versioned symbols, so a 1.23.0/1.24.3 mix
+// fails dlopen at startup and aborts plugin registration. sherpa_onnx 1.12.40
+// bundles onnxruntime 1.24.3 — force the Maven dep to match. Revisit this
+// version whenever sherpa_onnx is upgraded.
+configurations.all {
+    resolutionStrategy {
+        force 'com.microsoft.onnxruntime:onnxruntime-android:1.24.3'
+    }
+}
+
 flutter {
     source '../..'
 }

@@ -1757,6 +1757,7 @@
   "tasmeeRecording": "Okuyor",
   "tasmeeProcessing": "Okuma analiz ediliyor",
   "tasmeeConnecting": "Bağlanıyor",
+  "tasmeeDescription": "Hıfz ve tilavet için kişisel öğretmenin",
   "tasmeePreparingEngine": "Motor hazırlanıyor",
   "tasmeeDownloadingModel": "Model indiriliyor",
   "tasmeeShowWords": "Kelimeleri göster",
