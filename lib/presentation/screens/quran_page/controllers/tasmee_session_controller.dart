@@ -310,7 +310,11 @@ class TasmeeSessionController extends GetxController {
       }
       state.teacherPhase.value = TasmeeTeacherPhase.evaluating;
       final result = state.lastResult.value;
-      final passed = result != null && result.hasMatch && result.isFullyCorrect;
+      // معيار الإتقان المخفَّف موجَّهًا: الرادع وحده (خطأ حروف أو تجويد
+      // جوهري) يستوجب إعادة الآية — ملاحظات التشكيل/طول المدّ تُعرض في
+      // نتيجة الآية دون إفشالها (وإلا تكررت الآية بلا نهاية لاهتزاز
+      // حركة/مدّ في كلمة واحدة).
+      final passed = result != null && isRecitationAcceptable(result);
       if (passed) {
         if (_teacherAyahIdx >= state.teacherAyahTotal.value - 1) {
           // أُتقنت آخر آية — اكتمال الصفحة: احفظ واعرض النتيجة.

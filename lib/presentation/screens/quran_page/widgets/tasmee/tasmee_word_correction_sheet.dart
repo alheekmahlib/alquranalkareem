@@ -10,87 +10,101 @@ class TasmeeWordCorrectionSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final tasmee = TasmeeCtrl.instance;
     final sessionCtrl = TasmeeSessionController.instance;
-    final textColor = context.theme.colorScheme.inversePrimary;
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Obx(() {
-          final correction = tasmee.state.activeWordCorrection.value;
-          if (correction == null) return const SizedBox.shrink();
-          final outcome = tasmee.state.wordRetryOutcome.value;
-          final listening = tasmee.state.isWordRetryListening.value;
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Expanded(
-                    child: TitleWidget(
-                      title: 'tasmeeCorrectWord',
-                      horizontalPadding: 0.0,
-                    ),
-                  ),
-                  _kindBadge(context, correction.errorKind),
-                ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Obx(() {
+        final correction = tasmee.state.activeWordCorrection.value;
+        if (correction == null) return const SizedBox.shrink();
+        final outcome = tasmee.state.wordRetryOutcome.value;
+        final listening = tasmee.state.isWordRetryListening.value;
+        // بعد محاولة فاشلة: اعرض خطأ هذه المحاولة بالذات (قد يختلف عن
+        // خطأ التلاوة الأول — أصلح المستخدم النطق فصار الخطأ تشكيلًا
+        // أو تجويدًا) ليعرف ما يصحّحه الآن.
+        final retryFeedback = tasmee.state.wordRetryFeedback.value;
+        final latest = outcome == TasmeeWordRetryOutcome.incorrect
+            ? retryFeedback
+            : null;
+        final shownKind = latest?.kind ?? correction.errorKind;
+        final shownVerb = latest?.errorType ?? correction.errorType;
+        final shownExpected =
+            latest?.expectedSymbol ?? correction.expectedSymbol;
+        final shownPredicted =
+            latest?.predictedSymbol ?? correction.predictedSymbol;
+        final hasDetail =
+            (shownExpected?.isNotEmpty == true) ||
+            (shownPredicted?.isNotEmpty == true) ||
+            (latest?.ruleName?.isNotEmpty == true);
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: TitleWidget(
+                title: 'tasmeeCorrectWord',
+                horizontalPadding: 0.0,
               ),
-              const Gap(12),
-              _wordCard(context, correction.wordText),
-              // تفصيل الخطأ الذي وقع فيه المستخدم في هذه الكلمة.
-              if (correction.expectedSymbol?.isNotEmpty == true ||
-                  correction.predictedSymbol?.isNotEmpty == true) ...[
-                const Gap(8),
-                _mistakeRow(context, correction),
-              ],
-              const Gap(12),
-              CustomButton(
-                isCustomSvgColor: true,
-                svgPath: SvgPath.svgAudioPlayWord,
-                tooltip: 'tasmeePlayWord'.tr,
-                svgColor: Get.theme.primaryColorLight,
-                onPressed: sessionCtrl.playCorrectionWordAudio,
+            ),
+            _kindBadge(context, shownKind),
+            const Gap(8),
+            _wordCard(context, correction.wordText),
+            // تفصيل الخطأ الذي وقع فيه المستخدم في هذه الكلمة.
+            if (hasDetail) ...[
+              const Gap(8),
+              _mistakeRow(
+                context,
+                verb: shownVerb,
+                expectedSymbol: shownExpected,
+                predictedSymbol: shownPredicted,
+                ruleName: latest?.ruleName,
               ),
-              const Gap(10),
-              _statusArea(context, listening: listening, outcome: outcome),
-              const Gap(12),
-              // أثناء الاستماع يظهر المؤشر النابض بدل زر الإعادة.
-              AnimatedSwitcher(
-                duration: const Duration(milliseconds: 250),
-                transitionBuilder: (child, animation) => FadeTransition(
-                  opacity: animation,
-                  child: ScaleTransition(scale: animation, child: child),
-                ),
-                child: listening
-                    ? const SizedBox.shrink()
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CustomButton(
-                            isCustomSvgColor: true,
-                            svgPath: SvgPath.svgQuranMicrophone,
-                            tooltip: 'tasmeeRepeatWord'.tr,
-                            backgroundColor: Get.theme.primaryColorLight,
-                            svgColor: Get.theme.colorScheme.surface,
-                            onPressed: tasmee.startWordRetry,
-                          ),
-                          const Gap(16),
-                          CustomButton(
-                            isCustomSvgColor: true,
-                            svgPath: SvgPath.svgAudioNextIcon,
-                            tooltip: 'tasmeeSkipWord'.tr,
-                            svgColor: textColor,
-                            onPressed: sessionCtrl.skipWordCorrection,
-                          ),
-                        ],
-                      ),
-              ),
-              const Gap(16),
             ],
-          );
-        }),
-      ),
+            const Gap(12),
+            CustomButton(
+              isCustomSvgColor: true,
+              svgPath: SvgPath.svgAudioPlayWord,
+              tooltip: 'tasmeePlayWord'.tr,
+              svgColor: Get.theme.primaryColorLight,
+              onPressed: sessionCtrl.playCorrectionWordAudio,
+            ),
+            const Gap(10),
+            _statusArea(context, listening: listening, outcome: outcome),
+            const Gap(12),
+            // أثناء الاستماع يظهر المؤشر النابض بدل زر الإعادة.
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 250),
+              transitionBuilder: (child, animation) => FadeTransition(
+                opacity: animation,
+                child: ScaleTransition(scale: animation, child: child),
+              ),
+              child: listening
+                  ? const SizedBox.shrink()
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomButton(
+                          isCustomSvgColor: true,
+                          svgPath: SvgPath.svgQuranMicrophone,
+                          tooltip: 'tasmeeRepeatWord'.tr,
+                          backgroundColor: Get.theme.primaryColorLight,
+                          svgColor: Get.theme.colorScheme.surface,
+                          onPressed: tasmee.startWordRetry,
+                        ),
+                        const Gap(16),
+                        CustomButton(
+                          isCustomSvgColor: true,
+                          svgPath: SvgPath.svgAudioPreviousIcon,
+                          tooltip: 'tasmeeSkipWord'.tr,
+                          svgColor: Get.theme.primaryColorLight,
+                          onPressed: sessionCtrl.skipWordCorrection,
+                        ),
+                      ],
+                    ),
+            ),
+            const Gap(16),
+          ],
+        );
+      }),
     );
   }
 
@@ -110,7 +124,7 @@ class TasmeeWordCorrectionSheet extends StatelessWidget {
       child: Text(
         label,
         style: AppTextStyles.titleSmall(
-          fontSize: 12,
+          fontSize: 20,
           fontWeight: FontWeight.w700,
           color: context.theme.colorScheme.inversePrimary.withValues(alpha: .8),
         ),
@@ -119,9 +133,16 @@ class TasmeeWordCorrectionSheet extends StatelessWidget {
   }
 
   /// تفصيل الخطأ: نوعه (زيادة/نقصان/استبدال) والمتوقع مقابل المنطوق —
-  /// بشرائح الفونيمات نفسها المستخدمة في بطاقات الأخطاء.
-  Widget _mistakeRow(BuildContext context, TasmeeWordCorrection correction) {
-    final verb = switch (correction.errorType) {
+  /// بشرائح الفونيمات نفسها المستخدمة في بطاقات الأخطاء. الحقول من
+  /// خطأ التلاوة الأصلي أو من أحدث محاولة إعادة نطق (أيهما أحدث).
+  Widget _mistakeRow(
+    BuildContext context, {
+    required String verb,
+    String? expectedSymbol,
+    String? predictedSymbol,
+    String? ruleName,
+  }) {
+    final verbLabel = switch (verb) {
       'insert' => 'tasmeeInsert'.tr,
       'delete' => 'tasmeeDelete'.tr,
       _ => 'tasmeeReplace'.tr,
@@ -132,17 +153,22 @@ class TasmeeWordCorrectionSheet extends StatelessWidget {
       alignment: WrapAlignment.center,
       children: [
         _TasmeePhonemeChip(
-          label: verb,
+          label: verbLabel,
           color: context.theme.colorScheme.surface,
         ),
-        if (correction.expectedSymbol?.isNotEmpty == true)
+        if (ruleName?.isNotEmpty == true)
           _TasmeePhonemeChip(
-            label: '${'tasmeeExpected'.tr}: ${correction.expectedSymbol}',
+            label: ruleName!,
+            color: Get.theme.primaryColorLight,
+          ),
+        if (expectedSymbol?.isNotEmpty == true)
+          _TasmeePhonemeChip(
+            label: '${'tasmeeExpected'.tr}: $expectedSymbol',
             color: context.theme.primaryColorLight,
           ),
-        if (correction.predictedSymbol?.isNotEmpty == true)
+        if (predictedSymbol?.isNotEmpty == true)
           _TasmeePhonemeChip(
-            label: '${'tasmeeActual'.tr}: ${correction.predictedSymbol}',
+            label: '${'tasmeeActual'.tr}: $predictedSymbol',
             color: context.theme.colorScheme.surface,
           ),
       ],

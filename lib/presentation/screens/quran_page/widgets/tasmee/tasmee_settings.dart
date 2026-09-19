@@ -2,10 +2,10 @@ part of '../../quran.dart';
 
 /// إعدادات التسميع — إدارة نموذج التصحيح المحلي فقط (حالة/تنزيل/حذف).
 ///
-/// [TasmeeModelSettings] tasmee settings section: local model management.
+/// [TasmeeSettings] tasmee settings section: local model management.
 /// Stateless — المنطق في [TasmeeSettingsController] والواجهة تراقب Rx فقط.
-class TasmeeModelSettings extends StatelessWidget {
-  TasmeeModelSettings({super.key});
+class TasmeeSettings extends StatelessWidget {
+  TasmeeSettings({super.key});
 
   final tasmeeSettingsCtrl = TasmeeSettingsController.instance;
 
