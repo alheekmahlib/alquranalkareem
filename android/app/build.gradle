@@ -61,6 +61,7 @@ android {
     packaging {
         jniLibs {
             pickFirsts += ['lib/**/libonnxruntime.so']
+            excludes += ['lib/x86_64/**']
         }
     }
 

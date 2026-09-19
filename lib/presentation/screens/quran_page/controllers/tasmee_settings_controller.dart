@@ -8,7 +8,7 @@ import '../quran.dart';
 /// متحكم إعدادات التسميع — إدارة نموذج التصحيح المحلي (حالة/تنزيل/حذف)
 /// ودورة حياة جلسة التسميع في الواجهة (فتح ورقة النتائج تلقائيًا).
 ///
-/// المنطق يعيش هنا وليس في الواجهة: [TasmeeModelSettings] داخل
+/// المنطق يعيش هنا وليس في الواجهة: [TasmeeSettings] داخل
 /// mushaf_settings.dart و[TasmeeBarWidget] كلاهما Stateless ويراقبان
 /// حقول Rx فقط.
 class TasmeeSettingsController extends GetxController {

@@ -43,6 +43,10 @@ extension BottomSheetExtension on void {
       safeAreaMinimum: EdgeInsets.only(
         bottom: MediaQuery.viewInsetsOf(Get.context!).bottom,
       ),
+      mainContentPadding: EdgeInsets.only(
+        right: rightPadding ?? 8.0,
+        left: leftPadding ?? 8.0,
+      ),
       builder: (context) {
         // family_bottom_sheet ينفّذ الـ builder أثناء initState، فلا يجوز
         // قراءة MediaQuery/Theme هنا مباشرة؛ Builder يؤجّل القراءات لمرحلة البناء.

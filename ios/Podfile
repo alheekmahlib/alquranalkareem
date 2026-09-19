@@ -44,6 +44,9 @@ post_install do |installer|
           xcconfig = File.read(xcconfig_path)
           new_xcconfig = xcconfig.sub(' -l"sqlite3"', '')
           File.open(xcconfig_path, "w") { |file| file << new_xcconfig }
+          # Xcode 27 rejects deployment targets below 15.0; older plugin
+          # podspecs still declare 9.0-14.0 minimums.
+          config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
         end
       end
 

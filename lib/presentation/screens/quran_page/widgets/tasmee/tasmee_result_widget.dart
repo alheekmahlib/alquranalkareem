@@ -16,58 +16,55 @@ class TasmeeResultWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textColor = context.theme.colorScheme.inversePrimary;
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Obx(() {
-          final result = this.result ?? tasmee.state.lastResult.value;
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: TitleWidget(
-                      title: 'tasmeeResultTitle'.tr,
-                      horizontalPadding: 0.0,
-                    ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Obx(() {
+        final result = this.result ?? tasmee.state.lastResult.value;
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: TitleWidget(
+                    title: 'tasmeeResultTitle'.tr,
+                    horizontalPadding: 0.0,
                   ),
-                  _positionLabel(result, textColor),
-                ],
-              ),
-              const Gap(12),
-              if (result == null || !result.hasMatch)
-                _buildNoMatch(context)
-              else ...[
-                _buildSummaryBar(context, result),
-                const Gap(12),
-                if (result.isFullyCorrect)
-                  _buildSuccessRow(context)
-                else
-                  _buildErrorsList(context, result),
-              ],
-              const Gap(12),
-              // إخلاء المسؤولية (إلزامي — رخصة NPL-1.2) بنص الترخيص كما هو.
-              Text(
-                TasmeeStyle.defaults(
-                      isDark: themeCtrl.isDarkMode,
-                      context: context,
-                    ).disclaimer ??
-                    '',
-                textAlign: TextAlign.center,
-                style: AppTextStyles.bodySmall(
-                  fontSize: 11,
-                  color: textColor.withValues(alpha: .7),
                 ),
-              ),
-              const Gap(16),
+                _positionLabel(result, textColor),
+              ],
+            ),
+            const Gap(12),
+            if (result == null || !result.hasMatch)
+              _buildNoMatch(context, result)
+            else ...[
+              _buildSummaryBar(context, result),
+              const Gap(12),
+              if (result.isFullyCorrect)
+                _buildSuccessRow(context)
+              else
+                _buildErrorsList(context, result),
             ],
-          );
-        }),
-      ),
+            const Gap(12),
+            // إخلاء المسؤولية (إلزامي — رخصة NPL-1.2) بنص الترخيص كما هو.
+            Text(
+              TasmeeStyle.defaults(
+                    isDark: themeCtrl.isDarkMode,
+                    context: context,
+                  ).disclaimer ??
+                  '',
+              textAlign: TextAlign.center,
+              style: AppTextStyles.bodySmall(
+                fontSize: 11,
+                color: textColor.withValues(alpha: .7),
+              ),
+            ),
+            const Gap(16),
+          ],
+        );
+      }),
     );
   }
 
@@ -98,8 +95,16 @@ class TasmeeResultWidget extends StatelessWidget {
   }
 
   /// عرض عدم التعرف على التلاوة.
-  Widget _buildNoMatch(BuildContext context) {
+  Widget _buildNoMatch(BuildContext context, RecitationResult? result) {
     final incorrectColor = context.theme.colorScheme.surface;
+    // رسالة المصدر الأدق أولًا: noMatchMessage من المحرك (مثل صمت
+    // الميكروفون) ثم lastError ثم النص العام.
+    final message =
+        result?.noMatchMessage ??
+        (tasmee.state.lastError.value.isEmpty
+            ? null
+            : tasmee.state.lastError.value) ??
+        'tasmeeNoMatch'.tr;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 24),
       child: Column(
@@ -108,9 +113,7 @@ class TasmeeResultWidget extends StatelessWidget {
           Icon(Icons.search_off_rounded, size: 48, color: incorrectColor),
           const Gap(8),
           Text(
-            tasmee.state.lastError.value.isEmpty
-                ? 'tasmeeNoMatch'.tr
-                : tasmee.state.lastError.value,
+            message,
             textAlign: TextAlign.center,
             style: AppTextStyles.bodySmall(
               fontSize: 13,
