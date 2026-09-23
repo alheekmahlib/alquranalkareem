@@ -519,10 +519,10 @@ packages:
     dependency: "direct main"
     description:
       name: file_picker
-      sha256: ab13ae8ef5580a411c458d6207b6774a6c237d77ac37011b13994879f68a8810
+      sha256: "29cc1fdb20613876cc7afc529738c1c0f11a9ca159b010edad0c566ac330847e"
       url: "https://pub.dev"
     source: hosted
-    version: "8.3.7"
+    version: "11.0.3"
   fixnum:
     dependency: transitive
     description:
@@ -588,10 +588,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_cache_manager
-      sha256: c83155858f880f731d1bde683bfedb0f1dabb3da0a0f3cd0b900bab5c961c21d
+      sha256: f94fc6f5480977e3eb7b622ed488f671ba96c971bd0e274e6bd0f0ba9b044816
       url: "https://pub.dev"
     source: hosted
-    version: "3.4.4"
+    version: "3.4.5"
   flutter_dotenv:
     dependency: "direct main"
     description:
@@ -763,10 +763,10 @@ packages:
     dependency: "direct main"
     description:
       name: get_it
-      sha256: "568d62f0e68666fb5d95519743b3c24a34c7f19d834b0658c46e26d778461f66"
+      sha256: "2b5c6b077aad30bba9782178baff6076a2044141f1d5f2f15b43bca3fbe74874"
       url: "https://pub.dev"
     source: hosted
-    version: "9.2.1"
+    version: "9.3.0"
   get_storage:
     dependency: "direct main"
     description:
@@ -1341,10 +1341,10 @@ packages:
     dependency: "direct main"
     description:
       name: quran_library
-      sha256: c323a0d0c79294d63f056cb85c0e49d0ffa582362b848a001aa2f220d9b1ecbd
+      sha256: "982801ca1798f901f160efb6e0b996129efe3fabc469c58aeef6cf1a098a7c04"
       url: "https://pub.dev"
     source: hosted
-    version: "4.4.2"
+    version: "5.0.1"
   read_more_less:
     dependency: "direct main"
     description:

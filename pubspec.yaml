@@ -3,7 +3,7 @@ description: Al-Quran Al-Kareem - Al-Heekmah Library.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 5.5.0+123
+version: 5.5.1+124
 
 environment:
   sdk: '>=3.12.2 <4.0.0'
@@ -39,14 +39,14 @@ dependencies:
   either_dart: ^1.0.0
   expansion_tile_card: ^3.0.0
   family_bottom_sheet: ^0.1.0
-  file_picker: ^8.0.0
+  file_picker: ^11.0.3
   flex_color_picker: ^3.8.0
   flexible_sheet: ^1.0.0+2
   floating_menu_expendable: ^1.1.1
   flutter:
     sdk: flutter
   flutter_app_info: ^3.0.3
-  flutter_cache_manager: ^3.4.4
+  flutter_cache_manager: ^3.4.5
   flutter_dotenv: ^6.0.1
   flutter_launcher_icons: ^0.14.4
   flutter_localizations:
@@ -63,7 +63,7 @@ dependencies:
   flutter_timezone: ^5.1.0
   gap: ^3.0.1
   get: ^4.7.3
-  get_it: ^9.2.1
+  get_it: ^9.3.0
   get_storage: 2.1.1
   glob: ^2.2.0
   hijri_date: ^1.1.0
@@ -85,7 +85,7 @@ dependencies:
   path_provider: ^2.1.6
   pretty_qr_code: ^3.6.0
   qr_flutter: ^4.1.0
-  quran_library: ^4.4.2
+  quran_library: ^5.0.1
     # path: ../quran_library
   read_more_less: ^1.0.1
   rxdart: ^0.28.0

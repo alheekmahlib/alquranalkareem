@@ -40,7 +40,7 @@ class FeedbackThreadScreen extends StatelessWidget {
           'my_feedback'.tr,
           style: AppTextStyles.titleLarge(
             color: colorScheme.inversePrimary,
-            fontSize: 20.sp,
+            fontSize: 20,
           ),
         ),
       ),
@@ -54,7 +54,7 @@ class FeedbackThreadScreen extends StatelessWidget {
           style: AppTextStyles.titleMedium(
             color: colorScheme.secondary,
             fontWeight: FontWeight.w700,
-            fontSize: 14.sp,
+            fontSize: 14,
           ),
         ),
       ),
@@ -69,11 +69,11 @@ class FeedbackThreadScreen extends StatelessWidget {
           return RefreshIndicator(
             onRefresh: _c.loadAllThreads,
             child: ListView.separated(
-              padding: EdgeInsets.fromLTRB(
-                16.w,
-                8.h,
-                16.w,
-                96.h,
+              padding: const EdgeInsets.fromLTRB(
+                16,
+                8,
+                16,
+                96,
               ), // مساحة للـ FAB
               itemCount: _c.threads.length,
               separatorBuilder: (_, __) => Gap(10.h),
@@ -127,7 +127,7 @@ class FeedbackThreadScreen extends StatelessWidget {
               textAlign: TextAlign.center,
               style: AppTextStyles.titleMedium(
                 color: colorScheme.inversePrimary.withValues(alpha: 0.7),
-                fontSize: 16.sp,
+                fontSize: 16,
               ),
             ),
             Gap(20.h),
@@ -140,7 +140,7 @@ class FeedbackThreadScreen extends StatelessWidget {
               backgroundColor: colorScheme.surface,
               titleColor: colorScheme.secondary,
               height: 46,
-              width: 200.w,
+              width: 200,
             ),
           ],
         ),
@@ -167,12 +167,12 @@ class _FeedbackCard extends StatelessWidget {
       color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(12.r),
+        borderRadius: BorderRadius.circular(12),
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 12.h),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
           decoration: BoxDecoration(
             color: colorScheme.surface.withValues(alpha: 0.08),
-            borderRadius: BorderRadius.circular(12.r),
+            borderRadius: BorderRadius.circular(12),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -180,19 +180,19 @@ class _FeedbackCard extends StatelessWidget {
               Row(
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 8.w,
-                      vertical: 2.h,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 2,
                     ),
                     decoration: BoxDecoration(
                       color: color,
-                      borderRadius: BorderRadius.circular(8.r),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
                       label,
                       style: AppTextStyles.titleSmall(
                         color: Colors.white,
-                        fontSize: 11.sp,
+                        fontSize: 11,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -204,41 +204,41 @@ class _FeedbackCard extends StatelessWidget {
                       children: [
                         Icon(
                           Icons.chat_bubble_outline,
-                          size: 14.sp,
+                          size: 14,
                           color: colorScheme.inversePrimary.withValues(
                             alpha: 0.6,
                           ),
                         ),
-                        Gap(4.w),
+                        const Gap(4),
                         Text(
                           '$adminCount',
                           style: AppTextStyles.titleSmall(
                             color: colorScheme.inversePrimary.withValues(
                               alpha: 0.6,
                             ),
-                            fontSize: 12.sp,
+                            fontSize: 12,
                           ),
                         ),
                       ],
                     ),
                 ],
               ),
-              Gap(8.h),
+              const Gap(8),
               Text(
                 preview,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: AppTextStyles.titleMedium(
                   color: colorScheme.inversePrimary,
-                  fontSize: 15.sp,
+                  fontSize: 15,
                 ),
               ),
-              Gap(6.h),
+              const Gap(6),
               Text(
                 f.createdAt,
                 style: AppTextStyles.titleSmall(
                   color: colorScheme.inversePrimary.withValues(alpha: 0.5),
-                  fontSize: 11.sp,
+                  fontSize: 11,
                 ),
               ),
             ],
