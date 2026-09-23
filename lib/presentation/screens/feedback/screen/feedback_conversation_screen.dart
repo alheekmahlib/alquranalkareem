@@ -33,7 +33,7 @@ class FeedbackConversationScreen extends StatelessWidget {
           'my_feedback'.tr,
           style: AppTextStyles.titleLarge(
             color: colorScheme.inversePrimary,
-            fontSize: 20.sp,
+            fontSize: 20,
           ),
         ),
       ),
@@ -76,12 +76,12 @@ class FeedbackConversationScreen extends StatelessWidget {
             label,
             style: AppTextStyles.titleSmall(
               color: Colors.white,
-              fontSize: 12.sp,
+              fontSize: 12,
               fontWeight: FontWeight.w700,
             ),
           ),
           backgroundColor: color,
-          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
           visualDensity: VisualDensity.compact,
         ),
       ),
@@ -124,7 +124,7 @@ class FeedbackConversationScreen extends StatelessWidget {
       ),
     ];
     return ListView.builder(
-      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       itemCount: items.length,
       itemBuilder: (context, index) => _ChatBubble(item: items[index]),
     );
@@ -134,7 +134,7 @@ class FeedbackConversationScreen extends StatelessWidget {
     final colorScheme = context.theme.colorScheme;
     final replyCtrl = TextEditingController();
     return Container(
-      padding: EdgeInsets.fromLTRB(12.w, 8.h, 12.w, 8.h),
+      padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
       decoration: BoxDecoration(
         color: colorScheme.surface.withValues(alpha: 0.08),
         border: Border(
@@ -150,21 +150,21 @@ class FeedbackConversationScreen extends StatelessWidget {
               maxLines: 4,
               style: AppTextStyles.titleMedium(
                 color: colorScheme.inversePrimary,
-                fontSize: 15.sp,
+                fontSize: 15,
               ),
               decoration: InputDecoration(
                 isDense: true,
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 12.w,
-                  vertical: 8.h,
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
                 ),
                 hintText: 'feedback_reply_hint'.tr,
                 hintStyle: AppTextStyles.titleMedium(
                   color: colorScheme.inversePrimary.withValues(alpha: 0.5),
-                  fontSize: 15.sp,
+                  fontSize: 15,
                 ),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12.r),
+                  borderRadius: BorderRadius.circular(12),
                   borderSide: BorderSide.none,
                 ),
                 filled: true,
@@ -180,8 +180,8 @@ class FeedbackConversationScreen extends StatelessWidget {
                   : () => _sendReply(context, replyCtrl),
               icon: _c.isReplying.value
                   ? SizedBox(
-                      width: 20.w,
-                      height: 20.w,
+                      width: 20,
+                      height: 20,
                       child: CircularProgressIndicator(
                         strokeWidth: 2,
                         valueColor: AlwaysStoppedAnimation<Color>(
@@ -189,7 +189,7 @@ class FeedbackConversationScreen extends StatelessWidget {
                         ),
                       ),
                     )
-                  : Icon(Icons.send, color: colorScheme.primary, size: 24.sp),
+                  : Icon(Icons.send, color: colorScheme.primary, size: 24),
             ),
           ),
         ],
@@ -260,12 +260,12 @@ class _ChatBubble extends StatelessWidget {
     return Align(
       alignment: align,
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 4.h),
-        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
-        constraints: BoxConstraints(maxWidth: 280.w),
+        margin: const EdgeInsets.symmetric(vertical: 4),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        constraints: const BoxConstraints(maxWidth: 280),
         decoration: BoxDecoration(
           color: bg,
-          borderRadius: BorderRadius.circular(12.r),
+          borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -274,7 +274,7 @@ class _ChatBubble extends StatelessWidget {
               roleLabel,
               style: AppTextStyles.titleSmall(
                 color: colorScheme.inversePrimary.withValues(alpha: 0.6),
-                fontSize: 11.sp,
+                fontSize: 11,
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -284,7 +284,7 @@ class _ChatBubble extends StatelessWidget {
                 item.body,
                 style: AppTextStyles.titleMedium(
                   color: colorScheme.inversePrimary,
-                  fontSize: 15.sp,
+                  fontSize: 15,
                 ),
                 textAlign: TextAlign.start,
               ),
@@ -298,7 +298,7 @@ class _ChatBubble extends StatelessWidget {
                 time,
                 style: AppTextStyles.titleSmall(
                   color: colorScheme.inversePrimary.withValues(alpha: 0.5),
-                  fontSize: 10.sp,
+                  fontSize: 10,
                 ),
               ),
             ],

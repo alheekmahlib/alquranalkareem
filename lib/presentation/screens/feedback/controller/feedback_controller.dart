@@ -517,7 +517,7 @@ class FeedbackController extends GetxController {
     if (selectedFiles.length >= maxFiles) return 'feedback_max_files';
 
     try {
-      final result = await FilePicker.platform.pickFiles(
+      final result = await FilePicker.pickFiles(
         type: FileType.image,
         allowMultiple: true,
         withData: false,
@@ -550,7 +550,7 @@ class FeedbackController extends GetxController {
     if (selectedFiles.length >= maxFiles) return 'feedback_max_files';
 
     try {
-      final result = await FilePicker.platform.pickFiles(
+      final result = await FilePicker.pickFiles(
         type: FileType.video,
         allowMultiple: false,
         withData: false,
