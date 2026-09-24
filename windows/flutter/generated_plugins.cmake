@@ -4,7 +4,9 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   awesome_notifications
+  camera_desktop
   connectivity_plus
+  file_selector_windows
   flutter_onnxruntime
   flutter_timezone
   multi_store_review
@@ -14,6 +16,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST
+  flutter_zxing
   jni
   sherpa_onnx_windows
 )

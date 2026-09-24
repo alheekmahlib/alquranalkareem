@@ -38,19 +38,22 @@ class _PairedView extends StatelessWidget {
             ),
           ),
           const Gap(8),
-          Row(
-            children: [
-              _InfoCard(
-                label: 'devicesConnected'.tr,
-                value: '${syncCtrl.deviceCount.value}'
-                    .convertNumbersToCurrentLang(),
-              ),
-              context.vDivider(),
-              _InfoCard(
-                label: 'lastSync'.tr,
-                value: _formatLastSync(syncCtrl.lastSyncAt.value),
-              ),
-            ],
+          // بلا Obx لا تُعاد بناء البطاقات بعد أي مزامنة (يدوية أو دورية).
+          Obx(
+            () => Row(
+              children: [
+                _InfoCard(
+                  label: 'devicesConnected'.tr,
+                  value: '${syncCtrl.deviceCount.value}'
+                      .convertNumbersToCurrentLang(),
+                ),
+                context.vDivider(),
+                _InfoCard(
+                  label: 'lastSync'.tr,
+                  value: _formatLastSync(syncCtrl.lastSyncAt.value),
+                ),
+              ],
+            ),
           ),
           const Gap(16),
           _copyAndSyncButtons(syncCtrl, context),
@@ -94,19 +97,21 @@ class _PairedView extends StatelessWidget {
             child: Column(
               mainAxisAlignment: .center,
               children: [
-                Row(
-                  children: [
-                    _InfoCard(
-                      label: 'devicesConnected'.tr,
-                      value: '${syncCtrl.deviceCount.value}'
-                          .convertNumbersToCurrentLang(),
-                    ),
-                    context.vDivider(),
-                    _InfoCard(
-                      label: 'lastSync'.tr,
-                      value: _formatLastSync(syncCtrl.lastSyncAt.value),
-                    ),
-                  ],
+                Obx(
+                  () => Row(
+                    children: [
+                      _InfoCard(
+                        label: 'devicesConnected'.tr,
+                        value: '${syncCtrl.deviceCount.value}'
+                            .convertNumbersToCurrentLang(),
+                      ),
+                      context.vDivider(),
+                      _InfoCard(
+                        label: 'lastSync'.tr,
+                        value: _formatLastSync(syncCtrl.lastSyncAt.value),
+                      ),
+                    ],
+                  ),
                 ),
                 const Gap(8),
                 _copyAndSyncButtons(syncCtrl, context),

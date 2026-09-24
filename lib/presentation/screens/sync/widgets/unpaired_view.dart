@@ -81,6 +81,7 @@ class _UnpairedView extends StatelessWidget {
                 : () async {
                     final scanned = await Get.to<String?>(
                       () => const SyncScannerScreen(),
+                      binding: SyncScannerBinding(),
                       transition: Transition.downToUp,
                     );
                     if (scanned != null && scanned.isNotEmpty) {

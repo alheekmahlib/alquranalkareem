@@ -23,6 +23,22 @@ void main() {
     });
   });
 
+  group('SyncLogic.isLikelyRoomCode', () {
+    test('يقبل رابط deep-link الكامل ورمز الخام الطويل', () {
+      expect(
+        SyncLogic.isLikelyRoomCode('alquranalkareem://sync?room=AbCdEf1234'),
+        isTrue,
+      );
+      expect(SyncLogic.isLikelyRoomCode('AbCdEf1234567890'), isTrue);
+    });
+
+    test('يرفض القراءات العرضية القصيرة', () {
+      expect(SyncLogic.isLikelyRoomCode('123456789'), isFalse);
+      expect(SyncLogic.isLikelyRoomCode('  '), isFalse);
+      expect(SyncLogic.isLikelyRoomCode('  short  '), isFalse);
+    });
+  });
+
   group('SyncLogic.sortParentsFirst', () {
     test('يقدم الخطط على أيامها ويحافظ على ترتيب البقية', () {
       final items = [
