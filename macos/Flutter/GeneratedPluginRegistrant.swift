@@ -11,7 +11,7 @@ import awesome_notifications
 import camera_desktop
 import connectivity_plus
 import device_info_plus
-import file_picker
+import file_picker_darwin
 import file_selector_macos
 import flutter_onnxruntime
 import flutter_timezone
