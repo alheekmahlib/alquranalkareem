@@ -111,6 +111,7 @@ dependency_overrides:
       url: https://github.com/alheekmahlib/multi_store_review.git
       path: multi_store_review_platform_interface
       ref: multi_store_review_platform_interface-v2.2.0
+  path_provider_android: 2.2.22
 
 dev_dependencies:
   app_name_localizer: ^1.0.5
