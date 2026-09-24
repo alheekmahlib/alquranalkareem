@@ -517,14 +517,12 @@ class FeedbackController extends GetxController {
     if (selectedFiles.length >= maxFiles) return 'feedback_max_files';
 
     try {
-      final result = await FilePicker.pickFiles(
-        type: FileType.image,
-        allowMultiple: true,
-        withData: false,
-      );
-      if (result == null || result.files.isEmpty) return null; // ألغى المستخدم
+      // منذ file_picker v13: pickFiles تُرجع List<PlatformFile> مباشرة
+      // (قائمة فارغة عند الإلغاء) والاختيار المتعدد هو السلوك الافتراضي.
+      final files = await FilePicker.pickFiles(type: FileType.image);
+      if (files.isEmpty) return null; // ألغى المستخدم
 
-      for (final pf in result.files) {
+      for (final pf in files) {
         if (selectedFiles.length >= maxFiles) break;
         final path = pf.path;
         if (path == null || path.isEmpty) continue;
@@ -533,7 +531,7 @@ class FeedbackController extends GetxController {
         if (!_allowedImageExts.contains(ext)) {
           return 'feedback_invalid_type';
         }
-        if (pf.size > _maxImageBytes) {
+        if ((pf.lengthSync() ?? 0) > _maxImageBytes) {
           return 'feedback_file_too_large';
         }
         selectedFiles.add(File(path));
@@ -550,14 +548,10 @@ class FeedbackController extends GetxController {
     if (selectedFiles.length >= maxFiles) return 'feedback_max_files';
 
     try {
-      final result = await FilePicker.pickFiles(
-        type: FileType.video,
-        allowMultiple: false,
-        withData: false,
-      );
-      if (result == null || result.files.isEmpty) return null; // ألغى المستخدم
+      // pickFile (جديد في v13) لاختيار ملف واحد — تُرجع null عند الإلغاء.
+      final pf = await FilePicker.pickFile(type: FileType.video);
+      if (pf == null) return null; // ألغى المستخدم
 
-      final pf = result.files.first;
       final path = pf.path;
       if (path == null || path.isEmpty) return null;
       final ext = _extension(path);
@@ -565,7 +559,7 @@ class FeedbackController extends GetxController {
       if (!_allowedVideoExts.contains(ext)) {
         return 'feedback_invalid_type';
       }
-      if (pf.size > _maxVideoBytes) {
+      if ((pf.lengthSync() ?? 0) > _maxVideoBytes) {
         return 'feedback_file_too_large';
       }
       selectedFiles.add(File(path));

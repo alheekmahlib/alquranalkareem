@@ -26,6 +26,14 @@ linter:
      prefer_const_constructors : true
 #     prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
 analyzer:
+  exclude:
+    - build/**
+    - android/**
+    - ios/**
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**
   strong-mode:
     implicit-casts: false
 #    implicit-dynamic: false
