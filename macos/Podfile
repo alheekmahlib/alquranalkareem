@@ -39,6 +39,14 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_macos_build_settings(target)
+    # flutter_zxing resolves its FFI symbols at runtime via
+    # DynamicLibrary.process(); with static linkage the linker dead-strips
+    # the unreferenced archive, so build it dynamic to keep symbols exported.
+    if target.name == 'flutter_zxing'
+      target.build_configurations.each do |config|
+        config.build_settings['MACH_O_TYPE'] = 'mh_dylib'
+      end
+    end
     target.build_configurations.each do |config|
       config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
       # Xcode 27 rejects deployment targets below 12.0; plugin podspecs still
@@ -48,6 +56,25 @@ post_install do |installer|
       # resolution of static-framework plugin modules during Archive.
       config.build_settings['CLANG_ENABLE_EXPLICIT_MODULES'] = 'NO'
       config.build_settings['SWIFT_ENABLE_EXPLICIT_MODULES'] = 'NO'
+    end
+  end
+end
+
+post_integrate do |installer|
+  # With static linkage CocoaPods omits the embed call for flutter_zxing
+  # (built dynamic above); (re)append it so the framework lands in the bundle.
+  sh_path = File.join(
+    installer.sandbox.target_support_files_root.to_s,
+    'Pods-Runner',
+    'Pods-Runner-frameworks.sh',
+  )
+  if File.exist?(sh_path)
+    content = File.read(sh_path)
+    unless content.include?('flutter_zxing.framework')
+      File.write(
+        sh_path,
+        content + "\ninstall_framework \"flutter_zxing/flutter_zxing.framework\"\n",
+      )
     end
   end
 end

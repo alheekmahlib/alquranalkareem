@@ -39,6 +39,14 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
+    # flutter_zxing resolves its FFI symbols at runtime via
+    # DynamicLibrary.process(); with static linkage the linker dead-strips
+    # the unreferenced archive, so build it dynamic to keep symbols exported.
+    if target.name == 'flutter_zxing'
+      target.build_configurations.each do |config|
+        config.build_settings['MACH_O_TYPE'] = 'mh_dylib'
+      end
+    end
     target.build_configurations.each do |config|
           xcconfig_path = config.base_configuration_reference.real_path
           xcconfig = File.read(xcconfig_path)
@@ -55,6 +63,25 @@ post_install do |installer|
   require awesome_pod_file
   update_awesome_pod_build_settings(installer)
   ################  Awesome Notifications pod modification 1 ###################
+end
+
+post_integrate do |installer|
+  # With static linkage CocoaPods omits the embed call for flutter_zxing
+  # (built dynamic above); (re)append it so the framework lands in the bundle.
+  sh_path = File.join(
+    installer.sandbox.target_support_files_root.to_s,
+    'Pods-Runner',
+    'Pods-Runner-frameworks.sh',
+  )
+  if File.exist?(sh_path)
+    content = File.read(sh_path)
+    unless content.include?('flutter_zxing.framework')
+      File.write(
+        sh_path,
+        content + "\ninstall_framework \"flutter_zxing/flutter_zxing.framework\"\n",
+      )
+    end
+  end
 end
 
 ################  Awesome Notifications pod modification 2 ###################

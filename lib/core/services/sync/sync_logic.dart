@@ -20,6 +20,13 @@ class SyncLogic {
     return trimmed;
   }
 
+  /// مسند أولي سريع لمخرجات المسح قبل الدخول في مسار الانضمام:
+  /// رابط deep-link كامل أو رمز خام بطول معقول — يستبعد القراءات العرضية.
+  static bool isLikelyRoomCode(String input) {
+    final trimmed = input.trim();
+    return trimmed.startsWith(SyncConstants.qrPrefix) || trimmed.length >= 10;
+  }
+
   /// يرتب عناصر المزامنة بحيث تسبق الخطة (الأب) أيامها (الأبناء)
   /// فيجدها الجهاز المستقبل قبل أيامها عند التطبيق.
   static List<SyncChange> sortParentsFirst(List<SyncChange> items) {

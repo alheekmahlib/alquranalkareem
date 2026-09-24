@@ -10,6 +10,8 @@ PODS:
   - background_fetch (1.7.0):
     - Flutter
     - TSBackgroundFetch (~> 4.1.0)
+  - camera_avfoundation (0.0.1):
+    - Flutter
   - connectivity_plus (0.0.1):
     - Flutter
   - device_info_plus (0.0.1):
@@ -54,13 +56,14 @@ PODS:
     - onnxruntime-objc (= 1.23.0)
   - flutter_timezone (0.0.1):
     - Flutter
+  - flutter_zxing (3.0.1):
+    - Flutter
   - home_widget (0.0.1):
+    - Flutter
+  - image_picker_ios (0.0.1):
     - Flutter
   - IosAwnCore (0.12.1)
   - just_audio (0.0.1):
-    - Flutter
-    - FlutterMacOS
-  - mobile_scanner (7.0.0):
     - Flutter
     - FlutterMacOS
   - multi_store_review (2.2.0):
@@ -102,15 +105,17 @@ DEPENDENCIES:
   - audio_session (from `.symlinks/plugins/audio_session/ios`)
   - awesome_notifications (from `.symlinks/plugins/awesome_notifications/ios`)
   - background_fetch (from `.symlinks/plugins/background_fetch/ios`)
+  - camera_avfoundation (from `.symlinks/plugins/camera_avfoundation/darwin`)
   - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
   - Flutter (from `Flutter`)
   - flutter_onnxruntime (from `.symlinks/plugins/flutter_onnxruntime/ios`)
   - flutter_timezone (from `.symlinks/plugins/flutter_timezone/ios`)
+  - flutter_zxing (from `.symlinks/plugins/flutter_zxing/ios`)
   - home_widget (from `.symlinks/plugins/home_widget/ios`)
+  - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - just_audio (from `.symlinks/plugins/just_audio/darwin`)
-  - mobile_scanner (from `.symlinks/plugins/mobile_scanner/darwin`)
   - multi_store_review (from `.symlinks/plugins/multi_store_review/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - record_ios (from `.symlinks/plugins/record_ios/ios`)
@@ -142,6 +147,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/awesome_notifications/ios"
   background_fetch:
     :path: ".symlinks/plugins/background_fetch/ios"
+  camera_avfoundation:
+    :path: ".symlinks/plugins/camera_avfoundation/darwin"
   connectivity_plus:
     :path: ".symlinks/plugins/connectivity_plus/ios"
   device_info_plus:
@@ -154,12 +161,14 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_onnxruntime/ios"
   flutter_timezone:
     :path: ".symlinks/plugins/flutter_timezone/ios"
+  flutter_zxing:
+    :path: ".symlinks/plugins/flutter_zxing/ios"
   home_widget:
     :path: ".symlinks/plugins/home_widget/ios"
+  image_picker_ios:
+    :path: ".symlinks/plugins/image_picker_ios/ios"
   just_audio:
     :path: ".symlinks/plugins/just_audio/darwin"
-  mobile_scanner:
-    :path: ".symlinks/plugins/mobile_scanner/darwin"
   multi_store_review:
     :path: ".symlinks/plugins/multi_store_review/ios"
   package_info_plus:
@@ -186,6 +195,7 @@ SPEC CHECKSUMS:
   audio_session: 9bb7f6c970f21241b19f5a3658097ae459681ba0
   awesome_notifications: e52a8e6a8cdaca4edbd31f38f345305a377445c5
   background_fetch: b273c4b6911fc2e309790b46b5658b7edc40b73b
+  camera_avfoundation: 968a9a5323c79a99c166ad9d7866bfd2047b5a9b
   connectivity_plus: cb623214f4e1f6ef8fe7403d580fdad517d2f7dd
   device_info_plus: 21fcca2080fbcd348be798aa36c3e5ed849eefbe
   DKImagePickerController: 946cec48c7873164274ecc4624d19e3da4c1ef3c
@@ -194,10 +204,11 @@ SPEC CHECKSUMS:
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   flutter_onnxruntime: 5c16abbb94ec57759a244095eb62cab0eaab312c
   flutter_timezone: 7c838e17ffd4645d261e87037e5bebf6d38fe544
+  flutter_zxing: f3a9ba9f546fa9d84a8e14734efee8899ab361dc
   home_widget: 54b4f6b36ed8d64cfee594a476225c35c3e45091
+  image_picker_ios: e0ece4aa2a75771a7de3fa735d26d90817041326
   IosAwnCore: ea91b2d2ee2fd3236748e1b9cdc16194f9558327
   just_audio: 4e391f57b79cad2b0674030a00453ca5ce817eed
-  mobile_scanner: 9157936403f5a0644ca3779a38ff8404c5434a93
   multi_store_review: 8bf5de39f8c9d8c101b3ccb71547f2942bb81bbf
   onnxruntime-c: 3174c63a963d9abbc2bf9627e3d622819c0ed5f7
   onnxruntime-objc: 1254d12f8160e562e7693ff17f5aa3dd17dc409e
@@ -214,6 +225,6 @@ SPEC CHECKSUMS:
   video_player_avfoundation: 3453f792138786248960ca029747fcd9f318ef52
   wakelock_plus: e29112ab3ef0b318e58cfa5c32326458be66b556
 
-PODFILE CHECKSUM: 36c39b74d50c40e6e2c0809177fc2b4d44a2ef13
+PODFILE CHECKSUM: 21c49f40ee1b8fc34300c22da19ddba047a4874b
 
 COCOAPODS: 1.16.2
