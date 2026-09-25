@@ -27,7 +27,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
   FlutterWindow window(project);
   Win32Window::Point origin(10, 10);
   Win32Window::Size size(1280, 720);
-  if (!window.Create(L"القرآن الكريم - مكتبة الحكمة", origin, size)) {
+  // العنوان مكتوب برموز \u الهروبية لأن MSVC قد يسيء تفسير المحارف العربية
+  // الحرفية إذا حُفظ الملف بترميز مختلف عن UTF-8 مع BOM، فتظهر رموز عشوائية.
+  // "القرآن الكريم - مكتبة الحكمة"
+  const wchar_t kWindowTitle[] =
+      L"\u0627\u0644\u0642\u0631\u0622\u0646 \u0627\u0644\u0643\u0631\u064A"
+      L"\u0645 - \u0645\u0643\u062A\u0628\u0629 \u0627\u0644\u062D\u0643"
+      L"\u0645\u0629";
+  if (!window.Create(kWindowTitle, origin, size)) {
     return EXIT_FAILURE;
   }
   window.SetQuitOnClose(true);

@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.alheekmah.alquranalkareem.alquranalkareem" "\0"
-            VALUE "FileDescription", "alquranalkareem" "\0"
+            VALUE "CompanyName", "Al Heekmah Library" "\0"
+            VALUE "FileDescription", "Al Quran Al Kareem - Al Heekmah Library" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "alquranalkareem" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2023 com.alheekmah.alquranalkareem.alquranalkareem. All rights reserved." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2026 Al Heekmah Library. All rights reserved." "\0"
             VALUE "OriginalFilename", "alquranalkareem.exe" "\0"
-            VALUE "ProductName", "alquranalkareem" "\0"
+            VALUE "ProductName", "Al Quran Al Kareem - Al Heekmah Library" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

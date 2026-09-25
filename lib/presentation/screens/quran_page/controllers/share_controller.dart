@@ -4,7 +4,7 @@ class ShareController extends GetxController {
   static ShareController get instance =>
       GetInstance().putOrFind(() => ShareController());
 
-  final ScreenshotController ayahScreenController = ScreenshotController();
+  // final ScreenshotController ayahScreenController = ScreenshotController();
   final ScreenshotController tafseerScreenController = ScreenshotController();
   Uint8List? ayahToImageBytes;
   Uint8List? tafseerToImageBytes;
@@ -15,17 +15,17 @@ class ShareController extends GetxController {
   ArabicNumbers arabicNumber = ArabicNumbers();
   final box = GetStorage();
 
-  Future<void> createAndShowVerseImage() async {
-    try {
-      final Uint8List? imageBytes = await ayahScreenController.capture(
-        pixelRatio: 7,
-      );
-      ayahToImageBytes = imageBytes;
-      update();
-    } catch (e) {
-      debugPrint('Error capturing verse image: $e');
-    }
-  }
+  // Future<void> createAndShowVerseImage() async {
+  //   try {
+  //     final Uint8List? imageBytes = await ayahScreenController.capture(
+  //       pixelRatio: 7,
+  //     );
+  //     ayahToImageBytes = imageBytes;
+  //     update();
+  //   } catch (e) {
+  //     debugPrint('Error capturing verse image: $e');
+  //   }
+  // }
 
   Future<void> createAndShowTafseerImage() async {
     try {

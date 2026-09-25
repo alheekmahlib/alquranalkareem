@@ -19,13 +19,18 @@ class VerseImageCreator extends StatelessWidget {
   /// عند `null` أو فارغة يُعرض آية واحدة فقط.
   final List<AyahModel>? extraAyahs;
 
-  final ayahToImage = ShareController.instance;
+  /// متحكم التقاط خاص بهذه المعاينة. لا يُستخدم متحكم مشترك هنا حتى لا
+  /// تتضارب الـ GlobalKey إذا ظهرت أكثر من معاينة في الشجرة في نفس الوقت
+  /// (مثل تكديس صفحات family_bottom_sheet).
+  final ScreenshotController controller;
+
   VerseImageCreator({
     super.key,
     required this.ayah,
     required this.surah,
     this.extraAyahs,
-  });
+    ScreenshotController? controller,
+  }) : controller = controller ?? ScreenshotController();
 
   /// كل الآيات المعروضة (الأولى + الإضافية)
   List<AyahModel> get _allAyahs => extraAyahs == null || extraAyahs!.isEmpty
@@ -35,7 +40,7 @@ class VerseImageCreator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Screenshot(
-      controller: ayahToImage.ayahScreenController,
+      controller: controller,
       child: buildVerseImageWidget(context: context),
     );
   }

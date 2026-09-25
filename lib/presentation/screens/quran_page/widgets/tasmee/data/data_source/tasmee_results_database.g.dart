@@ -1257,7 +1257,16 @@ class $$TasmeeResultsTableTableManager
                 errorsJson: errorsJson,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable<$TasmeeResultsTable, TasmeeResult>(table),
+                  BaseReferences<
+                    _$TasmeeResultsDatabase,
+                    $TasmeeResultsTable,
+                    TasmeeResult
+                  >(db, table, e),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: null,
         ),

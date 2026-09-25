@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:quran_library/quran.dart';
+import 'package:screenshot/screenshot.dart';
 
 import '/core/utils/constants/extensions/bottom_sheet_extension.dart';
 import '/core/widgets/container_button.dart';
@@ -263,6 +264,9 @@ class ShareAyahOptions extends StatelessWidget {
         Obx(() {
           final ayahs = _selectedAyahs;
           final isSingle = ayahs.length == 1;
+          // متحكم مستقل لهذه المعاينة — يمنع تضارب GlobalKey عند تكديس
+          // أكثر من صفحة مشاركة في family_bottom_sheet.
+          final previewController = ScreenshotController();
           return GestureDetector(
             child: Container(
               padding: const EdgeInsets.symmetric(
@@ -283,10 +287,19 @@ class ShareAyahOptions extends StatelessWidget {
                 ayah: ayahs.first,
                 surah: surah,
                 extraAyahs: isSingle ? null : ayahs.sublist(1),
+                controller: previewController,
               ),
             ),
             onTap: () async {
-              await sl<ShareController>().createAndShowVerseImage();
+              try {
+                final shareCtl = sl<ShareController>();
+                shareCtl.ayahToImageBytes = await previewController.capture(
+                  pixelRatio: 7,
+                );
+              } catch (e) {
+                debugPrint('Error capturing verse image: $e');
+              }
+              if (sl<ShareController>().ayahToImageBytes == null) return;
               await shareToImage.shareVerse(
                 context,
                 _selectedText,
