@@ -321,7 +321,7 @@ class NotificationManager {
         }
       }
       if (bestDone == 0) return null;
-      return _t('khatmaRemainingDays', {
+      return await _t('khatmaRemainingDays', {
         'done': '$bestDone',
         'total': '$bestTotal',
       });

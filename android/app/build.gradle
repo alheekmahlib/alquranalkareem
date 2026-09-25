@@ -1,6 +1,6 @@
 plugins {
     id "com.android.application"
-    id "kotlin-android"
+    // id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
 }
 
@@ -44,12 +44,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = '17'
-    }
-
-    // Ensure Kotlin uses JDK 17 toolchain
-    kotlin {
-        jvmToolchain(17)
+        jvmTarget = JavaVersion.VERSION_17
     }
 
     sourceSets {
@@ -81,7 +76,7 @@ android {
         release {
             keyAlias keystoreProperties['keyAlias']
             keyPassword keystoreProperties['keyPassword']
-            storeFile file(keystoreProperties['storeFile'])
+            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
             storePassword keystoreProperties['storePassword']
         }
     }

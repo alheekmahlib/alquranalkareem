@@ -218,7 +218,7 @@ class FeedbackController extends GetxController {
         method: HttpMethod.get,
         printResponse: false,
       );
-      return result.fold((f) => Left(f), (data) {
+      return await result.fold((f) => Left(f), (data) {
         final map = _asMap(data);
         if (map == null) return Left(DataSource.DEFAULT.getFailure());
         return Right(FeedbackThread.fromJson(map));
@@ -726,7 +726,7 @@ class FeedbackController extends GetxController {
         method: HttpMethod.get,
         printResponse: false,
       );
-      return result.fold((f) => Left(f), (data) {
+      return await result.fold((f) => Left(f), (data) {
         Map<String, dynamic>? map;
         if (data is Map<String, dynamic>) {
           map = data;
