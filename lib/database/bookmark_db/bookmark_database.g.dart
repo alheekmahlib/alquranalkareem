@@ -1844,7 +1844,16 @@ class $$BookmarksTableTableManager
                 deleted: deleted,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable<$BookmarksTable, Bookmark>(table),
+                  BaseReferences<_$BookmarkDatabase, $BookmarksTable, Bookmark>(
+                    db,
+                    table,
+                    e,
+                  ),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: null,
         ),
@@ -2144,7 +2153,16 @@ class $$BookmarksAyahsTableTableManager
                 deleted: deleted,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable<$BookmarksAyahsTable, BookmarksAyah>(table),
+                  BaseReferences<
+                    _$BookmarkDatabase,
+                    $BookmarksAyahsTable,
+                    BookmarksAyah
+                  >(db, table, e),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: null,
         ),
@@ -2416,7 +2434,16 @@ class $$AdhkarTableTableManager
                 deleted: deleted,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable<$AdhkarTable, AdhkarData>(table),
+                  BaseReferences<_$BookmarkDatabase, $AdhkarTable, AdhkarData>(
+                    db,
+                    table,
+                    e,
+                  ),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: null,
         ),

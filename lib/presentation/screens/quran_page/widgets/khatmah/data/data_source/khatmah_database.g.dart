@@ -1825,7 +1825,7 @@ class $$KhatmahsTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$KhatmahsTable, Khatmah>(table),
                   $$KhatmahsTableReferences(db, table, e),
                 ),
               )
@@ -2202,7 +2202,7 @@ class $$KhatmahDaysTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable(table),
+                  e.readTable<$KhatmahDaysTable, KhatmahDay>(table),
                   $$KhatmahDaysTableReferences(db, table, e),
                 ),
               )

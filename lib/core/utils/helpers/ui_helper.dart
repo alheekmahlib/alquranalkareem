@@ -1,9 +1,15 @@
 import 'dart:async' show unawaited;
+import 'dart:io' show Platform;
 
 import 'package:multi_store_review/multi_store_review.dart';
 
 class UiHelper {
   static final MultiStoreReview _review = MultiStoreReview.instance;
+
+  /// بوابة التقييم معطّلة على الويندوز: تنفيذ multi_store_review الأصلي
+  /// هناك يسبب انهياراً (segfault) عند قراءة/كتابة حالة البوابة، ولا معنى
+  /// لها أصلاً خارج توزيع MSIX عبر متجر مايكروسوفت.
+  static bool get _reviewGateSupported => !Platform.isWindows;
 
   /// معرّفا التطبيق في متاجر آبل: iOS وmacOS لهما سجلان منفصلان، لذا
   /// يُمرَّر معرّف لكل منهما. متجر Google يُستنتج تلقائيًا من اسم الحزمة.
@@ -19,6 +25,7 @@ class UiHelper {
   /// الحالة تُخزَّن داخل المنصة نفسها (SharedPreferences/UserDefaults) —
   /// لا تحتاج get_storage ولا أي إعداد إضافي.
   static void initReviewGate() {
+    if (!_reviewGateSupported) return;
     unawaited(
       _review.configure(
         policy: const ReviewPolicy(minLaunches: 7, minDaysBetweenPrompts: 15),
@@ -31,6 +38,7 @@ class UiHelper {
   /// تعيد true إذا جرت محاولة عرض حوار التقييم (أو فتح صفحة المتجر كحل
   /// بديل)، وfalse إن قررت البوابة الانتظار. لا ترمي استثناءً أبدًا،
   /// وحوار التقييم أصلي ومترجم وفق لغة جهاز المستخدم.
-  static Future<bool> maybeRequestReview() =>
-      _review.maybeRequestReview(listing: _listing);
+  static Future<bool> maybeRequestReview() => _reviewGateSupported
+      ? _review.maybeRequestReview(listing: _listing)
+      : Future<bool>.value(false);
 }

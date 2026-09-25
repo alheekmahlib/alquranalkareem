@@ -77,6 +77,7 @@ dependencies:
   # info_popup: ^4.3.2
   intl: ^0.20.3
   lottie: ^3.6.1
+  media_kit_libs_windows_video: ^1.0.11
   mini_music_visualizer: ^1.1.4
   multi_store_review:
     git:
@@ -105,6 +106,7 @@ dependencies:
   url_launcher: ^6.3.2
   uuid: ^4.6.0
   video_player: ^2.14.0
+  video_player_media_kit: ^2.0.0
   wakelock_plus: ^1.8.0
 
 dependency_overrides:
@@ -118,8 +120,8 @@ dependency_overrides:
 
 dev_dependencies:
   app_name_localizer: ^1.0.5
-  build_runner: ^2.4.15
-  drift_dev: ^2.25.2
+  build_runner: ^2.16.1
+  drift_dev: ^2.35.0
   flutter_test:
     sdk: flutter
 
@@ -171,7 +173,7 @@ app_name_localizer:
 #   macos:
 #     generate: true
 #     image_path: "assets/app_icon.png"
-flutter_lints: ^5.0.0
+flutter_lints: ^6.0.0
 
 flutter_assets:
   # assets_path: assets/lottie/
@@ -203,7 +205,7 @@ flutter:
     - assets/lottie/
     - assets/locales/
     - assets/json/azkar.json
-    - assets/.env
+    - .env
     - assets/quran_logo.png
     - assets/quran_logo_mac.png
     - assets/quran_logo512.png

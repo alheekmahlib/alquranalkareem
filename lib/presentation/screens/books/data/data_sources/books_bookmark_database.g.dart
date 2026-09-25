@@ -699,7 +699,16 @@ class $$BooksBookmarkTableTableManager
                 deleted: deleted,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable<$BooksBookmarkTable, BooksBookmarkData>(table),
+                  BaseReferences<
+                    _$BooksBookmarkDatabase,
+                    $BooksBookmarkTable,
+                    BooksBookmarkData
+                  >(db, table, e),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: null,
         ),
