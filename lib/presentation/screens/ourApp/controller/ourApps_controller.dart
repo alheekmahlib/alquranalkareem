@@ -41,7 +41,7 @@ class OurAppsController extends GetxController {
           method: HttpMethod.get,
         );
 
-        return result.fold(
+        return await result.fold(
           (failure) {
             log(
               'Failed to fetch data: ${failure.message}',

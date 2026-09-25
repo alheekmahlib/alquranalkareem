@@ -58,6 +58,10 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+/android/.gradle/
+/android/app/build/
+/android/build/
+/android/local.properties
 /assets/QuranData.sqlite
 *.db
 /assets/pages/
