@@ -156,6 +156,7 @@ class MutashabihatBottomSheet extends StatelessWidget {
                         duration: const Duration(milliseconds: 300),
                         curve: Curves.easeInOut,
                         child: Container(
+                          height: Get.height * 0.67,
                           width: Get.width,
                           padding: const EdgeInsets.all(4.0),
                           margin: const EdgeInsets.symmetric(

@@ -20,7 +20,7 @@ dependencies:
   awesome_notifications: ^0.12.1
   background_fetch: ^1.7.0
   badges: ^4.0.0
-  camera_desktop: ^1.2.2
+  camera_desktop: ^2.0.0
   connectivity_kit:
     git:
       url: https://github.com/alheekmahlib/connectivity_kit.git
@@ -65,7 +65,7 @@ dependencies:
   flutter_streaming_text_markdown: ^1.10.1
   flutter_svg: ^2.3.0
   flutter_timezone: ^5.1.0
-  flutter_zxing: ^3.0.1
+  flutter_zxing: ^3.1.0
   gap: ^3.0.1
   get: ^4.7.3
   get_it: ^9.3.0
@@ -90,8 +90,8 @@ dependencies:
   path_provider: ^2.1.6
   pretty_qr_code: ^3.6.0
   qr_flutter: ^4.1.0
-  quran_library: ^5.0.1
-    # path: ../quran_library
+  quran_library: #^5.0.1
+    path: ../quran_library
   read_more_less: ^1.0.1
   rxdart: ^0.28.0
   screenshot: ^3.0.0

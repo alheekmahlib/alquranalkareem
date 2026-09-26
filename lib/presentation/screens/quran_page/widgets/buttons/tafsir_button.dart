@@ -46,7 +46,7 @@ class TafsirButton extends StatelessWidget {
                   Get.height * .8,
                   Get.height * .9,
                 ),
-                child: ShowTafseer(
+                child: ShowTafsirWidget(
                   context: context,
                   ayahUQNumber: ayah.ayahUQNumber,
                   ayahNumber: ayah.ayahNumber,

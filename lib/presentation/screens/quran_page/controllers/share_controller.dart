@@ -1,8 +1,13 @@
 part of '../quran.dart';
 
 class ShareController extends GetxController {
-  static ShareController get instance =>
-      GetInstance().putOrFind(() => ShareController());
+  /// التسجيل permanent ضروري: putOrFind كان يسجّل non-permanent فيحذفه GetX
+  /// عند إغلاق صفحة المشاركة (RouterReportManager)، بينما يُبقي get_it النسخة
+  /// القديمة يتيمة؛ فتُكتب الصورة على النسخة اليتيمة وتُقرأ من نسخة جديدة
+  /// فارغة => Null check operator عند المشاركة الثانية.
+  static ShareController get instance => Get.isRegistered<ShareController>()
+      ? Get.find<ShareController>()
+      : Get.put(ShareController(), permanent: true);
 
   // final ScreenshotController ayahScreenController = ScreenshotController();
   final ScreenshotController tafseerScreenController = ScreenshotController();

@@ -1,5 +1,22 @@
 part of '../../../quran.dart';
 
+/// يبني نص الآية مع تفسيرها/ترجمتها بصيغة موحدة للنسخ والمشاركة —
+/// دالة نقية بلا حالة تكمل الباقي، لذا تُختبر مباشرة (test/tafsir_share_text_test.dart)
+String buildTafsirShareText({
+  required AyahModel ayah,
+  required String surahName,
+  required String tafsirName,
+  required String tafsirBody,
+}) {
+  return '﴿${ayah.ayaTextEmlaey}﴾ '
+      '[$surahName-'
+      '${ayah.ayahNumber}]\n\n'
+      '$tafsirName\n'
+      '$tafsirBody\n\n'
+      '${'appName'.tr}\n'
+      '${ApiConstants.quranShareUrl}${ayah.page}&ayah=${ayah.ayahUQNumber}';
+}
+
 extension QuranUi on QuranController {
   /// -------- [onTap] --------
 
@@ -183,4 +200,71 @@ extension QuranUi on QuranController {
   //
   //   state.isScrolling.value = false; // التمرير انتهى
   // }
+
+  /// -------- [التفسير: نسخ ومشاركة] --------
+
+  /// اسم السورة بالعربية من قائمة سور الحالة، مع احتياطي اسم الآية نفسها
+  String _surahNameFor(AyahModel ayah) {
+    for (final surah in state.surahs) {
+      if (surah.surahNumber == ayah.surahNumber) return surah.arabicName;
+    }
+    return ayah.arabicName ?? '';
+  }
+
+  /// نص التفسير أو الترجمة المعروض حاليًا للآية من TafsirCtrl — نص خام
+  String _tafsirBodyFor(int ayahUQNumber) {
+    final tafsirCtrl = TafsirCtrl.instance;
+    if (tafsirCtrl.selectedTafsir.isTafsir) {
+      return tafsirCtrl.tafseerList
+          .firstWhere(
+            (element) => element.id == ayahUQNumber,
+            orElse: () => const TafsirTableData(
+              id: 0,
+              tafsirText: '',
+              ayahNum: 0,
+              pageNum: 0,
+              surahNum: 0,
+            ),
+          )
+          .tafsirText;
+    }
+    final ayah = QuranCtrl.instance.getAyahByUq(ayahUQNumber);
+    return tafsirCtrl
+            .getTranslationForAyahModel(ayah, ayahUQNumber)
+            ?.cleanText ??
+        '';
+  }
+
+  /// نص جاهز للنسخ/المشاركة للآية المعروضة حاليًا في نافذة التفسير —
+  /// null إن لم تكن النافذة مفتوحة (لم تُضبط آية حالية بعد)
+  String? _currentTafsirShareText() {
+    final ayahUQNumber = state.currentTafsirAyahUQ.value;
+    if (ayahUQNumber <= 0) return null;
+    final ayah = QuranCtrl.instance.getAyahByUq(ayahUQNumber);
+    return buildTafsirShareText(
+      ayah: ayah,
+      surahName: _surahNameFor(ayah),
+      tafsirName: TafsirCtrl.instance.selectedTafsir.name,
+      tafsirBody: _tafsirBodyFor(ayahUQNumber),
+    );
+  }
+
+  /// نسخ تفسير/ترجمة الآية المعروضة حاليًا في نافذة التفسير
+  Future<void> copyTafsirOnTap() async {
+    final text = _currentTafsirShareText();
+    if (text == null) return;
+    await Clipboard.setData(ClipboardData(text: text)).then(
+      (value) =>
+          Get.context!.showCustomErrorSnackBar('copyTafseer'.tr, isDone: true),
+    );
+  }
+
+  /// مشاركة تفسير/ترجمة الآية المعروضة حاليًا في نافذة التفسير
+  Future<void> shareTafsirOnTap() async {
+    final text = _currentTafsirShareText();
+    if (text == null) return;
+    await SharePlus.instance.share(
+      ShareParams(text: text, subject: 'appName'.tr),
+    );
+  }
 }

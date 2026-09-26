@@ -14,10 +14,15 @@ class App : Application() {
         // (E/GeneratedPluginsRegister: ... could not find or invoke the
         // GeneratedPluginRegistrant) فيبقى محرك audio_service المخزّن بلا قنوات
         // منصة. ننشئه مبكرًا ونسجّل الإضافات بنداء مباشر قبل بدء Dart.
+        //
+        // المحرك المُنشأ برمجيًا هنا لا يقرأ meta-data الخاصة بالنشاط، فلا يصل
+        // إليه EnableImpeller=false من AndroidManifest ويشتغل بـ Impeller الافتراضي
+        // (يسبّب شاشة خضراء على الهواتف السحابية). نمرّر العلم يدويًا هنا لمطابقة
+        // نية الـ manifest: Skia على أندرويد.
         if (FlutterEngineCache.getInstance()
                 .get(AudioServicePlugin.getFlutterEngineId()) == null
         ) {
-            val engine = FlutterEngine(this)
+            val engine = FlutterEngine(this, arrayOf("--enable-impeller=false"))
             GeneratedPluginRegistrant.registerWith(engine)
             engine.getDartExecutor()
                 .executeDartEntrypoint(DartExecutor.DartEntrypoint.createDefault())
