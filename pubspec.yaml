@@ -124,6 +124,10 @@ dev_dependencies:
   drift_dev: ^2.35.0
   flutter_test:
     sdk: flutter
+  # Microsoft Store packaging. Identity values become real only after the app
+  # is created in Partner Center (Products → Identity). Until then the MSIX
+  # step in .github/workflows/release.yml stays disabled.
+  msix: ^3.18.0
 
 flutter_native_splash:
   color: "#283618"
@@ -183,6 +187,18 @@ flutter_assets:
   filename: svg_constants.dart
   field_prefix: null
   class_name: SvgPath
+
+# Microsoft Store MSIX packaging — fill Identity Name/Publisher from
+# Partner Center (Products → your app → Product identity) and sign with the
+# certificate downloadable there before running `dart run msix:create`.
+msix:
+  display_name: Al Quran Al Kareem
+  publisher_display_name: Al Heekmah Library
+  identity_name: PLACEHOLDER-FROM-PARTNER-CENTER
+  publisher: CN=PLACEHOLDER-FROM-PARTNER-CENTER
+  msix_version: 5.5.1.0
+  architecture: x64
+  capabilities: internetClient
 
 flutter:
 

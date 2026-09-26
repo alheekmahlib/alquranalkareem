@@ -1,71 +1,630 @@
-name: Build & Release APK
+name: Release — Build & Publish
+
+# Manual-trigger-only release pipeline.
+# Builds Android/iOS/macOS/Windows/Linux with production signing, publishes a
+# versioned GitHub Release (direct downloads), and uploads to the stores that
+# are enabled in the dispatch form.
+#
+# Store paths (agreed):
+#   Google Play  → production track directly
+#   App Store    → TestFlight only (you submit the version for review manually)
+#   AppGallery   → APK uploaded as a draft (review NOT submitted)
+#   Microsoft    → disabled until a Partner Center app exists (see ms-store job)
+#   F-Droid      → no binary upload possible; the versioned git tag created by
+#                  the github-release job is what fdroiddata builds from.
 
 on:
-  push:
-    branches: [main, master]
+  workflow_dispatch:
+    inputs:
+      upload_play:
+        description: 'Google Play → production'
+        type: boolean
+        default: true
+      upload_testflight:
+        description: 'App Store → TestFlight'
+        type: boolean
+        default: true
+      upload_appgallery:
+        description: 'AppGallery → draft (no review)'
+        type: boolean
+        default: true
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+env:
+  FLUTTER_VERSION: 3.47.5
+  JAVA_VERSION: 21
+  PACKAGE_NAME: com.alheekmah.alquranalkareem.alquranalkareem
+  APPLE_TEAM_ID: Y9R8TJ3LS7
+  HUAWEI_APP_ID: C102051725
+
+defaults:
+  run:
+    working-directory: app
 
 jobs:
-  build:
+  prepare:
+    name: Prepare & validate
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    timeout-minutes: 5
+    outputs:
+      version: ${{ steps.meta.outputs.version }}
+      version_name: ${{ steps.meta.outputs.version_name }}
+      version_code: ${{ steps.meta.outputs.version_code }}
     steps:
       - uses: actions/checkout@v4
-
-      - name: Setup Java
-        uses: actions/setup-java@v4
         with:
-          distribution: 'zulu'
-          java-version: '17'
+          path: app
 
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
+      - name: Read version from pubspec.yaml
+        id: meta
+        run: |
+          VERSION=$(sed -n 's/^version:[[:space:]]*//p' pubspec.yaml | tr -d '[:space:]')
+          if [ -z "$VERSION" ]; then
+            echo "::error::Could not read version from pubspec.yaml"
+            exit 1
+          fi
+          NAME="${VERSION%%+*}"
+          CODE="${VERSION##*+}"
+          {
+            echo "version=$VERSION"
+            echo "version_name=$NAME"
+            echo "version_code=$CODE"
+          } >> "$GITHUB_OUTPUT"
+          echo "Releasing $VERSION (name=$NAME, code=$CODE)"
+
+      - name: Validate release notes
+        env:
+          VERSION: ${{ steps.meta.outputs.version }}
+        run: |
+          DIR="release_notes/$VERSION"
+          if [ ! -f "$DIR/ar.md" ]; then
+            echo "::error::Missing $DIR/ar.md — write the release notes before running this workflow"
+            exit 1
+          fi
+          # Google Play caps release notes at 500 characters per language
+          fail=0
+          for f in "$DIR"/*.md; do
+            chars=$(python3 -c "import sys; print(len(open(sys.argv[1], encoding='utf-8').read()))" "$f")
+            if [ "$chars" -gt 500 ]; then
+              echo "::error::$(basename "$f") is $chars chars (Google Play limit: 500)"
+              fail=1
+            fi
+          done
+          [ "$fail" -eq 0 ] || exit 1
+          echo "Release notes OK: $(ls "$DIR" | tr '\n' ' ')"
+
+      - name: Validate required secrets
+        env:
+          DOTENV_BASE64: ${{ secrets.DOTENV_BASE64 }}
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          MAC_DEV_ID_P12_BASE64: ${{ secrets.MAC_DEV_ID_P12_BASE64 }}
+          MAC_DEV_ID_P12_PASSWORD: ${{ secrets.MAC_DEV_ID_P12_PASSWORD }}
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY_P8_BASE64: ${{ secrets.ASC_KEY_P8_BASE64 }}
+          PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+          IOS_P12_BASE64: ${{ secrets.IOS_P12_BASE64 }}
+          IOS_P12_PASSWORD: ${{ secrets.IOS_P12_PASSWORD }}
+          IOS_PROFILE_BASE64: ${{ secrets.IOS_PROFILE_BASE64 }}
+          IOS_PROFILE_WIDGET_BASE64: ${{ secrets.IOS_PROFILE_WIDGET_BASE64 }}
+          AGC_CLIENT_ID: ${{ secrets.AGC_CLIENT_ID }}
+          AGC_CLIENT_SECRET: ${{ secrets.AGC_CLIENT_SECRET }}
+          UPLOAD_PLAY: ${{ inputs.upload_play }}
+          UPLOAD_TESTFLIGHT: ${{ inputs.upload_testflight }}
+          UPLOAD_APPGALLERY: ${{ inputs.upload_appgallery }}
+        run: |
+          miss=0
+          need() { if [ -z "${!1}" ]; then echo "::error::Missing GitHub secret: $1"; miss=1; fi; }
+          need DOTENV_BASE64
+          need ANDROID_KEYSTORE_BASE64
+          need ANDROID_KEYSTORE_PASSWORD
+          need ANDROID_KEY_ALIAS
+          need ANDROID_KEY_PASSWORD
+          # macOS artifact is part of every GitHub Release → signing + notarization always required
+          need MAC_DEV_ID_P12_BASE64
+          need MAC_DEV_ID_P12_PASSWORD
+          # Same App Store Connect key serves notarization and TestFlight
+          need ASC_KEY_ID
+          need ASC_ISSUER_ID
+          need ASC_KEY_P8_BASE64
+          if [ "$UPLOAD_PLAY" = "true" ]; then need PLAY_SERVICE_ACCOUNT_JSON; fi
+          if [ "$UPLOAD_TESTFLIGHT" = "true" ]; then
+            need IOS_P12_BASE64
+            need IOS_P12_PASSWORD
+            need IOS_PROFILE_BASE64
+            need IOS_PROFILE_WIDGET_BASE64
+          fi
+          if [ "$UPLOAD_APPGALLERY" = "true" ]; then
+            need AGC_CLIENT_ID
+            need AGC_CLIENT_SECRET
+          fi
+          if [ "$miss" -eq 1 ]; then exit 1; fi
+          echo "All required secrets are present"
+
+  build-android:
+    name: Build Android (APK + AAB)
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
         with:
-          channel: stable
-
-      - name: Create debug keystore for CI
+          path: app
+      - name: Checkout quran_library (path dependency ../quran_library)
+        uses: actions/checkout@v4
+        with:
+          repository: alheekmahlib/quran_library
+          path: quran_library
+      - uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: 21
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.47.5
+          cache: true
+      - name: Restore .env (bundled asset)
+        shell: bash
+        env:
+          DOTENV_BASE64: ${{ secrets.DOTENV_BASE64 }}
+        run: printf '%s' "$DOTENV_BASE64" | base64 --decode > .env
+      - name: Restore signing keystore
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: |
-          mkdir -p ~/.android
-          keytool -genkeypair -v -keystore ~/.android/debug.keystore \
-            -storepass android -alias androiddebugkey -keypass android \
-            -keyalg RSA -keysize 2048 -validity 10000 \
-            -dname "CN=Android Debug,O=Android,C=US" 2>/dev/null || true
+          printf '%s' "$ANDROID_KEYSTORE_BASE64" | base64 --decode > android/app/keyStore.jks
+          { echo "storePassword=$ANDROID_KEYSTORE_PASSWORD"
+            echo "keyPassword=$ANDROID_KEY_PASSWORD"
+            echo "keyAlias=$ANDROID_KEY_ALIAS"
+            echo "storeFile=keyStore.jks"
+          } > android/key.properties
+      - run: flutter pub get
+      - run: flutter build apk --release
+      - run: flutter build appbundle --release
+      - name: Rename APK for distribution
+        run: cp build/app/outputs/flutter-apk/app-release.apk alquranalkareem-android.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android
+          if-no-files-found: error
+          path: |
+            alquranalkareem-android.apk
+            build/app/outputs/bundle/release/app-release.aab
 
-      - name: Create key.properties (fallback to debug)
-        working-directory: android
+  build-ios:
+    name: Build iOS IPA (for TestFlight)
+    needs: prepare
+    if: inputs.upload_testflight
+    runs-on: macos-latest
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: app
+      - name: Checkout quran_library (path dependency ../quran_library)
+        uses: actions/checkout@v4
+        with:
+          repository: alheekmahlib/quran_library
+          path: quran_library
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.47.5
+          cache: true
+      - name: Import distribution certificate
+        uses: Apple-Actions/import-codesign-certs@v7
+        with:
+          p12-file-base64: ${{ secrets.IOS_P12_BASE64 }}
+          p12-password: ${{ secrets.IOS_P12_PASSWORD }}
+      - name: Install provisioning profiles (app + widget)
+        env:
+          IOS_PROFILE_BASE64: ${{ secrets.IOS_PROFILE_BASE64 }}
+          IOS_PROFILE_WIDGET_BASE64: ${{ secrets.IOS_PROFILE_WIDGET_BASE64 }}
         run: |
-          if [ ! -f key.properties ]; then
-            echo "storeFile=$HOME/.android/debug.keystore" > key.properties
-            echo "storePassword=android" >> key.properties
-            echo "keyAlias=androiddebugkey" >> key.properties
-            echo "keyPassword=android" >> key.properties
+          PROFILES="$HOME/Library/MobileDevice/Provisioning Profiles"
+          mkdir -p "$PROFILES"
+          printf '%s' "$IOS_PROFILE_BASE64" | base64 --decode > "$PROFILES/app.mobileprovision"
+          printf '%s' "$IOS_PROFILE_WIDGET_BASE64" | base64 --decode > "$PROFILES/widget.mobileprovision"
+      - name: Restore .env (bundled asset)
+        env:
+          DOTENV_BASE64: ${{ secrets.DOTENV_BASE64 }}
+        run: printf '%s' "$DOTENV_BASE64" | base64 --decode > .env
+      - name: Generate ExportOptions.plist from installed profiles
+        run: |
+          PROFILES="$HOME/Library/MobileDevice/Provisioning Profiles"
+          UUID_APP=$(security cms -D -i "$PROFILES/app.mobileprovision" | plutil -extract UUID raw -o - -)
+          UUID_WIDGET=$(security cms -D -i "$PROFILES/widget.mobileprovision" | plutil -extract UUID raw -o - -)
+          if [ -z "$UUID_APP" ] || [ -z "$UUID_WIDGET" ]; then
+            echo "::error::Could not read profile UUIDs — are the secrets valid .mobileprovision files?"
+            exit 1
+          fi
+          cat > ios/ExportOptions.plist <<EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>method</key><string>app-store-connect</string>
+            <key>teamID</key><string>$APPLE_TEAM_ID</string>
+            <key>signingStyle</key><string>manual</string>
+            <key>uploadSymbols</key><true/>
+            <key>provisioningProfiles</key>
+            <dict>
+              <key>com.alheekmah.alquranalkareem.alquranalkareem</key>
+              <string>$UUID_APP</string>
+              <key>com.alheekmah.alquranalkareem.alquranalkareem.quran-widget</key>
+              <string>$UUID_WIDGET</string>
+            </dict>
+          </dict>
+          </plist>
+          EOF
+      - run: flutter pub get
+      - run: flutter build ipa --release --export-options-plist=ios/ExportOptions.plist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ios
+          if-no-files-found: error
+          path: build/ios/ipa/*.ipa
+
+  build-macos:
+    name: Build macOS (Developer ID + notarized)
+    needs: prepare
+    runs-on: macos-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: app
+      - name: Checkout quran_library (path dependency ../quran_library)
+        uses: actions/checkout@v4
+        with:
+          repository: alheekmahlib/quran_library
+          path: quran_library
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.47.5
+          cache: true
+      - name: Import Developer ID certificate
+        uses: Apple-Actions/import-codesign-certs@v7
+        with:
+          p12-file-base64: ${{ secrets.MAC_DEV_ID_P12_BASE64 }}
+          p12-password: ${{ secrets.MAC_DEV_ID_P12_PASSWORD }}
+      - name: Restore .env (bundled asset)
+        env:
+          DOTENV_BASE64: ${{ secrets.DOTENV_BASE64 }}
+        run: printf '%s' "$DOTENV_BASE64" | base64 --decode > .env
+      - run: flutter pub get
+      - run: flutter build macos --release --no-codesign
+      - name: Sign with Developer ID Application
+        run: |
+          set -euo pipefail
+          APP="build/macos/Build/Products/Release/alquranalkareem.app"
+          IDENTITY=$(security find-identity -v -p codesigning | grep "Developer ID Application" | head -1 | sed -E 's/^.*"(.*)".*$/\1/')
+          if [ -z "$IDENTITY" ]; then
+            echo "::error::No 'Developer ID Application' identity found in keychain"
+            exit 1
+          fi
+          echo "Signing with: $IDENTITY"
+          # Sign deepest-first: nested dylibs/frameworks before their containers
+          find "$APP" -type f -name "*.dylib" | awk -F/ '{print NF, $0}' | sort -rn | cut -d' ' -f2- \
+            | while IFS= read -r f; do codesign --force --options runtime --timestamp --sign "$IDENTITY" "$f"; done
+          find "$APP" -type d -name "*.framework" | awk -F/ '{print NF, $0}' | sort -rn | cut -d' ' -f2- \
+            | while IFS= read -r f; do codesign --force --options runtime --timestamp --sign "$IDENTITY" "$f"; done
+          find "$APP" -type d -name "*.appex" \
+            | while IFS= read -r f; do codesign --force --options runtime --timestamp --sign "$IDENTITY" --entitlements macos/quran_macos_widget/quran_macos_widget.entitlements "$f"; done
+          codesign --force --options runtime --timestamp --sign "$IDENTITY" --entitlements macos/Runner/Release.entitlements "$APP"
+          codesign --verify --deep --strict --verbose=2 "$APP"
+      - name: Notarize & staple
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY_P8_BASE64: ${{ secrets.ASC_KEY_P8_BASE64 }}
+        run: |
+          set -euo pipefail
+          APP="build/macos/Build/Products/Release/alquranalkareem.app"
+          printf '%s' "$ASC_KEY_P8_BASE64" | base64 --decode > "$RUNNER_TEMP/AuthKey.p8"
+          ditto -c -k --keepParent "$APP" "$RUNNER_TEMP/notarize.zip"
+          xcrun notarytool submit "$RUNNER_TEMP/notarize.zip" \
+            --key "$RUNNER_TEMP/AuthKey.p8" --key-id "$ASC_KEY_ID" --issuer "$ASC_ISSUER_ID" --wait
+          xcrun stapler staple "$APP"
+          ditto -c -k --keepParent "$APP" alquranalkareem-macos-arm64.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: macos
+          if-no-files-found: error
+          path: alquranalkareem-macos-arm64.zip
+
+  build-windows:
+    name: Build Windows
+    needs: prepare
+    runs-on: windows-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: app
+      - name: Checkout quran_library (path dependency ../quran_library)
+        uses: actions/checkout@v4
+        with:
+          repository: alheekmahlib/quran_library
+          path: quran_library
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.47.5
+          cache: true
+      - name: Restore .env (bundled asset)
+        shell: bash
+        env:
+          DOTENV_BASE64: ${{ secrets.DOTENV_BASE64 }}
+        run: printf '%s' "$DOTENV_BASE64" | base64 --decode > .env
+      - run: flutter pub get
+      - run: flutter build windows --release
+      - name: Package zip
+        shell: pwsh
+        run: Compress-Archive -Path build\windows\x64\runner\Release\* -DestinationPath alquranalkareem-windows-x64.zip
+      # Microsoft Store: disabled until a Partner Center app exists. To enable:
+      # 1) create the app in Partner Center and download its signing certificate
+      # 2) complete the msix identity block in pubspec.yaml
+      # 3) add MSIX_CERT_BASE64 / MSIX_CERT_PASSWORD secrets
+      # 4) set the repository variable MSIX_ENABLED=true, then wire
+      #    `dart run msix:create` + Partner Center upload into this step
+      - name: Build MSIX (disabled)
+        if: vars.MSIX_ENABLED == 'true'
+        run: echo "MSIX packaging awaits Partner Center app identity"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows
+          if-no-files-found: error
+          path: alquranalkareem-windows-x64.zip
+
+  build-linux:
+    name: Build Linux
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: app
+      - name: Checkout quran_library (path dependency ../quran_library)
+        uses: actions/checkout@v4
+        with:
+          repository: alheekmahlib/quran_library
+          path: quran_library
+      - name: Install GTK build dependencies
+        run: sudo apt-get update && sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.47.5
+          cache: true
+      - name: Restore .env (bundled asset)
+        env:
+          DOTENV_BASE64: ${{ secrets.DOTENV_BASE64 }}
+        run: printf '%s' "$DOTENV_BASE64" | base64 --decode > .env
+      - run: flutter pub get
+      - run: flutter build linux --release
+      - name: Package tar.gz
+        run: tar -czf alquranalkareem-linux-x64.tar.gz -C build/linux/x64/release bundle
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux
+          if-no-files-found: error
+          path: alquranalkareem-linux-x64.tar.gz
+
+  github-release:
+    name: GitHub Release (direct downloads)
+    needs: [prepare, build-android, build-macos, build-windows, build-linux]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: app
+      - uses: actions/download-artifact@v4
+        with:
+          name: android
+          path: dist
+          merge-multiple: true
+      - uses: actions/download-artifact@v4
+        with:
+          name: macos
+          path: dist
+          merge-multiple: true
+      - uses: actions/download-artifact@v4
+        with:
+          name: windows
+          path: dist
+          merge-multiple: true
+      - uses: actions/download-artifact@v4
+        with:
+          name: linux
+          path: dist
+          merge-multiple: true
+      - name: Compose release notes (ar + en)
+        env:
+          VERSION: ${{ needs.prepare.outputs.version }}
+        run: |
+          {
+            cat "release_notes/$VERSION/ar.md"
+            if [ -f "release_notes/$VERSION/en.md" ]; then
+              printf '\n---\n\n'
+              cat "release_notes/$VERSION/en.md"
+            fi
+          } > body.md
+      - name: Create versioned release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ needs.prepare.outputs.version }}
+        run: |
+          TAG="v$VERSION"
+          # Allow re-runs for the same version: replace any existing release/tag
+          gh release view "$TAG" && gh release delete "$TAG" --cleanup-tag --yes || true
+          gh release create "$TAG" \
+            --title "$TAG" \
+            --notes-file body.md \
+            --latest \
+            ../dist/alquranalkareem-android.apk \
+            ../dist/alquranalkareem-windows-x64.zip \
+            ../dist/alquranalkareem-macos-arm64.zip \
+            ../dist/alquranalkareem-linux-x64.tar.gz
+          echo "Published GitHub Release $TAG — this tag is what an F-Droid fdroiddata entry builds from."
+
+  upload-play:
+    name: Google Play (production)
+    needs: [prepare, build-android]
+    if: inputs.upload_play
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: app
+      - uses: actions/download-artifact@v4
+        with:
+          name: android
+          path: dist
+          merge-multiple: true
+      - name: Build localized what's-new files
+        env:
+          VERSION: ${{ needs.prepare.outputs.version }}
+        run: |
+          mkdir -p whatsnew
+          for f in "release_notes/$VERSION"/*.md; do
+            lang=$(basename "$f" .md)
+            case "$lang" in
+              en) loc="en-US" ;;
+              es) loc="es-419" ;; # switch to es-ES if the Play listing is Spain Spanish
+              *)  loc="$lang" ;;
+            esac
+            cp "$f" "whatsnew/whatsnew-$loc"
+            echo "whatsnew-$loc ← $lang"
+          done
+      - name: Upload AAB to production track
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+          packageName: com.alheekmah.alquranalkareem.alquranalkareem
+          releaseFiles: dist/app-release.aab
+          tracks: production
+          status: completed
+          releaseName: v${{ needs.prepare.outputs.version_name }}
+          whatsNewDirectory: app/whatsnew
+
+  upload-testflight:
+    name: App Store (TestFlight)
+    needs: [prepare, build-ios]
+    if: inputs.upload_testflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: app
+      - uses: actions/download-artifact@v4
+        with:
+          name: ios
+          path: dist
+          merge-multiple: true
+      - name: Install fastlane
+        run: sudo gem install fastlane --no-document
+      - name: Write App Store Connect API key
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY_P8_BASE64: ${{ secrets.ASC_KEY_P8_BASE64 }}
+        run: |
+          printf '%s' "$ASC_KEY_P8_BASE64" | base64 --decode > "$RUNNER_TEMP/AuthKey.p8"
+          jq -n --arg key_id "$ASC_KEY_ID" --arg issuer_id "$ASC_ISSUER_ID" \
+            --rawfile key "$RUNNER_TEMP/AuthKey.p8" \
+            '{key_id: $key_id, issuer_id: $issuer_id, key: $key}' > "$RUNNER_TEMP/asc.json"
+      - name: Upload IPA to TestFlight
+        run: |
+          fastlane pilot upload \
+            --api_key_path "$RUNNER_TEMP/asc.json" \
+            --ipa ../dist/*.ipa \
+            --skip_waiting_for_build_processing
+          echo "IPA delivered to TestFlight — submit the App Store version manually after review."
+
+  upload-appgallery:
+    name: AppGallery (draft)
+    needs: [prepare, build-android]
+    if: inputs.upload_appgallery
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    # No source checkout here — artifacts only, so drop the app/ working-directory default
+    defaults:
+      run:
+        working-directory: .
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: android
+          path: dist
+          merge-multiple: true
+      # AGC Publishing API: token → signed OBS upload URL → PUT binary → attach
+      # to the app's draft release. No review-submission call is made.
+      - name: Upload APK as draft (no review submission)
+        env:
+          AGC_CLIENT_ID: ${{ secrets.AGC_CLIENT_ID }}
+          AGC_CLIENT_SECRET: ${{ secrets.AGC_CLIENT_SECRET }}
+        run: |
+          set -euo pipefail
+          APK="dist/alquranalkareem-android.apk"
+
+          TOKEN=$(curl -sf -X POST "https://connect-api.cloud.huawei.com/api/oauth2/v1/token" \
+            -H "Content-Type: application/json" \
+            -d "{\"client_id\":\"$AGC_CLIENT_ID\",\"grant_type\":\"client_credentials\",\"client_secret\":\"$AGC_CLIENT_SECRET\"}" \
+            | jq -r '.access_token // empty')
+          if [ -z "$TOKEN" ]; then echo "::error::Could not obtain AGC access token"; exit 1; fi
+
+          SIZE=$(stat -c%s "$APK")
+          URLJSON=$(curl -sf -G "https://connect-api.cloud.huawei.com/api/publish/v2/upload-url/for-obs" \
+            --data-urlencode "appId=$HUAWEI_APP_ID" \
+            --data-urlencode "fileName=release.apk" \
+            --data-urlencode "contentLength=$SIZE" \
+            --data-urlencode "suffix=apk" \
+            -H "client_id: $AGC_CLIENT_ID" \
+            -H "Authorization: Bearer $TOKEN")
+          UPLOAD_URL=$(jq -r '.urlInfo.url // empty' <<<"$URLJSON")
+          OBJECT_ID=$(jq -r '.urlInfo.objectId // empty' <<<"$URLJSON")
+          if [ -z "$UPLOAD_URL" ] || [ -z "$OBJECT_ID" ]; then
+            echo "::error::Could not obtain upload URL: $URLJSON"
+            exit 1
           fi
 
-      - name: Get dependencies
-        run: flutter pub get
+          declare -a HARGS=()
+          while IFS=$'\t' read -r k v; do HARGS+=(-H "$k: $v"); done \
+            < <(jq -r '.urlInfo.headers | to_entries[] | "\(.key)\t\(.value)"' <<<"$URLJSON")
+          HARGS+=(-H "Content-Type: application/octet-stream")
+          HTTP=$(curl -s -o /dev/null -w "%{http_code}" -X PUT "${HARGS[@]}" --data-binary "@$APK" "$UPLOAD_URL")
+          if [ "$HTTP" != "200" ]; then echo "::error::APK upload failed with HTTP $HTTP"; exit 1; fi
 
-      - name: Build APK
-        run: flutter build apk --release
+          RET=$(curl -sf -X PUT "https://connect-api.cloud.huawei.com/api/publish/v2/app-file-info?appId=$HUAWEI_APP_ID" \
+            -H "client_id: $AGC_CLIENT_ID" \
+            -H "Authorization: Bearer $TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "{\"fileType\":5,\"files\":[{\"fileName\":\"release.apk\",\"fileDestUrl\":\"$OBJECT_ID\"}]}")
+          RETCODE=$(jq -r '.ret.code // -1' <<<"$RET")
+          if [ "$RETCODE" != "0" ]; then echo "::error::AGC app-file-info failed: $RET"; exit 1; fi
+          echo "APK attached to the AppGallery Connect draft release — review NOT submitted."
 
-      - name: Get version
-        id: version
-        run: |
-          VERSION=$(grep 'version:' pubspec.yaml | head -1 | sed 's/.*version: //' | sed 's/[[:space:]]//g')
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "Build version: $VERSION"
-
-      - name: Delete latest release (if exists)
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh release delete latest --yes --cleanup-tag 2>/dev/null || true
-
-      - name: Create Release & Upload APK
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh release create latest \
-            --title "v${{ steps.version.outputs.version }} (Build #${{ github.run_number }})" \
-            --notes "Automated build from [commit ${{ github.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }})" \
-            --prerelease \
-            build/app/outputs/flutter-apk/app-release.apk
+  # Microsoft Store — disabled until a Partner Center app exists. Enable by
+  # setting the repository variable MSIX_ENABLED=true after completing the
+  # steps described in the build-windows "Build MSIX (disabled)" step.
+  ms-store:
+    name: Microsoft Store (disabled)
+    needs: prepare
+    if: vars.MSIX_ENABLED == 'true'
+    runs-on: windows-latest
+    steps:
+      - run: echo "Enable after creating the app in Partner Center (see comments above)"

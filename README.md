@@ -273,7 +273,18 @@ flutter build ios --release
 flutter build macos --release
 ```
 
-CI (`.github/workflows/`) builds and publishes releases automatically on push to `main`; `release.yml` produces the Android APK and `release-all.yml` builds all platforms.
+Releasing (manual, from the Actions tab — "Release — Build & Publish"):
+
+1. Bump `version:` in `pubspec.yaml` (e.g. `5.6.0+125`).
+2. Write `release_notes/<version>/ar.md` (+ optional `en.md`, `es.md`, `tr.md`, `bn.md`, … — Google Play limit is 500 chars per language).
+3. Push, then run the workflow. It builds Android (signed APK + AAB), iOS (TestFlight), macOS (Developer ID + notarized), Windows and Linux, publishes a versioned GitHub Release with direct downloads, and uploads to the stores enabled in the run form:
+   - Google Play → production track
+   - App Store → TestFlight (submit the version for review manually)
+   - AppGallery → draft release (submit for review manually)
+   - Microsoft Store → disabled until the Partner Center app exists (see the `msix` block in `pubspec.yaml`)
+   - F-Droid → no binary upload; F-Droid builds from the versioned git tag created by the workflow
+
+Required GitHub secrets: `DOTENV_BASE64`, `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD`, `MAC_DEV_ID_P12_BASE64`, `MAC_DEV_ID_P12_PASSWORD`, `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8_BASE64`, plus (when enabled) `PLAY_SERVICE_ACCOUNT_JSON`, `IOS_P12_BASE64`, `IOS_P12_PASSWORD`, `IOS_PROFILE_BASE64`, `IOS_PROFILE_WIDGET_BASE64`, `AGC_CLIENT_ID`, `AGC_CLIENT_SECRET`.
 
 ---
 
