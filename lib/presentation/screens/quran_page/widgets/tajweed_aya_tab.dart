@@ -203,8 +203,8 @@ class _TajweedAyaTab extends StatelessWidget {
                                 ),
                             markedStyle:
                                 tafsirStyle.tajweedMarkedTextStyle ??
-                                const TextStyle(
-                                  color: Colors.teal,
+                                TextStyle(
+                                  color: context.theme.colorScheme.surface,
                                   fontWeight: FontWeight.w700,
                                 ),
                           ),

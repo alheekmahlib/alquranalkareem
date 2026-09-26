@@ -51,6 +51,7 @@ class SyncConstants {
     // إعدادات المصحف والعرض
     'font_size',
     'isTajweed',
+    'isTajweedRules',
     'fontsSelected2',
     'DISPLAY_MODE',
     'AUTO_SCROLL_SPEED',

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:quran_library/quran.dart';
+import 'package:quran_library/quran_library.dart';
 import 'package:screenshot/screenshot.dart';
 
 import '/core/utils/constants/extensions/svg_extensions.dart';
@@ -19,6 +19,9 @@ class VerseImageCreator extends StatelessWidget {
   /// عند `null` أو فارغة يُعرض آية واحدة فقط.
   final List<AyahModel>? extraAyahs;
 
+  /// إظهار أحكام التجويد أسفل نص الآية (آية مفردة فقط).
+  final bool showTajweedRules;
+
   /// متحكم التقاط خاص بهذه المعاينة. لا يُستخدم متحكم مشترك هنا حتى لا
   /// تتضارب الـ GlobalKey إذا ظهرت أكثر من معاينة في الشجرة في نفس الوقت
   /// (مثل تكديس صفحات family_bottom_sheet).
@@ -29,6 +32,7 @@ class VerseImageCreator extends StatelessWidget {
     required this.ayah,
     required this.surah,
     this.extraAyahs,
+    this.showTajweedRules = false,
     ScreenshotController? controller,
   }) : controller = controller ?? ScreenshotController();
 
@@ -87,6 +91,7 @@ class VerseImageCreator extends StatelessWidget {
                         child: _buildAyahsText(context),
                       ),
                     ),
+                    if (showTajweedRules) _buildTajweedRules(context),
                     const Gap(4),
                   ],
                 ),
@@ -116,6 +121,76 @@ class VerseImageCreator extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  /// أحكام التجويد أسفل نص الآية — تُعرض للآية المفردة فقط عند تفعيل الخيار.
+  /// غياب البيانات أو فشل تحميلها يخفي القسم ولا يعطل المشاركة.
+  Widget _buildTajweedRules(BuildContext context) {
+    return FutureBuilder<TajweedAyahInfo?>(
+      future: TajweedAyaCtrl.instance.getAyahInfo(
+        surahNumber: surah.surahNumber,
+        ayahNumber: ayah.ayahNumber,
+      ),
+      builder: (context, snap) {
+        final data = snap.data;
+        if (snap.hasError || data == null || data.content.trim().isEmpty) {
+          return const SizedBox.shrink();
+        }
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Column(
+            crossAxisAlignment: .start,
+            children: [
+              const Gap(4),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8.0,
+                  vertical: 4.0,
+                ),
+                decoration: BoxDecoration(
+                  color: context.theme.colorScheme.surface.withValues(
+                    alpha: .2,
+                  ),
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                ),
+                child: Text(
+                  'tajweedRules'.tr,
+                  style: AppTextStyles.titleMedium(
+                    fontSize: 16,
+                    color: context.theme.colorScheme.inversePrimary.withValues(
+                      alpha: .7,
+                    ),
+                  ),
+                ),
+              ),
+              const Gap(4),
+              Text.rich(
+                buildMarkedContentSpan(
+                  content: data.content,
+                  baseStyle: TextStyle(
+                    fontSize: 15,
+                    height: 1.8,
+                    color: context.theme.colorScheme.inversePrimary,
+                    fontFamily: 'naskh',
+                    package: 'quran_library',
+                  ),
+                  markedStyle: TextStyle(
+                    fontSize: 15,
+                    height: 1.8,
+                    color: context.theme.colorScheme.surface,
+                    fontWeight: FontWeight.w700,
+                    fontFamily: 'naskh',
+                    package: 'quran_library',
+                  ),
+                ),
+                textAlign: TextAlign.justify,
+                textDirection: TextDirection.rtl,
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 

@@ -9,6 +9,7 @@ import 'package:alquranalkareem/core/services/sync/sync_controller.dart';
 import 'package:alquranalkareem/core/utils/helpers/app_text_styles.dart';
 import 'package:alquranalkareem/core/widgets/animated_drawing_widget.dart';
 import 'package:alquranalkareem/core/widgets/container_button.dart';
+import 'package:alquranalkareem/core/widgets/tajweed_download_button.dart';
 import 'package:alquranalkareem/core/widgets/title_widget.dart';
 import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:arabic_justified_text/arabic_justified_text.dart';

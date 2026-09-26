@@ -1,14 +1,15 @@
-import 'package:alquranalkareem/core/utils/constants/extensions/convert_number_extension.dart';
-import 'package:alquranalkareem/core/utils/helpers/app_text_styles.dart';
 import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:quran_library/quran.dart';
+import 'package:quran_library/quran_library.dart';
 import 'package:screenshot/screenshot.dart';
 
 import '/core/utils/constants/extensions/bottom_sheet_extension.dart';
+import '/core/utils/constants/extensions/convert_number_extension.dart';
+import '/core/utils/helpers/app_text_styles.dart';
 import '/core/widgets/container_button.dart';
+import '/core/widgets/tajweed_download_button.dart';
 import '../../../presentation/controllers/general/general_controller.dart';
 import '../../../presentation/screens/quran_page/quran.dart';
 import '../../services/ayah_audio_share_service.dart';
@@ -207,10 +208,11 @@ class ShareAyahOptions extends StatelessWidget {
             isButton: true,
             withArrow: true,
             horizontalMargin: 16.0,
+            horizontalPadding: 8.0,
             verticalPadding: 8.0,
             backgroundColor: bg,
-            child: SizedBox(
-              width: 300,
+            child: Expanded(
+              flex: 10,
               child: Text(
                 "﴿ $text ﴾",
                 style: TextStyle(
@@ -261,6 +263,68 @@ class ShareAyahOptions extends StatelessWidget {
             );
           },
         ),
+        AnimatedSize(
+          alignment: .topCenter,
+          duration: const Duration(milliseconds: 300),
+          child: Obx(() {
+            // خيار «أحكام التجويد»: يظهر عند تفعيل «مع التجويد» ومع آية مفردة
+            // فقط. وإن لم تكن البيانات منزّلة يُعرض المفتاح معطّلًا مع نص
+            // وزر تحميل، ويتفعّل تلقائيًا فور اكتمال التحميل.
+            if (!QuranCtrl.instance.state.isTajweedEnabled.value ||
+                _selectedAyahs.length != 1) {
+              return const SizedBox.shrink();
+            }
+            final tajweedCtrl = TajweedAyaCtrl.instance;
+            final isAvailable =
+                !tajweedCtrl.isDownloading.value && tajweedCtrl.isAvailable;
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Gap(4),
+                CustomSwitchListTile(
+                  contentMargin: const EdgeInsets.symmetric(horizontal: 16.0),
+                  title: 'tajweedRules'.tr,
+                  value:
+                      isAvailable &&
+                      QuranController
+                          .instance
+                          .state
+                          .isTajweedRulesEnabled
+                          .value,
+                  onChanged: isAvailable
+                      ? (_) {
+                          final st = QuranController.instance.state;
+                          st.isTajweedRulesEnabled.toggle();
+                          st.box.write(
+                            'isTajweedRules',
+                            st.isTajweedRulesEnabled.value,
+                          );
+                          Get.forceAppUpdate();
+                        }
+                      : null,
+                ),
+                if (!isAvailable) ...[
+                  const Gap(8),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          'tajweedUnavailableText'.tr,
+                          style: AppTextStyles.titleSmall(),
+                          textAlign: TextAlign.center,
+                        ),
+                        const Gap(8),
+                        const TajweedDownloadButton(),
+                      ],
+                    ),
+                  ),
+                ],
+              ],
+            );
+          }),
+        ),
         Obx(() {
           final ayahs = _selectedAyahs;
           final isSingle = ayahs.length == 1;
@@ -288,6 +352,15 @@ class ShareAyahOptions extends StatelessWidget {
                 surah: surah,
                 extraAyahs: isSingle ? null : ayahs.sublist(1),
                 controller: previewController,
+                showTajweedRules:
+                    isSingle &&
+                    QuranCtrl.instance.state.isTajweedEnabled.value &&
+                    QuranController
+                        .instance
+                        .state
+                        .isTajweedRulesEnabled
+                        .value &&
+                    TajweedAyaCtrl.instance.isAvailable,
               ),
             ),
             onTap: () async {
@@ -330,7 +403,7 @@ class ShareAyahOptions extends StatelessWidget {
           final ayahs = _selectedAyahs;
           final isSingle = ayahs.length == 1;
           return ContainerButton(
-            height: 90,
+            height: 50,
             width: width,
             isButton: true,
             withArrow: true,
