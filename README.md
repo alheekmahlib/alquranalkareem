@@ -281,10 +281,11 @@ Releasing (manual, from the Actions tab — "Release — Build & Publish"):
    - Google Play → production track
    - App Store → TestFlight (submit the version for review manually)
    - AppGallery → draft release (submit for review manually)
+   - Mac App Store → TestFlight (notarized Developer-ID build still goes to the GitHub Release)
    - Microsoft Store → disabled until the Partner Center app exists (see the `msix` block in `pubspec.yaml`)
    - F-Droid → no binary upload; F-Droid builds from the versioned git tag created by the workflow
 
-Required GitHub secrets: `DOTENV_BASE64`, `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD`, `MAC_DEV_ID_P12_BASE64`, `MAC_DEV_ID_P12_PASSWORD`, `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8_BASE64`, plus (when enabled) `PLAY_SERVICE_ACCOUNT_JSON`, `IOS_P12_BASE64`, `IOS_P12_PASSWORD`, `IOS_PROFILE_BASE64`, `IOS_PROFILE_WIDGET_BASE64`, `AGC_CLIENT_ID`, `AGC_CLIENT_SECRET`.
+Required GitHub secrets: `DOTENV_BASE64`, `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD`, `MAC_DEV_ID_P12_BASE64`, `MAC_DEV_ID_P12_PASSWORD`, `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8_BASE64`, plus (when enabled) `PLAY_SERVICE_ACCOUNT_JSON`, `IOS_P12_BASE64`, `IOS_P12_PASSWORD`, `IOS_PROFILE_BASE64`, `IOS_PROFILE_WIDGET_BASE64`, `AGC_CLIENT_ID`, `AGC_CLIENT_SECRET`, `MAS_INSTALLER_P12_BASE64`, `MAS_INSTALLER_P12_PASSWORD`, `MAS_PROFILE_BASE64`, `MAS_PROFILE_WIDGET_BASE64`.
 
 ---
 
