@@ -267,6 +267,7 @@ jobs:
           DOTENV_BASE64: ${{ secrets.DOTENV_BASE64 }}
         run: printf '%s' "$DOTENV_BASE64" | base64 --decode > .env
       - name: Generate ExportOptions.plist from installed profiles
+        id: uuids
         run: |
           PROFILES="$HOME/Library/MobileDevice/Provisioning Profiles"
           UUID_APP=$(security cms -D -i "$PROFILES/app.mobileprovision" | plutil -extract UUID raw -o - -)
@@ -275,6 +276,10 @@ jobs:
             echo "::error::Could not read profile UUIDs — are the secrets valid .mobileprovision files?"
             exit 1
           fi
+          {
+            echo "uuid_app=$UUID_APP"
+            echo "uuid_widget=$UUID_WIDGET"
+          } >> "$GITHUB_OUTPUT"
           cat > ios/ExportOptions.plist <<EOF
           <?xml version="1.0" encoding="UTF-8"?>
           <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -294,6 +299,43 @@ jobs:
           </dict>
           </plist>
           EOF
+      - name: Patch project to manual signing (app + widget)
+        run: |
+          python3 - "$UUID_APP" "$UUID_WIDGET" <<'PY'
+          import re, sys
+          uuid_app, uuid_widget = sys.argv[1], sys.argv[2]
+          path = "ios/Runner.xcodeproj/project.pbxproj"
+          src = open(path).read()
+          src = src.replace("ProvisioningStyle = Automatic;", "ProvisioningStyle = Manual;")
+          # signing keys stripped per matched block, then re-injected with manual values
+          strip = re.compile(r'^\t*(CODE_SIGN_STYLE|PROVISIONING_PROFILE(_SPECIFIER)?|CODE_SIGN_IDENTITY(\[[^\]]*\])?|DEVELOPMENT_TEAM)\s*=.*?;\n', re.M)
+          blocks = re.compile(r'(buildSettings = \{)(.*?)(\n\t\t\t\};)', re.S)
+          APP = "com.alheekmah.alquranalkareem.alquranalkareem"
+          WIDGET = "com.alheekmah.alquranalkareem.alquranalkareem.quran-widget"
+          def patch(m):
+              body = m.group(2)
+              bid = re.search(r'PRODUCT_BUNDLE_IDENTIFIER = ("[^"]+"|[^;]+);', body)
+              if not bid:
+                  return m.group(0)
+              bid = bid.group(1).strip().strip('"')
+              if bid == APP:
+                  uuid = uuid_app
+              elif bid == WIDGET:
+                  uuid = uuid_widget
+              else:
+                  return m.group(0)
+              body = strip.sub('', body)
+              inj = ('\n\t\t\t\tCODE_SIGN_STYLE = Manual;'
+                     '\n\t\t\t\tCODE_SIGN_IDENTITY = "Apple Distribution";'
+                     '\n\t\t\t\tDEVELOPMENT_TEAM = Y9R8TJ3LS7;'
+                     f'\n\t\t\t\tPROVISIONING_PROFILE = "{uuid}";')
+              return m.group(1) + body + inj + m.group(3)
+          open(path, 'w').write(blocks.sub(patch, src))
+          print("iOS project patched to manual signing")
+          PY
+        env:
+          UUID_APP: ${{ steps.uuids.outputs.uuid_app }}
+          UUID_WIDGET: ${{ steps.uuids.outputs.uuid_widget }}
       - name: Disable Swift Package Manager (project is not migrated; matches local behavior)
         run: flutter config --no-enable-swift-package-manager
       - run: flutter pub get
@@ -334,12 +376,27 @@ jobs:
       - name: Disable Swift Package Manager (project is not migrated; matches local behavior)
         run: flutter config --no-enable-swift-package-manager
       - run: flutter pub get
-      - name: Build unsigned (signing happens in the next step)
-        env:
-          CODE_SIGNING_ALLOWED: "NO"
-          CODE_SIGNING_REQUIRED: "NO"
-          CODE_SIGN_IDENTITY: ""
-        run: flutter build macos --release
+      - name: Patch project for unsigned (ad-hoc) build
+        run: |
+          python3 - <<'PY'
+          import re
+          path = "macos/Runner.xcodeproj/project.pbxproj"
+          src = open(path).read()
+          src = src.replace("ProvisioningStyle = Automatic;", "ProvisioningStyle = Manual;")
+          strip = re.compile(r'^\t*(CODE_SIGN_STYLE|PROVISIONING_PROFILE(_SPECIFIER)?|CODE_SIGN_IDENTITY(\[[^\]]*\])?|DEVELOPMENT_TEAM)\s*=.*?;\n', re.M)
+          blocks = re.compile(r'(buildSettings = \{)(.*?)(\n\t\t\t\};)', re.S)
+          def patch(m):
+              body = m.group(2)
+              if 'PRODUCT_BUNDLE_IDENTIFIER' not in body:
+                  return m.group(0)
+              body = strip.sub('', body)
+              inj = ('\n\t\t\t\tCODE_SIGN_STYLE = Manual;'
+                     '\n\t\t\t\tCODE_SIGN_IDENTITY = "-";')
+              return m.group(1) + body + inj + m.group(3)
+          open(path, 'w').write(blocks.sub(patch, src))
+          print("macOS project patched for ad-hoc signing")
+          PY
+      - run: flutter build macos --release
       - name: Sign with Developer ID Application
         run: |
           set -euo pipefail
@@ -647,12 +704,27 @@ jobs:
       - name: Disable Swift Package Manager (project is not migrated; matches local behavior)
         run: flutter config --no-enable-swift-package-manager
       - run: flutter pub get
-      - name: Build unsigned
-        env:
-          CODE_SIGNING_ALLOWED: "NO"
-          CODE_SIGNING_REQUIRED: "NO"
-          CODE_SIGN_IDENTITY: ""
-        run: flutter build macos --release
+      - name: Patch project for unsigned (ad-hoc) build
+        run: |
+          python3 - <<'PY'
+          import re
+          path = "macos/Runner.xcodeproj/project.pbxproj"
+          src = open(path).read()
+          src = src.replace("ProvisioningStyle = Automatic;", "ProvisioningStyle = Manual;")
+          strip = re.compile(r'^\t*(CODE_SIGN_STYLE|PROVISIONING_PROFILE(_SPECIFIER)?|CODE_SIGN_IDENTITY(\[[^\]]*\])?|DEVELOPMENT_TEAM)\s*=.*?;\n', re.M)
+          blocks = re.compile(r'(buildSettings = \{)(.*?)(\n\t\t\t\};)', re.S)
+          def patch(m):
+              body = m.group(2)
+              if 'PRODUCT_BUNDLE_IDENTIFIER' not in body:
+                  return m.group(0)
+              body = strip.sub('', body)
+              inj = ('\n\t\t\t\tCODE_SIGN_STYLE = Manual;'
+                     '\n\t\t\t\tCODE_SIGN_IDENTITY = "-";')
+              return m.group(1) + body + inj + m.group(3)
+          open(path, 'w').write(blocks.sub(patch, src))
+          print("macOS project patched for ad-hoc signing")
+          PY
+      - run: flutter build macos --release
       - name: Sign for Mac App Store & package .pkg
         run: |
           set -euo pipefail
