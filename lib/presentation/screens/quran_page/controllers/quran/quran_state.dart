@@ -55,6 +55,11 @@ class QuranState {
   /// تقرأها أزرار نسخ/مشاركة التفسير لتعمل على المعروض لا المفتوح
   RxInt currentTafsirAyahUQ = 0.obs;
 
+  /// إظهار أحكام التجويد أسفل الآية في صورة المشاركة (آية مفردة فقط)
+  // read بلا نوع يعيد dynamic و.obs عليه يُحل ديناميكيًا فينهار — لذا نُعلن النوع
+  final RxBool isTajweedRulesEnabled =
+      (GetStorage().read<bool>('isTajweedRules') ?? false).obs;
+
   /// -------- [New Variables] ----------
   final tabBarController = FlexibleSheetController();
   final navBarController = FlexibleSheetController();

@@ -12,7 +12,8 @@ PODS:
     - FlutterMacOS
   - device_info_plus (0.0.1):
     - FlutterMacOS
-  - file_picker (0.0.1):
+  - file_picker_darwin (1.0.0):
+    - Flutter
     - FlutterMacOS
   - file_selector_macos (0.0.1):
     - FlutterMacOS
@@ -21,11 +22,13 @@ PODS:
     - onnxruntime-objc (= 1.23.0)
   - flutter_timezone (0.1.0):
     - FlutterMacOS
-  - flutter_zxing (3.0.1):
+  - flutter_zxing (3.1.0):
     - FlutterMacOS
   - FlutterMacOS (1.0.0)
   - just_audio (0.0.1):
     - Flutter
+    - FlutterMacOS
+  - media_kit_video (0.0.1):
     - FlutterMacOS
   - multi_store_review (2.2.0):
     - FlutterMacOS
@@ -39,9 +42,6 @@ PODS:
   - record_macos (2.0.0):
     - FlutterMacOS
   - share_plus (0.0.1):
-    - FlutterMacOS
-  - shared_preferences_foundation (0.0.1):
-    - Flutter
     - FlutterMacOS
   - sherpa_onnx_macos (1.13.8):
     - FlutterMacOS
@@ -63,18 +63,18 @@ DEPENDENCIES:
   - camera_desktop (from `Flutter/ephemeral/.symlinks/plugins/camera_desktop/macos`)
   - connectivity_plus (from `Flutter/ephemeral/.symlinks/plugins/connectivity_plus/macos`)
   - device_info_plus (from `Flutter/ephemeral/.symlinks/plugins/device_info_plus/macos`)
-  - file_picker (from `Flutter/ephemeral/.symlinks/plugins/file_picker/macos`)
+  - file_picker_darwin (from `Flutter/ephemeral/.symlinks/plugins/file_picker_darwin/darwin`)
   - file_selector_macos (from `Flutter/ephemeral/.symlinks/plugins/file_selector_macos/macos`)
   - flutter_onnxruntime (from `Flutter/ephemeral/.symlinks/plugins/flutter_onnxruntime/macos`)
   - flutter_timezone (from `Flutter/ephemeral/.symlinks/plugins/flutter_timezone/macos`)
   - flutter_zxing (from `Flutter/ephemeral/.symlinks/plugins/flutter_zxing/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
   - just_audio (from `Flutter/ephemeral/.symlinks/plugins/just_audio/darwin`)
+  - media_kit_video (from `Flutter/ephemeral/.symlinks/plugins/media_kit_video/macos`)
   - multi_store_review (from `Flutter/ephemeral/.symlinks/plugins/multi_store_review/macos`)
   - package_info_plus (from `Flutter/ephemeral/.symlinks/plugins/package_info_plus/macos`)
   - record_macos (from `Flutter/ephemeral/.symlinks/plugins/record_macos/macos`)
   - share_plus (from `Flutter/ephemeral/.symlinks/plugins/share_plus/macos`)
-  - shared_preferences_foundation (from `Flutter/ephemeral/.symlinks/plugins/shared_preferences_foundation/darwin`)
   - sherpa_onnx_macos (from `Flutter/ephemeral/.symlinks/plugins/sherpa_onnx_macos/macos`)
   - sqflite_darwin (from `Flutter/ephemeral/.symlinks/plugins/sqflite_darwin/darwin`)
   - url_launcher_macos (from `Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos`)
@@ -99,8 +99,8 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/connectivity_plus/macos
   device_info_plus:
     :path: Flutter/ephemeral/.symlinks/plugins/device_info_plus/macos
-  file_picker:
-    :path: Flutter/ephemeral/.symlinks/plugins/file_picker/macos
+  file_picker_darwin:
+    :path: Flutter/ephemeral/.symlinks/plugins/file_picker_darwin/darwin
   file_selector_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/file_selector_macos/macos
   flutter_onnxruntime:
@@ -113,6 +113,8 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral
   just_audio:
     :path: Flutter/ephemeral/.symlinks/plugins/just_audio/darwin
+  media_kit_video:
+    :path: Flutter/ephemeral/.symlinks/plugins/media_kit_video/macos
   multi_store_review:
     :path: Flutter/ephemeral/.symlinks/plugins/multi_store_review/macos
   package_info_plus:
@@ -121,8 +123,6 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/record_macos/macos
   share_plus:
     :path: Flutter/ephemeral/.symlinks/plugins/share_plus/macos
-  shared_preferences_foundation:
-    :path: Flutter/ephemeral/.symlinks/plugins/shared_preferences_foundation/darwin
   sherpa_onnx_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/sherpa_onnx_macos/macos
   sqflite_darwin:
@@ -141,20 +141,20 @@ SPEC CHECKSUMS:
   camera_desktop: 707127b73704d3aab733b63c124288cbac80adb6
   connectivity_plus: 4adf20a405e25b42b9c9f87feff8f4b6fde18a4e
   device_info_plus: 4fb280989f669696856f8b129e4a5e3cd6c48f76
-  file_picker: 7584aae6fa07a041af2b36a2655122d42f578c1a
+  file_picker_darwin: 4c2b9a50ea44cb3b071381ea0cf48591bdd80251
   file_selector_macos: 9e9e068e90ebee155097d00e89ae91edb2374db7
   flutter_onnxruntime: caa549d495a20032744e7646f5f060b997187614
   flutter_timezone: d272288c69082ad571630e0d17140b3d6b93dc0c
-  flutter_zxing: 9af236c4fb7c01ce4607044fdc9a7ab0d401ae3c
-  FlutterMacOS: d0db08ddef1a9af05a5ec4b724367152bb0500b1
+  flutter_zxing: c4574479da5c1b105b54e4b7ed31765e990b2ec7
+  FlutterMacOS: c232990155153907050900a2e175c7773903ba4e
   just_audio: 4e391f57b79cad2b0674030a00453ca5ce817eed
+  media_kit_video: 28d7d27611c7769a2464eb7621c37386a61dcc9a
   multi_store_review: 84d9891432fe3f6f939e40699f7a0680ac56c2e8
   onnxruntime-c: 3174c63a963d9abbc2bf9627e3d622819c0ed5f7
   onnxruntime-objc: 1254d12f8160e562e7693ff17f5aa3dd17dc409e
   package_info_plus: f0052d280d17aa382b932f399edf32507174e870
   record_macos: 2e43c16b84ce188b8137754ee648322a2dcdf7fa
   share_plus: 510bf0af1a42cd602274b4629920c9649c52f4cc
-  shared_preferences_foundation: 7036424c3d8ec98dfe75ff1667cb0cd531ec82bb
   sherpa_onnx_macos: 3adccf0b64e301371a6b9b15e30cee6b05f2d7fe
   sqflite_darwin: 20b2a3a3b70e43edae938624ce550a3cbf66a3d0
   url_launcher_macos: f87a979182d112f911de6820aefddaf56ee9fbfd
