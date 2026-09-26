@@ -261,10 +261,10 @@ packages:
     dependency: "direct main"
     description:
       name: camera_desktop
-      sha256: "4070ab1e2422c293a3d21a48b8bc361e0e1ce1682f404088b21ef414b921d4aa"
+      sha256: "280ce2b335f3a6d2bd4345c9906697d86de40065d52cd6090df28a8b52b32304"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.2"
+    version: "2.0.0"
   camera_platform_interface:
     dependency: transitive
     description:
@@ -876,10 +876,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_zxing
-      sha256: d94f5a5f75d30e503390e248c034eee3de9bd3481f7cdda348b05c2ce81b0bd0
+      sha256: ee2b97bf69b01385b91497501c060f4e3b53686709892e005de10f3ad30eee98
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.1"
+    version: "3.1.0"
   gap:
     dependency: "direct main"
     description:
@@ -1517,11 +1517,10 @@ packages:
   quran_library:
     dependency: "direct main"
     description:
-      name: quran_library
-      sha256: "982801ca1798f901f160efb6e0b996129efe3fabc469c58aeef6cf1a098a7c04"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.0.1"
+      path: "../quran_library"
+      relative: true
+    source: path
+    version: "5.0.2"
   read_more_less:
     dependency: "direct main"
     description:

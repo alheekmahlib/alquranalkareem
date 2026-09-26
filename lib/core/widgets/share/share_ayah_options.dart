@@ -292,14 +292,13 @@ class ShareAyahOptions extends StatelessWidget {
             ),
             onTap: () async {
               try {
-                final shareCtl = sl<ShareController>();
-                shareCtl.ayahToImageBytes = await previewController.capture(
+                shareToImage.ayahToImageBytes = await previewController.capture(
                   pixelRatio: 7,
                 );
               } catch (e) {
                 debugPrint('Error capturing verse image: $e');
               }
-              if (sl<ShareController>().ayahToImageBytes == null) return;
+              if (shareToImage.ayahToImageBytes == null) return;
               await shareToImage.shareVerse(
                 context,
                 _selectedText,
@@ -308,7 +307,6 @@ class ShareAyahOptions extends StatelessWidget {
                 pageNumber + 1,
                 ayahs.last.ayahUQNumber,
               );
-              Get.back();
             },
           );
         }),

@@ -64,9 +64,9 @@ class ServicesLocator {
       Get.put<AzkarController>(AzkarController(), permanent: true),
     );
 
-    sl.registerLazySingleton<ShareController>(
-      () => Get.put<ShareController>(ShareController(), permanent: true),
-    );
+    // يمر عبر ShareController.instance (تسجيل permanent موحّد) حتى لا يتيم
+    // كائن في get_it بينما ينشئ GetX نسخة جديدة عند إغلاق صفحة المشاركة
+    sl.registerLazySingleton<ShareController>(() => ShareController.instance);
 
     sl.registerLazySingleton<AyahAudioShareService>(
       () => Get.put<AyahAudioShareService>(

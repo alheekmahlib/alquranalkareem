@@ -1,19 +1,8 @@
 part of '../../../quran.dart';
 
 extension TafsirUi on QuranController {
-  /// -------- [onTap] --------
-  Future<void> copyTafsirOnTap(
-    String tafsirName,
-    String tafsir,
-    String ayahTextNormal,
-  ) async {
-    await Clipboard.setData(
-      ClipboardData(text: '﴿$ayahTextNormal﴾\n\n$tafsirName\n$tafsir'),
-    ).then(
-      (value) =>
-          Get.context!.showCustomErrorSnackBar('copyTafseer'.tr, isDone: true),
-    );
-  }
+  // copyTafsirOnTap نُقل إلى QuranUi (quran_ui.dart) بنسخة تقرأ الآية
+  // المعروضة حاليًا في نافذة التفسير بدل استقبال نصوص جاهزة
 
   // Future<void> showTafsirOnTap(
   //     {required int pageIndex, required int ayahUQNum}) async {

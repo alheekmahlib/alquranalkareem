@@ -22,13 +22,10 @@ extension FontSizeExtension on Widget {
         button: true,
         enabled: true,
         label: 'Change Font Size',
-        child: Transform.translate(
-          offset: const Offset(0, -5),
-          child: customSvgWithColor(
-            SvgPath.svgHomeFontSize,
-            height: height,
-            color: color ?? Get.theme.colorScheme.surface,
-          ),
+        child: customSvgWithColor(
+          SvgPath.svgHomeFontSize,
+          height: height,
+          color: color ?? Get.theme.colorScheme.surface,
         ),
       ),
       color: Get.theme.colorScheme.primary.withValues(alpha: .8),

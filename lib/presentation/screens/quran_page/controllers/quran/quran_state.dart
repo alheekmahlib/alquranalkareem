@@ -51,6 +51,10 @@ class QuranState {
   var qPackage = QuranLibrary();
   final QuranRepository _quranRepository = QuranRepository();
 
+  /// الآية المعروضة حاليًا في نافذة التفسير (تتغير بتمرير PageView) —
+  /// تقرأها أزرار نسخ/مشاركة التفسير لتعمل على المعروض لا المفتوح
+  RxInt currentTafsirAyahUQ = 0.obs;
+
   /// -------- [New Variables] ----------
   final tabBarController = FlexibleSheetController();
   final navBarController = FlexibleSheetController();

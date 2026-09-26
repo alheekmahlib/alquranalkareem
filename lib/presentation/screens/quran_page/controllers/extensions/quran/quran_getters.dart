@@ -252,7 +252,7 @@ extension QuranGetters on QuranController {
       backgroundColor: Get.theme.colorScheme.primary,
       textColor: Get.theme.colorScheme.inversePrimary,
       backgroundTitleColor: Get.theme.colorScheme.surface.withValues(alpha: .5),
-      fontSizeWidget: const SizedBox().fontSizeDropDownWidget(),
+      fontSizeWidget: const SizedBox().fontSizeDropDownWidget(height: 30),
       // fontSize: generalCtrl.state.fontSizeArabic.value,
       currentTafsirColor: Get.theme.colorScheme.surface,
       selectedTafsirBorderColor: Get.theme.colorScheme.surface,
