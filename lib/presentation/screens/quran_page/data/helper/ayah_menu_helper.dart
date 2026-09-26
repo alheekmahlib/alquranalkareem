@@ -431,19 +431,38 @@ class AyahMenuHelper {
   }
 
   static void _scrollToCurrentWord(WordRef ref, AyahModel ayah) {
-    if (!_ayahScrollController.hasClients) return;
-    final totalWords = WordAudioService.instance.getAyahWordCount(
-      ref.surahNumber,
-      ref.ayahNumber,
+    scrollToWord(
+      _ayahScrollController,
+      wordNumber: ref.wordNumber,
+      totalWords: WordAudioService.instance.getAyahWordCount(
+        ref.surahNumber,
+        ref.ayahNumber,
+      ),
     );
-    if (totalWords <= 1) return;
-    final maxScroll = _ayahScrollController.position.maxScrollExtent;
-    final wordIndex = ref.wordNumber - 1;
-    final targetScroll = maxScroll * wordIndex / (totalWords - 1);
-    _ayahScrollController.animateTo(
-      targetScroll.clamp(0.0, maxScroll),
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeOut,
-    );
+  }
+
+  /// يحرّك شريط كلمات الآية إلى الكلمة الجاري تشغيلها.
+  ///
+  /// family_bottom_sheet تركّب صفحة الورقة مرتين (نسخة Offstage لقياس
+  /// الارتفاع ونسخة ظاهرة)، فقد يكون الـ [controller] مرتبطًا بعدة مواضع
+  /// في آنٍ واحد؛ لذا نحرّك كل المواضع بدل قراءة .position التي تفترض
+  /// موضعًا واحدًا وترمي AssertionError.
+  @visibleForTesting
+  static void scrollToWord(
+    ScrollController controller, {
+    required int wordNumber,
+    required int totalWords,
+  }) {
+    if (!controller.hasClients || totalWords <= 1) return;
+    for (final position in List.of(controller.positions)) {
+      final maxScroll = position.maxScrollExtent;
+      if (maxScroll <= 0) continue;
+      final targetScroll = maxScroll * (wordNumber - 1) / (totalWords - 1);
+      position.animateTo(
+        targetScroll.clamp(0.0, maxScroll),
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
+    }
   }
 }
