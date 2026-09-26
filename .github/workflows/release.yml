@@ -825,13 +825,20 @@ jobs:
           if [ -z "$TOKEN" ]; then echo "::error::No access_token in response: $BODY"; exit 1; fi
 
           SIZE=$(stat -c%s "$APK")
-          URLJSON=$(curl -sf -G "https://connect-api.cloud.huawei.com/api/publish/v2/upload-url/for-obs" \
+          RESP=$(curl -s -w "\n%{http_code}" -G "https://connect-api.cloud.huawei.com/api/publish/v2/upload-url/for-obs" \
             --data-urlencode "appId=$HUAWEI_APP_ID" \
             --data-urlencode "fileName=release.apk" \
             --data-urlencode "contentLength=$SIZE" \
             --data-urlencode "suffix=apk" \
             -H "client_id: $AGC_CLIENT_ID" \
             -H "Authorization: Bearer $TOKEN")
+          CODE=${RESP##*$'\n'}
+          BODY=${RESP%$'\n'*}
+          if [ "$CODE" != "200" ]; then
+            echo "::error::AGC upload-url failed with HTTP $CODE: $BODY"
+            exit 1
+          fi
+          URLJSON="$BODY"
           UPLOAD_URL=$(jq -r '.urlInfo.url // empty' <<<"$URLJSON")
           OBJECT_ID=$(jq -r '.urlInfo.objectId // empty' <<<"$URLJSON")
           if [ -z "$UPLOAD_URL" ] || [ -z "$OBJECT_ID" ]; then
@@ -843,14 +850,26 @@ jobs:
           while IFS=$'\t' read -r k v; do HARGS+=(-H "$k: $v"); done \
             < <(jq -r '.urlInfo.headers | to_entries[] | "\(.key)\t\(.value)"' <<<"$URLJSON")
           HARGS+=(-H "Content-Type: application/octet-stream")
-          HTTP=$(curl -s -o /dev/null -w "%{http_code}" -X PUT "${HARGS[@]}" --data-binary "@$APK" "$UPLOAD_URL")
-          if [ "$HTTP" != "200" ]; then echo "::error::APK upload failed with HTTP $HTTP"; exit 1; fi
+          PUTLOG=$(mktemp)
+          HTTP=$(curl -s -o "$PUTLOG" -w "%{http_code}" -X PUT "${HARGS[@]}" --data-binary "@$APK" "$UPLOAD_URL")
+          if [ "$HTTP" != "200" ]; then
+            echo "::error::APK upload failed with HTTP $HTTP: $(head -c 400 "$PUTLOG")"
+            rm -f "$PUTLOG"
+            exit 1
+          fi
+          rm -f "$PUTLOG"
 
-          RET=$(curl -sf -X PUT "https://connect-api.cloud.huawei.com/api/publish/v2/app-file-info?appId=$HUAWEI_APP_ID" \
+          RESP=$(curl -s -w "\n%{http_code}" -X PUT "https://connect-api.cloud.huawei.com/api/publish/v2/app-file-info?appId=$HUAWEI_APP_ID" \
             -H "client_id: $AGC_CLIENT_ID" \
             -H "Authorization: Bearer $TOKEN" \
             -H "Content-Type: application/json" \
             -d "{\"fileType\":5,\"files\":[{\"fileName\":\"release.apk\",\"fileDestUrl\":\"$OBJECT_ID\"}]}")
+          CODE=${RESP##*$'\n'}
+          RET=${RESP%$'\n'*}
+          if [ "$CODE" != "200" ]; then
+            echo "::error::AGC app-file-info failed with HTTP $CODE: $RET"
+            exit 1
+          fi
           RETCODE=$(jq -r '.ret.code // -1' <<<"$RET")
           if [ "$RETCODE" != "0" ]; then echo "::error::AGC app-file-info failed: $RET"; exit 1; fi
           echo "APK attached to the AppGallery Connect draft release — review NOT submitted."
