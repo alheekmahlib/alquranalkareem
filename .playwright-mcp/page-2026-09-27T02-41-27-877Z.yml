@@ -1,0 +1,86 @@
+- generic [active] [ref=f1e1]:
+  - banner [ref=f1e2]:
+    - generic [ref=f1e3]:
+      - link "Skip to main content" [ref=f1e4] [cursor=pointer]:
+        - /url: "#main"
+      - generic [ref=f1e5]:
+        - text: Ｏ Ｐ 
+        - generic [ref=f1e6]:
+          - link "Microsoft" [ref=f1e7] [cursor=pointer]:
+            - /url: https://www.microsoft.com
+          - link "Learn" [ref=f1e14] [cursor=pointer]:
+            - /url: /en-us/
+          - generic [ref=f1e16]:
+            - navigation "Global" [ref=f1e18]:
+              - text: Ｒ
+              - list [ref=f1e19]:
+                - listitem [ref=f1e20]:
+                  - button "Documentation" [ref=f1e22] [cursor=pointer]:
+                    - generic [ref=f1e25]: Ｓ
+                - listitem [ref=f1e26]:
+                  - button "Training & Labs" [ref=f1e28] [cursor=pointer]:
+                    - generic [ref=f1e31]: Ｓ
+                - listitem [ref=f1e32]:
+                  - button "Q&A" [ref=f1e34] [cursor=pointer]:
+                    - generic [ref=f1e37]: Ｓ
+                - listitem [ref=f1e38]:
+                  - button "Topics" [ref=f1e40] [cursor=pointer]:
+                    - generic [ref=f1e43]: Ｓ
+              - text: Ｔ
+            - generic [ref=f1e44]:
+              - text: Ｐ
+              - button "Open search" [ref=f1e45] [cursor=pointer]:
+                - generic [ref=f1e47]: 
+          - link "Sign in" [ref=f1e48] [cursor=pointer]:
+            - /url: "#"
+  - main [ref=f1e49]:
+    - generic [ref=f1e53]:
+      - heading "404 - Page not found" [level=1] [ref=f1e54]
+      - paragraph [ref=f1e55]:
+        - text: We couldn't find this page. You can try
+        - link "signing in" [ref=f1e56] [cursor=pointer]:
+          - /url: "#"
+        - text: ", or choosing from the relevant"
+        - link "search results" [ref=f1e57] [cursor=pointer]:
+          - /url: /en-us/search/index?search=windows%20apps%20publish%20publish%20your%20app%20msix
+        - text: "below:"
+      - list
+  - contentinfo [ref=f1e59]:
+    - generic [ref=f1e60]:
+      - link "Content language selector. Currently set to English (United States)." [ref=f1e61] [cursor=pointer]:
+        - /url: /en-us/locale?target=https%3A%2F%2Flearn.microsoft.com%2Fen-us%2Fwindows%2Fapps%2Fpublish%2Fpublish-your-app%2Fmsix%2F
+        - generic [ref=f1e63]: 
+        - generic [ref=f1e64]: English (United States)
+      - link "Your Privacy Choices" [ref=f1e66] [cursor=pointer]:
+        - /url: https://aka.ms/yourcaliforniaprivacychoices
+      - button "Theme" [ref=f1e75] [cursor=pointer]:
+        - generic [ref=f1e77]: ０
+        - generic [ref=f1e80]: Ｓ
+    - list [ref=f1e81]:
+      - listitem [ref=f1e82]:
+        - link "AI Disclaimer" [ref=f1e83] [cursor=pointer]:
+          - /url: https://learn.microsoft.com/en-us/principles-for-ai-generated-content
+      - listitem [ref=f1e84]:
+        - link "Previous Versions" [ref=f1e85] [cursor=pointer]:
+          - /url: https://learn.microsoft.com/en-us/previous-versions/
+      - listitem [ref=f1e86]:
+        - link "Blog" [ref=f1e87] [cursor=pointer]:
+          - /url: https://techcommunity.microsoft.com/t5/microsoft-learn-blog/bg-p/MicrosoftLearnBlog
+      - listitem [ref=f1e88]:
+        - link "Contribute" [ref=f1e89] [cursor=pointer]:
+          - /url: https://learn.microsoft.com/en-us/contribute
+      - listitem [ref=f1e90]:
+        - link "Privacy" [ref=f1e91] [cursor=pointer]:
+          - /url: https://go.microsoft.com/fwlink/?LinkId=521839
+      - listitem [ref=f1e92]:
+        - link "Consumer Health Privacy" [ref=f1e93] [cursor=pointer]:
+          - /url: https://go.microsoft.com/fwlink/?linkid=2259814
+      - listitem [ref=f1e94]:
+        - link "Terms of Use" [ref=f1e95] [cursor=pointer]:
+          - /url: https://learn.microsoft.com/en-us/legal/termsofuse
+      - listitem [ref=f1e96]:
+        - link "Trademarks" [ref=f1e97] [cursor=pointer]:
+          - /url: https://www.microsoft.com/legal/intellectualproperty/Trademarks/
+      - listitem [ref=f1e98]: © Microsoft 2026
+  - alert [ref=f1e99]
+  - status [ref=f1e100]
