@@ -1,0 +1,348 @@
+name: Release — GitHub Release (direct downloads)
+
+# Manual-trigger workflow: builds Android/macOS/Windows/Linux with production
+# signing and publishes a versioned GitHub Release (direct downloads).
+# Store uploads live in their own workflows: release-play / release-testflight /
+# release-appgallery / release-mac-appstore.
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: release-github
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+env:
+  FLUTTER_VERSION: 3.47.5
+
+defaults:
+  run:
+    working-directory: app
+
+jobs:
+  prepare:
+    name: Validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      version: ${{ steps.meta.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: app
+
+      - name: Read version & validate release notes
+        id: meta
+        run: |
+          VERSION=$(sed -n 's/^version:[[:space:]]*//p' pubspec.yaml | tr -d '[:space:]')
+          if [ -z "$VERSION" ]; then
+            echo "::error::Could not read version from pubspec.yaml"
+            exit 1
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          DIR="release_notes/$VERSION"
+          if [ ! -f "$DIR/ar.md" ]; then
+            echo "::error::Missing $DIR/ar.md — write the release notes before running this workflow"
+            exit 1
+          fi
+          echo "Releasing $VERSION — notes: $(ls "$DIR" | tr '\n' ' ')"
+
+      - name: Validate required secrets
+        env:
+          DOTENV_BASE64: ${{ secrets.DOTENV_BASE64 }}
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          MAC_DEV_ID_P12_BASE64: ${{ secrets.MAC_DEV_ID_P12_BASE64 }}
+          MAC_DEV_ID_P12_PASSWORD: ${{ secrets.MAC_DEV_ID_P12_PASSWORD }}
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY_P8_BASE64: ${{ secrets.ASC_KEY_P8_BASE64 }}
+        run: |
+          miss=0
+          need() { if [ -z "${!1}" ]; then echo "::error::Missing GitHub secret: $1"; miss=1; fi; }
+          need DOTENV_BASE64
+          need ANDROID_KEYSTORE_BASE64
+          need ANDROID_KEYSTORE_PASSWORD
+          need ANDROID_KEY_ALIAS
+          need ANDROID_KEY_PASSWORD
+          need MAC_DEV_ID_P12_BASE64
+          need MAC_DEV_ID_P12_PASSWORD
+          need ASC_KEY_ID
+          need ASC_ISSUER_ID
+          need ASC_KEY_P8_BASE64
+          [ "$miss" -eq 1 ] && exit 1
+          echo "All required secrets are present"
+
+  build-android:
+    name: Build Android APK
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: app
+      - name: Checkout quran_library (path dependency ../quran_library)
+        uses: actions/checkout@v4
+        with:
+          repository: alheekmahlib/quran_library
+          path: quran_library
+      - uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: 21
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.47.5
+          cache: true
+      - name: Restore .env (bundled asset)
+        env:
+          DOTENV_BASE64: ${{ secrets.DOTENV_BASE64 }}
+        run: printf '%s' "$DOTENV_BASE64" | base64 --decode > .env
+      - name: Restore signing keystore
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          printf '%s' "$ANDROID_KEYSTORE_BASE64" | base64 --decode > android/app/keyStore.jks
+          { echo "storePassword=$ANDROID_KEYSTORE_PASSWORD"
+            echo "keyPassword=$ANDROID_KEY_PASSWORD"
+            echo "keyAlias=$ANDROID_KEY_ALIAS"
+            echo "storeFile=keyStore.jks"
+          } > android/key.properties
+      - run: flutter pub get
+      - run: flutter build apk --release
+      - name: Stage APK
+        run: cp build/app/outputs/flutter-apk/app-release.apk alquranalkareem-android.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android
+          if-no-files-found: error
+          path: app/alquranalkareem-android.apk
+
+  build-macos:
+    name: Build macOS (Developer ID + notarized)
+    needs: prepare
+    runs-on: macos-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: app
+      - name: Checkout quran_library (path dependency ../quran_library)
+        uses: actions/checkout@v4
+        with:
+          repository: alheekmahlib/quran_library
+          path: quran_library
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.47.5
+          cache: true
+      - name: Import Developer ID certificate
+        uses: Apple-Actions/import-codesign-certs@v7
+        with:
+          p12-file-base64: ${{ secrets.MAC_DEV_ID_P12_BASE64 }}
+          p12-password: ${{ secrets.MAC_DEV_ID_P12_PASSWORD }}
+      - name: Restore .env (bundled asset)
+        env:
+          DOTENV_BASE64: ${{ secrets.DOTENV_BASE64 }}
+        run: printf '%s' "$DOTENV_BASE64" | base64 --decode > .env
+      - name: Disable Swift Package Manager (project is not migrated; matches local behavior)
+        run: flutter config --no-enable-swift-package-manager
+      - run: flutter pub get
+      - name: Patch project for unsigned (ad-hoc) build
+        run: |
+          python3 - <<'PY'
+          import re
+          path = "macos/Runner.xcodeproj/project.pbxproj"
+          src = open(path).read()
+          src = src.replace("ProvisioningStyle = Automatic;", "ProvisioningStyle = Manual;")
+          strip = re.compile(r'^\t*(CODE_SIGN_STYLE|PROVISIONING_PROFILE(_SPECIFIER)?|CODE_SIGN_IDENTITY(\[[^\]]*\])?|DEVELOPMENT_TEAM)\s*=.*?;\n', re.M)
+          blocks = re.compile(r'(buildSettings = \{)(.*?)(\n\t\t\t\};)', re.S)
+          def patch(m):
+              body = m.group(2)
+              if 'PRODUCT_BUNDLE_IDENTIFIER' not in body:
+                  return m.group(0)
+              body = strip.sub('', body)
+              inj = ('\n\t\t\t\tCODE_SIGN_STYLE = Manual;'
+                     '\n\t\t\t\tCODE_SIGN_IDENTITY = "-";')
+              return m.group(1) + body + inj + m.group(3)
+          open(path, 'w').write(blocks.sub(patch, src))
+          print("macOS project patched for ad-hoc signing")
+          PY
+      - name: Strip profile-bound entitlement for direct distribution
+        # aps-environment (APNs push) only exists via provisioning profiles;
+        # Developer ID builds cannot carry it, local notifications don't need it
+        run: /usr/libexec/PlistBuddy -c "Delete :com.apple.developer.aps-environment" macos/Runner/Release.entitlements 2>/dev/null || echo "no aps key present"
+      - run: flutter build macos --release
+      - name: Sign with Developer ID Application
+        run: |
+          set -euo pipefail
+          APP="build/macos/Build/Products/Release/alquranalkareem.app"
+          IDENTITY=$(security find-identity -v -p codesigning | grep "Developer ID Application" | head -1 | sed -E 's/^.*"(.*)".*$/\1/')
+          if [ -z "$IDENTITY" ]; then
+            echo "::error::No 'Developer ID Application' identity found in keychain"
+            exit 1
+          fi
+          echo "Signing with: $IDENTITY"
+          # Sign deepest-first: nested dylibs/frameworks before their containers
+          find "$APP" -type f -name "*.dylib" | awk -F/ '{print NF, $0}' | sort -rn | cut -d' ' -f2- \
+            | while IFS= read -r f; do codesign --force --options runtime --timestamp --sign "$IDENTITY" "$f"; done
+          find "$APP" -type d -name "*.framework" | awk -F/ '{print NF, $0}' | sort -rn | cut -d' ' -f2- \
+            | while IFS= read -r f; do codesign --force --options runtime --timestamp --sign "$IDENTITY" "$f"; done
+          find "$APP" -type d -name "*.appex" \
+            | while IFS= read -r f; do codesign --force --options runtime --timestamp --sign "$IDENTITY" --entitlements macos/quran_macos_widgetExtension.entitlements "$f"; done
+          codesign --force --options runtime --timestamp --sign "$IDENTITY" --entitlements macos/Runner/Release.entitlements "$APP"
+          codesign --verify --deep --strict --verbose=2 "$APP"
+      - name: Notarize & staple
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY_P8_BASE64: ${{ secrets.ASC_KEY_P8_BASE64 }}
+        run: |
+          set -euo pipefail
+          APP="build/macos/Build/Products/Release/alquranalkareem.app"
+          printf '%s' "$ASC_KEY_P8_BASE64" | base64 --decode > "$RUNNER_TEMP/AuthKey.p8"
+          ditto -c -k --keepParent "$APP" "$RUNNER_TEMP/notarize.zip"
+          xcrun notarytool submit "$RUNNER_TEMP/notarize.zip" \
+            --key "$RUNNER_TEMP/AuthKey.p8" --key-id "$ASC_KEY_ID" --issuer "$ASC_ISSUER_ID" --wait
+          xcrun stapler staple "$APP"
+          ditto -c -k --keepParent "$APP" alquranalkareem-macos-arm64.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: macos
+          if-no-files-found: error
+          path: app/alquranalkareem-macos-arm64.zip
+
+  build-windows:
+    name: Build Windows
+    needs: prepare
+    runs-on: windows-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: app
+      - name: Checkout quran_library (path dependency ../quran_library)
+        uses: actions/checkout@v4
+        with:
+          repository: alheekmahlib/quran_library
+          path: quran_library
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.47.5
+          cache: true
+      - name: Restore .env (bundled asset)
+        shell: bash
+        env:
+          DOTENV_BASE64: ${{ secrets.DOTENV_BASE64 }}
+        run: printf '%s' "$DOTENV_BASE64" | base64 --decode > .env
+      - run: flutter pub get
+      - run: flutter build windows --release
+      - name: Package zip
+        shell: pwsh
+        run: Compress-Archive -Path build\windows\x64\runner\Release\* -DestinationPath alquranalkareem-windows-x64.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows
+          if-no-files-found: error
+          path: app/alquranalkareem-windows-x64.zip
+
+  build-linux:
+    name: Build Linux
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: app
+      - name: Checkout quran_library (path dependency ../quran_library)
+        uses: actions/checkout@v4
+        with:
+          repository: alheekmahlib/quran_library
+          path: quran_library
+      - name: Install GTK and GStreamer build dependencies
+        run: sudo apt-get update && sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.47.5
+          cache: true
+      - name: Restore .env (bundled asset)
+        env:
+          DOTENV_BASE64: ${{ secrets.DOTENV_BASE64 }}
+        run: printf '%s' "$DOTENV_BASE64" | base64 --decode > .env
+      - run: flutter pub get
+      - run: flutter build linux --release
+      - name: Package tar.gz
+        run: tar -czf alquranalkareem-linux-x64.tar.gz -C build/linux/x64/release bundle
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux
+          if-no-files-found: error
+          path: app/alquranalkareem-linux-x64.tar.gz
+
+  github-release:
+    name: Publish GitHub Release
+    needs: [prepare, build-android, build-macos, build-windows, build-linux]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: app
+      - uses: actions/download-artifact@v4
+        with:
+          name: android
+          path: dist
+          merge-multiple: true
+      - uses: actions/download-artifact@v4
+        with:
+          name: macos
+          path: dist
+          merge-multiple: true
+      - uses: actions/download-artifact@v4
+        with:
+          name: windows
+          path: dist
+          merge-multiple: true
+      - uses: actions/download-artifact@v4
+        with:
+          name: linux
+          path: dist
+          merge-multiple: true
+      - name: Compose release notes (ar + en)
+        env:
+          VERSION: ${{ needs.prepare.outputs.version }}
+        run: |
+          {
+            cat "release_notes/$VERSION/ar.md"
+            if [ -f "release_notes/$VERSION/en.md" ]; then
+              printf '\n---\n\n'
+              cat "release_notes/$VERSION/en.md"
+            fi
+          } > body.md
+      - name: Create versioned release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ needs.prepare.outputs.version }}
+        run: |
+          TAG="v$VERSION"
+          # Allow re-runs for the same version: replace any existing release/tag
+          gh release view "$TAG" && gh release delete "$TAG" --cleanup-tag --yes || true
+          gh release create "$TAG" \
+            --title "$TAG" \
+            --notes-file body.md \
+            --latest \
+            ../dist/alquranalkareem-android.apk \
+            ../dist/alquranalkareem-windows-x64.zip \
+            ../dist/alquranalkareem-macos-arm64.zip \
+            ../dist/alquranalkareem-linux-x64.tar.gz
+          echo "Published GitHub Release $TAG — this tag is what an F-Droid fdroiddata entry builds from."

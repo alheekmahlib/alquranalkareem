@@ -84,6 +84,13 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.release
+            // AGP 9 enables R8 by default and resolves the stock optimize file
+            // to a versioned path that does not exist on a clean build tree
+            // (proguard-android-optimize.txt-9.1.0). The shipped app has never
+            // used shrinking and no keep rules exist for the plugin set, so pin
+            // the previous behavior explicitly.
+            minifyEnabled false
+            shrinkResources false
         }
     }
 }
