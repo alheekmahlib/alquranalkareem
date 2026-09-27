@@ -156,7 +156,7 @@ class MushafSettings extends StatelessWidget {
                         onColorChanged: (Color color) =>
                             quranCtrl.state.temporaryBackgroundColor.value =
                                 color.toARGB32(),
-                        pickersEnabled: {
+                        pickersEnabled: const {
                           ColorPickerType.wheel: true,
                           ColorPickerType.both: false,
                           ColorPickerType.primary: false,

@@ -20,7 +20,7 @@ class TabBarViewWidget extends StatelessWidget {
       Column(
         children: [
           const Gap(110),
-          LogoWidget(),
+          const LogoWidget(),
           const Gap(32),
           Expanded(
             child: TabBarView(
@@ -31,7 +31,7 @@ class TabBarViewWidget extends StatelessWidget {
       ),
       Row(
         children: [
-          Expanded(child: LogoWidget()),
+          const Expanded(child: const LogoWidget()),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(top: 80.0),
@@ -47,7 +47,7 @@ class TabBarViewWidget extends StatelessWidget {
 }
 
 class LogoWidget extends StatelessWidget {
-  LogoWidget({super.key});
+  const LogoWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

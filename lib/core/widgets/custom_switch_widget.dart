@@ -31,7 +31,7 @@ class CustomSwitch extends StatelessWidget {
         ? (activeColor ?? context.theme.primaryColorLight)
         : (inactiveTrackColor ?? context.theme.colorScheme.primaryContainer);
     const thumbPadding = 3.0;
-    final thumbWidth = 40.0;
+    const thumbWidth = 40.0;
     final maxOffset = width - thumbWidth - (thumbPadding * 2);
 
     final thumbAtEnd = isRtl ? !value : value;

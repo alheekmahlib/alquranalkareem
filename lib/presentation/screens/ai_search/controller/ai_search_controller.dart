@@ -446,7 +446,7 @@ class AiSearchController extends GetxController {
   }
 
   List<double> _pseudoEmbedding(String query) {
-    final dim = 384;
+    const dim = 384;
     final seed = query.hashCode;
     final random = _SeededRandom(seed);
     final embedding = List.generate(dim, (_) => random.nextDouble() * 2 - 1);

@@ -86,7 +86,7 @@ class SliderWidget extends StatefulWidget {
     );
   }
 
-  SliderWidget({
+  const SliderWidget({
     this.currentPosition = 0,
     this.filesCount,
     this.duration,

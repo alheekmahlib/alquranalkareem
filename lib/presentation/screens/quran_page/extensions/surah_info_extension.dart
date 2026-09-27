@@ -83,7 +83,7 @@ extension SurahInfoExtension on void {
                             fontSize: 38,
                             height: 1.4,
                             inherit: false,
-                            fontFamilyFallback: ['surahName'],
+                            fontFamilyFallback: const ['surahName'],
                             package: "quran_library",
                           ),
                         ),

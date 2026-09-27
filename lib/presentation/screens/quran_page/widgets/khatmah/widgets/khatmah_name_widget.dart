@@ -2,7 +2,7 @@ part of '../../../quran.dart';
 
 class KhatmahNameWidget extends StatelessWidget {
   final Khatmah khatmah;
-  KhatmahNameWidget({super.key, required this.khatmah});
+  const KhatmahNameWidget({super.key, required this.khatmah});
 
   @override
   Widget build(BuildContext context) {

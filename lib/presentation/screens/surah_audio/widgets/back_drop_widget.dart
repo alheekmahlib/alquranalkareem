@@ -1,7 +1,7 @@
 part of '../surah_audio.dart';
 
 class BackDropWidget extends StatelessWidget {
-  BackDropWidget({super.key});
+  const BackDropWidget({super.key});
 
   // final surahCtrl = AudioCtrl.instance;
 

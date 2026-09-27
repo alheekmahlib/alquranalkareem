@@ -17,7 +17,7 @@ class OptionsRow extends StatelessWidget {
   final AdhkarData zekr;
   final bool azkarFav;
 
-  OptionsRow({super.key, required this.zekr, required this.azkarFav});
+  const OptionsRow({super.key, required this.zekr, required this.azkarFav});
 
   @override
   Widget build(BuildContext context) {

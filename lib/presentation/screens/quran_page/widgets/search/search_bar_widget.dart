@@ -9,7 +9,7 @@ class TextFieldBarWidget extends StatelessWidget {
   final void Function(String)? onChanged;
   final void Function(String)? onSubmitted;
   final double? horizontalPadding;
-  TextFieldBarWidget({
+  const TextFieldBarWidget({
     super.key,
     this.controller,
     this.hintText,

@@ -19,7 +19,7 @@ class DhekrImageCreator extends StatelessWidget {
   final String description;
   final String count;
 
-  DhekrImageCreator({
+  const DhekrImageCreator({
     super.key,
     required this.zekrText,
     required this.category,

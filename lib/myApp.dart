@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         .loadCurrentLanguage(); // تحميل اللغة المحفوظة أو الافتراضية
     LocalNotificationsController.instance;
     NotifyHelper().requistPermissions();
-    final TextScaler fixedScaler = const TextScaler.linear(1.0);
+    const TextScaler fixedScaler = TextScaler.linear(1.0);
     return ScreenUtilInit(
       designSize: const Size(360, 690),
       minTextAdapt: true,
