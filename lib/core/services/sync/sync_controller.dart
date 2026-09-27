@@ -31,8 +31,7 @@ class SyncController extends GetxController with WidgetsBindingObserver {
   final lastSyncAt = Rxn<int>();
   final lastError = Rxn<String>();
 
-  final bool isDesktop =
-      Platform.isWindows || Platform.isLinux || Platform.isMacOS;
+  final bool isDesktop = Platform.isWindows || Platform.isLinux;
 
   Timer? _debounceTimer;
   Timer? _pullTimer;
