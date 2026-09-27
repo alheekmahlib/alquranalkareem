@@ -396,6 +396,10 @@ jobs:
           open(path, 'w').write(blocks.sub(patch, src))
           print("macOS project patched for ad-hoc signing")
           PY
+      - name: Strip profile-bound entitlement for direct distribution
+        # aps-environment (APNs push) only exists via provisioning profiles;
+        # Developer ID builds cannot carry it, local notifications don't need it
+        run: /usr/libexec/PlistBuddy -c "Delete :com.apple.developer.aps-environment" macos/Runner/Release.entitlements 2>/dev/null || echo "no aps key present"
       - run: flutter build macos --release
       - name: Sign with Developer ID Application
         run: |
@@ -620,7 +624,9 @@ jobs:
     name: App Store (TestFlight)
     needs: [prepare, build-ios]
     if: inputs.upload_testflight
-    runs-on: ubuntu-latest
+    # macOS runner: fastlane's binary upload needs Apple's iTMSTransporter,
+    # which is unavailable on Linux (fails with an empty-dir chdir error)
+    runs-on: macos-latest
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
@@ -834,6 +840,7 @@ jobs:
             --data-urlencode "fileName=release.apk" \
             --data-urlencode "contentLength=$SIZE" \
             --data-urlencode "suffix=apk" \
+            -H "Content-Type: application/json" \
             -H "client_id: $AGC_CLIENT_ID" \
             -H "Authorization: Bearer $TOKEN")
           CODE=${RESP##*$'\n'}
