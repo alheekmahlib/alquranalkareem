@@ -279,7 +279,7 @@ class FeedbackController extends GetxController {
         body['media_urls'] = mediaUrls;
       }
 
-      final endpoint =
+      const endpoint =
           '${ApiConstants.feedbackApiUrl}${ApiConstants.feedbackEndpoint}';
 
       final result = await ApiClient().request(
@@ -598,7 +598,7 @@ class FeedbackController extends GetxController {
     isUploading.value = true;
     uploadProgress.value = 0.0;
     final urls = <String>[];
-    final endpoint =
+    const endpoint =
         '${ApiConstants.feedbackApiUrl}${ApiConstants.feedbackUploadEndpoint}';
 
     try {

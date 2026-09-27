@@ -10,7 +10,7 @@ import '../controller/adhkar_controller.dart';
 
 class TextWidget extends StatelessWidget {
   final AdhkarData zekr;
-  TextWidget({super.key, required this.zekr});
+  const TextWidget({super.key, required this.zekr});
 
   @override
   Widget build(BuildContext context) {

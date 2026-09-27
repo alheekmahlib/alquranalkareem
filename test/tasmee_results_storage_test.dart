@@ -8,7 +8,7 @@ import 'package:quran_library/quran_library.dart';
 void main() {
   group('TasmeeErrorSnapshot serialization', () {
     test('round-trip يحفظ حقول العرض كما هي', () {
-      final error = const RecitationError(
+      const error = RecitationError(
         errorType: 'tajweed',
         speechErrorType: 'replace',
         wordText: 'ٱلرَّحْمَٰنِ',

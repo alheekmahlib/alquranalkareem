@@ -74,7 +74,7 @@ class FeedbackQueue {
     ];
     if (mediaUrls.isNotEmpty) body['media_urls'] = mediaUrls;
 
-    final endpoint =
+    const endpoint =
         '${ApiConstants.feedbackApiUrl}${ApiConstants.feedbackEndpoint}';
     final result = await ApiClient().request(
       endpoint: endpoint,
@@ -114,7 +114,7 @@ class FeedbackQueue {
   /// يرفع الملفات المرحلية لـ R2 ويعيد روابطها؛ الرمي = فشل محاولة.
   static Future<List<String>> _uploadStaged(List<String> paths) async {
     if (paths.isEmpty) return const [];
-    final endpoint =
+    const endpoint =
         '${ApiConstants.feedbackApiUrl}${ApiConstants.feedbackUploadEndpoint}';
     final urls = <String>[];
     for (final path in paths) {

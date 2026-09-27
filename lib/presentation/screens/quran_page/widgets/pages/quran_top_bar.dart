@@ -119,7 +119,7 @@ class QuranTopBar extends StatelessWidget {
                                 onPressed: () => customBottomSheet(
                                   backgroundColor:
                                       Get.theme.colorScheme.primaryContainer,
-                                  KhatmasScreen(),
+                                  const KhatmasScreen(),
                                 ),
                               ),
                             ],

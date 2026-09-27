@@ -172,7 +172,7 @@ class BooksTopTitleWidget extends StatelessWidget {
                           onColorChanged: (Color color) =>
                               booksCtrl.state.temporaryBackgroundColor.value =
                                   color.toARGB32(),
-                          pickersEnabled: {
+                          pickersEnabled: const {
                             ColorPickerType.wheel: false,
                             ColorPickerType.both: false,
                             ColorPickerType.primary: false,

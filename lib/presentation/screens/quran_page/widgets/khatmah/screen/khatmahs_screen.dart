@@ -2,7 +2,7 @@ part of '../../../quran.dart';
 
 /// =============[KhatmahScreen]==============
 class KhatmasScreen extends StatelessWidget {
-  KhatmasScreen({super.key});
+  const KhatmasScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

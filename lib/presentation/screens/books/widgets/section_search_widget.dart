@@ -137,7 +137,7 @@ class _SectionSearchWidgetState extends State<SectionSearchWidget>
                     animation: _expandAnimation,
                     builder: (context, child) {
                       final screenWidth = Get.width;
-                      final collapsedWidth = 48.0;
+                      const collapsedWidth = 48.0;
                       final expandedWidth = screenWidth - 32.0;
                       final width =
                           collapsedWidth +

@@ -299,8 +299,9 @@ class VectorSearchService {
   }) async {
     // Convert query to Float64List for efficient isolate transfer
     final queryFloat64 = Float64List.fromList(queryEmbedding);
-    final bm25Float64 =
-        bm25Scores != null ? Float64List.fromList(bm25Scores) : null;
+    final bm25Float64 = bm25Scores != null
+        ? Float64List.fromList(bm25Scores)
+        : null;
 
     final params = _IsolateSearchParams(
       binaryPath: index.binaryPath!,
@@ -369,10 +370,12 @@ class VectorSearchService {
         int smallest = i;
         final left = 2 * i + 1;
         final right = 2 * i + 2;
-        if (left < heapIndices.length && heapScores[left] < heapScores[smallest]) {
+        if (left < heapIndices.length &&
+            heapScores[left] < heapScores[smallest]) {
           smallest = left;
         }
-        if (right < heapIndices.length && heapScores[right] < heapScores[smallest]) {
+        if (right < heapIndices.length &&
+            heapScores[right] < heapScores[smallest]) {
           smallest = right;
         }
         if (smallest == i) break;
@@ -388,7 +391,7 @@ class VectorSearchService {
 
     // Read file in chunks
     const chunkSize = 1024;
-    final vectorsOffset = 16;
+    const vectorsOffset = 16;
     final scalesOffset = 16 + count * dim;
 
     // Synchronous file reading in isolate
@@ -409,8 +412,7 @@ class VectorSearchService {
           final globalIdx = start + i;
 
           // Float16 scale
-          final scaleBits =
-              scaleBytes[i * 2] | (scaleBytes[i * 2 + 1] << 8);
+          final scaleBits = scaleBytes[i * 2] | (scaleBytes[i * 2 + 1] << 8);
           final scale = _float16ToDouble(scaleBits);
 
           // Dot product with dequantization
@@ -465,7 +467,7 @@ class VectorSearchService {
     final headerLen = bytes[offset] | (bytes[offset + 1] << 8);
     offset += 2 + headerLen;
     final count = (bytes.length - offset) ~/ 384;
-    final dim = 384;
+    const dim = 384;
     final data = Int8List.view(
       bytes.buffer,
       bytes.offsetInBytes + offset,
@@ -479,11 +481,7 @@ class VectorSearchService {
     final headerLen = bytes[offset] | (bytes[offset + 1] << 8);
     offset += 2 + headerLen;
     final count = (bytes.length - offset) ~/ 2;
-    return Uint16List.view(
-      bytes.buffer,
-      bytes.offsetInBytes + offset,
-      count,
-    );
+    return Uint16List.view(bytes.buffer, bytes.offsetInBytes + offset, count);
   }
 
   static double _float16ToDouble(int bits) {

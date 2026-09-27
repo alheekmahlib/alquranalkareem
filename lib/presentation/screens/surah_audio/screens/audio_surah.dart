@@ -24,7 +24,7 @@ class AudioScreen extends StatelessWidget {
             color: context.theme.colorScheme.primaryContainer,
             child: Stack(
               children: [
-                BackDropWidget(),
+                const BackDropWidget(),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Column(
@@ -120,7 +120,7 @@ class AudioScreen extends StatelessWidget {
                                       height: 73,
                                       child: CollapsedPlayWidget(),
                                     ),
-                                    secondChild: PlayWidget(),
+                                    secondChild: const PlayWidget(),
                                     crossFadeState:
                                         surahCtrl
                                             .surahState

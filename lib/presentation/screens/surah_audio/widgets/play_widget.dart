@@ -4,7 +4,7 @@ class PlayWidget extends StatelessWidget {
   final Color? iconColor;
   final Color? backgroundColor;
   final bool? isFullScreen;
-  PlayWidget({
+  const PlayWidget({
     super.key,
     this.iconColor,
     this.backgroundColor,
