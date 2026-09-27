@@ -74,29 +74,31 @@ class _UnpairedView extends StatelessWidget {
           ),
         ),
         const Gap(8),
-        Obx(
-          () => ContainerButton(
-            onPressed: syncCtrl.isPairing.value
-                ? null
-                : () async {
-                    final scanned = await Get.to<String?>(
-                      () => const SyncScannerScreen(),
-                      binding: SyncScannerBinding(),
-                      transition: Transition.downToUp,
-                    );
-                    if (scanned != null && scanned.isNotEmpty) {
-                      await _join(context, syncCtrl, scanned);
-                    }
-                  },
-            isPreparingDownload: syncCtrl.isPairing.value,
-            withArrow: true,
-            width: double.infinity,
-            title: 'joinSyncGroup',
-            horizontalPadding: 8.0,
-            verticalPadding: 12.0,
-            horizontalMargin: 8.0,
-          ),
-        ),
+        syncCtrl.isDesktop
+            ? const SizedBox.shrink()
+            : Obx(
+                () => ContainerButton(
+                  onPressed: syncCtrl.isPairing.value
+                      ? null
+                      : () async {
+                          final scanned = await Get.to<String?>(
+                            () => const SyncScannerScreen(),
+                            binding: SyncScannerBinding(),
+                            transition: Transition.downToUp,
+                          );
+                          if (scanned != null && scanned.isNotEmpty) {
+                            await _join(context, syncCtrl, scanned);
+                          }
+                        },
+                  isPreparingDownload: syncCtrl.isPairing.value,
+                  withArrow: true,
+                  width: double.infinity,
+                  title: 'joinSyncGroup',
+                  horizontalPadding: 8.0,
+                  verticalPadding: 12.0,
+                  horizontalMargin: 8.0,
+                ),
+              ),
         const Gap(24),
         Text(
           'enterSyncCodeManually'.tr,

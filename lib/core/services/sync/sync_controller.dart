@@ -1,12 +1,13 @@
 import 'dart:async';
+import 'dart:io' show Platform;
 
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
+import '../../../presentation/screens/adhkar/controller/adhkar_controller.dart';
 import '../../../presentation/screens/books/books.dart';
 import '../../../presentation/screens/quran_page/quran.dart';
 import '../../utils/constants/sync_constants.dart';
-import '../../../presentation/screens/adhkar/controller/adhkar_controller.dart';
 import 'sync_service.dart';
 
 /// متحكم مزامنة الأجهزة — حالة قابلة للرصد + تريغرات المزامنة:
@@ -29,6 +30,9 @@ class SyncController extends GetxController with WidgetsBindingObserver {
   final isPairing = false.obs;
   final lastSyncAt = Rxn<int>();
   final lastError = Rxn<String>();
+
+  final bool isDesktop =
+      Platform.isWindows || Platform.isLinux || Platform.isMacOS;
 
   Timer? _debounceTimer;
   Timer? _pullTimer;

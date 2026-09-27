@@ -91,7 +91,8 @@ dependencies:
   pretty_qr_code: ^3.6.0
   qr_flutter: ^4.1.0
   quran_library: #^5.0.1
-    path: ../quran_library
+    git:
+      url: https://github.com/alheekmahlib/quran_library.git
   read_more_less: ^1.0.1
   rxdart: ^0.28.0
   screenshot: ^3.0.0
@@ -124,6 +125,8 @@ dev_dependencies:
   drift_dev: ^2.35.0
   flutter_test:
     sdk: flutter
+  flutter_lints: ^6.0.0
+  msix: ^3.18.0
 
 flutter_native_splash:
   color: "#283618"
@@ -161,6 +164,16 @@ app_name_localizer:
   tr: "Kur'an-ı Kerim - Hikmet Kütüphanesi"
   ur: "القرآن الکریم - الحکمہ لائبریری"
 
+msix_config:
+  display_name: القرآن الكريم - مكتبة الحكمة
+  publisher_display_name: مكتبة الحكمة - Al-hikmah Library
+  identity_name: -Al-hikmahLibrary.-
+  publisher: CN=80C4D4C2-E4E8-47EC-8263-D409F68DE30F
+  msix_version: 5.5.1.0
+  logo_path: assets\quran_logo_mac.png
+  capabilities: internetClient, microphone
+  store: true
+
 # flutter_launcher_icons:
 #   android: "launcher_icon"
 #   ios: true
@@ -173,7 +186,6 @@ app_name_localizer:
 #   macos:
 #     generate: true
 #     image_path: "assets/app_icon.png"
-flutter_lints: ^6.0.0
 
 flutter_assets:
   # assets_path: assets/lottie/
