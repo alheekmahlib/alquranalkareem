@@ -1,0 +1,114 @@
+name: Release — Google Play (production)
+
+# Manual-trigger workflow: builds a signed AAB and uploads it to the
+# production track with localized what's-new notes.
+# Google does not allow automated review submission for this account, so the
+# release lands ready on the production track and you press "Send for review"
+# once in the Play Console.
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: release-play
+  cancel-in-progress: false
+
+env:
+  FLUTTER_VERSION: 3.47.5
+
+defaults:
+  run:
+    working-directory: app
+
+jobs:
+  release:
+    name: Build AAB & upload to production
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: app
+      - name: Checkout quran_library (path dependency ../quran_library)
+        uses: actions/checkout@v4
+        with:
+          repository: alheekmahlib/quran_library
+          path: quran_library
+      - name: Validate required secrets
+        env:
+          DOTENV_BASE64: ${{ secrets.DOTENV_BASE64 }}
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+        run: |
+          miss=0
+          need() { if [ -z "${!1}" ]; then echo "::error::Missing GitHub secret: $1"; miss=1; fi; }
+          need DOTENV_BASE64
+          need ANDROID_KEYSTORE_BASE64
+          need ANDROID_KEYSTORE_PASSWORD
+          need ANDROID_KEY_ALIAS
+          need ANDROID_KEY_PASSWORD
+          need PLAY_SERVICE_ACCOUNT_JSON
+          [ "$miss" -eq 1 ] && exit 1
+          echo "All required secrets are present"
+      - uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: 21
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.47.5
+          cache: true
+      - name: Restore .env (bundled asset)
+        env:
+          DOTENV_BASE64: ${{ secrets.DOTENV_BASE64 }}
+        run: printf '%s' "$DOTENV_BASE64" | base64 --decode > .env
+      - name: Restore signing keystore
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          printf '%s' "$ANDROID_KEYSTORE_BASE64" | base64 --decode > android/app/keyStore.jks
+          { echo "storePassword=$ANDROID_KEYSTORE_PASSWORD"
+            echo "keyPassword=$ANDROID_KEY_PASSWORD"
+            echo "keyAlias=$ANDROID_KEY_ALIAS"
+            echo "storeFile=keyStore.jks"
+          } > android/key.properties
+      - run: flutter pub get
+      - run: flutter build appbundle --release
+      - name: Build localized what's-new files
+        run: |
+          VERSION=$(sed -n 's/^version:[[:space:]]*//p' pubspec.yaml | tr -d '[:space:]')
+          mkdir -p whatsnew
+          for f in "release_notes/$VERSION"/*.md; do
+            lang=$(basename "$f" .md)
+            case "$lang" in
+              en) loc="en-US" ;;
+              es) loc="es-419" ;; # switch to es-ES if the Play listing is Spain Spanish
+              *)  loc="$lang" ;;
+            esac
+            cp "$f" "whatsnew/whatsnew-$loc"
+            echo "whatsnew-$loc ← $lang"
+          done
+      - name: Read version name
+        run: |
+          NAME="v$(sed -n 's/^version:[[:space:]]*//p' pubspec.yaml | tr -d '[:space:]' | cut -d+ -f1)"
+          echo "RELEASE_NAME=$NAME" >> "$GITHUB_ENV"
+          echo "Releasing $NAME to production"
+      - uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+          packageName: com.alheekmah.alquranalkareem.alquranalkareem
+          releaseFiles: app/build/app/outputs/bundle/release/app-release.aab
+          tracks: production
+          status: completed
+          releaseName: ${{ env.RELEASE_NAME }}
+          whatsNewDirectory: app/whatsnew
+          # Google rejects automated review submission for this account type;
+          # the release lands ready on the production track and you press
+          # "Send for review" once from the Play Console.
+          changesNotSentForReview: true

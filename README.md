@@ -15,8 +15,8 @@
   <a href="https://github.com/alheekmahlib/alquranalkareem/releases">
     <img src="https://img.shields.io/github/v/release/alheekmahlib/alquranalkareem?style=for-the-badge&color=2EA44F&label=Release" alt="Latest release"/>
   </a>
-  <a href="https://github.com/alheekmahlib/alquranalkareem/actions/workflows/release.yml">
-    <img src="https://img.shields.io/github/actions/workflow/status/alheekmahlib/alquranalkareem/release.yml?style=for-the-badge&label=CI&logo=github" alt="CI status"/>
+  <a href="https://github.com/alheekmahlib/alquranalkareem/actions/workflows/release-github.yml">
+    <img src="https://img.shields.io/github/actions/workflow/status/alheekmahlib/alquranalkareem/release-github.yml?style=for-the-badge&label=Release+CI&logo=github" alt="Release CI status"/>
   </a>
   <a href="https://github.com/alheekmahlib/alquranalkareem/stargazers">
     <img src="https://img.shields.io/github/stars/alheekmahlib/alquranalkareem?style=for-the-badge&color=dfb317&label=Stars" alt="GitHub stars"/>
@@ -273,7 +273,19 @@ flutter build ios --release
 flutter build macos --release
 ```
 
-CI (`.github/workflows/`) builds and publishes releases automatically on push to `main`; `release.yml` produces the Android APK and `release-all.yml` builds all platforms.
+Releasing — five independent manual workflows in `.github/workflows/`, run whichever you want from the Actions tab:
+
+| Workflow | What it does |
+|---|---|
+| `release-github.yml` | Builds Android/macOS/Windows/Linux (production signing, notarized macOS) and publishes a versioned GitHub Release with direct downloads |
+| `release-play.yml` | Builds a signed AAB and uploads it to the production track (press "Send for review" once in Play Console) |
+| `release-testflight.yml` | Builds a signed IPA and uploads it to TestFlight |
+| `release-appgallery.yml` | Builds a signed APK and attaches it to the AppGallery Connect draft release (review not submitted) |
+| `release-mac-appstore.yml` | Builds a signed Mac App Store .pkg and uploads it to TestFlight |
+
+Every release: bump `version:` in `pubspec.yaml` (e.g. `5.6.0+125`) and write `release_notes/<version>/ar.md` (+ optional `en.md`, `es.md`, `tr.md`, `bn.md`, … — Google Play limit is 500 chars per language). The GitHub Release body is ar + en; Play what's-new files are generated from the same folder.
+
+Required GitHub secrets (per workflow): `DOTENV_BASE64`, `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD` (Android builds); `MAC_DEV_ID_P12_BASE64`, `MAC_DEV_ID_P12_PASSWORD`, `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8_BASE64` (GitHub Release macOS); `PLAY_SERVICE_ACCOUNT_JSON` (Play); `IOS_P12_BASE64`, `IOS_P12_PASSWORD`, `IOS_PROFILE_BASE64`, `IOS_PROFILE_WIDGET_BASE64` (TestFlight / Mac App Store); `MAS_INSTALLER_P12_BASE64`, `MAS_INSTALLER_P12_PASSWORD`, `MAS_PROFILE_BASE64`, `MAS_PROFILE_WIDGET_BASE64` (Mac App Store); `AGC_CLIENT_ID`, `AGC_CLIENT_SECRET` (AppGallery).
 
 ---
 
