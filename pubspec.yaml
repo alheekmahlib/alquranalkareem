@@ -19,7 +19,7 @@ dependencies:
   archive: ^4.3.0
   awesome_notifications: ^0.12.1
   background_fetch: ^1.7.0
-  badges: ^4.0.0
+  badges: ^4.0.1
   camera_desktop: ^2.0.0
   connectivity_kit:
     git:
@@ -83,7 +83,7 @@ dependencies:
     git:
       url: https://github.com/alheekmahlib/multi_store_review.git
       path: multi_store_review
-      ref: multi_store_review-v2.2.0
+      ref: multi_store_review-v2.2.1
   package_rename: ^1.10.1
   particles_flutter: ^3.2.0
   path: ^1.9.1

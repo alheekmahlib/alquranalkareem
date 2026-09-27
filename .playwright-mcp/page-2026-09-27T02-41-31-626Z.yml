@@ -1,0 +1,132 @@
+- generic [active] [ref=f2e1]:
+  - banner [ref=f2e2]:
+    - generic [ref=f2e3]:
+      - link "Skip to main content" [ref=f2e4] [cursor=pointer]:
+        - /url: "#main"
+      - generic [ref=f2e6]:
+        - generic [ref=f2e7]:
+          - generic [ref=f2e8]:
+            - heading "Microsoft Ignite" [level=2] [ref=f2e9]
+            - paragraph [ref=f2e10]: November 17–20, 2026
+          - link "Register now" [ref=f2e11] [cursor=pointer]:
+            - /url: https://ignite.microsoft.com/home?wt.mc_ID=msignite26_gmee_corp_np_oo_MSLearnRegLaunch
+            - generic [ref=f2e14]: Ｔ
+        - button "Dismiss alert" [ref=f2e15] [cursor=pointer]
+      - generic [ref=f2e17]:
+        - text: Ｏ Ｐ 
+        - generic [ref=f2e18]:
+          - link "Microsoft" [ref=f2e19] [cursor=pointer]:
+            - /url: https://www.microsoft.com
+          - link "Learn" [ref=f2e26] [cursor=pointer]:
+            - /url: /en-us/
+          - generic [ref=f2e28]:
+            - navigation "Global" [ref=f2e30]:
+              - text: Ｒ
+              - list [ref=f2e31]:
+                - listitem [ref=f2e32]:
+                  - button "Documentation" [ref=f2e34] [cursor=pointer]:
+                    - generic [ref=f2e37]: Ｓ
+                - listitem [ref=f2e38]:
+                  - button "Training & Labs" [ref=f2e40] [cursor=pointer]:
+                    - generic [ref=f2e43]: Ｓ
+                - listitem [ref=f2e44]:
+                  - button "Q&A" [ref=f2e46] [cursor=pointer]:
+                    - generic [ref=f2e49]: Ｓ
+                - listitem [ref=f2e50]:
+                  - button "Topics" [ref=f2e52] [cursor=pointer]:
+                    - generic [ref=f2e55]: Ｓ
+              - text: Ｔ
+            - generic [ref=f2e56]:
+              - text: Ｐ
+              - button "Open search" [ref=f2e57] [cursor=pointer]:
+                - generic [ref=f2e59]: 
+          - link "Sign in" [ref=f2e60] [cursor=pointer]:
+            - /url: "#"
+  - generic "Filter" [ref=f2e63]:
+    - navigation "Filter" [ref=f2e65]:
+      - button "Collapse" [expanded] [ref=f2e67] [cursor=pointer]:
+        - generic [ref=f2e69]: ﾝ
+      - generic:
+        - generic "Filters"
+  - main [ref=f2e70]:
+    - generic [ref=f2e71]:
+      - generic [ref=f2e73]:
+        - generic [ref=f2e76]:
+          - combobox "Search" [ref=f2e77]: "\"create app store listing\""
+          - generic [aria-hidden]:
+            - generic: 
+        - button "Search" [ref=f2e79] [cursor=pointer]:
+          - generic [ref=f2e81]: 
+          - generic [aria-hidden] [ref=f2e82]: Search
+      - text: 󿄒
+      - heading [level=1] [ref=f2e85]: Loading...
+      - list [ref=f2e87]:
+        - listitem [aria-hidden] [ref=f2e88]:
+          - heading [level=2] [ref=f2e89]: Loading...
+          - paragraph [ref=f2e90]
+        - listitem [aria-hidden] [ref=f2e91]:
+          - heading [level=2] [ref=f2e92]: Loading...
+          - paragraph [ref=f2e93]
+        - listitem [aria-hidden] [ref=f2e94]:
+          - heading [level=2] [ref=f2e95]: Loading...
+          - paragraph [ref=f2e96]
+        - listitem [aria-hidden] [ref=f2e97]:
+          - heading [level=2] [ref=f2e98]: Loading...
+          - paragraph [ref=f2e99]
+        - listitem [aria-hidden] [ref=f2e100]:
+          - heading [level=2] [ref=f2e101]: Loading...
+          - paragraph [ref=f2e102]
+        - listitem [aria-hidden] [ref=f2e103]:
+          - heading [level=2] [ref=f2e104]: Loading...
+          - paragraph [ref=f2e105]
+        - listitem [aria-hidden] [ref=f2e106]:
+          - heading [level=2] [ref=f2e107]: Loading...
+          - paragraph [ref=f2e108]
+        - listitem [aria-hidden] [ref=f2e109]:
+          - heading [level=2] [ref=f2e110]: Loading...
+          - paragraph [ref=f2e111]
+        - listitem [aria-hidden] [ref=f2e112]:
+          - heading [level=2] [ref=f2e113]: Loading...
+          - paragraph [ref=f2e114]
+        - listitem [aria-hidden] [ref=f2e115]:
+          - heading [level=2] [ref=f2e116]: Loading...
+          - paragraph [ref=f2e117]
+  - contentinfo [ref=f2e119]:
+    - generic [ref=f2e120]:
+      - link "Content language selector. Currently set to English (United States)." [ref=f2e121] [cursor=pointer]:
+        - /url: /en-us/locale?target=https%3A%2F%2Flearn.microsoft.com%2Fen-us%2Fsearch%2F%3Fterms%3D%2522create%2520app%2520store%2520listing%2522
+        - generic [ref=f2e123]: 
+        - generic [ref=f2e124]: English (United States)
+      - link "Your Privacy Choices" [ref=f2e126] [cursor=pointer]:
+        - /url: https://aka.ms/yourcaliforniaprivacychoices
+      - button "Theme" [ref=f2e135] [cursor=pointer]:
+        - generic [ref=f2e137]: ０
+        - generic [ref=f2e140]: Ｓ
+    - list [ref=f2e141]:
+      - listitem [ref=f2e142]:
+        - link "AI Disclaimer" [ref=f2e143] [cursor=pointer]:
+          - /url: https://learn.microsoft.com/en-us/principles-for-ai-generated-content
+      - listitem [ref=f2e144]:
+        - link "Previous Versions" [ref=f2e145] [cursor=pointer]:
+          - /url: https://learn.microsoft.com/en-us/previous-versions/
+      - listitem [ref=f2e146]:
+        - link "Blog" [ref=f2e147] [cursor=pointer]:
+          - /url: https://techcommunity.microsoft.com/t5/microsoft-learn-blog/bg-p/MicrosoftLearnBlog
+      - listitem [ref=f2e148]:
+        - link "Contribute" [ref=f2e149] [cursor=pointer]:
+          - /url: https://learn.microsoft.com/en-us/contribute
+      - listitem [ref=f2e150]:
+        - link "Privacy" [ref=f2e151] [cursor=pointer]:
+          - /url: https://go.microsoft.com/fwlink/?LinkId=521839
+      - listitem [ref=f2e152]:
+        - link "Consumer Health Privacy" [ref=f2e153] [cursor=pointer]:
+          - /url: https://go.microsoft.com/fwlink/?linkid=2259814
+      - listitem [ref=f2e154]:
+        - link "Terms of Use" [ref=f2e155] [cursor=pointer]:
+          - /url: https://learn.microsoft.com/en-us/legal/termsofuse
+      - listitem [ref=f2e156]:
+        - link "Trademarks" [ref=f2e157] [cursor=pointer]:
+          - /url: https://www.microsoft.com/legal/intellectualproperty/Trademarks/
+      - listitem [ref=f2e158]: © Microsoft 2026
+  - alert [ref=f2e159]
+  - status [ref=f2e160]

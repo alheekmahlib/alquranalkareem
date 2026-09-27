@@ -173,10 +173,10 @@ packages:
     dependency: "direct main"
     description:
       name: badges
-      sha256: fddcd11cf5c563e27adc768d41db6a80b2d6172ec1cbe8a964c947cf35b52cee
+      sha256: "4d53519c5883c74974b8efd2ea3cef85bab17b79406b83b91a022285c46e5560"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.0"
+    version: "4.0.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -1292,11 +1292,11 @@ packages:
     dependency: "direct main"
     description:
       path: multi_store_review
-      ref: "multi_store_review-v2.2.0"
-      resolved-ref: c2067d79d0741690f1bf3c45ad3d3eaf454a682b
+      ref: "multi_store_review-v2.2.1"
+      resolved-ref: "7bb6c6e40afc35f52483803987ddfcc0a217d4b9"
       url: "https://github.com/alheekmahlib/multi_store_review.git"
     source: git
-    version: "2.2.0"
+    version: "2.2.1"
   multi_store_review_platform_interface:
     dependency: "direct overridden"
     description:

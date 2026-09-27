@@ -1,0 +1,316 @@
+- generic [active] [ref=f2e1]:
+  - banner [ref=f2e2]:
+    - generic [ref=f2e3]:
+      - link "Skip to main content" [ref=f2e4] [cursor=pointer]:
+        - /url: "#main"
+      - generic [ref=f2e6]:
+        - generic [ref=f2e7]:
+          - generic [ref=f2e8]:
+            - heading "Microsoft Ignite" [level=2] [ref=f2e9]
+            - paragraph [ref=f2e10]: November 17–20, 2026
+          - link "Register now" [ref=f2e11] [cursor=pointer]:
+            - /url: https://ignite.microsoft.com/home?wt.mc_ID=msignite26_gmee_corp_np_oo_MSLearnRegLaunch
+            - generic [ref=f2e14]: Ｔ
+        - button "Dismiss alert" [ref=f2e15] [cursor=pointer]
+      - generic [ref=f2e17]:
+        - text: Ｏ Ｐ 
+        - generic [ref=f2e18]:
+          - link "Microsoft" [ref=f2e19] [cursor=pointer]:
+            - /url: https://www.microsoft.com
+          - link "Learn" [ref=f2e26] [cursor=pointer]:
+            - /url: /en-us/
+          - generic [ref=f2e28]:
+            - navigation "Global" [ref=f2e30]:
+              - text: Ｒ
+              - list [ref=f2e31]:
+                - listitem [ref=f2e32]:
+                  - button "Documentation" [ref=f2e34] [cursor=pointer]:
+                    - generic [ref=f2e37]: Ｓ
+                - listitem [ref=f2e38]:
+                  - button "Training & Labs" [ref=f2e40] [cursor=pointer]:
+                    - generic [ref=f2e43]: Ｓ
+                - listitem [ref=f2e44]:
+                  - button "Q&A" [ref=f2e46] [cursor=pointer]:
+                    - generic [ref=f2e49]: Ｓ
+                - listitem [ref=f2e50]:
+                  - button "Topics" [ref=f2e52] [cursor=pointer]:
+                    - generic [ref=f2e55]: Ｓ
+              - text: Ｔ
+            - generic [ref=f2e56]:
+              - text: Ｐ
+              - button "Open search" [ref=f2e57] [cursor=pointer]:
+                - generic [ref=f2e59]: 
+          - link "Sign in" [ref=f2e60] [cursor=pointer]:
+            - /url: "#"
+  - generic "Filter" [ref=f2e63]:
+    - navigation "Filter" [ref=f2e65]:
+      - button "Collapse" [expanded] [ref=f2e67] [cursor=pointer]:
+        - generic [ref=f2e69]: ﾝ
+      - generic "Filters" [ref=f2e162]:
+        - generic [ref=f2e163]:
+          - generic [ref=f2e164]:
+            - heading "Products" [level=3] [ref=f2e165]
+            - button "Products options" [expanded] [ref=f2e166] [cursor=pointer]:
+              - generic [ref=f2e168]: Ｓ
+          - list "Products" [ref=f2e171]:
+            - listitem [level=2] [ref=f2e172]:
+              - generic [ref=f2e173]:
+                - button "Expand Azure" [ref=f2e174] [cursor=pointer]:
+                  - generic [ref=f2e176]: Ｓ
+                - generic [ref=f2e177] [cursor=pointer]:
+                  - checkbox "Azure" [ref=f2e178]
+                  - generic [ref=f2e179]: Azure
+              - list
+            - listitem [level=2] [ref=f2e180]:
+              - generic [ref=f2e181]:
+                - button "Expand Dynamics 365" [ref=f2e182] [cursor=pointer]:
+                  - generic [ref=f2e184]: Ｓ
+                - generic [ref=f2e185] [cursor=pointer]:
+                  - checkbox "Dynamics 365" [ref=f2e186]
+                  - generic [ref=f2e187]: Dynamics 365
+              - list
+            - listitem [level=2] [ref=f2e188]:
+              - generic [ref=f2e190] [cursor=pointer]:
+                - checkbox "Microsoft 365" [ref=f2e191]
+                - generic [ref=f2e192]: Microsoft 365
+            - listitem [level=2] [ref=f2e193]:
+              - generic [ref=f2e194]:
+                - button "Expand Microsoft Power Platform" [ref=f2e195] [cursor=pointer]:
+                  - generic [ref=f2e197]: Ｓ
+                - generic [ref=f2e198] [cursor=pointer]:
+                  - checkbox "Microsoft Power Platform" [ref=f2e199]
+                  - generic [ref=f2e200]: Microsoft Power Platform
+              - list
+            - listitem [level=2] [ref=f2e201]:
+              - generic [ref=f2e203] [cursor=pointer]:
+                - checkbox "Microsoft Search" [ref=f2e204]
+                - generic [ref=f2e205]: Microsoft Search
+            - listitem [level=2] [ref=f2e206]:
+              - generic [ref=f2e208] [cursor=pointer]:
+                - checkbox "Visual Studio App Center" [ref=f2e209]
+                - generic [ref=f2e210]: Visual Studio App Center
+            - listitem [level=2] [ref=f2e211]:
+              - generic [ref=f2e213] [cursor=pointer]:
+                - checkbox "Windows" [ref=f2e214]
+                - generic [ref=f2e215]: Windows
+            - listitem [level=2] [ref=f2e216]:
+              - generic [ref=f2e218] [cursor=pointer]:
+                - checkbox "Windows App" [ref=f2e219]
+                - generic [ref=f2e220]: Windows App
+            - listitem [level=2] [ref=f2e221]:
+              - generic [ref=f2e223] [cursor=pointer]:
+                - checkbox "Xbox" [ref=f2e224]
+                - generic [ref=f2e225]: Xbox
+  - main [ref=f2e70]:
+    - generic [ref=f2e71]:
+      - generic [ref=f2e73]:
+        - generic [ref=f2e76]:
+          - combobox "Search" [ref=f2e77]: "\"create app store listing\""
+          - generic [aria-hidden]:
+            - generic: 
+        - button "Search" [ref=f2e79] [cursor=pointer]:
+          - generic [ref=f2e81]: 
+          - generic [aria-hidden] [ref=f2e82]: Search
+      - generic [ref=f2e228]:
+        - tablist [ref=f2e229]:
+          - tab "All" [selected] [ref=f2e230] [cursor=pointer]
+          - tab "Documentation" [ref=f2e232] [cursor=pointer]
+          - tab "Training" [disabled] [ref=f2e234]
+          - tab "Credentials" [disabled] [ref=f2e236]
+          - tab "Q&A" [ref=f2e238] [cursor=pointer]
+          - tab "Reference" [ref=f2e240] [cursor=pointer]
+          - tab "Shows" [ref=f2e242] [cursor=pointer]
+        - text: Ｓ
+      - text: 󿄒
+      - heading "51 results for \"\"create app store listing\"\"" [level=1] [ref=f2e244]
+      - generic [ref=f2e86]:
+        - list [ref=f2e87]:
+          - listitem [ref=f2e245]:
+            - heading [level=2] [ref=f2e246]:
+              - link "Create add-on store listings - Windows apps" [ref=f2e247] [cursor=pointer]:
+                - /url: https://learn.microsoft.com/en-us/windows/apps/publish/publish-your-app/add-on/create-app-store-listing
+            - blockquote [ref=f2e248]:
+              - paragraph [ref=f2e249]:
+                - text: Tip You can also
+                - mark [ref=f2e250]: import and export Store listings for your
+                - text: add-on if you'd like to enter your listing info offline in a .csv file, rather than providing this info directly in Partner Center. ...eed to
+                - mark [ref=f2e251]: specify one or more languagesY
+                - text: ou
+                - mark [ref=f2e252]: must complete the Store listing page for at least one language.
+                - text: We recommend creating Store listings for every.
+          - listitem [ref=f2e253]:
+            - heading [level=2] [ref=f2e254]:
+              - link "Add and edit Store listing info for MSI/EXE app - Windows apps" [ref=f2e255] [cursor=pointer]:
+                - /url: https://learn.microsoft.com/en-us/windows/apps/publish/publish-your-app/msi/add-and-edit-store-listing-info
+            - blockquote [ref=f2e256]:
+              - paragraph [ref=f2e257]:
+                - mark [ref=f2e258]: Add
+                - text: and
+                - mark [ref=f2e259]: edit Store
+                - text: listing
+                - mark [ref=f2e260]: info
+                - text: for MSI/EXE app Summarize this article for me In this article
+                - mark [ref=f2e261]: Create store listings for MSI/EXE app
+                - text: The
+                - mark [ref=f2e262]: Store
+                - text: listings section of the
+                - mark [ref=f2e263]: app submission
+                - text: process is where you provide the text
+                - mark [ref=f2e264]: and images
+                - text: that customers will see when they view your app's listing in the Microsoft Store. The minimum required for the Store.
+          - listitem [ref=f2e265]:
+            - heading [level=2] [ref=f2e266]:
+              - link "Microsoft Marketplace step-by-step submission guide - Marketplace publisher" [ref=f2e267] [cursor=pointer]:
+                - /url: https://learn.microsoft.com/en-us/partner-center/marketplace-offers/add-in-submission-guide
+            - blockquote [ref=f2e268]:
+              - paragraph [ref=f2e269]:
+                - text: "Microsoft Marketplace step-by-step submission guide Summarize this article for me In this article This article is a step-by-step guide that details how to submit your app to Microsoft Marketplace. Step 6:"
+                - mark [ref=f2e270]: Define your languages in Marketplace listings To create a store entry, on Marketplace listings page, select Manage additional languages.
+                - text: Step 7:.
+          - listitem [ref=f2e271]:
+            - heading [level=2] [ref=f2e272]:
+              - link "Add and edit Store listing info for PWA - Windows apps" [ref=f2e273] [cursor=pointer]:
+                - /url: https://learn.microsoft.com/en-us/windows/apps/publish/publish-your-app/pwa/add-and-edit-store-listing-info
+            - blockquote [ref=f2e274]:
+              - paragraph [ref=f2e275]:
+                - text: Add and edit Store listing info Summarize this article for me In this article
+                - mark [ref=f2e276]: Create store listings
+                - text: The
+                - mark [ref=f2e277]: Store listings
+                - text: section of the app submission process is where you
+                - mark [ref=f2e278]: provide the text and images that
+                - text: customers
+                - mark [ref=f2e279]: will
+                - text: see when viewing your app's listing in the Microsoft Store. The minimum required for the Store listings step to be considered.
+          - listitem [ref=f2e280]:
+            - heading [level=2] [ref=f2e281]:
+              - link "Microsoft 365 app publishing checklist - Marketplace publisher" [ref=f2e282] [cursor=pointer]:
+                - /url: https://learn.microsoft.com/en-us/partner-center/marketplace-offers/checklist
+            - blockquote [ref=f2e283]:
+              - paragraph [ref=f2e284]:
+                - text: Summarize this article for me In this article Before submitting your Microsoft 365 app for review, make sure you're ready to release it to customers. To learn more, see Create effective lis...
+                - mark [ref=f2e285]: Step
+                - text: "7: Prepare your store listing with your team Your final step in preparing your submission is to fill out a Marketplace listing that will appear in the."
+          - listitem [ref=f2e286]:
+            - heading [level=2] [ref=f2e287]:
+              - link "Confusion over the Localisation Requirements for Xbox Store pages - Microsoft Q&A" [ref=f2e288] [cursor=pointer]:
+                - /url: https://learn.microsoft.com/en-us/answers/questions/1332483/confusion-over-the-localisation-requirements-for-x
+            - blockquote [ref=f2e289]:
+              - paragraph [ref=f2e290]:
+                - text: This page here https://learn.microsoft.com/en-us/windows/apps/publish/store-policies#107-localization states that the Store
+                - mark [ref=f2e291]: page
+                - text: must be
+                - mark [ref=f2e292]: localised
+                - text: for all the
+                - mark [ref=f2e293]: Languages
+                - text: that the product supports, however, this page
+                - mark [ref=f2e294]: https://learn.microsoft.com/en-us/windows/apps/publish/publish-your-app/create-app-store-listing?pivots=store-installer-msix
+                - text: says that.
+              - generic [ref=f2e295]:
+                - generic "One of the answers was accepted by the question author." [ref=f2e297]:
+                  - generic [ref=f2e299]: 
+                  - text: 1 answer
+                - generic [ref=f2e301]:
+                  - generic [ref=f2e302]: asked Jul 18, 2023
+                  - generic [ref=f2e303]: Murdo MacIver
+          - listitem [ref=f2e307]:
+            - heading [level=2] [ref=f2e308]:
+              - link "Prepare for Teams Store Submission - Teams" [ref=f2e309] [cursor=pointer]:
+                - /url: https://learn.microsoft.com/en-us/microsoftteams/platform/concepts/deploy-and-publish/appsource/prepare/submission-checklist
+            - blockquote [ref=f2e310]:
+              - paragraph [ref=f2e311]:
+                - mark [ref=f2e312]: Prepare your Teams Store submission
+                - text: Summarize this article for me In this article You've designed, built, and tested
+                - mark [ref=f2e313]: your
+                - text: "Microsoft Teams app. Now you're ready to list it so people can discover and start using ... Sample 1: Educational app Sample 2: ERP Data transfer Sample 3: Collaborative app Create your Teams Store listing details The."
+          - listitem [ref=f2e314]:
+            - heading [level=2] [ref=f2e315]:
+              - link "Create an app submission for your MSI/EXE app - Windows apps" [ref=f2e316] [cursor=pointer]:
+                - /url: https://learn.microsoft.com/en-us/windows/apps/publish/publish-your-app/msi/create-app-submission
+            - blockquote [ref=f2e317]:
+              - paragraph [ref=f2e318]:
+                - text: Create an app submission for your MSI/EXE app Summarize this article for me In this article Note This section of the documentation describes how to create an app submission in Partner Center. Once you've created your app by reserving a name, you can start working on getting it published by following t... Once you have
+                - mark [ref=f2e319]: completed
+                - text: all the sections,.
+          - listitem [ref=f2e320]:
+            - heading [level=2] [ref=f2e321]:
+              - link "Publish to App Store Connect - Visual Studio App Center" [ref=f2e322] [cursor=pointer]:
+                - /url: https://learn.microsoft.com/en-us/appcenter/distribution/stores/apple
+            - blockquote [ref=f2e323]:
+              - paragraph [ref=f2e324]:
+                - text: App Store and TestFlight Distribution Summarize this article for me In this article Important Visual Studio App Center was retired on March 31, 2025, except for the Analytics and Diagnostics features, which will continue to be supported until Ju...
+                - mark [ref=f2e325]: You can list your stores by using the list command like
+                - text: "this: You'll get a result like this: And."
+          - listitem [ref=f2e326]:
+            - heading [level=2] [ref=f2e327]:
+              - link "Import and export store listings for your MSIX app - Windows apps" [ref=f2e328] [cursor=pointer]:
+                - /url: https://learn.microsoft.com/en-us/windows/apps/publish/publish-your-app/msix/import-and-export-store-listings
+            - blockquote [ref=f2e329]:
+              - paragraph [ref=f2e330]:
+                - text: Import and export store listings for MSIX apps Summarize this article for me In this article Instead of entering info for your Store listings directly in Partner Center, you have the option to add or update info by exporting your listings in a .csv file,... You can use this
+                - mark [ref=f2e331]: method to create listings from scratch,
+                - text: or to update listings you’ve.
+        - generic [ref=f2e332]:
+          - navigation "pagination" [ref=f2e335]:
+            - list [ref=f2e336]:
+              - listitem: Ａ
+              - listitem
+              - listitem [ref=f2e337]:
+                - button "Page 1 of 6" [ref=f2e338] [cursor=pointer]: "1"
+              - listitem [ref=f2e339]:
+                - button "Page 2 of 6" [ref=f2e340] [cursor=pointer]: "2"
+              - listitem [ref=f2e341]:
+                - button "Page 3 of 6" [ref=f2e342] [cursor=pointer]: "3"
+              - listitem [ref=f2e343]:
+                - button "Page 4 of 6" [ref=f2e344] [cursor=pointer]: "4"
+              - listitem [ref=f2e345]:
+                - button "Page 5 of 6" [ref=f2e346] [cursor=pointer]: "5"
+              - listitem [ref=f2e347]:
+                - button "Page 6 of 6" [ref=f2e348] [cursor=pointer]: "6"
+              - listitem
+              - listitem [ref=f2e349]:
+                - button "Next" [ref=f2e350] [cursor=pointer]:
+                  - generic [ref=f2e352]: ９
+          - link "Click for RSS feed" [ref=f2e355] [cursor=pointer]:
+            - /url: https://learn.microsoft.com/api/search/rss?search=%22create+app+store+listing%22&locale=en-us&%24filter=
+            - generic [ref=f2e357]: ！
+            - generic [ref=f2e358]: RSS
+  - contentinfo [ref=f2e119]:
+    - generic [ref=f2e120]:
+      - link "Content language selector. Currently set to English (United States)." [ref=f2e121] [cursor=pointer]:
+        - /url: /en-us/locale?target=https%3A%2F%2Flearn.microsoft.com%2Fen-us%2Fsearch%2F%3Fterms%3D%2522create%2520app%2520store%2520listing%2522
+        - generic [ref=f2e123]: 
+        - generic [ref=f2e124]: English (United States)
+      - link "Your Privacy Choices" [ref=f2e126] [cursor=pointer]:
+        - /url: https://aka.ms/yourcaliforniaprivacychoices
+      - button "Theme" [ref=f2e135] [cursor=pointer]:
+        - generic [ref=f2e137]: ０
+        - generic [ref=f2e140]: Ｓ
+    - list [ref=f2e141]:
+      - listitem [ref=f2e142]:
+        - link "AI Disclaimer" [ref=f2e143] [cursor=pointer]:
+          - /url: https://learn.microsoft.com/en-us/principles-for-ai-generated-content
+      - listitem [ref=f2e144]:
+        - link "Previous Versions" [ref=f2e145] [cursor=pointer]:
+          - /url: https://learn.microsoft.com/en-us/previous-versions/
+      - listitem [ref=f2e146]:
+        - link "Blog" [ref=f2e147] [cursor=pointer]:
+          - /url: https://techcommunity.microsoft.com/t5/microsoft-learn-blog/bg-p/MicrosoftLearnBlog
+      - listitem [ref=f2e148]:
+        - link "Contribute" [ref=f2e149] [cursor=pointer]:
+          - /url: https://learn.microsoft.com/en-us/contribute
+      - listitem [ref=f2e150]:
+        - link "Privacy" [ref=f2e151] [cursor=pointer]:
+          - /url: https://go.microsoft.com/fwlink/?LinkId=521839
+      - listitem [ref=f2e152]:
+        - link "Consumer Health Privacy" [ref=f2e153] [cursor=pointer]:
+          - /url: https://go.microsoft.com/fwlink/?linkid=2259814
+      - listitem [ref=f2e154]:
+        - link "Terms of Use" [ref=f2e155] [cursor=pointer]:
+          - /url: https://learn.microsoft.com/en-us/legal/termsofuse
+      - listitem [ref=f2e156]:
+        - link "Trademarks" [ref=f2e157] [cursor=pointer]:
+          - /url: https://www.microsoft.com/legal/intellectualproperty/Trademarks/
+      - listitem [ref=f2e158]: © Microsoft 2026
+  - alert [ref=f2e159]
+  - status [ref=f2e160]

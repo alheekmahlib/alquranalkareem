@@ -1,0 +1,86 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "Skip to main content" [ref=e4] [cursor=pointer]:
+        - /url: "#main"
+      - generic [ref=e5]:
+        - text: Ｏ Ｐ 
+        - generic [ref=e6]:
+          - link "Microsoft" [ref=e7] [cursor=pointer]:
+            - /url: https://www.microsoft.com
+          - link "Learn" [ref=e14] [cursor=pointer]:
+            - /url: /en-us/
+          - generic [ref=e16]:
+            - navigation "Global" [ref=e18]:
+              - text: Ｒ
+              - list [ref=e19]:
+                - listitem [ref=e20]:
+                  - button "Documentation" [ref=e22] [cursor=pointer]:
+                    - generic [ref=e25]: Ｓ
+                - listitem [ref=e26]:
+                  - button "Training & Labs" [ref=e28] [cursor=pointer]:
+                    - generic [ref=e31]: Ｓ
+                - listitem [ref=e32]:
+                  - button "Q&A" [ref=e34] [cursor=pointer]:
+                    - generic [ref=e37]: Ｓ
+                - listitem [ref=e38]:
+                  - button "Topics" [ref=e40] [cursor=pointer]:
+                    - generic [ref=e43]: Ｓ
+              - text: Ｔ
+            - generic [ref=e44]:
+              - text: Ｐ
+              - button "Open search" [ref=e45] [cursor=pointer]:
+                - generic [ref=e47]: 
+          - link "Sign in" [ref=e48] [cursor=pointer]:
+            - /url: "#"
+  - main [ref=e49]:
+    - generic [ref=e53]:
+      - heading "404 - Page not found" [level=1] [ref=e54]
+      - paragraph [ref=e55]:
+        - text: We couldn't find this page. You can try
+        - link "signing in" [ref=e56] [cursor=pointer]:
+          - /url: "#"
+        - text: ", or choosing from the relevant"
+        - link "search results" [ref=e57] [cursor=pointer]:
+          - /url: /en-us/search/index?search=windows%20apps%20publish%20publish%20your%20app%20msix%20create%20app%20store%20listing
+        - text: "below:"
+      - list
+  - contentinfo [ref=e59]:
+    - generic [ref=e60]:
+      - link "Content language selector. Currently set to English (United States)." [ref=e61] [cursor=pointer]:
+        - /url: /en-us/locale?target=https%3A%2F%2Flearn.microsoft.com%2Fen-us%2Fwindows%2Fapps%2Fpublish%2Fpublish-your-app%2Fmsix%2Fcreate-app-store-listing
+        - generic [ref=e63]: 
+        - generic [ref=e64]: English (United States)
+      - link "Your Privacy Choices" [ref=e66] [cursor=pointer]:
+        - /url: https://aka.ms/yourcaliforniaprivacychoices
+      - button "Theme" [ref=e75] [cursor=pointer]:
+        - generic [ref=e77]: ０
+        - generic [ref=e80]: Ｓ
+    - list [ref=e81]:
+      - listitem [ref=e82]:
+        - link "AI Disclaimer" [ref=e83] [cursor=pointer]:
+          - /url: https://learn.microsoft.com/en-us/principles-for-ai-generated-content
+      - listitem [ref=e84]:
+        - link "Previous Versions" [ref=e85] [cursor=pointer]:
+          - /url: https://learn.microsoft.com/en-us/previous-versions/
+      - listitem [ref=e86]:
+        - link "Blog" [ref=e87] [cursor=pointer]:
+          - /url: https://techcommunity.microsoft.com/t5/microsoft-learn-blog/bg-p/MicrosoftLearnBlog
+      - listitem [ref=e88]:
+        - link "Contribute" [ref=e89] [cursor=pointer]:
+          - /url: https://learn.microsoft.com/en-us/contribute
+      - listitem [ref=e90]:
+        - link "Privacy" [ref=e91] [cursor=pointer]:
+          - /url: https://go.microsoft.com/fwlink/?LinkId=521839
+      - listitem [ref=e92]:
+        - link "Consumer Health Privacy" [ref=e93] [cursor=pointer]:
+          - /url: https://go.microsoft.com/fwlink/?linkid=2259814
+      - listitem [ref=e94]:
+        - link "Terms of Use" [ref=e95] [cursor=pointer]:
+          - /url: https://learn.microsoft.com/en-us/legal/termsofuse
+      - listitem [ref=e96]:
+        - link "Trademarks" [ref=e97] [cursor=pointer]:
+          - /url: https://www.microsoft.com/legal/intellectualproperty/Trademarks/
+      - listitem [ref=e98]: © Microsoft 2026
+  - alert [ref=e99]
+  - status [ref=e100]
