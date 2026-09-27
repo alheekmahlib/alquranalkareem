@@ -611,6 +611,10 @@ jobs:
           status: completed
           releaseName: v${{ needs.prepare.outputs.version_name }}
           whatsNewDirectory: app/whatsnew
+          # Google rejects automated review submission for this account type;
+          # the release lands ready on the production track and you press
+          # "Send for review" once from the Play Console.
+          changesNotSentForReview: true
 
   upload-testflight:
     name: App Store (TestFlight)
