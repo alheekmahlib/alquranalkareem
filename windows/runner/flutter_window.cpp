@@ -28,7 +28,9 @@ bool FlutterWindow::OnCreate() {
   SetChildContent(flutter_controller_->view()->GetNativeWindow());
 
   flutter_controller_->engine()->SetNextFrameCallback([&]() {
-    this->Show();
+    // فتح النافذة مكبَّرة لتملأ الشاشة، مع انتظار أول إطار جاهز
+    // لتجنب وميض نافذة فارغة أو تغيير مقاسها أمام المستخدم.
+    ::ShowWindow(GetHandle(), SW_MAXIMIZE);
   });
 
   // Flutter can complete the first frame before the "show window" callback is
