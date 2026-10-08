@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/masicai/onnxruntime-swift-package-manager",
       "state" : {
-        "revision" : "57f28b1fdd6fe33585370b146a46c597d6750953",
-        "version" : "1.23.1"
+        "revision" : "3fb68950a5967c8c120f9f99a1a850a43985a4c9",
+        "version" : "1.28.0"
       }
     },
     {

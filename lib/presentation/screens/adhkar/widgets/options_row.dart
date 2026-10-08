@@ -110,39 +110,34 @@ class OptionsRow extends StatelessWidget {
                   ],
                 ),
               ),
-              Flexible(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 4,
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                    topRight: Radius.circular(8),
+                    bottomRight: Radius.circular(8),
                   ),
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
-                      topRight: Radius.circular(8),
-                      bottomRight: Radius.circular(8),
-                    ),
-                    color: Theme.of(context).primaryColorDark,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        zekr.count.convertNumbers(
-                          Get.locale?.languageCode ?? 'ar',
-                        ),
-                        style: AppTextStyles.titleSmall(
-                          height: .9,
-                          color: Theme.of(context).canvasColor,
-                        ),
+                  color: Theme.of(context).primaryColorDark,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      zekr.count.convertNumbers(
+                        Get.locale?.languageCode ?? 'ar',
                       ),
-                      const Gap(5),
-                      customSvgWithColor(
-                        height: 20,
-                        SvgPath.svgAudioLoop,
+                      style: AppTextStyles.bodyNaskh(
+                        height: .2,
                         color: Theme.of(context).canvasColor,
                       ),
-                    ],
-                  ),
+                    ),
+                    const Gap(5),
+                    customSvgWithColor(
+                      height: 20,
+                      SvgPath.svgAudioLoop,
+                      color: Theme.of(context).canvasColor,
+                    ),
+                  ],
                 ),
               ),
             ],
