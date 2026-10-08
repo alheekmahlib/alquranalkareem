@@ -121,11 +121,15 @@ jobs:
           src = open(path).read()
           src = src.replace("ProvisioningStyle = Automatic;", "ProvisioningStyle = Manual;")
           # signing keys stripped per matched block, then re-injected with manual values
-          strip = re.compile(r'^\t*(CODE_SIGN_STYLE|PROVISIONING_PROFILE(_SPECIFIER)?|CODE_SIGN_IDENTITY(\[[^\]]*\])?|DEVELOPMENT_TEAM)\s*=.*?;\n', re.M)
+          # Quoted keys like "CODE_SIGN_IDENTITY[sdk=macosx*]" must be stripped too —
+          # they override the injected identity and make Xcode demand a provisioning profile
+          strip = re.compile(r'^\t*"?(CODE_SIGN_STYLE|PROVISIONING_PROFILE(_SPECIFIER)?|CODE_SIGN_IDENTITY(\[[^\]]*\])?|DEVELOPMENT_TEAM(\[[^\]]*\])?)"?\s*=.*?;\n', re.M)
           blocks = re.compile(r'(buildSettings = \{)(.*?)(\n\t\t\t\};)', re.S)
           APP = "com.alheekmah.alquranalkareem.alquranalkareem"
           WIDGET = "com.alheekmah.alquranalkareem.alquranalkareem.quran-widget"
+          patched = 0
           def patch(m):
+              global patched
               body = m.group(2)
               bid = re.search(r'PRODUCT_BUNDLE_IDENTIFIER = ("[^"]+"|[^;]+);', body)
               if not bid:
@@ -137,6 +141,7 @@ jobs:
                   uuid = uuid_widget
               else:
                   return m.group(0)
+              patched += 1
               body = strip.sub('', body)
               inj = ('\n\t\t\t\tCODE_SIGN_STYLE = Manual;'
                      '\n\t\t\t\tCODE_SIGN_IDENTITY = "Apple Distribution";'
@@ -144,7 +149,10 @@ jobs:
                      f'\n\t\t\t\tPROVISIONING_PROFILE = "{uuid}";')
               return m.group(1) + body + inj + m.group(3)
           open(path, 'w').write(blocks.sub(patch, src))
-          print("iOS project patched to manual signing")
+          if patched == 0:
+              print("::error::pbxproj patcher matched no Runner/widget blocks — project layout changed")
+              raise SystemExit(1)
+          print(f"iOS project patched to manual signing ({patched} blocks)")
           PY
         env:
           UUID_APP: ${{ steps.uuids.outputs.uuid_app }}
@@ -173,6 +181,8 @@ jobs:
           path: dist
           merge-multiple: true
       - name: Install fastlane
+        # no checkout in this job — the global app/ working-directory does not exist here
+        working-directory: .
         run: sudo gem install fastlane --no-document
       - name: Write App Store Connect API key
         working-directory: .

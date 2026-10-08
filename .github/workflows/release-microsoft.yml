@@ -1,0 +1,203 @@
+name: Release — Microsoft Store (draft)
+
+# Manual-trigger workflow: builds a signed MSIX (identity from pubspec msix_config)
+# and uploads it to a NEW draft submission in Partner Center via the Store
+# Submission API. The submission is NOT committed — finish the What's-New notes
+# and submit manually from Partner Center (same draft pattern as AppGallery).
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: release-microsoft
+  cancel-in-progress: false
+
+env:
+  FLUTTER_VERSION: 3.47.5
+  # Store ID from Partner Center → App identity (not a secret, like HUAWEI_APP_ID)
+  MS_STORE_ID: 9PFGTWN9606M
+  # Publisher CN from Partner Center App identity — must match pubspec msix_config
+  MS_PUBLISHER: CN=80C4D4C2-E4E8-47EC-8263-D409F68DE30F
+
+defaults:
+  run:
+    working-directory: app
+
+jobs:
+  release:
+    name: Build MSIX & create draft submission
+    runs-on: windows-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: app
+      - name: Checkout quran_library (path dependency ../quran_library)
+        uses: actions/checkout@v4
+        with:
+          repository: alheekmahlib/quran_library
+          path: quran_library
+      - name: Validate required secrets
+        shell: bash
+        env:
+          DOTENV_BASE64: ${{ secrets.DOTENV_BASE64 }}
+          MS_TENANT_ID: ${{ secrets.MS_TENANT_ID }}
+          MS_CLIENT_ID: ${{ secrets.MS_CLIENT_ID }}
+          MS_CLIENT_SECRET: ${{ secrets.MS_CLIENT_SECRET }}
+        run: |
+          miss=0
+          need() { if [ -z "${!1}" ]; then echo "::error::Missing GitHub secret: $1"; miss=1; fi; }
+          need DOTENV_BASE64
+          need MS_TENANT_ID
+          need MS_CLIENT_ID
+          need MS_CLIENT_SECRET
+          [ "$miss" -eq 1 ] && exit 1
+          echo "All required secrets are present"
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.47.5
+          cache: true
+      - name: Restore .env (bundled asset)
+        shell: bash
+        env:
+          DOTENV_BASE64: ${{ secrets.DOTENV_BASE64 }}
+        run: printf '%s' "$DOTENV_BASE64" | base64 --decode > .env
+      - name: Read version from pubspec
+        id: meta
+        shell: bash
+        run: |
+          VERSION=$(sed -n 's/^version:[[:space:]]*//p' pubspec.yaml | tr -d '[:space:]')
+          if [ -z "$VERSION" ]; then
+            echo "::error::Could not read version from pubspec.yaml"
+            exit 1
+          fi
+          # pubspec 5.6.0+125 -> MSIX 5.6.0.125: the build number as 4th part
+          # guarantees the Store version strictly increases each release
+          MSIX_VERSION=$(printf '%s' "$VERSION" | tr '+' '.')
+          case "$MSIX_VERSION" in
+            *.*.*.*) : ;;
+            *) MSIX_VERSION="$MSIX_VERSION.0" ;;
+          esac
+          {
+            echo "version=$VERSION"
+            echo "msix_version=$MSIX_VERSION"
+          } >> "$GITHUB_OUTPUT"
+          echo "Releasing $VERSION -> MSIX $MSIX_VERSION for Store $MS_STORE_ID"
+      - run: flutter pub get
+        shell: bash
+      - run: flutter build windows --release
+        shell: bash
+      - name: Generate self-signed signing certificate
+        # The Store re-signs the package at publish time; submissions accept a
+        # self-signed cert whose subject equals the Publisher CN from App identity
+        shell: pwsh
+        run: |
+          $chars = 'abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789'.ToCharArray()
+          $secret = -join ($chars | Get-Random -Count 32)
+          Add-Content -Path $env:GITHUB_ENV -Value "CERT_PASSWORD=$secret"
+          $cert = New-SelfSignedCertificate -Type Custom -Subject $env:MS_PUBLISHER `
+            -KeyUsage DigitalSignature -FriendlyName 'CI MSIX signing' `
+            -CertStoreLocation 'Cert:\CurrentUser\My' -NotAfter (Get-Date).AddDays(7)
+          $secure = ConvertTo-SecureString -String $secret -Force -AsPlainText
+          Export-PfxCertificate -Cert $cert -FilePath ci-signing.pfx -Password $secure
+      - name: Pack & sign MSIX
+        # --version overrides the literal msix_version in pubspec msix_config
+        shell: pwsh
+        run: |
+          dart run msix:pack --version "${{ steps.meta.outputs.msix_version }}" `
+            --certificate-path ci-signing.pfx --certificate-password "$env:CERT_PASSWORD" `
+            --install-certificate false
+          $msix = Get-ChildItem -Path . -Filter '*.msix' -File | Select-Object -First 1
+          if (-not $msix) {
+            $msix = Get-ChildItem -Recurse -Filter '*.msix' -File -ErrorAction SilentlyContinue | Select-Object -First 1
+          }
+          if (-not $msix) {
+            echo '::error::msix:pack produced no .msix file'
+            exit 1
+          }
+          Add-Content -Path $env:GITHUB_ENV -Value "MSIX_PATH=$($msix.FullName)"
+          Add-Content -Path $env:GITHUB_ENV -Value "MSIX_NAME=$($msix.Name)"
+          echo "Packed $($msix.Name)"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: microsoft-msix
+          if-no-files-found: error
+          path: ${{ env.MSIX_PATH }}
+      - name: Create draft submission & upload MSIX
+        shell: pwsh
+        env:
+          MS_TENANT_ID: ${{ secrets.MS_TENANT_ID }}
+          MS_CLIENT_ID: ${{ secrets.MS_CLIENT_ID }}
+          MS_CLIENT_SECRET: ${{ secrets.MS_CLIENT_SECRET }}
+        run: |
+          # 1) Azure AD token (client credentials) — kept in this step's scope only
+          $body = @{
+            grant_type    = 'client_credentials'
+            client_id     = $env:MS_CLIENT_ID
+            client_secret = $env:MS_CLIENT_SECRET
+            scope         = 'https://manage.devcenter.microsoft.com/.default'
+          }
+          try {
+            $tok = Invoke-RestMethod -Method Post `
+              -Uri "https://login.microsoftonline.com/$env:MS_TENANT_ID/oauth2/v2.0/token" -Body $body
+          } catch {
+            echo "::error::Azure AD token request failed: $($_.Exception.Message)"
+            if ($_.ErrorDetails.Message) { echo "::error::$($_.ErrorDetails.Message)" }
+            echo '::error::Check MS_TENANT_ID / MS_CLIENT_ID / MS_CLIENT_SECRET, and that the Azure AD application exists and is linked to Partner Center'
+            exit 1
+          }
+          $H = @{ Authorization = "Bearer $($tok.access_token)" }
+          $base = "https://manage.devcenter.microsoft.com/v1.0/my/applications/$env:MS_STORE_ID"
+
+          # 2) Only one pending submission is allowed per app
+          try {
+            $app = Invoke-RestMethod -Method Get -Headers $H -Uri $base
+          } catch {
+            echo "::error::GET application failed: $($_.Exception.Message)"
+            if ($_.ErrorDetails.Message) { echo "::error::$($_.ErrorDetails.Message)" }
+            echo "::error::Check MS_STORE_ID ($env:MS_STORE_ID) and that the Azure AD application has Manager access in Partner Center"
+            exit 1
+          }
+          if ($app.pendingSubmission) {
+            echo "::error::A pending submission already exists (id $($app.pendingSubmission.id)) — only one is allowed per app. Delete it in Partner Center, then re-run."
+            exit 1
+          }
+
+          # 3) Clone the current published submission as a new editable draft
+          try {
+            $sub = Invoke-RestMethod -Method Post -Headers $H -Uri "$base/submissions"
+          } catch {
+            echo "::error::POST create submission failed: $($_.Exception.Message)"
+            if ($_.ErrorDetails.Message) { echo "::error::$($_.ErrorDetails.Message)" }
+            exit 1
+          }
+          echo "Created submission id $($sub.id)"
+
+          # 4) Upload the package zip (MSIX must sit at the zip root) to the SAS URL
+          Compress-Archive -Path $env:MSIX_PATH -DestinationPath package.zip
+          try {
+            Invoke-RestMethod -Method Put -Uri $sub.fileUploadUrl `
+              -InFile (Resolve-Path 'package.zip').Path `
+              -Headers @{ 'x-ms-blob-type' = 'BlockBlob' }
+          } catch {
+            echo "::error::Package zip upload failed: $($_.Exception.Message)"
+            if ($_.ErrorDetails.Message) { echo "::error::$($_.ErrorDetails.Message)" }
+            exit 1
+          }
+
+          # 5) Reference the uploaded package in the draft; keep everything else as cloned
+          $pkgs = @($sub.applicationPackages | Where-Object { $_ })
+          $pkgs += @{ fileName = $env:MSIX_NAME; fileStatus = 'PendingUpload' }
+          $sub.applicationPackages = $pkgs
+          try {
+            Invoke-RestMethod -Method Put -Headers $H -ContentType 'application/json' `
+              -Uri "$base/submissions/$($sub.id)" -Body ($sub | ConvertTo-Json -Depth 50)
+          } catch {
+            echo "::error::PUT submission failed: $($_.Exception.Message)"
+            if ($_.ErrorDetails.Message) { echo "::error::$($_.ErrorDetails.Message)" }
+            exit 1
+          }
+
+          # 6) Deliberately NOT calling /commit — it stays an editable draft
+          echo "Draft submission $($sub.id) now carries package $env:MSIX_NAME (MSIX version ${{ steps.meta.outputs.msix_version }})."
+          echo "Finish the What's-New notes and submit manually in Partner Center — mirroring the AppGallery draft flow."

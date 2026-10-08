@@ -119,7 +119,7 @@ jobs:
           BODY=${RESP%$'\n'*}
           if [ "$CODE" != "200" ]; then
             echo "::error::AGC upload-url failed with HTTP $CODE: $BODY"
-            echo "::error::Likely console-side: the API client lacks App Publishing permission, or its IP whitelist is set, or appId $HUAWEI_APP_ID is not under this account"
+            echo "::error::Console-side causes (most likely first): 1) the API client is project-scoped — recreate it with Project = N/A (team-level); see https://developer.huawei.com/consumer/en/doc/agcapi-getstarted 2) it lacks the app-publishing permission/role 3) its IP whitelist is set (must be empty) 4) appId $HUAWEI_APP_ID is not under this account. After recreating the client, update the AGC_CLIENT_ID / AGC_CLIENT_SECRET secrets."
             exit 1
           fi
           URLJSON="$BODY"
