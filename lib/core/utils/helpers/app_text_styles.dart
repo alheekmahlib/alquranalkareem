@@ -208,4 +208,25 @@ class AppTextStyles {
       fontFamily: fontFamily ?? _defaultFontFamily,
     );
   }
+
+  /// نص الجسم الصغير
+  static TextStyle bodyNaskh({
+    Color? color,
+    FontWeight? fontWeight,
+    double? fontSize,
+    double? letterSpacing,
+    double? height,
+    TextDecoration? decoration,
+    String? fontFamily,
+  }) {
+    return TextStyle(
+      fontSize: fontSize ?? 20,
+      fontWeight: fontWeight ?? FontWeight.normal,
+      color: color ?? Get.theme.colorScheme.inversePrimary,
+      letterSpacing: letterSpacing,
+      height: height ?? 1.2,
+      decoration: decoration,
+      fontFamily: fontFamily ?? 'naskh',
+    );
+  }
 }
