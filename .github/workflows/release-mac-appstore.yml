@@ -109,24 +109,38 @@ jobs:
           path = "macos/Runner.xcodeproj/project.pbxproj"
           src = open(path).read()
           src = src.replace("ProvisioningStyle = Automatic;", "ProvisioningStyle = Manual;")
-          strip = re.compile(r'^\t*(CODE_SIGN_STYLE|PROVISIONING_PROFILE(_SPECIFIER)?|CODE_SIGN_IDENTITY(\[[^\]]*\])?|DEVELOPMENT_TEAM)\s*=.*?;\n', re.M)
+          # Quoted keys like "CODE_SIGN_IDENTITY[sdk=macosx*]" must be stripped too —
+          # they override the ad-hoc identity and make Xcode demand a provisioning profile
+          strip = re.compile(r'^\t*"?(CODE_SIGN_STYLE|PROVISIONING_PROFILE(_SPECIFIER)?|CODE_SIGN_IDENTITY(\[[^\]]*\])?|DEVELOPMENT_TEAM(\[[^\]]*\])?)"?\s*=.*?;\n', re.M)
           blocks = re.compile(r'(buildSettings = \{)(.*?)(\n\t\t\t\};)', re.S)
+          patched = 0
           def patch(m):
+              global patched
               body = m.group(2)
               if 'PRODUCT_BUNDLE_IDENTIFIER' not in body:
                   return m.group(0)
+              patched += 1
               body = strip.sub('', body)
               inj = ('\n\t\t\t\tCODE_SIGN_STYLE = Manual;'
                      '\n\t\t\t\tCODE_SIGN_IDENTITY = "-";')
               return m.group(1) + body + inj + m.group(3)
           open(path, 'w').write(blocks.sub(patch, src))
-          print("macOS project patched for ad-hoc signing")
+          if patched == 0:
+              print("::error::pbxproj patcher matched no buildSettings blocks — project layout changed")
+              raise SystemExit(1)
+          print(f"macOS project patched for ad-hoc signing ({patched} blocks)")
           PY
       - run: flutter build macos --release
       - name: Sign for Mac App Store & package .pkg
         run: |
           set -euo pipefail
-          APP="build/macos/Build/Products/Release/alquranalkareem.app"
+          APP=$(find build/macos/Build/Products/Release -maxdepth 1 -name '*.app' 2>/dev/null | head -1)
+          if [ -z "$APP" ]; then
+            echo "::error::No .app bundle under build/macos/Build/Products/Release:"
+            ls -R build/macos/Build/Products 2>/dev/null | head -40
+            exit 1
+          fi
+          echo "App bundle: $APP"
           PROFILES="$HOME/Library/MobileDevice/Provisioning Profiles"
           IDENT_APP=$(security find-identity -v -p codesigning | grep "Apple Distribution" | head -1 | sed -E 's/^.*"(.*)".*$/\1/')
           IDENT_INST=$(security find-identity -v -p codesigning | grep "3rd Party Mac Developer Installer" | head -1 | sed -E 's/^.*"(.*)".*$/\1/')
