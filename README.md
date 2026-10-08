@@ -55,13 +55,16 @@
   <a href="https://apps.apple.com/app/%D8%A7%D9%84%D9%82%D8%B1%D8%A2%D9%86-%D8%A7%D9%84%D9%83%D8%B1%D9%8A%D9%85-%D9%85%D9%83%D8%AA%D8%A8%D8%A9-%D8%A7%D9%84%D8%AD%D9%83%D9%85%D8%A9/id1660688066">
     <img src="https://img.shields.io/badge/Mac_App_Store-Download-999999?style=for-the-badge&logo=macos&logoColor=white" alt="Download on the Mac App Store"/>
   </a>
+  <a href="https://apps.microsoft.com/store/detail/9PFGTWN9606M?cid=DevShareMCLPCS">
+    <img src="https://img.shields.io/badge/Microsoft_Store-Get-0067B8?style=for-the-badge&logo=microsoftstore&logoColor=white" alt="Get it from Microsoft Store"/>
+  </a>
 </p>
 
 ---
 
 ## 🕌 About The App
 
-**Al-Quran Al-Kareem (القرآن الكريم — مكتبة الحكمة)** is a free, open-source Quran application built with Flutter for Android, iOS, and macOS (with community builds for desktop and web). It is based on the **King Fahd Complex edition** of the Mushaf and combines a beautiful reading experience with advanced memorization tools, on-device AI recitation verification, a smart AI assistant, and a rich Islamic knowledge library.
+**Al-Quran Al-Kareem (القرآن الكريم — مكتبة الحكمة)** is a free, open-source Quran application built with Flutter for Android, iOS, macOS, and Windows — also available on Linux and web. It is based on the **King Fahd Complex edition** of the Mushaf and combines a beautiful reading experience with advanced memorization tools, on-device AI recitation verification, a smart AI assistant, and a rich Islamic knowledge library.
 
 The app is under active development — new features are shipped regularly, and contributions from the community are welcome.
 
