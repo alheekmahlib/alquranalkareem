@@ -285,11 +285,11 @@ Releasing — six independent manual workflows in `.github/workflows/`, run whic
 | `release-testflight.yml` | Builds a signed IPA and uploads it to TestFlight |
 | `release-appgallery.yml` | Builds a signed APK and attaches it to the AppGallery Connect draft release (review not submitted) |
 | `release-mac-appstore.yml` | Builds a signed Mac App Store .pkg and uploads it to TestFlight |
-| `release-microsoft.yml` | Builds a signed MSIX and uploads it to a Microsoft Store draft submission (submit manually from Partner Center) |
+| `release-microsoft.yml` | Builds a signed MSIX (workflow artifact for manual Partner Center upload); with `MS_*` secrets configured (company Partner Center accounts only) it also creates a Store draft submission automatically |
 
 Every release: bump `version:` in `pubspec.yaml` (e.g. `5.6.0+125`) and write `release_notes/<version>/ar.md` (+ optional `en.md`, `es.md`, `tr.md`, `bn.md`, … — Google Play limit is 500 chars per language). The GitHub Release body is ar + en; Play what's-new files are generated from the same folder.
 
-Required GitHub secrets (per workflow): `DOTENV_BASE64`, `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD` (Android builds); `MAC_DEV_ID_P12_BASE64`, `MAC_DEV_ID_P12_PASSWORD`, `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8_BASE64` (GitHub Release macOS); `PLAY_SERVICE_ACCOUNT_JSON` (Play); `IOS_P12_BASE64`, `IOS_P12_PASSWORD`, `IOS_PROFILE_BASE64`, `IOS_PROFILE_WIDGET_BASE64` (TestFlight / Mac App Store); `MAS_INSTALLER_P12_BASE64`, `MAS_INSTALLER_P12_PASSWORD`, `MAS_PROFILE_BASE64`, `MAS_PROFILE_WIDGET_BASE64` (Mac App Store); `AGC_CLIENT_ID`, `AGC_CLIENT_SECRET` (AppGallery); `MS_TENANT_ID`, `MS_CLIENT_ID`, `MS_CLIENT_SECRET` (Microsoft Store — Azure AD application linked to Partner Center with Manager access).
+Required GitHub secrets (per workflow): `DOTENV_BASE64`, `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD` (Android builds); `MAC_DEV_ID_P12_BASE64`, `MAC_DEV_ID_P12_PASSWORD`, `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8_BASE64` (GitHub Release macOS); `PLAY_SERVICE_ACCOUNT_JSON` (Play); `IOS_P12_BASE64`, `IOS_P12_PASSWORD`, `IOS_PROFILE_BASE64`, `IOS_PROFILE_WIDGET_BASE64` (TestFlight / Mac App Store); `MAS_INSTALLER_P12_BASE64`, `MAS_INSTALLER_P12_PASSWORD`, `MAS_PROFILE_BASE64`, `MAS_PROFILE_WIDGET_BASE64` (Mac App Store); `AGC_CLIENT_ID`, `AGC_CLIENT_SECRET` (AppGallery); `MS_TENANT_ID`, `MS_CLIENT_ID`, `MS_CLIENT_SECRET` (Microsoft Store — optional; enables the automated draft submission and requires a company Partner Center account linked to Azure AD).
 
 ---
 
