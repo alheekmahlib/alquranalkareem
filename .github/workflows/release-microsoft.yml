@@ -1,9 +1,11 @@
-name: Release — Microsoft Store (draft)
+name: Release — Microsoft Store (MSIX)
 
-# Manual-trigger workflow: builds a signed MSIX (identity from pubspec msix_config)
-# and uploads it to a NEW draft submission in Partner Center via the Store
-# Submission API. The submission is NOT committed — finish the What's-New notes
-# and submit manually from Partner Center (same draft pattern as AppGallery).
+# Manual-trigger workflow: builds a signed MSIX (identity from pubspec msix_config).
+# With the MS_* secrets configured (requires a COMPANY Partner Center account —
+# individual accounts cannot add Azure AD applications), it also uploads the MSIX
+# to a NEW draft submission via the Store Submission API (not committed — submit
+# manually from Partner Center). Without them it stops at the workflow artifact,
+# ready for manual upload in Partner Center.
 
 on:
   workflow_dispatch:
@@ -37,7 +39,8 @@ jobs:
         with:
           repository: alheekmahlib/quran_library
           path: quran_library
-      - name: Validate required secrets
+      - name: Validate secrets
+        id: mscheck
         shell: bash
         env:
           DOTENV_BASE64: ${{ secrets.DOTENV_BASE64 }}
@@ -45,14 +48,18 @@ jobs:
           MS_CLIENT_ID: ${{ secrets.MS_CLIENT_ID }}
           MS_CLIENT_SECRET: ${{ secrets.MS_CLIENT_SECRET }}
         run: |
-          miss=0
-          need() { if [ -z "${!1}" ]; then echo "::error::Missing GitHub secret: $1"; miss=1; fi; }
-          need DOTENV_BASE64
-          need MS_TENANT_ID
-          need MS_CLIENT_ID
-          need MS_CLIENT_SECRET
-          [ "$miss" -eq 1 ] && exit 1
-          echo "All required secrets are present"
+          if [ -z "$DOTENV_BASE64" ]; then
+            echo "::error::Missing GitHub secret: DOTENV_BASE64"
+            exit 1
+          fi
+          if [ -n "$MS_TENANT_ID" ] && [ -n "$MS_CLIENT_ID" ] && [ -n "$MS_CLIENT_SECRET" ]; then
+            echo "ms_api=true" >> "$GITHUB_OUTPUT"
+            echo "All required secrets are present — automated Store draft submission ENABLED"
+          else
+            echo "ms_api=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::MS_TENANT_ID / MS_CLIENT_ID / MS_CLIENT_SECRET not all set — automated Store submission SKIPPED"
+            echo "::warning::The Store Submission API needs an Azure AD application, which only COMPANY Partner Center accounts can add. The MSIX artifact is still produced for manual upload."
+          fi
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: 3.47.5
@@ -124,6 +131,7 @@ jobs:
           if-no-files-found: error
           path: ${{ env.MSIX_PATH }}
       - name: Create draft submission & upload MSIX
+        if: steps.mscheck.outputs.ms_api == 'true'
         shell: pwsh
         env:
           MS_TENANT_ID: ${{ secrets.MS_TENANT_ID }}
@@ -201,3 +209,11 @@ jobs:
           # 6) Deliberately NOT calling /commit — it stays an editable draft
           echo "Draft submission $($sub.id) now carries package $env:MSIX_NAME (MSIX version ${{ steps.meta.outputs.msix_version }})."
           echo "Finish the What's-New notes and submit manually in Partner Center — mirroring the AppGallery draft flow."
+      - name: Automated submission skipped — manual upload path
+        if: steps.mscheck.outputs.ms_api == 'false'
+        shell: bash
+        run: |
+          echo "Automated submission disabled (MS_* secrets absent, or an individual Partner Center account)."
+          echo "Download the 'microsoft-msix' artifact from this run, then upload the .msix in Partner Center:"
+          echo "  Partner Center -> app 9PFGTWN9606M -> Update -> Start a new submission -> Packages -> upload"
+          echo "The MSIX is signed with the publisher CN from the App identity page, so Partner Center accepts it as-is."
