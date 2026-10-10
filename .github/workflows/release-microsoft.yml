@@ -76,13 +76,12 @@ jobs:
             echo "::error::Could not read version from pubspec.yaml"
             exit 1
           fi
-          # pubspec 5.6.0+125 -> MSIX 5.6.0.125: the build number as 4th part
-          # guarantees the Store version strictly increases each release
-          MSIX_VERSION=$(printf '%s' "$VERSION" | tr '+' '.')
-          case "$MSIX_VERSION" in
-            *.*.*.*) : ;;
-            *) MSIX_VERSION="$MSIX_VERSION.0" ;;
-          esac
+          # pubspec 5.5.3+126 -> MSIX 5.5.3.0. The Store REQUIRES the 4th part
+          # (revision) to be zero — "Apps are not allowed to have a Version with
+          # a revision number other than zero". The a.b.c triplet grows every
+          # release, which keeps Store versions monotonic.
+          TRIPLET=${VERSION%%+*}
+          MSIX_VERSION="$TRIPLET.0"
           {
             echo "version=$VERSION"
             echo "msix_version=$MSIX_VERSION"

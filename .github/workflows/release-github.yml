@@ -270,12 +270,14 @@ jobs:
         # Attached to the GitHub Release for manual upload to Partner Center.
         # pubspec msix_config has store: true — the msix package skips signing
         # (the Store re-signs at publish). --build-windows false reuses the
-        # build above; --version derives from pubspec (5.5.3+126 -> 5.5.3.126).
+        # build above. Version: pubspec 5.5.3+126 -> 5.5.3.0 — the Store
+        # REQUIRES a zero revision (4th part).
         shell: pwsh
         env:
           VERSION: ${{ needs.prepare.outputs.version }}
         run: |
-          $v = $env:VERSION -replace '\+', '.'
+          $triplet = $env:VERSION.Split('+')[0]
+          $v = "$triplet.0"
           dart run msix:create --build-windows false --version $v
           $msix = Get-ChildItem -Path . -Filter '*.msix' -File | Select-Object -First 1
           if (-not $msix) {
