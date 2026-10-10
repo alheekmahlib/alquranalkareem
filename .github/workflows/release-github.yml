@@ -266,6 +266,26 @@ jobs:
         run: printf '%s' "$DOTENV_BASE64" | base64 --decode > .env
       - run: flutter pub get
       - run: flutter build windows --release
+      - name: Create MSIX (unsigned, store-ready)
+        # Attached to the GitHub Release for manual upload to Partner Center.
+        # pubspec msix_config has store: true — the msix package skips signing
+        # (the Store re-signs at publish). --build-windows false reuses the
+        # build above; --version derives from pubspec (5.5.3+126 -> 5.5.3.126).
+        shell: pwsh
+        env:
+          VERSION: ${{ needs.prepare.outputs.version }}
+        run: |
+          $v = $env:VERSION -replace '\+', '.'
+          dart run msix:create --build-windows false --version $v
+          $msix = Get-ChildItem -Path . -Filter '*.msix' -File | Select-Object -First 1
+          if (-not $msix) {
+            $msix = Get-ChildItem -Recurse -Filter '*.msix' -File -ErrorAction SilentlyContinue | Select-Object -First 1
+          }
+          if (-not $msix) {
+            echo '::error::msix:create produced no .msix file'
+            exit 1
+          }
+          Copy-Item $msix.FullName alquranalkareem-windows-store.msix
       - name: Package zip
         shell: pwsh
         run: Compress-Archive -Path build\windows\x64\runner\Release\* -DestinationPath alquranalkareem-windows-x64.zip
@@ -273,7 +293,9 @@ jobs:
         with:
           name: windows
           if-no-files-found: error
-          path: app/alquranalkareem-windows-x64.zip
+          path: |
+            app/alquranalkareem-windows-x64.zip
+            app/alquranalkareem-windows-store.msix
 
   build-linux:
     name: Build Linux
@@ -363,6 +385,7 @@ jobs:
             --latest \
             ../dist/alquranalkareem-android.apk \
             ../dist/alquranalkareem-windows-x64.zip \
+            ../dist/alquranalkareem-windows-store.msix \
             ../dist/alquranalkareem-macos-arm64.zip \
             ../dist/alquranalkareem-linux-x64.tar.gz
           echo "Published GitHub Release $TAG — this tag is what an F-Droid fdroiddata entry builds from."

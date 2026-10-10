@@ -280,7 +280,7 @@ Releasing — six independent manual workflows in `.github/workflows/`, run whic
 
 | Workflow | What it does |
 |---|---|
-| `release-github.yml` | Builds Android/macOS/Windows/Linux (production signing, notarized macOS) and publishes a versioned GitHub Release with direct downloads |
+| `release-github.yml` | Builds Android/macOS/Windows/Linux (production signing, notarized macOS) and publishes a versioned GitHub Release with direct downloads, including a store-ready MSIX for manual Partner Center upload |
 | `release-play.yml` | Builds a signed AAB and uploads it to the production track (press "Send for review" once in Play Console) |
 | `release-testflight.yml` | Builds a signed IPA and uploads it to TestFlight |
 | `release-appgallery.yml` | Builds a signed APK and attaches it to the AppGallery Connect draft release (review not submitted) |

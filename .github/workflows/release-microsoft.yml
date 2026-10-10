@@ -18,8 +18,6 @@ env:
   FLUTTER_VERSION: 3.47.5
   # Store ID from Partner Center → App identity (not a secret, like HUAWEI_APP_ID)
   MS_STORE_ID: 9PFGTWN9606M
-  # Publisher CN from Partner Center App identity — must match pubspec msix_config
-  MS_PUBLISHER: CN=80C4D4C2-E4E8-47EC-8263-D409F68DE30F
 
 defaults:
   run:
@@ -94,32 +92,22 @@ jobs:
         shell: bash
       - run: flutter build windows --release
         shell: bash
-      - name: Generate self-signed signing certificate
-        # The Store re-signs the package at publish time; submissions accept a
-        # self-signed cert whose subject equals the Publisher CN from App identity
+      - name: Create MSIX (unsigned, store-ready)
+        # pubspec msix_config has store: true — the msix package then SKIPS signing
+        # entirely (Partner Center re-signs at publish, same as the manual upload
+        # flow that made the current live listing). msix:pack alone is NOT enough:
+        # it requires the AppxManifest that msix:build/create generates.
+        # --build-windows false reuses the flutter build above;
+        # --version overrides the literal msix_version in pubspec.
         shell: pwsh
         run: |
-          $chars = 'abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789'.ToCharArray()
-          $secret = -join ($chars | Get-Random -Count 32)
-          Add-Content -Path $env:GITHUB_ENV -Value "CERT_PASSWORD=$secret"
-          $cert = New-SelfSignedCertificate -Type Custom -Subject $env:MS_PUBLISHER `
-            -KeyUsage DigitalSignature -FriendlyName 'CI MSIX signing' `
-            -CertStoreLocation 'Cert:\CurrentUser\My' -NotAfter (Get-Date).AddDays(7)
-          $secure = ConvertTo-SecureString -String $secret -Force -AsPlainText
-          Export-PfxCertificate -Cert $cert -FilePath ci-signing.pfx -Password $secure
-      - name: Pack & sign MSIX
-        # --version overrides the literal msix_version in pubspec msix_config
-        shell: pwsh
-        run: |
-          dart run msix:pack --version "${{ steps.meta.outputs.msix_version }}" `
-            --certificate-path ci-signing.pfx --certificate-password "$env:CERT_PASSWORD" `
-            --install-certificate false
+          dart run msix:create --build-windows false --version "${{ steps.meta.outputs.msix_version }}"
           $msix = Get-ChildItem -Path . -Filter '*.msix' -File | Select-Object -First 1
           if (-not $msix) {
             $msix = Get-ChildItem -Recurse -Filter '*.msix' -File -ErrorAction SilentlyContinue | Select-Object -First 1
           }
           if (-not $msix) {
-            echo '::error::msix:pack produced no .msix file'
+            echo '::error::msix:create produced no .msix file'
             exit 1
           }
           Add-Content -Path $env:GITHUB_ENV -Value "MSIX_PATH=$($msix.FullName)"
