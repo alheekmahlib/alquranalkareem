@@ -106,6 +106,25 @@ jobs:
           TOKEN=$(jq -r '.access_token // empty' <<<"$BODY")
           if [ -z "$TOKEN" ]; then echo "::error::No access_token in response: $BODY"; exit 1; fi
 
+          # Permission probe: app-list is a publishing-API call with no appId.
+          # 401 would mean bad credentials; an empty-body 403 here proves the
+          # client itself lacks the App Publishing permission (console-side).
+          RESP=$(curl -s -w "\n%{http_code}" "https://connect-api.cloud.huawei.com/api/publish/v2/app-list?pageNo=1&pageSize=20" \
+            -H "client_id: $AGC_CLIENT_ID" \
+            -H "Authorization: Bearer $TOKEN")
+          CODE=${RESP##*$'\n'}
+          BODY=${RESP%$'\n'*}
+          if [ "$CODE" != "200" ]; then
+            echo "::error::AGC app-list probe failed with HTTP $CODE: $BODY"
+            echo "::error::Token is VALID (invalid credentials return 401 with a JSON body) — this empty 403 is the publishing-permission gate on the API client. In AGC → Users and permissions → API key → Connect API, open the client and make sure its role/permissions include app publishing (Administrator works), Project is N/A, and the IP whitelist is empty."
+            exit 1
+          fi
+          if ! grep -q "$HUAWEI_APP_ID" <<<"$BODY"; then
+            echo "::warning::$HUAWEI_APP_ID was NOT in the first 20 apps this client can see — if the app belongs to another Huawei account, that also causes 403 on app-scoped calls. Listing: $BODY"
+          else
+            echo "app-list probe OK — $HUAWEI_APP_ID visible to this client."
+          fi
+
           SIZE=$(stat -c%s "$APK")
           RESP=$(curl -s -w "\n%{http_code}" -G "https://connect-api.cloud.huawei.com/api/publish/v2/upload-url/for-obs" \
             --data-urlencode "appId=$HUAWEI_APP_ID" \
