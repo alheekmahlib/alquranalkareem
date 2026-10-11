@@ -200,9 +200,10 @@ jobs:
             exit 1
           fi
           echo "App bundle: $APP"
-          IDENTITY=$(security find-identity -v -p codesigning | grep "Developer ID Application" | head -1 | sed -E 's/^.*"(.*)".*$/\1/')
+          IDENTITY=$(security find-identity -v -p codesigning | grep "Developer ID Application" | head -1 | sed -E 's/^.*"(.*)".*$/\1/' || true)
           if [ -z "$IDENTITY" ]; then
-            echo "::error::No 'Developer ID Application' identity found in keychain"
+            echo "::error::No 'Developer ID Application' identity found in keychain. Identities available:"
+            security find-identity -v -p codesigning || true
             exit 1
           fi
           echo "Signing with: $IDENTITY"
