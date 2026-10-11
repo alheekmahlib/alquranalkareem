@@ -20,6 +20,10 @@ class LocalNotificationsController extends GetxController {
   final box = GetStorage();
   Timer? _timer;
 
+  /// جلب جارٍ إن وُجد — onInit وBGServices يستدعيان الجلب عند الإقلاع
+  /// معًا، فالنداءات المتزامنة تشارك نفس المستقبل بدل طلبات مكررة.
+  Future<void>? _fetchInFlight;
+
   @override
   void onInit() {
     super.onInit();
@@ -31,7 +35,13 @@ class LocalNotificationsController extends GetxController {
   int get unreadCount =>
       postsList.where((n) => n.appName == 'quran' && !n.opened).length;
 
-  Future<void> fetchNewNotifications() async {
+  Future<void> fetchNewNotifications() {
+    return _fetchInFlight ??= _fetchNewNotifications().whenComplete(() {
+      _fetchInFlight = null;
+    });
+  }
+
+  Future<void> _fetchNewNotifications() async {
     try {
       final response = await ApiClient().request(
         endpoint: ApiConstants.notificationsUrl,

@@ -341,11 +341,11 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "v0.4.0"
-      resolved-ref: "9265c65f0f067605473ed0c31051d9b0fc620e46"
+      ref: "v0.4.1"
+      resolved-ref: d03f014237688e209c3223b96aa671ee392d2c46
       url: "https://github.com/alheekmahlib/connectivity_kit.git"
     source: git
-    version: "0.4.0"
+    version: "0.4.1"
   connectivity_plus:
     dependency: transitive
     description:

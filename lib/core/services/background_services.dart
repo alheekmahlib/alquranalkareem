@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+import 'dart:async' show unawaited;
 import 'dart:developer' show log;
 import 'dart:io' show Platform;
 
@@ -61,7 +62,10 @@ class BGServices {
     // Start BackgroundFetch
     await BackgroundFetch.start()
         .then((v) async {
-          await _fetchDataAndScheduleNotifications();
+          // الجلب هنا خلفي (fire-and-forget) عمدًا: لا يجوز أن يُحجب إقلاع
+          // التطبيق على سلسلة GitHub/GitLab — المسار المنتظر يبقى في
+          // _executeBackgroundTask للمهام الخلفية فقط.
+          unawaited(_fetchDataAndScheduleNotifications());
           log('Background Service Started $v', name: 'Background service');
         })
         .catchError((e) {
