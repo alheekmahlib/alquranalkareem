@@ -57,8 +57,6 @@ extension BottomSheetExtension on void {
                 padding: EdgeInsets.only(
                   right: rightPadding ?? 0.0,
                   left: leftPadding ?? 0.0,
-                  // ارفع المحتوى فوق الكيبورد عند ظهوره.
-                  bottom: MediaQuery.viewInsetsOf(context).bottom,
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,

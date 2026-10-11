@@ -27,7 +27,7 @@ class BackDropWidget extends StatelessWidget {
                   ),
                 ),
                 Align(
-                  alignment: AlignmentDirectional.centerStart,
+                  alignment: AlignmentDirectional.bottomStart,
                   child: Obx(
                     () => AudioCtrl.instance.state.isPlaying.value == true
                         ? const PlayBanner()

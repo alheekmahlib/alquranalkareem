@@ -70,7 +70,7 @@ class AnimatedDrawingWidget extends StatelessWidget {
         animationDirection:
             animationDirection ?? AnimationDirection.rightToLeft,
         run: true,
-        duration: Duration(seconds: duration ?? 3),
+        duration: Duration(milliseconds: duration ?? 3000),
         height: height ?? 90,
         width: width ?? 170,
         scaleToViewport: true,

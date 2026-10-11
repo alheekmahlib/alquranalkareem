@@ -134,10 +134,14 @@ class ApiClient {
     try {
       // log('Trying fallback URL: $fallbackUrl', name: 'ApiClient');
       log('Trying fallback URL: $fallbackUrl', name: 'ApiClient');
-      final response = await Dio().get(
-        fallbackUrl,
-        options: Options(headers: headers),
-      );
+      // مهل مطابقة للطلب الأساسي — بدونها قد يتجمد الطلب البديل حتى
+      // مهلة TCP من نظام التشغيل (عشرات الثواني) على الشبكات المعطوبة.
+      final response = await Dio(
+        BaseOptions(
+          connectTimeout: const Duration(seconds: 5),
+          receiveTimeout: const Duration(seconds: 5),
+        ),
+      ).get(fallbackUrl, options: Options(headers: headers));
       // log('Fallback request succeeded', name: 'ApiClient');
       log('Fallback request succeeded', name: 'ApiClient');
       return Right(response.data);

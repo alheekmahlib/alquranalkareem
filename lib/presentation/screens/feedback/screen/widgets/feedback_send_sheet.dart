@@ -77,88 +77,92 @@ class _FeedbackSendSheetState extends State<FeedbackSendSheet> {
     final colorScheme = context.theme.colorScheme;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(
-            'feedback_subtitle'.tr,
-            style: AppTextStyles.titleLarge(
-              color: colorScheme.inversePrimary,
-              fontSize: 18,
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              'feedback_subtitle'.tr,
+              style: AppTextStyles.titleLarge(
+                color: colorScheme.inversePrimary,
+                fontSize: 18,
+              ),
             ),
-          ),
-          Gap(12.h),
-          _messageField(context),
-          ValueListenableBuilder<int>(
-            valueListenable: _charCount,
-            builder: (context, used, _) {
-              final remaining = _maxChars - used;
-              return Align(
-                alignment: AlignmentDirectional.centerEnd,
-                child: Text(
-                  '$remaining ${'characters_remaining'.tr}',
-                  style: AppTextStyles.titleSmall(
-                    color: colorScheme.inversePrimary.withValues(alpha: 0.6),
-                    fontSize: 12,
-                  ),
-                ),
-              );
-            },
-          ),
-          Gap(12.h),
-          _emailField(context),
-          Gap(12.h),
-          _mediaSection(context),
-          Gap(16.h),
-          ValueListenableBuilder<int>(
-            valueListenable: _charCount,
-            builder: (context, used, _) {
-              final hasText = used > 0;
-              return Obx(() {
-                final busy = _c.isSubmitting.value;
-                final uploading = _c.isUploading.value;
-                final hasFiles = _c.selectedFiles.isNotEmpty;
-                // مفعّل إن وُجد نص أو ملفات، ولسنا مشغولين.
-                final enabled = (hasText || hasFiles) && !busy && !uploading;
-                return Opacity(
-                  opacity: enabled ? 1.0 : 0.5,
-                  child: ContainerButton(
-                    onPressed: enabled ? _submit : null,
-                    title: 'send_feedback',
-                    isButton: true,
-                    width: double.infinity,
-                    horizontalPadding: 8.0,
-                    verticalPadding: 12.0,
-                    backgroundColor: colorScheme.primary,
-                    titleColor: colorScheme.secondary,
-                    titleStyle: AppTextStyles.titleMedium(
-                      color: colorScheme.secondary,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 16,
+            Gap(12.h),
+            _messageField(context),
+            ValueListenableBuilder<int>(
+              valueListenable: _charCount,
+              builder: (context, used, _) {
+                final remaining = _maxChars - used;
+                return Align(
+                  alignment: AlignmentDirectional.centerEnd,
+                  child: Text(
+                    '$remaining ${'characters_remaining'.tr}',
+                    style: AppTextStyles.titleSmall(
+                      color: colorScheme.inversePrimary.withValues(alpha: 0.6),
+                      fontSize: 12,
                     ),
-                    child: busy
-                        ? Padding(
-                            padding: const EdgeInsetsDirectional.only(start: 8),
-                            child: SizedBox(
-                              width: 20,
-                              height: 20,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2.0,
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  colorScheme.secondary,
-                                ),
-                              ),
-                            ),
-                          )
-                        : null,
                   ),
                 );
-              });
-            },
-          ),
-          const Gap(16),
-        ],
+              },
+            ),
+            Gap(12.h),
+            _emailField(context),
+            Gap(12.h),
+            _mediaSection(context),
+            Gap(16.h),
+            ValueListenableBuilder<int>(
+              valueListenable: _charCount,
+              builder: (context, used, _) {
+                final hasText = used > 0;
+                return Obx(() {
+                  final busy = _c.isSubmitting.value;
+                  final uploading = _c.isUploading.value;
+                  final hasFiles = _c.selectedFiles.isNotEmpty;
+                  // مفعّل إن وُجد نص أو ملفات، ولسنا مشغولين.
+                  final enabled = (hasText || hasFiles) && !busy && !uploading;
+                  return Opacity(
+                    opacity: enabled ? 1.0 : 0.5,
+                    child: ContainerButton(
+                      onPressed: enabled ? _submit : null,
+                      title: 'send_feedback',
+                      isButton: true,
+                      width: double.infinity,
+                      horizontalPadding: 8.0,
+                      verticalPadding: 12.0,
+                      backgroundColor: colorScheme.primary,
+                      titleColor: colorScheme.secondary,
+                      titleStyle: AppTextStyles.titleMedium(
+                        color: colorScheme.secondary,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16,
+                      ),
+                      child: busy
+                          ? Padding(
+                              padding: const EdgeInsetsDirectional.only(
+                                start: 8,
+                              ),
+                              child: SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2.0,
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    colorScheme.secondary,
+                                  ),
+                                ),
+                              ),
+                            )
+                          : null,
+                    ),
+                  );
+                });
+              },
+            ),
+            const Gap(16),
+          ],
+        ),
       ),
     );
   }
