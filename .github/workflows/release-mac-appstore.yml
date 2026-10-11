@@ -69,17 +69,26 @@ jobs:
         with:
           p12-file-base64: ${{ secrets.IOS_P12_BASE64 }}
           p12-password: ${{ secrets.IOS_P12_PASSWORD }}
-      - name: Import Mac Installer certificate into login keychain
+      - name: Import Mac Installer certificate (dedicated keychain)
         env:
           MAS_INSTALLER_P12_BASE64: ${{ secrets.MAS_INSTALLER_P12_BASE64 }}
           MAS_INSTALLER_P12_PASSWORD: ${{ secrets.MAS_INSTALLER_P12_PASSWORD }}
         run: |
           set -euo pipefail
+          # Own keychain + partition list so headless productbuild can use the
+          # key (importing into login alone is unreliable on runners)
+          KC_PW=$(openssl rand -hex 16)
           printf '%s' "$MAS_INSTALLER_P12_BASE64" | tr -d ' \r\n\t' | base64 --decode > "$RUNNER_TEMP/installer.p12"
+          security create-keychain -p "$KC_PW" mas-installer.keychain
+          security set-keychain-settings -lut 21600 mas-installer.keychain
+          security unlock-keychain -p "$KC_PW" mas-installer.keychain
           security import "$RUNNER_TEMP/installer.p12" \
-            -k "$HOME/Library/Keychains/login.keychain-db" \
+            -k mas-installer.keychain \
             -P "$MAS_INSTALLER_P12_PASSWORD" \
             -T /usr/bin/codesign -T /usr/bin/productbuild
+          security set-key-partition-list -S apple-tool:,apple: -k "$KC_PW" mas-installer.keychain
+          # keep the action's signing_temp first, then ours, then login
+          security list-keychains -d user -s signing_temp.keychain mas-installer.keychain login.keychain
       - name: Install Mac App Store profiles (app + widget)
         env:
           MAS_PROFILE_BASE64: ${{ secrets.MAS_PROFILE_BASE64 }}
@@ -142,14 +151,17 @@ jobs:
           fi
           echo "App bundle: $APP"
           PROFILES="$HOME/Library/MobileDevice/Provisioning Profiles"
-          IDENT_APP=$(security find-identity -v -p codesigning | grep "Apple Distribution" | head -1 | sed -E 's/^.*"(.*)".*$/\1/')
-          IDENT_INST=$(security find-identity -v -p codesigning | grep "3rd Party Mac Developer Installer" | head -1 | sed -E 's/^.*"(.*)".*$/\1/')
+          IDENT_APP=$(security find-identity -v -p codesigning | grep "Apple Distribution" | head -1 | sed -E 's/^.*"(.*)".*$/\1/' || true)
+          # Installer certs do NOT pass the codesigning policy — list all identities
+          IDENT_INST=$(security find-identity -v | grep "3rd Party Mac Developer Installer" | head -1 | sed -E 's/^.*"(.*)".*$/\1/' || true)
           if [ -z "$IDENT_APP" ]; then
-            echo "::error::No 'Apple Distribution' identity found — IOS_P12 must be an Apple Distribution cert (covers iOS + macOS)"
+            echo "::error::No 'Apple Distribution' identity found — IOS_P12 must be an Apple Distribution cert (covers iOS + macOS). Identities available:"
+            security find-identity -v -p codesigning || true
             exit 1
           fi
           if [ -z "$IDENT_INST" ]; then
-            echo "::error::No '3rd Party Mac Developer Installer' identity found in MAS_INSTALLER_P12_BASE64"
+            echo "::error::No '3rd Party Mac Developer Installer' identity found in MAS_INSTALLER_P12_BASE64. Identities available:"
+            security find-identity -v || true
             exit 1
           fi
           echo "Signing app with: $IDENT_APP"
