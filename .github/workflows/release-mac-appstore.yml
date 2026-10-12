@@ -104,6 +104,28 @@ jobs:
             echo "::error::MAS_PROFILE_WIDGET_BASE64 is not valid base64 (profile for ...alquranalkareem2.quran-macos-widget)"
             exit 1
           fi
+          # A profile generated with Platform = iOS passes codesign but Apple
+          # rejects the pkg at upload (90282 Invalid Provisioning Profile
+          # Signature) — fail fast with the exact cause instead.
+          verify_mas_profile() {
+            local file="$1" label="$2"
+            if ! security cms -D -i "$file" > "$RUNNER_TEMP/p.plist" 2>/dev/null; then
+              echo "::error::$label profile is not a valid Apple-signed provisioning profile — secret content is corrupted"
+              exit 1
+            fi
+            local name uuid platforms
+            name=$(plutil -extract Name raw -o - "$RUNNER_TEMP/p.plist")
+            uuid=$(plutil -extract UUID raw -o - "$RUNNER_TEMP/p.plist")
+            platforms=$(plutil -p "$RUNNER_TEMP/p.plist" | grep -A8 '"Platform"')
+            echo "$label profile: '$name' (UUID $uuid)"
+            if ! grep -q '=> "macOS"' <<<"$platforms"; then
+              echo "::error::$label profile has NO macOS platform: $platforms"
+              echo "::error::Regenerate it in the Apple portal with Platform = macOS, type App Store — the current one was created for iOS and is rejected at pkg upload (90282)"
+              exit 1
+            fi
+          }
+          verify_mas_profile "$PROFILES/mas-app.mobileprovision" "App"
+          verify_mas_profile "$PROFILES/mas-widget.mobileprovision" "Widget"
       - name: Restore .env (bundled asset)
         env:
           DOTENV_BASE64: ${{ secrets.DOTENV_BASE64 }}

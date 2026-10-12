@@ -106,23 +106,24 @@ jobs:
           TOKEN=$(jq -r '.access_token // empty' <<<"$BODY")
           if [ -z "$TOKEN" ]; then echo "::error::No access_token in response: $BODY"; exit 1; fi
 
-          # Permission probe: app-list is a publishing-API call with no appId.
-          # 401 would mean bad credentials; an empty-body 403 here proves the
-          # client itself lacks the App Publishing permission (console-side).
-          RESP=$(curl -s -w "\n%{http_code}" "https://connect-api.cloud.huawei.com/api/publish/v2/app-list?pageNo=1&pageSize=20" \
+          # Permission probe: app-info is a publishing-API read scoped to our app
+          # (the app-list path does not exist on the international endpoint).
+          # 401 = bad credentials (JSON body); empty 403 = the publishing-
+          # permission gate on the API client itself.
+          RESP=$(curl -s -w "\n%{http_code}" -G "https://connect-api.cloud.huawei.com/api/publish/v2/app-info" \
+            --data-urlencode "appId=$HUAWEI_APP_ID" \
             -H "client_id: $AGC_CLIENT_ID" \
             -H "Authorization: Bearer $TOKEN")
           CODE=${RESP##*$'\n'}
           BODY=${RESP%$'\n'*}
-          if [ "$CODE" != "200" ]; then
-            echo "::error::AGC app-list probe failed with HTTP $CODE: $BODY"
-            echo "::error::Token is VALID (invalid credentials return 401 with a JSON body) — this empty 403 is the publishing-permission gate on the API client. In AGC → Users and permissions → API key → Connect API, open the client and make sure its role/permissions include app publishing (Administrator works), Project is N/A, and the IP whitelist is empty."
+          if [ "$CODE" = "403" ]; then
+            echo "::error::AGC app-info probe returned 403 with a VALID token (invalid credentials would give 401 with a JSON body)"
+            echo "::error::The API client cannot access the publishing API for appId $HUAWEI_APP_ID — either its role still lacks publishing rights, or the app belongs to a different Huawei account than the client."
             exit 1
-          fi
-          if ! grep -q "$HUAWEI_APP_ID" <<<"$BODY"; then
-            echo "::warning::$HUAWEI_APP_ID was NOT in the first 20 apps this client can see — if the app belongs to another Huawei account, that also causes 403 on app-scoped calls. Listing: $BODY"
+          elif [ "$CODE" != "200" ]; then
+            echo "::warning::app-info probe returned HTTP $CODE: $BODY — continuing to upload-url"
           else
-            echo "app-list probe OK — $HUAWEI_APP_ID visible to this client."
+            echo "app-info probe OK — this client can read app $HUAWEI_APP_ID."
           fi
 
           SIZE=$(stat -c%s "$APK")
