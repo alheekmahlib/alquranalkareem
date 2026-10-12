@@ -118,7 +118,7 @@ jobs:
             uuid=$(plutil -extract UUID raw -o - "$RUNNER_TEMP/p.plist")
             platforms=$(plutil -p "$RUNNER_TEMP/p.plist" | grep -A8 '"Platform"')
             echo "$label profile: '$name' (UUID $uuid)"
-            if ! grep -q '=> "macOS"' <<<"$platforms"; then
+            if ! grep -Eq '=> "(macOS|OSX)"' <<<"$platforms"; then
               echo "::error::$label profile has NO macOS platform: $platforms"
               echo "::error::Regenerate it in the Apple portal with Platform = macOS, type App Store — the current one was created for iOS and is rejected at pkg upload (90282)"
               exit 1
