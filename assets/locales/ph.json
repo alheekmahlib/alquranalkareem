@@ -1797,6 +1797,8 @@
   "tasmeeRepeatHint": "Makinig sa pagbigkas pagkatapos pindutin ang mic at ulitin",
   "tasmeeListeningWord": "Nakikinig… sabihin ang salita",
   "tasmeeTryAgain": "Hindi pa tama — makinig at subukang muli",
+  "tasmeeAutoSkippedWord": "Laktawan ang salita pagkatapos ng @total pagtatangka — ipagpatuloy ang pagbabasa",
+  "tasmeeRetryAttemptOf": "Pagtatangka @attempt ng @total",
   "tasmeeSkipWord": "Laktawan ang salita",
   "tasmeeWordCorrect": "Magaling! Tamang binigkas",
   "tasmeeTeacherQariPlaying": "Nagbibigkas ang qari…",

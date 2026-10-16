@@ -1827,6 +1827,8 @@
   "tasmeeRepeatHint": "استمع للنطق ثم اضغط الميكروفون وأعد الكلمة",
   "tasmeeListeningWord": "استمع الآن… قل الكلمة",
   "tasmeeTryAgain": "لم تُنطق صحيحة بعد — استمع وحاول مجددًا",
+  "tasmeeAutoSkippedWord": "تم تخطي الكلمة بعد @total محاولات — تابع التلاوة",
+  "tasmeeRetryAttemptOf": "المحاولة @attempt من @total",
   "tasmeeSkipWord": "تخطي الكلمة",
   "tasmeeWordCorrect": "أحسنت! نُطقت صحيحة",
   "tasmeeTeacherQariPlaying": "القارئ يتلو الآية…",

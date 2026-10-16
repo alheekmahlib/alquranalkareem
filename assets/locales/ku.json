@@ -1795,6 +1795,8 @@
   "tasmeeRepeatHint": "گوێ بگرە بۆ لێدان پاشان مایکرۆفۆن دابگرە و دووبارەی بکەرەوە",
   "tasmeeListeningWord": "گوێ دەگرێت… وشەکە بڵێ",
   "tasmeeTryAgain": "هێشتا دروست نییە — گوێ بگرە و دووبارە هەوڵ بدە",
+  "tasmeeAutoSkippedWord": "پاش @total هەوڵدان وشە بەجێهێڵرا — بەردەوام بە خوێندنەوە",
+  "tasmeeRetryAttemptOf": "هەوڵدان @attempt لە @total",
   "tasmeeSkipWord": "وشەکە بپەڕێنە",
   "tasmeeWordCorrect": "زۆر باش! بەدروستی وت",
   "tasmeeTeacherQariPlaying": "قورئانخوێن ئایەتەکە دەخوێنێت…",

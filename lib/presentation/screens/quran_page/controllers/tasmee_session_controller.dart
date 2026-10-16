@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:quran_library/quran_library.dart';
 
 import '../../../../core/utils/constants/extensions/bottom_sheet_extension.dart';
+import '../../../../core/utils/constants/extensions/custom_error_snackBar.dart';
 import '../quran.dart';
 import '../widgets/tasmee/data/models/tasmee_page_result.dart';
 import '../widgets/tasmee/data/repositories/tasmee_results_repository.dart';
@@ -17,6 +18,11 @@ import '../widgets/tasmee/data/repositories/tasmee_results_repository.dart';
 /// إعدادات النموذج وفتح ورقة النتائج التلقائي يبقيان في
 /// [TasmeeSettingsController] — مسؤولية واحدة لكل كونترولر.
 class TasmeeSessionController extends GetxController {
+  /// سقف محاولات إعادة نطق الكلمة الفاشلة قبل التخطّي التلقائي — بعض
+  /// الكلمات يرفضها التعرف مهما صحّ النطق المكرَّر، والتخطّي يُبقي
+  /// الجلسة حيّة (الكلمة تبقى معلَّمة خاطئة ويمكن إتقانها لاحقًا).
+  static const int maxWordRetryAttempts = 3;
+
   static TasmeeSessionController get instance {
     // تسجيل دائم مثل TasmeeSettingsController: كائن واحد طوال عمر
     // التطبيق لا يُحذف مع المسارات (SmartManagement).
@@ -131,7 +137,8 @@ class TasmeeSessionController extends GetxController {
 
   /// عند نجاح إعادة النطق تُحلّ الكلمة (تُعلَّم خضراء وتُستأنف الجلسة)
   /// ويُغلق الشيت تلقائيًا؛ وعند فشلها يُعاد نطق الكلمة تلقائيًا لمساعدة
-  /// المحاولة التالية.
+  /// المحاولة التالية. بلوغ سقف المحاولات الفاشلة يُتخطّى الكلمة
+  /// تلقائيًا (تبقى حمراء) وتُستأنف الجلسة.
   void _listenForWordRetryOutcome() {
     ever<TasmeeWordRetryOutcome?>(TasmeeCtrl.instance.state.wordRetryOutcome, (
       outcome,
@@ -141,6 +148,17 @@ class TasmeeSessionController extends GetxController {
         TasmeeCtrl.instance.resolveWordCorrection(accepted: true);
         Get.back();
       } else if (outcome == TasmeeWordRetryOutcome.incorrect) {
+        if (TasmeeCtrl.instance.state.wordRetryAttempts.value >=
+            maxWordRetryAttempts) {
+          Get.context?.showCustomErrorSnackBar(
+            'tasmeeAutoSkippedWord'.trParams({
+              '@total': '$maxWordRetryAttempts',
+            }),
+            isDone: false,
+          );
+          await skipWordCorrection();
+          return;
+        }
         await playCorrectionWordAudio();
       }
     });
@@ -149,7 +167,9 @@ class TasmeeSessionController extends GetxController {
   Future<void> _openCorrectionSheet(TasmeeWordCorrection correction) async {
     if (_correctionSheetOpen) return;
     _correctionSheetOpen = true;
-    debugPrint('TasmeeSession: opening correction sheet for "${correction.wordText}"');
+    debugPrint(
+      'TasmeeSession: opening correction sheet for "${correction.wordText}"',
+    );
     // افتح الشيت فورًا (بلا انتظار جلب ملف النطق) ثم شغّل النطق —
     // بعد اكتمال إيقاف الميكروفون (يضمنه الترتيب في _beginWordCorrection)
     // حتى لا يقتل تفكيك جلسة الصوت التشغيل.

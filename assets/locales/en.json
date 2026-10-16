@@ -1833,6 +1833,8 @@
   "tasmeeRepeatHint": "Listen to the pronunciation then tap the mic and repeat",
   "tasmeeListeningWord": "Listening… say the word",
   "tasmeeTryAgain": "Not correct yet — listen and try again",
+  "tasmeeAutoSkippedWord": "Word skipped after @total attempts — continue reciting",
+  "tasmeeRetryAttemptOf": "Attempt @attempt of @total",
   "tasmeeSkipWord": "Skip word",
   "tasmeeWordCorrect": "Well done! Recited correctly",
   "tasmeeTeacherQariPlaying": "The reciter is reciting…",

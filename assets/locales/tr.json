@@ -1795,6 +1795,8 @@
   "tasmeeRepeatHint": "Telaffuzu dinle, sonra mikrofona bas ve tekrar et",
   "tasmeeListeningWord": "Dinliyorum… kelimeyi söyle",
   "tasmeeTryAgain": "Henüz doğru değil — dinle ve tekrar dene",
+  "tasmeeAutoSkippedWord": "@total denemeden sonra kelime atlandı — okumaya devam edin",
+  "tasmeeRetryAttemptOf": "Deneme @attempt / @total",
   "tasmeeSkipWord": "Kelimeyi atla",
   "tasmeeWordCorrect": "Aferin! Doğru söylendi",
   "tasmeeTeacherQariPlaying": "Hoca ayeti okuyor…",
