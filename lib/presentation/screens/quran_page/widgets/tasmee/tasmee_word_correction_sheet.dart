@@ -17,6 +17,7 @@ class TasmeeWordCorrectionSheet extends StatelessWidget {
         if (correction == null) return const SizedBox.shrink();
         final outcome = tasmee.state.wordRetryOutcome.value;
         final listening = tasmee.state.isWordRetryListening.value;
+        final attempts = tasmee.state.wordRetryAttempts.value;
         // بعد محاولة فاشلة: اعرض خطأ هذه المحاولة بالذات (قد يختلف عن
         // خطأ التلاوة الأول — أصلح المستخدم النطق فصار الخطأ تشكيلًا
         // أو تجويدًا) ليعرف ما يصحّحه الآن.
@@ -68,7 +69,12 @@ class TasmeeWordCorrectionSheet extends StatelessWidget {
               onPressed: sessionCtrl.playCorrectionWordAudio,
             ),
             const Gap(10),
-            _statusArea(context, listening: listening, outcome: outcome),
+            _statusArea(
+              context,
+              listening: listening,
+              outcome: outcome,
+              attempts: attempts,
+            ),
             const Gap(12),
             // أثناء الاستماع يظهر المؤشر النابض بدل زر الإعادة.
             AnimatedSwitcher(
@@ -196,16 +202,21 @@ class TasmeeWordCorrectionSheet extends StatelessWidget {
     );
   }
 
-  /// حالة إعادة النطق: تلميح البدء، مؤشر الاستماع، أو النتيجة.
+  /// حالة إعادة النطق: تلميح البدء، مؤشر الاستماع، أو النتيجة — وبعد
+  /// أول محاولة فاشلة يظهر عدّاد المحاولات حتى سقف التخطّي التلقائي.
   Widget _statusArea(
     BuildContext context, {
     required bool listening,
     required TasmeeWordRetryOutcome? outcome,
+    required int attempts,
   }) {
     final style = AppTextStyles.bodySmall(
       fontSize: 13,
       color: context.theme.colorScheme.inversePrimary,
     );
+    final attemptLine = attempts > 0
+        ? '\n${'tasmeeRetryAttemptOf'.trParams({'@attempt': '$attempts', '@total': '${TasmeeSessionController.maxWordRetryAttempts}'})}'
+        : '';
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 250),
       child: switch (outcome) {
@@ -223,7 +234,7 @@ class TasmeeWordCorrectionSheet extends StatelessWidget {
         ),
         TasmeeWordRetryOutcome.incorrect => Text(
           key: const ValueKey('incorrect'),
-          'tasmeeTryAgain'.tr,
+          '${'tasmeeTryAgain'.tr}$attemptLine',
           textAlign: TextAlign.center,
           style: style.copyWith(color: context.theme.colorScheme.surface),
         ),

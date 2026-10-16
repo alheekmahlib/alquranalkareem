@@ -1797,6 +1797,8 @@
   "tasmeeRepeatHint": "Dengarkan pelafalan lalu tekan mikrofon dan ulangi",
   "tasmeeListeningWord": "Mendengarkan… ucapkan katanya",
   "tasmeeTryAgain": "Belum tepat — dengarkan dan coba lagi",
+  "tasmeeAutoSkippedWord": "Kata dilewati setelah @total percobaan — lanjutkan membaca",
+  "tasmeeRetryAttemptOf": "Percobaan @attempt dari @total",
   "tasmeeSkipWord": "Lewati kata",
   "tasmeeWordCorrect": "Bagus! Dilafalkan dengan benar",
   "tasmeeTeacherQariPlaying": "Qari sedang melafalkan…",

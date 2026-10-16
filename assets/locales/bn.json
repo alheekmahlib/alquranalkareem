@@ -1803,6 +1803,8 @@
   "tasmeeRepeatHint": "উচ্চারণ শুনুন তারপর মাইক চেপে পুনরাবৃত্তি করুন",
   "tasmeeListeningWord": "শুনছি… শব্দটি বলুন",
   "tasmeeTryAgain": "এখনও সঠিক নয় — শুনুন এবং আবার চেষ্টা করুন",
+  "tasmeeAutoSkippedWord": "@total বার চেষ্টার পর শব্দটি বাদ দেওয়া হয়েছে — তিলাওয়াত চালিয়ে যান",
+  "tasmeeRetryAttemptOf": "চেষ্টা @attempt / @total",
   "tasmeeSkipWord": "শব্দ এড়িয়ে যান",
   "tasmeeWordCorrect": "দারুণ! সঠিকভাবে উচ্চারিত",
   "tasmeeTeacherQariPlaying": "কারী আয়াত পড়ছেন…",

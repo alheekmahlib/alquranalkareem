@@ -1559,10 +1559,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "230b4b7218d1fc56e51e7f165830c15e9ce4efe2"
+      resolved-ref: bf9d0105b530a1e997e99a5892f3df0091952f3d
       url: "https://github.com/alheekmahlib/quran_library.git"
     source: git
-    version: "5.0.2"
+    version: "5.0.3"
   read_more_less:
     dependency: "direct main"
     description:

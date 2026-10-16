@@ -1767,6 +1767,8 @@
   "tasmeeRepeatHint": "Послушайте произношение, затем нажмите микрофон и повторите",
   "tasmeeListeningWord": "Слушаю… произнесите слово",
   "tasmeeTryAgain": "Пока неверно — послушайте и попробуйте снова",
+  "tasmeeAutoSkippedWord": "Слово пропущено после @total попыток — продолжайте чтение",
+  "tasmeeRetryAttemptOf": "Попытка @attempt из @total",
   "tasmeeSkipWord": "Пропустить слово",
   "tasmeeWordCorrect": "Отлично! Произнесено верно",
   "tasmeeTeacherQariPlaying": "Чтец читает аят…",

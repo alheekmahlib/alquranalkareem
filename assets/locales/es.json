@@ -1803,6 +1803,8 @@
   "tasmeeRepeatHint": "Escucha la pronunciación y luego toca el micrófono y repite",
   "tasmeeListeningWord": "Escuchando… di la palabra",
   "tasmeeTryAgain": "Aún no es correcta — escucha e inténtalo de nuevo",
+  "tasmeeAutoSkippedWord": "Palabra omitida tras @total intentos — continúa recitando",
+  "tasmeeRetryAttemptOf": "Intento @attempt de @total",
   "tasmeeSkipWord": "Saltar palabra",
   "tasmeeWordCorrect": "¡Bien hecho! Pronunciada correctamente",
   "tasmeeTeacherQariPlaying": "El recitador está recitando…",
