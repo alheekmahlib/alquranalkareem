@@ -358,7 +358,18 @@ Found a bug or have an idea? Please [open an issue](https://github.com/alheekmah
 
 ## ⭐ Show Your Support
 
-If you like the app, please ⭐ star the repository and consider [rating it on the stores](#-download) — it helps others discover it, jazaakum Allahu khairan.
+If you like the app, please ⭐ star the repository and consider [rating it on the stores](#-download) — it helps others discover it. You can also support continued development:
+
+<p align="center">
+  <a href="https://www.buymeacoffee.com/haw8a9zen">
+    <img src="https://img.shields.io/badge/Buy_Me_A_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me A Coffee"/>
+  </a>
+  <a href="https://paypal.me/hawazen89">
+    <img src="https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white" alt="PayPal"/>
+  </a>
+</p> 
+
+jazaakum Allahu khairan.
 
 ---
 
