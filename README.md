@@ -30,6 +30,9 @@
   <a href="https://www.buymeacoffee.com/haw8a9zen">
     <img src="https://img.shields.io/badge/Buy_Me_A_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me A Coffee"/>
   </a>
+  <a href="https://paypal.me/hawazen89">
+    <img src="https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white" alt="PayPal"/>
+  </a>
 </p>
 
 <p align="center">
