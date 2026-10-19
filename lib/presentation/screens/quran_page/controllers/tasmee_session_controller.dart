@@ -136,9 +136,12 @@ class TasmeeSessionController extends GetxController {
   }
 
   /// عند نجاح إعادة النطق تُحلّ الكلمة (تُعلَّم خضراء وتُستأنف الجلسة)
-  /// ويُغلق الشيت تلقائيًا؛ وعند فشلها يُعاد نطق الكلمة تلقائيًا لمساعدة
-  /// المحاولة التالية. بلوغ سقف المحاولات الفاشلة يُتخطّى الكلمة
+  /// ويُغلق الشيت تلقائيًا. بلوغ سقف المحاولات الفاشلة يُتخطّى الكلمة
   /// تلقائيًا (تبقى حمراء) وتُستأنف الجلسة.
+  ///
+  /// لا إعادة تشغيل تلقائية للنطق بعد المحاولة الفاشلة: صوت السماعة يدخل
+  /// الميكروفون إن بدأ المستخدم محاولته التالية سريعًا (نافذة تجاهل البادئ
+  /// 400 مللي فقط) فتُفسد التسجيل — زر السماعة في الشيت متاح لمن يريده.
   void _listenForWordRetryOutcome() {
     ever<TasmeeWordRetryOutcome?>(TasmeeCtrl.instance.state.wordRetryOutcome, (
       outcome,
@@ -157,9 +160,7 @@ class TasmeeSessionController extends GetxController {
             isDone: false,
           );
           await skipWordCorrection();
-          return;
         }
-        await playCorrectionWordAudio();
       }
     });
   }
@@ -259,6 +260,9 @@ class TasmeeSessionController extends GetxController {
     if (!_teacherRunning) return;
     state.teacherAyahIndex.value = _teacherAyahIdx;
     state.teacherPhase.value = TasmeeTeacherPhase.qariPlaying;
+    // Pre-roll (فحص التسميع C8): اطلب إذن الميكروفون أثناء تلاوة القارئ
+    // لا بعدها — طلبه عند بدء التسجيل يبتلع أول كلمة من تلاوة المستخدم.
+    unawaited(RecitationSession.ensureMicPermission());
     final ayahUq = tasmee.rangeAyahUQ(_teacherAyahIdx);
     final played = ayahUq > 0 ? await _playQariAyah(ayahUq) : false;
     if (!_teacherRunning) return;

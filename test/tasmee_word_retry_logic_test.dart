@@ -207,7 +207,7 @@ void main() {
       expect(errors.where((e) => e.errorType == 'normal'), isEmpty);
     });
 
-    test('خطأ حرف رادع مع دقة ≥ 85% → المحاولة مقبولة (كلمة طويلة)', () {
+    test('خطأ حرف رادع مع دقة ≥ 75% → المحاولة مقبولة (كلمة طويلة)', () {
       // كلمة 7 وحدات باستبدال واحدة → دقة 6/7 ≈ 0.857.
       const result = RecitationResult(
         uthmaniText: 'كلمة',
@@ -224,10 +224,10 @@ void main() {
       expect(isWordRetryAcceptable(result), isTrue);
     });
 
-    test('خطأ حرف رادع مع دقة < 85% (كلمة قصيرة) → تبقى مرفوضة', () {
+    test('خطأ حرف رادع مع دقة < 75% (كلمة قصيرة) → تبقى مرفوضة', () {
       const result = RecitationResult(
         uthmaniText: 'كلمة',
-        unitAccuracy: 3 / 4,
+        unitAccuracy: 1 / 2,
         errors: [
           RecitationError(
             errorType: 'normal',

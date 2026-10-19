@@ -1557,11 +1557,9 @@ packages:
   quran_library:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: bf9d0105b530a1e997e99a5892f3df0091952f3d
-      url: "https://github.com/alheekmahlib/quran_library.git"
-    source: git
+      path: "/Users/hawazenmahmood/Documents/GitHub/quran_library"
+      relative: false
+    source: path
     version: "5.0.3"
   read_more_less:
     dependency: "direct main"
