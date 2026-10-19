@@ -48,7 +48,8 @@ class TasmeeWordCorrectionSheet extends StatelessWidget {
             ),
             _kindBadge(context, shownKind),
             const Gap(8),
-            _wordCard(context, correction.wordText),
+            _wordCard(context, correction.wordText,
+                contextWordText: correction.contextWordText),
             // تفصيل الخطأ الذي وقع فيه المستخدم في هذه الكلمة.
             if (hasDetail) ...[
               const Gap(8),
@@ -74,6 +75,7 @@ class TasmeeWordCorrectionSheet extends StatelessWidget {
               listening: listening,
               outcome: outcome,
               attempts: attempts,
+              contextWordText: correction.contextWordText,
             ),
             const Gap(12),
             // أثناء الاستماع يظهر المؤشر النابض بدل زر الإعادة.
@@ -83,29 +85,38 @@ class TasmeeWordCorrectionSheet extends StatelessWidget {
                 opacity: animation,
                 child: ScaleTransition(scale: animation, child: child),
               ),
-              child: listening
-                  ? const SizedBox.shrink()
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CustomButton(
-                          isCustomSvgColor: true,
-                          svgPath: SvgPath.svgQuranMicrophone,
-                          tooltip: 'tasmeeRepeatWord'.tr,
-                          backgroundColor: Get.theme.primaryColorLight,
-                          svgColor: Get.theme.colorScheme.surface,
-                          onPressed: tasmee.startWordRetry,
-                        ),
-                        const Gap(16),
-                        CustomButton(
-                          isCustomSvgColor: true,
-                          svgPath: SvgPath.svgAudioPreviousIcon,
-                          tooltip: 'tasmeeSkipWord'.tr,
-                          svgColor: Get.theme.primaryColorLight,
-                          onPressed: sessionCtrl.skipWordCorrection,
-                        ),
-                      ],
-                    ),
+                      child: listening
+                          ? const SizedBox.shrink()
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                CustomButton(
+                                  isCustomSvgColor: true,
+                                  svgPath: SvgPath.svgQuranMicrophone,
+                                  tooltip: 'tasmeeRepeatWord'.tr,
+                                  backgroundColor: Get.theme.primaryColorLight,
+                                  svgColor: Get.theme.colorScheme.surface,
+                                  onPressed: tasmee.startWordRetry,
+                                ),
+                                const Gap(16),
+                                // زر نصي واضح لا أيقونة سهم «سابق» تُوهم
+                                // الرجوع — المستخدم عند كلمة عالقة يحتاج
+                                // مخرجًا مفهومًا بلا التباس.
+                                CustomButton(
+                                  title: 'tasmeeSkipWord',
+                                  width: 140,
+                                  height: 42,
+                                  backgroundColor: Get.theme.primaryColorLight,
+                                  textStyle: AppTextStyles.titleSmall(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600,
+                                    color: Get.theme.colorScheme.surface,
+                                  ),
+                                  onPressed: sessionCtrl.skipWordCorrection,
+                                ),
+                              ],
+                            ),
             ),
             const Gap(16),
           ],
@@ -181,9 +192,15 @@ class TasmeeWordCorrectionSheet extends StatelessWidget {
     );
   }
 
-  /// الكلمة العثمانية بخط كبير.
-  Widget _wordCard(BuildContext context, String wordText) {
+  /// الكلمة العثمانية بخط كبير — مع سابقتها عند وجود سياق إعادة النطق
+  /// (تُقرآن معًا وصلًا فيعيد التنوين والإدغام إلى حالهما المرجعية).
+  Widget _wordCard(
+    BuildContext context,
+    String wordText, {
+    String contextWordText = '',
+  }) {
     if (wordText.isEmpty) return const SizedBox.shrink();
+    final hasContext = contextWordText.isNotEmpty;
     return Container(
       width: Get.width,
       padding: const EdgeInsets.all(14),
@@ -191,14 +208,37 @@ class TasmeeWordCorrectionSheet extends StatelessWidget {
         color: context.theme.primaryColorLight.withValues(alpha: .08),
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Text(
-        wordText,
-        textAlign: TextAlign.center,
-        style: AppTextStyles.titleMedium(
-          fontSize: 28,
-          color: context.theme.colorScheme.inversePrimary,
-        ),
-      ),
+      child: hasContext
+          ? Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: '$contextWordText ',
+                    style: AppTextStyles.titleMedium(
+                      fontSize: 22,
+                      color: context.theme.colorScheme.inversePrimary
+                          .withValues(alpha: .6),
+                    ),
+                  ),
+                  TextSpan(
+                    text: wordText,
+                    style: AppTextStyles.titleMedium(
+                      fontSize: 28,
+                      color: context.theme.colorScheme.inversePrimary,
+                    ),
+                  ),
+                ],
+              ),
+              textAlign: TextAlign.center,
+            )
+          : Text(
+              wordText,
+              textAlign: TextAlign.center,
+              style: AppTextStyles.titleMedium(
+                fontSize: 28,
+                color: context.theme.colorScheme.inversePrimary,
+              ),
+            ),
     );
   }
 
@@ -209,6 +249,7 @@ class TasmeeWordCorrectionSheet extends StatelessWidget {
     required bool listening,
     required TasmeeWordRetryOutcome? outcome,
     required int attempts,
+    required String contextWordText,
   }) {
     final style = AppTextStyles.bodySmall(
       fontSize: 13,
@@ -249,7 +290,11 @@ class TasmeeWordCorrectionSheet extends StatelessWidget {
         ),
         _ => Text(
           key: const ValueKey('hint'),
-          'tasmeeRepeatHint'.tr,
+          contextWordText.isEmpty
+              ? 'tasmeeRepeatHint'.tr
+              : 'tasmeeRepeatWithContext'.trParams({
+                  '@word': contextWordText,
+                }),
           textAlign: TextAlign.center,
           style: style,
         ),
