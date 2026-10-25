@@ -1782,5 +1782,6 @@
   "tasmeeTeacherPageDone": "Страница освоена, отлично!",
   "tasmeeTeacherPlayFailed": "Не удалось воспроизвести чтеца — проверьте соединение и попробуйте снова",
   "tasmeeLocalModel": "Локальная модель коррекции",
-  "tasmeeModelReady": "Готово"
+  "tasmeeModelReady": "Готово",
+  "audioManager": "Управление аудио"
 }

@@ -1848,5 +1848,6 @@
   "tasmeeTeacherPageDone": "Page mastered, well done!",
   "tasmeeTeacherPlayFailed": "Couldn't play the reciter — check connection and try again",
   "tasmeeLocalModel": "Local correction model",
-  "tasmeeModelReady": "Ready"
+  "tasmeeModelReady": "Ready",
+  "audioManager": "Audio Manager"
 }

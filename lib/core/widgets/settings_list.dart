@@ -17,7 +17,6 @@ import '../utils/constants/extensions/svg_extensions.dart';
 import '../utils/helpers/app_text_styles.dart';
 import 'font_family_picker.dart';
 import 'language_list.dart';
-import 'mushaf_settings.dart';
 import 'notifications_settings.dart';
 import 'select_screen.dart';
 import 'theme_change.dart';

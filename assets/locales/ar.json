@@ -1842,5 +1842,6 @@
   "tasmeeTeacherPageDone": "أتممت الصفحة بإتقان، أحسنت!",
   "tasmeeTeacherPlayFailed": "تعذّر تشغيل تلاوة القارئ — تحقق من الاتصال وحاول مجددًا",
   "tasmeeLocalModel": "نموذج التصحيح المحلي",
-  "tasmeeModelReady": "جاهز"
+  "tasmeeModelReady": "جاهز",
+  "audioManager": "إدارة الصوت"
 }

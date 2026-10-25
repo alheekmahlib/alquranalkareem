@@ -1812,5 +1812,6 @@
   "tasmeeTeacherPageDone": "Na-master ang pahina, galing!",
   "tasmeeTeacherPlayFailed": "Hindi mapatugtog ang qari — tingnan ang koneksyon at subukang muli",
   "tasmeeLocalModel": "Lokal na modelo ng pagwawasto",
-  "tasmeeModelReady": "Handa na"
+  "tasmeeModelReady": "Handa na",
+  "audioManager": "Pamamahala ng Audio"
 }

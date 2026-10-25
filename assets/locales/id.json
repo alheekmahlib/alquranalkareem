@@ -1812,5 +1812,6 @@
   "tasmeeTeacherPageDone": "Halaman dikuasai, bagus!",
   "tasmeeTeacherPlayFailed": "Gagal memutar qari — periksa koneksi dan coba lagi",
   "tasmeeLocalModel": "Model koreksi lokal",
-  "tasmeeModelReady": "Siap"
+  "tasmeeModelReady": "Siap",
+  "audioManager": "Kelola Audio"
 }

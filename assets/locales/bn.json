@@ -1818,5 +1818,6 @@
   "tasmeeTeacherPageDone": "পৃষ্ঠা আয়ত্ত করা হয়েছে, দারুণ!",
   "tasmeeTeacherPlayFailed": "কারীর তিলাওয়াত চালানো যায়নি — সংযোগ পরীক্ষা করে আবার চেষ্টা করুন",
   "tasmeeLocalModel": "স্থানীয় সংশোধন মডেল",
-  "tasmeeModelReady": "প্রস্তুত"
+  "tasmeeModelReady": "প্রস্তুত",
+  "audioManager": "অডিও ব্যবস্থাপনা"
 }
