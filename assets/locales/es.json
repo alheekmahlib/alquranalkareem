@@ -1818,5 +1818,6 @@
   "tasmeeTeacherPageDone": "¡Página dominada, bien hecho!",
   "tasmeeTeacherPlayFailed": "No se pudo reproducir al recitador — revisa la conexión e inténtalo de nuevo",
   "tasmeeLocalModel": "Modelo de corrección local",
-  "tasmeeModelReady": "Listo"
+  "tasmeeModelReady": "Listo",
+  "audioManager": "Gestión de audio"
 }

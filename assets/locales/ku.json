@@ -1810,5 +1810,6 @@
   "tasmeeTeacherPageDone": "لاپەڕەکەت بەباشی تەواو کرد، زۆر باش!",
   "tasmeeTeacherPlayFailed": "نەتوانرا لێدانی قورئانخوێن کار بکات — پەیوەندی بپشکنە و دووبارە هەوڵ بدە",
   "tasmeeLocalModel": "مۆدێلی ڕاستکردنەوەی ناوخۆیی",
-  "tasmeeModelReady": "ئامادەیە"
+  "tasmeeModelReady": "ئامادەیە",
+  "audioManager": "بەڕێوەبردنی دەنگ"
 }

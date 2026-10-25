@@ -79,71 +79,64 @@ class TasmeeSettings extends StatelessWidget {
                 ),
               ),
             ),
-          const Gap(12),
+          const Gap(8),
+          Divider(
+            thickness: 1.0,
+            height: 1.0,
+            endIndent: 32.0,
+            indent: 32.0,
+            color: Theme.of(context).primaryColorLight.withValues(alpha: .5),
+          ),
+          const Gap(8),
           // وضع المصحّح غير الحاجز: الكلمة الخاطئة تُعلَّم حمراء بلا شيت
           // يوقف الجلسة — لمن يفضّل المتابعة والتصحيح لاحقًا.
           Obx(() {
             final nonBlocking =
                 TasmeeCtrl.instance.state.nonBlockingCorrector.value;
-            return Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    'tasmeeNonBlockingCorrector'.tr,
-                    style: AppTextStyles.bodySmall().copyWith(
-                      color: context.theme.colorScheme.inversePrimary,
-                    ),
-                  ),
-                ),
-                Switch(
-                  value: nonBlocking,
-                  activeThumbColor: Get.theme.primaryColorLight,
-                  onChanged: (v) =>
-                      TasmeeCtrl.instance.state.nonBlockingCorrector.value = v,
-                ),
-              ],
+            return CustomSwitchListTile(
+              title: 'tasmeeNonBlockingCorrector'.tr,
+              value: nonBlocking,
+              onChanged: (v) =>
+                  TasmeeCtrl.instance.state.nonBlockingCorrector.value = v,
             );
           }),
+          const Gap(8),
+          Divider(
+            thickness: 1.0,
+            height: 1.0,
+            endIndent: 32.0,
+            indent: 32.0,
+            color: Theme.of(context).primaryColorLight.withValues(alpha: .5),
+          ),
           const Gap(8),
           // صرامة معايير التصحيح (عتبة القبول النسبي وسياسة الأدلة).
           Obx(() {
             final current = TasmeeCtrl.instance.state.strictness.value;
-            return Row(
+            return Column(
+              crossAxisAlignment: .start,
               children: [
-                Expanded(
-                  child: Text(
-                    'tasmeeStrictness'.tr,
-                    style: AppTextStyles.bodySmall().copyWith(
-                      color: context.theme.colorScheme.inversePrimary,
-                    ),
+                Text(
+                  'tasmeeStrictness'.tr,
+                  style: AppTextStyles.bodySmall().copyWith(
+                    color: context.theme.colorScheme.inversePrimary,
                   ),
                 ),
-                SegmentedButton<TasmeeStrictness>(
-                  style: ButtonStyle(
-                    visualDensity: VisualDensity.compact,
-                    side: WidgetStatePropertyAll(
-                      BorderSide(
-                        color: Get.theme.primaryColorLight.withValues(alpha: .5),
-                      ),
-                    ),
-                  ),
-                  segments: [
-                    ButtonSegment(
-                      value: TasmeeStrictness.strict,
-                      label: Text('tasmeeStrictnessStrict'.tr),
-                    ),
-                    ButtonSegment(
-                      value: TasmeeStrictness.balanced,
-                      label: Text('tasmeeStrictnessBalanced'.tr),
-                    ),
-                    ButtonSegment(
-                      value: TasmeeStrictness.lenient,
-                      label: Text('tasmeeStrictnessLenient'.tr),
-                    ),
-                  ],
-                  selected: {current},
-                  onSelectionChanged: (sel) =>
-                      TasmeeCtrl.instance.state.strictness.value = sel.first,
+                const Gap(6),
+                Wrap(
+                  children: TasmeeStrictness.values.map((strictness) {
+                    return ContainerButton(
+                      title: _strictnessKey(strictness),
+                      titleColor: context.theme.colorScheme.inversePrimary,
+                      value: (current == strictness).obs,
+                      horizontalPadding: 8.0,
+                      verticalPadding: 8.0,
+                      horizontalMargin: 4.0,
+                      verticalMargin: 4.0,
+                      onPressed: () =>
+                          TasmeeCtrl.instance.state.strictness.value =
+                              strictness,
+                    );
+                  }).toList(),
                 ),
               ],
             );
@@ -153,4 +146,12 @@ class TasmeeSettings extends StatelessWidget {
       );
     });
   }
+
+  /// مفتاح ترجمة كل مستوى صرامة — switch شامل يُنبّه المحلّل عند إضافة قيمة.
+  static String _strictnessKey(TasmeeStrictness strictness) =>
+      switch (strictness) {
+        TasmeeStrictness.strict => 'tasmeeStrictnessStrict',
+        TasmeeStrictness.balanced => 'tasmeeStrictnessBalanced',
+        TasmeeStrictness.lenient => 'tasmeeStrictnessLenient',
+      };
 }

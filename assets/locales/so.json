@@ -1790,5 +1790,6 @@
   "tasmeeTeacherPageDone": "Bogka waa la bartay, wanaagsan!",
   "tasmeeTeacherPlayFailed": "Lama dhejin kari qaari — hubi xiriirka oo isku day mar kale",
   "tasmeeLocalModel": "Moodelka dexsaadka ee maxalliga ah",
-  "tasmeeModelReady": "Diyaar ah"
+  "tasmeeModelReady": "Diyaar ah",
+  "audioManager": "Maareynta Codka"
 }

@@ -1818,5 +1818,6 @@
   "tasmeeTeacherPageDone": "صفحہ مکمل مہارت سے سن لیا، شاباش!",
   "tasmeeTeacherPlayFailed": "قاری کی تلاوت چلائی نہیں جا سکی — کنکشن چیک کریں اور دوبارہ کوشش کریں",
   "tasmeeLocalModel": "مقامی تصحیح ماڈل",
-  "tasmeeModelReady": "تیار"
+  "tasmeeModelReady": "تیار",
+  "audioManager": "آڈیو مینجمنٹ"
 }
