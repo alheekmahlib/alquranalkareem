@@ -135,8 +135,7 @@ class QuranHome extends StatelessWidget {
                                           }
                                           return;
                                         }
-                                        if (query.length <= 0 ||
-                                            query.trim().isNotEmpty) {
+                                        if (query.trim().isNotEmpty) {
                                           searchCtrl.addSearchItem(query);
                                         }
                                       },

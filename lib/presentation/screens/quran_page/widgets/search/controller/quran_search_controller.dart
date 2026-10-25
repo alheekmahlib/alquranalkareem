@@ -130,6 +130,8 @@ class QuranSearchController extends GetxController {
   }
 
   void addSearchItem(String query) {
+    if (query.trim().isEmpty) return;
+
     TimeNow timeNow = TimeNow();
 
     SearchItem newItem = SearchItem(query, timeNow.dateNow);
