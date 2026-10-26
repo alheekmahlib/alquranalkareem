@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/font_size_extension.dart';
+import '../../presentation/screens/home/home_screen.dart';
 import '../utils/constants/extensions/svg_extensions.dart';
 import '../utils/constants/svg_constants.dart';
 
@@ -20,6 +21,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final Widget? centerChild;
   final bool? centerTitle;
   final bool? backButton;
+  final bool? isBackToHome;
   final Color? arrowBackColor;
 
   const AppBarWidget({
@@ -35,6 +37,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
     this.centerChild,
     this.centerTitle = true,
     this.backButton = true,
+    this.isBackToHome = false,
     this.arrowBackColor,
   });
 
@@ -52,16 +55,14 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
           ? null
           : GestureDetector(
               onTap: () {
-                // isNotifi
-                //     ? NotificationManager().updateBookProgress(
-                //         title!,
-                //         isBooks
-                //             ? 'notifyBooksBody'.trParams({'bookName': '$title'})
-                //             : 'notifyAdhkarBody'.trParams({'adhkarType': '$title'}),
-                //         0,
-                //       )
-                //     : null;
-                Get.back();
+                if (isBackToHome == true) {
+                  Get.offAll(
+                    () => const HomeScreen(),
+                    transition: Transition.upToDown,
+                  );
+                } else {
+                  Get.back();
+                }
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
