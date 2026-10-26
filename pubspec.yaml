@@ -118,10 +118,6 @@ dependency_overrides:
       path: multi_store_review_platform_interface
       ref: multi_store_review_platform_interface-v2.2.0
   path_provider_android: 2.2.22
-  # تطوير التسميع: تعديلات quran_library المحلية قبل دفعها — يُزال هذا
-  # الربط بعد الدفع وتحديث القفل من git.
-  quran_library:
-    path: /Users/hawazenmahmood/Documents/GitHub/quran_library
 
 dev_dependencies:
   app_name_localizer: ^1.0.5
