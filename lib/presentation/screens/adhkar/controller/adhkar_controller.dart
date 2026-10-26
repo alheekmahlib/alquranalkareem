@@ -12,9 +12,9 @@ import 'package:share_plus/share_plus.dart';
 
 import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 import '../../../../core/utils/constants/api_constants.dart';
-import '../../../../presentation/screens/quran_page/widgets/search/search_extensions/highlight_extension.dart';
 import '../../../../database/bookmark_db/bookmark_database.dart';
 import '../../../../database/bookmark_db/db_bookmark_helper.dart';
+import '../../../../presentation/screens/quran_page/widgets/search/search_extensions/highlight_extension.dart';
 import '../screens/adhkar_item.dart';
 import '../screens/adhkar_view.dart';
 import 'adhkar_state.dart';
@@ -42,7 +42,7 @@ class AzkarController extends GetxController {
   /// -------- [Methods] ----------
 
   Future<List<AdhkarData>> readJsonData() async {
-    final jsonData = await rootBundle.loadString('assets/json/azkar.json');
+    final jsonData = await rootBundle.loadString('assets/json/azkar_v2.json');
     final Map<String, dynamic> map = json.decode(jsonData);
     final list = map['data'] as List<dynamic>;
 
@@ -50,7 +50,7 @@ class AzkarController extends GetxController {
         .map(
           (e) => AdhkarData.fromJson({
             ...e as Map<String, dynamic>,
-            // أعمدة المزامنة غير موجودة في azkar.json الأصلي —
+            // أعمدة المزامنة غير موجودة في azkar_v2.json الأصلي —
             // fromJson المولد يطلبها كقيم غير فارغة.
             'updatedAt': 0,
             'deleted': false,

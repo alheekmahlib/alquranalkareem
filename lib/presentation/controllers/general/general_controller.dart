@@ -7,6 +7,7 @@ import 'package:wakelock_plus/wakelock_plus.dart';
 import '/presentation/screens/home/home_screen.dart';
 import '../../../core/utils/constants/shared_preferences_constants.dart';
 import '../../screens/adhkar/screens/adhkar_view.dart';
+import '../../screens/ai_search/ai_search.dart';
 import '../../screens/books/books.dart';
 import '../../screens/quran_page/quran.dart';
 import '../../screens/surah_audio/surah_audio.dart';
@@ -84,6 +85,10 @@ class GeneralController extends GetxController {
         return AudioScreen();
       case 5:
         return BooksScreen();
+      case 6:
+        return AiSearchResults();
+      case 7:
+        return QuranHome(isTasmeeMode: true);
       default:
         return const HomeScreen();
     }

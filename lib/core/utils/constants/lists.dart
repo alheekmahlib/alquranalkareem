@@ -99,6 +99,13 @@ final List screensList = [
     'route': () => AiSearchResults(),
     'width': 326.0,
   },
+  {
+    'name': 'tasmeeModeTeacher',
+    'svgUrl': SvgPath.svgHomeMidadIcon,
+    'imagePath': 'assets/images/tafsir_books.jpg',
+    'route': () => QuranHome(isTasmeeMode: true),
+    'width': 326.0,
+  },
 ];
 
 const List surahReaderInfo = [

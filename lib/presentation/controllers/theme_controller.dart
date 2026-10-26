@@ -108,12 +108,14 @@ class ThemeController extends GetxController {
     'playpen',
     'naskh',
     'kufi',
+    'thmanyah',
   ];
 
   static const Map<String, String> fontFamilyTranslationKeys = {
     'playpen': 'playpenFont',
     'naskh': 'naskhFont',
     'kufi': 'kufiFont',
+    'thmanyah': 'thmanyahFont',
   };
 
   String get currentFontFamily => _fontFamily.value;

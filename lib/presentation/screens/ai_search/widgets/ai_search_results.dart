@@ -15,6 +15,7 @@ class AiSearchResults extends StatelessWidget {
         searchButton: _buildAppBarActions(context),
         isNotifi: false,
         isBooks: false,
+        isBackToHome: true,
         arrowBackColor: context.theme.canvasColor,
         color: Colors.transparent,
       ),
