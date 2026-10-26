@@ -1219,13 +1219,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ 'Madad' bölümü; daha fazla kategoriyi kapsayacak şekilde ve çevrimiçi arama özelliğiyle geliştirildi.\n۞ Çevrimiçi arama artık Tefsir Merkezi verilerine dayalı ek bir bölüm içeriyor.\n۞ Arama modelleri arasında geçiş yapma imkânı.\n۞ Tam metni okumak için kitaba gitme imkânı.",
-  "@What'sNewDetails10": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails11": "۞ Yer imleriniz, zikirleriniz, planlarınız ve ayarlarınızı cihazlarınız arasında QR koduyla senkronize etme seçeneği eklendi — hesap gerekmeden",
-  "@What'sNewDetails11": {
+  "What'sNewDetails15": "۞ Kur'an Öğretmeni bölümündeki Tasmee' iyileştirildi ve Tasmee' sıkılığını ayarlamaya yönelik yeni seçenekler eklendi.\n۞ Başlangıç ekranı seçimindeki bir sorun giderildi.\n۞ Yeni bir yazı tipi eklendi.\n۞ Performans iyileştirmeleri.",
+  "@What'sNewDetails15": {
     "type": "text",
     "placeholders": {}
   },

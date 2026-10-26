@@ -1225,13 +1225,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Waxaa la hagaajiyay qaybta 'Madad' si ay u daboolo qaybo badan oo leh awood raadin online ah.\n۞ Raadinta online hadda waxay ku jirtaa qaybo dheeri ah oo ku salaysan xogta Xarunta Tafsiirka.\n۞ Awoodda beddelaadda moodeelyada raadinta.\n۞ Awoodda u tagista kitaabka si aad u akhrido qoraalka buuxa.",
-  "@What'sNewDetails10": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails11": "۞ Waxaa lagu daray ikhtiyaarka is-waafajinta calaamadahaaga, adhkar-kaaga, qorshooyinkaaga iyo dejisyadaaga ee u dhexeeya aaladahaaga adigoo isticmaalaya koodhka QR — adigoo aan akoon lahayn",
-  "@What'sNewDetails11": {
+  "What'sNewDetails15": "۞ Horumarin laga sameeyay Tasmee' qaybta Macallinka Qur'aanka, waxaana lagu daray ikhtiyaaro cusub oo lagu dejin karo darnaanta Tasmee'.\n۞ Waxaa la hagaajiyay dhibka doorashada Shaashadda Bilowga.\n۞ Waxaa lagu daray font cusub.\n۞ Horumarin waxqabadka.",
+  "@What'sNewDetails15": {
     "type": "text",
     "placeholders": {}
   },

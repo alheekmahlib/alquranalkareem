@@ -1219,13 +1219,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Penyempurnaan bagian 'Madad' untuk mencakup lebih banyak kategori dengan kemampuan pencarian online.\n۞ Pencarian online kini mencakup bagian tambahan berdasarkan data Pusat Tafsir.\n۞ Kemampuan untuk mengganti model pencarian.\n۞ Kemampuan untuk membuka buku dan membaca teks lengkap.",
-  "@What'sNewDetails10": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails11": "۞ Menambahkan opsi untuk menyinkronkan penanda, adzkar, rencana, dan pengaturan Anda antar perangkat melalui kode QR — tanpa perlu akun",
-  "@What'sNewDetails11": {
+  "What'sNewDetails15": "۞ Peningkatan Tasmee' di bagian Guru Qur'an, dengan opsi baru untuk mengatur tingkat ketegasan Tasmee'.\n۞ Perbaikan masalah pemilihan Layar Awal.\n۞ Penambahan font baru.\n۞ Peningkatan performa.",
+  "@What'sNewDetails15": {
     "type": "text",
     "placeholders": {}
   },
