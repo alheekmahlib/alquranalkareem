@@ -1225,13 +1225,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Enhanced the 'Madad' section to include more categories with online search capability.\n۞ Online search now includes an additional section based on Tafsir Center data.\n۞ Ability to switch between search models.\n۞ Ability to navigate to the book to read the full text.",
-  "@What'sNewDetails10": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails11": "۞ Added an option to sync your bookmarks, adhkar, plans, and settings across your devices via QR code — no account needed",
-  "@What'sNewDetails11": {
+  "What'sNewDetails15": "۞ Improved Tasmee' in the Quran Teacher section, with new options to set Tasmee' strictness.\n۞ Fixed an issue with selecting the Start Screen.\n۞ Added a new font.\n۞ Performance improvements.",
+  "@What'sNewDetails15": {
     "type": "text",
     "placeholders": {}
   },

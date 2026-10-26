@@ -1225,13 +1225,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "What'sNewDetails10": "۞ Se ha mejorado la sección 'Madad' para incluir más categorías con capacidad de búsqueda en línea.\n۞ La búsqueda en línea ahora incluye una sección adicional basada en datos del Centro de Tafsir.\n۞ Posibilidad de cambiar entre los modelos de búsqueda.\n۞ Posibilidad de ir al libro para leer el texto completo.",
-  "@What'sNewDetails10": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "What'sNewDetails11": "۞ Se añadió una opción para sincronizar sus marcadores, adhkar, planes y configuraciones entre sus dispositivos mediante código QR — sin necesidad de cuenta",
-  "@What'sNewDetails11": {
+  "What'sNewDetails15": "۞ Mejoras en el Tasmee' de la sección Profesor del Corán, con nuevas opciones para ajustar la severidad del Tasmee'.\n۞ Se corrigió un problema al seleccionar la Pantalla de Inicio.\n۞ Se agregó una nueva fuente.\n۞ Mejoras de rendimiento.",
+  "@What'sNewDetails15": {
     "type": "text",
     "placeholders": {}
   },
