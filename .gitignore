@@ -78,3 +78,6 @@ app.*.map.json
 
 # Cloudflare Wrangler local state (never commit)
 .wrangler/
+
+# Local Cloudflare services
+/sync_service/
