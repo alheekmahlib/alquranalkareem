@@ -5,8 +5,7 @@ part of '../ai_search.dart';
 /// يتواصل مع خادم الأقسام (الحديث، الفقه، العقيدة، السيرة) عبر JSON-RPC 2.0
 /// فوق HTTP POST — نفس بروتوكول [TafsirMcpClient] لكنه يستهدف خادم الأقسام.
 ///
-/// نقطة النهاية تُقرأ من ملف `.env` (المفتاح `HEEKMAH_MCP_ENDPOINT`) لإخفائها
-/// عن المستودع العام. إن كان المفتاح فارغاً أو غائباً، يُعطّل العميل ويرمي
+/// نقطة النهاية تُضبط عند البناء عبر `HEEKMAH_MCP_ENDPOINT`. إن كان المفتاح فارغاً أو غائباً، يُعطّل العميل ويرمي
 /// [McpException] عند المحاولة.
 ///
 /// يعيد استخدام نماذج [McpTool] و [McpToolResult] و [McpException] المُعرَّفة
@@ -16,11 +15,11 @@ class HeekmahMcpClient {
   static final HeekmahMcpClient _instance = HeekmahMcpClient._();
   factory HeekmahMcpClient() => _instance;
 
-  /// نقطة نهاية خادم alheekmah-mcp من `.env` (تُقرأ وقت التشغيل).
+  /// نقطة نهاية خادم alheekmah-mcp من إعداد البناء.
   /// فارغة إن لم يُضبط المفتاح — ويُعطّل العميل في هذه الحالة.
-  static final String endpoint = dotenv.maybeGet('HEEKMAH_MCP_ENDPOINT') ?? '';
+  static const String endpoint = String.fromEnvironment('HEEKMAH_MCP_ENDPOINT');
 
-  /// هل الخادم مُهيّأ (يملك نقطة نهاية صالحة في `.env`)؟
+  /// هل الخادم مُهيّأ (يملك نقطة نهاية صالحة في إعداد البناء)؟
   static bool get isConfigured => endpoint.isNotEmpty;
 
   static const String _protocolVersion = '2025-06-18';
@@ -53,7 +52,7 @@ class HeekmahMcpClient {
     if (_initialized) return;
     if (!isConfigured) {
       throw const McpException(
-        'HEEKMAH_MCP_ENDPOINT غير مُضبوط في ملف .env — خادم الأقسام غير مُهيّأ.',
+        'HEEKMAH_MCP_ENDPOINT غير مُضبوط في إعداد البناء — خادم الأقسام غير مُهيّأ.',
       );
     }
     final initResp = await _sendRequest(
@@ -66,7 +65,6 @@ class HeekmahMcpClient {
     );
     // احفظ معرّف الجلسة إن أصدره الخادم.
     _sessionId = initResp?.headers.value('mcp-session-id');
-    log('Heekmah MCP session-id: $_sessionId', name: 'HeekmahMcp');
 
     // إشعار بأن التهيئة تمّت (notification — لا نتوقع رداً).
     await _sendNotification(method: 'notifications/initialized');

@@ -45,7 +45,9 @@ class QuotationCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              if (quotation.passageId != null) _buildFullTextButton(theme),
+              if (quotation.passageId != null &&
+                  quotation.passageSource != null)
+                _buildFullTextButton(theme),
               const Spacer(),
               if (quotation.bookSourceName != null &&
                   quotation.pageNumber != null)
@@ -233,8 +235,9 @@ class QuotationCard extends StatelessWidget {
     final ctrl = AiSearchController.instance;
 
     // النص المعروض: النص الكامل إن جُلب، وإلا snippet الأصلي.
-    final fullText = quotation.passageId != null
-        ? ctrl.state.getFullText(quotation.passageId!)
+    final fullText =
+        quotation.passageId != null && quotation.passageSource != null
+        ? ctrl.state.getFullText(quotation.passageSource!, quotation.passageId!)
         : null;
     // انزع علامات التوكيد Markdown (**) من نص العرض: مصادر MCP (خاصة تراجم
     // الرواة) تُرجع تسميات الحقول كـ «**الاسم:**»، وGptMarkdown يفشل في عرض
@@ -337,11 +340,12 @@ class QuotationCard extends StatelessWidget {
     final ctrl = AiSearchController.instance;
     return Obx(() {
       final pid = quotation.passageId!;
-      final fullText = ctrl.state.getFullText(pid);
+      final source = quotation.passageSource!;
+      final fullText = ctrl.state.getFullText(source, pid);
       // النص الكامل جُلب → لا زر.
       if (fullText != null) return const SizedBox.shrink();
-      final isLoading = ctrl.state.isFetchingFullText(pid);
-      final failed = ctrl.state.hasFetchFailed(pid);
+      final isLoading = ctrl.state.isFetchingFullText(source, pid);
+      final failed = ctrl.state.hasFetchFailed(source, pid);
 
       // جارٍ الجلب → مؤشر تحميل.
       if (isLoading) {
@@ -371,7 +375,7 @@ class QuotationCard extends StatelessWidget {
       // فشل الجلب → زر إعادة المحاولة.
       if (failed) {
         return TextButton.icon(
-          onPressed: () => ctrl.fetchFullPassage(pid),
+          onPressed: () => ctrl.fetchFullPassage(source, pid),
           icon: Icon(
             Icons.refresh,
             size: 14,
@@ -394,7 +398,7 @@ class QuotationCard extends StatelessWidget {
 
       // الحالة الافتراضية → زر "عرض النص الكامل".
       return TextButton.icon(
-        onPressed: () => ctrl.fetchFullPassage(pid),
+        onPressed: () => ctrl.fetchFullPassage(source, pid),
         icon: Icon(
           Icons.expand_more,
           size: 16,

@@ -44,15 +44,11 @@ class TafsirMcpClient {
       params: {
         'protocolVersion': _protocolVersion,
         'capabilities': <String, dynamic>{},
-        'clientInfo': {
-          'name': _clientName,
-          'version': _clientVersion,
-        },
+        'clientInfo': {'name': _clientName, 'version': _clientVersion},
       },
     );
     // احفظ معرّف الجلسة إن أصدره الخادم.
     _sessionId = initResp?.headers.value('mcp-session-id');
-    log('MCP session-id: $_sessionId', name: 'TafsirMcp');
 
     // إشعار بأن التهيئة تمّت (notification — لا نتوقع رداً).
     await _sendNotification(method: 'notifications/initialized');
@@ -122,8 +118,8 @@ class TafsirMcpClient {
     );
 
     // تعامل مع SSE إن كان نوع المحتوى كذلك.
-    final contentType =
-        (response.headers.value('content-type') ?? '').toLowerCase();
+    final contentType = (response.headers.value('content-type') ?? '')
+        .toLowerCase();
     if (contentType.contains('text/event-stream')) {
       final body = response.data is String
           ? response.data as String
@@ -141,10 +137,7 @@ class TafsirMcpClient {
   }
 
   Future<void> _sendNotification({required String method}) async {
-    final payload = <String, dynamic>{
-      'jsonrpc': '2.0',
-      'method': method,
-    };
+    final payload = <String, dynamic>{'jsonrpc': '2.0', 'method': method};
     // الـ notifications ليس لها id — نرسلها ونتجاهل الرد.
     try {
       await _dio.post(
@@ -227,8 +220,7 @@ class McpTool {
     return McpTool(
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
-      inputSchema:
-          (json['inputSchema'] as Map<String, dynamic>?) ?? const {},
+      inputSchema: (json['inputSchema'] as Map<String, dynamic>?) ?? const {},
     );
   }
 

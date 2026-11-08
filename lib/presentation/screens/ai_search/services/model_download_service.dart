@@ -86,26 +86,41 @@ class ModelDownloadService {
       cancelToken: cancelToken,
     );
 
-    // Decompress
+    // Stage decompression to avoid large allocations and partially installed files.
     onStatus?.call('جاري فك الضغط...');
+    final modelStage = File('${dir.path}/e5_small_int8.onnx.tmp');
+    final tokenizerStage = File('${dir.path}/tokenizer.json.tmp');
+    void checkCancelled() {
+      if (cancelToken?.isCancelled ?? false) {
+        throw DioException(
+          requestOptions: RequestOptions(),
+          type: DioExceptionType.cancel,
+        );
+      }
+    }
 
-    final modelBytes = await modelGz.readAsBytes();
-    await File(
-      '${dir.path}/e5_small_int8.onnx',
-    ).writeAsBytes(gzip.decode(modelBytes));
-
-    final tokenizerBytes = await tokenizerGz.readAsBytes();
-    await File(
-      '${dir.path}/tokenizer.json',
-    ).writeAsBytes(gzip.decode(tokenizerBytes));
-
-    await _box.write(_sharedVersionKey, _sharedVersion);
-
-    // Cleanup temp
     try {
-      await modelGz.delete();
-      await tokenizerGz.delete();
-    } catch (_) {}
+      checkCancelled();
+      await gzip.decoder.bind(modelGz.openRead()).pipe(modelStage.openWrite());
+      checkCancelled();
+      await gzip.decoder
+          .bind(tokenizerGz.openRead())
+          .pipe(tokenizerStage.openWrite());
+      checkCancelled();
+      if (await modelStage.length() == 0 ||
+          await tokenizerStage.length() == 0) {
+        throw const FormatException('Empty shared model files');
+      }
+      jsonDecode(await tokenizerStage.readAsString());
+      await _box.remove(_sharedVersionKey);
+      await modelStage.rename('${dir.path}/e5_small_int8.onnx');
+      await tokenizerStage.rename('${dir.path}/tokenizer.json');
+      await _box.write(_sharedVersionKey, _sharedVersion);
+    } finally {
+      for (final file in [modelStage, tokenizerStage, modelGz, tokenizerGz]) {
+        if (await file.exists()) await file.delete();
+      }
+    }
 
     onProgress?.call(1.0);
     onStatus?.call('تم تحميل الملفات المشتركة');
@@ -123,7 +138,11 @@ class ModelDownloadService {
     final baseUrl = '$_githubBase/${section.releaseTag}';
     final _cancel = () => cancelToken?.isCancelled ?? false;
     final _throwIfCancelled = () {
-      if (_cancel()) throw DioException(requestOptions: RequestOptions(), type: DioExceptionType.cancel);
+      if (_cancel())
+        throw DioException(
+          requestOptions: RequestOptions(),
+          type: DioExceptionType.cancel,
+        );
     };
 
     // Clean up any leftover files from previous failed attempts
@@ -133,7 +152,11 @@ class ModelDownloadService {
     await dir.create(recursive: true);
 
     // Clean up old temp files too
-    for (final name in ['${section.id}_vectors_int8.npz.gz', '${section.id}_metadata.json.gz', '${section.id}_bm25_index.json.gz']) {
+    for (final name in [
+      '${section.id}_vectors_int8.npz.gz',
+      '${section.id}_metadata.json.gz',
+      '${section.id}_bm25_index.json.gz',
+    ]) {
       final f = File('${tempDir.path}/$name');
       if (await f.exists()) await f.delete();
     }
@@ -180,23 +203,23 @@ class ModelDownloadService {
     onStatus?.call('جاري فك الضغط...');
     try {
       // Vectors
-      final vectorsBytes = await vectorsGz.readAsBytes();
-      await File('${dir.path}/vectors_int8.npz')
-          .writeAsBytes(gzip.decode(vectorsBytes));
+      await gzip.decoder
+          .bind(vectorsGz.openRead())
+          .pipe(File('${dir.path}/vectors_int8.npz').openWrite());
 
       _throwIfCancelled();
 
       // Metadata
-      final metaBytes = await metaGz.readAsBytes();
-      await File('${dir.path}/metadata.json')
-          .writeAsBytes(gzip.decode(metaBytes));
+      await gzip.decoder
+          .bind(metaGz.openRead())
+          .pipe(File('${dir.path}/metadata.json').openWrite());
 
       // BM25 (optional)
       if (bm25Gz != null && await bm25Gz.exists()) {
         _throwIfCancelled();
-        final bm25Bytes = await bm25Gz.readAsBytes();
-        await File('${dir.path}/bm25_index.json')
-            .writeAsBytes(gzip.decode(bm25Bytes));
+        await gzip.decoder
+            .bind(bm25Gz.openRead())
+            .pipe(File('${dir.path}/bm25_index.json').openWrite());
       }
     } catch (e) {
       // Clean up any partial decompressed files on failure/cancel
@@ -215,7 +238,9 @@ class ModelDownloadService {
     } catch (e) {
       log('NPZ conversion failed for ${section.id}: $e', name: 'AiSearch');
       // Clean up on conversion failure
-      try { await deleteSection(section); } catch (_) {}
+      try {
+        await deleteSection(section);
+      } catch (_) {}
       rethrow;
     }
 
@@ -297,12 +322,14 @@ class ModelDownloadService {
         if (cancelToken?.isCancelled ?? false) rethrow;
         if (attempt < maxRetries - 1 &&
             (e.response?.statusCode == 502 ||
-             e.response?.statusCode == 503 ||
-             e.response?.statusCode == 429 ||
-             e.type == DioExceptionType.connectionError)) {
+                e.response?.statusCode == 503 ||
+                e.response?.statusCode == 429 ||
+                e.type == DioExceptionType.connectionError)) {
           // Wait before retry with exponential backoff
           final delay = Duration(seconds: 2 * (attempt + 1));
-          print('[ModelDownload] Retry ${attempt + 1}/$maxRetries after ${delay.inSeconds}s (${e.response?.statusCode ?? e.type})');
+          print(
+            '[ModelDownload] Retry ${attempt + 1}/$maxRetries after ${delay.inSeconds}s (${e.response?.statusCode ?? e.type})',
+          );
           await Future.delayed(delay);
           continue;
         }

@@ -4,7 +4,18 @@ part of '../ai_search.dart';
 enum ChatRole { user, assistant, tool }
 
 /// نوع النص المنقول من مصدر موثوق (يحدّد شكل العرض في QuotationCard).
-enum QuotationType { hadith, ayah, tafsir, scholar, fiqh, aqeedah, seerah, other }
+enum QuotationSource { tafsir, heekmah, seerah }
+
+enum QuotationType {
+  hadith,
+  ayah,
+  tafsir,
+  scholar,
+  fiqh,
+  aqeedah,
+  seerah,
+  other,
+}
 
 /// نصٌّ منقولٌ حرفياً من مصدر موثوق (كتاب/تفسير/حديث) — لا يُمرَّر للـ LLM إطلاقاً.
 ///
@@ -32,6 +43,9 @@ class Quotation {
   /// يكون موجوداً لنتائج search_* من heekmah/seerah (كل نتيجة لها معرّف).
   final int? passageId;
 
+  /// الخادم الذي أصدر المعرّف؛ المعرّف وحده ليس فريداً بين الخوادم.
+  final QuotationSource? passageSource;
+
   /// اسم الكتاب كما جاء من MCP (مثل «المجموع شرح المهذب - ط المنيرية»).
   /// يُستخدم لمطابقة الكتاب في BooksController للتنقل لصفحته.
   /// يكون null للاقتباسات التي لا تدعم التنقل (آيات، تفاسير من tafsir-mcp).
@@ -52,6 +66,7 @@ class Quotation {
     this.toolName,
     this.sourceLabel,
     this.passageId,
+    this.passageSource,
     this.bookSourceName,
     this.pageNumber,
     this.footnotes = const [],
@@ -79,6 +94,7 @@ class Quotation {
           return QuotationType.other;
       }
     }
+
     return Quotation(
       text: json['tx'] as String? ?? '',
       attribution: (json['at'] as String?)?.trim().isEmpty == true
@@ -90,11 +106,15 @@ class Quotation {
           ? null
           : json['sl'] as String?,
       passageId: json['pid'] as int?,
+      passageSource: QuotationSource.values
+          .where((s) => s.name == json['ps'])
+          .firstOrNull,
       bookSourceName: (json['bn'] as String?)?.trim().isEmpty == true
           ? null
           : json['bn'] as String?,
       pageNumber: json['pg'] as int?,
-      footnotes: (json['fn'] as List?)
+      footnotes:
+          (json['fn'] as List?)
               ?.map((f) => f.toString())
               .toList(growable: false) ??
           const [],
@@ -102,17 +122,18 @@ class Quotation {
   }
 
   Map<String, dynamic> toJson() => {
-        'tx': text,
-        if (attribution != null && attribution!.isNotEmpty) 'at': attribution,
-        'tp': type.name,
-        if (toolName != null) 'tn': toolName,
-        if (sourceLabel != null && sourceLabel!.isNotEmpty) 'sl': sourceLabel,
-        if (passageId != null) 'pid': passageId,
-        if (bookSourceName != null && bookSourceName!.isNotEmpty)
-          'bn': bookSourceName,
-        if (pageNumber != null) 'pg': pageNumber,
-        if (footnotes.isNotEmpty) 'fn': footnotes,
-      };
+    'tx': text,
+    if (attribution != null && attribution!.isNotEmpty) 'at': attribution,
+    'tp': type.name,
+    if (toolName != null) 'tn': toolName,
+    if (sourceLabel != null && sourceLabel!.isNotEmpty) 'sl': sourceLabel,
+    if (passageId != null) 'pid': passageId,
+    if (passageSource != null) 'ps': passageSource!.name,
+    if (bookSourceName != null && bookSourceName!.isNotEmpty)
+      'bn': bookSourceName,
+    if (pageNumber != null) 'pg': pageNumber,
+    if (footnotes.isNotEmpty) 'fn': footnotes,
+  };
 }
 
 /// رسالة واحدة في محادثة المساعد الذكي.
@@ -150,8 +171,8 @@ class ChatMessage {
       role: roleStr == 'assistant'
           ? ChatRole.assistant
           : roleStr == 'tool'
-              ? ChatRole.tool
-              : ChatRole.user,
+          ? ChatRole.tool
+          : ChatRole.user,
       content: json['c'] as String? ?? '',
       toolName: json['t'] as String?,
       quotations: rawQuotations
@@ -161,10 +182,9 @@ class ChatMessage {
   }
 
   Map<String, dynamic> toJson() => {
-        'r': role.name,
-        'c': content,
-        if (toolName != null) 't': toolName,
-        if (quotations.isNotEmpty)
-          'qs': quotations.map((q) => q.toJson()).toList(),
-      };
+    'r': role.name,
+    'c': content,
+    if (toolName != null) 't': toolName,
+    if (quotations.isNotEmpty) 'qs': quotations.map((q) => q.toJson()).toList(),
+  };
 }

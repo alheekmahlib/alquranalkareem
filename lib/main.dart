@@ -4,7 +4,6 @@ import 'package:connectivity_kit/connectivity_kit.dart';
 import 'package:drift/drift.dart' show driftRuntimeOptions;
 import 'package:flutter/material.dart';
 import 'package:flutter_app_info/flutter_app_info.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -44,12 +43,6 @@ Future<void> main() async {
 
 Future<void> initializeApp() async {
   Future.delayed(const Duration(seconds: 0));
-  // تحميل مفاتيح البيئة (OpenRouter API key). آمن إن لم يوجد الملف.
-  try {
-    await dotenv.load();
-  } catch (_) {
-    // الملف اختياري — المساعد الذكي سيُظهر رسالة خطأ عند الاستخدام دون مفتاح.
-  }
   final service = ConnectionService(
     options: const ConnectionOptions(enableReachability: true),
   );

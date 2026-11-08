@@ -50,6 +50,17 @@ class QuotationExtractor {
       );
     }
 
+    final normalized = toolResult.trim();
+    if (normalized.startsWith('لا توجد نتائج') ||
+        normalized.startsWith('لم يتم العثور') ||
+        normalized.startsWith('لم يُعثر على نتائج')) {
+      return const ExtractionResult(
+        quotations: [],
+        llmSummary: 'لا توجد نتائج.',
+        rawText: '',
+      );
+    }
+
     // **هام:** لا نُطبّق _cleanRaw على كامل النص قبل فكّ JSON، لأن استبدال
     // `\\n` بسطر فعلي يُفسد تسلسلات الهروب داخل نصوص JSON ويجعلها غير صالحة.
     // بدلاً من ذلك، نفكّ JSON من النص الخام، ونُنظّف فقط القيم المستخرجة.
@@ -69,13 +80,15 @@ class QuotationExtractor {
     // لو لم نتمكن من الاستخراج المنظَّم، اعتبر النص كله اقتباساً واحداً —
     // **لكن فقط إذا لم يكن JSON خاماً** (JSON الخام لا يُفيد المستخدم كاقتباس).
     if (quotations.isEmpty && toolResult.trim().isNotEmpty) {
-      final looksLikeJson = toolResult.trimLeft().startsWith('{') ||
+      final looksLikeJson =
+          toolResult.trimLeft().startsWith('{') ||
           toolResult.trimLeft().startsWith('[');
       if (looksLikeJson) {
         // JSON لم نتمكن من فكّه — لا تعرضه كاقتباس. أخبر الـ LLM فقط.
         return ExtractionResult(
           quotations: const [],
-          llmSummary: 'وُجدت بيانات منسَّقة (JSON) لم يُمكن استخراج نصٍّ منها تلقائياً.',
+          llmSummary:
+              'وُجدت بيانات منسَّقة (JSON) لم يُمكن استخراج نصٍّ منها تلقائياً.',
           rawText: toolResult,
         );
       }
@@ -98,17 +111,22 @@ class QuotationExtractor {
     // أضف نسبة المصدر العام لكل اقتباس (للعرض فقط، لا تدخل في المنطق).
     final sourceLabel = _sourceLabelFor(source);
     final labeled = quotations
-        .map((q) => Quotation(
-              text: q.text,
-              type: q.type,
-              attribution: q.attribution,
-              toolName: q.toolName,
-              sourceLabel: sourceLabel,
-              passageId: q.passageId,
-              bookSourceName: q.bookSourceName,
-              pageNumber: q.pageNumber,
-              footnotes: q.footnotes,
-            ))
+        .map(
+          (q) => Quotation(
+            text: q.text,
+            type: q.type,
+            attribution: q.attribution,
+            toolName: q.toolName,
+            sourceLabel: sourceLabel,
+            passageId: q.passageId,
+            passageSource: q.passageId == null
+                ? null
+                : QuotationSource.values.byName(source.name),
+            bookSourceName: q.bookSourceName,
+            pageNumber: q.pageNumber,
+            footnotes: q.footnotes,
+          ),
+        )
         .toList();
 
     return ExtractionResult(
@@ -163,17 +181,17 @@ class QuotationExtractor {
     if (decoded is Map &&
         (decoded.containsKey('text') || decoded.containsKey('text_uthmani')) &&
         !decoded.containsKey('tafsirs')) {
-      final ayahText = (decoded['text_uthmani'] ??
-              decoded['text'] ??
-              '')
+      final ayahText = (decoded['text_uthmani'] ?? decoded['text'] ?? '')
           .toString();
       if (ayahText.isNotEmpty) {
-        quotations.add(Quotation(
-          text: _cleanRaw(ayahText),
-          type: QuotationType.ayah,
-          attribution: _formatSurahAyahRef(decoded),
-          toolName: toolName,
-        ));
+        quotations.add(
+          Quotation(
+            text: _cleanRaw(ayahText),
+            type: QuotationType.ayah,
+            attribution: _formatSurahAyahRef(decoded),
+            toolName: toolName,
+          ),
+        );
       }
       return quotations;
     }
@@ -184,24 +202,28 @@ class QuotationExtractor {
         if (t is! Map) continue;
         // أفضل نسخة للعرض: text_display (نظيف مع علامات حاشية مرقمة [N])،
         // ثم text_clean (نظيف بلا حواشي)، ثم text (خام مع ¬...¥).
-        final tText = (t['text_display'] ??
-                t['text_clean'] ??
-                t['text'] ??
-                t['uthmanic_text'] ??
-                '')
-            .toString();
+        final tText =
+            (t['text_display'] ??
+                    t['text_clean'] ??
+                    t['text'] ??
+                    t['uthmanic_text'] ??
+                    '')
+                .toString();
         final attribution = _cleanAttribution(
-            (t['attribution'] ?? '').toString());
+          (t['attribution'] ?? '').toString(),
+        );
         // استخرج الحواشي (فروق النسخ، التخريج) كقائمة نصوص مرقمة.
         final footnotes = _extractFootnotes(t['footnotes']);
         if (tText.trim().isNotEmpty) {
-          quotations.add(Quotation(
-            text: _cleanRaw(tText),
-            type: QuotationType.tafsir,
-            attribution: attribution.isEmpty ? null : attribution,
-            toolName: toolName,
-            footnotes: footnotes,
-          ));
+          quotations.add(
+            Quotation(
+              text: _cleanRaw(tText),
+              type: QuotationType.tafsir,
+              attribution: attribution.isEmpty ? null : attribution,
+              toolName: toolName,
+              footnotes: footnotes,
+            ),
+          );
         }
       }
       return quotations;
@@ -215,15 +237,18 @@ class QuotationExtractor {
         final sText = (s['text'] ?? s['text_clean'] ?? s['text_display'] ?? '')
             .toString();
         final attribution = _cleanAttribution(
-            (s['attribution'] ?? '').toString());
+          (s['attribution'] ?? '').toString(),
+        );
         if (sText.trim().isNotEmpty) {
-          quotations.add(Quotation(
-            text: _cleanRaw(sText),
-            // أسباب النزول = أقوال مروية عن الصحابة والتابعين.
-            type: QuotationType.scholar,
-            attribution: attribution.isEmpty ? null : attribution,
-            toolName: toolName,
-          ));
+          quotations.add(
+            Quotation(
+              text: _cleanRaw(sText),
+              // أسباب النزول = أقوال مروية عن الصحابة والتابعين.
+              type: QuotationType.scholar,
+              attribution: attribution.isEmpty ? null : attribution,
+              toolName: toolName,
+            ),
+          );
         }
       }
       return quotations;
@@ -238,12 +263,14 @@ class QuotationExtractor {
         if (item is! Map) continue;
         final ayahText = (item['text'] ?? '').toString();
         if (ayahText.trim().isNotEmpty) {
-          quotations.add(Quotation(
-            text: _cleanRaw(ayahText),
-            type: QuotationType.ayah,
-            attribution: _formatSurahAyahRef(item),
-            toolName: toolName,
-          ));
+          quotations.add(
+            Quotation(
+              text: _cleanRaw(ayahText),
+              type: QuotationType.ayah,
+              attribution: _formatSurahAyahRef(item),
+              toolName: toolName,
+            ),
+          );
         }
       }
       return quotations;
@@ -256,20 +283,24 @@ class QuotationExtractor {
         (decoded.first as Map).containsKey('tafsir_excerpt')) {
       for (final item in decoded) {
         if (item is! Map) continue;
-        final excerpt = (item['tafsir_excerpt'] ??
-                item['tafsir_excerpt_clean'] ??
-                item['tafsir_excerpt_raw'] ??
-                '')
-            .toString();
+        final excerpt =
+            (item['tafsir_excerpt'] ??
+                    item['tafsir_excerpt_clean'] ??
+                    item['tafsir_excerpt_raw'] ??
+                    '')
+                .toString();
         final attribution = _cleanAttribution(
-            (item['source_attribution'] ?? '').toString());
+          (item['source_attribution'] ?? '').toString(),
+        );
         if (excerpt.trim().isNotEmpty) {
-          quotations.add(Quotation(
-            text: _cleanRaw(excerpt),
-            type: QuotationType.tafsir,
-            attribution: attribution.isEmpty ? null : attribution,
-            toolName: toolName,
-          ));
+          quotations.add(
+            Quotation(
+              text: _cleanRaw(excerpt),
+              type: QuotationType.tafsir,
+              attribution: attribution.isEmpty ? null : attribution,
+              toolName: toolName,
+            ),
+          );
         }
       }
       return quotations;
@@ -344,7 +375,9 @@ class QuotationExtractor {
 
     for (int i = 0; i < limit; i++) {
       final start = startIndices[i];
-      final end = i + 1 < startIndices.length ? startIndices[i + 1] : text.length;
+      final end = i + 1 < startIndices.length
+          ? startIndices[i + 1]
+          : text.length;
       final block = text.substring(start, end);
       final parsed = _parseHeekmahBlock(block, toolName);
       if (parsed != null) quotations.add(parsed);
@@ -617,7 +650,8 @@ class QuotationExtractor {
 
     // المرجع عادةً يكرر المصدر + يضيف رقم صفحة. استخرج رقم الصفحة فقط إن تكرر المصدر.
     String? pageNumber;
-    if (cleanReference.isNotEmpty && cleanSource.isNotEmpty &&
+    if (cleanReference.isNotEmpty &&
+        cleanSource.isNotEmpty &&
         cleanReference.contains(cleanSource)) {
       final tail = cleanReference.substring(cleanSource.length).trim();
       final pageMatch = RegExp(r'ص\s*\.?\s*(\d+)').firstMatch(tail);
@@ -646,9 +680,7 @@ class QuotationExtractor {
 
   /// يحذف علامات التطابق <m>...</m> ويبقي النص داخلها.
   static String _stripMatchMarkers(String text) {
-    return text
-        .replaceAll('</m>', '')
-        .replaceAll(RegExp(r'<m>'), '');
+    return text.replaceAll('</m>', '').replaceAll(RegExp(r'<m>'), '');
   }
 
   /// يبني ملخصاً آمناً للـ LLM يصف ما وُجد دون ذكر النص الكامل.
@@ -661,7 +693,8 @@ class QuotationExtractor {
     // **هام:** لتراجم الرواة (search_narrator)، استخرج أسماء الرواة الفعلية
     // من نص الاقتباس ليكون الملخص دقيقاً — يمنع الـ LLM من اختلاق أسماء
     // من ذاكرته بدلاً من ذكر الأسماء الفعلية الموجودة في النتائج.
-    final isNarratorSearch = quotations.isNotEmpty &&
+    final isNarratorSearch =
+        quotations.isNotEmpty &&
         quotations.every((q) => q.toolName == 'search_narrator');
 
     if (isNarratorSearch) {
@@ -676,16 +709,20 @@ class QuotationExtractor {
       }
       final buffer = StringBuffer();
       if (names.isNotEmpty) {
-        buffer.write('تم العثور على ${names.length} راوٍ: ${names.take(5).join('، ')}');
+        buffer.write(
+          'تم العثور على ${names.length} راوٍ: ${names.take(5).join('، ')}',
+        );
         if (names.length > 5) buffer.write('…');
         buffer.write('. ');
       } else {
         buffer.write('تم العثور على ${quotations.length} ترجمة راوٍ. ');
       }
-      buffer.write('البيانات الكاملة (الاسم، الشهرة، الرتبة، الكنية، الميلاد، '
-          'الوفاة، الطلاب، الشيوخ، أقوال العلماء) تُعرض للمستخدم منفصلة. '
-          'لا تنسخها ولا تكررها. لا تضف أي معلومات من عندك عن الراوي — '
-          'اكتب فقط جملة قصيرة جداً (سطر واحد) تشير لأن النتائج معروضة أدناه.');
+      buffer.write(
+        'البيانات الكاملة (الاسم، الشهرة، الرتبة، الكنية، الميلاد، '
+        'الوفاة، الطلاب، الشيوخ، أقوال العلماء) تُعرض للمستخدم منفصلة. '
+        'لا تنسخها ولا تكررها. لا تضف أي معلومات من عندك عن الراوي — '
+        'اكتب فقط جملة قصيرة جداً (سطر واحد) تشير لأن النتائج معروضة أدناه.',
+      );
       return buffer.toString();
     }
 
@@ -728,8 +765,10 @@ class QuotationExtractor {
     }
 
     // تلميحات حرجة للـ LLM.
-    buffer.write(' النصوص الكاملة تُعرض للمستخدم منفصلة، لا تنسخها ولا تذكرها حرفياً؛ '
-        'اكتب فقط مقدمة قصيرة تربط السؤال بهذه النتائج.');
+    buffer.write(
+      ' النصوص الكاملة تُعرض للمستخدم منفصلة، لا تنسخها ولا تذكرها حرفياً؛ '
+      'اكتب فقط مقدمة قصيرة تربط السؤال بهذه النتائج.',
+    );
     return buffer.toString();
   }
 

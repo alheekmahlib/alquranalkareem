@@ -15,10 +15,12 @@ class AiSearchController extends GetxController {
   /// متحكم التمرير لقائمة رسائل المساعد الموحَّد.
   final ScrollController assistantScrollController = ScrollController();
   bool _isProcessing = false;
+  int _conversationGeneration = 0;
+  String? _assistantHistoryId;
+  String? _assistantHistoryTitle;
 
   // Track active downloads per section
   final Map<String, CancelToken> _cancelTokens = {};
-  bool _initStarted = false;
   final isInitialized = false.obs;
   static const _keyX = 'floating_menu_x';
   static const _keyY = 'floating_menu_y';
@@ -26,12 +28,14 @@ class AiSearchController extends GetxController {
   Offset floatingMenuPosition = const Offset(16, 0);
 
   /// Call when the AI search screen first opens
-  Future<void> ensureInitialized() async {
-    if (isInitialized.value || _initStarted) return;
-    _initStarted = true;
-    Future.delayed(const Duration(milliseconds: 500), () async {
-      await _initCheck();
-    });
+  Future<void>? _initialization;
+
+  Future<void> ensureInitialized() {
+    return _initialization ??= _initialize();
+  }
+
+  Future<void> _initialize() async {
+    await _initCheck();
   }
 
   @override
@@ -90,7 +94,7 @@ class AiSearchController extends GetxController {
     } catch (_) {}
   }
 
-  /// المزودون الذين لهم مفاتيح في .env (لعرضهم في القائمة المنسدلة).
+  /// المزودون المتاحون عند إعداد وسيط مداد.
   List<LlmProvider> get availableProviders => LlmService.availableProviders;
 
   /// يختار مزوّداً/نموذجاً ويحفظ الاختيار في GetStorage.
@@ -181,8 +185,8 @@ class AiSearchController extends GetxController {
         },
         cancelToken: cancelToken,
       );
-      state.isSharedLoaded.value = true;
       await _embeddingService.init();
+      state.isSharedLoaded.value = true;
     } catch (e) {
       if (!cancelToken.isCancelled) {
         log('Shared download failed: $e', name: 'AiSearch');
@@ -301,17 +305,9 @@ class AiSearchController extends GetxController {
       return;
     }
 
-    // Wait for init to complete
-    if (_initStarted && !state.isLoading.value) {
-      print('[AiSearch] Search called before init complete, waiting...');
-      state.isSearching.value = true;
-      // Poll until initialized (with timeout)
-      for (int i = 0; i < 100; i++) {
-        await Future.delayed(const Duration(milliseconds: 100));
-        if (!_initStarted || state.isLoading.value == false) break;
-      }
-      state.isSearching.value = false;
-    }
+    await ensureInitialized();
+    if (state.isSearching.value) return;
+    state.currentQuery.value = query;
 
     if (!state.hasAnySectionLoaded) {
       state.errorMessage.value = 'لم يتم تحميل أي قسم بعد';
@@ -341,7 +337,7 @@ class AiSearchController extends GetxController {
       // Get embedding
       List<double> embedding;
       if (_embeddingService.isReady) {
-        print('[AiSearch] Using real embedding for: $query');
+        print('[AiSearch] Using real embedding');
         try {
           embedding = await _embeddingService.embed(query);
           print('[AiSearch] Embedding generated: ${embedding.length} dims');
@@ -356,6 +352,8 @@ class AiSearchController extends GetxController {
         print('[AiSearch] Embedding not ready, using pseudo embedding');
         embedding = _pseudoEmbedding(query);
       }
+
+      final failedSections = <String>[];
 
       // Search each enabled section — load ONE at a time, unload after search
       // This keeps peak memory low: ONNX (130MB) + 1 section metadata only
@@ -415,6 +413,7 @@ class AiSearchController extends GetxController {
             name: 'AiSearch',
           );
         } catch (e, stack) {
+          failedSections.add(section.titleAr);
           print('[AiSearch] Search failed for ${section.id}: $e');
           print('[AiSearch] Stack: $stack');
         } finally {
@@ -423,6 +422,11 @@ class AiSearchController extends GetxController {
           _bm25Service.unloadSection(section.id);
           print('[AiSearch] Unloaded section: ${section.id}');
         }
+      }
+
+      if (failedSections.isNotEmpty) {
+        state.errorMessage.value =
+            'تعذر البحث في: ${failedSections.join('، ')}. حاول مجدداً.';
       }
 
       // Progressive display
@@ -436,7 +440,7 @@ class AiSearchController extends GetxController {
       state.startStreaming();
 
       // Auto-save to chat history
-      _saveToHistory(query);
+      await _saveToHistory(query);
     } catch (e) {
       state.errorMessage.value = 'فشل البحث: $e';
       log('AI Search failed: $e', name: 'AiSearch');
@@ -475,7 +479,7 @@ class AiSearchController extends GetxController {
   // ─── Chat History ──────────────────────────────────────────────
 
   /// Save current search results to chat history
-  void _saveToHistory(String query) {
+  Future<void> _saveToHistory(String query) async {
     try {
       final sectionResults = <String, List<SerializableSearchResult>>{};
       for (final section in SearchSection.all) {
@@ -495,8 +499,9 @@ class AiSearchController extends GetxController {
         date: now,
         sectionResults: sectionResults,
       );
-      _chatHistoryService.saveEntry(entry);
+      await _chatHistoryService.saveEntry(entry);
     } catch (e) {
+      state.errorMessage.value = 'تعذر حفظ البحث في السجل.';
       print('[AiSearch] Failed to save history: $e');
     }
   }
@@ -567,6 +572,9 @@ class AiSearchController extends GetxController {
     if (text.isEmpty || _isProcessing) return;
 
     _isProcessing = true;
+    final generation = _conversationGeneration;
+    _assistantHistoryId ??= DateTime.now().microsecondsSinceEpoch.toString();
+    _assistantHistoryTitle ??= text;
     state.addAssistantUserMessage(text);
     state.searchTextEditing.clear();
     state.hasInputText.value = false;
@@ -589,7 +597,9 @@ class AiSearchController extends GetxController {
       await _unifiedOrchestrator.handleUserMessage(
         userText: text,
         state: state,
+        isCurrent: () => generation == _conversationGeneration,
         onFallback: (fallback) {
+          if (generation != _conversationGeneration) return;
           selectProvider(fallback);
           final ctx = Get.context;
           if (ctx != null) {
@@ -601,10 +611,15 @@ class AiSearchController extends GetxController {
         },
       );
       // احفظ المحادثة في السجل بعد اكتمال الإجابة.
-      _saveAssistantToHistory(text);
+      if (generation == _conversationGeneration) {
+        await _saveAssistantToHistory();
+      }
     } finally {
       slowNoticeTimer.cancel();
       _isProcessing = false;
+      if (generation != _conversationGeneration) {
+        state.isAssistantThinking.value = false;
+      }
     }
   }
 
@@ -614,7 +629,12 @@ class AiSearchController extends GetxController {
   /// - وضع البحث المحلي (semantic): يمسح نتائج البحث ويعيد للشاشة الفارغة.
   void clearConversation() {
     if (state.midasMode.value == MidasMode.assistant) {
+      _conversationGeneration++;
+      _assistantHistoryId = null;
+      _assistantHistoryTitle = null;
+      state.fullTextCache.clear();
       state.clearAssistantMessages();
+      if (_isProcessing) state.isAssistantThinking.value = true;
     } else {
       state.clearResults();
       state.currentQuery.value = '';
@@ -715,15 +735,24 @@ class AiSearchController extends GetxController {
   /// يُستدعى من زر "عرض النص الكامل" في QuotationCard.
   /// يُحدّث الحالة في [state.fullTextCache] أثناء الجلب، وبعد النجاح يُحدّث الاقتباس
   /// في الرسائل حتى ينعكس على النسخ/المشاركة.
-  Future<String?> fetchFullPassage(int passageId) async {
+  Future<String?> fetchFullPassage(
+    QuotationSource source,
+    int passageId,
+  ) async {
+    final generation = _conversationGeneration;
+    final key = state.passageKey(source, passageId);
     // عيّن حالة loading.
-    state.fullTextCache[passageId] = 'loading';
-    final fullText = await _unifiedOrchestrator.fetchFullPassage(passageId);
+    state.fullTextCache[key] = 'loading';
+    final fullText = await _unifiedOrchestrator.fetchFullPassage(
+      source,
+      passageId,
+    );
+    if (generation != _conversationGeneration) return null;
     if (fullText != null && fullText.trim().isNotEmpty) {
-      state.fullTextCache[passageId] = fullText;
-      _updateQuotationText(passageId, fullText);
+      state.fullTextCache[key] = fullText;
+      _updateQuotationText(source, passageId, fullText);
     } else {
-      state.fullTextCache[passageId] = 'failed';
+      state.fullTextCache[key] = 'failed';
     }
     return fullText;
   }
@@ -887,7 +916,11 @@ class AiSearchController extends GetxController {
 
   /// يُحدّث نص اقتباس (حسب passageId) في كل الرسائل بالبحث عنه.
   /// ضروري لانعكاس النص الكامل على النسخ/المشاركة بعد جلبه.
-  void _updateQuotationText(int passageId, String newText) {
+  void _updateQuotationText(
+    QuotationSource source,
+    int passageId,
+    String newText,
+  ) {
     final messages = state.assistantMessages;
     for (int mi = 0; mi < messages.length; mi++) {
       final msg = messages[mi];
@@ -895,7 +928,7 @@ class AiSearchController extends GetxController {
       bool changed = false;
       final newQuotations = <Quotation>[];
       for (final q in msg.quotations) {
-        if (q.passageId == passageId) {
+        if (q.passageId == passageId && q.passageSource == source) {
           // استبدل النص بالكامل، وأزل passageId (لا حاجة لزر النص الكامل بعد الجلب).
           // نُبقي bookSourceName/pageNumber ليبقى زر الانتقال للكتاب متاحاً.
           newQuotations.add(
@@ -907,6 +940,7 @@ class AiSearchController extends GetxController {
               sourceLabel: q.sourceLabel,
               bookSourceName: q.bookSourceName,
               pageNumber: q.pageNumber,
+              footnotes: q.footnotes,
             ),
           );
           changed = true;
@@ -926,29 +960,35 @@ class AiSearchController extends GetxController {
   }
 
   /// يحفظ محادثة المساعد الحالية في السجل.
-  void _saveAssistantToHistory(String firstQuery) {
+  Future<void> _saveAssistantToHistory() async {
     try {
       if (state.assistantMessages.isEmpty) return;
       final now = DateTime.now();
       final entry = ChatHistoryEntry(
-        id: '${now.millisecondsSinceEpoch}',
-        query: firstQuery,
+        id: _assistantHistoryId!,
+        query: _assistantHistoryTitle!,
         date: now,
         type: ChatHistoryType.assistant,
         sectionResults: const {},
         messages: state.assistantMessages.toList(),
       );
-      _chatHistoryService.saveEntry(entry);
+      await _chatHistoryService.saveEntry(entry);
     } catch (e) {
+      state.assistantError.value = 'تعذر حفظ المحادثة في السجل.';
       print('[AiSearch] Failed to save assistant history: $e');
     }
   }
 
   /// يحمّل محادثة مساعد سابقة من السجل إلى الواجهة.
   void loadAssistantFromHistory(ChatHistoryEntry entry) {
+    _conversationGeneration++;
+    _assistantHistoryId = entry.id;
+    _assistantHistoryTitle = entry.query;
+    state.fullTextCache.clear();
     state.searchTextEditing.clear();
     state.hasInputText.value = false;
     state.clearAssistantMessages();
+    if (_isProcessing) state.isAssistantThinking.value = true;
     for (final msg in entry.messages) {
       state.assistantMessages.add(msg);
     }
@@ -961,6 +1001,11 @@ class AiSearchController extends GetxController {
       loadAssistantFromHistory(entry);
       return;
     }
+    // Ignore any assistant request still running while changing history.
+    _conversationGeneration++;
+    _assistantHistoryId = null;
+    _assistantHistoryTitle = null;
+    state.fullTextCache.clear();
     // البحث الدلالي (السلوك الأصلي).
     state.searchTextEditing.text = entry.query;
     state.clearResults();
@@ -981,6 +1026,7 @@ class AiSearchController extends GetxController {
 
   @override
   void onClose() {
+    _conversationGeneration++;
     state.searchTextEditing.removeListener(_syncInputText);
     state.searchTextEditing.dispose();
     assistantScrollController.dispose();

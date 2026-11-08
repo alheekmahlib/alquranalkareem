@@ -154,14 +154,25 @@ class AiSearchResults extends StatelessWidget {
       (s) => ctrl.state.sectionResults(s.id).isNotEmpty,
     );
 
+    final error = ctrl.state.errorMessage.value;
+    Widget content;
     if (!ctrl.state.isSearching.value && !hasResults) {
-      if (ctrl.state.searchTextEditing.text.isNotEmpty && hasResults) {
-        return _buildNoResults(context, ctrl);
-      }
-      return _buildEmptyState(context, ctrl);
+      content = ctrl.state.currentQuery.value.isNotEmpty && error.isEmpty
+          ? _buildNoResults(context, ctrl)
+          : _buildEmptyState(context, ctrl);
+    } else {
+      content = _buildGroupedResults(context, ctrl);
     }
-
-    return _buildGroupedResults(context, ctrl);
+    if (error.isEmpty) return content;
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(12),
+          child: Text(error, textAlign: TextAlign.center),
+        ),
+        Expanded(child: content),
+      ],
+    );
   }
 
   /// Empty state

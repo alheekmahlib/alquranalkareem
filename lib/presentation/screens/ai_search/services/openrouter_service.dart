@@ -45,11 +45,8 @@ class LlmProvider {
   @override
   int get hashCode => id.hashCode;
 
-  /// هل يوجد مفتاح لهذا المزود في .env؟
-  bool get hasKey {
-    final key = dotenv.maybeGet(envKeyName) ?? '';
-    return key.isNotEmpty && !key.contains('YOUR_KEY');
-  }
+  /// هل تم إعداد وسيط مداد؟ المفاتيح تبقى على الخادم.
+  bool get hasKey => LlmService.gatewayUrl.isNotEmpty;
 }
 
 /// عميل LLM عام متعدد المزودين (جميعهم OpenAI-compatible).
@@ -58,6 +55,9 @@ class LlmProvider {
 /// `tool_calls` في الرد. يستخدم Dio مباشرة. يدعم التبديل بين المزودين
 /// وfallback تلقائي عند فشل المزود المختار.
 class LlmService {
+  /// Public HTTPS endpoint of the Cloudflare gateway (no credentials).
+  static const gatewayUrl = String.fromEnvironment('MIDAD_GATEWAY_URL');
+
   LlmService._();
   static final LlmService _instance = LlmService._();
   factory LlmService() => _instance;
@@ -133,12 +133,13 @@ class LlmService {
     return providers.first;
   }
 
-  /// المزودون الذين لهم مفاتيح في .env فقط (لعرضهم في القائمة المنسدلة).
+  /// المزودون المتاحون عند إعداد وسيط مداد.
   static List<LlmProvider> get availableProviders =>
       providers.where((p) => p.hasKey).toList();
 
   /// نص تعليمات النظام (System Prompt) الذي يوجّه النموذج.
-  static const String _systemPrompt = '''أنت "المساعد الذكي" في تطبيق "القرآن الكريم - مكتبة الحكمة"، \
+  static const String _systemPrompt =
+      '''أنت "المساعد الذكي" في تطبيق "القرآن الكريم - مكتبة الحكمة"، \
 مساعدٌ متخصصٌ في القرآن الكريم وعلومه (التفسير، الإعراب، الصرف، أسباب النزول، القراءات، الإحصاءات).
 
 ## مهمتك
@@ -197,8 +198,10 @@ class LlmService {
 - لا تخترع معلومات: إن لم تجد بيانات كافية من الأدوات، فاذكر ذلك بصراحة.''';
 
   /// التعليمات الافتراضية للنظام — جاهزة لإرفاقها كأول رسالة.
-  static Map<String, dynamic> get systemMessage =>
-      {'role': 'system', 'content': _systemPrompt};
+  static Map<String, dynamic> get systemMessage => {
+    'role': 'system',
+    'content': _systemPrompt,
+  };
 
   /// يرسل طلب إكمال محادثة مع fallback تلقائي بين المزودين المتاحين.
   ///
@@ -217,7 +220,9 @@ class LlmService {
     // ابنِ قائمة المحاولة: المختار أولاً، ثم بقية المزودين المتاحين.
     // عند طلب tool calling، استبعد النماذج التي لا تدعم tools (تكتبها كنص خام).
     final wantsTools = tools.isNotEmpty;
-    final candidates = <LlmProvider>[provider];
+    final candidates = <LlmProvider>[
+      if (!wantsTools || provider.supportsTools) provider,
+    ];
     for (final p in availableProviders) {
       if (candidates.contains(p)) continue;
       if (wantsTools && !p.supportsTools) continue;
@@ -239,14 +244,16 @@ class LlmService {
         }
         return response;
       } on _RetryableLlmError catch (e) {
-        log('Provider ${candidate.id} unavailable (${e.code}), trying next…',
-            name: 'LlmService');
+        log(
+          'Provider ${candidate.id} unavailable (${e.code}), trying next…',
+          name: 'LlmService',
+        );
         lastError = e;
         continue;
       }
     }
     if (lastError is LlmException) throw lastError;
-    throw const LlmException('تعذّر الوصول لأي نموذج متاح. تحقق من مفاتيح API في .env');
+    throw const LlmException('تعذّر الوصول إلى وسيط مداد أو أي نموذج متاح.');
   }
 
   /// ينفّذ طلباً واحداً لمزود محدد.
@@ -256,9 +263,12 @@ class LlmService {
     required List<Map<String, dynamic>> tools,
     bool forceToolUse = false,
   }) async {
-    final apiKey = _getKey(provider);
+    if (gatewayUrl.isEmpty || Uri.tryParse(gatewayUrl)?.scheme != 'https') {
+      throw const LlmException('وسيط مداد غير مُهيّأ. يرجى المحاولة لاحقاً.');
+    }
     final body = <String, dynamic>{
       'model': provider.model,
+      'provider': provider.id,
       'messages': messages,
       // temperature=0 يجعل النموذج حتمياً (deterministic) — لا هلوسة ولا إفتاء
       // من تفكيره. ضروري لتطبيق إسلامي.
@@ -282,31 +292,38 @@ class LlmService {
       body['thinking'] = {'type': 'disabled'};
     }
 
-    final dio = Dio(BaseOptions(
-      baseUrl: provider.baseUrl,
-      connectTimeout: const Duration(seconds: 30),
-      receiveTimeout: const Duration(seconds: 120),
-      validateStatus: (_) => true,
-    ));
+    final dio = Dio(
+      BaseOptions(
+        baseUrl: gatewayUrl,
+        connectTimeout: const Duration(seconds: 30),
+        receiveTimeout: const Duration(seconds: 120),
+        validateStatus: (_) => true,
+      ),
+    );
 
     final response = await dio.post(
-      '/chat/completions',
+      '',
       data: jsonEncode(body),
       options: Options(
-        headers: _buildHeaders(provider, apiKey),
+        headers: {'Content-Type': 'application/json'},
         responseType: ResponseType.json,
       ),
     );
 
     // DEBUG: اطبع tool_choice المرسل للتحقق.
-    log('LLM request to ${provider.id}: tool_choice=${body['tool_choice']}, '
-        'tools=${tools.length}, forceToolUse=$forceToolUse',
-        name: 'LlmService');
+    log(
+      'LLM request to ${provider.id}: tool_choice=${body['tool_choice']}, '
+      'tools=${tools.length}, forceToolUse=$forceToolUse',
+      name: 'LlmService',
+    );
 
     final status = response.statusCode ?? 0;
     // أخطاء "جرّب مزوّداً آخر" (بما فيها 400 للنماذج المستغنى عنها).
-    if (status == 400 || status == 404 || status == 429 ||
-        status == 503 || status == 402) {
+    if (status == 400 ||
+        status == 404 ||
+        status == 429 ||
+        status == 503 ||
+        status == 402) {
       throw _RetryableLlmError(
         code: status,
         message: _extractErrorMessage(response.data),
@@ -320,32 +337,6 @@ class LlmService {
 
     final data = response.data as Map<String, dynamic>;
     return LlmResponse.fromJson(data);
-  }
-
-  /// يبني الترويسات المناسبة لكل مزود (كلهم OpenAI-compatible لكن مع اختلافات).
-  Map<String, String> _buildHeaders(LlmProvider provider, String apiKey) {
-    final headers = <String, String>{
-      'Authorization': 'Bearer $apiKey',
-      'Content-Type': 'application/json',
-    };
-    // OpenRouter يتطلب ترويسات إضافية.
-    if (provider.id == 'nemotron') {
-      headers['HTTP-Referer'] = 'https://alheekmahlib.com';
-      headers['X-Title'] = 'AlQuran AlKareem';
-    }
-    return headers;
-  }
-
-  /// يجلب مفتاح الـ API للمزود من .env.
-  String _getKey(LlmProvider provider) {
-    final key = dotenv.maybeGet(provider.envKeyName) ?? '';
-    if (key.isEmpty || key.contains('YOUR_KEY')) {
-      throw LlmException(
-        'لا يوجد مفتاح API لـ ${provider.displayName}. '
-        'أضف ${provider.envKeyName} إلى assets/.env',
-      );
-    }
-    return key;
   }
 
   /// يستخرج نص رسالة الخطأ من جسم ردّ المزود.
@@ -446,8 +437,6 @@ class LlmException implements Exception {
 /// خطأ قابل لإعادة المحاولة بمزوّد آخر (429، 503، 404، 402).
 class _RetryableLlmError extends LlmException {
   final int code;
-  const _RetryableLlmError({
-    required this.code,
-    required String message,
-  }) : super('LLM error $code: $message');
+  const _RetryableLlmError({required this.code, required String message})
+    : super('LLM error $code: $message');
 }

@@ -79,18 +79,21 @@ class AiSearchState {
   //   'loading'  → الجلب جارٍ الآن.
   //   'failed'   → فشل الجلب (لإعادة المحاولة).
   //   النص الكامل → نجح الجلب (يُعرض بدل snippet).
-  final RxMap<int, String> fullTextCache = <int, String>{}.obs;
+  final RxMap<String, String> fullTextCache = <String, String>{}.obs;
+
+  String passageKey(QuotationSource source, int id) => '${source.name}:$id';
 
   /// هل النص الكامل لـ [passageId] جارٍ الجلب؟
-  bool isFetchingFullText(int passageId) =>
-      fullTextCache[passageId] == 'loading';
+  bool isFetchingFullText(QuotationSource source, int passageId) =>
+      fullTextCache[passageKey(source, passageId)] == 'loading';
 
   /// هل فشل جلب النص الكامل لـ [passageId]؟
-  bool hasFetchFailed(int passageId) => fullTextCache[passageId] == 'failed';
+  bool hasFetchFailed(QuotationSource source, int passageId) =>
+      fullTextCache[passageKey(source, passageId)] == 'failed';
 
   /// النص الكامل المجلوب لـ [passageId] (null لو لم يُجلب أو جارٍ/فاشل).
-  String? getFullText(int passageId) {
-    final v = fullTextCache[passageId];
+  String? getFullText(QuotationSource source, int passageId) {
+    final v = fullTextCache[passageKey(source, passageId)];
     if (v == null || v == 'loading' || v == 'failed') return null;
     return v;
   }

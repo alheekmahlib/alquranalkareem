@@ -5,15 +5,15 @@ part of '../ai_search.dart';
 /// يستهدف Worker منفصل على حساب Cloudflare مختلف (haozo89) لأن حجم قسم
 /// السيرة (128K قطعة) يتجاوز حد D1 المجاني في حساب Ahmedlabtop4.
 ///
-/// نقطة النهاية تُقرأ من ملف `.env` (المفتاح `SEERAH_MCP_ENDPOINT`).
+/// نقطة النهاية تُضبط عند البناء عبر `SEERAH_MCP_ENDPOINT`.
 /// يعيد استخدام نماذج [McpTool] و [McpToolResult] و [McpException].
 class SeerahMcpClient {
   SeerahMcpClient._();
   static final SeerahMcpClient _instance = SeerahMcpClient._();
   factory SeerahMcpClient() => _instance;
 
-  /// نقطة نهاية خادم السيرة من `.env`.
-  static final String endpoint = dotenv.maybeGet('SEERAH_MCP_ENDPOINT') ?? '';
+  /// نقطة نهاية خادم السيرة من إعداد البناء.
+  static const String endpoint = String.fromEnvironment('SEERAH_MCP_ENDPOINT');
 
   /// هل الخادم مُهيّأ؟
   static bool get isConfigured => endpoint.isNotEmpty;
@@ -41,7 +41,7 @@ class SeerahMcpClient {
     if (_initialized) return;
     if (!isConfigured) {
       throw const McpException(
-        'SEERAH_MCP_ENDPOINT غير مُضبوط في ملف .env — خادم السيرة غير مُهيّأ.',
+        'SEERAH_MCP_ENDPOINT غير مُضبوط في إعداد البناء — خادم السيرة غير مُهيّأ.',
       );
     }
     final initResp = await _sendRequest(

@@ -1,0 +1,5 @@
+{
+  "MIDAD_GATEWAY_URL": "https://your-worker.example/v1/midad/chat",
+  "HEEKMAH_MCP_ENDPOINT": "https://your-heekmah-mcp.example/mcp",
+  "SEERAH_MCP_ENDPOINT": "https://your-seerah-mcp.example/mcp"
+}

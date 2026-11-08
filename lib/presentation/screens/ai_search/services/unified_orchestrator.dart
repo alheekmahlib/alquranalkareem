@@ -63,7 +63,9 @@ class UnifiedOrchestrator {
     required String userText,
     required AiSearchState state,
     void Function(LlmProvider fallbackProvider)? onFallback,
+    bool Function()? isCurrent,
   }) async {
+    bool active() => isCurrent?.call() ?? true;
     if (_isProcessing) return;
     if (userText.trim().isEmpty) return;
     _isProcessing = true;
@@ -79,9 +81,15 @@ class UnifiedOrchestrator {
       // 1) تصنيف خفيف للسؤال (جولة LLM واحدة بلا أدوات) — يسبق تهيئة الخوادم
       // حتى يُرفض السؤال الخارج عن النطاق فوراً دون مصافحة MCP أو بحث.
       final provider = state.selectedProvider.value;
-      final category = await _classify(userText, provider, onFallback);
-      log('Unified category: "$category" for query: "${userText.substring(0, userText.length.clamp(0, 50))}"',
-          name: 'Unified');
+      final history = state.assistantMessagesToOpenAi();
+      final category = await _classify(
+        userText,
+        provider,
+        onFallback,
+        history.take(history.length - 1).toList(),
+      );
+      if (!active()) return;
+      log('Unified category: $category', name: 'Unified');
 
       // 2) رفض فوري للأسئلة الخارجة عن نطاق المساعد — برسالة ثابتة لا تُولَّد
       // من الـ LLM (تمنع انهيارات التكرار)، ودون أي بحث في المكتبة:
@@ -97,26 +105,34 @@ class UnifiedOrchestrator {
 
       // 3) تأكد من تهيئة كلا الخادمين + بناء خريطة الأدوات.
       await _ensureAllInitialized();
+      if (!active()) return;
       _buildToolMap();
 
       // 4) اختيار الأدوات المناسبة بناءً على التصنيف.
-      final selectedTools = _selectToolsForCategory(category);
+      // Passage IDs are scoped to their MCP server; let the UI fetch them
+      // with an explicit source instead of accepting an ambiguous model call.
+      final selectedTools = _selectToolsForCategory(category)
+          .where(
+            (tool) => (tool['function'] as Map?)?['name'] != 'fetch_passage',
+          )
+          .toList();
       // ابنِ مجموعة بأسماء الأدوات المختارة فعلاً — تُستخدم للتحقق من استدعاءات
       // الـ LLM لمنع تنفيذ أدوات لم تُعرَض عليه (بعض النماذج تهلوس أسماء أدوات).
       final selectedToolNames = selectedTools
           .map((t) => (t['function'] as Map?)?['name'] as String?)
           .whereType<String>()
           .toSet();
-      log('Unified tools selected: ${selectedTools.length} for category "$category": '
-          '${selectedTools.map((t) => (t['function'] as Map?)?['name'] ?? '?').join(', ')}',
-          name: 'Unified');
+      log(
+        'Unified tools selected: ${selectedTools.length} for category "$category": '
+        '${selectedTools.map((t) => (t['function'] as Map?)?['name'] ?? '?').join(', ')}',
+        name: 'Unified',
+      );
 
       // 5) ابنِ سجل الرسائل (system موحَّد + history + الرسالة الجديدة).
       // نستخدم var (لا final) لأن الجولات بلا أدوات تستبدل القائمة بنسخة منظَّفة.
       var messages = <Map<String, dynamic>>[
         UnifiedLlmService.systemMessage,
         ...state.assistantMessagesToOpenAi(),
-        {'role': 'user', 'content': userText},
       ];
 
       // 6) حلقة tool calling.
@@ -126,8 +142,7 @@ class UnifiedOrchestrator {
       // - الجولة 2+: لا أدوات (أجبره على صياغة الإجابة من النتائج المتاحة).
       // هذا يمنع تضييع الجولات في إعادة البحث بنفس الـ query.
       final searchOnlyTools = selectedTools
-          .where((t) =>
-              (t['function'] as Map?)?['name'] != 'fetch_passage')
+          .where((t) => (t['function'] as Map?)?['name'] != 'fetch_passage')
           .toList();
       for (int iteration = 0; iteration < maxIterations; iteration++) {
         // بعد جولتين، أجبر النموذج على صياغة الإجابة (لا أدوات).
@@ -152,16 +167,19 @@ class UnifiedOrchestrator {
         final resp = await _llm.chatCompletion(
           messages: messages,
           tools: toolsForThisIteration,
-          provider: provider,
+          provider: state.selectedProvider.value,
           onFallback: onFallback,
           forceToolUse: forceThisIteration,
         );
 
+        if (!active()) return;
         if (!resp.hasToolCalls) {
           // إجابة نهائية من الـ LLM (مقدمة/خلاصة فقط — لا نصوص منقولة).
           state.isAssistantThinking.value = false;
           state.currentToolName.value = '';
-          final finalAnswer = _cleanOutput(resp.content);
+          final finalAnswer = collectedQuotations.isEmpty
+              ? 'لم أعثر على نصوص موثقة كافية للإجابة عن سؤالك.'
+              : 'إليك النصوص التي عُثر عليها في المصادر المتاحة:';
           state.addAssistantMessage(
             finalAnswer,
             quotations: collectedQuotations,
@@ -183,12 +201,16 @@ class UnifiedOrchestrator {
           // تهلوس أسماء أدوات لم تُعرَض عليها (مثل search_all_sections لسؤال
           // عن راوٍ). نتحقق من selectedToolNames وليس _toolToSource العام.
           if (!selectedToolNames.contains(call.name)) {
-            log('Unified: tool "${call.name}" not in selected set for '
-                'category "$category" — skipping', name: 'Unified');
+            log(
+              'Unified: tool "${call.name}" not in selected set for '
+              'category "$category" — skipping',
+              name: 'Unified',
+            );
             messages.add({
               'role': 'tool',
               'tool_call_id': call.id,
-              'content': 'هذه الأداة غير متاحة لهذا النوع من الأسئلة. '
+              'content':
+                  'هذه الأداة غير متاحة لهذا النوع من الأسئلة. '
                   'الأدوات المتاحة هي: ${selectedToolNames.join(', ')}. '
                   'استخدم إحداها أو أجب من النتائج المتاحة.',
             });
@@ -196,9 +218,11 @@ class UnifiedOrchestrator {
           }
           state.currentToolName.value = call.name;
           final rawResult = await _executeTool(call, category);
-          log('Unified tool result: ${call.name}(${call.arguments}) → '
-              '${rawResult.length} chars: ${rawResult.substring(0, rawResult.length.clamp(0, 100))}',
-              name: 'Unified');
+          if (!active()) return;
+          log(
+            'Unified tool result: ${call.name}, ${rawResult.length} chars',
+            name: 'Unified',
+          );
 
           // ─── قلب مكافحة التحريف ───
           // استخرج الاقتباسات المنقولة من نتيجة MCP. هذه الاقتباسات تُخزَّن
@@ -210,9 +234,11 @@ class UnifiedOrchestrator {
             source: source,
           );
           collectedQuotations.addAll(extraction.quotations);
-          log('Unified: extracted ${extraction.quotations.length} quotations from "${call.name}" '
-              '(LLM sees summary: ${extraction.llmSummary.length} chars, not full text)',
-              name: 'Unified');
+          log(
+            'Unified: extracted ${extraction.quotations.length} quotations from "${call.name}" '
+            '(LLM sees summary: ${extraction.llmSummary.length} chars, not full text)',
+            name: 'Unified',
+          );
 
           // مرّر للـ LLM الملخص الآمن فقط (لا النص الكامل) — هذا يمنع إعادة الصياغة.
           messages.add({
@@ -226,21 +252,23 @@ class UnifiedOrchestrator {
 
       // بلغنا الحد الأقصى — اطلب رداً نهائياً بلا أدوات.
       state.isAssistantThinking.value = true;
-      final finalResp = await _llm.chatCompletion(
+      await _llm.chatCompletion(
         messages: messages,
         tools: const [],
-        provider: provider,
+        provider: state.selectedProvider.value,
         onFallback: onFallback,
       );
+      if (!active()) return;
       state.isAssistantThinking.value = false;
-      final fallbackAnswer = finalResp.content.isNotEmpty
-          ? _cleanOutput(finalResp.content)
-          : 'assistantNoFinalAnswer'.tr;
+      final fallbackAnswer = collectedQuotations.isEmpty
+          ? 'لم أعثر على نصوص موثقة كافية للإجابة عن سؤالك.'
+          : 'إليك النصوص التي عُثر عليها في المصادر المتاحة:';
       state.addAssistantMessage(
         fallbackAnswer,
         quotations: collectedQuotations,
       );
     } on LlmException catch (e) {
+      if (!active()) return;
       // حتى عند خطأ الـ LLM، اعرض الاقتباسات المجمَّعة إن وُجدت.
       state.isAssistantThinking.value = false;
       state.currentToolName.value = '';
@@ -255,11 +283,20 @@ class UnifiedOrchestrator {
       }
       log('LLM error: ${e.message}', name: 'Unified');
     } on McpException catch (e) {
+      if (!active()) return;
       state.isAssistantThinking.value = false;
       state.currentToolName.value = '';
-      state.assistantError.value = 'assistantMcpError'.tr;
+      if (collectedQuotations.isNotEmpty) {
+        state.addAssistantMessage(
+          'تعذر إكمال البحث. النصوص المتاحة:',
+          quotations: collectedQuotations,
+        );
+      } else {
+        state.assistantError.value = 'assistantMcpError'.tr;
+      }
       log('MCP error: ${e.message}', name: 'Unified');
     } catch (e, stack) {
+      if (!active()) return;
       state.isAssistantThinking.value = false;
       state.currentToolName.value = '';
       // عند خطأ غير متوقع، اعرض الاقتباسات إن وُجدت كذلك.
@@ -287,15 +324,19 @@ class UnifiedOrchestrator {
     try {
       await _heekmahMcp.ensureInitialized();
     } catch (e) {
-      log('Heekmah MCP unavailable (endpoint may be empty): $e',
-          name: 'Unified');
+      log(
+        'Heekmah MCP unavailable (endpoint may be empty): $e',
+        name: 'Unified',
+      );
     }
     // SeerahMcpClient على حساب منفصل — نتسامح مع فشله أيضاً.
     try {
       await _seerahMcp.ensureInitialized();
     } catch (e) {
-      log('Seerah MCP unavailable (endpoint may be empty): $e',
-          name: 'Unified');
+      log(
+        'Seerah MCP unavailable (endpoint may be empty): $e',
+        name: 'Unified',
+      );
     }
     _tafsirTools = _tafsirMcp.tools;
     _heekmahTools = _heekmahMcp.tools;
@@ -350,6 +391,7 @@ class UnifiedOrchestrator {
     String userText,
     LlmProvider provider,
     void Function(LlmProvider)? onFallback,
+    List<Map<String, dynamic>> history,
   ) async {
     const validCategories = [
       'quran',
@@ -367,7 +409,8 @@ class UnifiedOrchestrator {
         messages: [
           {
             'role': 'system',
-            'content': 'صنّف سؤال المستخدم في مجال واحد فقط، '
+            'content':
+                'صنّف سؤال المستخدم في مجال واحد فقط، '
                 'وأرجع كلمة واحدة فقط بالإنجليزية من القائمة التالية:\n'
                 '- quran: القرآن والتفسير والإعراب والصرف والقراءات وأسباب النزول والإحصاءات.\n'
                 '- hadith: الحديث الشريف وأسانيده.\n'
@@ -395,8 +438,9 @@ class UnifiedOrchestrator {
                 '- «من هم العشرة المبشرون بالجنة؟» → narrator\n'
                 '- «كم ناتج اثنين ضرب ثمانية؟» → off_topic\n'
                 '- «ما حكم الصلاة في الثوب النجس؟» → fiqh\n'
-                'أرجع الكلمة فقط دون أي شرح.',
+                'صنّف الرسالة الأخيرة مستعيناً بالسياق السابق عند الحاجة. أرجع الكلمة فقط دون أي شرح.',
           },
+          ...history,
           {'role': 'user', 'content': userText},
         ],
         tools: const [],
@@ -408,8 +452,7 @@ class UnifiedOrchestrator {
       final firstWord = result.split(RegExp(r'[\s,.]')).first.trim();
       return validCategories.contains(firstWord) ? firstWord : 'mixed';
     } catch (e) {
-      log('Classification failed, falling back to mixed: $e',
-          name: 'Unified');
+      log('Classification failed, falling back to mixed: $e', name: 'Unified');
       return 'mixed';
     }
   }
@@ -449,9 +492,11 @@ class UnifiedOrchestrator {
         // الفلترة بقسم تتم جهة العميل في _executeTool (حقل «القسم» في كل نتيجة).
         if (HeekmahMcpClient.isConfigured) {
           selected.addAll(
-              _heekmahTools.where((t) => t.name == 'search_all_sections'));
+            _heekmahTools.where((t) => t.name == 'search_all_sections'),
+          );
           selected.addAll(
-              _heekmahTools.where((t) => t.name == 'fetch_passage'));
+            _heekmahTools.where((t) => t.name == 'fetch_passage'),
+          );
         }
         break;
 
@@ -459,18 +504,27 @@ class UnifiedOrchestrator {
         // السيرة: search_seerah من خادم السيرة المنفصل (128K صف وحدها) + fetch_passage.
         // fallback لـ search_all_sections إن لم يكن خادم السيرة مهيّأً.
         if (SeerahMcpClient.isConfigured && _seerahTools.isNotEmpty) {
-          selected.addAll(_seerahTools.where((t) =>
-              t.name == 'search_seerah' || t.name == 'fetch_passage'));
+          selected.addAll(
+            _seerahTools.where(
+              (t) => t.name == 'search_seerah' || t.name == 'fetch_passage',
+            ),
+          );
         } else if (HeekmahMcpClient.isConfigured) {
-          selected.addAll(_heekmahTools.where((t) =>
-              t.name == 'search_all_sections' || t.name == 'fetch_passage'));
+          selected.addAll(
+            _heekmahTools.where(
+              (t) =>
+                  t.name == 'search_all_sections' || t.name == 'fetch_passage',
+            ),
+          );
         }
         break;
 
       case 'narrator':
         // الرواة: search_narrator من خادم السيرة (42K راوي).
         if (SeerahMcpClient.isConfigured && _seerahTools.isNotEmpty) {
-          selected.addAll(_seerahTools.where((t) => t.name == 'search_narrator'));
+          selected.addAll(
+            _seerahTools.where((t) => t.name == 'search_narrator'),
+          );
         }
         break;
 
@@ -480,16 +534,18 @@ class UnifiedOrchestrator {
         // أدوات tafsir أُضيفت أعلاه دائماً.
         if (HeekmahMcpClient.isConfigured) {
           selected.addAll(
-              _heekmahTools.where((t) => t.name == 'search_all_sections'));
+            _heekmahTools.where((t) => t.name == 'search_all_sections'),
+          );
           selected.addAll(
-              _heekmahTools.where((t) => t.name == 'fetch_passage'));
+            _heekmahTools.where((t) => t.name == 'fetch_passage'),
+          );
         }
         if (SeerahMcpClient.isConfigured && _seerahTools.isNotEmpty) {
-          selected.addAll(
-              _seerahTools.where((t) => t.name == 'search_seerah'));
+          selected.addAll(_seerahTools.where((t) => t.name == 'search_seerah'));
           // أضف search_narrator لـ mixed أيضاً — قد يشمل السؤال راوياً.
           selected.addAll(
-              _seerahTools.where((t) => t.name == 'search_narrator'));
+            _seerahTools.where((t) => t.name == 'search_narrator'),
+          );
         }
         break;
     }
@@ -515,7 +571,7 @@ class UnifiedOrchestrator {
         result = await _tafsirMcp.callTool(call.name, call.arguments);
       }
       if (result.isError) {
-        return 'خطأ في تنفيذ الأداة ${call.name}: ${result.text}';
+        throw McpException('فشل تنفيذ الأداة ${call.name}');
       }
 
       var text = result.text.trim();
@@ -533,12 +589,12 @@ class UnifiedOrchestrator {
       if (source == _McpSource.tafsir) {
         finalText = _sanitizeTafsirOutput(result.text);
       } else {
-        finalText = text.isEmpty ? 'assistantNoData'.tr : text;
+        finalText = text;
       }
 
       return finalText;
     } catch (e) {
-      return 'فشل استدعاء الأداة ${call.name}: $e';
+      throw McpException('فشل استدعاء الأداة ${call.name}: $e');
     }
   }
 
@@ -547,14 +603,15 @@ class UnifiedOrchestrator {
   /// يُستدعى من زر "عرض النص الكامل" في [QuotationCard] عند توفّر [Quotation.passageId].
   /// يُعيد النص الكامل المنظَّف، أو null عند الفشل.
   /// يجرب heekmah أولاً (لأنه الشامل)، ثم seerah كـ fallback.
-  Future<String?> fetchFullPassage(int passageId) async {
-    // جرّب heekmah أولاً (الأقسام الشرعية الشاملة).
-    if (HeekmahMcpClient.isConfigured) {
-      final result = await _tryFetchPassage(passageId, _McpSource.heekmah);
-      if (result != null) return result;
+  Future<String?> fetchFullPassage(
+    QuotationSource source,
+    int passageId,
+  ) async {
+    // Do not guess a different database: IDs can overlap across servers.
+    if (source == QuotationSource.heekmah && HeekmahMcpClient.isConfigured) {
+      return _tryFetchPassage(passageId, _McpSource.heekmah);
     }
-    // fallback: جرّب seerah.
-    if (SeerahMcpClient.isConfigured) {
+    if (source == QuotationSource.seerah && SeerahMcpClient.isConfigured) {
       return _tryFetchPassage(passageId, _McpSource.seerah);
     }
     return null;
@@ -572,8 +629,10 @@ class UnifiedOrchestrator {
         result = await _heekmahMcp.callTool('fetch_passage', {'id': passageId});
       }
       if (result.isError) {
-        log('fetch_passage($passageId) on $source error: ${result.text}',
-            name: 'Unified');
+        log(
+          'fetch_passage($passageId) on $source error: ${result.text}',
+          name: 'Unified',
+        );
         return null;
       }
       // استخرج النص الكامل (fetch_passage يُعيد Markdown بنفس صيغة search_*).
@@ -613,7 +672,9 @@ class UnifiedOrchestrator {
     }
 
     // قسّم النتائج على «### النتيجة» وافحص حقل القسم في كل كتلة.
-    final blocks = text.split(RegExp(r'(?=^###\s+النتيجة\s+\d+)', multiLine: true));
+    final blocks = text.split(
+      RegExp(r'(?=^###\s+النتيجة\s+\d+)', multiLine: true),
+    );
     // نمط مطابقة حقل القسم: يدعم صيغاً متعددة «القسم:» و«التصنيف:» و«section:».
     final sectionPattern = RegExp(
       '(?:القسم|التصنيف|section)\\s*:\\s*[^|\\n]*' + RegExp.escape(keyword),
@@ -631,17 +692,23 @@ class UnifiedOrchestrator {
     if (kept.isEmpty) {
       // لا نتائج في القسم المطلوب — أعد رسالة واضحة، لا النص الأصلي بكل النتائج.
       // هذا يمنع إغراق المستخدم بنتائج من أقسام خاطئة عند فشل الفلترة.
-      log('Unified: no results matched section "$keyword" '
-          '(${blocks.where((b) => b.trim().isNotEmpty).length} results filtered out)',
-          name: 'Unified');
-      return 'لا توجد نتائج في قسم $category لهذا الاستعلام.';
+      log(
+        'Unified: no results matched section "$keyword" '
+        '(${blocks.where((b) => b.trim().isNotEmpty).length} results filtered out)',
+        name: 'Unified',
+      );
+      return '';
     }
 
     // أعد بناء النص: الترويسة + النتائج المفلترة.
-    final headerMatch = RegExp(r'^[\s\S]*?(?=###\s+النتيجة\s+\d+|$)').firstMatch(text);
+    final headerMatch = RegExp(
+      r'^[\s\S]*?(?=###\s+النتيجة\s+\d+|$)',
+    ).firstMatch(text);
     final header = headerMatch?.group(0)?.trim() ?? '';
     final countLine = 'وجدت ${kept.length} نتيجة بعد الفلترة حسب القسم.\n\n';
-    return header.isEmpty ? countLine + kept.join('\n') : '$header\n$countLine${kept.join('\n')}';
+    return header.isEmpty
+        ? countLine + kept.join('\n')
+        : '$header\n$countLine${kept.join('\n')}';
   }
 
   /// ينسّق نتيجة أداة طويلة لعرض مباشر دون LLM.
@@ -658,7 +725,9 @@ class UnifiedOrchestrator {
       source: _McpSource.tafsir,
     );
     if (extraction.quotations.isEmpty) {
-      return extraction.rawText.isEmpty ? 'assistantNoData'.tr : extraction.rawText;
+      return extraction.rawText.isEmpty
+          ? 'assistantNoData'.tr
+          : extraction.rawText;
     }
     final parts = <String>[];
     for (final q in extraction.quotations) {
@@ -696,7 +765,8 @@ class UnifiedOrchestrator {
   /// - تنزع حقول `tool_calls` من رسائل `assistant`.
   /// - تبقي الـ system + history + user + النصوص المنظّمة فقط.
   List<Map<String, dynamic>> _sanitizeMessagesForFinalAnswer(
-      List<Map<String, dynamic>> messages) {
+    List<Map<String, dynamic>> messages,
+  ) {
     // اجمع محتوى رسائل tool في ملخص واحد.
     final toolSummaries = <String>[];
     final cleaned = <Map<String, dynamic>>[];
@@ -728,159 +798,14 @@ class UnifiedOrchestrator {
     }
     // أضف ملخص نتائج الأدوات كرسالة user (سياق للإجابة النهائية).
     if (toolSummaries.isNotEmpty) {
-      cleaned.insert(
-        cleaned.length,
-        {
-          'role': 'user',
-          'content': '(معلومات من البحث)\n${toolSummaries.join('\n')}\n\n'
-              'اكتب المقدمة فقط بناءً على ما سبق. لا تكتب استدعاءات أدوات.',
-        },
-      );
+      cleaned.insert(cleaned.length, {
+        'role': 'user',
+        'content':
+            '(معلومات من البحث)\n${toolSummaries.join('\n')}\n\n'
+            'اكتب المقدمة فقط بناءً على ما سبق. لا تكتب استدعاءات أدوات.',
+      });
     }
     return cleaned;
-  }
-
-  /// **هام:** هذه الدالة تُطبَّق فقط على نص الـ LLM (الذي يرى ملخصات، لا النصوص
-  /// المنقولة). النصوص المنقولة من الكتب لا تمر عبرها إطلاقاً — هي محفوظة في
-  /// [Quotation] منفصلة وتُعرض كاملةً كما هي. لذا التنظيف هنا خفيف وآمن.
-  ///
-  /// 1. يحوّل رموز الأسطر الجديدة الحرفية (`\n` و `\\n`) إلى أسطر جديدة فعلية.
-  /// 2. يكشف تسرب استدعاءات الأدوات كنص خام (يعيد رسالة خطأ).
-  /// 3. يصلح المصطلحات الإنجليزية الشائعة (Source → المصدر).
-  String _cleanOutput(String content) {
-    var cleaned = content;
-    // حوّل `\\n` (escape sequence مزدوج) أولاً ثم `\n` المفردة.
-    cleaned = cleaned.replaceAll('\\n', '\n');
-
-    // كشف تسرب استدعاءات الأدوات كنص خام (صيغ متعددة من نماذج مختلفة).
-    final hasLeakedToolCall = cleaned.contains('<tool_call>') ||
-        cleaned.contains('<arg_key>') ||
-        cleaned.contains('<arg_value>') ||
-        cleaned.contains('tool_calls_begin') ||
-        cleaned.contains('<｜tool') ||
-        cleaned.contains('<|tool') ||
-        // صيغة GPT-OSS/Hermes/Qwen:
-        cleaned.contains('<invoke') ||
-        cleaned.contains('</invoke>') ||
-        cleaned.contains('<function') ||
-        // بادئة استدعاء دالة خام:
-        cleaned.contains('functions.') && cleaned.contains('</');
-
-    if (hasLeakedToolCall) {
-      log('Detected leaked tool_call (XML/invoke) in content, replacing with error message',
-          name: 'Unified');
-      return 'assistantGenericError'.tr;
-    }
-
-    // كشف التكرار المهووس (degeneration) — حلقات مثل 1.0.0.0.0 أو تكرار سطر.
-    if (_detectDegeneration(cleaned)) {
-      log('Detected degeneration (repetition loop) in content, replacing with error message',
-          name: 'Unified');
-      return 'assistantGenericError'.tr;
-    }
-
-    // كشف الإخراج المشوه (JSON خام مسرّب).
-    final trimmed = cleaned.trim();
-    if (trimmed.startsWith('{') && trimmed.endsWith('}')) {
-      log('Detected leaked JSON in content, replacing with error message',
-          name: 'Unified');
-      return 'assistantGenericError'.tr;
-    }
-    // كشف النص القصير المشوه (أقل من 20 حرف ولا يحوي جملة عربية مفيدة).
-    if (trimmed.length < 15 && trimmed.contains('"')) {
-      log('Detected malformed output: $trimmed', name: 'Unified');
-      return 'assistantGenericError'.tr;
-    }
-
-    // أصلح المصطلحات الإنجليزية الشائعة التي يكتبها بعض النماذج.
-    cleaned = cleaned.replaceAll('-Source:', '-المصدر:');
-    cleaned = cleaned.replaceAll('Source:', 'المصدر:');
-    cleaned = cleaned.replaceAll('**Source**', '**المصدر**');
-    cleaned = cleaned.replaceAll('-Source\n', '-المصدر\n');
-
-    // احذف أي روابط (URLs) تتسلل لإجابة المساعد — لا مكان لها في المقدمة.
-    cleaned = cleaned.replaceAll(RegExp(r'https?://\S+'), '').trim();
-    // احذف أسطراً تحتوي فقط على رابط (بعد حذف الرابط قد تبقى أسطر فارغة/نقاط).
-    // احذف اسم التطبيق إن تسلّل لإجابة المساعد (النموذج يضيفه أحياناً).
-    cleaned = cleaned
-        .replaceAll('القرآن الكريم - مكتبة الحكمة', '')
-        .replaceAll('مكتبة الحكمة', '')
-        .trim();
-
-    // احذف تكرار الأسطر الجديدة الفارغة الزائد عن اثنين (تنسيق Markdown نظيف).
-    cleaned = cleaned.replaceAll(RegExp(r'\n{3,}'), '\n\n');
-    return cleaned.trim();
-  }
-
-  /// يفحص الإجابة النهائية ويحذف الأحاديث/الآيات المختلقة.
-  ///
-  /// **معطّل ومهجور** — بعد إعادة الهيكلة، الـ LLM لا يرى النصوص المنقولة إطلاقاً
-  /// (يرى ملخصات فقط)، فلا يمكنه اختلاق أحاديث أو إعادة صياغتها. الاقتباسات
-  /// تؤخذ مباشرة من MCP كـ [Quotation]. هذه الدوال محفوظة للتوافق الخلفي فقط.
-  // ignore: unused_element
-  String _filterFabricatedContent(String answer, String toolResults) => answer;
-
-  // ignore: unused_element
-  String _normalizeForCompare(String text) => text;
-
-  // ignore: unused_element
-  String _extractCoreQuote(String line) => line;
-
-  /// يقصّ النصوص الطويلة لأجزاء صغيرة (~1000 حرف).
-  ///
-  /// **معطّل ومهجور** — بعد إعادة الهيكلة، النصوص الطويلة تُستخرج بالكامل
-  /// كـ [Quotation] وتُعرض مباشرة دون أي تقسيم أو تمرير للـ LLM.
-  // ignore: unused_element
-  String _chunkLongText(String text) => text;
-
-  // ─── كشف التكرار المهووس (degeneration) ──────────────────────────
-
-  /// يكشف حلقات التكرار المهووسة التي تُقع فيها النماذج الصغيرة مع temperature=0.
-  ///
-  /// العلامات:
-  /// - نمط رقمي متكرر مثل `1.0.0.0.0.0...` (أكثر من 10 مرات).
-  /// - نفس السطر يتكرر > 4 مرات متتالية.
-  /// - نسبة تكرار عالية (أكثر من 60% من النص مكرر).
-  bool _detectDegeneration(String text) {
-    if (text.length < 50) return false;
-
-    // 1) نمط رقمي متكرر: سلسلة من `.0` أو `.1` أو أرقام متكررة (> 10 مرات).
-    if (RegExp(r'(\.\d){10,}').hasMatch(text)) return true;
-    // نمط `1.0.0.0.0...` تحديداً.
-    if (RegExp(r'\b\d(\.\d){8,}').hasMatch(text)) return true;
-
-    // 2) نفس السطر يتكرر > 4 مرات متتالية.
-    final lines = text.split('\n');
-    int maxRepeat = 1;
-    int currentRepeat = 1;
-    for (int i = 1; i < lines.length; i++) {
-      final prev = lines[i - 1].trim();
-      final curr = lines[i].trim();
-      if (prev.isNotEmpty && prev == curr) {
-        currentRepeat++;
-        if (currentRepeat > maxRepeat) maxRepeat = currentRepeat;
-      } else {
-        currentRepeat = 1;
-      }
-    }
-    if (maxRepeat > 4) return true;
-
-    // 3) نسبة تكرار عالية: نفس الكلمة (> 5 أحرف) تتكرر > 8 مرات في كامل النص.
-    final words = text
-        .replaceAll(RegExp(r'[\s\n\r]+'), ' ')
-        .split(' ')
-        .where((w) => w.length > 5)
-        .toList();
-    if (words.isNotEmpty) {
-      final counts = <String, int>{};
-      for (final w in words) {
-        counts[w] = (counts[w] ?? 0) + 1;
-      }
-      final maxCount = counts.values.fold(0, (a, b) => a > b ? a : b);
-      if (maxCount > 8) return true;
-    }
-
-    return false;
   }
 
   // ─── مساعدات ─────────────────────────────────────────────────────
@@ -926,10 +851,7 @@ class UnifiedOrchestrator {
           (c) => {
             'id': c.id,
             'type': 'function',
-            'function': {
-              'name': c.name,
-              'arguments': jsonEncode(c.arguments),
-            },
+            'function': {'name': c.name, 'arguments': jsonEncode(c.arguments)},
           },
         )
         .toList();

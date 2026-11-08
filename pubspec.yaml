@@ -217,7 +217,6 @@ flutter:
     - assets/lottie/
     - assets/locales/
     - assets/json/azkar_v2.json
-    - .env
     - assets/quran_logo.png
     - assets/quran_logo_mac.png
     - assets/quran_logo512.png

@@ -79,5 +79,8 @@ app.*.map.json
 # Cloudflare Wrangler local state (never commit)
 .wrangler/
 
+# Local Midad build configuration
+.midad.local.json
+
 # Local Cloudflare services
 /sync_service/

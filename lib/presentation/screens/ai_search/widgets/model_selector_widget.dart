@@ -2,7 +2,7 @@ part of '../ai_search.dart';
 
 /// قائمة منسدلة لاختيار نموذج LLM (بنمط SectionFilterWidget).
 ///
-/// تظهر فقط المزودين الذين لهم مفاتيح في .env.
+/// تظهر المزودين عند إعداد وسيط مداد.
 class ModelSelectorWidget extends StatelessWidget {
   final Color? textColor;
   final Color? backgroundColor;
