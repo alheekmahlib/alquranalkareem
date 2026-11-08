@@ -208,7 +208,10 @@ class _StreamingResultCard extends StatelessWidget {
     );
   }
 
-  void _navigateToSource(BuildContext context, SearchMetadata meta) {
+  Future<void> _navigateToSource(
+    BuildContext context,
+    SearchMetadata meta,
+  ) async {
     final quranCtrl = QuranController.instance;
     quranCtrl.state.tabBarController.close();
 
@@ -221,26 +224,56 @@ class _StreamingResultCard extends StatelessWidget {
       return;
     }
 
-    // Book navigation
-    final bookNumber = meta.details['book_number'] as int?;
-    final pageNumber = meta.details['page_number'] as int? ?? 1;
-    if (bookNumber == null) return;
-
+    // The index's book_number belongs to its own database. Resolve the
+    // complete title against the library before opening or downloading it.
     final booksCtrl = BooksController.instance;
+    if (booksCtrl.state.booksInfo.isEmpty) {
+      await booksCtrl.fetchBooks();
+      if (!context.mounted) return;
+    }
+    final match = LocalSearchBookResolver.resolve(
+      meta.source,
+      booksCtrl.state.booksInfo,
+    );
+    final pageNumber = meta.details['page_number'];
+    if (match == null ||
+        pageNumber is! int ||
+        pageNumber < 1 ||
+        (match.book.pageTotal > 0 && pageNumber > match.book.pageTotal)) {
+      Get.snackbar(
+        'الكتاب غير متاح',
+        'تعذر تحديد الكتاب وموضعه في المكتبة بدقة.',
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return;
+    }
+
+    final bookNumber = match.book.bookNumber;
     if (booksCtrl.isBookDownloaded(bookNumber)) {
       booksCtrl.moveToBookPageByNumber(pageNumber - 1, bookNumber);
     } else {
-      _showBookDownloadDialog(context, bookNumber);
+      _showBookDownloadDialog(context, match, pageNumber);
     }
   }
 
-  void _showBookDownloadDialog(BuildContext context, int bookNumber) {
+  void _showBookDownloadDialog(
+    BuildContext context,
+    LocalSearchBookMatch match,
+    int pageNumber,
+  ) {
     final booksCtrl = BooksController.instance;
-    final book = booksCtrl.state.booksList.firstWhereOrNull(
-      (b) => b.bookNumber == bookNumber,
-    );
-    final bookInfo = booksCtrl.state.booksInfo;
-    if (book == null) return;
+    final book = match.book;
+    final bookNumber = book.bookNumber;
+    Worker? downloadedWorker;
+    var dialogOpen = true;
+
+    void openDownloadedBook() {
+      if (!dialogOpen || !booksCtrl.isBookDownloaded(bookNumber)) return;
+      downloadedWorker?.dispose();
+      dialogOpen = false;
+      Get.back();
+      booksCtrl.moveToBookPageByNumber(pageNumber - 1, bookNumber);
+    }
 
     Get.dialog(
       Obx(
@@ -255,7 +288,7 @@ class _StreamingResultCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TitleWidget(title: book.bookName, horizontalPadding: 0.0),
+                TitleWidget(title: book.bookFullName, horizontalPadding: 0.0),
                 const Gap(12),
                 Text(
                   'please_download_book_first'.tr,
@@ -278,22 +311,17 @@ class _StreamingResultCard extends StatelessWidget {
                             booksCtrl.state.downloading[bookNumber] == true
                             ? () {}
                             : () async {
+                                downloadedWorker?.dispose();
+                                downloadedWorker = ever(
+                                  booksCtrl.state.downloaded,
+                                  (_) => openDownloadedBook(),
+                                );
                                 await booksCtrl.downloadBook(
                                   bookNumber,
                                   book.bookType,
-                                  bookInfo[0].bookUrlType,
+                                  match.collection.bookUrlType,
                                 );
-                                // Close dialog and navigate after download
-                                if (booksCtrl.isBookDownloaded(bookNumber)) {
-                                  final meta = result.metadata;
-                                  final pageNumber =
-                                      meta.details['page_number'] as int? ?? 1;
-                                  Get.back();
-                                  await booksCtrl.moveToBookPageByNumber(
-                                    pageNumber - 1,
-                                    bookNumber,
-                                  );
-                                }
+                                openDownloadedBook();
                               },
                         height: 44,
                         width: Get.width,
@@ -330,6 +358,9 @@ class _StreamingResultCard extends StatelessWidget {
           ),
         ),
       ),
-    );
+    ).whenComplete(() {
+      dialogOpen = false;
+      downloadedWorker?.dispose();
+    });
   }
 }

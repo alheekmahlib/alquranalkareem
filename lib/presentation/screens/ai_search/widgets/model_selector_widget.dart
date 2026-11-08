@@ -12,13 +12,12 @@ class ModelSelectorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final providers = ctrl.availableProviders;
+    // The provider list depends on build configuration, not an observable.
+    if (providers.isEmpty) return const SizedBox.shrink();
+
     return Obx(() {
       final theme = context.theme;
-      final providers = ctrl.availableProviders;
-      // لا قائمة إن لم يوجد أي مفتاح.
-      if (providers.isEmpty) {
-        return const SizedBox.shrink();
-      }
       final selected = ctrl.state.selectedProvider.value;
 
       return DropdownButton2<LlmProvider>(

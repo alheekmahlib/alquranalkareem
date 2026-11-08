@@ -50,6 +50,7 @@ part 'services/bm25_service.dart';
 part 'services/chat_history_service.dart';
 part 'services/embedding_service.dart';
 part 'services/heekmah_mcp_client.dart';
+part 'services/local_search_book_resolver.dart';
 part 'services/model_download_service.dart';
 part 'services/openrouter_service.dart';
 part 'services/quotation_extractor.dart';
