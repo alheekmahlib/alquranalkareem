@@ -10,6 +10,7 @@ import 'package:spotlight_tour/spotlight_tour.dart';
 
 import '../utils/helpers/app_text_styles.dart';
 import 'mushaf_tour_script.dart';
+import 'tasmee_tour_script.dart';
 
 /// مخزن إكمال الجولات فوق GetStorage (المستخدم أصلاً في التطبيق).
 ///
@@ -106,6 +107,9 @@ class AppTour extends GetxController
   /// معرّف جولة المصحف في مخزن الإكمال.
   static const String mushafTourId = 'mushaf';
 
+  /// معرّف جولة التسميع في مخزن الإكمال.
+  static const String tasmeeTourId = 'tasmee';
+
   /// مخزن الإكمال الدائم (متاح لأزرار «إعادة الجولة» في الأقسام الأخرى).
   late final GetStorageTourCompletionStore store =
       GetStorageTourCompletionStore(GetStorage());
@@ -171,6 +175,8 @@ class AppTour extends GetxController
 
   bool _mushafAutoTriggered = false;
 
+  bool _tasmeeAutoTriggered = false;
+
   /// سيناريو الجولة الجارية (null قبل أول بدء). يُنشأ مع كل بدء لأن
   /// [buildMushafSteps] كذلك، ويُوجَّه إليه ما يطرأ على ورقة خيارات الآية.
   MushafTourScript? _script;
@@ -190,21 +196,7 @@ class AppTour extends GetxController
       vsync: this,
     );
     final demo = _mushafSwipeDemo!;
-    final tourStyle = TourStepStyle(
-      accentColor: Get.theme.colorScheme.surface,
-      cardColor: Get.theme.colorScheme.primaryContainer,
-      scrimColor: Get.theme.colorScheme.primary.withValues(alpha: .5),
-      onAccentColor: Get.theme.colorScheme.surface,
-      indicatorColor: Get.theme.colorScheme.surface,
-      skipStyle: AppTextStyles.titleSmall(),
-      buttonTextStyle: AppTextStyles.titleMedium(),
-      titleStyle: AppTextStyles.titleMedium(),
-      bodyStyle: AppTextStyles.bodySmall(fontSize: 15),
-      previousStyle: AppTextStyles.bodySmall(
-        fontSize: 15,
-        color: Get.theme.colorScheme.surface,
-      ),
-    );
+    final tourStyle = _tourStyle();
     // الخطوات نفسها وأسماء أهدافها في MushafTourScript. الكنترولر يخبر
     // السيناريو بتغيّر الخطوة وبانتهاء الجولة ليجهاز التطبيق لكل خطوة.
     final script = _script = MushafTourScript(
@@ -221,6 +213,24 @@ class AppTour extends GetxController
       ..onFinish = script.onTourEnd;
     return script.steps;
   }
+
+  /// أسلوب بطاقات الجولات وأزرارها بأسلوب التطبيق. يُبنى لحظة بدء الجولة
+  /// لأنه يقرأ ألوان السمة الجارية.
+  TourStepStyle _tourStyle() => TourStepStyle(
+    accentColor: Get.theme.colorScheme.surface,
+    cardColor: Get.theme.colorScheme.primaryContainer,
+    scrimColor: Get.theme.colorScheme.primary.withValues(alpha: .5),
+    onAccentColor: Get.theme.colorScheme.surface,
+    indicatorColor: Get.theme.colorScheme.surface,
+    skipStyle: AppTextStyles.titleSmall(),
+    buttonTextStyle: AppTextStyles.titleMedium(),
+    titleStyle: AppTextStyles.titleMedium(),
+    bodyStyle: AppTextStyles.bodySmall(fontSize: 15),
+    previousStyle: AppTextStyles.bodySmall(
+      fontSize: 15,
+      color: Get.theme.colorScheme.surface,
+    ),
+  );
 
   /// يصلّح أي عرض قلب متقطع من جلسة سابقة ثم يبدأ جولة المصحف أول مرة
   /// فقط. نقطة الاستدعاء الوحيدة من build الخاص بـ QuranHome عبر
@@ -243,6 +253,42 @@ class AppTour extends GetxController
     _mushafAutoTriggered = true;
     await store.reset(mushafTourId);
     tour.start(tourId: mushafTourId, steps: buildMushafSteps());
+  }
+
+  /// يبني خطوات جولة التسميع بحسب نمط التسميع الجاري، ويوجّه إليها ما يطرأ
+  /// على الكنترولر. يُستدعى لحظة بدء الجولة فقط (من [startTasmeeTourOnce]
+  /// و[replayTasmeeTour])، لأن في الجولة محطات تُبنى بحسب النمط وقد
+  /// يبدّله المستخدم بين جولة وأخرى.
+  List<TourStep> buildTasmeeSteps() {
+    final script = TasmeeTourScript(
+      tour: tour,
+      hooks: this,
+      style: _tourStyle(),
+      mode: TasmeeCtrl.instance.state.mode.value,
+    );
+    tour
+      ..onStepChanged = script.onStepChanged
+      ..onSkip = script.onTourEnd
+      ..onFinish = script.onTourEnd;
+    return script.steps;
+  }
+
+  /// يبدأ جولة التسميع أول مرة فقط. نقطة الاستدعاء الوحيدة من build الخاص
+  /// بـ QuranHome في وضع التسميع عبر addPostFrameCallback. العلم يُضبط
+  /// تزامنياً قبل أي انتظار فلا تتكرر الجولة مهما تعددت إعادات البناء وردود
+  /// الإطار المتزاحمة، ولا تبدأ إن كانت جولة أخرى ظاهرة أو كانت جولة التسميع
+  /// مكتملة سابقاً.
+  void startTasmeeTourOnce() {
+    if (_tasmeeAutoTriggered) return;
+    _tasmeeAutoTriggered = true;
+    tour.startOnce(tourId: tasmeeTourId, steps: buildTasmeeSteps());
+  }
+
+  /// إعادة جولة التسميع فوراً (من زر الجولة في شاشة التسميع).
+  Future<void> replayTasmeeTour() async {
+    _tasmeeAutoTriggered = true;
+    await store.reset(tasmeeTourId);
+    tour.start(tourId: tasmeeTourId, steps: buildTasmeeSteps());
   }
 
   /// يصلّح موضع القراءة إن قُتل التطبيق قسراً وسط عرض القلب في جلسة

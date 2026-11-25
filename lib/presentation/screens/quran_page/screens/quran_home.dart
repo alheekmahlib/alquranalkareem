@@ -21,11 +21,13 @@ class QuranHome extends StatelessWidget {
     // if (quranCtrl.state.tabBarController.isHandleVisible) {
     //   quranCtrl.state.tabBarController.toggle();
     // }
-    if (!isTasmeeMode!) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (isTasmeeMode!) {
+        AppTour.instance.startTasmeeTourOnce();
+      } else {
         AppTour.instance.repairThenStartMushafTourOnce();
-      });
-    }
+      }
+    });
 
     return PopScope(
       canPop: true,
@@ -78,24 +80,38 @@ class QuranHome extends StatelessWidget {
                             _tasmeeButton(context),
                             Align(
                               alignment: AlignmentDirectional.bottomEnd,
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                  bottom: 70.0,
-                                  right: 8.0,
-                                  left: 8.0,
-                                ),
-                                child: CustomButton(
-                                  height: 50,
-                                  width: 50,
-                                  backgroundColor:
-                                      context.theme.colorScheme.surface,
-                                  isCustomSvgColor: true,
-                                  svgPath: SvgPath.svgHomeCommentQuestion,
-                                  svgColor: context.theme.canvasColor,
-                                  onPressed: () =>
-                                      AppTour.instance.replayMushafTour(),
-                                ),
-                              ),
+                              // في نمط معلم القرآن يقف منتقي القارئ في هذه
+                              // الزاوية، فيرتفع زر الجولة فوقه كي لا يغطيه.
+                              child: Obx(() {
+                                // يُقرأ النمط دائماً لا داخل شرط الوضع: Obx
+                                // يشترك بما قُرئ فعلاً في بنائه.
+                                final isTeacher =
+                                    TasmeeCtrl.instance.state.mode.value ==
+                                    TasmeeMode.teacher;
+                                return Padding(
+                                  padding: EdgeInsets.only(
+                                    bottom: isTasmeeMode! && isTeacher
+                                        ? 114.0
+                                        : 70.0,
+                                    right: 8.0,
+                                    left: 8.0,
+                                  ),
+                                  child: CustomButton(
+                                    height: 50,
+                                    width: 50,
+                                    backgroundColor:
+                                        context.theme.colorScheme.surface,
+                                    isCustomSvgColor: true,
+                                    svgPath: SvgPath.svgHomeCommentQuestion,
+                                    svgColor: context.theme.canvasColor,
+                                    // كل وضع يعيد جولته: التسميع في وضع
+                                    // التسميع، والمصحف في غيره.
+                                    onPressed: () => isTasmeeMode!
+                                        ? AppTour.instance.replayTasmeeTour()
+                                        : AppTour.instance.replayMushafTour(),
+                                  ),
+                                );
+                              }),
                             ),
                             TopBarWidget(
                               isHomeChild: true,
@@ -212,6 +228,9 @@ class QuranHome extends StatelessWidget {
                         color: Theme.of(context).colorScheme.primary,
                       ),
                       child: Container(
+                        // هدف جولة التسميع: الإطار الداخلي دون هامش الحاوية
+                        // الخارجية، فتقع الإضاءة على الزر وحده.
+                        key: TasmeeTourKeys.modeButton,
                         height: 58,
                         width: 58,
                         decoration: BoxDecoration(
@@ -261,6 +280,8 @@ class QuranHome extends StatelessWidget {
                           color: Theme.of(context).colorScheme.primary,
                         ),
                         child: AyahChangeReader(
+                          // هدف جولة التسميع في نمط المعلّم.
+                          key: TasmeeTourKeys.teacherReader,
                           downloadManagerStyle:
                               AudioCtrl.instance.ayahDownloadManagerStyle,
                           style: AudioCtrl.instance.ayahAudioStyle.copyWith(

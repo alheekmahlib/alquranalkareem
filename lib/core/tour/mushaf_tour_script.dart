@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spotlight_tour/spotlight_tour.dart';
 
+import 'tour_controls.dart';
+
 /// محطات جولة المصحف. ترتيب التعداد هو ترتيب الجولة.
 enum MushafTourStop {
   intro,
@@ -191,21 +193,12 @@ const Map<MushafTourStop, IconData> _icons = {
 /// ما ينفّذه السيناريو في التطبيق. تنفّذه خدمة الجولة (AppTour) بحلول
 /// تُحقن من main.dart، فيبقى السيناريو خالياً من وحدات التحكم وقابلاً
 /// للاختبار.
-abstract interface class MushafTourHooks {
+abstract interface class MushafTourHooks implements TourControlsHooks {
   /// يحفظ موضع القراءة قبل عرض قلب الصفحة.
   Future<void> captureReadingPage();
 
   /// يستعيد موضع القراءة بعد مغادرة عرض قلب الصفحة.
   Future<void> restoreReadingPage();
-
-  /// هل أشرطة التحكم ظاهرة؟
-  bool get isControlsVisible;
-
-  /// يبدّل ظهور أشرطة التحكم.
-  void toggleControls();
-
-  /// يطوي ورقتي الأعلى والأسفل إن كانت إحداهما مفتوحة.
-  void collapsePanels();
 
   /// هل ورقة خيارات الآية مفتوحة؟
   bool get isAyahMenuOpen;
@@ -260,9 +253,9 @@ class MushafTourScript {
   /// الجولة تنتظر ضغطة مطوّلة من المستخدم (خطوة [MushafTourStop.ayahLongPress]).
   bool _awaitingAyahLongPress = false;
 
-  /// حالة أشرطة التحكم التي تركها المستخدم حين تتولاها الجولة (null: لم
-  /// تتولاها بعد). تعاد إليه حالما تصل الجولة إلى محطة لا تتطلب منها شيئاً.
-  bool? _userControls;
+  /// يتولى أشرطة التحكم ويعيد إليه حالما تصل الجولة إلى محطة لا تتطلب من
+  /// الأشرطة شيئاً أو عند انتهائها.
+  late final TourControlsSync _controls = TourControlsSync(hooks);
 
   TourStep _build(MushafTourStop stop) {
     final isPageFlip = stop == MushafTourStop.pageFlip;
@@ -355,7 +348,7 @@ class MushafTourScript {
   /// انتهت الجولة (إتماماً أو تخطياً أو مغادرة الشاشة): لا يبقى منها شيء.
   void onTourEnd() {
     _awaitingAyahLongPress = false;
-    _restoreControls();
+    _controls.restore();
     if (hooks.isAyahMenuOpen) hooks.closeAyahMenu();
   }
 
@@ -367,23 +360,13 @@ class MushafTourScript {
   }
 
   void _syncControls(MushafTourStop stop) {
-    final wanted = mushafTourControlsFor(stop);
-    if (wanted == MushafTourControls.any) {
-      _restoreControls();
-      return;
-    }
-    if (wanted == MushafTourControls.visible) hooks.collapsePanels();
-    // أول محطة تتطلب حالة معيّنة تحفظ حالة المستخدم: إليها تعود الأشرطة.
-    _userControls ??= hooks.isControlsVisible;
-    final shown = wanted == MushafTourControls.visible;
-    if (hooks.isControlsVisible != shown) hooks.toggleControls();
-  }
-
-  void _restoreControls() {
-    final user = _userControls;
-    if (user == null) return;
-    _userControls = null;
-    if (hooks.isControlsVisible != user) hooks.toggleControls();
+    _controls.sync(
+      visible: switch (mushafTourControlsFor(stop)) {
+        MushafTourControls.any => null,
+        MushafTourControls.visible => true,
+        MushafTourControls.hidden => false,
+      },
+    );
   }
 
   void _syncAyahMenu(MushafTourStop stop) {

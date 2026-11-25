@@ -57,6 +57,7 @@ import '../../../core/services/notifications_manager.dart';
 import '../../../core/services/services_locator.dart';
 import '../../../core/tour/app_tour.dart';
 import '../../../core/tour/mushaf_tour_script.dart';
+import '../../../core/tour/tasmee_tour_script.dart';
 import '../../../core/utils/constants/api_constants.dart';
 import '../../../core/utils/constants/extensions/alignment_rotated_extension.dart';
 import '../../../core/utils/constants/extensions/bottom_sheet_extension.dart';

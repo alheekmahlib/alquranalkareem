@@ -35,20 +35,29 @@ class TasmeeBarWidget extends StatelessWidget {
           final mode = tasmee.state.mode.value;
           return Row(
             children: [
-              if (mode == TasmeeMode.teacher)
-                _buildTeacherAction()
-              else
-                _buildAction(sessionState),
-              const Gap(8),
-              Expanded(
+              // هدف جولة التسميع: يلف زر الفعل بحالاته كلها (تسجيل أو إيقاف
+              // أو انتظار) فتقع الإضاءة على الظاهر منها.
+              KeyedSubtree(
+                key: TasmeeTourKeys.startRecording,
                 child: mode == TasmeeMode.teacher
-                    ? _buildTeacherStatus()
-                    : _buildStatus(),
+                    ? _buildTeacherAction()
+                    : _buildAction(sessionState),
+              ),
+              const Gap(8),
+              // هدف جولة التسميع: منطقة نص الحالة كاملة.
+              Expanded(
+                child: KeyedSubtree(
+                  key: TasmeeTourKeys.status,
+                  child: mode == TasmeeMode.teacher
+                      ? _buildTeacherStatus()
+                      : _buildStatus(),
+                ),
               ),
               // زر العين يخص نمط التسميع فقط — الكلمات ظاهرة أصلًا في
               // المصحح والمعلم.
               if (mode == TasmeeMode.tasmee)
                 CustomButton(
+                  key: TasmeeTourKeys.showWords,
                   isCustomSvgColor: true,
                   tooltip: tasmee.state.showAllWords.value
                       ? 'tasmeeHideWords'.tr
@@ -62,6 +71,7 @@ class TasmeeBarWidget extends StatelessWidget {
                   onPressed: () => _busy ? null : tasmee.toggleShowAllWords(),
                 ),
               CustomButton(
+                key: TasmeeTourKeys.retry,
                 isCustomSvgColor: true,
                 tooltip: 'tasmeeRetry'.tr,
                 svgPath: SvgPath.svgAudioLoop,
@@ -73,6 +83,7 @@ class TasmeeBarWidget extends StatelessWidget {
                     : tasmee.retryTasmee(),
               ),
               CustomButton(
+                key: TasmeeTourKeys.pagesList,
                 isCustomSvgColor: true,
                 tooltip: 'checkList'.tr,
                 svgPath: SvgPath.svgQuranCheckList,
