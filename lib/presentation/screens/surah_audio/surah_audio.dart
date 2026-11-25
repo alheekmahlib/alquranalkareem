@@ -23,6 +23,8 @@ import '../../../core/utils/constants/extensions/extensions.dart';
 import '../../../core/utils/constants/extensions/svg_extensions.dart';
 import '../../../core/utils/constants/lottie.dart';
 import '../../../core/utils/constants/lottie_constants.dart';
+import '../../../core/tour/app_tour.dart';
+import '../../../core/tour/audio_tour_script.dart';
 import '../../../core/utils/constants/svg_constants.dart';
 import '../../../core/widgets/animated_drawing_widget.dart';
 import '../../../core/widgets/seek_bar.dart';

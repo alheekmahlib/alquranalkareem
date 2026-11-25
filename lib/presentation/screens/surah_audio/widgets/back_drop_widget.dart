@@ -37,6 +37,7 @@ class BackDropWidget extends StatelessWidget {
                 Align(
                   alignment: AlignmentDirectional.centerEnd,
                   child: Container(
+                    key: AudioTourKeys.fullScreenButton,
                     height: 45,
                     width: 100,
                     alignment: AlignmentDirectional.centerStart,
@@ -70,7 +71,7 @@ class BackDropWidget extends StatelessWidget {
               ],
             ),
           ),
-          LastListen(),
+          LastListen(key: AudioTourKeys.lastListen),
           const Gap(4),
           Container(
             height: 8,
@@ -83,6 +84,7 @@ class BackDropWidget extends StatelessWidget {
           ),
           Flexible(
             child: QuranSurahList(
+              listKey: AudioTourKeys.surahList,
               marginBottom: 110.0,
               onTap: (index) async {
                 print('Surah tapped with index: $index');
@@ -93,6 +95,10 @@ class BackDropWidget extends StatelessWidget {
                 );
               },
               leadingChild: (context, index) => SurahDownloadButton(
+                // هدف الجولة زر واحد: مفاتيح الصفوف كلها تجعل الإضاءة تقع
+                // على آخر نسخة مبنية في cacheExtent تحت حافة القائمة، خلف
+                // شريط التشغيل فلا يراها المستخدم.
+                key: index == 0 ? AudioTourKeys.download : null,
                 surahNumber: index + 1,
                 style: SurahAudioStyle.defaults(
                   isDark: themeCtrl.isDarkMode,
@@ -111,6 +117,7 @@ class BackDropWidget extends StatelessWidget {
           Expanded(
             flex: 4,
             child: QuranSurahList(
+              listKey: AudioTourKeys.surahList,
               marginBottom: 110.0,
               onTap: (index) async {
                 print('Surah tapped with index: $index');
@@ -121,6 +128,10 @@ class BackDropWidget extends StatelessWidget {
                 );
               },
               leadingChild: (context, index) => SurahDownloadButton(
+                // هدف الجولة زر واحد: مفاتيح الصفوف كلها تجعل الإضاءة تقع
+                // على آخر نسخة مبنية في cacheExtent تحت حافة القائمة، خلف
+                // شريط التشغيل فلا يراها المستخدم.
+                key: index == 0 ? AudioTourKeys.download : null,
                 surahNumber: index + 1,
                 style: SurahAudioStyle.defaults(
                   isDark: themeCtrl.isDarkMode,
@@ -142,7 +153,7 @@ class BackDropWidget extends StatelessWidget {
                   child: Column(
                     children: [
                       const Gap(80),
-                      LastListen(),
+                      LastListen(key: AudioTourKeys.lastListen),
                       Align(
                         alignment: Alignment.center,
                         child: AnimatedDrawingWidget(
@@ -167,6 +178,7 @@ class BackDropWidget extends StatelessWidget {
                 Align(
                   alignment: AlignmentDirectional.centerEnd,
                   child: Container(
+                    key: AudioTourKeys.fullScreenButton,
                     height: 45,
                     width: 100,
                     alignment: AlignmentDirectional.centerStart,

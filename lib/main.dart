@@ -24,6 +24,7 @@ import 'presentation/controllers/general/general_controller.dart';
 import 'presentation/screens/feedback/data/feedback_queue.dart';
 import 'presentation/screens/quran_page/data/helper/ayah_menu_helper.dart';
 import 'presentation/screens/quran_page/quran.dart';
+import 'presentation/screens/surah_audio/surah_audio.dart';
 
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -88,6 +89,39 @@ Future<void> initializeApp() async {
       closeAyahMenu: () {
         AyahMenuHelper.close();
         QuranController.instance.clearAyahSelection();
+      },
+      // جولة المصحف الصوتي: لوحة التشغيل السفلية وشاشة المشغّل الكامل.
+      isPlayerExpanded: () =>
+          AudioCtrl.instance.surahState.isPlayExpanded.value,
+      setPlayerExpanded: (expanded) =>
+          AudioCtrl.instance.surahState.isPlayExpanded.value = expanded,
+      isOnAudioFullScreen: () =>
+          Get.isRegistered<AudioSurahWithAyahsController>(),
+      // Get.to يعود عند إغلاق الشاشة لا عند انتهاء انتقالها، فلا يُنتظر
+      // وعده؛ تُنتظر مهلة الانتقال (fadeIn) فقط حتى تُبنى أهداف الشاشة
+      // قبل عرض البطاقة.
+      openAudioFullScreen: () async {
+        Get.to(
+          () => const AudioSurahWithAyahs(),
+          transition: Transition.fadeIn,
+          binding: BindingsBuilder(() {
+            Get.put(AudioSurahWithAyahsController());
+          }),
+        );
+        await Future<void>.delayed(const Duration(milliseconds: 450));
+      },
+      // Get.back يمرّ بـ PopScope بعلم didPop فلا يوقف التلاوة (مسار زر
+      // الإغلاق نفسه).
+      closeAudioFullScreen: () => Get.back<void>(),
+      // قائمة السور: تثبيتها على أعلاها خلال محطتي القائمة والتنزيل
+      // (هدف التنزيل زر الصف الأول) ثم إعادة موضع المستخدم.
+      audioSurahListOffset: () {
+        final controller = AudioCtrl.instance.state.surahListController;
+        return controller.hasClients ? controller.position.pixels : 0.0;
+      },
+      scrollAudioSurahListTo: (offset) {
+        final controller = AudioCtrl.instance.state.surahListController;
+        if (controller.hasClients) controller.jumpTo(offset);
       },
     ),
     permanent: true,

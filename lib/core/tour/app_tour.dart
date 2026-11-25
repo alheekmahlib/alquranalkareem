@@ -9,6 +9,7 @@ import 'package:quran_library/quran_library.dart';
 import 'package:spotlight_tour/spotlight_tour.dart';
 
 import '../utils/helpers/app_text_styles.dart';
+import 'audio_tour_script.dart';
 import 'mushaf_tour_script.dart';
 import 'tasmee_tour_script.dart';
 
@@ -54,7 +55,7 @@ class GetStorageTourCompletionStore implements TourCompletionStore {
 /// جديد، وإعادة الجولة بالخليط المفرد كانت سترمي خطأً.
 class AppTour extends GetxController
     with GetTickerProviderStateMixin
-    implements MushafTourHooks {
+    implements MushafTourHooks, AudioTourHooks {
   AppTour({
     bool Function()? isControlsVisible,
     void Function()? toggleControls,
@@ -62,12 +63,26 @@ class AppTour extends GetxController
     bool Function()? isAyahMenuOpen,
     void Function()? openAyahMenu,
     void Function()? closeAyahMenu,
+    bool Function()? isPlayerExpanded,
+    void Function(bool expanded)? setPlayerExpanded,
+    bool Function()? isOnAudioFullScreen,
+    Future<void> Function()? openAudioFullScreen,
+    void Function()? closeAudioFullScreen,
+    double Function()? audioSurahListOffset,
+    void Function(double offset)? scrollAudioSurahListTo,
   }) : _isControlsVisible = isControlsVisible,
        _toggleControls = toggleControls,
        _collapsePanels = collapsePanels,
        _isAyahMenuOpen = isAyahMenuOpen,
        _openAyahMenu = openAyahMenu,
-       _closeAyahMenu = closeAyahMenu;
+       _closeAyahMenu = closeAyahMenu,
+       _isPlayerExpanded = isPlayerExpanded,
+       _setPlayerExpanded = setPlayerExpanded,
+       _isOnAudioFullScreen = isOnAudioFullScreen,
+       _openAudioFullScreen = openAudioFullScreen,
+       _closeAudioFullScreen = closeAudioFullScreen,
+       _audioSurahListOffset = audioSurahListOffset,
+       _scrollAudioSurahListTo = scrollAudioSurahListTo;
 
   static AppTour get instance => Get.find<AppTour>();
 
@@ -83,6 +98,13 @@ class AppTour extends GetxController
   final bool Function()? _isAyahMenuOpen;
   final void Function()? _openAyahMenu;
   final void Function()? _closeAyahMenu;
+  final bool Function()? _isPlayerExpanded;
+  final void Function(bool expanded)? _setPlayerExpanded;
+  final bool Function()? _isOnAudioFullScreen;
+  final Future<void> Function()? _openAudioFullScreen;
+  final void Function()? _closeAudioFullScreen;
+  final double Function()? _audioSurahListOffset;
+  final void Function(double offset)? _scrollAudioSurahListTo;
 
   // ---- MushafTourHooks: ما ينفّذه السيناريو في التطبيق ----------------
 
@@ -104,11 +126,49 @@ class AppTour extends GetxController
   @override
   void closeAyahMenu() => _closeAyahMenu?.call();
 
+  // ---- AudioTourHooks: ما ينفّذه السيناريو في التطبيق ----------------
+
+  @override
+  bool get isPlayerExpanded => _isPlayerExpanded?.call() ?? false;
+
+  @override
+  void setPlayerExpanded(bool expanded) => _setPlayerExpanded?.call(expanded);
+
+  @override
+  double get surahListOffset => _audioSurahListOffset?.call() ?? 0;
+
+  @override
+  void scrollSurahListTo(double offset) =>
+      _scrollAudioSurahListTo?.call(offset);
+
+  /// هل فتحت الجولة شاشة المشغّل الكامل؟ لا تُغلق إلا حين تكون هي من
+  /// فتحتها، فتُترك للمستخدم شاشةٌ فتحها بنفسه.
+  bool _audioTourOpenedFullScreen = false;
+
+  @override
+  Future<void> openFullScreen() async {
+    if (_isOnAudioFullScreen?.call() ?? false) return;
+    _audioTourOpenedFullScreen = true;
+    await _openAudioFullScreen?.call();
+  }
+
+  @override
+  void closeFullScreen() {
+    if (!_audioTourOpenedFullScreen) return;
+    _audioTourOpenedFullScreen = false;
+    // إن غادر المستخدم الشاشة الكاملة بنفسه وسط الجولة فالراوتر فوقها لم
+    // يعد الشاشةَ، والرجوع هنا كان سيطرد شاشة القائمة تحتها.
+    if (_isOnAudioFullScreen?.call() ?? false) _closeAudioFullScreen?.call();
+  }
+
   /// معرّف جولة المصحف في مخزن الإكمال.
   static const String mushafTourId = 'mushaf';
 
   /// معرّف جولة التسميع في مخزن الإكمال.
   static const String tasmeeTourId = 'tasmee';
+
+  /// معرّف جولة المصحف الصوتي في مخزن الإكمال.
+  static const String audioTourId = 'audio';
 
   /// مخزن الإكمال الدائم (متاح لأزرار «إعادة الجولة» في الأقسام الأخرى).
   late final GetStorageTourCompletionStore store =
@@ -176,6 +236,8 @@ class AppTour extends GetxController
   bool _mushafAutoTriggered = false;
 
   bool _tasmeeAutoTriggered = false;
+
+  bool _audioAutoTriggered = false;
 
   /// سيناريو الجولة الجارية (null قبل أول بدء). يُنشأ مع كل بدء لأن
   /// [buildMushafSteps] كذلك، ويُوجَّه إليه ما يطرأ على ورقة خيارات الآية.
@@ -289,6 +351,40 @@ class AppTour extends GetxController
     _tasmeeAutoTriggered = true;
     await store.reset(tasmeeTourId);
     tour.start(tourId: tasmeeTourId, steps: buildTasmeeSteps());
+  }
+
+  /// يبني خطوات جولة المصحف الصوتي ويوجّه إليها ما يطرأ على الكنترولر.
+  /// يُستدعى لحظة بدء الجولة فقط (من [startAudioTourOnce] و
+  /// [replayAudioTour])، لأن أسلوب البطاقات يُقرأ من السمة الجارية.
+  List<TourStep> buildAudioSteps() {
+    final script = AudioTourScript(
+      tour: tour,
+      hooks: this,
+      style: _tourStyle(),
+    );
+    tour
+      ..onStepChanged = script.onStepChanged
+      ..onSkip = script.onTourEnd
+      ..onFinish = script.onTourEnd;
+    return script.steps;
+  }
+
+  /// يبدأ جولة المصحف الصوتي أول مرة فقط. نقطة الاستدعاء الوحيدة من build
+  /// الخاص بـ AudioScreen عبر addPostFrameCallback. العلم يُضبط تزامنياً
+  /// قبل أي انتظار فلا تتكرر الجولة مهما تعددت إعادات البناء وردود الإطار
+  /// المتزاحمة، ولا تبدأ إن كانت جولة أخرى ظاهرة أو كانت جولة القسم
+  /// مكتملة سابقاً.
+  void startAudioTourOnce() {
+    if (_audioAutoTriggered) return;
+    _audioAutoTriggered = true;
+    tour.startOnce(tourId: audioTourId, steps: buildAudioSteps());
+  }
+
+  /// إعادة جولة المصحف الصوتي فوراً (من زر الجولة في شاشة القسم).
+  Future<void> replayAudioTour() async {
+    _audioAutoTriggered = true;
+    await store.reset(audioTourId);
+    tour.start(tourId: audioTourId, steps: buildAudioSteps());
   }
 
   /// يصلّح موضع القراءة إن قُتل التطبيق قسراً وسط عرض القلب في جلسة

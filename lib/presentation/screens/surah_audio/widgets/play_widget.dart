@@ -43,11 +43,13 @@ class PlayWidget extends StatelessWidget {
                 ),
                 const Gap(8),
                 SurahChangeSurahReader(
+                  key: AudioTourKeys.reciterPicker,
                   style: surahCtrl.surahAudioStyle,
                   isDark: ThemeController.instance.isDarkMode,
                 ),
               ],
               SurahSeekBar(
+                key: AudioTourKeys.seekBar,
                 customColor: backgroundColor,
                 activeTrackColor: iconColor,
                 thumbColor: iconColor,
@@ -63,6 +65,7 @@ class PlayWidget extends StatelessWidget {
                         Row(
                           children: [
                             IconButton(
+                              key: AudioTourKeys.backward,
                               icon: Semantics(
                                 button: true,
                                 enabled: true,
@@ -85,14 +88,24 @@ class PlayWidget extends StatelessWidget {
                                 );
                               },
                             ),
-                            SurahSkipToNext(iconColor: iconColor),
+                            SurahSkipToNext(
+                              key: AudioTourKeys.previousSurah,
+                              iconColor: iconColor,
+                            ),
                           ],
                         ),
-                        OnlinePlayButton(iconColor: iconColor),
+                        OnlinePlayButton(
+                          key: AudioTourKeys.playPause,
+                          iconColor: iconColor,
+                        ),
                         Row(
                           children: [
-                            SurahSkipToPrevious(iconColor: iconColor),
+                            SurahSkipToPrevious(
+                              key: AudioTourKeys.nextSurah,
+                              iconColor: iconColor,
+                            ),
                             IconButton(
+                              key: AudioTourKeys.forward,
                               icon: Semantics(
                                 button: true,
                                 enabled: true,

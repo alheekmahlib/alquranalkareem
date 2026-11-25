@@ -8,9 +8,14 @@ class AudioScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final surahCtrl = AudioCtrl.instance;
     // surahCtrl.lastAudioSource();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      AppTour.instance.startAudioTourOnce();
+    });
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (bool didPop, _) {
+        // أنهِ الجولة قبل مغادرة الشاشة حتى لا تبقى فوق أهداف غائبة.
+        AppTour.instance.closeTourIfRunning();
         if (didPop) {
           return;
         }
@@ -118,7 +123,9 @@ class AudioScreen extends StatelessWidget {
                                     secondCurve: Curves.linear,
                                     firstChild: SizedBox(
                                       height: 73,
-                                      child: CollapsedPlayWidget(),
+                                      child: CollapsedPlayWidget(
+                                        key: AudioTourKeys.collapsedPlayer,
+                                      ),
                                     ),
                                     secondChild: const PlayWidget(),
                                     crossFadeState:
@@ -145,6 +152,7 @@ class AudioScreen extends StatelessWidget {
                   isDraggable: false,
                   tabBarController: surahCtrl.surahState.tabBarController,
                   centerChild: TextFieldBarWidget(
+                    key: AudioTourKeys.search,
                     hintText: 'searchToSurah'.tr,
                     controller: surahCtrl.surahState.textController,
                     horizontalPadding: 0.0,
@@ -153,6 +161,26 @@ class AudioScreen extends StatelessWidget {
                       surahCtrl.surahState.textController.clear();
                     },
                     onChanged: (query) => AudioCtrl.instance.searchSurah(query),
+                  ),
+                ),
+                Align(
+                  alignment: AlignmentDirectional.bottomEnd,
+                  // فوق شريط التشغيل السفلي كي لا يقف تحته ولا يغطي أهدافه.
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      bottom: 100.0,
+                      right: 8.0,
+                      left: 8.0,
+                    ),
+                    child: CustomButton(
+                      height: 50,
+                      width: 50,
+                      backgroundColor: context.theme.colorScheme.surface,
+                      isCustomSvgColor: true,
+                      svgPath: SvgPath.svgHomeCommentQuestion,
+                      svgColor: context.theme.canvasColor,
+                      onPressed: () => AppTour.instance.replayAudioTour(),
+                    ),
                   ),
                 ),
               ],

@@ -38,6 +38,7 @@ class AudioSurahWithAyahs extends GetView<AudioSurahWithAyahsController> {
                 Column(
                   children: [
                     Container(
+                      key: AudioTourKeys.closeButton,
                       height: 100,
                       width: 45,
                       alignment: AlignmentDirectional.bottomCenter,
@@ -101,6 +102,7 @@ class AudioSurahWithAyahs extends GetView<AudioSurahWithAyahsController> {
                     ),
                     const Spacer(),
                     Row(
+                      key: AudioTourKeys.readerRow,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         GetBuilder<AudioCtrl>(
@@ -152,6 +154,7 @@ class AudioSurahWithAyahs extends GetView<AudioSurahWithAyahsController> {
                   alignment: AlignmentDirectional.topStart,
                   children: [
                     Container(
+                      key: AudioTourKeys.closeButton,
                       height: 45,
                       width: 100,
                       alignment: AlignmentDirectional.centerEnd,
@@ -245,6 +248,7 @@ class AudioSurahWithAyahs extends GetView<AudioSurahWithAyahsController> {
                               ),
                               const Spacer(),
                               Row(
+                                key: AudioTourKeys.readerRow,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   GetBuilder<AudioCtrl>(
@@ -326,32 +330,38 @@ class AudioSurahWithAyahs extends GetView<AudioSurahWithAyahsController> {
       duration: const Duration(milliseconds: 400),
       reverseDuration: const Duration(milliseconds: 400),
       curve: Curves.easeInOut,
-      child: Container(
-        height: context.customOrientation(250.0, 300.0),
-        width: Get.width,
-        alignment: Alignment.center,
-        padding: const EdgeInsets.all(8.0),
-        margin: const EdgeInsets.symmetric(horizontal: 16.0),
-        decoration: BoxDecoration(
-          color: context.theme.colorScheme.primaryContainer,
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
-        ),
-        child: SingleChildScrollView(
-          child: IgnorePointer(
-            child: GetSingleAyah(
-              surahNumber: surahNum,
-              ayahNumber: ayahNum,
-              textHeight: 2,
-              enableWordSelection: true,
-              isDark: ThemeController.instance.isDarkMode,
-              externalSelectedWordRef: selectedWordRef,
-              textAlign: TextAlign.center,
-              textColor: context.theme.canvasColor,
-              selectedWordColor: context.theme.colorScheme.surface.withValues(
-                alpha: .5,
+      // الهامش خارج الصندوق المفاتَح كي لا يشمله مستطيل إضاءة الجولة.
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Container(
+          // المفتاح نفسه على بطاقة المتتبِّع وبطاقة معلومات السورة: لا
+          // تُركَّب إحداهما إلا عند غياب الأخرى.
+          key: AudioTourKeys.ayahTracker,
+          height: context.customOrientation(250.0, 300.0),
+          width: Get.width,
+          alignment: Alignment.center,
+          padding: const EdgeInsets.all(8.0),
+          decoration: BoxDecoration(
+            color: context.theme.colorScheme.primaryContainer,
+            borderRadius: const BorderRadius.all(Radius.circular(8)),
+          ),
+          child: SingleChildScrollView(
+            child: IgnorePointer(
+              child: GetSingleAyah(
+                surahNumber: surahNum,
+                ayahNumber: ayahNum,
+                textHeight: 2,
+                enableWordSelection: true,
+                isDark: ThemeController.instance.isDarkMode,
+                externalSelectedWordRef: selectedWordRef,
+                textAlign: TextAlign.center,
+                textColor: context.theme.canvasColor,
+                selectedWordColor: context.theme.colorScheme.surface.withValues(
+                  alpha: .5,
+                ),
+                onWordTap: (_) {},
+                enabledTajweed: QuranCtrl.instance.state.isTajweedEnabled.value,
               ),
-              onWordTap: (_) {},
-              enabledTajweed: QuranCtrl.instance.state.isTajweedEnabled.value,
             ),
           ),
         ),
@@ -369,68 +379,73 @@ class AudioSurahWithAyahs extends GetView<AudioSurahWithAyahsController> {
       (s) => s.surahNumber == surahNum,
     );
 
-    return Container(
-      width: Get.width,
-      margin: const EdgeInsets.symmetric(horizontal: 16.0),
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-      decoration: BoxDecoration(
-        color: context.theme.canvasColor,
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
-      ),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          // Lottie خلفية زخرفية خفيفة
-          Opacity(
-            opacity: 0.08,
-            child: customLottieWithColor(
-              LottieConstants.assetsLottieQuranAuIc,
-              height: 220,
-              width: 220,
-              isRepeat: false,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Container(
+        // المفتاح نفسه على هذه البطاقة وعلى بطاقة المتتبِّع: لا تُركَّب
+        // إحداهما إلا عند غياب الأخرى.
+        key: AudioTourKeys.ayahTracker,
+        width: Get.width,
+        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+        decoration: BoxDecoration(
+          color: context.theme.canvasColor,
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
+        ),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            // Lottie خلفية زخرفية خفيفة
+            Opacity(
+              opacity: 0.08,
+              child: customLottieWithColor(
+                LottieConstants.assetsLottieQuranAuIc,
+                height: 220,
+                width: 220,
+                isRepeat: false,
+              ),
             ),
-          ),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // اسم السورة بحجم كبير
-              surahNameWidget(
-                surahNum.toString(),
-                context.theme.primaryColorDark,
-                height: 70,
-              ),
-              const Gap(16.0),
-              // شريط فاصل زخرفي
-              Container(
-                height: 2,
-                width: 80,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(1),
-                  color: context.theme.primaryColorDark.withValues(alpha: .3),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // اسم السورة بحجم كبير
+                surahNameWidget(
+                  surahNum.toString(),
+                  context.theme.primaryColorDark,
+                  height: 70,
                 ),
-              ),
-              const Gap(16.0),
-              // معلومات السورة
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _infoChip(
-                    context,
-                    surah.revelationType?.tr ?? '',
-                    Icons.place_outlined,
+                const Gap(16.0),
+                // شريط فاصل زخرفي
+                Container(
+                  height: 2,
+                  width: 80,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(1),
+                    color: context.theme.primaryColorDark.withValues(alpha: .3),
                   ),
-                  const Gap(16.0),
-                  _infoChip(
-                    context,
-                    '${'aya_count'.tr} ${surah.ayahs.length}'
-                        .convertNumbersToCurrentLang(),
-                    Icons.format_list_numbered_rounded,
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ],
+                ),
+                const Gap(16.0),
+                // معلومات السورة
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _infoChip(
+                      context,
+                      surah.revelationType?.tr ?? '',
+                      Icons.place_outlined,
+                    ),
+                    const Gap(16.0),
+                    _infoChip(
+                      context,
+                      '${'aya_count'.tr} ${surah.ayahs.length}'
+                          .convertNumbersToCurrentLang(),
+                      Icons.format_list_numbered_rounded,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

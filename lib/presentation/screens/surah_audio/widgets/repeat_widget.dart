@@ -25,6 +25,9 @@ class RepeatWidget extends StatelessWidget {
             const cycleModes = [LoopMode.off, LoopMode.all];
             final index = cycleModes.indexOf(loopMode);
             return CustomButton(
+              // المفتاح على الزر نفسه لا على جذر ودجت التكرار: الجذر Align
+              // يتمدد على مساحة صف الأزرار فيبتلعها مستطيل الإضاءة.
+              key: AudioTourKeys.repeat,
               svgPath: SvgPath.svgAudioLoop,
               height: 35,
               width: 35,
