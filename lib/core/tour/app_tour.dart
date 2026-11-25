@@ -200,6 +200,10 @@ class AppTour extends GetxController
       buttonTextStyle: AppTextStyles.titleMedium(),
       titleStyle: AppTextStyles.titleMedium(),
       bodyStyle: AppTextStyles.bodySmall(fontSize: 15),
+      previousStyle: AppTextStyles.bodySmall(
+        fontSize: 15,
+        color: Get.theme.colorScheme.surface,
+      ),
     );
     // الخطوات نفسها وأسماء أهدافها في MushafTourScript. الكنترولر يخبر
     // السيناريو بتغيّر الخطوة وبانتهاء الجولة ليجهاز التطبيق لكل خطوة.

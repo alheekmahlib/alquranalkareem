@@ -76,6 +76,27 @@ class QuranHome extends StatelessWidget {
                                 child: TajweedMenuWidget(),
                               ),
                             _tasmeeButton(context),
+                            Align(
+                              alignment: AlignmentDirectional.bottomEnd,
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  bottom: 70.0,
+                                  right: 8.0,
+                                  left: 8.0,
+                                ),
+                                child: CustomButton(
+                                  height: 50,
+                                  width: 50,
+                                  backgroundColor:
+                                      context.theme.colorScheme.surface,
+                                  isCustomSvgColor: true,
+                                  svgPath: SvgPath.svgHomeCommentQuestion,
+                                  svgColor: context.theme.canvasColor,
+                                  onPressed: () =>
+                                      AppTour.instance.replayMushafTour(),
+                                ),
+                              ),
+                            ),
                             TopBarWidget(
                               isHomeChild: true,
                               isQuranSetting: true,
@@ -154,27 +175,6 @@ class QuranHome extends StatelessWidget {
                               child: NavBarWidget(
                                 navBarController:
                                     quranCtrl.state.navBarController,
-                              ),
-                            ),
-                            Align(
-                              alignment: AlignmentDirectional.bottomEnd,
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                  bottom: 70.0,
-                                  right: 8.0,
-                                  left: 8.0,
-                                ),
-                                child: CustomButton(
-                                  height: 50,
-                                  width: 50,
-                                  backgroundColor:
-                                      context.theme.colorScheme.surface,
-                                  isCustomSvgColor: true,
-                                  svgPath: SvgPath.svgHomeCommentQuestion,
-                                  svgColor: context.theme.canvasColor,
-                                  onPressed: () =>
-                                      AppTour.instance.replayMushafTour(),
-                                ),
                               ),
                             ),
                             // const AutoScrollSpeedSliderWidget(),

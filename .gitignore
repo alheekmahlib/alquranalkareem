@@ -45,6 +45,7 @@ assets/QuranData.sqlite
 .packages
 .pub-cache/
 .pub/
+.agent/
 docs/
 /build/
 post.md
