@@ -72,9 +72,14 @@ app.*.map.json
 /assets/.env
 .env
 *.env
+/ios/Flutter/Secrets.xcconfig
+/macos/Flutter/Secrets.xcconfig
 
 # ZCode CLI settings (local agent config — never commit)
 .zcode/
+
+# Superpowers brainstorming visual companion (local mockups)
+.superpowers/
 
 # Cloudflare Wrangler local state (never commit)
 .wrangler/

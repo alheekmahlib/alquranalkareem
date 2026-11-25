@@ -16,10 +16,13 @@ import 'core/services/background_services.dart';
 import 'core/services/home_widget_service.dart';
 import 'core/services/notifications_helper.dart';
 import 'core/services/services_locator.dart';
+import 'core/tour/app_tour.dart';
 import 'core/utils/constants/extensions/convert_number_extension.dart';
 import 'core/utils/constants/shared_preferences_constants.dart';
 import 'myApp.dart';
+import 'presentation/controllers/general/general_controller.dart';
 import 'presentation/screens/feedback/data/feedback_queue.dart';
+import 'presentation/screens/quran_page/data/helper/ayah_menu_helper.dart';
 import 'presentation/screens/quran_page/quran.dart';
 
 Future<void> main() async {
@@ -73,4 +76,20 @@ Future<void> initializeApp() async {
   ReadersConstants.customAyahReaders = ayahReaderInfo;
 
   ReadersConstants.customSurahReaders = surahReaderInfo;
+  Get.put(
+    AppTour(
+      isControlsVisible: () =>
+          GeneralController.instance.state.isShowControl.value,
+      toggleControls: () => QuranController.instance.showControl(),
+      collapsePanels: () => QuranController.instance.closePanels(),
+      isAyahMenuOpen: () => AyahMenuHelper.isOpen,
+      openAyahMenu: AyahMenuHelper.reopenLast,
+      // وبعد إغلاقها تُمحى علامة تحديد الآية إن بقيت.
+      closeAyahMenu: () {
+        AyahMenuHelper.close();
+        QuranController.instance.clearAyahSelection();
+      },
+    ),
+    permanent: true,
+  );
 }

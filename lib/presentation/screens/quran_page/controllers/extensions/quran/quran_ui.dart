@@ -139,6 +139,25 @@ extension QuranUi on QuranController {
     // GlobalKeyManager().drawerKey.currentState!.closeSlider();
   }
 
+  /// يمحو تحديد الآية (إبرازها) وحده. عكس [clearSelection]، لا يبدّل
+  /// أشرطة التحكم ولا يطوي الورقات، فيصلح بعد إغلاق ورقة خيارات الآية.
+  void clearAyahSelection() {
+    if (QuranLibrary.quranCtrl.selectedAyahsByUnequeNumber.isEmpty) return;
+    QuranLibrary.quranCtrl.selectedAyahsByUnequeNumber.clear();
+    QuranLibrary.quranCtrl.selectedAyahsByUnequeNumber.refresh();
+    QuranLibrary.quranCtrl.clearSelection();
+    update(['clearSelection']);
+  }
+
+  /// يطوي ورقتي الأعلى والأسفل إن كانت إحداهما مفتوحة، دون المسّ بتحديد
+  /// الآية أو بأشرطة التحكم.
+  void closePanels() {
+    setTopBarType = TopBarType.none;
+    setNavBarType = NavBarType.none;
+    if (state.tabBarController.isOpen) state.tabBarController.close();
+    if (state.navBarController.isOpen) state.navBarController.close();
+  }
+
   void showControlToggle() {
     if (AudioCtrl.instance.state.isPlaying.value) {
       showControl();

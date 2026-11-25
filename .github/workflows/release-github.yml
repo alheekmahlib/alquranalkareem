@@ -92,6 +92,11 @@ jobs:
         with:
           repository: alheekmahlib/quran_library
           path: quran_library
+      - name: Checkout spotlight_tour (path dependency ../spotlight_tour)
+        uses: actions/checkout@v4
+        with:
+          repository: alheekmahlib/spotlight_tour
+          path: spotlight_tour
       - uses: actions/setup-java@v4
         with:
           distribution: zulu
@@ -141,6 +146,11 @@ jobs:
         with:
           repository: alheekmahlib/quran_library
           path: quran_library
+      - name: Checkout spotlight_tour (path dependency ../spotlight_tour)
+        uses: actions/checkout@v4
+        with:
+          repository: alheekmahlib/spotlight_tour
+          path: spotlight_tour
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: 3.47.5
@@ -256,6 +266,11 @@ jobs:
         with:
           repository: alheekmahlib/quran_library
           path: quran_library
+      - name: Checkout spotlight_tour (path dependency ../spotlight_tour)
+        uses: actions/checkout@v4
+        with:
+          repository: alheekmahlib/spotlight_tour
+          path: spotlight_tour
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: 3.47.5
@@ -314,6 +329,11 @@ jobs:
         with:
           repository: alheekmahlib/quran_library
           path: quran_library
+      - name: Checkout spotlight_tour (path dependency ../spotlight_tour)
+        uses: actions/checkout@v4
+        with:
+          repository: alheekmahlib/spotlight_tour
+          path: spotlight_tour
       - name: Install GTK and GStreamer build dependencies
         run: sudo apt-get update && sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
       - uses: subosito/flutter-action@v2

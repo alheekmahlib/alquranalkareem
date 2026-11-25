@@ -21,9 +21,16 @@ class QuranHome extends StatelessWidget {
     // if (quranCtrl.state.tabBarController.isHandleVisible) {
     //   quranCtrl.state.tabBarController.toggle();
     // }
+    if (!isTasmeeMode!) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        AppTour.instance.repairThenStartMushafTourOnce();
+      });
+    }
+
     return PopScope(
       canPop: true,
       onPopInvokedWithResult: (bool didPop, _) async {
+        AppTour.instance.closeTourIfRunning();
         // أنهِ وضع التسميع عند مغادرة الشاشة بأي طريقة (سحب للخلف أو زر).
         if (TasmeeCtrl.instance.state.isTasmeeMode.value) {
           TasmeeCtrl.instance.exitTasmeeMode();
@@ -86,6 +93,7 @@ class QuranHome extends StatelessWidget {
                               centerChild: isTasmeeMode!
                                   ? null
                                   : TextFieldBarWidget(
+                                      key: MushafTourKeys.search,
                                       controller:
                                           searchCtrl.state.searchTextEditing,
                                       horizontalPadding: 0.0,
@@ -146,6 +154,27 @@ class QuranHome extends StatelessWidget {
                               child: NavBarWidget(
                                 navBarController:
                                     quranCtrl.state.navBarController,
+                              ),
+                            ),
+                            Align(
+                              alignment: AlignmentDirectional.bottomEnd,
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  bottom: 70.0,
+                                  right: 8.0,
+                                  left: 8.0,
+                                ),
+                                child: CustomButton(
+                                  height: 50,
+                                  width: 50,
+                                  backgroundColor:
+                                      context.theme.colorScheme.surface,
+                                  isCustomSvgColor: true,
+                                  svgPath: SvgPath.svgHomeCommentQuestion,
+                                  svgColor: context.theme.canvasColor,
+                                  onPressed: () =>
+                                      AppTour.instance.replayMushafTour(),
+                                ),
                               ),
                             ),
                             // const AutoScrollSpeedSliderWidget(),

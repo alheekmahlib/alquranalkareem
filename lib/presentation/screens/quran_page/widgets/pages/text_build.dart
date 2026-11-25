@@ -22,60 +22,68 @@ class TextBuild extends StatelessWidget {
     return Center(
       child: GetBuilder<QuranController>(
         id: 'clearSelection',
-        builder: (quranCtrl) => QuranLibraryScreen(
-          parentContext: context,
-          withPageView: true,
-          isShowTabBar: false,
-          isFontsLocal: false,
-          useDefaultAppBar: false,
-          isShowAudioSlider: false,
-          isShowDisplayModeBar: false,
-          isShowTasmeeControl: false,
-          enableWordSelection: false,
-          showAyahBookmarkedIcon: true,
-          isDark: themeCtrl.isDarkMode,
-          bookmarkList: bookmarkTextList,
-          backgroundColor: Colors.transparent,
-          appLanguageCode: Get.locale!.languageCode,
-          onPagePress: () => quranCtrl.clearSelection(),
-          textColor: Get.theme.colorScheme.inversePrimary,
-          ayahIconColor: Get.theme.colorScheme.inverseSurface,
-          ayahSelectedBackgroundColor: Get.theme.highlightColor,
-          bookmarksColor: const Color(0xffCD9974).withValues(alpha: .4),
-          appIconPathForPlayAudioInBackground: 'assets/quran_logo.png',
-          isAyahBookmarked: (ayah) => isAyahBookmarked(ayah),
-          onSurahBannerPress: (surah) =>
-              surahInfoBottomSheet(context, surah.number - 1),
-          topBottomQuranStyle:
-              TopBottomQuranStyle.defaults(
-                isDark: themeCtrl.isDarkMode,
-                context: context,
-              ).copyWith(
-                juzName: 'juz'.tr,
-                sajdaName: 'sajda'.tr,
-                hizbName: 'hizb'.tr,
-                customChildBuilder: (context, pageIndex) => GestureDetector(
-                  onTap: () => bookmarkCtrl.addPageBookmarkOnTap(pageIndex),
-                  child: _BookmarkIcon(
-                    height: context.customOrientation(30.h, 40.h),
-                    pageNum: pageIndex + 1,
+        builder: (quranCtrl) => Container(
+          key: AppTour.instance.mushafPageKey,
+          child: QuranLibraryScreen(
+            parentContext: context,
+            withPageView: true,
+            isShowTabBar: false,
+            isFontsLocal: false,
+            useDefaultAppBar: false,
+            isShowAudioSlider: false,
+            isShowDisplayModeBar: false,
+            isShowTasmeeControl: false,
+            enableWordSelection: false,
+            showAyahBookmarkedIcon: true,
+            isDark: themeCtrl.isDarkMode,
+            bookmarkList: bookmarkTextList,
+            backgroundColor: Colors.transparent,
+            appLanguageCode: Get.locale!.languageCode,
+            onPagePress: () => quranCtrl.clearSelection(),
+            textColor: Get.theme.colorScheme.inversePrimary,
+            ayahIconColor: Get.theme.colorScheme.inverseSurface,
+            ayahSelectedBackgroundColor: Get.theme.highlightColor,
+            bookmarksColor: const Color(0xffCD9974).withValues(alpha: .4),
+            appIconPathForPlayAudioInBackground: 'assets/quran_logo.png',
+            isAyahBookmarked: (ayah) => isAyahBookmarked(ayah),
+            onSurahBannerPress: (surah) =>
+                surahInfoBottomSheet(context, surah.number - 1),
+            topBottomQuranStyle:
+                TopBottomQuranStyle.defaults(
+                  isDark: themeCtrl.isDarkMode,
+                  context: context,
+                ).copyWith(
+                  juzName: 'juz'.tr,
+                  sajdaName: 'sajda'.tr,
+                  hizbName: 'hizb'.tr,
+                  // هدف جولة المصحف: يُبنى لكل صفحة، فتُبرز الجولة نسخة
+                  // الصفحة الظاهرة منه.
+                  customChildBuilder: (context, pageIndex) => GestureDetector(
+                    key: MushafTourKeys.pageBookmark,
+                    onTap: () => bookmarkCtrl.addPageBookmarkOnTap(pageIndex),
+                    child: _BookmarkIcon(
+                      height: context.customOrientation(30.h, 40.h),
+                      pageNum: pageIndex + 1,
+                    ),
                   ),
                 ),
-              ),
-          onAyahLongPress: (details, ayah) {
-            final surah = QuranLibrary().getCurrentSurahDataByAyah(ayah: ayah);
-            AyahMenuHelper.show(
-              context,
-              surah: surah,
-              ayah: ayah,
-              pageIndex: ayah.page - 1,
-            );
-            log('ayahUQNumber: ${ayah.ayahUQNumber}');
-            // quranCtrl.toggleAyahSelection(ayah.ayahUQNumber);
-          },
-          tafsirStyle: quranCtrl.tafsirStyle,
-          ayahTafsirInlineStyle: quranCtrl.ayahTafsirInlineStyle,
-          autoScrollStyle: quranCtrl.autoScrollStyle,
+            onAyahLongPress: (details, ayah) {
+              final surah = QuranLibrary().getCurrentSurahDataByAyah(
+                ayah: ayah,
+              );
+              AyahMenuHelper.show(
+                context,
+                surah: surah,
+                ayah: ayah,
+                pageIndex: ayah.page - 1,
+              );
+              log('ayahUQNumber: ${ayah.ayahUQNumber}');
+              // quranCtrl.toggleAyahSelection(ayah.ayahUQNumber);
+            },
+            tafsirStyle: quranCtrl.tafsirStyle,
+            ayahTafsirInlineStyle: quranCtrl.ayahTafsirInlineStyle,
+            autoScrollStyle: quranCtrl.autoScrollStyle,
+          ),
         ),
       ),
     );

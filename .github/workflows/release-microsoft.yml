@@ -37,6 +37,11 @@ jobs:
         with:
           repository: alheekmahlib/quran_library
           path: quran_library
+      - name: Checkout spotlight_tour (path dependency ../spotlight_tour)
+        uses: actions/checkout@v4
+        with:
+          repository: alheekmahlib/spotlight_tour
+          path: spotlight_tour
       - name: Validate secrets
         id: mscheck
         shell: bash

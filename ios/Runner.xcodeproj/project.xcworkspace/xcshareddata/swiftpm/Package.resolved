@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/masicai/onnxruntime-swift-package-manager",
       "state" : {
-        "revision" : "3fb68950a5967c8c120f9f99a1a850a43985a4c9",
-        "version" : "1.28.0"
+        "revision" : "ac7ec08b13ad959a4c5817df0cfae26e4d9811ab",
+        "version" : "1.28.1"
       }
     },
     {
@@ -25,6 +25,15 @@
       "state" : {
         "revision" : "5d943224c3bb173e6ecf27295611615eba90c80e",
         "version" : "7.0.0"
+      }
+    },
+    {
+      "identity" : "tajweedformer-apple",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Quran-Lab/tajweedformer-apple",
+      "state" : {
+        "revision" : "c0158080cb0b3c1855dc5dbef7c68f54eaba125b",
+        "version" : "3.1.4"
       }
     },
     {

@@ -43,6 +43,8 @@ class DisplayModeBar extends StatelessWidget {
             elevation: s.elevation ?? 4,
             borderRadius: BorderRadius.circular(s.borderRadius ?? 16),
             child: Container(
+              // هدف جولة المصحف: الشريط نفسه لا جذره (Align بملء الشاشة).
+              key: MushafTourKeys.displayModes,
               decoration: BoxDecoration(
                 color:
                     s.backgroundColor ??

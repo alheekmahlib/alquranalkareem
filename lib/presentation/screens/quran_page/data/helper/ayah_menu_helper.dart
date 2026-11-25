@@ -6,6 +6,8 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:quran_library/quran.dart';
 
+import '/core/tour/app_tour.dart';
+import '/core/tour/mushaf_tour_script.dart';
 import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/helpers/app_text_styles.dart';
 import '/core/widgets/container_button.dart';
@@ -28,6 +30,24 @@ class AyahMenuHelper {
   static Worker? _playbackWorker;
   static StreamSubscription<int?>? _indexSubscription;
   static final ScrollController _ayahScrollController = ScrollController();
+
+  /// هل صفحة الخيارات ظاهرة الآن؟ تقرأها جولة المصحف (MushafTourScript) لتعرف
+  /// أن تشرح داخلها. يُضبط عند الفتح، ويسقط حين يُفكّ محتوى الورقة (_SheetTracker)
+  /// كيفما أُغلقت: سحباً، أو زر رجوع، أو إزالة المسار.
+  static bool get isOpen => _isOpen;
+  static bool _isOpen = false;
+
+  /// آخر ما فُتحت له الورقة: يُعاد الفتح به إن طلبت الجولة ذلك راجعة.
+  static ({SurahModel surah, AyahModel ayah, int pageIndex})? _lastOpened;
+
+  /// سياق داخل الورقة (نسخة قياسها أو نسختها الظاهرة) لتُغلق من داخله.
+  static BuildContext? _sheetContext;
+
+  /// family_bottom_sheet تركّب صفحة الورقة مرتين، فيوجد من المتتبع حالتان.
+  static final Set<_SheetTrackerState> _trackers = {};
+
+  static AppTour? get _tour =>
+      Get.isRegistered<AppTour>() ? AppTour.instance : null;
 
   static void show(
     BuildContext context, {
@@ -74,6 +94,10 @@ class AyahMenuHelper {
       }
     });
 
+    _lastOpened = (surah: surah, ayah: ayah, pageIndex: pageIndex);
+    // قبل الدفع: تقرأه الجولة فور فتح الورقة بالضغطة المطوّلة.
+    _isOpen = true;
+
     BottomSheetExtension(null).customBottomSheet(
       backgroundColor: Get.theme.colorScheme.primaryContainer,
       handleChild: context.customOrientation(
@@ -88,45 +112,99 @@ class AyahMenuHelper {
         ),
         const SizedBox.shrink(),
       ),
-      Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: _ayahBuild(
-              surah,
-              ayah,
-              quranCtrl,
-              wordCtrl,
-              pageIndex,
-              isDark,
-            ),
-          ),
-          const Gap(8),
-          Container(
-            height: 191.h,
-            width: Get.width,
-            alignment: .centerStart,
-            margin: const EdgeInsets.symmetric(horizontal: 8.0),
-            decoration: BoxDecoration(
-              color: Get.theme.colorScheme.surface.withValues(alpha: .2),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: GetBuilder<WordInfoCtrl>(
-              id: 'word_info_kind',
-              builder: (wordCtrl) => WordInfoWidget(
-                ref: quranCtrl.state.ref.value,
-                initialKind: initialKind,
-                ctrl: wordCtrl,
-                isDark: isDark,
-                defaults: quranCtrl.wordInfoStyle,
+      _SheetTracker(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: _ayahBuild(
+                surah,
+                ayah,
+                quranCtrl,
+                wordCtrl,
+                pageIndex,
+                isDark,
               ),
             ),
-          ),
-          const Gap(8),
-          _buttonsBuild(ayah, pageIndex, surah),
-        ],
+            const Gap(8),
+            Container(
+              key: MushafTourKeys.wordInfo,
+              height: 191.h,
+              width: Get.width,
+              alignment: .centerStart,
+              margin: const EdgeInsets.symmetric(horizontal: 8.0),
+              decoration: BoxDecoration(
+                color: Get.theme.colorScheme.surface.withValues(alpha: .2),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: GetBuilder<WordInfoCtrl>(
+                id: 'word_info_kind',
+                builder: (wordCtrl) => WordInfoWidget(
+                  ref: quranCtrl.state.ref.value,
+                  initialKind: initialKind,
+                  ctrl: wordCtrl,
+                  isDark: isDark,
+                  defaults: quranCtrl.wordInfoStyle,
+                ),
+              ),
+            ),
+            const Gap(8),
+            _buttonsBuild(ayah, pageIndex, surah),
+          ],
+        ),
       ),
     );
+
+    // الجولة تنتظر الضغطة المطوّلة: فتح الورقة ينقلها إلى شرح ما فيها.
+    _tour?.onAyahMenuOpened();
+  }
+
+  /// يعيد فتح الورقة بآخر آية فُتحت لها، وبأول آية في الصفحة الحالية إن لم
+  /// تُفتح من قبل. لا تفعل شيئاً وهي مفتوحة. يستدعيها مشهد الجولة حين يعود
+  /// المستخدم بـ«السابق» إلى خطوات داخل الورقة.
+  static void reopenLast() {
+    if (_isOpen) return;
+    final context = Get.context;
+    if (context == null) return;
+    final last = _lastOpened;
+    if (last != null) {
+      show(
+        context,
+        surah: last.surah,
+        ayah: last.ayah,
+        pageIndex: last.pageIndex,
+      );
+      return;
+    }
+    final quranCtrl = QuranCtrl.instance;
+    final page = quranCtrl.state.currentPageNumber.value;
+    final ayahs = quranCtrl.getPageAyahsByIndex(page - 1);
+    if (ayahs.isEmpty) return;
+    show(
+      context,
+      surah: quranCtrl.getCurrentSurahByPageNumber(page),
+      ayah: ayahs.first,
+      // الأزرار داخل الورقة تتعامل مع فهرس صفحة يبدأ من صفر.
+      pageIndex: page - 1,
+    );
+  }
+
+  /// يغلق الورقة إن كانت مفتوحة، من سياقها هي، فلا يُغلق طريقاً آخر فوقها.
+  static void close() {
+    final context = _sheetContext;
+    if (!_isOpen || context == null || !context.mounted) return;
+    Navigator.of(context).pop();
+  }
+
+  /// آخر نسخة من محتوى الورقة فُكّت: الورقة لم تعد ظاهرة.
+  static void _onSheetGone() {
+    _isOpen = false;
+    _sheetContext = null;
+    // قد يحدث التفكيك أثناء بناء الشاشة (إزالة المسارات كلها)، فالإعلام
+    // في إطار لاحق. كانت الجولة تشرح داخل الورقة؟ تعود إلى خطوة الضغط.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _tour?.onAyahMenuClosed();
+    });
   }
 
   static Widget _ayahBuild(
@@ -148,6 +226,7 @@ class AyahMenuHelper {
       mainAxisSize: MainAxisSize.min,
       children: [
         Directionality(
+          key: MushafTourKeys.ayahText,
           textDirection: TextDirection.rtl,
           child: Row(
             children: [
@@ -247,6 +326,7 @@ class AyahMenuHelper {
                       children: [
                         Expanded(
                           child: ContainerButton(
+                            key: MushafTourKeys.playWord,
                             height: 40,
                             // width: 35,
                             isPreparingDownload: isWordLoading,
@@ -265,6 +345,7 @@ class AyahMenuHelper {
 
                         Expanded(
                           child: ContainerButton(
+                            key: MushafTourKeys.playAyahWords,
                             height: 40,
                             // width: 35,
                             isPreparingDownload: isAyahLoading,
@@ -282,6 +363,7 @@ class AyahMenuHelper {
                         ),
                         Expanded(
                           child: ContainerButton(
+                            key: MushafTourKeys.searchWord,
                             height: 40,
                             // width: 35,
                             svgWithColorPath: SvgPath.svgHomeSearch,
@@ -348,9 +430,17 @@ class AyahMenuHelper {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TafsirButton(ayah: ayah, pageIndex: pageIndex, withBack: true),
+            // مفاتيح الجولة (MushafTourKeys) عادية لا GlobalKey: هذا المحتوى
+            // مركّب مرتين داخل الورقة (نسخة قياس ونسخة ظاهرة).
+            TafsirButton(
+              key: MushafTourKeys.tafsir,
+              ayah: ayah,
+              pageIndex: pageIndex,
+              withBack: true,
+            ),
             const Gap(12),
             PlayButton(
+              key: MushafTourKeys.playAyah,
               ayah: ayah,
               surah: surah,
               singleAyahOnly: true,
@@ -358,13 +448,24 @@ class AyahMenuHelper {
             ),
             const Gap(12),
             // full surah playButton
-            PlayButton(surah: surah, ayah: ayah, withBack: true),
+            PlayButton(
+              key: MushafTourKeys.playSurah,
+              surah: surah,
+              ayah: ayah,
+              withBack: true,
+            ),
             const Gap(12),
-            AddBookmarkButton(surah: surah, ayah: ayah, pageIndex: pageIndex),
+            AddBookmarkButton(
+              key: MushafTourKeys.addAyahBookmark,
+              surah: surah,
+              ayah: ayah,
+              pageIndex: pageIndex,
+            ),
             const Gap(12),
-            CopyButton(ayah: ayah, surah: surah),
+            CopyButton(key: MushafTourKeys.copy, ayah: ayah, surah: surah),
             const Gap(15),
             ShareAyahOptions(
+              key: MushafTourKeys.share,
               ayah: ayah,
               surah: surah,
               pageNumber: pageIndex,
@@ -383,6 +484,7 @@ class AyahMenuHelper {
                   clipBehavior: Clip.none,
                   children: [
                     CustomButton(
+                      key: MushafTourKeys.mutashabihat,
                       height: 40,
                       width: 35,
                       iconSize: 35,
@@ -465,4 +567,40 @@ class AyahMenuHelper {
       );
     }
   }
+}
+
+/// يتتبّع وجود صفحة الخيارات في الشجعة، فيبقى [AyahMenuHelper.isOpen]
+/// صادقاً كيفما أُغلقت الورقة أو أُزيحت صفحتها: الاعتماد على وعد إغلاق
+/// الطريق لا يكفي، فقد لا يكتمل حين يُزال المسار كله (Get.offAll).
+///
+/// family_bottom_sheet تركّب المحتوى مرتين (نسخة قياس ونسخة ظاهرة)، فيوجد
+/// من هذا الودجت حالتان؛ تبقى الورقة قائمة ما بقيت إحداهما.
+class _SheetTracker extends StatefulWidget {
+  const _SheetTracker({required this.child});
+
+  final Widget child;
+
+  @override
+  State<_SheetTracker> createState() => _SheetTrackerState();
+}
+
+class _SheetTrackerState extends State<_SheetTracker> {
+  @override
+  void initState() {
+    super.initState();
+    AyahMenuHelper._trackers.add(this);
+    // قد تعود صفحة الخيارات بعد صفحة داخل الورقة نفسها (التفسير، المشاركة).
+    AyahMenuHelper._isOpen = true;
+    AyahMenuHelper._sheetContext = context;
+  }
+
+  @override
+  void dispose() {
+    AyahMenuHelper._trackers.remove(this);
+    if (AyahMenuHelper._trackers.isEmpty) AyahMenuHelper._onSheetGone();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => widget.child;
 }

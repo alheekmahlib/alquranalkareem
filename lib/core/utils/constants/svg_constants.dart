@@ -280,6 +280,11 @@ class SvgPath {
   /// assets/svg/home/close.svg
   static const String svgHomeClose = "assets/svg/home/close.svg";
 
+  /// Assets for svgHomeCommentQuestion
+  /// assets/svg/home/comment_question.svg
+  static const String svgHomeCommentQuestion =
+      "assets/svg/home/comment_question.svg";
+
   /// Assets for svgHomeEmail
   /// assets/svg/home/email.svg
   static const String svgHomeEmail = "assets/svg/home/email.svg";

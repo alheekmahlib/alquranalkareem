@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quran_library/quran_library.dart';
 
+import '/core/tour/mushaf_tour_script.dart';
 import '/core/utils/constants/extensions/bottom_sheet_extension.dart';
 import '/core/utils/constants/svg_constants.dart';
 import '/presentation/screens/home/home_screen.dart';
@@ -211,6 +212,11 @@ class TopBarWidget extends StatelessWidget {
                           Expanded(
                             flex: 2,
                             child: ContainerButton(
+                              // هدف جولة المصحف في شاشة القرآن.
+                              // الودجت مشترك مع شاشات أخرى،
+                              // فتُبرز الجولة آخر نسخة ظاهرة
+                              // منه (الطريق الأعلى).
+                              key: MushafTourKeys.settings,
                               onPressed:
                                   settingOnTap ??
                                   () {

@@ -3,7 +3,7 @@ description: Al-Quran Al-Kareem - Al-Heekmah Library.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 5.5.6+129
+version: 5.5.7+130
 
 environment:
   sdk: '>=3.12.2 <4.0.0'
@@ -16,7 +16,7 @@ dependencies:
   another_xlider: ^3.0.2
   arabic_justified_text: ^1.0.4
   arabic_numbers: ^1.0.0
-  archive: ^4.5.2
+  archive: ^4.6.0
   awesome_notifications: ^0.12.1
   background_fetch: ^1.7.0
   badges: ^4.0.1
@@ -33,14 +33,14 @@ dependencies:
     git:
       ref: master
       url: https://github.com/alheekmahlib/drawing_animation.git
-  drift: ^2.35.3
+  drift: ^2.35.4
   drift_flutter: ^0.3.1
   dropdown_button2: ^3.1.0
   easy_image_viewer: ^1.5.1
   either_dart: ^1.0.0
   expansion_tile_card: ^3.0.0
   family_bottom_sheet: ^0.1.0
-  file_picker: ^13.2.0
+  file_picker: ^13.3.2
   flex_color_picker: ^4.0.0
   flexible_sheet: ^1.0.0+2
   floating_menu_expendable: ^1.1.1
@@ -50,33 +50,33 @@ dependencies:
     git:
       url: https://github.com/alheekmahlib/flutter-app-info.git
       ref: v4.0.0
-  flutter_cache_manager: ^3.4.5
+  flutter_cache_manager: ^3.5.0
   flutter_dotenv: ^6.0.1
   flutter_launcher_icons: ^0.14.4
   flutter_localizations:
     sdk: flutter
   flutter_native_splash: ^2.4.8
-  flutter_onnxruntime: ^1.9.0
+  flutter_onnxruntime: ^1.9.1
   flutter_rounded_progress_bar: ^0.3.2
   flutter_screenutil: ^5.9.3
   flutter_slider_drawer: ^3.0.2
   flutter_staggered_animations: ^1.1.1
   flutter_staggered_grid_view: ^0.7.0
   flutter_streaming_text_markdown: ^1.11.2
-  flutter_svg: ^2.3.0
+  flutter_svg: ^2.3.2
   flutter_timezone: ^5.1.1
   flutter_zxing: ^3.1.0
-  gap: ^3.0.1
+  gap: ^3.1.0
   get: ^4.7.3
   get_it: ^9.3.0
   get_storage: 2.1.1
   glob: ^2.2.0
-  hijri_date: ^1.1.0
+  hijri_date: ^1.2.1
   home_widget: ^0.10.0
   html: ^0.15.7
   # info_popup: ^4.3.2
   intl: ^0.20.3
-  lottie: ^3.6.1
+  lottie: ^3.8.2
   media_kit_libs_windows_video: ^1.0.11
   mini_music_visualizer: ^1.1.4
   multi_store_review:
@@ -91,8 +91,12 @@ dependencies:
   pretty_qr_code: ^3.6.0
   qr_flutter: ^4.1.0
   quran_library: #^5.0.1
-    git:
-      url: https://github.com/alheekmahlib/quran_library.git
+    path: ../quran_library
+  spotlight_tour:
+    path: ../spotlight_tour
+
+    # git:
+    #   url: https://github.com/alheekmahlib/quran_library.git
   read_more_less: ^1.0.1
   rxdart: ^0.28.0
   screenshot: ^3.0.0

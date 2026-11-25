@@ -19,7 +19,8 @@ import just_audio
 import media_kit_video
 import multi_store_review
 import package_info_plus
-import record_macos
+import quran_library
+import record_darwin
 import share_plus
 import sqflite_darwin
 import url_launcher_macos
@@ -41,7 +42,8 @@ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   MediaKitVideoPlugin.register(with: registry.registrar(forPlugin: "MediaKitVideoPlugin"))
   MultiStoreReviewPlugin.register(with: registry.registrar(forPlugin: "MultiStoreReviewPlugin"))
   FPPPackageInfoPlusPlugin.register(with: registry.registrar(forPlugin: "FPPPackageInfoPlusPlugin"))
-  RecordMacOsPlugin.register(with: registry.registrar(forPlugin: "RecordMacOsPlugin"))
+  QuranLibraryTajweedFormerApplePlugin.register(with: registry.registrar(forPlugin: "QuranLibraryTajweedFormerApplePlugin"))
+  RecordDarwinPlugin.register(with: registry.registrar(forPlugin: "RecordDarwinPlugin"))
   SharePlusMacosPlugin.register(with: registry.registrar(forPlugin: "SharePlusMacosPlugin"))
   SqflitePlugin.register(with: registry.registrar(forPlugin: "SqflitePlugin"))
   UrlLauncherPlugin.register(with: registry.registrar(forPlugin: "UrlLauncherPlugin"))

@@ -18,6 +18,8 @@ class QuranTopBar extends StatelessWidget {
               children: [
                 Expanded(
                   child: Container(
+                    // هدف جولة المصحف: الشريط نفسه لا جذره (Align بملء الشاشة).
+                    key: AppTour.instance.topBarKey,
                     height: 50,
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     decoration: BoxDecoration(

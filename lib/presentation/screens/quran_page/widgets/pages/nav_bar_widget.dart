@@ -148,6 +148,7 @@ class NavBarWidget extends StatelessWidget {
                                       Expanded(
                                         flex: 2,
                                         child: ContainerButton(
+                                          key: MushafTourKeys.surahIndex,
                                           onPressed: () {
                                             isExpanded
                                                 ? quranCtrl.setNavBarType =
@@ -194,7 +195,10 @@ class NavBarWidget extends StatelessWidget {
                                                       .value
                                               ? tasmee.state.isTasmeeMode.value
                                                     ? TasmeeBarWidget()
-                                                    : AudioWidget()
+                                                    : AudioWidget(
+                                                        key: MushafTourKeys
+                                                            .audioBar,
+                                                      )
                                               : const SizedBox.shrink(),
                                         ),
                                       ),
@@ -205,6 +209,7 @@ class NavBarWidget extends StatelessWidget {
                                           : Expanded(
                                               flex: 2,
                                               child: ContainerButton(
+                                                key: MushafTourKeys.bookmarks,
                                                 onPressed: () {
                                                   isExpanded
                                                       ? quranCtrl

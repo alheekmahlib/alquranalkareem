@@ -4,12 +4,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:spotlight_tour/spotlight_tour.dart';
 
 import 'core/services/languages/app_constants.dart';
 import 'core/services/languages/localization_controller.dart';
 import 'core/services/languages/messages.dart';
 import 'core/services/notifications_helper.dart';
 import 'core/services/services_locator.dart';
+import 'core/tour/app_tour.dart';
 import 'core/widgets/local_notification/controller/local_notifications_controller.dart';
 import 'presentation/controllers/theme_controller.dart';
 import 'presentation/screens/splash/splash.dart';
@@ -61,17 +63,37 @@ class MyApp extends StatelessWidget {
                   textDirection: _getTextDirection(localizationCtrl.locale),
                   child: MediaQuery(
                     data: mq.copyWith(textScaler: fixedScaler),
-                    child: child!,
+                    child: SpotlightTourHost(
+                      controller: AppTour.instance.tour,
+                      labels: _tourLabels(),
+                      child: child!,
+                    ),
                   ),
                 ),
               );
             },
+
             home: SplashScreen(),
           ),
         );
       },
     );
   }
+
+  /// نصوص أزرار الجولة وعدّادها بلغة التطبيق. تُبنى داخل builder فتتجدد
+  /// بتغيّر اللغة. «التالي» و«ابدأ» و«تخطي» مفاتيح قائمة في التطبيق.
+  TourLabels _tourLabels() => TourLabels(
+    skip: 'skip'.tr,
+    previous: 'mushafTourPrevious'.tr,
+    next: 'next'.tr,
+    done: 'mushafTourDone'.tr,
+    start: 'start'.tr,
+    interactionHint: 'mushafTourInteractionHint'.tr,
+    counter: (current, total) => 'mushafTourCounter'.trParams({
+      'current': '$current',
+      'total': '$total',
+    }),
+  );
 
   // دالة لتحديد اتجاه النصوص بناءً على اللغة
   // Function to determine text direction based on the selected language.

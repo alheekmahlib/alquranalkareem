@@ -37,9 +37,10 @@ class TajweedMenuWidget extends StatelessWidget {
               ),
               panelBorderRadius: BorderRadius.circular(8),
             ),
-            handleChild: customSvg(
-              SvgPath.svgAlwaqfMushafOrthographic,
-              height: 40,
+            // هدف جولة المصحف هو المقبض وحده، حيث يتحرك ويتمدد.
+            handleChild: KeyedSubtree(
+              key: MushafTourKeys.alwaqf,
+              child: customSvg(SvgPath.svgAlwaqfMushafOrthographic, height: 40),
             ),
             panelChild: AlwaqfScreen(),
           );
