@@ -23,6 +23,9 @@ class BooksLastRead extends StatelessWidget {
         return bookCtrl.state.lastReadPage.containsKey(book.bookNumber);
       }).toList();
       return Container(
+        // هدف جولة المكتبة: شريط آخر قراءة. يُركَّب على بطاقة الشاشة
+        // الرئيسية أيضاً، فتُبرز الجولة آخر نسخة ظاهرة منه.
+        key: BooksTourKeys.lastRead,
         height: 110,
         width: Get.width,
         decoration: BoxDecoration(

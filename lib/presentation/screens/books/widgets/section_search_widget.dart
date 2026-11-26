@@ -123,10 +123,20 @@ class _SectionSearchWidgetState extends State<SectionSearchWidget>
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         // زر الترتيب
-                        _buildSortButton(context),
+                        KeyedSubtree(
+                          // هدف جولة المكتبة: زر ترتيب كتب القسم. لا يُركَّب
+                          // والحقل ممدَّد، فتطويه الجولة خلال محطته.
+                          key: BooksTourKeys.sortButton,
+                          child: _buildSortButton(context),
+                        ),
                         const Gap(4),
                         // زر البحث
-                        _buildSearchIconButton(),
+                        KeyedSubtree(
+                          // هدف جولة المكتبة: زر بحث داخل القسم، ولا يُركَّب
+                          // والحقل ممدَّد كذلك.
+                          key: BooksTourKeys.sectionSearchButton,
+                          child: _buildSearchIconButton(),
+                        ),
                       ],
                     ),
                   ),

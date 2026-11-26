@@ -10,6 +10,7 @@ import 'package:spotlight_tour/spotlight_tour.dart';
 
 import '../utils/helpers/app_text_styles.dart';
 import 'audio_tour_script.dart';
+import 'books_tour_script.dart';
 import 'midad_tour_script.dart';
 import 'mushaf_tour_script.dart';
 import 'tasmee_tour_script.dart';
@@ -56,7 +57,7 @@ class GetStorageTourCompletionStore implements TourCompletionStore {
 /// جديد، وإعادة الجولة بالخليط المفرد كانت سترمي خطأً.
 class AppTour extends GetxController
     with GetTickerProviderStateMixin
-    implements MushafTourHooks, AudioTourHooks, MidadTourHooks {
+    implements MushafTourHooks, AudioTourHooks, MidadTourHooks, BooksTourHooks {
   AppTour({
     bool Function()? isControlsVisible,
     void Function()? toggleControls,
@@ -80,6 +81,17 @@ class AppTour extends GetxController
     bool Function()? isMidadSemanticEmpty,
     bool Function()? isMidadAssistantFresh,
     bool Function()? hasMidadProviders,
+    bool Function()? hasBooksLastRead,
+    bool Function()? hasVisibleBooksGrid,
+    double Function()? booksListScrollOffset,
+    void Function(double offset)? scrollBooksListTo,
+    bool Function()? isBooksSectionSearchActive,
+    void Function(bool active)? setBooksSectionSearchActive,
+    bool Function()? isBooksReaderBarsVisible,
+    void Function(bool visible)? setBooksReaderBarsVisible,
+    bool Function()? hasBooksChaptersDropdown,
+    bool Function(int bookNumber)? isBooksBookDownloaded,
+    PageController Function()? booksReaderPageController,
   }) : _isControlsVisible = isControlsVisible,
        _toggleControls = toggleControls,
        _collapsePanels = collapsePanels,
@@ -101,7 +113,18 @@ class AppTour extends GetxController
        _isMidadSharedLoaded = isMidadSharedLoaded,
        _isMidadSemanticEmpty = isMidadSemanticEmpty,
        _isMidadAssistantFresh = isMidadAssistantFresh,
-       _hasMidadProviders = hasMidadProviders;
+       _hasMidadProviders = hasMidadProviders,
+       _hasBooksLastRead = hasBooksLastRead,
+       _hasVisibleBooksGrid = hasVisibleBooksGrid,
+       _booksListScrollOffset = booksListScrollOffset,
+       _scrollBooksListTo = scrollBooksListTo,
+       _isBooksSectionSearchActive = isBooksSectionSearchActive,
+       _setBooksSectionSearchActive = setBooksSectionSearchActive,
+       _isBooksReaderBarsVisible = isBooksReaderBarsVisible,
+       _setBooksReaderBarsVisible = setBooksReaderBarsVisible,
+       _hasBooksChaptersDropdown = hasBooksChaptersDropdown,
+       _isBooksBookDownloaded = isBooksBookDownloaded,
+       _booksReaderPageController = booksReaderPageController;
 
   static AppTour get instance => Get.find<AppTour>();
 
@@ -133,6 +156,17 @@ class AppTour extends GetxController
   final bool Function()? _isMidadSemanticEmpty;
   final bool Function()? _isMidadAssistantFresh;
   final bool Function()? _hasMidadProviders;
+  final bool Function()? _hasBooksLastRead;
+  final bool Function()? _hasVisibleBooksGrid;
+  final double Function()? _booksListScrollOffset;
+  final void Function(double offset)? _scrollBooksListTo;
+  final bool Function()? _isBooksSectionSearchActive;
+  final void Function(bool active)? _setBooksSectionSearchActive;
+  final bool Function()? _isBooksReaderBarsVisible;
+  final void Function(bool visible)? _setBooksReaderBarsVisible;
+  final bool Function()? _hasBooksChaptersDropdown;
+  final bool Function(int bookNumber)? _isBooksBookDownloaded;
+  final PageController Function()? _booksReaderPageController;
 
   // ---- MushafTourHooks: ما ينفّذه السيناريو في التطبيق ----------------
 
@@ -183,6 +217,44 @@ class AppTour extends GetxController
 
   @override
   bool get hasMidadProviders => _hasMidadProviders?.call() ?? false;
+
+  // ---- BooksTourHooks: ما ينفّذه السيناريو في التطبيق ----------------
+
+  @override
+  bool get hasBooksLastRead => _hasBooksLastRead?.call() ?? false;
+
+  @override
+  bool get hasVisibleBooksGrid => _hasVisibleBooksGrid?.call() ?? false;
+
+  @override
+  double get booksListScrollOffset => _booksListScrollOffset?.call() ?? 0;
+
+  @override
+  void scrollBooksListTo(double offset) => _scrollBooksListTo?.call(offset);
+
+  @override
+  bool get isBooksSectionSearchActive =>
+      _isBooksSectionSearchActive?.call() ?? false;
+
+  @override
+  void setBooksSectionSearchActive(bool active) =>
+      _setBooksSectionSearchActive?.call(active);
+
+  @override
+  bool get isBooksReaderBarsVisible =>
+      _isBooksReaderBarsVisible?.call() ?? true;
+
+  @override
+  void setBooksReaderBarsVisible(bool visible) =>
+      _setBooksReaderBarsVisible?.call(visible);
+
+  @override
+  bool get hasBooksChaptersDropdown =>
+      _hasBooksChaptersDropdown?.call() ?? false;
+
+  @override
+  bool isBooksBookDownloaded(int bookNumber) =>
+      _isBooksBookDownloaded?.call(bookNumber) ?? false;
 
   // ---- AudioTourHooks: ما ينفّذه السيناريو في التطبيق ----------------
 
@@ -237,6 +309,15 @@ class AppTour extends GetxController
   /// معرّف جولة المساعد الذكي (وضع المساعد قبل تحميل أي قسم).
   static const String midadAssistantTourId = 'midad_assistant';
 
+  /// معرّف جولة قائمة الكتب (شاشة المكتبة الإسلامية) في مخزن الإكمال.
+  static const String booksTourId = 'books';
+
+  /// معرّف جولة صفحة الكتاب في مخزن الإكمال.
+  static const String booksChaptersTourId = 'books_chapters';
+
+  /// معرّف جولة القارئ في مخزن الإكمال.
+  static const String booksReaderTourId = 'books_reader';
+
   /// مخزن الإكمال الدائم (متاح لأزرار «إعادة الجولة» في الأقسام الأخرى).
   late final GetStorageTourCompletionStore store =
       GetStorageTourCompletionStore(GetStorage());
@@ -262,6 +343,11 @@ class AppTour extends GetxController
   // ---- عرض قلب الصفحة ---------------------------------------------------
 
   PageSwipeDemo? _mushafSwipeDemo;
+
+  /// عرض قلب صفحة القارئ. يُنشأ مع كل بدء جولة القارئ على كنترولر الصفحات
+  /// الحيّ، فصفحة القارئ تعيد إنشاء كنترولرها في كل زيارة (getSafePageController
+  /// في امتداد الكتب)، فالربط بكنترولر بادئ الجولة السابقة لا يقلب شيئاً.
+  PageSwipeDemo? _booksSwipeDemo;
 
   /// صفحة المستخدم قبل بدء العرض، لاستعادتها إن قاطع المستخدم العرض.
   int? _pageBeforeDemo;
@@ -309,6 +395,12 @@ class AppTour extends GetxController
   bool _midadAutoTriggered = false;
 
   bool _midadAssistantAutoTriggered = false;
+
+  bool _booksAutoTriggered = false;
+
+  bool _booksChaptersAutoTriggered = false;
+
+  bool _booksReaderAutoTriggered = false;
 
   /// سيناريو الجولة الجارية (null قبل أول بدء). يُنشأ مع كل بدء لأن
   /// [buildMushafSteps] كذلك، ويُوجَّه إليه ما يطرأ على ورقة خيارات الآية.
@@ -560,6 +652,121 @@ class AppTour extends GetxController
     tour.start(tourId: id, steps: steps);
   }
 
+  /// يبني خطوات جولة قائمة الكتب ويوجّه إليها ما يطرأ على الكنترولر.
+  /// تُقرأ حالة الشاشة (شريط آخر قراءة، شبكة الكتب) لحظة البدء فقط لأنها
+  /// تفصل محطاتٍ قد غاب هدفها في بعض الحالات.
+  List<TourStep> buildBooksSteps() {
+    final script = BooksTourScript(
+      tour: tour,
+      hooks: this,
+      style: _tourStyle(),
+      hasLastRead: hasBooksLastRead,
+      hasGrid: hasVisibleBooksGrid,
+    );
+    tour
+      ..onStepChanged = script.onStepChanged
+      ..onSkip = script.onTourEnd
+      ..onFinish = script.onTourEnd;
+    return script.steps;
+  }
+
+  /// يبدأ جولة قائمة الكتب أول مرة فقط. نقطة الاستدعاء الوحيدة من بطاقة
+  /// التشغيل داخل شاشة المكتبة بعد اكتمال تحميل الكتب. العلم يُضبط
+  /// تزامنياً فلا تتكرر الجولة مهما تعددت إعادات البناء، ولا تبدأ إن كانت
+  /// جولة أخرى ظاهرة أو كانت جولة القسم مكتملة سابقاً.
+  void startBooksTourOnce() {
+    if (_booksAutoTriggered) return;
+    _booksAutoTriggered = true;
+    tour.startOnce(tourId: booksTourId, steps: buildBooksSteps());
+  }
+
+  /// إعادة جولة قائمة الكتب فوراً (من زر الاستفهام في شاشة المكتبة).
+  Future<void> replayBooksTour() async {
+    _booksAutoTriggered = true;
+    await store.reset(booksTourId);
+    tour.start(tourId: booksTourId, steps: buildBooksSteps());
+  }
+
+  /// يبني خطوات جولة صفحة الكتاب [bookNumber] ويوجّه إليها ما يطرأ على
+  /// الكنترولر. حالة تحميل الكتاب تُقرأ لحظة البدء لأنها تفصل محطتي
+  /// الفهرس وتُتبع عنوان زر التحميل/الحذف.
+  List<TourStep> buildBooksChaptersSteps({required int bookNumber}) {
+    final script = BooksChaptersTourScript(
+      tour: tour,
+      hooks: this,
+      style: _tourStyle(),
+      bookNumber: bookNumber,
+    );
+    tour
+      ..onStepChanged = script.onStepChanged
+      ..onSkip = script.onTourEnd
+      ..onFinish = script.onTourEnd;
+    return script.steps;
+  }
+
+  /// يبدأ جولة صفحة الكتاب أول مرة فقط. نقطة الاستدعاء الوحيدة من build
+  /// الخاص بـ ChaptersPage عبر addPostFrameCallback. العلم يُضبط تزامنياً
+  /// فلا تتكرر الجولة مهما تعددت إعادات البناء، ولا تبدأ إن كانت جولة
+  /// أخرى ظاهرة أو كانت جولتها مكتملة سابقاً.
+  void startBooksChaptersTourOnce({required int bookNumber}) {
+    if (_booksChaptersAutoTriggered) return;
+    _booksChaptersAutoTriggered = true;
+    tour.startOnce(
+      tourId: booksChaptersTourId,
+      steps: buildBooksChaptersSteps(bookNumber: bookNumber),
+    );
+  }
+
+  /// إعادة جولة صفحة الكتاب فوراً (من زر الاستفهام في الشاشة).
+  Future<void> replayBooksChaptersTour({required int bookNumber}) async {
+    _booksChaptersAutoTriggered = true;
+    await store.reset(booksChaptersTourId);
+    tour.start(
+      tourId: booksChaptersTourId,
+      steps: buildBooksChaptersSteps(bookNumber: bookNumber),
+    );
+  }
+
+  /// يبني خطوات جولة القارئ ويوجّه إليها ما يطرأ على الكنترولر. جاهزية
+  /// الفصول المنسدلة تُقرأ لحظة البدء لأنها تفصل محطتها، ويُنشأ عرض قلب
+  /// الصفحة على كنترولر الصفحات الحيّ (يُهدم عرضُ الجولة السابقة أولاً).
+  List<TourStep> buildBooksReaderSteps() {
+    _booksSwipeDemo?.dispose();
+    _booksSwipeDemo = PageSwipeDemo(
+      pageController: _booksReaderPageController?.call() ?? PageController(),
+      vsync: this,
+    );
+    final script = BooksReaderTourScript(
+      tour: tour,
+      hooks: this,
+      style: _tourStyle(),
+      swipeDemo: _booksSwipeDemo,
+      hasChaptersDropdown: hasBooksChaptersDropdown,
+    );
+    tour
+      ..onStepChanged = script.onStepChanged
+      ..onSkip = script.onTourEnd
+      ..onFinish = script.onTourEnd;
+    return script.steps;
+  }
+
+  /// يبدأ جولة القارئ أول مرة فقط. نقطة الاستدعاء الوحيدة من بطاقة التشغيل
+  /// داخل جسم الصفحات، فلا تبدأ إلا بعد جهوزية الصفحات. العلم يُضبط
+  /// تزامنياً فلا تتكرر الجولة مهما تعددت إعادات البناء، ولا تبدأ إن كانت
+  /// جولة أخرى ظاهرة أو كانت جولتها مكتملة سابقاً.
+  void startBooksReaderTourOnce() {
+    if (_booksReaderAutoTriggered) return;
+    _booksReaderAutoTriggered = true;
+    tour.startOnce(tourId: booksReaderTourId, steps: buildBooksReaderSteps());
+  }
+
+  /// إعادة جولة القارئ فوراً (من زر الاستفهام في الشاشة).
+  Future<void> replayBooksReaderTour() async {
+    _booksReaderAutoTriggered = true;
+    await store.reset(booksReaderTourId);
+    tour.start(tourId: booksReaderTourId, steps: buildBooksReaderSteps());
+  }
+
   /// يصلّح موضع القراءة إن قُتل التطبيق قسراً وسط عرض القلب في جلسة
   /// سابقة: علامة [_kDemoGuardKey] الباقية تحمل صفحة المستخدم قبل ذلك
   /// العرض، فتُستعاد رقماً وتخزيناً وصفحة معروضة ثم تُمحى. لا تفعل شيئاً
@@ -690,6 +897,7 @@ class AppTour extends GetxController
   @override
   void onClose() {
     _mushafSwipeDemo?.dispose();
+    _booksSwipeDemo?.dispose();
     tour.dispose();
     super.onClose();
   }

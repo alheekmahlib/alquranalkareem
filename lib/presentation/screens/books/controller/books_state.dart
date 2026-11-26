@@ -50,6 +50,9 @@ class BooksState {
   RxBool isDownloaded = false.obs;
   final TextEditingController searchController = TextEditingController();
   PageController bookPageController = PageController();
+  // تمرير قائمة الكتب: تثبّته جولة المكتبة على أعلى القائمة خلال محطتي
+  // آخر القراءة والشبكة ثم تعيد موضع المستخدم.
+  final ScrollController booksListController = ScrollController();
   final FocusNode bookRLFocusNode = FocusNode();
   // final FocusNode bookUDFocusNode = FocusNode();
   // final ScrollController ScrollUpDownBook = ScrollController();

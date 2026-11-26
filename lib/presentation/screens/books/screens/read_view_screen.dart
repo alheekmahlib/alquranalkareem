@@ -14,6 +14,7 @@ class ReadViewScreen extends StatelessWidget {
     return PopScope(
       canPop: true,
       onPopInvokedWithResult: (bool didPop, _) {
+        AppTour.instance.closeTourIfRunning();
         booksCtrl.state.tabBarController.showHandle();
         booksCtrl.state.navBarController.showHandle();
         if (didPop) {
@@ -119,6 +120,8 @@ class ReadViewScreen extends StatelessWidget {
           tabBarController: BooksController.instance.state.tabBarController,
           bodyChild: SearchBuild(),
           centerChild: TextFieldBarWidget(
+            // هدف جولة القارئ: حقل البحث داخل الكتاب.
+            key: BooksTourKeys.readerSearchField,
             hintText: 'searchInBook'.tr,
             controller: booksCtrl.state.searchController,
             horizontalPadding: 0.0,
@@ -138,6 +141,14 @@ class ReadViewScreen extends StatelessWidget {
                 booksCtrl.searchBooks(query, bookNumber: bookNumber),
           ),
         ),
+        // يشغّل جولة القارئ تلقائياً أول مرة؛ لا يُركَّب إلا في هذا الجسم،
+        // أي بعد جهوزية صفحات الكتاب، فلا انتظار هنا ولا قراءة مزدوجة.
+        const _BooksReaderTourTrigger(),
+        // يرتفع زر الإعادة فوق شريط القراءة السفلي.
+        BooksTourReplayButton(
+          bottom: 80.0,
+          onPressed: () => AppTour.instance.replayBooksReaderTour(),
+        ),
       ],
     );
   }
@@ -154,6 +165,11 @@ class ReadViewScreen extends StatelessWidget {
       init: BooksController.instance,
       builder: (booksCtrl) {
         return Container(
+          // هدف جولة القارئ: صفحة القراءة (محطة تقليب الصفحة). تُركَّب في
+          // كل صفحة، ونسخ الصفحات المجاورة خارج مجال العرض فيتخطّاها باحث
+          // الأهداف وتبرز نسخة الصفحة المرئية (قس على صفوف قائمة السور في
+          // جولة الصوتي).
+          key: BooksTourKeys.page,
           color: booksCtrl.backgroundColor,
           child: Column(
             children: [
@@ -179,6 +195,10 @@ class ReadViewScreen extends StatelessWidget {
                           Expanded(
                             flex: 10,
                             child: ChaptersDropdownWidget(
+                              // هدف جولة القارئ: القائمة المنسدلة للفصول.
+                              // تُركَّب في كل صفحة، ونسخ الصفحات المجاورة خارج
+                              // مجال العرض فيتخطّاها باحث الأهداف.
+                              key: BooksTourKeys.chaptersDropdown,
                               bookNumber: bookNumber,
                               pageIndex: index,
                             ),
@@ -196,6 +216,9 @@ class ReadViewScreen extends StatelessWidget {
                           index,
                         ),
                         child: SizedBox(
+                          // هدف جولة القارئ: زر الفاصل في رأس الصفحة،
+                          // في كل نسخة (النسخ المرئية واحدة).
+                          key: BooksTourKeys.readerBookmark,
                           width: 40,
                           height: 40,
                           child: customSvgWithColor(
@@ -607,4 +630,33 @@ class _NarratorNotFoundSheet extends StatelessWidget {
       ),
     );
   }
+}
+
+/// يشغّل جولة القارئ تلقائياً أول مرة. لا يُركَّب إلا داخل جسم الصفحات، أي
+/// بعد جهوزية صفحات الكتاب، فاكتمال التحميل شرط وجوده وكونه ودجتاً داخل
+/// الشاشة يلغي التشغيلَ بعد مغادرتها، فالبطاقة تُفكَّك معها فيُلغى النداء
+/// المعلَّق ولا تبدأ الجولة فوق شاشة أخرى.
+class _BooksReaderTourTrigger extends StatefulWidget {
+  const _BooksReaderTourTrigger();
+
+  @override
+  State<_BooksReaderTourTrigger> createState() =>
+      _BooksReaderTourTriggerState();
+}
+
+class _BooksReaderTourTriggerState extends State<_BooksReaderTourTrigger> {
+  bool _armed = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted || _armed) return;
+      _armed = true;
+      AppTour.instance.startBooksReaderTourOnce();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) => const SizedBox.shrink();
 }

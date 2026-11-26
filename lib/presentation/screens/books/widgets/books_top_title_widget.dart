@@ -38,6 +38,9 @@ class BooksTopTitleWidget extends StatelessWidget {
           children: [
             Expanded(
               child: Container(
+                // هدف جولة القارئ: منزلق حجم الخط (على الحاوية الداخلية
+                // لا الحشو المحيط).
+                key: BooksTourKeys.fontSize,
                 height: 35,
                 // width: Get.width * .4,
                 decoration: BoxDecoration(
@@ -122,6 +125,8 @@ class BooksTopTitleWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: GetX<BooksController>(
         builder: (booksCtrl) => CustomButton(
+          // هدف جولة القارئ: زر التشكيل.
+          key: BooksTourKeys.tashkil,
           height: 50,
           width: 45,
           isCustomSvgColor: true,
@@ -142,6 +147,8 @@ class BooksTopTitleWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Obx(
         () => CustomButton(
+          // هدف جولة القارئ: زر لون خلفية القراءة.
+          key: BooksTourKeys.backgroundColor,
           onPressed: () {
             Get.dialog(
               Dialog(

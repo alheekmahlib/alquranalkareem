@@ -60,6 +60,9 @@ class AllBooksBuild extends StatelessWidget {
         }
 
         return CustomScrollView(
+          // تمرير تثبته جولة المكتبة على أعلى القائمة خلال محطتي آخر
+          // القراءة والشبكة.
+          controller: booksCtrl.state.booksListController,
           slivers: [
             const SliverToBoxAdapter(child: Gap(16.0)),
             SliverToBoxAdapter(
@@ -126,6 +129,14 @@ class AllBooksBuild extends StatelessWidget {
         return Hero(
           tag: '$heroPrefix-${book.bookNumber}',
           child: BookCoverWidget(
+            // هدف جولة المكتبة: غلاف أول كتاب في الشبكة العادية وحده —
+            // مفاتيح الصفوف كلها تجعل الإضاءة تقع على آخر صف بناه
+            // SliverGrid في cacheExtent خلف حافة القائمة حيث لا يراه
+            // المستخدم (درس زر التنزيل في جولة الصوتي)، وتثبّت الجولة
+            // القائمةَ على أعلاها خلال محطته.
+            key: index == 0 && heroPrefix == 'bookCover'
+                ? BooksTourKeys.bookGrid
+                : null,
             book: book,
             bookNumber: book.bookNumber,
             isSixthBooks: isSixthBooks,

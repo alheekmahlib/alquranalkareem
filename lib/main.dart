@@ -22,6 +22,8 @@ import 'core/utils/constants/shared_preferences_constants.dart';
 import 'myApp.dart';
 import 'presentation/controllers/general/general_controller.dart';
 import 'presentation/screens/ai_search/ai_search.dart';
+import 'presentation/screens/books/books.dart';
+import 'presentation/screens/books/controller/chapters_controller.dart';
 import 'presentation/screens/feedback/data/feedback_queue.dart';
 import 'presentation/screens/quran_page/data/helper/ayah_menu_helper.dart';
 import 'presentation/screens/quran_page/quran.dart';
@@ -161,6 +163,71 @@ Future<void> initializeApp() async {
       },
       hasMidadProviders: () =>
           AiSearchController.instance.availableProviders.isNotEmpty,
+      // جولات المكتبة الإسلامية: قائمة الكتب وصفحة الكتاب والقارئ.
+      hasBooksLastRead: () =>
+          BooksController.instance.state.lastReadPage.isNotEmpty,
+      // هدف الشبكة غلاف أول كتاب فيها أعلى القائمة؛ تبويب الفواصل بلا شبكة،
+      // وتبويب الأحاديث تدفع شبكة الكتب تحت حافة القائمة بشبكاته المقدَّمة.
+      hasVisibleBooksGrid: () {
+        final booksCtrl = BooksController.instance;
+        final tabs = buildBooksTabs(booksCtrl.state.bookTypes);
+        final index = BooksTabBarController.instance.currentIndex.value;
+        if (index < 0 || index >= tabs.length) return false;
+        final tab = tabs[index];
+        if (tab.customChild != null || tab.filterBookType == 'hadiths') {
+          return false;
+        }
+        return booksCtrl
+            .getFilteredBooks(
+              booksCtrl.state.booksList,
+              isDownloadedBooks: tab.isDownloadedBooks,
+              filterBookType: tab.filterBookType,
+              title: tab.title,
+            )
+            .isNotEmpty;
+      },
+      // قائمة الكتب: تثبيتها على أعلاها خلال محطتي آخر القراءة والشبكة
+      // (هدف الشبكة غلاف أول كتاب) ثم إعادة موضع المستخدم.
+      booksListScrollOffset: () {
+        final controller = BooksController.instance.state.booksListController;
+        return controller.hasClients ? controller.position.pixels : 0.0;
+      },
+      scrollBooksListTo: (offset) {
+        final controller = BooksController.instance.state.booksListController;
+        if (controller.hasClients) controller.jumpTo(offset);
+      },
+      // حقل البحث داخل القسم: يطوى خلال محطتي الترتيب والبحث (زراه لا
+      // يُركبان ممدَّدًا) ثم يعاد إلى حالة المستخدم.
+      isBooksSectionSearchActive: () =>
+          BooksController.instance.state.isSearch.value,
+      setBooksSectionSearchActive: (active) =>
+          BooksController.instance.state.isSearch.value = active,
+      // شريطا القارئ: يظهران خلال محطاتهما ثم يعادان إلى حالة المستخدم.
+      isBooksReaderBarsVisible: () {
+        final state = BooksController.instance.state;
+        return state.tabBarController.isHandleVisible &&
+            state.navBarController.isHandleVisible;
+      },
+      setBooksReaderBarsVisible: (visible) {
+        final state = BooksController.instance.state;
+        if (visible) {
+          state.tabBarController.showHandle();
+          state.navBarController.showHandle();
+        } else {
+          state.tabBarController.hideHandle();
+          state.navBarController.hideHandle();
+        }
+      },
+      hasBooksChaptersDropdown: () {
+        final controller = ChaptersController.instance;
+        return !controller.isLoading && controller.chapters.isNotEmpty;
+      },
+      isBooksBookDownloaded: (bookNumber) =>
+          BooksController.instance.isBookDownloaded(bookNumber),
+      // كنترولر صفحات القارئ الحيّ: يقلبه عرض الجولة فعلاً ويستعيده، وشاشة
+      // القارئ تعيد إنشاءه في كل زيارة فيُقرأ عند بدء الجولة لا قبله.
+      booksReaderPageController: () =>
+          BooksController.instance.state.bookPageController,
     ),
     permanent: true,
   );

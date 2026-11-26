@@ -104,6 +104,8 @@ class BooksTabBarWidget extends StatelessWidget {
                       builder: (tabCtrl) {
                         final selectedTab = tabs[tabCtrl.currentIndex.value];
                         return ContainerButton(
+                          // هدف جولة المكتبة: زر اسم القسم الحالي.
+                          key: BooksTourKeys.sectionsButton,
                           onPressed: () {
                             ().customBottomSheet(_tabsBuild(tabCtrl, context));
                           },
@@ -129,6 +131,8 @@ class BooksTabBarWidget extends StatelessWidget {
                   if (tabCtrl.bookmarksIndex != -1) ...[
                     const Gap(8),
                     ContainerButton(
+                      // هدف جولة المكتبة: زر الفواصل السريع.
+                      key: BooksTourKeys.bookmarksButton,
                       onPressed: () =>
                           tabCtrl.changeTab(tabCtrl.bookmarksIndex),
                       backgroundColor: context.theme.colorScheme.surface

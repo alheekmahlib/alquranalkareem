@@ -77,6 +77,10 @@ class BookDetails extends StatelessWidget {
                               horizontal: 16.0,
                             ),
                             child: CustomButton(
+                              // هدف جولة صفحة الكتاب: زر الحذف (التحميل
+                              // بعد التحميل) — مفتاح واحد لهما، فلا يُركَّبان
+                              // معاً.
+                              key: BooksTourKeys.downloadButton,
                               onPressed: () async {
                                 await booksCtrl.deleteBook(book.bookNumber);
                                 booksCtrl.state.tocCache[book.bookNumber]!
@@ -114,6 +118,9 @@ class BookDetails extends StatelessWidget {
             borderRadius: const BorderRadius.all(Radius.circular(8)),
           ),
           child: Padding(
+            // هدف جولة صفحة الكتاب: لوحة النبذة (على الابن لا الحاوية ذات
+            // الهامش حتى لا يدخل الهامش في مساحة الإضاءة).
+            key: BooksTourKeys.aboutBook,
             padding: const EdgeInsets.symmetric(
               horizontal: 32.0,
               vertical: 8.0,
@@ -169,6 +176,9 @@ class BookNotDownloaded extends StatelessWidget {
         children: [
           SizedBox(
             child: CustomButton(
+              // هدف جولة صفحة الكتاب: زر التحميل (مفتاح زر الحذف نفسه،
+              // فأحدهما فقط يُركَّب في كل لحظة).
+              key: BooksTourKeys.downloadButton,
               onPressed: () async => await booksCtrl.downloadBook(
                 book.bookNumber,
                 book.bookType,

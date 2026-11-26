@@ -37,6 +37,8 @@ import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/core/utils/constants/extensions/text_span_extension.dart';
 import '../../../core/services/api_client.dart';
+import '../../../core/tour/app_tour.dart';
+import '../../../core/tour/books_tour_script.dart';
 import '../../../core/utils/constants/api_constants.dart';
 import '../../../core/utils/constants/extensions/alignment_rotated_extension.dart';
 import '../../../core/utils/constants/extensions/bottom_sheet_extension.dart';

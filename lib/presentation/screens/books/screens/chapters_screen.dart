@@ -19,77 +19,103 @@ class ChaptersPage extends StatelessWidget {
     final bookInfo = booksCtrl.state.booksInfo.firstWhere(
       (element) => element.type == book.bookType,
     );
-    return Scaffold(
-      backgroundColor: context.theme.colorScheme.primaryContainer,
-      appBar: AppBarWidget(
-        isTitled: false,
-        isFontSize: false,
-        searchButton: CustomButton(
-          onPressed: () => customBottomSheet(
-            SearchScreen(
-              onSubmitted: (_) => booksCtrl.searchBooks(
-                booksCtrl.state.searchController.text,
-                bookNumber: book.bookNumber,
+    // جولة صفحة الكتاب تبدأ أول مرة فقط، بعد إطار البناء الأول حتى تُبنى
+    // أهدافها، والعلم داخل AppTour يمنع تكرارها مهما أُعيد البناء.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      AppTour.instance.startBooksChaptersTourOnce(bookNumber: book.bookNumber);
+    });
+    return PopScope(
+      canPop: true,
+      onPopInvokedWithResult: (bool didPop, _) {
+        AppTour.instance.closeTourIfRunning();
+      },
+      child: Scaffold(
+        backgroundColor: context.theme.colorScheme.primaryContainer,
+        appBar: AppBarWidget(
+          isTitled: false,
+          isFontSize: false,
+          searchButton: CustomButton(
+            // هدف جولة صفحة الكتاب: زر البحث داخل الكتاب.
+            key: BooksTourKeys.chaptersSearchButton,
+            onPressed: () => customBottomSheet(
+              SearchScreen(
+                onSubmitted: (_) => booksCtrl.searchBooks(
+                  booksCtrl.state.searchController.text,
+                  bookNumber: book.bookNumber,
+                ),
+                isInBook: true,
               ),
-              isInBook: true,
             ),
+            width: 50,
+            isCustomSvgColor: true,
+            svgColor: context.theme.primaryColorLight,
+            backgroundColor: Colors.transparent,
+            borderColor: Colors.transparent,
+            svgPath: SvgPath.svgHomeSearch,
           ),
-          width: 50,
-          isCustomSvgColor: true,
-          svgColor: context.theme.primaryColorLight,
-          backgroundColor: Colors.transparent,
-          borderColor: Colors.transparent,
-          svgPath: SvgPath.svgHomeSearch,
+          isNotifi: true,
+          isBooks: false,
         ),
-        isNotifi: true,
-        isBooks: false,
-      ),
-      body: SafeArea(
-        child: context.customOrientation(
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                const Gap(16),
-                BookDetails(
-                  book: book,
-                  bookInfo: bookInfo,
-                  isSixthBooks: isSixthBooks,
-                  isNinthBooks: isNinthBooks,
+        body: SafeArea(
+          child: Stack(
+            children: [
+              context.customOrientation(
+                SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const Gap(16),
+                      BookDetails(
+                        book: book,
+                        bookInfo: bookInfo,
+                        isSixthBooks: isSixthBooks,
+                        isNinthBooks: isNinthBooks,
+                      ),
+                      const Gap(16),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: BooksChapterBuild(bookNumber: book.bookNumber),
+                      ),
+                      const Gap(16),
+                    ],
+                  ),
                 ),
-                const Gap(16),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: BooksChapterBuild(bookNumber: book.bookNumber),
-                ),
-                const Gap(16),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: context.definePlatform(0.0, 32.0)),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: BookDetails(
-                      book: book,
-                      bookInfo: bookInfo,
-                      isSixthBooks: isSixthBooks,
-                      isNinthBooks: isNinthBooks,
-                    ),
+                  padding: EdgeInsets.only(
+                    top: context.definePlatform(0.0, 32.0),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: BookDetails(
+                            book: book,
+                            bookInfo: bookInfo,
+                            isSixthBooks: isSixthBooks,
+                            isNinthBooks: isNinthBooks,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: SingleChildScrollView(
+                            child: BooksChapterBuild(
+                              bookNumber: book.bookNumber,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: SingleChildScrollView(
-                      child: BooksChapterBuild(bookNumber: book.bookNumber),
-                    ),
-                  ),
+              ),
+              BooksTourReplayButton(
+                onPressed: () => AppTour.instance.replayBooksChaptersTour(
+                  bookNumber: book.bookNumber,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

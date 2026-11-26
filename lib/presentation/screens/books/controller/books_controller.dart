@@ -39,6 +39,7 @@ class BooksController extends GetxController {
 
   void _disposeResources() {
     state.bookPageController.dispose();
+    state.booksListController.dispose();
     state.bookRLFocusNode.dispose();
     state.searchController.dispose();
   }

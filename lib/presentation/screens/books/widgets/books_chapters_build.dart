@@ -16,6 +16,9 @@ class BooksChapterBuild extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             Container(
+              // هدف جولة صفحة الكتاب: بطاقة الفهرس (محتوياته إن حُمّل
+              // الكتاب أو رسالة التحميل أولًا).
+              key: BooksTourKeys.toc,
               // margin:
               //     EdgeInsets.only(top: context.definePlatform(0.0, 100.0)),
               decoration: BoxDecoration(
