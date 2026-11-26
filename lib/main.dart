@@ -22,6 +22,7 @@ import 'core/utils/constants/shared_preferences_constants.dart';
 import 'myApp.dart';
 import 'presentation/controllers/general/general_controller.dart';
 import 'presentation/screens/ai_search/ai_search.dart';
+import 'presentation/screens/adhkar/controller/adhkar_controller.dart';
 import 'presentation/screens/books/books.dart';
 import 'presentation/screens/books/controller/chapters_controller.dart';
 import 'presentation/screens/feedback/data/feedback_queue.dart';
@@ -228,6 +229,30 @@ Future<void> initializeApp() async {
       // القارئ تعيد إنشاءه في كل زيارة فيُقرأ عند بدء الجولة لا قبله.
       booksReaderPageController: () =>
           BooksController.instance.state.bookPageController,
+      // جولتا الأذكار: الشاشة الرئيسية وشاشة القسم. محطة التصنيفات أولُّ
+      // بطاقة في القائمة، فتُحذف إن كان البحث جارياً يستبدلها بنتائجه.
+      hasAzkarCategoriesVisible: () =>
+          AzkarController.instance.state.searchQuery.value.isEmpty,
+      // قائمة الأقسام: تثبيتها على أعلاها خلال محطة التصنيفات (هدفها أول
+      // بطاقة) ثم إعادة موضع المستخدم.
+      azkarListScrollOffset: () {
+        final controller = AzkarController.instance.state.listController;
+        return controller.hasClients ? controller.position.pixels : 0.0;
+      },
+      scrollAzkarListTo: (offset) {
+        final controller = AzkarController.instance.state.listController;
+        if (controller.hasClients) controller.jumpTo(offset);
+      },
+      // شاشة القسم: تثبيتها على أعلاها خلال محطتي شريط الخيارات ونص أول
+      // ذكر (فالقدوم من نتائج البحث يمرّرها إلى ذكر بعيد) ثم إعادة الموضع.
+      azkarItemScrollOffset: () {
+        final controller = AzkarController.instance.state.itemScrollController;
+        return controller.hasClients ? controller.position.pixels : 0.0;
+      },
+      scrollAzkarItemTo: (offset) {
+        final controller = AzkarController.instance.state.itemScrollController;
+        if (controller.hasClients) controller.jumpTo(offset);
+      },
     ),
     permanent: true,
   );

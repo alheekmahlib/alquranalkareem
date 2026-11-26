@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../core/tour/app_tour.dart';
+import '../../../../core/tour/azkar_tour_script.dart';
+import '../../../../core/tour/tour_replay_button.dart';
 import '/core/utils/helpers/app_text_styles.dart';
 import '../../../../core/widgets/tab_bar_widget.dart';
 import '../controller/adhkar_controller.dart';
@@ -11,73 +14,119 @@ class AdhkarView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
-      body: SafeArea(
-        child: Container(
-          color: Theme.of(context).colorScheme.primaryContainer,
-          child: DefaultTabController(
-            length: 2,
-            child: Stack(
-              children: [
-                const TabBarViewWidget(),
-                TopBarWidget(
-                  isHomeChild: true,
-                  isQuranSetting: false,
-                  isNotification: false,
-                  tabBarController:
-                      AzkarController.instance.state.tabBarController,
-                  centerChild: Container(
-                    height: 45,
-                    padding: const EdgeInsets.all(4.0),
-                    margin: const EdgeInsets.only(top: 4.0),
-                    decoration: BoxDecoration(
-                      color: Theme.of(
-                        context,
-                      ).colorScheme.surface.withValues(alpha: .2),
-                      borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    ),
-                    child: Container(
+    return PopScope(
+      canPop: true,
+      onPopInvokedWithResult: (bool didPop, _) {
+        AppTour.instance.closeTourIfRunning();
+      },
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        body: SafeArea(
+          child: Container(
+            color: Theme.of(context).colorScheme.primaryContainer,
+            child: DefaultTabController(
+              length: 2,
+              child: Stack(
+                children: [
+                  const TabBarViewWidget(),
+                  TopBarWidget(
+                    isHomeChild: true,
+                    isQuranSetting: false,
+                    isNotification: false,
+                    tabBarController:
+                        AzkarController.instance.state.tabBarController,
+                    centerChild: Container(
+                      // هدف جولة الأذكار: شريط التبويبات (الأذكار/المفضلة).
+                      key: AzkarTourKeys.tabs,
                       height: 45,
-                      width: Get.width * .69,
-                      child: TabBar(
-                        unselectedLabelColor: context.theme.colorScheme.primary,
-                        labelStyle: AppTextStyles.titleSmall(
-                          color: context.theme.canvasColor,
+                      padding: const EdgeInsets.all(4.0),
+                      margin: const EdgeInsets.only(top: 4.0),
+                      decoration: BoxDecoration(
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.surface.withValues(alpha: .2),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(8),
                         ),
-                        dividerColor: Colors.transparent,
-                        indicatorSize: TabBarIndicatorSize.tab,
-                        indicator: BoxDecoration(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(8),
+                      ),
+                      child: Container(
+                        height: 45,
+                        width: Get.width * .69,
+                        child: TabBar(
+                          unselectedLabelColor:
+                              context.theme.colorScheme.primary,
+                          labelStyle: AppTextStyles.titleSmall(
+                            color: context.theme.canvasColor,
                           ),
-                          color: Theme.of(context).primaryColorLight,
+                          dividerColor: Colors.transparent,
+                          indicatorSize: TabBarIndicatorSize.tab,
+                          indicator: BoxDecoration(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(8),
+                            ),
+                            color: Theme.of(context).primaryColorLight,
+                          ),
+                          tabs: [
+                            Semantics(
+                              button: true,
+                              enabled: true,
+                              excludeSemantics: true,
+                              label: 'azkar'.tr,
+                              child: Tab(text: 'azkar'.tr),
+                            ),
+                            Semantics(
+                              button: true,
+                              enabled: true,
+                              excludeSemantics: true,
+                              label: 'azkarfav'.tr,
+                              child: Tab(text: 'azkarfav'.tr),
+                            ),
+                          ],
                         ),
-                        tabs: [
-                          Semantics(
-                            button: true,
-                            enabled: true,
-                            excludeSemantics: true,
-                            label: 'azkar'.tr,
-                            child: Tab(text: 'azkar'.tr),
-                          ),
-                          Semantics(
-                            button: true,
-                            enabled: true,
-                            excludeSemantics: true,
-                            label: 'azkarfav'.tr,
-                            child: Tab(text: 'azkarfav'.tr),
-                          ),
-                        ],
                       ),
                     ),
                   ),
-                ),
-              ],
+                  // يشغّل جولة الأذكار تلقائياً أول مرة بعد اكتمال تحميل الأقسام.
+                  const _AzkarTourTrigger(),
+                  TourReplayButton(
+                    onPressed: () => AppTour.instance.replayAzkarTour(),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
       ),
     );
+  }
+}
+
+/// يشغّل جولة الأذكار تلقائياً أول مرة بعد اكتمال تحميل الأقسام: الجولة
+/// تُبنى على حالة مستقلة (قائمة الأقسام ظاهرة) لا على شاشة فارغة. وكونه
+/// ودجتاً داخل الشاشة يلغي التشغيلَ بعد مغادرتها، فالبطاقة تُفكَّك معها
+/// فيُلغى النداء المعلّق ولا تبدأ الجولة فوق شاشة أخرى.
+class _AzkarTourTrigger extends StatefulWidget {
+  const _AzkarTourTrigger();
+
+  @override
+  State<_AzkarTourTrigger> createState() => _AzkarTourTriggerState();
+}
+
+class _AzkarTourTriggerState extends State<_AzkarTourTrigger> {
+  final azkarCtrl = AzkarController.instance;
+  bool _armed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() {
+      final ready = azkarCtrl.state.categories.isNotEmpty;
+      if (ready && !_armed) {
+        _armed = true;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) AppTour.instance.startAzkarTourOnce();
+        });
+      }
+      return const SizedBox.shrink();
+    });
   }
 }

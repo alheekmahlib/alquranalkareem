@@ -110,7 +110,7 @@ class ChaptersPage extends StatelessWidget {
                   ),
                 ),
               ),
-              BooksTourReplayButton(
+              TourReplayButton(
                 onPressed: () => AppTour.instance.replayBooksChaptersTour(
                   bookNumber: book.bookNumber,
                 ),

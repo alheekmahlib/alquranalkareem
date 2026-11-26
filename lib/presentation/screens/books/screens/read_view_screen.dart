@@ -145,7 +145,7 @@ class ReadViewScreen extends StatelessWidget {
         // أي بعد جهوزية صفحات الكتاب، فلا انتظار هنا ولا قراءة مزدوجة.
         const _BooksReaderTourTrigger(),
         // يرتفع زر الإعادة فوق شريط القراءة السفلي.
-        BooksTourReplayButton(
+        TourReplayButton(
           bottom: 80.0,
           onPressed: () => AppTour.instance.replayBooksReaderTour(),
         ),

@@ -10,6 +10,7 @@ import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/core/utils/constants/svg_constants.dart';
 import '/core/utils/helpers/app_text_styles.dart';
 import '/core/widgets/container_button.dart';
+import '../../../../core/tour/azkar_tour_script.dart';
 import '../../../../database/bookmark_db/bookmark_database.dart';
 import '../../../../presentation/screens/quran_page/widgets/search/search_extensions/highlight_extension.dart';
 import '../controller/adhkar_controller.dart';
@@ -42,6 +43,8 @@ class AdhkarList extends StatelessWidget {
         child: Obx(() {
           final hasText = azkarCtrl.state.searchQuery.value.isNotEmpty;
           return SizedBox(
+            // هدف جولة الأذكار: حقل البحث في الأذكار.
+            key: AzkarTourKeys.search,
             height: 44,
             child: TextField(
               controller: azkarCtrl.state.searchController,
@@ -150,6 +153,9 @@ class AdhkarList extends StatelessWidget {
                 verticalOffset: 50.0,
                 child: FadeInAnimation(
                   child: ContainerButton(
+                    // هدف جولة الأذكار: أول بطاقة تصنيف. مفتاح كل البطاقات
+                    // يجعل الإضاءة تقع على آخر بطاقة بنيت في مدى الذاكرة.
+                    key: index == 0 ? AzkarTourKeys.categories : null,
                     onPressed: () {
                       azkarCtrl.filterByCategory(
                         azkarCtrl.state.categories[index],

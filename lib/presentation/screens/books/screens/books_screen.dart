@@ -63,46 +63,12 @@ class BooksScreen extends StatelessWidget {
                 ),
                 // يشغّل جولة المكتبة تلقائياً أول مرة بعد اكتمال تحميل الكتب.
                 const _BooksTourTrigger(),
-                BooksTourReplayButton(
+                TourReplayButton(
                   onPressed: () => AppTour.instance.replayBooksTour(),
                 ),
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-/// زر إعادة جولة شاشة من شاشات المكتبة (زر الاستفهام العائم)، كل شاشة تمرّر
-/// جولتها. في القارئ يرتفع فوق شريط القراءة السفلي بتمرير [bottom].
-class BooksTourReplayButton extends StatelessWidget {
-  const BooksTourReplayButton({
-    super.key,
-    required this.onPressed,
-    this.bottom,
-  });
-
-  final VoidCallback onPressed;
-
-  /// المسافة بين الزر وحافة الشاشة السفلى.
-  final double? bottom;
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: AlignmentDirectional.bottomEnd,
-      child: Padding(
-        padding: EdgeInsets.only(bottom: bottom ?? 16.0, right: 8.0, left: 8.0),
-        child: CustomButton(
-          height: 50,
-          width: 50,
-          backgroundColor: context.theme.colorScheme.surface,
-          isCustomSvgColor: true,
-          svgPath: SvgPath.svgHomeCommentQuestion,
-          svgColor: context.theme.canvasColor,
-          onPressed: onPressed,
         ),
       ),
     );

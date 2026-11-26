@@ -10,6 +10,7 @@ import 'package:spotlight_tour/spotlight_tour.dart';
 
 import '../utils/helpers/app_text_styles.dart';
 import 'audio_tour_script.dart';
+import 'azkar_tour_script.dart';
 import 'books_tour_script.dart';
 import 'midad_tour_script.dart';
 import 'mushaf_tour_script.dart';
@@ -57,7 +58,12 @@ class GetStorageTourCompletionStore implements TourCompletionStore {
 /// جديد، وإعادة الجولة بالخليط المفرد كانت سترمي خطأً.
 class AppTour extends GetxController
     with GetTickerProviderStateMixin
-    implements MushafTourHooks, AudioTourHooks, MidadTourHooks, BooksTourHooks {
+    implements
+        MushafTourHooks,
+        AudioTourHooks,
+        MidadTourHooks,
+        BooksTourHooks,
+        AzkarTourHooks {
   AppTour({
     bool Function()? isControlsVisible,
     void Function()? toggleControls,
@@ -92,6 +98,11 @@ class AppTour extends GetxController
     bool Function()? hasBooksChaptersDropdown,
     bool Function(int bookNumber)? isBooksBookDownloaded,
     PageController Function()? booksReaderPageController,
+    bool Function()? hasAzkarCategoriesVisible,
+    double Function()? azkarListScrollOffset,
+    void Function(double offset)? scrollAzkarListTo,
+    double Function()? azkarItemScrollOffset,
+    void Function(double offset)? scrollAzkarItemTo,
   }) : _isControlsVisible = isControlsVisible,
        _toggleControls = toggleControls,
        _collapsePanels = collapsePanels,
@@ -124,7 +135,12 @@ class AppTour extends GetxController
        _setBooksReaderBarsVisible = setBooksReaderBarsVisible,
        _hasBooksChaptersDropdown = hasBooksChaptersDropdown,
        _isBooksBookDownloaded = isBooksBookDownloaded,
-       _booksReaderPageController = booksReaderPageController;
+       _booksReaderPageController = booksReaderPageController,
+       _hasAzkarCategoriesVisible = hasAzkarCategoriesVisible,
+       _azkarListScrollOffset = azkarListScrollOffset,
+       _scrollAzkarListTo = scrollAzkarListTo,
+       _azkarItemScrollOffset = azkarItemScrollOffset,
+       _scrollAzkarItemTo = scrollAzkarItemTo;
 
   static AppTour get instance => Get.find<AppTour>();
 
@@ -167,6 +183,11 @@ class AppTour extends GetxController
   final bool Function()? _hasBooksChaptersDropdown;
   final bool Function(int bookNumber)? _isBooksBookDownloaded;
   final PageController Function()? _booksReaderPageController;
+  final bool Function()? _hasAzkarCategoriesVisible;
+  final double Function()? _azkarListScrollOffset;
+  final void Function(double offset)? _scrollAzkarListTo;
+  final double Function()? _azkarItemScrollOffset;
+  final void Function(double offset)? _scrollAzkarItemTo;
 
   // ---- MushafTourHooks: ما ينفّذه السيناريو في التطبيق ----------------
 
@@ -256,6 +277,24 @@ class AppTour extends GetxController
   bool isBooksBookDownloaded(int bookNumber) =>
       _isBooksBookDownloaded?.call(bookNumber) ?? false;
 
+  // ---- AzkarTourHooks: ما ينفّذه السيناريو في التطبيق ----------------
+
+  @override
+  bool get hasAzkarCategoriesVisible =>
+      _hasAzkarCategoriesVisible?.call() ?? true;
+
+  @override
+  double get azkarListScrollOffset => _azkarListScrollOffset?.call() ?? 0;
+
+  @override
+  void scrollAzkarListTo(double offset) => _scrollAzkarListTo?.call(offset);
+
+  @override
+  double get azkarItemScrollOffset => _azkarItemScrollOffset?.call() ?? 0;
+
+  @override
+  void scrollAzkarItemTo(double offset) => _scrollAzkarItemTo?.call(offset);
+
   // ---- AudioTourHooks: ما ينفّذه السيناريو في التطبيق ----------------
 
   @override
@@ -317,6 +356,12 @@ class AppTour extends GetxController
 
   /// معرّف جولة القارئ في مخزن الإكمال.
   static const String booksReaderTourId = 'books_reader';
+
+  /// معرّف جولة الأذكار (الشاشة الرئيسية) في مخزن الإكمال.
+  static const String azkarTourId = 'azkar';
+
+  /// معرّف جولة شاشة القسم (أذكار التصنيف) في مخزن الإكمال.
+  static const String azkarItemTourId = 'azkar_item';
 
   /// مخزن الإكمال الدائم (متاح لأزرار «إعادة الجولة» في الأقسام الأخرى).
   late final GetStorageTourCompletionStore store =
@@ -401,6 +446,10 @@ class AppTour extends GetxController
   bool _booksChaptersAutoTriggered = false;
 
   bool _booksReaderAutoTriggered = false;
+
+  bool _azkarAutoTriggered = false;
+
+  bool _azkarItemAutoTriggered = false;
 
   /// سيناريو الجولة الجارية (null قبل أول بدء). يُنشأ مع كل بدء لأن
   /// [buildMushafSteps] كذلك، ويُوجَّه إليه ما يطرأ على ورقة خيارات الآية.
@@ -765,6 +814,73 @@ class AppTour extends GetxController
     _booksReaderAutoTriggered = true;
     await store.reset(booksReaderTourId);
     tour.start(tourId: booksReaderTourId, steps: buildBooksReaderSteps());
+  }
+
+  /// يبني خطوات جولة الأذكار (الشاشة الرئيسية) ويوجّه إليها ما يطرأ على
+  /// الكنترولر. تُقرأ حالة الشاشة (ظهور قائمة الأقسام) لحظة البدء فقط
+  /// لأنها تفصل محطةً قد غاب هدفها حين يكون البحث جارياً.
+  List<TourStep> buildAzkarSteps() {
+    final script = AzkarTourScript(
+      tour: tour,
+      hooks: this,
+      style: _tourStyle(),
+      hasCategoriesVisible: hasAzkarCategoriesVisible,
+    );
+    tour
+      ..onStepChanged = script.onStepChanged
+      ..onSkip = script.onTourEnd
+      ..onFinish = script.onTourEnd;
+    return script.steps;
+  }
+
+  /// يبدأ جولة الأذكار أول مرة فقط. نقطة الاستدعاء الوحيدة من بطاقة
+  /// التشغيل داخل شاشة الأذكار بعد اكتمال تحميل الأقسام. العلم يُضبط
+  /// تزامنياً فلا تتكرر الجولة مهما أُعيدت إعادات البناء، ولا تبدأ إن كانت
+  /// جولة أخرى ظاهرة أو كانت جولة القسم مكتملة سابقاً.
+  void startAzkarTourOnce() {
+    if (_azkarAutoTriggered) return;
+    _azkarAutoTriggered = true;
+    tour.startOnce(tourId: azkarTourId, steps: buildAzkarSteps());
+  }
+
+  /// إعادة جولة الأذكار فوراً (من زر الاستفهام في الشاشة).
+  Future<void> replayAzkarTour() async {
+    _azkarAutoTriggered = true;
+    await store.reset(azkarTourId);
+    tour.start(tourId: azkarTourId, steps: buildAzkarSteps());
+  }
+
+  /// يبني خطوات جولة شاشة القسم ويوجّه إليها ما يطرأ على الكنترولر:
+  /// تثبيت الشاشة على أعلاها خلال محطتي شريط الخيارات ونص أول ذكر،
+  /// وإعادة موضع المستخدم عند انتهائها.
+  List<TourStep> buildAzkarItemSteps() {
+    final script = AzkarItemTourScript(
+      tour: tour,
+      hooks: this,
+      style: _tourStyle(),
+    );
+    tour
+      ..onStepChanged = script.onStepChanged
+      ..onSkip = script.onTourEnd
+      ..onFinish = script.onTourEnd;
+    return script.steps;
+  }
+
+  /// يبدأ جولة شاشة القسم أول مرة فقط. نقطة الاستدعاء الوحيدة من build
+  /// الخاص بـ AdhkarItem عبر addPostFrameCallback. العلم يُضبط تزامنياً
+  /// فلا تتكرر الجولة مهما أُعيدت إعادات البناء، ولا تبدأ إن كانت جولة
+  /// أخرى ظاهرة أو كانت جولتها مكتملة سابقاً.
+  void startAzkarItemTourOnce() {
+    if (_azkarItemAutoTriggered) return;
+    _azkarItemAutoTriggered = true;
+    tour.startOnce(tourId: azkarItemTourId, steps: buildAzkarItemSteps());
+  }
+
+  /// إعادة جولة شاشة القسم فوراً (من زر الاستفهام في الشاشة).
+  Future<void> replayAzkarItemTour() async {
+    _azkarItemAutoTriggered = true;
+    await store.reset(azkarItemTourId);
+    tour.start(tourId: azkarItemTourId, steps: buildAzkarItemSteps());
   }
 
   /// يصلّح موضع القراءة إن قُتل التطبيق قسراً وسط عرض القلب في جلسة

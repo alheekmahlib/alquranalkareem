@@ -24,6 +24,9 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final bool? isBackToHome;
   final Color? arrowBackColor;
 
+  /// مفتاح هدف الجولة لزر تغيير حجم الخط (null: بلا مفتاح).
+  final Key? fontSizeButtonKey;
+
   const AppBarWidget({
     super.key,
     required this.isTitled,
@@ -39,6 +42,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
     this.backButton = true,
     this.isBackToHome = false,
     this.arrowBackColor,
+    this.fontSizeButtonKey,
   });
 
   @override
@@ -80,7 +84,13 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
             ),
       leadingWidth: 60,
       actions: [
-        isFontSize ? fontSizeDropDownWidget() : const SizedBox.shrink(),
+        isFontSize
+            ? KeyedSubtree(
+                // هدف جولة شاشة القسم في الأذكار: زر تغيير حجم الخط.
+                key: fontSizeButtonKey,
+                child: fontSizeDropDownWidget(),
+              )
+            : const SizedBox.shrink(),
         searchButton,
       ],
       bottom: bottom,

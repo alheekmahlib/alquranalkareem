@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '../../../../core/tour/azkar_tour_script.dart';
 import '../../../../core/utils/constants/extensions/bottom_sheet_extension.dart';
 import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
@@ -57,6 +58,8 @@ class LogoWidget extends StatelessWidget {
         Align(
           alignment: AlignmentDirectional.centerStart,
           child: Container(
+            // هدف جولة الأذكار: زر المنبه الذي يفتح ورقة التذكيرات.
+            key: AzkarTourKeys.alarm,
             height: 45,
             width: 100,
             alignment: AlignmentDirectional.centerEnd,
