@@ -39,6 +39,7 @@ class InputBarWidget extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: TextField(
+                          key: MidadTourKeys.inputField,
                           minLines: 1,
                           maxLines: 5,
                           keyboardType: TextInputType.multiline,
@@ -102,7 +103,8 @@ class InputBarWidget extends StatelessWidget {
                 final isAssistant =
                     ctrl.state.midasMode.value == MidasMode.assistant;
                 final hasText = ctrl.state.hasInputText.value;
-                final isBusy = isAssistant &&
+                final isBusy =
+                    isAssistant &&
                     (ctrl.state.isAssistantThinking.value ||
                         ctrl.state.currentToolName.value.isNotEmpty);
                 return Row(
@@ -122,6 +124,7 @@ class InputBarWidget extends StatelessWidget {
                       )
                     else
                       IconButton(
+                        key: MidadTourKeys.sendButton,
                         onPressed: hasText
                             ? () {
                                 final query = ctrl.state.searchTextEditing.text
@@ -158,10 +161,12 @@ class InputBarWidget extends StatelessWidget {
                             ? ToolCallIndicator(
                                 toolName: ctrl.state.currentToolName.value,
                               )
-                            : ModelSelectorWidget(),
+                            : ModelSelectorWidget(
+                                key: MidadTourKeys.modelSelector,
+                              ),
                       )
                     else
-                      SectionFilterWidget(),
+                      SectionFilterWidget(key: MidadTourKeys.sectionFilter),
                   ],
                 );
               }),

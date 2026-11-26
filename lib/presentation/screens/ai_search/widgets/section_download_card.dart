@@ -4,7 +4,10 @@ part of '../ai_search.dart';
 class SharedDownloadCard extends StatelessWidget {
   final VoidCallback onDownload;
 
-  const SharedDownloadCard({super.key, required this.onDownload});
+  /// مفتاح قلب البطاقة (لا جذرها ذي الهامش) حين تكون هدف جولة مداد.
+  final Key? cardKey;
+
+  const SharedDownloadCard({super.key, required this.onDownload, this.cardKey});
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +21,7 @@ class SharedDownloadCard extends StatelessWidget {
       return Padding(
         padding: const EdgeInsets.only(bottom: 12),
         child: ClipRRect(
+          key: cardKey,
           borderRadius: BorderRadius.circular(12),
           child: Container(
             decoration: BoxDecoration(
@@ -182,7 +186,14 @@ class SectionDownloadCard extends StatelessWidget {
   final SearchSection section;
   final VoidCallback onDownload;
 
-  SectionDownloadCard({required this.section, required this.onDownload});
+  /// مفتاح قلب البطاقة (لا جذرها ذي الهامش) حين تكون هدف جولة مداد.
+  final Key? cardKey;
+
+  SectionDownloadCard({
+    required this.section,
+    required this.onDownload,
+    this.cardKey,
+  });
 
   final ctrl = AiSearchController.instance;
 
@@ -208,6 +219,7 @@ class SectionDownloadCard extends StatelessWidget {
         child: Opacity(
           opacity: isSharedReady ? 1.0 : 0.4,
           child: ClipRRect(
+            key: cardKey,
             borderRadius: BorderRadius.circular(12),
             child: Container(
               decoration: BoxDecoration(

@@ -33,9 +33,11 @@ class FloatingMenuWidget extends StatelessWidget {
         ),
         panelBorderRadius: BorderRadius.circular(8),
       ),
-      handleChild: const SizedBox().customSvg(
-        SvgPath.svgHomeSetting,
-        height: 30,
+      // مقبض القائمة هدف جولة مداد: KeyedSubtree حتى لا يرث المفتاح حجمة
+      // من الحزمة بل حجم الودجت الداخلي نفسه.
+      handleChild: KeyedSubtree(
+        key: MidadTourKeys.floatingMenu,
+        child: const SizedBox().customSvg(SvgPath.svgHomeSetting, height: 30),
       ),
       panelChild: ListView(
         padding: const EdgeInsets.all(16),

@@ -56,6 +56,7 @@ class UnifiedAssistantView extends StatelessWidget {
             const Gap(32),
             // اقتراحات متنوعة: بعضها قرآني، بعضها من الأقسام الشرعية.
             Wrap(
+              key: MidadTourKeys.assistantChips,
               spacing: 8,
               runSpacing: 8,
               alignment: WrapAlignment.center,

@@ -21,6 +21,7 @@ import 'core/utils/constants/extensions/convert_number_extension.dart';
 import 'core/utils/constants/shared_preferences_constants.dart';
 import 'myApp.dart';
 import 'presentation/controllers/general/general_controller.dart';
+import 'presentation/screens/ai_search/ai_search.dart';
 import 'presentation/screens/feedback/data/feedback_queue.dart';
 import 'presentation/screens/quran_page/data/helper/ayah_menu_helper.dart';
 import 'presentation/screens/quran_page/quran.dart';
@@ -123,6 +124,43 @@ Future<void> initializeApp() async {
         final controller = AudioCtrl.instance.state.surahListController;
         if (controller.hasClients) controller.jumpTo(offset);
       },
+      // جولة مداد: وضع الشاشة (دلالي ↔ مساعد) وحالة التحميل والاتصال.
+      // حفظ الوضع يتم في الكنترولر تلقائياً عند تغييره، فيكفي الضبط بالقيمة.
+      isMidasAssistantMode: () =>
+          AiSearchController.instance.state.midasMode.value ==
+          MidasMode.assistant,
+      setMidasAssistantMode: (assistant) =>
+          AiSearchController.instance.state.midasMode.value = assistant
+          ? MidasMode.assistant
+          : MidasMode.semantic,
+      isMidadOnline: () => ConnectionController.instance.isOnline,
+      // مهلة احتياطية: البدء التلقائي للجولة لا يمرّ من هنا أصلاً، فهو من
+      // بطاقة تشغيل لا تستدعيه إلا بعد اكتمال التهيئة.
+      awaitMidadReady: () => AiSearchController.instance
+          .ensureInitialized()
+          .timeout(const Duration(seconds: 15), onTimeout: () {}),
+      hasMidadSectionLoaded: () =>
+          AiSearchController.instance.state.hasAnySectionLoaded,
+      isMidadSharedLoaded: () =>
+          AiSearchController.instance.state.isSharedLoaded.value,
+      // شرط حالة الفراغ الدلالي كما تقرره شاشة المحتوى نفسها: لا بحث جارٍ
+      // ولا نتائج، والاستعلام فارغ أو خلفه خطأ.
+      isMidadSemanticEmpty: () {
+        final state = AiSearchController.instance.state;
+        final hasResults = SearchSection.all.any(
+          (section) => state.sectionResults(section.id).isNotEmpty,
+        );
+        return !state.isSearching.value &&
+            !hasResults &&
+            (state.currentQuery.value.isEmpty ||
+                state.errorMessage.value.isNotEmpty);
+      },
+      isMidadAssistantFresh: () {
+        final state = AiSearchController.instance.state;
+        return state.isAssistantEmpty && state.assistantError.value.isEmpty;
+      },
+      hasMidadProviders: () =>
+          AiSearchController.instance.availableProviders.isNotEmpty,
     ),
     permanent: true,
   );

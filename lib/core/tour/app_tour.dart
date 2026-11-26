@@ -10,6 +10,7 @@ import 'package:spotlight_tour/spotlight_tour.dart';
 
 import '../utils/helpers/app_text_styles.dart';
 import 'audio_tour_script.dart';
+import 'midad_tour_script.dart';
 import 'mushaf_tour_script.dart';
 import 'tasmee_tour_script.dart';
 
@@ -55,7 +56,7 @@ class GetStorageTourCompletionStore implements TourCompletionStore {
 /// جديد، وإعادة الجولة بالخليط المفرد كانت سترمي خطأً.
 class AppTour extends GetxController
     with GetTickerProviderStateMixin
-    implements MushafTourHooks, AudioTourHooks {
+    implements MushafTourHooks, AudioTourHooks, MidadTourHooks {
   AppTour({
     bool Function()? isControlsVisible,
     void Function()? toggleControls,
@@ -70,6 +71,15 @@ class AppTour extends GetxController
     void Function()? closeAudioFullScreen,
     double Function()? audioSurahListOffset,
     void Function(double offset)? scrollAudioSurahListTo,
+    bool Function()? isMidasAssistantMode,
+    void Function(bool assistant)? setMidasAssistantMode,
+    bool Function()? isMidadOnline,
+    Future<void> Function()? awaitMidadReady,
+    bool Function()? hasMidadSectionLoaded,
+    bool Function()? isMidadSharedLoaded,
+    bool Function()? isMidadSemanticEmpty,
+    bool Function()? isMidadAssistantFresh,
+    bool Function()? hasMidadProviders,
   }) : _isControlsVisible = isControlsVisible,
        _toggleControls = toggleControls,
        _collapsePanels = collapsePanels,
@@ -82,7 +92,16 @@ class AppTour extends GetxController
        _openAudioFullScreen = openAudioFullScreen,
        _closeAudioFullScreen = closeAudioFullScreen,
        _audioSurahListOffset = audioSurahListOffset,
-       _scrollAudioSurahListTo = scrollAudioSurahListTo;
+       _scrollAudioSurahListTo = scrollAudioSurahListTo,
+       _isMidasAssistantMode = isMidasAssistantMode,
+       _setMidasAssistantMode = setMidasAssistantMode,
+       _isMidadOnline = isMidadOnline,
+       _awaitMidadReady = awaitMidadReady,
+       _hasMidadSectionLoaded = hasMidadSectionLoaded,
+       _isMidadSharedLoaded = isMidadSharedLoaded,
+       _isMidadSemanticEmpty = isMidadSemanticEmpty,
+       _isMidadAssistantFresh = isMidadAssistantFresh,
+       _hasMidadProviders = hasMidadProviders;
 
   static AppTour get instance => Get.find<AppTour>();
 
@@ -105,6 +124,15 @@ class AppTour extends GetxController
   final void Function()? _closeAudioFullScreen;
   final double Function()? _audioSurahListOffset;
   final void Function(double offset)? _scrollAudioSurahListTo;
+  final bool Function()? _isMidasAssistantMode;
+  final void Function(bool assistant)? _setMidasAssistantMode;
+  final bool Function()? _isMidadOnline;
+  final Future<void> Function()? _awaitMidadReady;
+  final bool Function()? _hasMidadSectionLoaded;
+  final bool Function()? _isMidadSharedLoaded;
+  final bool Function()? _isMidadSemanticEmpty;
+  final bool Function()? _isMidadAssistantFresh;
+  final bool Function()? _hasMidadProviders;
 
   // ---- MushafTourHooks: ما ينفّذه السيناريو في التطبيق ----------------
 
@@ -125,6 +153,36 @@ class AppTour extends GetxController
 
   @override
   void closeAyahMenu() => _closeAyahMenu?.call();
+
+  // ---- MidadTourHooks: ما ينفّذه السيناريو في التطبيق ----------------
+
+  @override
+  bool get isMidasAssistantMode => _isMidasAssistantMode?.call() ?? false;
+
+  @override
+  void setMidasAssistantMode(bool assistant) =>
+      _setMidasAssistantMode?.call(assistant);
+
+  @override
+  bool get isMidadOnline => _isMidadOnline?.call() ?? true;
+
+  @override
+  Future<void> awaitMidadReady() async => await _awaitMidadReady?.call();
+
+  @override
+  bool get hasMidadSectionLoaded => _hasMidadSectionLoaded?.call() ?? false;
+
+  @override
+  bool get isMidadSharedLoaded => _isMidadSharedLoaded?.call() ?? false;
+
+  @override
+  bool get isMidadSemanticEmpty => _isMidadSemanticEmpty?.call() ?? true;
+
+  @override
+  bool get isMidadAssistantFresh => _isMidadAssistantFresh?.call() ?? true;
+
+  @override
+  bool get hasMidadProviders => _hasMidadProviders?.call() ?? false;
 
   // ---- AudioTourHooks: ما ينفّذه السيناريو في التطبيق ----------------
 
@@ -169,6 +227,15 @@ class AppTour extends GetxController
 
   /// معرّف جولة المصحف الصوتي في مخزن الإكمال.
   static const String audioTourId = 'audio';
+
+  /// معرّف جولة مداد الكاملة في مخزن الإكمال.
+  static const String midadTourId = 'midad';
+
+  /// معرّف جولة التحميل القصيرة (الوضع الدلالي قبل تحميل أي قسم).
+  static const String midadDownloadTourId = 'midad_download';
+
+  /// معرّف جولة المساعد الذكي (وضع المساعد قبل تحميل أي قسم).
+  static const String midadAssistantTourId = 'midad_assistant';
 
   /// مخزن الإكمال الدائم (متاح لأزرار «إعادة الجولة» في الأقسام الأخرى).
   late final GetStorageTourCompletionStore store =
@@ -238,6 +305,10 @@ class AppTour extends GetxController
   bool _tasmeeAutoTriggered = false;
 
   bool _audioAutoTriggered = false;
+
+  bool _midadAutoTriggered = false;
+
+  bool _midadAssistantAutoTriggered = false;
 
   /// سيناريو الجولة الجارية (null قبل أول بدء). يُنشأ مع كل بدء لأن
   /// [buildMushafSteps] كذلك، ويُوجَّه إليه ما يطرأ على ورقة خيارات الآية.
@@ -385,6 +456,108 @@ class AppTour extends GetxController
     _audioAutoTriggered = true;
     await store.reset(audioTourId);
     tour.start(tourId: audioTourId, steps: buildAudioSteps());
+  }
+
+  /// يبني خطوات جولة مداد الكاملة ويوجّه إليها ما يطرأ على الكنترولر.
+  /// تُقرأ حالة الشاشة (اتصال، اقتراحات، مزودون) لحظة البدء فقط لأنها
+  /// تفصل محطاتٍ قد غاب هدفها في بعض الحالات.
+  List<TourStep> buildMidadSteps() {
+    final script = MidadTourScript(
+      tour: tour,
+      hooks: this,
+      style: _tourStyle(),
+      online: isMidadOnline,
+      hasProviders: hasMidadProviders,
+      semanticEmpty: isMidadSemanticEmpty,
+      assistantFresh: isMidadAssistantFresh,
+    );
+    tour
+      ..onStepChanged = script.onStepChanged
+      ..onSkip = script.onTourEnd
+      ..onFinish = script.onTourEnd;
+    return script.steps;
+  }
+
+  /// يبني خطوات جولة التحميل القصيرة، ولا تجهيز لها فتُربط ردّاها الفارغة
+  /// لتُلغي ردّ أي جولة أقدم على الكنترولر.
+  List<TourStep> buildMidadDownloadSteps() {
+    final script = MidadDownloadTourScript(
+      tour: tour,
+      hooks: this,
+      style: _tourStyle(),
+      sharedLoaded: isMidadSharedLoaded,
+    );
+    tour
+      ..onStepChanged = script.onStepChanged
+      ..onSkip = script.onTourEnd
+      ..onFinish = script.onTourEnd;
+    return script.steps;
+  }
+
+  /// يبني خطوات جولة المساعد الذكي، ولا تجهيز لها كجولة التحميل.
+  List<TourStep> buildMidadAssistantSteps() {
+    final script = MidadAssistantTourScript(
+      tour: tour,
+      hooks: this,
+      style: _tourStyle(),
+      online: isMidadOnline,
+      assistantFresh: isMidadAssistantFresh,
+      hasProviders: hasMidadProviders,
+    );
+    tour
+      ..onStepChanged = script.onStepChanged
+      ..onSkip = script.onTourEnd
+      ..onFinish = script.onTourEnd;
+    return script.steps;
+  }
+
+  /// جولة مداد المطابقة للحالة: الكاملة بعد تحميل أي قسم؛ وإلا فجولة
+  /// المساعد إن كان المستخدم في وضع المساعد (فالمساعد يعمل دون تحميلات)،
+  /// وإلا فجولة التحميل.
+  (String, List<TourStep>) _midadTourForCurrentState() {
+    if (hasMidadSectionLoaded) return (midadTourId, buildMidadSteps());
+    if (isMidasAssistantMode) {
+      return (midadAssistantTourId, buildMidadAssistantSteps());
+    }
+    return (midadDownloadTourId, buildMidadDownloadSteps());
+  }
+
+  /// يبدأ جولة مداد أول مرة فقط، بتفريق حالة الشاشة كما في
+  /// [_midadTourForCurrentState]. نقطة الاستدعاء الوحيدة من بطاقة التشغيل
+  /// داخل شاشة مداد بعد اكتمال التهيئة، فلا انتظار هنا ولا تبدأ الجولة
+  /// فوق شاشة أخرى.
+  void startMidadTourOnce() {
+    if (_midadAutoTriggered) return;
+    _midadAutoTriggered = true;
+    final (id, steps) = _midadTourForCurrentState();
+    if (id == midadAssistantTourId) {
+      // هذه هي جولته الأولى هذه الجلسة، فلا يعيدها الانتقال إليه ثانيةً.
+      _midadAssistantAutoTriggered = true;
+    }
+    tour.startOnce(tourId: id, steps: steps);
+  }
+
+  /// يبدأ جولة المساعد الذكي أول مرة فقط: أول انتقال إلى وضع المساعد قبل
+  /// تحميل أي قسم (تستدعيها بطاقة التشغيل داخل الشاشة). بعد التحميل لا
+  /// شيء، فالجولة الكاملة تشرح المساعد ضمن مسارها.
+  void startMidadAssistantTourOnce() {
+    if (_midadAssistantAutoTriggered) return;
+    _midadAssistantAutoTriggered = true;
+    if (hasMidadSectionLoaded) return;
+    tour.startOnce(
+      tourId: midadAssistantTourId,
+      steps: buildMidadAssistantSteps(),
+    );
+  }
+
+  /// إعادة جولة مداد فوراً (من زر الاستفهام في شريط الشاشة): يعيد الجولة
+  /// المطابقة لحالة الشاشة بعد اكتمال التهيئة إن كانت جارية.
+  Future<void> replayMidadTour() async {
+    _midadAutoTriggered = true;
+    await awaitMidadReady();
+    final (id, steps) = _midadTourForCurrentState();
+    await store.reset(id);
+    tour.start(tourId: id, steps: steps);
   }
 
   /// يصلّح موضع القراءة إن قُتل التطبيق قسراً وسط عرض القلب في جلسة

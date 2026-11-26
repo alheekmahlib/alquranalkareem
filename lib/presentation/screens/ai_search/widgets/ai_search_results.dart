@@ -7,33 +7,46 @@ class AiSearchResults extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: context.theme.colorScheme.primary,
-      appBar: AppBarWidget(
-        isTitled: false,
-        isFontSize: false,
-        searchButton: _buildAppBarActions(context),
-        isNotifi: false,
-        isBooks: false,
-        isBackToHome: true,
-        arrowBackColor: context.theme.canvasColor,
-        color: Colors.transparent,
-      ),
-      body: SafeArea(
-        child: Center(
-          child: Obx(() {
-            // بدّل المحتوى بحسب الوضع النشط.
-            if (ctrl.state.midasMode.value == MidasMode.assistant) {
-              return _buildAssistantMode(context);
-            }
-            return _buildSemanticMode(context);
-          }),
+    return PopScope(
+      canPop: true,
+      onPopInvokedWithResult: (didPop, _) {
+        // أنهِ الجولة قبل مغادرة الشاشة حتى لا تبقى فوق أهداف غائبة.
+        if (didPop) AppTour.instance.closeTourIfRunning();
+      },
+      child: Scaffold(
+        backgroundColor: context.theme.colorScheme.primary,
+        appBar: AppBarWidget(
+          isTitled: false,
+          isFontSize: false,
+          searchButton: _buildAppBarActions(context),
+          isNotifi: false,
+          isBooks: false,
+          isBackToHome: true,
+          arrowBackColor: context.theme.canvasColor,
+          color: Colors.transparent,
+        ),
+        body: SafeArea(
+          child: Stack(
+            children: [
+              Center(
+                child: Obx(() {
+                  // بدّل المحتوى بحسب الوضع النشط.
+                  if (ctrl.state.midasMode.value == MidasMode.assistant) {
+                    return _buildAssistantMode(context);
+                  }
+                  return _buildSemanticMode(context);
+                }),
+              ),
+              const _MidadTourTrigger(),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  /// أزرار الـ AppBar: تبديل الوضع + محادثة جديدة (مساعد) + سجل المحادثة.
+  /// أزرار الـ AppBar: تبديل الوضع + محادثة جديدة (مساعد) + سجل المحادثة
+  /// + إعادة جولة مداد.
   Widget _buildAppBarActions(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -42,6 +55,7 @@ class AiSearchResults extends StatelessWidget {
         Obx(() {
           final isAssistant = ctrl.state.midasMode.value == MidasMode.assistant;
           return CustomButton(
+            key: MidadTourKeys.modeToggle,
             // tooltip: isAssistant ? 'semanticMode'.tr : 'assistantMode'.tr,
             onPressed: () {
               ctrl.state.midasMode.value = isAssistant
@@ -58,6 +72,7 @@ class AiSearchResults extends StatelessWidget {
         const Gap(6),
         // زر "محادثة جديدة".
         CustomButton(
+          key: MidadTourKeys.newChat,
           onPressed: () => ctrl.clearConversation(),
           isCustomSvgColor: true,
           svgPath: SvgPath.svgHomeNewChat,
@@ -66,10 +81,19 @@ class AiSearchResults extends StatelessWidget {
         const Gap(6),
         // سجل المحادثة — يظهر في الوضعين (موحّد).
         CustomButton(
+          key: MidadTourKeys.history,
           // tooltip: 'newChat'.tr,
           onPressed: () => customBottomSheet(const ChatHistorySheet()),
           isCustomSvgColor: true,
           svgPath: SvgPath.svgHomeHistory,
+          svgColor: context.theme.canvasColor,
+        ),
+        const Gap(6),
+        // إعادة جولة مداد.
+        CustomButton(
+          onPressed: () => AppTour.instance.replayMidadTour(),
+          isCustomSvgColor: true,
+          svgPath: SvgPath.svgHomeCommentQuestion,
           svgColor: context.theme.canvasColor,
         ),
         const Gap(8),
@@ -195,6 +219,7 @@ class AiSearchResults extends StatelessWidget {
                 ),
                 const Gap(32),
                 Wrap(
+                  key: MidadTourKeys.suggestionChips,
                   spacing: 8,
                   runSpacing: 8,
                   alignment: WrapAlignment.center,
@@ -283,7 +308,11 @@ class AiSearchResults extends StatelessWidget {
             const Gap(16),
             // Shared files card (must download first)
             if (!ctrl.state.isSharedLoaded.value)
-              SharedDownloadCard(onDownload: () => ctrl.downloadShared())
+              SharedDownloadCard(
+                // هدف جولة التحميل: القلب بلا الهامش الخارجي.
+                cardKey: MidadTourKeys.sharedCard,
+                onDownload: () => ctrl.downloadShared(),
+              )
             else
               Padding(
                 padding: const EdgeInsets.only(bottom: 12),
@@ -326,6 +355,10 @@ class AiSearchResults extends StatelessWidget {
             // Section cards
             ...SearchSection.all.map(
               (section) => SectionDownloadCard(
+                // هدف جولة التحميل على البطاقة الأولى وحدها.
+                cardKey: identical(section, SearchSection.all.first)
+                    ? MidadTourKeys.sectionCard
+                    : null,
                 section: section,
                 onDownload: () => ctrl.downloadSection(section),
               ),
@@ -826,5 +859,50 @@ class AiSearchResults extends StatelessWidget {
         'أفهم سؤالك جيداً. دعني أبحث لك في المصادر المتاحة وأجمع أفضل ما يتعلق بموضوعك.\n\n'
         'سأبدأ البحث في $sectionsText...\n\n'
         'النتائج ستظهر تباعاً فور العثور عليها...';
+  }
+}
+
+/// يشغّل جولة مداد تلقائياً أول مرة بعد اكتمال تهيئة الشاشة: الجولة تُبنى
+/// على حالة مستقرة (شاشة التحميل أو الأقسام المحمّلة) لا على واجهة
+/// التهيئة المتوسطة. وكونه ودجتاً داخل الشاشة يلغي التشغيلَ بعد مغادرتها،
+/// فالبطاقة تُفكَّك معها فيُلغى النداء المعلَّق ولا تبدأ الجولة فوق شاشة
+/// أخرى. ويشغّل جولة المساعد عند أول انتقال إليه قبل تحميل أي قسم، فلا
+/// يبقى شرحه محبوساً في الجولة الكاملة.
+class _MidadTourTrigger extends StatefulWidget {
+  const _MidadTourTrigger();
+
+  @override
+  State<_MidadTourTrigger> createState() => _MidadTourTriggerState();
+}
+
+class _MidadTourTriggerState extends State<_MidadTourTrigger> {
+  final ctrl = AiSearchController.instance;
+  bool _armed = false;
+  bool _assistantArmed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    // تهيئة idempotent؛ تُستدعى هنا أيضاً لمن افتتح الشاشة على وضع المساعد
+    // فلم يمرّ بطريق شاشة الدلالي التي تستدعيها.
+    ctrl.ensureInitialized();
+    return Obx(() {
+      final ready = ctrl.isInitialized.value;
+      if (ready && !_armed) {
+        _armed = true;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) AppTour.instance.startMidadTourOnce();
+        });
+      }
+      // أول دخول للمساعد قبل تحميل أي قسم: شرحه مرة واحدة.
+      if (ready &&
+          ctrl.state.midasMode.value == MidasMode.assistant &&
+          !_assistantArmed) {
+        _assistantArmed = true;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) AppTour.instance.startMidadAssistantTourOnce();
+        });
+      }
+      return const SizedBox.shrink();
+    });
   }
 }
