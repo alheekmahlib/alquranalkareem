@@ -86,8 +86,8 @@ class AdhkarView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // يشغّل جولة الأذكار تلقائياً أول مرة بعد اكتمال تحميل الأقسام.
-                  const _AzkarTourTrigger(),
+                  // يشغّل جولة الأذكار تلقائياً أول مرة بعد اكتمال تحميل
+                  // الأقسام — المنطق في AzkarController._watchAzkarTourStart.
                   TourReplayButton(
                     onPressed: () => AppTour.instance.replayAzkarTour(),
                   ),
@@ -98,35 +98,5 @@ class AdhkarView extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-/// يشغّل جولة الأذكار تلقائياً أول مرة بعد اكتمال تحميل الأقسام: الجولة
-/// تُبنى على حالة مستقلة (قائمة الأقسام ظاهرة) لا على شاشة فارغة. وكونه
-/// ودجتاً داخل الشاشة يلغي التشغيلَ بعد مغادرتها، فالبطاقة تُفكَّك معها
-/// فيُلغى النداء المعلّق ولا تبدأ الجولة فوق شاشة أخرى.
-class _AzkarTourTrigger extends StatefulWidget {
-  const _AzkarTourTrigger();
-
-  @override
-  State<_AzkarTourTrigger> createState() => _AzkarTourTriggerState();
-}
-
-class _AzkarTourTriggerState extends State<_AzkarTourTrigger> {
-  final azkarCtrl = AzkarController.instance;
-  bool _armed = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return Obx(() {
-      final ready = azkarCtrl.state.categories.isNotEmpty;
-      if (ready && !_armed) {
-        _armed = true;
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (mounted) AppTour.instance.startAzkarTourOnce();
-        });
-      }
-      return const SizedBox.shrink();
-    });
   }
 }

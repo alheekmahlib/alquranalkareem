@@ -169,7 +169,7 @@ class TopBarWidget extends StatelessWidget {
                                             TopBarType.none;
                                         TasmeeCtrl.instance.exitTasmeeMode();
                                         Get.offAll(
-                                          () => const HomeScreen(),
+                                          () => HomeScreen(),
                                           transition: Transition.upToDown,
                                         );
                                         sl<QuranController>()

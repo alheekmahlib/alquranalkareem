@@ -37,7 +37,7 @@ class WhatsNewScreen extends StatelessWidget {
                   ),
                   onTap: () {
                     Get.offAll(
-                      const HomeScreen(),
+                      HomeScreen(),
                       transition: Transition.fadeIn,
                     );
                     whatsNewCtrl.saveLastShownIndex(newFeatures.last['index']);

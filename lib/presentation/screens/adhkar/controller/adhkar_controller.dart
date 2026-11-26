@@ -11,10 +11,12 @@ import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '/core/utils/constants/extensions/custom_error_snackBar.dart';
+import '../../../../core/tour/app_tour.dart';
 import '../../../../core/utils/constants/api_constants.dart';
 import '../../../../database/bookmark_db/bookmark_database.dart';
 import '../../../../database/bookmark_db/db_bookmark_helper.dart';
 import '../../../../presentation/screens/quran_page/widgets/search/search_extensions/highlight_extension.dart';
+import '../../../controllers/general/general_controller.dart';
 import '../screens/adhkar_item.dart';
 import '../screens/adhkar_view.dart';
 import 'adhkar_state.dart';
@@ -28,6 +30,7 @@ class AzkarController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    _watchAzkarTourStart();
     await fetchDhekr();
   }
 
@@ -37,6 +40,30 @@ class AzkarController extends GetxController {
     state.itemScrollController.dispose();
     state.highlightTimer?.cancel();
     super.onClose();
+  }
+
+  /// يشغّل جولة الأذكار تلقائياً أول مرة بعد اكتمال تحميل الأقسام: الجولة
+  /// تُبنى على حالة مستقلة (قائمة الأقسام ظاهرة) لا على شاشة فارغة. يعمل
+  /// النداء عند اجتماع الشرطين: وصول الأقسام وظهور تبويب الأذكار (3 في
+  /// screenSelect)، فلا تبدأ الجولة فوق شاشة أخرى بعد مغادرة سريعة،
+  /// ويُعاد المحاولة عند العودة إلى التبويب قبل بدئها. علم «مرة واحدة»
+  /// في AppTour يمنع تكرارها مهما تعددت النداءات.
+  void _watchAzkarTourStart() {
+    ever(state.categories, (_) => _startAzkarTourWhenReady());
+    ever<int>(
+      GeneralController.instance.state.screenSelectedValue,
+      (_) => _startAzkarTourWhenReady(),
+    );
+  }
+
+  void _startAzkarTourWhenReady() {
+    if (state.categories.isEmpty) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (GeneralController.instance.state.screenSelectedValue.value != 3) {
+        return;
+      }
+      AppTour.instance.startAzkarTourOnce();
+    });
   }
 
   /// -------- [Methods] ----------

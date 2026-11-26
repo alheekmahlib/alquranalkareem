@@ -76,6 +76,12 @@ class ReadViewScreen extends StatelessWidget {
 
   /// بناء عارض الصفحات / Build page view
   Widget _buildPageView(BuildContext context, List<PageContent> pages) {
+    // يشغّل جولة القارئ تلقائياً أول مرة: لا يُبنى هذا الجسم إلا بعد
+    // جهوزية صفحات الكتاب، والنداء يُطلق في نهاية إطاره نفسه فلا سباق
+    // مغادرة. علم «مرة واحدة» في AppTour يمنع تكرارها مهما أُعيد البناء.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      AppTour.instance.startBooksReaderTourOnce();
+    });
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -141,9 +147,8 @@ class ReadViewScreen extends StatelessWidget {
                 booksCtrl.searchBooks(query, bookNumber: bookNumber),
           ),
         ),
-        // يشغّل جولة القارئ تلقائياً أول مرة؛ لا يُركَّب إلا في هذا الجسم،
-        // أي بعد جهوزية صفحات الكتاب، فلا انتظار هنا ولا قراءة مزدوجة.
-        const _BooksReaderTourTrigger(),
+        // يشغّل جولة القارئ تلقائياً أول مرة — المنطق في _buildPageView
+        // أدناه؛ لا يُبنى ذلك الجسم إلا بعد جهوزية صفحات الكتاب.
         // يرتفع زر الإعادة فوق شريط القراءة السفلي.
         TourReplayButton(
           bottom: 80.0,
@@ -630,33 +635,4 @@ class _NarratorNotFoundSheet extends StatelessWidget {
       ),
     );
   }
-}
-
-/// يشغّل جولة القارئ تلقائياً أول مرة. لا يُركَّب إلا داخل جسم الصفحات، أي
-/// بعد جهوزية صفحات الكتاب، فاكتمال التحميل شرط وجوده وكونه ودجتاً داخل
-/// الشاشة يلغي التشغيلَ بعد مغادرتها، فالبطاقة تُفكَّك معها فيُلغى النداء
-/// المعلَّق ولا تبدأ الجولة فوق شاشة أخرى.
-class _BooksReaderTourTrigger extends StatefulWidget {
-  const _BooksReaderTourTrigger();
-
-  @override
-  State<_BooksReaderTourTrigger> createState() =>
-      _BooksReaderTourTriggerState();
-}
-
-class _BooksReaderTourTriggerState extends State<_BooksReaderTourTrigger> {
-  bool _armed = false;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted || _armed) return;
-      _armed = true;
-      AppTour.instance.startBooksReaderTourOnce();
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) => const SizedBox.shrink();
 }

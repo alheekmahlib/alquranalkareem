@@ -54,7 +54,7 @@ final List screensList = [
     'name': 'home',
     'svgUrl': 'assets/svg/splash_icon_w.svg',
     'imagePath': 'assets/images/home.png',
-    'route': () => const HomeScreen(),
+    'route': () => HomeScreen(),
     'width': 240.0,
   },
   {

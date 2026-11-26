@@ -76,7 +76,7 @@ class GeneralController extends GetxController {
   Widget screenSelect() {
     switch (state.screenSelectedValue.value) {
       case 0:
-        return const HomeScreen();
+        return HomeScreen();
       case 1:
         return QuranHome();
       case 3:
@@ -90,7 +90,7 @@ class GeneralController extends GetxController {
       case 7:
         return QuranHome(isTasmeeMode: true);
       default:
-        return const HomeScreen();
+        return HomeScreen();
     }
   }
 

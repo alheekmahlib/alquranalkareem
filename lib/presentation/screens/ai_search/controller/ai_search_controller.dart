@@ -42,6 +42,10 @@ class AiSearchController extends GetxController {
   void onInit() {
     super.onInit();
     loadPosition();
+    // تهيئة idempotent عند فتح الشاشة لا عند إقلاع التطبيق (الكنترولر
+    // يُنشأ أول مرة يُبنى فيها تبويب مداد): من افتتح الشاشة على وضع
+    // المساعد لا يمرّ بطريق شاشة الدلالي التي كانت تستدعيها.
+    ensureInitialized();
     // زامن حالة "هل يوجد نص؟" مع حقل الإدخال ليُعيد بناء زر الإرسال.
     state.searchTextEditing.addListener(_syncInputText);
     // مرّر قائمة رسائل المساعد للأسفل تلقائياً.
@@ -52,6 +56,36 @@ class AiSearchController extends GetxController {
     _restoreMidasMode();
     // احفظ الوضع تلقائياً عند تغييره.
     ever<MidasMode>(state.midasMode, (mode) => _saveMidasMode(mode));
+    _watchMidadTourStart();
+  }
+
+  /// يشغّل جولتي مداد تلقائياً أول مرة: الكاملة (أو القصيرة بحسب حالة
+  /// الشاشة) بعد اكتمال التهيئة، وجولة المساعد عند أول انتقال إليه قبل
+  /// تحميل أي قسم فلا يبقى شرحه محبوساً في الجولة الكاملة. يعمل النداء
+  /// عند اكتمال التهيئة مع ظهور تبويب مداد (6 في screenSelect)، فلا تبدأ
+  /// الجولة فوق شاشة أخرى بعد مغادرة سريعة، ويُعاد المحاولة عند العودة
+  /// إلى التبويب أو الدخول إلى وضع المساعد قبل بدئها. علم «مرة واحدة»
+  /// لكل جولة في AppTour يمنع تكرارها مهما تعددت النداءات.
+  void _watchMidadTourStart() {
+    ever<bool>(isInitialized, (_) => _startMidadTourWhenReady());
+    ever<MidasMode>(state.midasMode, (_) => _startMidadTourWhenReady());
+    ever<int>(
+      GeneralController.instance.state.screenSelectedValue,
+      (_) => _startMidadTourWhenReady(),
+    );
+  }
+
+  void _startMidadTourWhenReady() {
+    if (!isInitialized.value) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (GeneralController.instance.state.screenSelectedValue.value != 6) {
+        return;
+      }
+      AppTour.instance.startMidadTourOnce();
+      if (state.midasMode.value == MidasMode.assistant) {
+        AppTour.instance.startMidadAssistantTourOnce();
+      }
+    });
   }
 
   static const _midasModeKey = 'ai_search_midas_mode';

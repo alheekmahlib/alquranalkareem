@@ -61,7 +61,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
               onTap: () {
                 if (isBackToHome == true) {
                   Get.offAll(
-                    () => const HomeScreen(),
+                    () => HomeScreen(),
                     transition: Transition.upToDown,
                   );
                 } else {

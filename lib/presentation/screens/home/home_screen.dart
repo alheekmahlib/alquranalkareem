@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -11,9 +9,8 @@ import '../../../core/tour/app_tour.dart';
 import '../../../core/tour/home_tour_script.dart';
 import '../../../core/tour/tour_replay_button.dart';
 import '../../../core/widgets/tab_bar_widget.dart';
-import '../../controllers/daily_ayah_controller.dart';
+import '../../controllers/home_tour_controller.dart';
 import '../../controllers/theme_controller.dart';
-import '../adhkar/controller/adhkar_controller.dart';
 import 'widgets/ai_section.dart';
 import 'widgets/books_section.dart';
 import 'widgets/daily_zeker.dart';
@@ -21,7 +18,11 @@ import 'widgets/hijri_widget.dart';
 import 'widgets/quran_section.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
+
+  /// يشغّل جولة الصفحة الرئيسية تلقائياً أول مرة بعد جاهزية المحتوى
+  /// اليومي — المنطق كله في HomeTourController.
+  final homeTourCtrl = HomeTourController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -101,9 +102,8 @@ class HomeScreen extends StatelessWidget {
                       tabBarController:
                           GeneralController.instance.state.tabBarController,
                     ),
-                    // يشغّل جولة الصفحة الرئيسية تلقائياً أول مرة بعد جاهزية
-                    // المحتوى اليومي، ويعيدها زر الاستفهام في أي وقت.
-                    const _HomeTourTrigger(),
+                    // يشغّل جولة الصفحة الرئيسية تلقائياً أول مرة بعد
+                    // جاهزية المحتوى اليومي، ويعيدها زر الاستفهام في أي وقت.
                     TourReplayButton(
                       onPressed: () => AppTour.instance.replayHomeTour(),
                     ),
@@ -116,50 +116,4 @@ class HomeScreen extends StatelessWidget {
       },
     );
   }
-}
-
-/// يشغّل جولة الصفحة الرئيسية تلقائياً أول مرة: آية اليوم وذكر اليوم
-/// حقول عادية في كنترولريهما تُملأ بعد جلبهما من قاعدتي البيانات، فينتظر
-/// البطاقة حضورهما (أو انقضاء مهلة انتظارهما) قبل البدء كي لا تفصل
-/// محطاتهما من الجولة. وكونه ودجتاً داخل الشاشة يلغي التشغيل بعد
-/// مغادرتها، فالبطاقة تُفكَّك معها فيُلغى النداء المعلّق ولا تبدأ الجولة
-/// فوق شاشة أخرى.
-class _HomeTourTrigger extends StatefulWidget {
-  const _HomeTourTrigger();
-
-  @override
-  State<_HomeTourTrigger> createState() => _HomeTourTriggerState();
-}
-
-class _HomeTourTriggerState extends State<_HomeTourTrigger> {
-  static const _checkInterval = Duration(milliseconds: 250);
-  static const _waitLimit = Duration(seconds: 4);
-
-  Timer? _timer;
-
-  @override
-  void initState() {
-    super.initState();
-    var waited = Duration.zero;
-    _timer = Timer.periodic(_checkInterval, (timer) {
-      final ready =
-          DailyAyahController.instance.ayahOfTheDay != null &&
-          AzkarController.instance.state.dhekrOfTheDay != null;
-      waited += _checkInterval;
-      if (!ready && waited < _waitLimit) return;
-      timer.cancel();
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted) AppTour.instance.startHomeTourOnce();
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    _timer?.cancel();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) => const SizedBox.shrink();
 }

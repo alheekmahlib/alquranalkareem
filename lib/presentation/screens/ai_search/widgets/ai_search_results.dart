@@ -37,7 +37,8 @@ class AiSearchResults extends StatelessWidget {
                   return _buildSemanticMode(context);
                 }),
               ),
-              const _MidadTourTrigger(),
+              // يشغّل جولتي مداد تلقائياً أول مرة بعد اكتمال تهيئة الشاشة
+              // — المنطق في AiSearchController._watchMidadTourStart.
             ],
           ),
         ),
@@ -103,8 +104,6 @@ class AiSearchResults extends StatelessWidget {
 
   /// وضع البحث الدلالي (الموجود سابقاً) — يحافظ على كل سلوكه.
   Widget _buildSemanticMode(BuildContext context) {
-    // Init AI search only when screen opens (not on app start).
-    ctrl.ensureInitialized();
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -859,50 +858,5 @@ class AiSearchResults extends StatelessWidget {
         'أفهم سؤالك جيداً. دعني أبحث لك في المصادر المتاحة وأجمع أفضل ما يتعلق بموضوعك.\n\n'
         'سأبدأ البحث في $sectionsText...\n\n'
         'النتائج ستظهر تباعاً فور العثور عليها...';
-  }
-}
-
-/// يشغّل جولة مداد تلقائياً أول مرة بعد اكتمال تهيئة الشاشة: الجولة تُبنى
-/// على حالة مستقرة (شاشة التحميل أو الأقسام المحمّلة) لا على واجهة
-/// التهيئة المتوسطة. وكونه ودجتاً داخل الشاشة يلغي التشغيلَ بعد مغادرتها،
-/// فالبطاقة تُفكَّك معها فيُلغى النداء المعلَّق ولا تبدأ الجولة فوق شاشة
-/// أخرى. ويشغّل جولة المساعد عند أول انتقال إليه قبل تحميل أي قسم، فلا
-/// يبقى شرحه محبوساً في الجولة الكاملة.
-class _MidadTourTrigger extends StatefulWidget {
-  const _MidadTourTrigger();
-
-  @override
-  State<_MidadTourTrigger> createState() => _MidadTourTriggerState();
-}
-
-class _MidadTourTriggerState extends State<_MidadTourTrigger> {
-  final ctrl = AiSearchController.instance;
-  bool _armed = false;
-  bool _assistantArmed = false;
-
-  @override
-  Widget build(BuildContext context) {
-    // تهيئة idempotent؛ تُستدعى هنا أيضاً لمن افتتح الشاشة على وضع المساعد
-    // فلم يمرّ بطريق شاشة الدلالي التي تستدعيها.
-    ctrl.ensureInitialized();
-    return Obx(() {
-      final ready = ctrl.isInitialized.value;
-      if (ready && !_armed) {
-        _armed = true;
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (mounted) AppTour.instance.startMidadTourOnce();
-        });
-      }
-      // أول دخول للمساعد قبل تحميل أي قسم: شرحه مرة واحدة.
-      if (ready &&
-          ctrl.state.midasMode.value == MidasMode.assistant &&
-          !_assistantArmed) {
-        _assistantArmed = true;
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (mounted) AppTour.instance.startMidadAssistantTourOnce();
-        });
-      }
-      return const SizedBox.shrink();
-    });
   }
 }

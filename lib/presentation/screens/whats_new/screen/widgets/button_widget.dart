@@ -26,7 +26,7 @@ class ButtonWidget extends StatelessWidget {
               if (whatsNewCtrl.state.currentPageIndex.value ==
                   newFeatures.length - 1) {
                 whatsNewCtrl.saveLastShownIndex(newFeatures.last['index']);
-                Get.offAll(const HomeScreen(), transition: Transition.fadeIn);
+                Get.offAll(HomeScreen(), transition: Transition.fadeIn);
               } else {
                 controller.animateToPage(
                   controller.page!.toInt() + 1,

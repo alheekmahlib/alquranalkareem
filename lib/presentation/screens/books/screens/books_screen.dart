@@ -61,8 +61,8 @@ class BooksScreen extends StatelessWidget {
                     onSubmitted: (query) => booksCtrl.searchBooks(query),
                   ),
                 ),
-                // يشغّل جولة المكتبة تلقائياً أول مرة بعد اكتمال تحميل الكتب.
-                const _BooksTourTrigger(),
+                // يشغّل جولة المكتبة تلقائياً أول مرة بعد اكتمال تحميل
+                // الكتب — المنطق في BooksController._watchBooksTourStart.
                 TourReplayButton(
                   onPressed: () => AppTour.instance.replayBooksTour(),
                 ),
@@ -72,35 +72,5 @@ class BooksScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-/// يشغّل جولة قائمة الكتب تلقائياً أول مرة بعد اكتمال تحميل الكتب: الجولة
-/// تُبنى على حالة مستقرة (شريط آخر قراءة وشبكة كتب ظاهرة) لا على شاشة
-/// التحميل. وكونه ودجتاً داخل الشاشة يلغي التشغيلَ بعد مغادرتها، فالبطاقة
-/// تُفكَّك معها فيُلغى النداء المعلَّق ولا تبدأ الجولة فوق شاشة أخرى.
-class _BooksTourTrigger extends StatefulWidget {
-  const _BooksTourTrigger();
-
-  @override
-  State<_BooksTourTrigger> createState() => _BooksTourTriggerState();
-}
-
-class _BooksTourTriggerState extends State<_BooksTourTrigger> {
-  final booksCtrl = BooksController.instance;
-  bool _armed = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return Obx(() {
-      final ready = !booksCtrl.state.isLoading.value;
-      if (ready && !_armed) {
-        _armed = true;
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (mounted) AppTour.instance.startBooksTourOnce();
-        });
-      }
-      return const SizedBox.shrink();
-    });
   }
 }
