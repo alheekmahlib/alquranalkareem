@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '/core/utils/helpers/app_text_styles.dart';
 import '/presentation/screens/adhkar/controller/extensions/adhkar_getters.dart';
+import '../../../../core/tour/home_tour_script.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
 import '../../../../core/widgets/buttom_with_line.dart';
 import '../../../../database/bookmark_db/bookmark_database.dart';
@@ -38,6 +39,9 @@ class DailyZeker extends StatelessWidget {
         builder: (context, snapshot) {
           return snapshot.data != null && azkarCtrl.state.dhekrOfTheDay != null
               ? Column(
+                  // هدف جولة الصفحة الرئيسية: بطاقة ذكر اليوم (تغيب بغياب
+                  // بياناتها فتفصل محطتاها من الجولة).
+                  key: HomeTourKeys.dailyZeker,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
@@ -89,6 +93,8 @@ class DailyZeker extends StatelessWidget {
                             ),
                           ),
                           ButtomWithLine(
+                            // هدف جولة الصفحة الرئيسية: زر الأذكار.
+                            key: HomeTourKeys.azkar,
                             isRtl: false,
                             title: 'azkar',
                             svgPath: SvgPath.svgAthkarAthkar,

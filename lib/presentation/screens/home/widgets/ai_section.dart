@@ -7,6 +7,7 @@ import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/core/utils/constants/svg_constants.dart';
 import '/core/utils/helpers/app_text_styles.dart';
 import '/presentation/screens/ai_search/ai_search.dart';
+import '../../../../core/tour/home_tour_script.dart';
 import '../../../../core/utils/constants/extensions/alignment_rotated_extension.dart';
 import '../../quran_page/quran.dart';
 
@@ -26,6 +27,7 @@ class AiSection extends StatelessWidget {
           description: 'midadDescription'.tr,
           svgPath: SvgPath.svgHomeMidadIcon,
           iconSize: 26,
+          tourKey: HomeTourKeys.midad,
           onTap: () =>
               Get.to(() => AiSearchResults(), transition: Transition.fadeIn),
         ),
@@ -34,6 +36,7 @@ class AiSection extends StatelessWidget {
           title: 'tasmeeModeTeacher'.tr,
           description: 'tasmeeDescription'.tr,
           svgPath: SvgPath.svgQuranMicrophone,
+          tourKey: HomeTourKeys.tasmeeMode,
           onTap: () async {
             final lastReadPage = quranCtrl.state.box.read('last_page') ?? 1;
             tasmee.state.showAllWords.value = false;
@@ -60,6 +63,7 @@ class _AiCard extends StatelessWidget {
     required this.onTap,
     required this.isRTL,
     this.iconSize = 20,
+    this.tourKey,
   });
 
   final String title;
@@ -71,11 +75,15 @@ class _AiCard extends StatelessWidget {
   /// مقاس صندوق الأيقونة داخل الشارة؛ النسبة الحقيقية يحافظ عليها الـ SVG
   final double iconSize;
 
+  /// هدف جولة الصفحة الرئيسية على هذه البطاقة (إن كانت لها محطة).
+  final Key? tourKey;
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: IntrinsicHeight(
         child: _PressableCard(
+          key: tourKey,
           onTap: onTap,
           child: Row(
             textDirection: isRTL
@@ -163,7 +171,7 @@ class _AiCard extends StatelessWidget {
 
 /// تغليف البطاقة بتغذية راجعة خفيفة عند اللمس (انكماش 2% لمدة 100ms)
 class _PressableCard extends StatefulWidget {
-  const _PressableCard({required this.onTap, required this.child});
+  const _PressableCard({super.key, required this.onTap, required this.child});
 
   final VoidCallback? onTap;
   final Widget child;

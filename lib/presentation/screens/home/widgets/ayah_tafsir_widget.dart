@@ -6,6 +6,7 @@ import 'package:quran_library/quran_library.dart';
 import '/core/utils/constants/extensions/extensions.dart';
 import '/core/utils/constants/extensions/text_span_extension.dart';
 import '/core/utils/helpers/app_text_styles.dart';
+import '../../../../core/tour/home_tour_script.dart';
 import '../../../../core/utils/constants/extensions/svg_extensions.dart';
 import '../../../../core/utils/constants/lists.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
@@ -42,6 +43,8 @@ class _AyahTafsirWidgetState extends State<AyahTafsirWidget> {
           }
           if (snapshot.data != null) {
             return Container(
+              // هدف جولة الصفحة الرئيسية: بطاقة آية اليوم.
+              key: HomeTourKeys.dailyAyah,
               width: Get.width,
               padding: const EdgeInsets.symmetric(
                 horizontal: 8.0,

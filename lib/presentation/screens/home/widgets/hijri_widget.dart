@@ -7,6 +7,7 @@ import 'package:hijri_date/hijri.dart';
 
 import '/core/utils/constants/extensions/convert_number_extension.dart';
 import '/core/utils/helpers/app_text_styles.dart';
+import '../../../../core/tour/home_tour_script.dart';
 import '../../../../core/utils/constants/extensions/extensions.dart';
 import '../../../../core/utils/constants/extensions/svg_extensions.dart';
 import '../../../controllers/general/general_controller.dart';
@@ -40,6 +41,9 @@ class HijriWidget extends StatelessWidget {
             children: [
               IntrinsicHeight(
                 child: InkWell(
+                  // هدف جولة الصفحة الرئيسية؛ البطاقة تُركَّب أيضًا في شاشة
+                  // التقويم فيقتصر المفتاح على نسختها هنا.
+                  key: isInCalendar ? null : HomeTourKeys.hijri,
                   onTap: isInCalendar
                       ? null
                       : () => Get.to(

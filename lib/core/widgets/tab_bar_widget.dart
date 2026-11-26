@@ -24,6 +24,10 @@ class TopBarWidget extends StatelessWidget {
   final Widget? centerChild;
   final bool? isQuranSetting;
   final bool isNotification;
+
+  /// مفتاح هدف جولة لزر الإشعارات؛ يمرره موقع الاستدعاء (الصفحة
+  /// الرئيسية) فيبقى الودجت المشترك محايداً للجولات.
+  final Key? notificationButtonKey;
   final bool? isCalendarSetting;
   final void Function()? settingOnTap;
   final bool? isDraggable;
@@ -37,6 +41,7 @@ class TopBarWidget extends StatelessWidget {
     this.centerChild,
     this.isQuranSetting,
     required this.isNotification,
+    this.notificationButtonKey,
     this.settingOnTap,
     this.isCalendarSetting = false,
     this.isDraggable = true,
@@ -188,6 +193,9 @@ class TopBarWidget extends StatelessWidget {
                                 ? FittedBox(
                                     fit: BoxFit.scaleDown,
                                     child: ContainerButton(
+                                      // هدف جولة الصفحة الرئيسية (إن
+                                      // مرره موقع الاستدعاء).
+                                      key: notificationButtonKey,
                                       onPressed: () => customBottomSheet(
                                         NotificationsScreen(),
                                       ),

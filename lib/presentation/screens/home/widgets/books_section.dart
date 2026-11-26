@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '../../../../core/tour/home_tour_script.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
 import '../../../../core/utils/helpers/app_text_styles.dart';
 import '../../../../core/widgets/buttom_with_line.dart';
@@ -65,6 +66,8 @@ class BooksSection extends StatelessWidget {
                 ),
                 const Gap(16),
                 ButtomWithLine(
+                  // هدف جولة الصفحة الرئيسية: زر المكتبة الإسلامية.
+                  key: HomeTourKeys.islamicLibrary,
                   isRtl: false,
                   title: 'islamicLibrary',
                   svgPath: SvgPath.svgBooksIslamicLibrary,

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:quran_library/quran_library.dart';
 
 import '/core/utils/constants/svg_constants.dart';
+import '../../../../core/tour/home_tour_script.dart';
 import '../../../../core/utils/constants/extensions/convert_number_extension.dart';
 import '../../../../core/utils/constants/extensions/svg_extensions.dart';
 import '../../../../core/utils/helpers/app_text_styles.dart';
@@ -27,6 +28,8 @@ class QuranSection extends StatelessWidget {
       child: Column(
         children: [
           GestureDetector(
+            // هدف جولة الصفحة الرئيسية: بطاقة متابعة القراءة.
+            key: HomeTourKeys.lastRead,
             onTap: () {
               // أنهِ وضع التسميع إن كان مفعّلًا قبل فتح القراءة العادية.
               if (tasmee.state.isTasmeeMode.value) {
@@ -87,6 +90,7 @@ class QuranSection extends StatelessWidget {
                       Row(
                         children: [
                           ButtomWithLine(
+                            key: HomeTourKeys.quran,
                             isRtl: true,
                             svgPath: SvgPath.svgHomeQuranLogo,
                             title: 'quran',
@@ -105,6 +109,7 @@ class QuranSection extends StatelessWidget {
                           ),
                           const Gap(8),
                           ButtomWithLine(
+                            key: HomeTourKeys.quranAudio,
                             isRtl: false,
                             title: 'quranAudio',
                             svgPath: SvgPath.svgAudioAudioQuran,

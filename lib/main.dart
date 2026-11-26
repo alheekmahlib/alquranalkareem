@@ -21,6 +21,7 @@ import 'core/utils/constants/extensions/convert_number_extension.dart';
 import 'core/utils/constants/shared_preferences_constants.dart';
 import 'myApp.dart';
 import 'presentation/controllers/general/general_controller.dart';
+import 'presentation/controllers/daily_ayah_controller.dart';
 import 'presentation/screens/ai_search/ai_search.dart';
 import 'presentation/screens/adhkar/controller/adhkar_controller.dart';
 import 'presentation/screens/books/books.dart';
@@ -251,6 +252,30 @@ Future<void> initializeApp() async {
       },
       scrollAzkarItemTo: (offset) {
         final controller = AzkarController.instance.state.itemScrollController;
+        if (controller.hasClients) controller.jumpTo(offset);
+      },
+      // جولة الصفحة الرئيسية: آية اليوم وذكر اليوم يجلبان من قاعدتي
+      // البيانات بعد فتح الصفحة، فتفصل محطات المحتوى اليومي حين لم
+      // يجلبا بعد. وقائمة الصفحة تُمرَّر لكشف أهدافها أسفل الطية ثم يعاد
+      // موضع المستخدم.
+      hasHomeDailyAyah: () => DailyAyahController.instance.ayahOfTheDay != null,
+      hasHomeDailyZeker: () =>
+          AzkarController.instance.state.dhekrOfTheDay != null,
+      homeScrollOffset: () {
+        final controller =
+            GeneralController.instance.state.homeScrollController;
+        return controller.hasClients ? controller.position.pixels : 0.0;
+      },
+      homeScrollMax: () {
+        final controller =
+            GeneralController.instance.state.homeScrollController;
+        return controller.hasClients
+            ? controller.position.maxScrollExtent
+            : 0.0;
+      },
+      scrollHomeTo: (offset) {
+        final controller =
+            GeneralController.instance.state.homeScrollController;
         if (controller.hasClients) controller.jumpTo(offset);
       },
     ),

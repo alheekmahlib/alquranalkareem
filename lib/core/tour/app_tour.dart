@@ -12,6 +12,7 @@ import '../utils/helpers/app_text_styles.dart';
 import 'audio_tour_script.dart';
 import 'azkar_tour_script.dart';
 import 'books_tour_script.dart';
+import 'home_tour_script.dart';
 import 'midad_tour_script.dart';
 import 'mushaf_tour_script.dart';
 import 'tasmee_tour_script.dart';
@@ -63,7 +64,8 @@ class AppTour extends GetxController
         AudioTourHooks,
         MidadTourHooks,
         BooksTourHooks,
-        AzkarTourHooks {
+        AzkarTourHooks,
+        HomeTourHooks {
   AppTour({
     bool Function()? isControlsVisible,
     void Function()? toggleControls,
@@ -103,6 +105,11 @@ class AppTour extends GetxController
     void Function(double offset)? scrollAzkarListTo,
     double Function()? azkarItemScrollOffset,
     void Function(double offset)? scrollAzkarItemTo,
+    bool Function()? hasHomeDailyAyah,
+    bool Function()? hasHomeDailyZeker,
+    double Function()? homeScrollOffset,
+    double Function()? homeScrollMax,
+    void Function(double offset)? scrollHomeTo,
   }) : _isControlsVisible = isControlsVisible,
        _toggleControls = toggleControls,
        _collapsePanels = collapsePanels,
@@ -140,7 +147,12 @@ class AppTour extends GetxController
        _azkarListScrollOffset = azkarListScrollOffset,
        _scrollAzkarListTo = scrollAzkarListTo,
        _azkarItemScrollOffset = azkarItemScrollOffset,
-       _scrollAzkarItemTo = scrollAzkarItemTo;
+       _scrollAzkarItemTo = scrollAzkarItemTo,
+       _hasHomeDailyAyah = hasHomeDailyAyah,
+       _hasHomeDailyZeker = hasHomeDailyZeker,
+       _homeScrollOffset = homeScrollOffset,
+       _homeScrollMax = homeScrollMax,
+       _scrollHomeTo = scrollHomeTo;
 
   static AppTour get instance => Get.find<AppTour>();
 
@@ -188,6 +200,11 @@ class AppTour extends GetxController
   final void Function(double offset)? _scrollAzkarListTo;
   final double Function()? _azkarItemScrollOffset;
   final void Function(double offset)? _scrollAzkarItemTo;
+  final bool Function()? _hasHomeDailyAyah;
+  final bool Function()? _hasHomeDailyZeker;
+  final double Function()? _homeScrollOffset;
+  final double Function()? _homeScrollMax;
+  final void Function(double offset)? _scrollHomeTo;
 
   // ---- MushafTourHooks: ما ينفّذه السيناريو في التطبيق ----------------
 
@@ -295,6 +312,23 @@ class AppTour extends GetxController
   @override
   void scrollAzkarItemTo(double offset) => _scrollAzkarItemTo?.call(offset);
 
+  // ---- HomeTourHooks: ما ينفّذه السيناريو في التطبيق ----------------
+
+  @override
+  bool get hasHomeDailyAyah => _hasHomeDailyAyah?.call() ?? false;
+
+  @override
+  bool get hasHomeDailyZeker => _hasHomeDailyZeker?.call() ?? false;
+
+  @override
+  double get homeScrollOffset => _homeScrollOffset?.call() ?? 0;
+
+  @override
+  double get homeScrollMax => _homeScrollMax?.call() ?? 0;
+
+  @override
+  void scrollHomeTo(double offset) => _scrollHomeTo?.call(offset);
+
   // ---- AudioTourHooks: ما ينفّذه السيناريو في التطبيق ----------------
 
   @override
@@ -362,6 +396,9 @@ class AppTour extends GetxController
 
   /// معرّف جولة شاشة القسم (أذكار التصنيف) في مخزن الإكمال.
   static const String azkarItemTourId = 'azkar_item';
+
+  /// معرّف جولة الصفحة الرئيسية في مخزن الإكمال.
+  static const String homeTourId = 'home';
 
   /// مخزن الإكمال الدائم (متاح لأزرار «إعادة الجولة» في الأقسام الأخرى).
   late final GetStorageTourCompletionStore store =
@@ -450,6 +487,8 @@ class AppTour extends GetxController
   bool _azkarAutoTriggered = false;
 
   bool _azkarItemAutoTriggered = false;
+
+  bool _homeAutoTriggered = false;
 
   /// سيناريو الجولة الجارية (null قبل أول بدء). يُنشأ مع كل بدء لأن
   /// [buildMushafSteps] كذلك، ويُوجَّه إليه ما يطرأ على ورقة خيارات الآية.
@@ -881,6 +920,42 @@ class AppTour extends GetxController
     _azkarItemAutoTriggered = true;
     await store.reset(azkarItemTourId);
     tour.start(tourId: azkarItemTourId, steps: buildAzkarItemSteps());
+  }
+
+  /// يبني خطوات جولة الصفحة الرئيسية ويوجّه إليها ما يطرأ على الكنترولر.
+  /// تُقرأ حالة الشاشة (حضور آية اليوم وذكر اليوم) لحظة البدء فقط لأنها
+  /// تفصل محطاتٍ قد غاب هدفها حين لم يُجلب المحتوى اليومي بعد.
+  List<TourStep> buildHomeTourSteps() {
+    final script = HomeTourScript(
+      tour: tour,
+      hooks: this,
+      style: _tourStyle(),
+      hasDailyAyah: hasHomeDailyAyah,
+      hasDailyZeker: hasHomeDailyZeker,
+    );
+    tour
+      ..onStepChanged = script.onStepChanged
+      ..onSkip = script.onTourEnd
+      ..onFinish = script.onTourEnd;
+    return script.steps;
+  }
+
+  /// يبدأ جولة الصفحة الرئيسية أول مرة فقط. نقطة الاستدعاء الوحيدة من
+  /// بطاقة التشغيل داخل الصفحة بعد جاهزية المحتوى اليومي (أو انقضاء مهلة
+  /// انتظاره). العلم يُضبط تزامنياً فلا تتكرر الجولة مهما أُعيدت إعادات
+  /// البناء، ولا تبدأ إن كانت جولة أخرى ظاهرة أو كانت جولتها مكتملة
+  /// سابقاً.
+  void startHomeTourOnce() {
+    if (_homeAutoTriggered) return;
+    _homeAutoTriggered = true;
+    tour.startOnce(tourId: homeTourId, steps: buildHomeTourSteps());
+  }
+
+  /// إعادة جولة الصفحة الرئيسية فوراً (من زر الاستفهام في الشاشة).
+  Future<void> replayHomeTour() async {
+    _homeAutoTriggered = true;
+    await store.reset(homeTourId);
+    tour.start(tourId: homeTourId, steps: buildHomeTourSteps());
   }
 
   /// يصلّح موضع القراءة إن قُتل التطبيق قسراً وسط عرض القلب في جلسة

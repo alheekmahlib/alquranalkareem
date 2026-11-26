@@ -30,4 +30,7 @@ class GeneralState {
   final expansionManager = ExpansionTileManager();
   RxBool isUseEnglishNumbers = false.obs;
   final tabBarController = FlexibleSheetController();
+
+  /// تمرير قائمة الصفحة الرئيسية (تستخدمه جولة الصفحة لكشف أهدافها).
+  final ScrollController homeScrollController = ScrollController();
 }
