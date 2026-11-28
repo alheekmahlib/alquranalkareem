@@ -556,6 +556,7 @@ class AppTour extends GetxController
   /// أسلوب بطاقات الجولات وأزرارها بأسلوب التطبيق. يُبنى لحظة بدء الجولة
   /// لأنه يقرأ ألوان السمة الجارية.
   TourStepStyle _tourStyle() => TourStepStyle(
+    cardMaxWidth: 500,
     accentColor: Get.theme.colorScheme.surface,
     cardColor: Get.theme.colorScheme.primaryContainer,
     scrimColor: Get.theme.colorScheme.primary.withValues(alpha: .5),
