@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 
 import '../../../../core/tour/app_tour.dart';
 import '../../../../core/tour/azkar_tour_script.dart';
-import '../../../../core/tour/tour_replay_button.dart';
 import '/core/utils/helpers/app_text_styles.dart';
 import '../../../../core/widgets/tab_bar_widget.dart';
 import '../controller/adhkar_controller.dart';
@@ -88,9 +87,6 @@ class AdhkarView extends StatelessWidget {
                   ),
                   // يشغّل جولة الأذكار تلقائياً أول مرة بعد اكتمال تحميل
                   // الأقسام — المنطق في AzkarController._watchAzkarTourStart.
-                  TourReplayButton(
-                    onPressed: () => AppTour.instance.replayAzkarTour(),
-                  ),
                 ],
               ),
             ),

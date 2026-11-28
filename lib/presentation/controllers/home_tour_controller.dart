@@ -1,22 +1,22 @@
 import 'dart:async';
 
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../../core/tour/app_tour.dart';
+import '../../core/tour/tour_auto_start.dart';
 import '../screens/adhkar/controller/adhkar_controller.dart';
 import 'daily_ayah_controller.dart';
-import 'general/general_controller.dart';
+import 'general/app_section.dart';
 
 /// يشغّل جولة الصفحة الرئيسية تلقائياً أول مرة بعد جاهزية المحتوى اليومي
 /// (آية اليوم وذكر اليوم)، أو انقضاء مهلة انتظارهما.
 ///
 /// الحقلان حقول عادية (لا Rx) تُملأ بعد جلبهما من قاعدتي البيانات،
 /// فينتظر الكنترولر حضورهما بالتقطيع الزمني كما فعلت بطاقة التشغيل
-/// السابقة داخل الشاشة. وقبل البدء يتحقق من ظهور تبويب الرئيسية (0 في
-/// screenSelect) كي لا تبدأ الجولة فوق شاشة أخرى بعد مغادرة سريعة،
-/// ويُعاد الانتظار عند العودة إلى التبويب قبل بدئها. علم «مرة واحدة»
-/// في [AppTour] يمنع تكرارها مهما تعددت المحاولات.
+/// السابقة داخل الشاشة. وقبل البدء يتحقق من كون الصفحة الرئيسية هي
+/// الشاشة الجارية كي لا تبدأ الجولة فوق شاشة أخرى بعد مغادرة سريعة،
+/// ويُعاد الانتظار عند العودة إليها قبل بدئها. علم «مرة واحدة» في
+/// [AppTour] يمنع تكرارها مهما تعددت المحاولات.
 class HomeTourController extends GetxController {
   static HomeTourController get instance =>
       GetInstance().putOrFind(() => HomeTourController());
@@ -31,17 +31,17 @@ class HomeTourController extends GetxController {
   void onInit() {
     super.onInit();
     _startWaiting();
-    ever<int>(GeneralController.instance.state.screenSelectedValue, (tab) {
-      if (tab == 0 && !_started && _timer == null) _startWaiting();
+    // كل حدث تنقل يُعيد الانتظار إن عاد المستخدم إلى الرئيسية قبل بدئها.
+    ever(routeChanges, (_) {
+      if (!_started && _timer == null && AppSection.home.isShowing) {
+        _startWaiting();
+      }
     });
   }
 
   bool get _dailyContentReady =>
       DailyAyahController.instance.ayahOfTheDay != null &&
       AzkarController.instance.state.dhekrOfTheDay != null;
-
-  bool get _isHomeTabVisible =>
-      GeneralController.instance.state.screenSelectedValue.value == 0;
 
   void _startWaiting() {
     var waited = Duration.zero;
@@ -50,8 +50,7 @@ class HomeTourController extends GetxController {
       if (!_dailyContentReady && waited < _waitLimit) return;
       timer.cancel();
       _timer = null;
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (!_isHomeTabVisible) return;
+      startTourWhenSectionShows(AppSection.home, () {
         _started = true;
         AppTour.instance.startHomeTourOnce();
       });

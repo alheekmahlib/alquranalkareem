@@ -3,17 +3,19 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '/core/utils/helpers/app_text_styles.dart';
+import '/presentation/controllers/general/app_section.dart';
+import '/presentation/controllers/general/general_controller.dart';
 import '/presentation/screens/adhkar/controller/extensions/adhkar_getters.dart';
 import '../../../../core/tour/home_tour_script.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
 import '../../../../core/widgets/buttom_with_line.dart';
 import '../../../../database/bookmark_db/bookmark_database.dart';
 import '../../adhkar/controller/adhkar_controller.dart';
-import '../../adhkar/screens/adhkar_view.dart';
 
 class DailyZeker extends StatelessWidget {
   DailyZeker({super.key});
   final azkarCtrl = AzkarController.instance;
+  final generalCtrl = GeneralController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -98,10 +100,7 @@ class DailyZeker extends StatelessWidget {
                             isRtl: false,
                             title: 'azkar',
                             svgPath: SvgPath.svgAthkarAthkar,
-                            onTap: () => Get.to(
-                              () => const AdhkarView(),
-                              transition: Transition.downToUp,
-                            ),
+                            onTap: () => generalCtrl.open(AppSection.azkar),
                           ),
                         ],
                       ),

@@ -276,6 +276,7 @@ class TopBarWidget extends StatelessWidget {
                 child: SettingsList(
                   isQuranSetting: isQuranSetting,
                   isCalendarSetting: isCalendarSetting,
+                  sheetController: tabBarController,
                 ),
               );
             }

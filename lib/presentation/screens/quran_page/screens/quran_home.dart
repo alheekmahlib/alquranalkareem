@@ -78,41 +78,6 @@ class QuranHome extends StatelessWidget {
                                 child: TajweedMenuWidget(),
                               ),
                             _tasmeeButton(context),
-                            Align(
-                              alignment: AlignmentDirectional.bottomEnd,
-                              // في نمط معلم القرآن يقف منتقي القارئ في هذه
-                              // الزاوية، فيرتفع زر الجولة فوقه كي لا يغطيه.
-                              child: Obx(() {
-                                // يُقرأ النمط دائماً لا داخل شرط الوضع: Obx
-                                // يشترك بما قُرئ فعلاً في بنائه.
-                                final isTeacher =
-                                    TasmeeCtrl.instance.state.mode.value ==
-                                    TasmeeMode.teacher;
-                                return Padding(
-                                  padding: EdgeInsets.only(
-                                    bottom: isTasmeeMode! && isTeacher
-                                        ? 114.0
-                                        : 70.0,
-                                    right: 8.0,
-                                    left: 8.0,
-                                  ),
-                                  child: CustomButton(
-                                    height: 50,
-                                    width: 50,
-                                    backgroundColor:
-                                        context.theme.colorScheme.surface,
-                                    isCustomSvgColor: true,
-                                    svgPath: SvgPath.svgHomeCommentQuestion,
-                                    svgColor: context.theme.canvasColor,
-                                    // كل وضع يعيد جولته: التسميع في وضع
-                                    // التسميع، والمصحف في غيره.
-                                    onPressed: () => isTasmeeMode!
-                                        ? AppTour.instance.replayTasmeeTour()
-                                        : AppTour.instance.replayMushafTour(),
-                                  ),
-                                );
-                              }),
-                            ),
                             TopBarWidget(
                               isHomeChild: true,
                               isQuranSetting: true,

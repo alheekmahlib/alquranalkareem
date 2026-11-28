@@ -40,26 +40,21 @@ class BooksController extends GetxController {
 
   /// يشغّل جولة قائمة الكتب تلقائياً أول مرة بعد اكتمال تحميل الكتب: الجولة
   /// تُبنى على حالة مستقرة (شريط آخر قراءة وشبكة كتب ظاهرة) لا على شاشة
-  /// التحميل. يعمل النداء عند اجتماع الشرطين: انتهاء التحميل وظهور تبويب
-  /// المكتبة (5 في screenSelect)، فلا تبدأ الجولة فوق شاشة أخرى بعد
-  /// مغادرة سريعة، ويُعاد المحاولة عند العودة إلى التبويب قبل بدئها. علم
+  /// التحميل. يعمل النداء عند تغيّر التحميل وعند كل حدث تنقل (فالكتب
+  /// تُحمَّل في الرئيسية قبل فتح الشاشة)، ويبدأ إن اجتمع الشرطان: انتهاء
+  /// التحميل وكون شاشة المكتبة هي الجارية، فلا تبدأ فوق شاشة أخرى. علم
   /// «مرة واحدة» في AppTour يمنع تكرارها مهما تعددت النداءات.
   void _watchBooksTourStart() {
     ever<bool>(state.isLoading, (_) => _startBooksTourWhenReady());
-    ever<int>(
-      GeneralController.instance.state.screenSelectedValue,
-      (_) => _startBooksTourWhenReady(),
-    );
+    ever(routeChanges, (_) => _startBooksTourWhenReady());
   }
 
   void _startBooksTourWhenReady() {
     if (state.isLoading.value) return;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (GeneralController.instance.state.screenSelectedValue.value != 5) {
-        return;
-      }
-      AppTour.instance.startBooksTourOnce();
-    });
+    startTourWhenSectionShows(
+      AppSection.books,
+      () => AppTour.instance.startBooksTourOnce(),
+    );
   }
 
   void _disposeResources() {

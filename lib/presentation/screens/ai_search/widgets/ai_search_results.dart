@@ -46,8 +46,7 @@ class AiSearchResults extends StatelessWidget {
     );
   }
 
-  /// أزرار الـ AppBar: تبديل الوضع + محادثة جديدة (مساعد) + سجل المحادثة
-  /// + إعادة جولة مداد.
+  /// أزرار الـ AppBar: تبديل الوضع + محادثة جديدة (مساعد) + سجل المحادثة.
   Widget _buildAppBarActions(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -87,14 +86,6 @@ class AiSearchResults extends StatelessWidget {
           onPressed: () => customBottomSheet(const ChatHistorySheet()),
           isCustomSvgColor: true,
           svgPath: SvgPath.svgHomeHistory,
-          svgColor: context.theme.canvasColor,
-        ),
-        const Gap(6),
-        // إعادة جولة مداد.
-        CustomButton(
-          onPressed: () => AppTour.instance.replayMidadTour(),
-          isCustomSvgColor: true,
-          svgPath: SvgPath.svgHomeCommentQuestion,
           svgColor: context.theme.canvasColor,
         ),
         const Gap(8),

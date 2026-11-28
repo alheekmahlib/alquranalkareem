@@ -490,6 +490,32 @@ class AppTour extends GetxController
 
   bool _homeAutoTriggered = false;
 
+  /// يمنع بدء جولة [tourId] تلقائياً في هذه الجلسة: يضبط علم «مرة واحدة»
+  /// الخاص بها فلا أثر لنداءات شاشتها (startXTourOnce). يستدعيه مشغّل
+  /// الجولات قبل فتح القسم كي لا تشغّل الشاشة جولتها التلقائية وتتزاحم مع
+  /// الجولة التي اختارها المستخدم من الإعدادات. جولة مداد تشمل جولة
+  /// المساعد أيضاً لأن شاشة مداد تشغّلهما معاً.
+  void suppressAutoStart(String tourId) {
+    switch (tourId) {
+      case mushafTourId:
+        _mushafAutoTriggered = true;
+      case tasmeeTourId:
+        _tasmeeAutoTriggered = true;
+      case audioTourId:
+        _audioAutoTriggered = true;
+      case midadTourId:
+      case midadAssistantTourId:
+        _midadAutoTriggered = true;
+        _midadAssistantAutoTriggered = true;
+      case booksTourId:
+        _booksAutoTriggered = true;
+      case azkarTourId:
+        _azkarAutoTriggered = true;
+      case homeTourId:
+        _homeAutoTriggered = true;
+    }
+  }
+
   /// سيناريو الجولة الجارية (null قبل أول بدء). يُنشأ مع كل بدء لأن
   /// [buildMushafSteps] كذلك، ويُوجَّه إليه ما يطرأ على ورقة خيارات الآية.
   MushafTourScript? _script;
@@ -560,8 +586,8 @@ class AppTour extends GetxController
     }();
   }
 
-  /// إعادة جولة المصحف فوراً (من زر الإعادة في شاشة المصحف). أغلق القائمة
-  /// المنبثقة قبل استدعائها حتى لا يغطيها ستر الجولة.
+  /// إعادة جولة المصحف فوراً (من الإعدادات، بعد إغلاق ورقتها حتى لا يغطيها
+  /// ستر الجولة).
   Future<void> replayMushafTour() async {
     _mushafAutoTriggered = true;
     await store.reset(mushafTourId);
@@ -597,7 +623,7 @@ class AppTour extends GetxController
     tour.startOnce(tourId: tasmeeTourId, steps: buildTasmeeSteps());
   }
 
-  /// إعادة جولة التسميع فوراً (من زر الجولة في شاشة التسميع).
+  /// إعادة جولة التسميع فوراً (من الإعدادات).
   Future<void> replayTasmeeTour() async {
     _tasmeeAutoTriggered = true;
     await store.reset(tasmeeTourId);
@@ -631,7 +657,7 @@ class AppTour extends GetxController
     tour.startOnce(tourId: audioTourId, steps: buildAudioSteps());
   }
 
-  /// إعادة جولة المصحف الصوتي فوراً (من زر الجولة في شاشة القسم).
+  /// إعادة جولة المصحف الصوتي فوراً (من الإعدادات).
   Future<void> replayAudioTour() async {
     _audioAutoTriggered = true;
     await store.reset(audioTourId);
@@ -730,8 +756,8 @@ class AppTour extends GetxController
     );
   }
 
-  /// إعادة جولة مداد فوراً (من زر الاستفهام في شريط الشاشة): يعيد الجولة
-  /// المطابقة لحالة الشاشة بعد اكتمال التهيئة إن كانت جارية.
+  /// إعادة جولة مداد فوراً (من الإعدادات): يعيد الجولة المطابقة لحالة
+  /// الشاشة بعد اكتمال التهيئة إن كانت جارية.
   Future<void> replayMidadTour() async {
     _midadAutoTriggered = true;
     await awaitMidadReady();
@@ -768,7 +794,7 @@ class AppTour extends GetxController
     tour.startOnce(tourId: booksTourId, steps: buildBooksSteps());
   }
 
-  /// إعادة جولة قائمة الكتب فوراً (من زر الاستفهام في شاشة المكتبة).
+  /// إعادة جولة قائمة الكتب فوراً (من الإعدادات).
   Future<void> replayBooksTour() async {
     _booksAutoTriggered = true;
     await store.reset(booksTourId);
@@ -882,7 +908,7 @@ class AppTour extends GetxController
     tour.startOnce(tourId: azkarTourId, steps: buildAzkarSteps());
   }
 
-  /// إعادة جولة الأذكار فوراً (من زر الاستفهام في الشاشة).
+  /// إعادة جولة الأذكار فوراً (من الإعدادات).
   Future<void> replayAzkarTour() async {
     _azkarAutoTriggered = true;
     await store.reset(azkarTourId);
@@ -951,7 +977,7 @@ class AppTour extends GetxController
     tour.startOnce(tourId: homeTourId, steps: buildHomeTourSteps());
   }
 
-  /// إعادة جولة الصفحة الرئيسية فوراً (من زر الاستفهام في الشاشة).
+  /// إعادة جولة الصفحة الرئيسية فوراً (من الإعدادات).
   Future<void> replayHomeTour() async {
     _homeAutoTriggered = true;
     await store.reset(homeTourId);

@@ -1,3 +1,4 @@
+import 'package:flexible_sheet/flexible_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -20,16 +21,22 @@ import 'language_list.dart';
 import 'notifications_settings.dart';
 import 'select_screen.dart';
 import 'theme_change.dart';
+import 'tours_settings.dart';
 
 class SettingsList extends StatelessWidget {
   final bool? isQuranSetting;
   final bool? isCalendarSetting;
   final bool? isStartScreen;
+
+  /// كنترولر ورقة الإعدادات الحاضنة (تكون الإعدادات ورقة داخل شاشة)،
+  /// تمرره TopBarWidget فتُغلق الورقة قبل تشغيل جولة من الإعدادات.
+  final FlexibleSheetController? sheetController;
   SettingsList({
     Key? key,
     this.isQuranSetting,
     this.isCalendarSetting = false,
     this.isStartScreen = false,
+    this.sheetController,
   }) : super(key: key);
   final generalCtrl = GeneralController.instance;
   final quranCtrl = QuranController.instance;
@@ -76,6 +83,11 @@ class SettingsList extends StatelessWidget {
               const Gap(24),
               NotificationsSettings(),
               const Gap(24),
+              // إعادة تشغيل الجولات من هنا لا من أزرار الشاشات.
+              if (!isStartScreen!) ...[
+                ToursSettings(sheetController: sheetController),
+                const Gap(24),
+              ],
               ContainerButton(
                 onPressed: () => Get.to(
                   () => const SyncScreen(),

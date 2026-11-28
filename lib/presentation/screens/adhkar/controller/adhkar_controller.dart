@@ -12,11 +12,12 @@ import 'package:share_plus/share_plus.dart';
 
 import '/core/utils/constants/extensions/custom_error_snackBar.dart';
 import '../../../../core/tour/app_tour.dart';
+import '../../../../core/tour/tour_auto_start.dart';
 import '../../../../core/utils/constants/api_constants.dart';
 import '../../../../database/bookmark_db/bookmark_database.dart';
 import '../../../../database/bookmark_db/db_bookmark_helper.dart';
+import '../../../../presentation/controllers/general/app_section.dart';
 import '../../../../presentation/screens/quran_page/widgets/search/search_extensions/highlight_extension.dart';
-import '../../../controllers/general/general_controller.dart';
 import '../screens/adhkar_item.dart';
 import '../screens/adhkar_view.dart';
 import 'adhkar_state.dart';
@@ -44,26 +45,21 @@ class AzkarController extends GetxController {
 
   /// يشغّل جولة الأذكار تلقائياً أول مرة بعد اكتمال تحميل الأقسام: الجولة
   /// تُبنى على حالة مستقلة (قائمة الأقسام ظاهرة) لا على شاشة فارغة. يعمل
-  /// النداء عند اجتماع الشرطين: وصول الأقسام وظهور تبويب الأذكار (3 في
-  /// screenSelect)، فلا تبدأ الجولة فوق شاشة أخرى بعد مغادرة سريعة،
-  /// ويُعاد المحاولة عند العودة إلى التبويب قبل بدئها. علم «مرة واحدة»
-  /// في AppTour يمنع تكرارها مهما تعددت النداءات.
+  /// النداء عند وصول الأقسام وعند كل حدث تنقل (فالأقسام تُحمَّل في الرئيسية
+  /// قبل فتح الشاشة)، ويبدأ إن اجتمع الشرطان: وصول الأقسام وكون شاشة
+  /// الأذكار هي الجارية، فلا تبدأ فوق شاشة أخرى. علم «مرة واحدة» في AppTour
+  /// يمنع تكرارها مهما تعددت النداءات.
   void _watchAzkarTourStart() {
     ever(state.categories, (_) => _startAzkarTourWhenReady());
-    ever<int>(
-      GeneralController.instance.state.screenSelectedValue,
-      (_) => _startAzkarTourWhenReady(),
-    );
+    ever(routeChanges, (_) => _startAzkarTourWhenReady());
   }
 
   void _startAzkarTourWhenReady() {
     if (state.categories.isEmpty) return;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (GeneralController.instance.state.screenSelectedValue.value != 3) {
-        return;
-      }
-      AppTour.instance.startAzkarTourOnce();
-    });
+    startTourWhenSectionShows(
+      AppSection.azkar,
+      () => AppTour.instance.startAzkarTourOnce(),
+    );
   }
 
   /// -------- [Methods] ----------

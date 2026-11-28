@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:quran_library/quran_library.dart';
 
 import '/core/utils/constants/extensions/svg_extensions.dart';
 import '/core/utils/constants/svg_constants.dart';
 import '/core/utils/helpers/app_text_styles.dart';
-import '/presentation/screens/ai_search/ai_search.dart';
+import '/presentation/controllers/general/app_section.dart';
+import '/presentation/controllers/general/general_controller.dart';
 import '../../../../core/tour/home_tour_script.dart';
 import '../../../../core/utils/constants/extensions/alignment_rotated_extension.dart';
-import '../../quran_page/quran.dart';
 
 class AiSection extends StatelessWidget {
   AiSection({super.key});
 
-  final quranCtrl = QuranController.instance;
-  final tasmee = TasmeeCtrl.instance;
+  final generalCtrl = GeneralController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +26,7 @@ class AiSection extends StatelessWidget {
           svgPath: SvgPath.svgHomeMidadIcon,
           iconSize: 26,
           tourKey: HomeTourKeys.midad,
-          onTap: () =>
-              Get.to(() => AiSearchResults(), transition: Transition.fadeIn),
+          onTap: () => generalCtrl.open(AppSection.midad),
         ),
         _AiCard(
           isRTL: false,
@@ -37,18 +34,7 @@ class AiSection extends StatelessWidget {
           description: 'tasmeeDescription'.tr,
           svgPath: SvgPath.svgQuranMicrophone,
           tourKey: HomeTourKeys.tasmeeMode,
-          onTap: () async {
-            final lastReadPage = quranCtrl.state.box.read('last_page') ?? 1;
-            tasmee.state.showAllWords.value = false;
-            await tasmee.enterTasmeeMode();
-            Get.to(
-              () => QuranHome(isTasmeeMode: true),
-              transition: Transition.downToUp,
-            );
-            Future.delayed(const Duration(milliseconds: 300), () {
-              quranCtrl.changeSurahListOnTap(lastReadPage);
-            });
-          },
+          onTap: () => generalCtrl.open(AppSection.tasmee),
         ),
       ],
     );

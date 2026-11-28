@@ -1,16 +1,13 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:quran_library/quran_library.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
-import '/presentation/screens/home/home_screen.dart';
 import '../../../core/utils/constants/shared_preferences_constants.dart';
-import '../../screens/adhkar/screens/adhkar_view.dart';
-import '../../screens/ai_search/ai_search.dart';
-import '../../screens/books/books.dart';
 import '../../screens/quran_page/quran.dart';
-import '../../screens/surah_audio/surah_audio.dart';
+import 'app_section.dart';
 import 'general_state.dart';
 
 class GeneralController extends GetxController {
@@ -73,25 +70,78 @@ class GeneralController extends GetxController {
     }
   }
 
-  Widget screenSelect() {
-    switch (state.screenSelectedValue.value) {
-      case 0:
-        return HomeScreen();
-      case 1:
-        return QuranHome();
-      case 3:
-        return const AdhkarView();
-      case 4:
-        return AudioScreen();
-      case 5:
-        return BooksScreen();
-      case 6:
-        return AiSearchResults();
-      case 7:
-        return QuranHome(isTasmeeMode: true);
-      default:
-        return HomeScreen();
+  /// مدة انتقال GetX الافتراضية: يُعطى بعدها المصحف وقت استقراره قبل
+  /// القفز إلى آخر صفحة.
+  static const _routeTransition = Duration(milliseconds: 300);
+
+  /// يفتح شاشة البداية المختارة جذرًا للتطبيق (من شاشة الافتتاح)، باسم
+  /// مسار القسم نفسه الذي يُفتح به من الرئيسية.
+  void openStartScreen() {
+    final section = AppSection.forStartIndex(state.screenSelectedValue.value);
+    Get.offAll(
+      section.builder,
+      routeName: section.route,
+      transition: Transition.fadeIn,
+    );
+  }
+
+  /// يعيد المستخدم إلى الصفحة الرئيسية محافظًا على حالتها إن كانت في المكدس
+  /// (ترتدّ الشاشات التي فوقها)، وإلا فتحها جذرًا كما يفعل زر Home. لا
+  /// يكتمل إلا بخروج الشاشات القديمة من الشجعة، فلا يُفتح فوقها قسم قبل
+  /// ذلك (تكرار المفاتيح العامة).
+  Future<void> returnToHome() async {
+    if (await popToHomeIfStacked()) return;
+    final leaving = <Route<dynamic>>[];
+    Get.offAll(
+      AppSection.home.builder,
+      routeName: AppSection.home.route,
+      transition: Transition.upToDown,
+      // كل الشاشات القديمة تُزال، فتُحصى لتُنتظر خروجها؛ وشاشة الرئيسية
+      // الجديدة ليست منها.
+      predicate: (route) {
+        if (route.settings.name != AppSection.home.route) leaving.add(route);
+        return false;
+      },
+    );
+    await whenRoutesDisposed(leaving);
+  }
+
+  /// يفتح القسم كما من بطاقته في الصفحة الرئيسية؛ الطريق الوحيد لفتح
+  /// الأقسام، فتستدعيه البطاقات ومشغّل الجولات من الإعدادات.
+  Future<void> open(AppSection section) async {
+    switch (section) {
+      case AppSection.home:
+        await returnToHome();
+      case AppSection.mushaf:
+        // أنهِ وضع التسميع إن كان مفعّلًا قبل فتح القراءة العادية.
+        final tasmee = TasmeeCtrl.instance;
+        if (tasmee.state.isTasmeeMode.value) tasmee.exitTasmeeMode();
+        section.push();
+        _jumpToLastReadPage();
+      case AppSection.tasmee:
+        final tasmee = TasmeeCtrl.instance;
+        tasmee.state.showAllWords.value = false;
+        await tasmee.enterTasmeeMode();
+        section.push();
+        _jumpToLastReadPage();
+      case AppSection.audio:
+        await AudioCtrl.instance.state.audioPlayer.stop();
+        section.push();
+      case AppSection.midad:
+        section.push(transition: Transition.fadeIn);
+      case AppSection.azkar:
+      case AppSection.books:
+        section.push();
     }
+  }
+
+  /// يفتح المصحف على آخر صفحة قرئها بعد استقرار الشاشة، كما من البطاقة.
+  void _jumpToLastReadPage() {
+    final quranCtrl = QuranController.instance;
+    final lastReadPage = quranCtrl.state.box.read('last_page') ?? 1;
+    Future.delayed(_routeTransition, () {
+      quranCtrl.changeSurahListOnTap(lastReadPage);
+    });
   }
 
   void showAudioWidgetFor([Duration duration = const Duration(seconds: 2)]) {

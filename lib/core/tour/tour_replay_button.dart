@@ -4,8 +4,10 @@ import 'package:get/get.dart';
 import '../utils/constants/svg_constants.dart';
 import '../widgets/custom_button.dart';
 
-/// زر إعادة جولة شاشة (زر الاستفهام العائم)، كل شاشة تمرّر جولتها. في
-/// الشاشات ذات شريط سفلي (كقارئ المكتبة) يرتفع الزر فوقه بتمرير [bottom].
+/// زر إعادة جولة الشاشات المتداخلة (زر الاستفهام العائم): صفحة الكتاب
+/// والقارئ وشاشة قسم الأذكار، فتحتاج كتاباً أو قسماً يختاره المستخدم ولا
+/// تُفتح من الإعدادات. جولات الأقسام الأخرى تُعاد من الإعدادات. في الشاشات
+/// ذات شريط سفلي (كقارئ المكتبة) يرتفع الزر فوقه بتمرير [bottom].
 class TourReplayButton extends StatelessWidget {
   const TourReplayButton({super.key, required this.onPressed, this.bottom});
 

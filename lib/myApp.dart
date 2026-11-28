@@ -13,6 +13,7 @@ import 'core/services/notifications_helper.dart';
 import 'core/services/services_locator.dart';
 import 'core/tour/app_tour.dart';
 import 'core/widgets/local_notification/controller/local_notifications_controller.dart';
+import 'presentation/controllers/general/app_section.dart';
 import 'presentation/controllers/theme_controller.dart';
 import 'presentation/screens/splash/splash.dart';
 
@@ -53,6 +54,9 @@ class MyApp extends StatelessWidget {
               PlatformDispatcher.instance.locale.countryCode ??
                   AppConstants.languages[1].countryCode,
             ),
+            // كل حدث تنقل يوقظ من ينتظر ظهور شاشة قسم (البدء التلقائي
+            // لجولات الأقسام في كنترولراتها).
+            routingCallback: (_) => routeChanges.value++,
             theme: themeCtrl.currentThemeData,
             // دمج BotToast مع تقييد مقياس النص ليبقى 1.0 بغض النظر عن إعدادات الجهاز
             builder: (context, child) {

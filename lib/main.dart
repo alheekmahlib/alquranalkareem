@@ -17,6 +17,7 @@ import 'core/services/home_widget_service.dart';
 import 'core/services/notifications_helper.dart';
 import 'core/services/services_locator.dart';
 import 'core/tour/app_tour.dart';
+import 'core/tour/tour_launcher.dart';
 import 'core/utils/constants/extensions/convert_number_extension.dart';
 import 'core/utils/constants/shared_preferences_constants.dart';
 import 'myApp.dart';
@@ -277,6 +278,29 @@ Future<void> initializeApp() async {
         final controller =
             GeneralController.instance.state.homeScrollController;
         if (controller.hasClients) controller.jumpTo(offset);
+      },
+    ),
+    permanent: true,
+  );
+
+  // مشغّل الجولات من الإعدادات: يغلق ورقة الإعدادات، يفتح قسم الجولة إن
+  // لم يكن هو الشاشة الجارية، ثم يشغّلها بعد جهوزية شاشته وبياناتها.
+  // الاعتماديات closures كما في AppTour فيبقى المشغّل قابلاً للاختبار.
+  Get.put(
+    TourLauncher(
+      openSection: (section) => GeneralController.instance.open(section),
+      returnToHome: () => GeneralController.instance.returnToHome(),
+      isTasmeeMode: () => TasmeeCtrl.instance.state.isTasmeeMode.value,
+      // جاهزية البيانات التي تفصل محطات: تحميل الكتب، أقسام الأذكار،
+      // والمحتوى اليومي في الرئيسية. بقية الأقسام جاهزة ببناء شاشته.
+      isSectionReady: (tour) => switch (tour) {
+        AppTourPick.books => !BooksController.instance.state.isLoading.value,
+        AppTourPick.azkar =>
+          AzkarController.instance.state.categories.isNotEmpty,
+        AppTourPick.home =>
+          DailyAyahController.instance.ayahOfTheDay != null &&
+              AzkarController.instance.state.dhekrOfTheDay != null,
+        _ => true,
       },
     ),
     permanent: true,

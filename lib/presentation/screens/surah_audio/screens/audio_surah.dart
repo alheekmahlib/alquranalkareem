@@ -163,26 +163,6 @@ class AudioScreen extends StatelessWidget {
                     onChanged: (query) => AudioCtrl.instance.searchSurah(query),
                   ),
                 ),
-                Align(
-                  alignment: AlignmentDirectional.bottomEnd,
-                  // فوق شريط التشغيل السفلي كي لا يقف تحته ولا يغطي أهدافه.
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      bottom: 100.0,
-                      right: 8.0,
-                      left: 8.0,
-                    ),
-                    child: CustomButton(
-                      height: 50,
-                      width: 50,
-                      backgroundColor: context.theme.colorScheme.surface,
-                      isCustomSvgColor: true,
-                      svgPath: SvgPath.svgHomeCommentQuestion,
-                      svgColor: context.theme.canvasColor,
-                      onPressed: () => AppTour.instance.replayAudioTour(),
-                    ),
-                  ),
-                ),
               ],
             ),
           ),

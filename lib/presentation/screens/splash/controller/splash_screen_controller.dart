@@ -84,10 +84,7 @@ class SplashScreenController extends GetxController {
       toggleSlider(duration: 0);
       Future.delayed(
         const Duration(milliseconds: 800),
-        () => Get.offAll(
-          () => GeneralController.instance.screenSelect(),
-          transition: Transition.fadeIn,
-        ),
+        () => GeneralController.instance.openStartScreen(),
       );
     }
   }
@@ -99,10 +96,7 @@ class SplashScreenController extends GetxController {
       state.customWidgetIndex.value = 2;
     } else {
       toggleSlider(duration: 0);
-      Get.offAll(
-        () => GeneralController.instance.screenSelect(),
-        transition: Transition.fadeIn,
-      );
+      GeneralController.instance.openStartScreen();
     }
   }
 

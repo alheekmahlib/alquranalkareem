@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:get/get.dart';
 import 'package:quran_library/quran_library.dart';
 
 import '/core/utils/constants/svg_constants.dart';
+import '/presentation/controllers/general/app_section.dart';
+import '/presentation/controllers/general/general_controller.dart';
 import '../../../../core/tour/home_tour_script.dart';
 import '../../../../core/utils/constants/extensions/convert_number_extension.dart';
 import '../../../../core/utils/constants/extensions/svg_extensions.dart';
 import '../../../../core/utils/helpers/app_text_styles.dart';
 import '../../../../core/widgets/buttom_with_line.dart';
 import '../../quran_page/quran.dart';
-import '../../surah_audio/surah_audio.dart';
 import 'ayah_tafsir_widget.dart';
 
 class QuranSection extends StatelessWidget {
   QuranSection({super.key});
 
   final quranCtrl = QuranController.instance;
-  final tasmee = TasmeeCtrl.instance;
+  final generalCtrl = GeneralController.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -30,16 +30,7 @@ class QuranSection extends StatelessWidget {
           GestureDetector(
             // هدف جولة الصفحة الرئيسية: بطاقة متابعة القراءة.
             key: HomeTourKeys.lastRead,
-            onTap: () {
-              // أنهِ وضع التسميع إن كان مفعّلًا قبل فتح القراءة العادية.
-              if (tasmee.state.isTasmeeMode.value) {
-                tasmee.exitTasmeeMode();
-              }
-              Get.to(() => QuranHome(), transition: Transition.downToUp);
-              Future.delayed(const Duration(milliseconds: 300), () {
-                quranCtrl.changeSurahListOnTap(lastReadPage);
-              });
-            },
+            onTap: () => generalCtrl.open(AppSection.mushaf),
             child: Stack(
               alignment: Alignment.center,
               children: [
@@ -94,18 +85,7 @@ class QuranSection extends StatelessWidget {
                             isRtl: true,
                             svgPath: SvgPath.svgHomeQuranLogo,
                             title: 'quran',
-                            onTap: () {
-                              Get.to(
-                                () => QuranHome(),
-                                transition: Transition.downToUp,
-                              );
-                              Future.delayed(
-                                const Duration(milliseconds: 300),
-                                () {
-                                  quranCtrl.changeSurahListOnTap(lastReadPage);
-                                },
-                              );
-                            },
+                            onTap: () => generalCtrl.open(AppSection.mushaf),
                           ),
                           const Gap(8),
                           ButtomWithLine(
@@ -113,13 +93,7 @@ class QuranSection extends StatelessWidget {
                             isRtl: false,
                             title: 'quranAudio',
                             svgPath: SvgPath.svgAudioAudioQuran,
-                            onTap: () async {
-                              await AudioCtrl.instance.state.audioPlayer.stop();
-                              Get.to(
-                                () => AudioScreen(),
-                                transition: Transition.downToUp,
-                              );
-                            },
+                            onTap: () => generalCtrl.open(AppSection.audio),
                           ),
                         ],
                       ),

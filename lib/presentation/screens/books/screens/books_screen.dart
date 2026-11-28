@@ -63,9 +63,6 @@ class BooksScreen extends StatelessWidget {
                 ),
                 // يشغّل جولة المكتبة تلقائياً أول مرة بعد اكتمال تحميل
                 // الكتب — المنطق في BooksController._watchBooksTourStart.
-                TourReplayButton(
-                  onPressed: () => AppTour.instance.replayBooksTour(),
-                ),
               ],
             ),
           ),

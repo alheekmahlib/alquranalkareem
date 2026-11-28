@@ -62,25 +62,18 @@ class AiSearchController extends GetxController {
   /// يشغّل جولتي مداد تلقائياً أول مرة: الكاملة (أو القصيرة بحسب حالة
   /// الشاشة) بعد اكتمال التهيئة، وجولة المساعد عند أول انتقال إليه قبل
   /// تحميل أي قسم فلا يبقى شرحه محبوساً في الجولة الكاملة. يعمل النداء
-  /// عند اكتمال التهيئة مع ظهور تبويب مداد (6 في screenSelect)، فلا تبدأ
-  /// الجولة فوق شاشة أخرى بعد مغادرة سريعة، ويُعاد المحاولة عند العودة
-  /// إلى التبويب أو الدخول إلى وضع المساعد قبل بدئها. علم «مرة واحدة»
+  /// عند اكتمال التهيئة والدخول إلى وضع المساعد وكل حدث تنقل، ويبدأ مع كون
+  /// شاشة مداد هي الجارية، فلا تبدأ الجولة فوق شاشة أخرى. علم «مرة واحدة»
   /// لكل جولة في AppTour يمنع تكرارها مهما تعددت النداءات.
   void _watchMidadTourStart() {
     ever<bool>(isInitialized, (_) => _startMidadTourWhenReady());
     ever<MidasMode>(state.midasMode, (_) => _startMidadTourWhenReady());
-    ever<int>(
-      GeneralController.instance.state.screenSelectedValue,
-      (_) => _startMidadTourWhenReady(),
-    );
+    ever(routeChanges, (_) => _startMidadTourWhenReady());
   }
 
   void _startMidadTourWhenReady() {
     if (!isInitialized.value) return;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (GeneralController.instance.state.screenSelectedValue.value != 6) {
-        return;
-      }
+    startTourWhenSectionShows(AppSection.midad, () {
       AppTour.instance.startMidadTourOnce();
       if (state.midasMode.value == MidasMode.assistant) {
         AppTour.instance.startMidadAssistantTourOnce();

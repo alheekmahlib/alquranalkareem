@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '/presentation/controllers/general/app_section.dart';
+import '/presentation/controllers/general/general_controller.dart';
 import '../../../../core/tour/home_tour_script.dart';
 import '../../../../core/utils/constants/svg_constants.dart';
 import '../../../../core/utils/helpers/app_text_styles.dart';
@@ -71,10 +73,8 @@ class BooksSection extends StatelessWidget {
                   isRtl: false,
                   title: 'islamicLibrary',
                   svgPath: SvgPath.svgBooksIslamicLibrary,
-                  onTap: () => Get.to(
-                    () => BooksScreen(),
-                    transition: Transition.downToUp,
-                  ),
+                  onTap: () =>
+                      GeneralController.instance.open(AppSection.books),
                 ),
               ],
             ),

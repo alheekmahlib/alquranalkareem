@@ -5,10 +5,8 @@ import 'package:get/get.dart';
 
 import '/core/utils/constants/extensions/extensions.dart';
 import '/presentation/controllers/general/general_controller.dart';
-import '../../../core/tour/app_tour.dart';
 import '../../../core/tour/home_tour_script.dart';
-import '../../../core/tour/tour_replay_button.dart';
-import '../../../core/widgets/tab_bar_widget.dart';
+import '/core/widgets/tab_bar_widget.dart';
 import '../../controllers/home_tour_controller.dart';
 import '../../controllers/theme_controller.dart';
 import 'widgets/ai_section.dart';
@@ -101,11 +99,6 @@ class HomeScreen extends StatelessWidget {
                       notificationButtonKey: HomeTourKeys.notifications,
                       tabBarController:
                           GeneralController.instance.state.tabBarController,
-                    ),
-                    // يشغّل جولة الصفحة الرئيسية تلقائياً أول مرة بعد
-                    // جاهزية المحتوى اليومي، ويعيدها زر الاستفهام في أي وقت.
-                    TourReplayButton(
-                      onPressed: () => AppTour.instance.replayHomeTour(),
                     ),
                   ],
                 ),
